@@ -230,9 +230,9 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px 8px;
+  padding: 8px;
   margin: 0 0 0 10px;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
 }
 
 .hamburger {
@@ -321,7 +321,7 @@ body {
 
 .mobile-drawer-header {
   position: sticky;
-  top: 0; /* Stick at top without offset */
+  top: 0;
   padding: 15px;
   border-bottom: 1px solid #e8e8e8;
   display: flex;
@@ -329,7 +329,8 @@ body {
   align-items: center;
   background: white;
   z-index: 10;
-  margin: 0; /* Ensure no margin */
+  margin: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .mobile-drawer-header h2 {
@@ -433,14 +434,11 @@ body {
 }
 
 .mobile-search {
-  position: sticky;
-  top: 50px; /* Stick right below header (calculated from header padding + h2) */
   padding: 12px 15px;
   border-bottom: 1px solid #e8e8e8;
   background: white;
-  z-index: 9;
   box-sizing: border-box;
-  margin: 0; /* Ensure no margin */
+  margin: 0;
 }
 
 .mobile-search input {
