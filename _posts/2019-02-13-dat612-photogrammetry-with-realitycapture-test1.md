@@ -3,8 +3,9 @@ layout: post
 title: "DAT612 - Photogrammetry with RealityCapture Test#1"
 date: 2019-02-13 07:51:35 +0000
 categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
----
+tags: ["Blender", "DAT612", "Photogrammetry", "Photography"]
 
+---
 My final year project will involve the use of photogrammetry to create a 3D model of an existing item of cultural heritage significance, for instance: the remains of a building, building interior, or individual objects.
 
 Having carried out some research on the various photogrammetry software packages available, I decided to use <a href="https://www.capturingreality.com/" target="_blank" rel="noopener">RealityCapture</a>. This seemed to combine speed of processing with an intuitive workflow.

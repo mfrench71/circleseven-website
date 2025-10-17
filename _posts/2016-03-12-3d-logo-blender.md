@@ -3,8 +3,9 @@ layout: post
 title: "3D Logo - Blender"
 date: 2016-03-12 09:12:00 +0000
 categories: ["Projects", "Motion Graphics"]
----
+tags: ["After Effects", "Blender", "Illustrator", "Python", "Tutorial", "Video", "Web Development"]
 
+---
 <p>More learning and experimenting with my new favourite piece of software, Blender. Following Oliver Villar's <a href="http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo">Blendtuts.com tutorial</a>, I picked up some useful skills, particularly creating shapes using the bezier curve and handle types.The logo outline was created in Adobe Illustrator, set as a back ground image in Blender and then traced using bezier curves. You can draw squares by first drawing a circle and then changing the handle type to Vector - squaring the circle!</p>
 
 Once the outline was created, it is then extruded and bevelled to create the final solid-looking logo. There was an issue with the 'm' where I extruded two bezier segments at the same time, causing the bevel to behave strangely.

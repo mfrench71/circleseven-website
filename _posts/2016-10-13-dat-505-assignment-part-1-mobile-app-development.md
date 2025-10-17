@@ -3,8 +3,9 @@ layout: post
 title: "DAT 505 - Assignment Part 1 - Mobile App Development"
 date: 2016-10-13 09:37:36 +0000
 categories: ["DAT505 - Advanced Creative Coding", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT505"]
 
+---
 Brief: Using PhoneGap, you must create a "ratings" mobile app, focusing on a product or service of your choice. For example, you might choose: Hotels, Beers, Burgers, Restaurants, Shoe shops, or anything else that can be rated! Your mobile app should allow you to create a "rating card" for each item, with the following information:
 
 - Unique ID for the item

@@ -3,8 +3,9 @@ layout: post
 title: "Sinclair ZX Spectrum 'Zynaps' Review - A Fragment"
 date: 2018-03-07 08:52:00 +0000
 categories: ["Projects", "Retro Computing"]
----
+tags: ["Photoshop"]
 
+---
 <p>Zynaps is an arcade shoot-em-up computer game produced by <a href="http://www.hewsonconsultants.com/">Hewson Consultants</a> and released in 1987 for the Sinclair ZX Spectrum personal computer (and other platforms).</p>
 
 <p>As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121">'Arcade'</a>. The text below is a far as we got ...</p>

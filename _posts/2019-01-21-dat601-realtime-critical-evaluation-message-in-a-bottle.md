@@ -3,8 +3,9 @@ layout: post
 title: "DAT601 - Realtime - Critical Evaluation - 'Message in a Bottle"
 date: 2019-01-21 15:13:40 +0000
 categories: ["DAT601 - Realtime", "Digital Art and Technology"]
----
+tags: ["DAT601", "Sound", "Video"]
 
+---
 **Conception**
 
 The conception of *Message in a Bottle* grew out of a desire to produce an artistic installation based around the themes of light and sound.

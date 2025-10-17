@@ -3,8 +3,9 @@ layout: post
 title: "DAT 403 - Week 3 - Character Animation Background and Lighting"
 date: 2015-11-17 08:42:26 +0000
 categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
----
+tags: ["After Effects", "DAT403", "JavaScript", "Photography"]
 
+---
 Following on from my <a href="{{ site.baseurl }}/dat-403-task-week-3-character-animation-walk-cycle/">Character Animation Walk Cycle post</a>, the character animation After Effects composition was placed as a layer in a new composition. This will be used to place the walking character in a 3D layered environment with a camera move and lighting effects.
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/2_tjGgVJs0w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>

@@ -3,8 +3,9 @@ layout: post
 title: "DAT 406 - Assignment Part 1 - Twitter Balloons"
 date: 2016-03-14 11:22:36 +0000
 categories: ["DAT406 - Digital Making", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT406", "Python"]
 
+---
 Brief: Your task is to link virtual and physical technology in an artistic, thoughtful, engaging and/or playful way. Create a system where a real object controls something on the web, or virtual data controls a real object. Be imaginative and creative and have fun. You might think of it as real-world data visualisation, or using physical objects to make a comment on virtual processes.
 
 Working in a group of four, the first idea that was suggested was that of an electric guitar that could be played by motor-controlled means. The motors would be actuated and controlled based on input from Twitter feeds. Given the timescale involved, this idea was seen as over-ambitious.

@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - “Information and Communication Technologies and the Moral Economy of the Household”"
 date: 2018-10-18 07:54:58 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["Arduino", "DAT602", "Tutorial"]
 
+---
 **Homework**
 
 Read the chapter “Information and Communication Technologies and the Moral Economy of the Household”, from the book Consuming Technologies. Media and Information in Domestic Spaces.

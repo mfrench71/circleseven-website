@@ -3,8 +3,9 @@ layout: post
 title: "DAT612 - Visit to The Boathouse, Radford Lake/Devon Rural Archive"
 date: 2019-02-25 11:15:20 +0000
 categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
----
+tags: ["DAT612", "Photography"]
 
+---
 Just 10 minutes walk from my home is Radford Lake, a picturesque body of water set amongst woodland and parkland. At one end of the lake, hidden amongst the trees stands the ruin of an old boathouse.
 
 This site lends itself well to my proposed final year project at Plymouth University because it is easily accessible, can be photographed from (almost) 360 degrees, and there are some archive images available from which it should be possible to digitally recreate the structure and its surrounding environment.

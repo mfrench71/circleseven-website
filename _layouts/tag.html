@@ -1,0 +1,47 @@
+---
+layout: default
+---
+<div class="tag-page">
+  <header class="page-header">
+    <h1 class="page-title">
+      <span class="tag-icon">🏷️</span>
+      Tag: {{ page.tag }}
+    </h1>
+    <p class="tag-description">{{ site.tags[page.tag].size | default: page.posts.size }} post{% if page.posts.size != 1 %}s{% endif %} tagged with "{{ page.tag }}"</p>
+  </header>
+
+  <ul class="post-list">
+    {% assign posts = site.tags[page.tag] | default: page.posts | sort: 'date' | reverse %}
+    {% for post in posts %}
+      <li class="post-item">
+        {% if post.image %}
+        <div class="post-image">
+          <a href="{{ post.url | relative_url }}">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+          </a>
+        </div>
+        {% endif %}
+        <div class="post-content">
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <h2>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+          {% if post.excerpt %}
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+          {% endif %}
+          {% if post.categories.size > 0 %}
+            <span class="post-categories">
+              {% for category in post.categories limit:2 %}
+                <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category">{{ category }}</a>
+              {% endfor %}
+            </span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="all-tags-link">
+    <a href="{{ '/tags/' | relative_url }}">← View all tags</a>
+  </div>
+</div>

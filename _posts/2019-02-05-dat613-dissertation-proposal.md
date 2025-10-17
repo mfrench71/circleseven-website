@@ -3,8 +3,9 @@ layout: post
 title: "DAT613 - Dissertation Proposal"
 date: 2019-02-05 12:54:42 +0000
 categories: ["DAT613 - Dissertation", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT613", "Photogrammetry"]
 
+---
 **Title/Question**
 
 **Can artificial intelligence enhance the practice of digital cultural heritage?**

@@ -3,8 +3,9 @@ layout: post
 title: "DAT 406 - Assignment Part 2 - 'The Multiverse'"
 date: 2016-02-27 14:12:13 +0000
 categories: ["DAT406 - Digital Making", "Digital Art and Technology"]
----
+tags: ["Academic", "Blender", "DAT406", "Photography", "Photoshop"]
 
+---
 Brief: Your task within your groups is to create an animation using Blender suitable for easy playback within the Immersive Vision Theatre (IVT) exploring the theme of the multiverse.
 
 **Multiverse - a definition:**

@@ -3,8 +3,9 @@ layout: post
 title: "DAT612 - Visit to Slade's Sawmill/Kingsbridge Cookworthy Museum"
 date: 2019-02-20 15:56:21 +0000
 categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
----
+tags: ["DAT612", "Photogrammetry", "Photography"]
 
+---
 <p>As part of my research for my final year project at Plymouth University, I contacted the <a href="http://www.plymarchsoc.org.uk/">Plymouth Archaeological Society</a> to see if their members had any suggestions for heritage sites that might potentially be appropriate for photogrammetry and digital restoration.</p>
 
 <p>A member of the Society suggested the now derelict saw mill that stands at the head of Waterhead Creek near South Pool in Devon. I was also advised that the <a href="http://www.kingsbridgemuseum.org.uk/">Kingsbridge Cookworthy Museum</a> held archive photographs of the mill when it was a going concern. Today, I decided to investigate further.</p>

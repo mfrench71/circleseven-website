@@ -3,8 +3,9 @@ layout: post
 title: "DAT 403 - Task - Week 3 - Character Animation Walk Cycle"
 date: 2015-11-12 08:34:48 +0000
 categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
----
+tags: ["After Effects", "DAT403", "Illustrator", "Photoshop", "Tutorial"]
 
+---
 For the character animation walk cycle task, my intention was that the character that I created during the vector character design session would used in After Effects to generate a walk cycle animation. However, this proved impractical and too time consuming, so I created a simplified character. In Illustrator, the separate elements of the character each had their own layer to aid later animation, e.g. head, body, left leg, right arm, etc.
 
 The Illustrator file was then imported as an asset into After Effects. The previous grouping meant that the individual elements of the character were available on separate layers within After Effects.

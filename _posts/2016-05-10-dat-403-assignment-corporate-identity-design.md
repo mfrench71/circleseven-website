@@ -3,8 +3,9 @@ layout: post
 title: "DAT 403 - Assignment - Corporate Identity Design"
 date: 2016-05-10 12:21:21 +0000
 categories: ["DAT403 - Digital Media Design"]
----
+tags: ["Academic", "DAT403", "Illustrator", "Photoshop"]
 
+---
 Brief: Design your own brand identity marketing yourself. Imagine you are about to start your own freelance design company and you need to pitch to investors. You’ll need elements like a unique and original name and logo, business cards, letter heads, web banners, flyers and example magazine articles. Using a combination of Illustrator and Photoshop comprise a single image displaying a composition of your different assets and designs.
 
 **Logo Designs**

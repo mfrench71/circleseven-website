@@ -20,14 +20,25 @@ layout: default
     {{ content }}
   </div>
 
-  {%- if page.categories.size > 0 -%}
-  <div class="post-categories-footer">
-    <strong>Categories:</strong>
-    {%- for category in page.categories -%}
-      <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category">{{ category }}</a>
-    {%- endfor -%}
+  <div class="post-meta-footer">
+    {%- if page.categories.size > 0 -%}
+    <div class="post-categories-footer">
+      <strong>Categories:</strong>
+      {%- for category in page.categories -%}
+        <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category">{{ category }}</a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+
+    {%- if page.tags.size > 0 -%}
+    <div class="post-tags-footer">
+      <strong>Tags:</strong>
+      {%- for tag in page.tags -%}
+        <a href="{{ site.baseurl }}/tag/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
   </div>
-  {%- endif -%}
 
   {%- if site.related_posts.size > 0 -%}
   <aside class="related-posts">

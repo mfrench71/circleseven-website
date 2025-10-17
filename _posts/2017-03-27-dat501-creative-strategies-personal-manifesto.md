@@ -3,8 +3,9 @@ layout: post
 title: "DAT501 - Creative Strategies: Personal Manifesto"
 date: 2017-03-27 09:18:13 +0000
 categories: ["DAT501 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
----
+tags: ["DAT501"]
 
+---
 **Creative Strategies: Personal Manifesto**
 
 A manifesto is a statement of intent that defines the beliefs and aspirations of an individual or a group. Some of them spend more time defining what the author rejects than what they accept, as if to break free from an established order - the Futurist Manifesto is the original example.

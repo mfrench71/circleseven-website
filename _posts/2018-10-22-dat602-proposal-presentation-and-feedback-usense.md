@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - Proposal Presentation and Feedback - uSense"
 date: 2018-10-22 08:02:23 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["DAT602", "Tutorial"]
 
+---
 **Presentation Guidelines**
 
 Each group will have 20 minutes to present their proposal (10 minutes of presentation, and 10 minutes of Q&amp;A). For each presentation, it is recommended that you use a minimum of 5 to a maximum of 10 slides.

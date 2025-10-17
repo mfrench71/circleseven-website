@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - uSense Cognitive Functionality Testing with Node-RED - Sentiment and Tone"
 date: 2018-10-27 08:08:18 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["DAT602", "Sound"]
 
+---
 As part of the uSense project, we are intending that the device will be able to gauge a person's mood through the things they say, their facial features, and their social media postings. We can leverage IBM's Cognitive Services that are provided with IBM Watson.
 
 The relevant services include tone analysis, sentiment analysis, visual recognition, and speech to text.

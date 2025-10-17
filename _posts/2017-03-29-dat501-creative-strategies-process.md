@@ -3,8 +3,9 @@ layout: post
 title: "DAT501 - Creative Strategies: Process"
 date: 2017-03-29 09:22:22 +0000
 categories: ["DAT501 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
----
+tags: ["DAT501", "Photography", "Sound", "Tutorial"]
 
+---
 Artists often start work without a clear idea of where they are going to end up. They react to what they have already made to expand their work, and they continue until it is finished. This methodology has a focus on the process.
 
 The opposite, where you define where you want to be and then figure out how to get there, has a focus on the goal. This approach is more common in engineering.

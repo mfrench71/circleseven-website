@@ -3,8 +3,9 @@ layout: post
 title: "DAT 403 - Task - Week 1 - Photoshop Text Effects"
 date: 2015-10-29 10:26:24 +0000
 categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
----
+tags: ["DAT403", "Photoshop", "Unity"]
 
+---
 Today's practical exercise focussed on text effects within Photoshop.
 
 I created the following from a high contrast photo:

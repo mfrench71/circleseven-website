@@ -3,8 +3,9 @@ layout: post
 title: "DAT612 - The Boathouse at Radford Lake - A Digital Reconstruction & Restoration"
 date: 2019-05-21 14:29:03 +0000
 categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
----
+tags: ["Blender", "DAT612", "Photogrammetry", "Photography", "Sound", "Unity"]
 
+---
 **Concept**
 
 The concept of my project is a digital, interactive three-dimensional environment. The environment is based on a real location and recreates approximately 100 square metres of an area at Radford Lake, near Plymstock in Devon.

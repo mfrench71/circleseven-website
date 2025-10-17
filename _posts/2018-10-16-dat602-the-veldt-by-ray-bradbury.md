@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - “The Veldt” by Ray Bradbury"
 date: 2018-10-16 08:04:56 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["DAT602", "Sound"]
 
+---
 **Homework**
 
 Read the short sci-fi story “The Veldt” by Ray Bradbury. Make a blog post (300-500 words) that explains your thoughts in relation to this story and ubiquitous computing. Include related literature references.

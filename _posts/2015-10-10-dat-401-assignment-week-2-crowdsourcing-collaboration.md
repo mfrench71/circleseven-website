@@ -3,8 +3,9 @@ layout: post
 title: "DAT 401 - Assignment - Week 2 - Crowdsourcing & Collaboration"
 date: 2015-10-10 15:11:57 +0000
 categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT401", "Photoshop", "Sound", "Video"]
 
+---
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.
 
 Working in a group of three, we decided to produce a crowdsourced film made up of short video clips of contributors reading a line each from the opening song of TV series, *The Fresh Prince of Bel Air*.

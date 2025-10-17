@@ -3,8 +3,9 @@ layout: post
 title: "DAT612 - The Boathouse, Radford Lake - Archive Images"
 date: 2019-03-13 15:39:30 +0000
 categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
----
+tags: ["DAT612"]
 
+---
 <figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/boathouse-radford-lake-archive-image_46451516295_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/boathouse-radford-lake-archive-image_46451516295_o-1024x781.jpg" width="1024" height="781" alt="" loading="lazy"></a></figure>
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/boathouse-radford-lake-archive-image_47313764052_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/boathouse-radford-lake-archive-image_47313764052_o-1024x808.jpg" width="1024" height="808" alt="" loading="lazy"></a></figure>

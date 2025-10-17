@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - Face Recognition with Azure Face API and Javascript"
 date: 2018-11-13 13:28:05 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["DAT602", "JavaScript", "Photography", "Python", "Web Development"]
 
+---
 <p>In my previous post, I developed some Python scripts which used Microsoft's Azure <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Face API</a> (Microsoft, no date) to train and recognise faces.</p>
 
 Whilst the scripts functioned in the way I intended, the usability of the Python scripts for face recognition is not ideal for a number of reasons.

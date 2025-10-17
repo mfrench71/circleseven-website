@@ -3,8 +3,9 @@ layout: post
 title: "DAT 403 - Assignment - Photomontage"
 date: 2015-11-16 09:09:00 +0000
 categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT403", "Photoshop"]
 
+---
 Brief: Create a movie poster, using a composite of different images in Photoshop. Photos should be professionally cut-out, manipulated and blended together to create a carefully crafted and well justified design. The movie you're designing this marketing poster for is a documentary about a topical world issue that is important you. It should work as an original movie poster, including their traditional tropes but also work as a protest poster against something, activism art. Consider how this poster can benefit your portfolio.
 
 Must combine minimum of 5 images. Clear title and tag line. It must be 210x297 mm (A4), JPEG and optimized for web.

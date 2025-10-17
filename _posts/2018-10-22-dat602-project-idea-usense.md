@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - Project Idea - uSense"
 date: 2018-10-22 07:59:43 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["Academic", "Arduino", "DAT602", "JavaScript", "Photoshop", "Unity", "Web Development"]
 
+---
 **The Project Brief**
 
 In this assignment, you are asked in groups to develop a physical “intelligent” object for the Future Home.

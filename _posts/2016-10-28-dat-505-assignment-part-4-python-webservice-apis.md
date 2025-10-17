@@ -3,8 +3,9 @@ layout: post
 title: "DAT 505 - Assignment Part 4 - Python Webservice APIs"
 date: 2016-10-28 11:00:59 +0000
 categories: ["DAT505 - Advanced Creative Coding", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT505", "Python"]
 
+---
 Brief: For the next practical exercise you must create an auto-tweet agent. Your program should identify the most recent page viewed by your browser (by looking in either the "Current Session" or "History" file). It should then acquire the title of the page last viewed.
 
 For example, the title of the Ebay main page is: Electronics, Cars, Fashion, Collectibles, Coupons and More | eBay.

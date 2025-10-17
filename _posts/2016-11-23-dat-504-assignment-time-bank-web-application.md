@@ -3,8 +3,9 @@ layout: post
 title: "DAT 504 - Assignment - Time Bank Web Application"
 date: 2016-11-23 14:33:03 +0000
 categories: ["DAT504 - Advanced Web Technologies", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT504"]
 
+---
 <h3>The Brief: Time Bank Web Application</h3>
 Your team has been contracted to produce an interactive PHP web application, for a newly set up *Time Bank*.
 

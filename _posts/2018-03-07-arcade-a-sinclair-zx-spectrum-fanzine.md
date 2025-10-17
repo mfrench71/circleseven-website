@@ -3,8 +3,9 @@ layout: post
 title: "'Arcade' - A Sinclair ZX Spectrum Fanzine"
 date: 2018-03-07 08:44:00 +0000
 categories: ["Projects", "Retro Computing"]
----
+tags: ["Photoshop"]
 
+---
 <p>In the mid-1980s, I was a computer-obsessed teenager. The computer was Sir Clive Sinclair's rubber-keyed wonder, the <a href="https://en.wikipedia.org/wiki/ZX_Spectrum">ZX Spectrum</a>.</p>
 
 <p>Like other devotees, I possessed piles of Spectrum games, magazines (<a href="https://www.sinclairuser.com/">Sinclair User</a>, <a href="http://www.crashonline.org.uk/">Crash</a>, <a href="https://www.yoursinclair.co.uk/">Your Sinclair</a>), and more peripherals than you could shake a Kempston joystick at.</p>

@@ -3,8 +3,9 @@ layout: post
 title: "DAT 404 - Assignment - Professional Practice Web Site"
 date: 2016-04-22 14:38:19 +0000
 categories: ["DAT404 - Web Technologies", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT404", "JavaScript", "Photoshop", "Web Development"]
 
+---
 Your task is to create a 'splash' webpage that self-promotes you and your professional practice. The web design must be built from scratch (i.e. not using a content management system) using:
 
 - The structure of HTML elements

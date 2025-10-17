@@ -3,8 +3,9 @@ layout: post
 title: "DAT506 - Assignment Part 2 - Kaleidoscopic Loops"
 date: 2017-02-25 12:57:33 +0000
 categories: ["DAT506 - Emerging Technologies", "Digital Art and Technology"]
----
+tags: ["Academic", "Blender", "DAT506", "Photography", "Photoshop"]
 
+---
 Brief: Your task within your groups is to produce a creative and engaging visual experience set to music. Creating a series of short 3D full-dome Blender animation clips; the content will be made suitable for playback within the Immersive Vision Theatre and mixed and adapted live using Resolume VJ software.
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt="" loading="lazy"></a><figcaption>Immersion Vision Theatre at Plymouth University</figcaption></figure>

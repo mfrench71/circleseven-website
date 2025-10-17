@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - Face Recognition with Azure Face API and Python"
 date: 2018-11-13 15:31:22 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT602", "JavaScript", "Photography", "Python"]
 
+---
 <p>Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Microsoft Azure Cognitive Services</a> (Microsoft, no date).</p>
 
 The API provides functionality to implement face detection ("detect one or more human faces in an image and get back face rectangles for where in the image the faces are, along with face attributes which contain machine learning-based predictions of facial features. The face attribute features available are: Age, Emotion, Gender, Pose, Smile, and Facial Hair along with 27 landmarks for each face in the image") and face verification ("check the likelihood that two faces belong to the same person. The API will return a confidence score about how likely it is that the two faces belong to one person").

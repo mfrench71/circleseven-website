@@ -3,8 +3,9 @@ layout: post
 title: "DAT602 - Project Feedback Meeting"
 date: 2018-11-01 07:57:28 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
----
+tags: ["Blender", "DAT602", "Photography", "Photoshop", "Unity"]
 
+---
 Following our project proposal presentation, we had a meeting with our tutor to discuss our uSense project. These are the notes from the meeting.
 
 **Think Speculatively**

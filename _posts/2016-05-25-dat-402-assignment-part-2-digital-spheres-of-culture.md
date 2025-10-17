@@ -3,8 +3,9 @@ layout: post
 title: "DAT 402 - Assignment Part 2 - Digital Spheres of Culture"
 date: 2016-05-25 10:16:34 +0000
 categories: ["DAT402 - Digital Culture", "Digital Art and Technology"]
----
+tags: ["Academic", "DAT402", "Sound", "Unity", "Video"]
 
+---
 Brief: Working individually, choose a sphere of online network culture that uses video to communicate ideas. Collect materials that exemplify the way in which this community or genre uses online video and edit together a clip compilation that explores their use of online video. Think about dialogues, conversations between participants and look for themes that are repeated in the video content you collect. There are many trends in video sharing that offer sometimes unexpected insights into the way in which people use networked communication technologies.
 Your task is to identify a genre of YouTube/Vine, etc. video making and explore the way users of the technology present themselves and their interests by watching and collecting examples, looking for themes across the content you review. The work should be long enough to make a good job of exploring at least one key theme and you should provide a few sentences to introduce the piece that support your thinking and approach in the document you hand in to support it. The piece should be accompanied by a Word document (.doc) that gives a short explanation of your thinking, and a list of sources of videos and ideas in Harvard bibliographic referencing style that are included in the work, or support your topic.
 

@@ -3,8 +3,9 @@ layout: post
 title: "DAT503 - Reflexive Design Workshop 1 - John Cage"
 date: 2017-03-01 10:02:28 +0000
 categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
----
+tags: ["DAT503", "Sound"]
 
+---
 **John Cage - 4:33 silence**
 
 During the first part of today's workshop we witnessed a recreation of John Cage's 4'33 piece, performed by our lecturer.

@@ -3,8 +3,9 @@ layout: post
 title: "DAT503 - Resistance is Futile - Paper Review"
 date: 2017-03-15 11:51:05 +0000
 categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
----
+tags: ["DAT503", "Unity"]
 
+---
 **"Resistance is futile’": reading science fiction alongside ubiquitous computing**
 
 Authors: Paul Dourish, Genevieve Bell Published: 15 May 2013

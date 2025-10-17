@@ -3,8 +3,9 @@ layout: post
 title: "DAT601 - Realtime - Project Proposal"
 date: 2019-01-21 13:03:16 +0000
 categories: ["DAT601 - Realtime", "Digital Art and Technology"]
----
+tags: ["DAT601", "Sound"]
 
+---
 **Area of Interest**
 
 Through the use of light, natural and man-made elements, sound, and audience participation, we want to explore the interaction of light, air, water, sound, and translucent material (sea-glass). Our intention is to produce a thought-provoking, visually striking, and interactive piece of art that is both compelling to the audience and also highlights environmental issues: specifically ocean plastic pollution.
