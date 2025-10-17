@@ -61,7 +61,7 @@ recogn()</pre>
 
 Here is a sample test result:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" alt="" class="wp-image-942"/></a><figcaption>Face detection result</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" alt="" class="wp-image-942"/ loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
 
 **PersonGroup - Create**
 
@@ -92,7 +92,7 @@ With a PersonGroup initialised, it can be populated with people and faces using&
 
 I created an images directory with sub-directories containing photographs of the people I wanted to use to train the face recognition system. The subdirectories were named according to the person's name:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/faces_photos-e1541679916440.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/faces_photos-e1541679916440.png" alt="" class="wp-image-945"/></a><figcaption>Directory of faces</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/faces_photos-e1541679916440.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/faces_photos-e1541679916440.png" alt="" class="wp-image-945"/ loading="lazy"></a><figcaption>Directory of faces</figcaption></figure>
 
 I wanted to use a variety of images, as, during testing, I noticed that the lighting conditions when a photo was taken had a subsequent impact on the reliability of face detection.
 

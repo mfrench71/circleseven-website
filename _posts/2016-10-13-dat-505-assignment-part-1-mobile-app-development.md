@@ -41,15 +41,15 @@ If you are feeling a bit more ambitious, you might like to add features to:
 
 **The result:**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o-176x300.png" alt="" class="wp-image-656"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o-176x300.png" alt="" class="wp-image-656"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o-176x300.png" alt="" class="wp-image-660"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o-176x300.png" alt="" class="wp-image-660"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o-176x300.png" alt="" class="wp-image-659"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o-176x300.png" alt="" class="wp-image-659"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o-176x300.png" alt="" class="wp-image-658"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o-176x300.png" alt="" class="wp-image-658"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o-176x300.png" alt="" class="wp-image-657"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o-176x300.png" alt="" class="wp-image-657"/ loading="lazy"></a></figure>
 </figure>
 
 <p>Using <a href="http://phonegap.com">PhoneGap</a>, <a href="https://creator.ionic.io/">Ionic Creator</a> and <a href="http://brackets.io">Brackets</a>, I created a hand dryer ratings mobile app for deployment to the Android platform.</p>

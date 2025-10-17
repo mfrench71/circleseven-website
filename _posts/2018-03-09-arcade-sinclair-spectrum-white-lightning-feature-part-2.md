@@ -61,7 +61,7 @@ Type <code>6 LOAD</code> then <code>FINAL</code>.
 
 **The Originals**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/ loading="lazy"></a></figure>
 </figure>

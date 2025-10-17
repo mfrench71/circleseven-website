@@ -29,7 +29,7 @@ ENTER and SPACE for left and right. CAPS SHIFT and Z for up and down. SYMBOL SHI
 
 If you want to use your own keys, then here are the keyboard numbers (what a service!)
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2236-e1520947600686-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2236-e1520947600686-300x225.jpg" alt="" class="wp-image-99" style="border-radius:6px"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2236-e1520947600686-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2236-e1520947600686-300x225.jpg" alt="" class="wp-image-99" style="border-radius:6px"/ loading="lazy"></a></figure>
 </figure>
 
 **Notes on conversion:**
@@ -52,7 +52,7 @@ Matthew F.
 
 **The Originals**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2234-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2234-225x300.jpg" alt="" class="wp-image-102" style="border-radius:6px"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2234-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2234-225x300.jpg" alt="" class="wp-image-102" style="border-radius:6px"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2235-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2235-225x300.jpg" alt="" class="wp-image-100" style="border-radius:6px"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2235-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2235-225x300.jpg" alt="" class="wp-image-100" style="border-radius:6px"/ loading="lazy"></a></figure>
 </figure>

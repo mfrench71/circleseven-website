@@ -29,9 +29,9 @@ Dérive:
 
 - Now draw in the nearest path you can to that circle that you could actually walk. Notice how man-made and natural features constrain our progress.
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/ loading="lazy"></figure>
 </figure>
 
 Now walk the route:
@@ -74,4 +74,4 @@ https://youtu.be/Fkbo_qR0gZw
 
 **04:30 - 04:38** I now felt myself to be on familiar territory with the University campus just across the road. I could see the large screen display from The House building - a building I see almost every day as I walk to university. We had completed our circular route, with just a few diversions from our planned route.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/ loading="lazy"></a></figure>

@@ -20,22 +20,22 @@ As a group, we decided to develop a&nbsp;'Plymouth Bomb Sight' mobile applicatio
 
 Conceptual sketches and logo ideas:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt="" class="wp-image-838"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt="" class="wp-image-838"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt="" class="wp-image-837"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt="" class="wp-image-837"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt="" class="wp-image-836"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt="" class="wp-image-836"/ loading="lazy"></a></figure>
 </figure>
 
 **Data Sources**
 
 <p>We were able to access bomb site location data for Plymouth via the City Council Archives. The '<a href="http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND">Bomb Book</a>' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42-1024x848.jpeg" alt="" class="wp-image-839"/></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42-1024x848.jpeg" alt="" class="wp-image-839"/ loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
 
 A small JavaScript application was developed using the Google Maps API to store the location of each site as latitude and longitude coordinates within a GeoJSON file. We collected data on approximately 2000 bombs.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/geojson_capture.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg" alt="" class="wp-image-840"/></a><figcaption>Sample of GeoJSON data</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/geojson_capture.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg" alt="" class="wp-image-840"/ loading="lazy"></a><figcaption>Sample of GeoJSON data</figcaption></figure>
 
 The second data source we accessed was bomb casualty information:
 
@@ -50,7 +50,7 @@ As we read through the accounts of those who had died during the bombing of Plym
 
 Again, we extracted this data and converted it to a JSON file. We wanted to associate casualty data with bomb location data, potentially linking the recorded place of death to a particular bomb. A second small JavaScript application was developed to leverage the Google Maps Geocoding API to take the street address of casualties and convert them to latitude and longitude coordinates. We collected data on approximately 1000 casualties.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" alt="" class="wp-image-841"/></a><figcaption>Sample of casualty JSON data</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" alt="" class="wp-image-841"/ loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
 
 **How it Works**
 
@@ -66,19 +66,19 @@ Recreation of Charles Church, Plymouth, which was largely destroyed by fire duri
 
 Mobile application screen shots:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt="" class="wp-image-845"/></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt="" class="wp-image-845"/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt="" class="wp-image-844"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt="" class="wp-image-844"/ loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt="" class="wp-image-847"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt="" class="wp-image-847"/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt="" class="wp-image-846"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt="" class="wp-image-846"/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png" alt="" class="wp-image-843"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png" alt="" class="wp-image-843"/ loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt="" class="wp-image-848"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt="" class="wp-image-848"/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png" alt="" class="wp-image-842"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png" alt="" class="wp-image-842"/ loading="lazy"></a></figure>
 </figure>
 
 Below is a&nbsp;short promotional video produced to accompany the Plymouth Bomb Sight project:

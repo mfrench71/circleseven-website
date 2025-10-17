@@ -19,43 +19,43 @@ My first test was with the speech to text functionality. This was done using Nod
 
 This would use my laptop's built-in microphone to record my voice and then convert what was said to text. This text would then be passed to a sentiment analysis node to determine a basic positive/neutral/negative score.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speech_to_text_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speech_to_text_node.png" alt="" class="wp-image-966"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speech_to_text_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speech_to_text_node.png" alt="" class="wp-image-966"/ loading="lazy"></a></figure>
 
 The results from different spoken words:
 
 "I feel totally stressed today"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png" alt="" class="wp-image-967"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png" alt="" class="wp-image-967"/ loading="lazy"></a></figure>
 
 "I'm having a fantastic time"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png" alt="" class="wp-image-968"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png" alt="" class="wp-image-968"/ loading="lazy"></a></figure>
 
 "It is 12:43pm"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png" alt="" class="wp-image-969"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png" alt="" class="wp-image-969"/ loading="lazy"></a></figure>
 
 **Tweet Sentiment Analysis**
 
 The following flow is similar to the speech to text sentiment analysis flow. This time, I used the Twitter input node to monitor the tweets of a specific user (me):
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/edit_twitter_input_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/edit_twitter_input_node.png" alt="" class="wp-image-970"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/edit_twitter_input_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/edit_twitter_input_node.png" alt="" class="wp-image-970"/ loading="lazy"></a></figure>
 
 Once some text is tweeted, the flow analyses the text of the tweet and scores it, again, with a basic positive/neutral/negative sentiment value.
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.19.54.png" alt="" class="wp-image-971"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.19.54.png" alt="" class="wp-image-971"/ loading="lazy"></figure>
 
 The results from different tweets:
 
 "I feel very unhappy today"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png" alt="" class="wp-image-972"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png" alt="" class="wp-image-972"/ loading="lazy"></a></figure>
 
 Returns a negative sentiment result.
 
 "I feel very happy today"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png" alt="" class="wp-image-973"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png" alt="" class="wp-image-973"/ loading="lazy"></a></figure>
 
 Returns a positive sentiment result.
 
@@ -63,17 +63,17 @@ Returns a positive sentiment result.
 
 "The Tone Analyzer service uses linguistic analysis to detect emotional tones, social propensities, and writing styles in written communication."
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png" alt="" class="wp-image-974"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png" alt="" class="wp-image-974"/ loading="lazy"></a></figure>
 
 The results from two very different sentences:
 
 "I hate you"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png" alt="" class="wp-image-975"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png" alt="" class="wp-image-975"/ loading="lazy"></a></figure>
 
 "I love you"
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png" alt="" class="wp-image-976"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png" alt="" class="wp-image-976"/ loading="lazy"></a></figure>
 
 As can be seen, 'anger' and other negative tones score highly for the first sentence, while 'joy' scores highly for the second sentence with the other tones scoring zero.
 
