@@ -4,7 +4,7 @@
 
 /* CSS Variables */
 :root {
-  --header-height: 60px; /* Height of fixed header including border */
+  --header-height: 65px; /* Actual rendered height of fixed header including border */
 }
 
 /* Body Padding for Fixed Header */
@@ -18,7 +18,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(var(--header-height) - 1px); /* Height minus border */
+  height: calc(var(--header-height) - 1px); /* Height minus border = 64px */
   border-bottom: 1px solid #e8e8e8;
   background: white;
   z-index: 1000;
