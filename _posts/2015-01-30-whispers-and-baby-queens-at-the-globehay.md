@@ -7,25 +7,25 @@ categories: ["Projects", "Photography"]
 
 <p>The <a href="http://www.globeathay.org/">Globe@Hay</a> very kindly allowed me to photograph acoustic duo <a href="https://www.facebook.com/pages/Whispers/1452365364976478">*Whispers*</a> and *<a href="https://www.facebook.com/pages/Baby-Queens/523170581048847">Baby Queens</a>*. Here's a selection of images from the night... </p>
 
-<figure class="wp-block-gallery has-nested-images columns-4 is-cropped"><figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0004_16411702685_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0004_16411702685_o-1024x712.jpg" alt="" class="wp-image-161"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0004_16411702685_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0004_16411702685_o-1024x712.jpg" alt="" class="wp-image-161"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0007_16411776971_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0007_16411776971_o-1024x681.jpg" alt="" class="wp-image-160"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0007_16411776971_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0007_16411776971_o-1024x681.jpg" alt="" class="wp-image-160"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0039_15790273984_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0039_15790273984_o-scaled.jpg" alt="" class="wp-image-159"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0039_15790273984_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0039_15790273984_o-scaled.jpg" alt="" class="wp-image-159"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0022_16410883251_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0022_16410883251_o-1024x919.jpg" alt="" class="wp-image-158"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0022_16410883251_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0022_16410883251_o-1024x919.jpg" alt="" class="wp-image-158"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0059_15790553784_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0059_15790553784_o-1024x759.jpg" alt="" class="wp-image-157"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0059_15790553784_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0059_15790553784_o-1024x759.jpg" alt="" class="wp-image-157"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0054_15792248973_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0054_15792248973_o-681x1024.jpg" alt="" class="wp-image-156"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0054_15792248973_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0054_15792248973_o-681x1024.jpg" alt="" class="wp-image-156"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0048_15790786634_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0048_15790786634_o-1024x734.jpg" alt="" class="wp-image-155"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0048_15790786634_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0048_15790786634_o-1024x734.jpg" alt="" class="wp-image-155"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0041_16387796946_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0041_16387796946_o-681x1024.jpg" alt="" class="wp-image-154"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0041_16387796946_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0041_16387796946_o-681x1024.jpg" alt="" class="wp-image-154"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0033_15792841293_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0033_15792841293_o-681x1024.jpg" alt="" class="wp-image-153"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0033_15792841293_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0033_15792841293_o-681x1024.jpg" alt="" class="wp-image-153"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0001_16385740756_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0001_16385740756_o-681x1024.jpg" alt="" class="wp-image-152"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0001_16385740756_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0001_16385740756_o-681x1024.jpg" alt="" class="wp-image-152"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0008_15791624243_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0008_15791624243_o-1024x681.jpg" alt="" class="wp-image-151"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0008_15791624243_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/dsc0008_15791624243_o-1024x681.jpg" alt="" class="wp-image-151"/></a></figure>
 </figure>

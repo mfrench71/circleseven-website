@@ -9,7 +9,7 @@ Brief: In the practical session you will create an interactive Python chatbot. T
 
 Below is a demonstration of the completed chatbot script:
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-4-3 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/XsKA09tUvXQ
 </div></figure>
 

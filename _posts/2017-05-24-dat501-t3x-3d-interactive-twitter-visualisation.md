@@ -7,7 +7,7 @@ categories: ["DAT501 - Strategies for Digital Art and Technology", "Digital Art 
 
 Brief: You are asked to create and present an artwork or performance in public exhibition. Your project should explore a creative use of technology, be it digital, mechanical, biological or not yet invented. It should be a response to work and ideas which you have encountered during the module either in the presentation sessions, on the field trip, or in your own research.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/dOMQ1jILvlA
 </div></figure>
 

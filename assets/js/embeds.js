@@ -8,8 +8,6 @@
 
   // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', function() {
-    processWordPressEmbeds();
-    processLegacyShortcodes();
     makeSketchfabResponsive();
     processLeafletMaps();
   });
@@ -221,8 +219,8 @@
   }
 
   /**
-   * Process Leaflet map shortcodes
-   * Converts [leaflet-map] WordPress shortcodes to interactive Leaflet maps
+   * Process Leaflet maps from clean markup
+   * Initializes maps from <div class="leaflet-map" data-*> elements
    */
   function processLeafletMaps() {
     // Check if Leaflet is loaded
@@ -231,40 +229,25 @@
       return;
     }
 
-    const postContent = document.querySelector('.post-content');
-    if (!postContent) return;
+    const leafletDivs = document.querySelectorAll('.leaflet-map');
 
-    const html = postContent.innerHTML;
+    leafletDivs.forEach(function(mapDiv, index) {
+      const lat = parseFloat(mapDiv.getAttribute('data-lat'));
+      const lng = parseFloat(mapDiv.getAttribute('data-lng'));
+      const zoom = parseInt(mapDiv.getAttribute('data-zoom'));
 
-    // Match [leaflet-map lat=X lng=Y zoom=Z] pattern
-    const leafletPattern = /\[leaflet-map\s+lat=["']?([-\d.]+)["']?\s+lng=["']?([-\d.]+)["']?\s+zoom=["']?(\d+)["']?\]/g;
-    let newHtml = html;
-    let match;
-    let mapCounter = 0;
-
-    while ((match = leafletPattern.exec(html)) !== null) {
-      const lat = parseFloat(match[1]);
-      const lng = parseFloat(match[2]);
-      const zoom = parseInt(match[3]);
+      if (!lat || !lng || !zoom) return;
 
       // Create unique map ID
-      const mapId = 'leaflet-map-' + mapCounter++;
+      const mapId = 'leaflet-map-' + index;
+      mapDiv.id = mapId;
+      mapDiv.classList.add('leaflet-container');
 
-      // Create map container HTML
-      const mapContainer = `<div id="${mapId}" class="leaflet-container" style="height: 400px; margin: 20px 0; border-radius: 4px;"></div>`;
-
-      // Replace shortcode with container
-      newHtml = newHtml.replace(match[0], mapContainer);
-
-      // Initialize map after DOM update (use setTimeout to ensure element exists)
+      // Initialize map
       setTimeout(function() {
         initializeLeafletMap(mapId, lat, lng, zoom);
       }, 100);
-    }
-
-    if (newHtml !== html) {
-      postContent.innerHTML = newHtml;
-    }
+    });
   }
 
   /**

@@ -11,27 +11,27 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 
 Psychogeography
 
-<blockquote class="wp-block-quote"><p>"the study of the precise laws and specific effects of the geographical environment, consciously organised or not, on the emotions and behaviour of individuals."</p>
+<blockquote><p>"the study of the precise laws and specific effects of the geographical environment, consciously organised or not, on the emotions and behaviour of individuals."</p>
 </blockquote>
 
 <p>(<a href="https://en.wikipedia.org/wiki/Psychogeography">https://en.wikipedia.org/wiki/Psychogeography</a>)</p>
 
 Dérive:
 
-<blockquote class="wp-block-quote"><p>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually&nbsp;urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"</p>
+<blockquote><p>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually&nbsp;urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"</p>
 </blockquote>
 
 <p>(<a href="https://en.wikipedia.org/wiki/Dérive">https://en.wikipedia.org/wiki/Dérive</a>)</p>
 
-<h5 class="wp-block-heading">The Exercise</h5>
+<h5>The Exercise</h5>
 
 - You’ll need a paper map, a glass and a pen. On your map, place the glass anywhere and draw a circle.
 
 - Now draw in the nearest path you can to that circle that you could actually walk. Notice how man-made and natural features constrain our progress.
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/></figure>
 </figure>
 
 Now walk the route:
@@ -44,7 +44,7 @@ Now walk the route:
 
 - Take photographs, sound record and document your work in your blog.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/Fkbo_qR0gZw
 </div></figure>
 
@@ -74,4 +74,4 @@ https://youtu.be/Fkbo_qR0gZw
 
 **04:30 - 04:38** I now felt myself to be on familiar territory with the University campus just across the road. I could see the large screen display from The House building - a building I see almost every day as I walk to university. We had completed our circular route, with just a few diversions from our planned route.
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/></a></figure>

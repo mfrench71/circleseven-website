@@ -11,9 +11,7 @@ categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art 
 
 During the mashup workshop and using Youtube's video editor functionality, I experimented with&nbsp;video material of special forces personnel taking part in a training exercise using an assault course. This was overplayed with audio of the *Everything is Awesome* song from *The Lego Movie* soundtrack.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
-https://www.youtube.com/watch?v=aKkyoiP4syY
-</div></figure>
+<div class="embed-container"><iframe src="https://www.youtube.com/embed/aKkyoiP4syY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 The visuals&nbsp;of masculine activity overlaid&nbsp;with the feel-good, happy melody of the audio created an interesting juxtaposition. The gung-ho attitude of the military personnel was undermined nicely by the upbeat and cheerful audio, whilst at the same time linking the co-operation required to complete the assault course with the 'everything is cool when you're part of a team' lyric.
 

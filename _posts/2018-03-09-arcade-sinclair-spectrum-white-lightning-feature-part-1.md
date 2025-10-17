@@ -19,7 +19,7 @@ From the user manual:
 
 The first routine you may recognise as a part of the demonstration.
 
-<pre class="wp-block-preformatted">0: DELAY 500 0 DO NOOP LOOP;<br>1: SET&nbsp;COL!&nbsp;ROW!&nbsp;SPN!&nbsp;PUTBLS&nbsp;DELAY;<br>2: SET1 45 10 10 SET;<br>3: SET2 46 10 10 SET;<br>4: SET3 47 10 10 SET;<br>5: SET4 48 10 10 SET;<br>6: GO 40 0 DO SET1 SET2 SET3 SET4 LOOP;</pre>
+<pre>0: DELAY 500 0 DO NOOP LOOP;<br>1: SET&nbsp;COL!&nbsp;ROW!&nbsp;SPN!&nbsp;PUTBLS&nbsp;DELAY;<br>2: SET1 45 10 10 SET;<br>3: SET2 46 10 10 SET;<br>4: SET3 47 10 10 SET;<br>5: SET4 48 10 10 SET;<br>6: GO 40 0 DO SET1 SET2 SET3 SET4 LOOP;</pre>
 
 After that, type&nbsp;<code>6 LOAD</code> and then <code>GO</code>.
 
@@ -45,7 +45,7 @@ Matthew F.
 
 **The Originals**
 
-<figure class="wp-block-gallery alignleft has-nested-images columns-default"><figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2230-e1520611800537-225x300.jpg" alt="" class="wp-image-88" style="border-radius:6px"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2230-e1520611800537-225x300.jpg" alt="" class="wp-image-88" style="border-radius:6px"/></a></figure>
 
-<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2231-e1520611813740-225x300.jpg" alt="" class="wp-image-91" style="border-radius:6px"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2231-e1520611813740-225x300.jpg" alt="" class="wp-image-91" style="border-radius:6px"/></a></figure>
 </figure>

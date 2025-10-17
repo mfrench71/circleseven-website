@@ -9,7 +9,7 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 
 During the first part of today's workshop we witnessed a recreation of John Cage's 4'33 piece, performed by our lecturer.
 
-[embed]https://www.youtube.com/watch?v=JTEFKFiXSx4[/embed]
+<div class="embed-container"><iframe src="https://www.youtube.com/embed/JTEFKFiXSx4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 Following this, we were asked to make brief observations on the performance. These are mine:
  	- Listening to sounds coming from outside the room, listening to the sound of the projector

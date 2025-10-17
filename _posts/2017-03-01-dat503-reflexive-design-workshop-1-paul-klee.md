@@ -7,14 +7,14 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 
 **Paul Klee - "Drawing is taking a line for a walk"**
 
-<blockquote class="wp-block-quote"><p>"Whereas Picasso, Matisse, even Mondrian and Kandinsky concentrated on abstracting from perceived reality, Klee began with a point, extended it into a line and famously took it for a walk wherever it wished to go. The exact stage at which this abstract construct began to suggest an image was not premeditated."</p>
+<blockquote><p>"Whereas Picasso, Matisse, even Mondrian and Kandinsky concentrated on abstracting from perceived reality, Klee began with a point, extended it into a line and famously took it for a walk wherever it wished to go. The exact stage at which this abstract construct began to suggest an image was not premeditated."</p>
 </blockquote>
 
 <p>(<a href="https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article">https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article</a>)</p>
 
-<h5 class="wp-block-heading">The Exercise</h5>
+<h5>The Exercise</h5>
 
-<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg" alt="" class="wp-image-797"/></a><figcaption class="wp-element-caption">Invisible Cities, Italo Calvino</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg" alt="" class="wp-image-797"/></a><figcaption>Invisible Cities, Italo Calvino</figcaption></figure>
 
 - Do not lift the pencil off the paper throughout the whole exercise
 
@@ -36,11 +36,11 @@ Thus, when traveling in the territory of Ersilia, you come upon the ruins of aba
 
 And here are the three interpretations:
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" alt="" class="wp-image-798"/></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" alt="" class="wp-image-798"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" alt="" class="wp-image-799"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" alt="" class="wp-image-799"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" alt="" class="wp-image-800"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" alt="" class="wp-image-800"/></figure>
 </figure>
 
 There are clearly a number of common elements in the three drawings above. What appears to be the basic outlines of towers or buildings (the houses and poles mentioned in the text, perhaps) are present in all three of the interpretations, as well as areas where the lines concentrate and darken.

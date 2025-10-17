@@ -19,7 +19,7 @@ From the user manual:
 
 Yes, I've made it! Never fear! This feature has made it to its next month. Amazing, isn't it? Anyway, with the sprites in memory, type this into screen 6 and then type <code>6 LOAD</code> and then <code>TEST 1</code> and press 'Enter':
 
-<pre class="wp-block-preformatted">0: SET 44 SPN!;<br>1: LEFT WRR1M PUTBLS;<br>2: RIGHT WRL1M PUTBLS;<br>3: TEST 1 1 KB IF LEFT ENDIF 8 1 KB IF RIGHT ENDIF;<br>4: TEST 1: ATTOFF SET BEGIN TEST 8 2 KB UNTIL;</pre>
+<pre>0: SET 44 SPN!;<br>1: LEFT WRR1M PUTBLS;<br>2: RIGHT WRL1M PUTBLS;<br>3: TEST 1 1 KB IF LEFT ENDIF 8 1 KB IF RIGHT ENDIF;<br>4: TEST 1: ATTOFF SET BEGIN TEST 8 2 KB UNTIL;</pre>
 
 Don't be alarmed if nothing happens, just press 'Caps Shift' or 'Space' and watch...
 
@@ -61,7 +61,7 @@ Type <code>6 LOAD</code> then <code>FINAL</code>.
 
 **The Originals**
 
-<figure class="wp-block-gallery alignleft has-nested-images columns-default is-cropped"><figure class="wp-block-image size-full has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/></a></figure>
 
-<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/></a></figure>
 </figure>

@@ -23,7 +23,7 @@ Using the class sessions you should develop your sound work and mix it appropria
 
 - It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, &nbsp;etc.) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover" class="wp-image-565"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover" class="wp-image-565"/></a></figure>
 
 <p>The book excerpt that I studied was ‘<a href="https://books.google.co.uk/books/about/Sound_Design_and_Science_Fiction.html?id=vew3mQEACAAJ&amp;redir_esc=y">*Sound Design &amp; Science Fiction*</a>’ by William Whittington. This subject appealed to me because I enjoy the science fiction genre in general and the film-making process in particular, including sound design.</p>
 
@@ -31,11 +31,11 @@ Thematically, the areas of interest that stood out for me were the accounts of h
 
 <p>From a technical standpoint, I enjoyed the accounts of <a href="https://en.wikipedia.org/wiki/Ben_Burtt">Ben Burtt's</a> work for George Lucas on the original *Star Wars* trilogy.</p>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt="" class="wp-image-568"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt="" class="wp-image-568"/></a></figure>
 
 Burtt:
 
-<blockquote class="wp-block-quote"><p>“When I started out, it was very unusual for someone to be employed to make specific sounds for a film . . . Then along came George Lucas, who instructed me, 'Here, take this microphone and Nagra, take a year and go out and collect all the interesting sounds you can think of.'”</p>
+<blockquote><p>“When I started out, it was very unusual for someone to be employed to make specific sounds for a film . . . Then along came George Lucas, who instructed me, 'Here, take this microphone and Nagra, take a year and go out and collect all the interesting sounds you can think of.'”</p>
 </blockquote>
 
 <p><a href="https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption">https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption</a>]</p>
@@ -46,11 +46,9 @@ My aim was to emulate Burtt; to venture out and collect a range of unique sound 
 
 To that end, I roamed my local area, recording the sounds of water, birds, footsteps, traffic and people (including children). I created my own vocal pieces for a variety of uses, including voiceovers, screams and the 'voice' of Darth Vader. I made use of whatever came to hand, including Gwynne, our six-month old labrador/retriever cross. A metal well cover, when hit with my hand and then a stone, came in useful for some industrial sounds.
 
-<figure class="wp-block-embed is-type-rich is-provider-soundcloud wp-block-embed-soundcloud"><div class="wp-block-embed__wrapper">
-https://soundcloud.com/matthew-french-602634074/dat402-mastered
-</div></figure>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https://soundcloud.com/matthew-french-602634074/dat402-mastered&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
 
-<h3 class="wp-block-heading">A breakdown of the final sound design piece</h3>
+<h3>A breakdown of the final sound design piece</h3>
 
 **Introduction**
 
@@ -66,13 +64,13 @@ I recorded the sound of primary school children playing outside at a school that
 
 **Part 2**
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt="" class="wp-image-569"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt="" class="wp-image-569"/></a></figure>
 
 This sequence is an attempt to emulate Ben Burtt's sound design for the cantina sequence in *Star Wars*. The recording is an assembly of street sounds and music and traffic combined with recordings of our dog (at both the original pitch and a raised pitch) and birdsong during a dawn chorus. The animal sounds are shifted in the stereo field to give an impression of space and immersion within the created audio environment.
 
 **Part 3**
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt="" class="wp-image-570"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt="" class="wp-image-570"/></a></figure>
 
 My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling&nbsp;of a mechanical/technological atmosphere.
 
@@ -80,9 +78,9 @@ My aim for this part of the piece was to create an industrial, dystopian atmosph
 
 I wanted to experiment with some vocalisation effects to achieve my own version of the iconic voice of Darth Vader from the *Star Wars* films. The original Darth Vader voice was created with the use of SCUBA breathing equipment. I recorded my own voice, which I&nbsp;enhanced with pitch shift, reverberation and modulation effects such as subtle flange and chorus to achieve an approximation of the original. This section is accompanied by&nbsp;*The Imperial March*&nbsp;theme from the *Star Wars* movies. The appearance of Darth Vader in the film franchise is almost always accompanied by this piece of music, so it seemed fitting for me to use this to make use of its status&nbsp;as a piece that evokes an image of overwhelming power and tyranny.
 
-<h3 class="wp-block-heading">Further Reading/References</h3>
+<h3>Further Reading/References</h3>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt="" class="wp-image-571"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt="" class="wp-image-571"/></a></figure>
 
 **Literary References**
 

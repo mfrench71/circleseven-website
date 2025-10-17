@@ -13,7 +13,7 @@ I suggested an idea of, again, visually representing Twitter feeds, this time th
 
 After some discussion, the group decided it would be interesting to compare the occurrence of the popular hashtags used by the 2016 United States presidential candidate front runners (Donald Trump, Hillary Clinton, Ted Cruz and Bernie Sanders). Whilst this method would not be accurate as measure of popularity (tweets could be negative), it would give an indication of the interest shown in each candidate which could then be visually represented by balloons.
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump-300x266.jpg" alt="" class="wp-image-629"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump-300x266.jpg" alt="" class="wp-image-629"/></a></figure>
 
 Screen shot from ritetag.com showing popular Twitter hashtags for Donald Trump
 
@@ -25,7 +25,7 @@ Screen shot from ritetag.com showing popular Twitter hashtags for Donald Trump
 
 - Short lifespan of balloons could be indicative of the transient and fickle nature of politics/celebrity
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/87818129_151022626.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/87818129_151022626-300x169.jpg" alt="" class="wp-image-630"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/87818129_151022626.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/87818129_151022626-300x169.jpg" alt="" class="wp-image-630"/></a></figure>
 
 US presidential election - balloons
 
@@ -35,19 +35,19 @@ US presidential election - balloons
 
 The following video shows the setup for proof of concept for the project. The code running on the Raspberry Pi causes one of four LEDs to be lit depending upon the occurrence of Twitter hashtags. At this stage, the Arduino is not being used.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/Nl4wgFlQfhU
 </div></figure>
 
 The next video shows two terminal windows displaying&nbsp;the tweets from Donald Trump and Hillary Clinton that have been matched by the Python code running of the Raspberry Pi. Two stepper motors are connected to an Arduino and labelled to clearly show them rotating in response to the tweets.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/StY8G-A0jS0
 </div></figure>
 
 #AmericanFloaters completed build
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/IdDz_dOa3qU
 </div></figure>
 

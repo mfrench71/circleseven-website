@@ -94,7 +94,7 @@ I developed a basic HTML page with sections to display the live camera preview, 
 
 This renders as:
 
-<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt="" class="wp-image-938"/></a><figcaption class="wp-element-caption">HTML page</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt="" class="wp-image-938"/></a><figcaption>HTML page</figcaption></figure>
 
 **Capturing a Live Image**
 
@@ -197,7 +197,7 @@ Finally, the getName() function is called with the personId returned from the id
 
 The final result looks like:
 
-<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt="" class="wp-image-939"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt="" class="wp-image-939"/></a></figure>
 
 **Bibliography**
 

@@ -9,9 +9,9 @@ Today's practical exercise focussed on text effects within Photoshop.
 
 I created the following from a high contrast photo:
 
-<div class="wp-block-columns"><div class="wp-block-column" style="flex-basis:100%"><figure class="wp-block-gallery has-nested-images columns-2"><figure class="wp-block-image size-medium is-style-default"><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
+<div><div style="flex-basis:100%"><figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/></a></figure>
 </figure>
 </div>
 </div>

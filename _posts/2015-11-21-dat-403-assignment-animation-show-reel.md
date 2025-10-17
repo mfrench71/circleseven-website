@@ -9,7 +9,7 @@ Brief: Manufacture an animated show reel that displays the skills you have lear
 
 **Title Element**
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/g9qsHGGHJN4
 </div></figure>
 
@@ -23,7 +23,7 @@ Camera shake, motion blur and appropriate sound effects are used to provide a hi
 
 **Greenlight Identity Spot**
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/1mmBZgTzWX8
 </div></figure>
 
@@ -37,7 +37,7 @@ A dramatic camera move, combined with camera wiggle give a dynamic feel to the a
 
 **Audio Visualisation**
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/cGzg9FSnwy4
 </div></figure>
 
@@ -47,7 +47,7 @@ Dynamic camera moves were timed to coincide with the dynamics of the audio and t
 
 **Character Animation**
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/lJEtL77lCkk
 </div></figure>
 
@@ -63,6 +63,6 @@ The transition from night to day is further enhanced with a change of audio from
 
 **Final Animation Show Reel:**
 
-<figure class="wp-block-embed is-type-video is-provider-vimeo wp-block-embed-vimeo wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://vimeo.com/146500210
 </div></figure>

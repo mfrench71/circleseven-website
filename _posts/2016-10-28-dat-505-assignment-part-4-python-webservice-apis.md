@@ -15,6 +15,6 @@ You'll get more marks if you use the History file (it's harder !) Include a loop
 
 Here's a screen recording of the Python script in action on OSX and browsing via Chrome. The refresh time has been set to 20 seconds for a more interesting demonstration!
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/Pu3ZwVSOg-o
 </div></figure>

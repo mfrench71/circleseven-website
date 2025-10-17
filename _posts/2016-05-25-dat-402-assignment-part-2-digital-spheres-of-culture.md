@@ -58,7 +58,7 @@ I wanted to explore how YouTube is used to publish material about preppers and p
 
 I used the Mayan apocalypse prediction as a focus because, as an event that never came to pass, this enabled me to present to some extent a 'before and after' view of my target subculture.
 
-[embed]https://youtu.be/-eiXGz74Fkc[/embed]
+<div class="embed-container"><iframe src="https://www.youtube.com/embed/-eiXGz74Fkc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 <h3>References</h3>
 **Video References**
  	- ABC 10 News (2012) *San Diegans prepare for Mayan doomsday: Mayan calendar ends on December 21, 2012*. Available at: <a href="https://youtu.be/r6E61dmlZnc">https://youtu.be/r6E61dmlZnc</a> (Accessed: 20 May 2016).

@@ -13,7 +13,7 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 **Flow Summary**
 
-<figure class="wp-block-image size-full"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" class="wp-image-979"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" class="wp-image-979"/></figure>
 
 <ol>- An *injection* node sends an empty string to the *execute* node.
 
@@ -32,14 +32,14 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 Here are some results of testing on two different images:
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-983"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-983"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" class="wp-image-982"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" class="wp-image-982"/></a></figure>
 </figure>
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-986"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-986"/></a></figure>
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" class="wp-image-985"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" class="wp-image-985"/></a></figure>
 </figure>
 
 In both tests, the results of the analysis of age and gender of the individual's face was accurate.

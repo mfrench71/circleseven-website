@@ -9,7 +9,7 @@ categories: ["Projects", "Motion Graphics"]
 
 Once the outline was created, it is then extruded and bevelled to create the final solid-looking logo. There was an issue with the 'm' where I extruded two bezier segments at the same time, causing the bevel to behave strangely.
 
-<figure class="wp-block-vimeo-create vimeo-create__video-container"><div style="width:100%"><iframe class="vimeo-core-video" loading="lazy" src="https://player.vimeo.com/video/158719232?autopause=true&amp;autoplay=false&amp;background=false&amp;byline=true&amp;controls=true&amp;dnt=true&amp;loop=false&amp;muted=false&amp;pip=false&amp;playsinline=true&amp;portrait=true&amp;responsive=true&amp;speed=false&amp;title=true&amp;transparent=false" width="1920" height="1080" frameborder="0" allowfullscreen title="3D Logo" style="max-width:100%;width:100%;height:100%;aspect-ratio:1920 / 1080"></iframe></div></figure>
+<figure><div style="width:100%"><iframe class="vimeo-core-video" loading="lazy" src="https://player.vimeo.com/video/158719232?autopause=true&amp;autoplay=false&amp;background=false&amp;byline=true&amp;controls=true&amp;dnt=true&amp;loop=false&amp;muted=false&amp;pip=false&amp;playsinline=true&amp;portrait=true&amp;responsive=true&amp;speed=false&amp;title=true&amp;transparent=false" width="1920" height="1080" frameborder="0" allowfullscreen title="3D Logo" style="max-width:100%;width:100%;height:100%;aspect-ratio:1920 / 1080"></iframe></div></figure>
 
 **Acknowledgements:**
 

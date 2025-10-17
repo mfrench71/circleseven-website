@@ -7,7 +7,7 @@ categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
 
 'Vivid Flourish' advert: a contemporary art style used in many modern commercial and professional art sectors. This creative photo manipulation project focuses on colour and lighting to bring a model into explosive, stylish life.
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects-cutout.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-cutout-200x300.jpg" alt="" class="wp-image-721"/></a><figcaption class="wp-element-caption">Vivid Effects' original image</figcaption></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects-cutout.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-cutout-200x300.jpg" alt="" class="wp-image-721"/></a><figcaption>Vivid Effects' original image</figcaption></figure>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-200x300.jpg" alt="" class="wp-image-722"/></a><figcaption class="wp-element-caption">'Vivid Effects' finished image</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-200x300.jpg" alt="" class="wp-image-722"/></a><figcaption>'Vivid Effects' finished image</figcaption></figure>
 </figure>

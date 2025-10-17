@@ -11,6 +11,6 @@ I find *match.com*'s adverts annoying upbeat and optimistic, but this was perfec
 
 And here's the result:
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/Th0qiZY7J0w
 </div></figure>

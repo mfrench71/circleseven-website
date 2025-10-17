@@ -9,7 +9,7 @@ categories: ["DAT503 - Reflexive Design"]
 
 This workshop commenced with a standard Chinese Whispers activity.
 
-<blockquote class="wp-block-quote"><p>"Chinese whispers&nbsp;is an internationally popular&nbsp;game,&nbsp;in which one person whispers a message to the ear of the next person through a line of people until the last player announces the message to the entire group.&nbsp;Errors typically accumulate in the retellings, so the statement announced by the last player differs significantly from that of the first player, usually with amusing or humorous effect. Reasons for changes include anxiousness or impatience, erroneous corrections, the difficult-to-understand mechanism of whispering, and that some players may deliberately alter what is being said to guarantee a changed message by the end of the line."</p>
+<blockquote><p>"Chinese whispers&nbsp;is an internationally popular&nbsp;game,&nbsp;in which one person whispers a message to the ear of the next person through a line of people until the last player announces the message to the entire group.&nbsp;Errors typically accumulate in the retellings, so the statement announced by the last player differs significantly from that of the first player, usually with amusing or humorous effect. Reasons for changes include anxiousness or impatience, erroneous corrections, the difficult-to-understand mechanism of whispering, and that some players may deliberately alter what is being said to guarantee a changed message by the end of the line."</p>
 </blockquote>
 
 <p><a href="https://en.wikipedia.org/wiki/Chinese_whispers">https://en.wikipedia.org/wiki/Chinese_whispers</a></p>
@@ -24,7 +24,7 @@ This activity certainly highlights the unreliability of memory and the mistakes 
 
 This activity involved working in pairs. One person would give instructions to the other in order to create a drawing. The instructor could not see what the other person was drawing and nor could they give explicit directions, such as 'draw a tree'. Instead, I received prompts such as 'draw a line east for two centimetres', 'draw a quarter circle towards the west', etc.
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2016-scaled-1-768x1024.jpg" alt="" class="wp-image-813"/><figcaption class="wp-element-caption">Result of directed drawing</figcaption></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2016-scaled-1-768x1024.jpg" alt="" class="wp-image-813"/><figcaption>Result of directed drawing</figcaption></figure>
 
 This exercise highlighted the value of clear communication and planning and how relying on other people to realise a plan or vision can be problematic if instructions are not explicit. There is also a tendency in the person doing the drawing to complete emerging elements of the drawing they think they recognise before being instructed.
 
@@ -32,7 +32,7 @@ This exercise highlighted the value of clear communication and planning and how 
 
 For this part of the workshop, we were asked to just start writing. We were instructed to to think about what we were going to write, just to begin writing. Here is what I produced:
 
-<blockquote class="wp-block-quote"><p>"Nevertheless, it was something I couldn't see and all was darkness to me, washing at the shoes, lapping at my feet. The sun was above, in all honesty, it was all I could do to hold it together. The buttons had fallen from my coat, lost coins around someone bereft of money."</p>
+<blockquote><p>"Nevertheless, it was something I couldn't see and all was darkness to me, washing at the shoes, lapping at my feet. The sun was above, in all honesty, it was all I could do to hold it together. The buttons had fallen from my coat, lost coins around someone bereft of money."</p>
 </blockquote>
 
 This technique can be used as a means to overcome creative block and to generate ideas. I am quite pleased with some of the imagery in the above paragraph and could, potentially, develop the piece into a longer work.
@@ -51,13 +51,13 @@ For the last exercise, one person from each of two groups of four were bound tog
 
 The results are below:
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg" alt="" class="wp-image-816"/></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg" alt="" class="wp-image-816"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg" alt="" class="wp-image-815"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg" alt="" class="wp-image-815"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg" alt="" class="wp-image-817"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg" alt="" class="wp-image-817"/></figure>
 
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg" alt="" class="wp-image-818"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg" alt="" class="wp-image-818"/></figure>
 </figure>
 
 There are certainly some lessons to be learned about cooperation, coordination, communication, delegation and planning. These exercises made it clear that it's very easy groups to descend into ad-hoc contributions to an overall aim which do not progress the group to their goal. Dominant or assertive personalities can influence the outcome of a collaborative effort, not always to the benefit of the team.
@@ -66,17 +66,17 @@ There are certainly some lessons to be learned about cooperation, coordination, 
 
 For the final activity, we were requested, in groups, to create and demonstrate a novel communication protocol. Here are some of the communication  technologies and techniques that we brainstormed:
 
-<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2005-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2005-scaled-1-1024x768.jpg" alt="" class="wp-image-814"/></a><figcaption class="wp-element-caption">Communication technologies and techniques</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2005-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2005-scaled-1-1024x768.jpg" alt="" class="wp-image-814"/></a><figcaption>Communication technologies and techniques</figcaption></figure>
 
 We had to demonstrate the protocol worked, so one member of our team walked to a destination that only they knew, taking a photograph of their current location every minute for fifteen minutes until they reached their destination. The photos were sent them back to the rest of the group via Facebook Messenger.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/Z8r_q8ilW0A
 </div></figure>
 
 After fifteen minutes, the group had to use the photos to locate the fourth member. We agreed on some rules for the protocol, such as how often the photos would be sent, for how long the lone member would walk and what to do if we were unsuccessful in locating them.
 
-<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://youtu.be/0NorqznWMys
 </div></figure>
 

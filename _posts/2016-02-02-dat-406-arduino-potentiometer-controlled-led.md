@@ -26,4 +26,4 @@ Serial.println(sensorValue);
 }</pre>
 Result:
 
-[embed]https://youtu.be/fOmaUUZdB6U[/embed]
+<div class="embed-container"><iframe src="https://www.youtube.com/embed/fOmaUUZdB6U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>

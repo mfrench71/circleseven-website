@@ -9,14 +9,14 @@ Brief: Your task within your groups is to create an animation using Blender suit
 
 **Multiverse - a definition:**
 
-<blockquote class="wp-block-quote"><p>The multiverse (or meta-universe) is the hypothetical set of finite and infinite possible universes, including the universe we live in. Together, these universes comprise everything that exists: the entirety of space, time, matter, energy, and the physical laws and constants that describe them.</p>
+<blockquote><p>The multiverse (or meta-universe) is the hypothetical set of finite and infinite possible universes, including the universe we live in. Together, these universes comprise everything that exists: the entirety of space, time, matter, energy, and the physical laws and constants that describe them.</p>
 <cite>https://en.wikipedia.org/wiki/Multiverse</cite></blockquote>
 
 **Design Concept**
 
 With such an open-ended brief, I decided that an abstract concept would be most effective in representing the idea of 'the multiverse'. To that end, I decided to think about the relationship between virtual shape and the physical space of the IVT and how the audience will view the final animation.
 
-<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg" alt="" class="wp-image-637"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg" alt="" class="wp-image-637"/></a></figure>
 
 Immersion Vision Theatre at Plymouth University
 
@@ -28,19 +28,19 @@ The creation of this piece in 3D software, Blender, begins with a mountainous la
 
 Finishing touches involve creating a metallic material for the cubes, adding an environment image, modifying the lighting and adding some compositing effects in Blender's node editor. Finally, the camera is animated and scenes are rendered.
 
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o-300x234.jpg" alt="" class="wp-image-639"/></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o-300x234.jpg" alt="" class="wp-image-639"/></a></figure>
 
-<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" alt="" class="wp-image-643"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" alt="" class="wp-image-643"/></figure>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o-300x224.jpg" alt="" class="wp-image-640"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o-300x224.jpg" alt="" class="wp-image-640"/></a></figure>
 
-<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg" alt="" class="wp-image-644"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg" alt="" class="wp-image-644"/></figure>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o-300x218.jpg" alt="" class="wp-image-638"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o-300x218.jpg" alt="" class="wp-image-638"/></a></figure>
 
-<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg" alt="" class="wp-image-642"/></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg" alt="" class="wp-image-642"/></figure>
 
-<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-300x172.jpg" alt="" class="wp-image-641"/></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-300x172.jpg" alt="" class="wp-image-641"/></a></figure>
 </figure>
 
 **Audio**
@@ -49,6 +49,6 @@ The audio I chose aims to highlight and complement the visuals and dynamic camer
 
 The final animation rendered with an equidistant fisheye lens for dome projection:
 
-<figure class="wp-block-embed is-type-video is-provider-vimeo wp-block-embed-vimeo wp-embed-aspect-4-3 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<figure><div>
 https://vimeo.com/156469017
 </div></figure>
