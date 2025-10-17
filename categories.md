@@ -34,19 +34,33 @@ permalink: /categories/
       </h2>
 
       <ul class="post-list">
-        {% for post in posts %}
-          <li>
-            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            {% if post.categories.size > 1 %}
-              <span class="post-breadcrumb">
-                {% for cat in post.categories %}
-                  {{ cat }}{% unless forloop.last %} › {% endunless %}
-                {% endfor %}
-              </span>
+        {% for post in posts limit:5 %}
+          <li class="post-item-compact">
+            {% if post.image %}
+            <div class="post-image-small">
+              <a href="{{ post.url | relative_url }}">
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+              </a>
+            </div>
             {% endif %}
+            <div class="post-info">
+              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+              <a href="{{ post.url | relative_url }}" class="post-title-link">{{ post.title }}</a>
+              {% if post.categories.size > 1 %}
+                <span class="post-breadcrumb">
+                  {% for cat in post.categories %}
+                    {{ cat }}{% unless forloop.last %} › {% endunless %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+            </div>
           </li>
         {% endfor %}
+        {% if posts.size > 5 %}
+          <li class="view-all-link">
+            <a href="{{ site.baseurl }}/category/{{ category_name | slugify }}/">View all {{ posts.size }} posts →</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   {% endfor %}
@@ -97,24 +111,59 @@ permalink: /categories/
       list-style: none;
       padding: 0;
     }
-    .category-section .post-list li {
-      margin-bottom: 12px;
-      padding: 8px 0;
+    .post-item-compact {
+      margin-bottom: 15px;
+      padding: 10px 0;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+    .post-image-small {
+      flex-shrink: 0;
+      width: 80px;
+      height: 60px;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+    .post-image-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .post-info {
+      flex: 1;
+      min-width: 0;
     }
     .post-meta {
-      font-size: 14px;
+      font-size: 12px;
       color: #828282;
-      margin-right: 15px;
-      display: inline-block;
-      min-width: 100px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .post-title-link {
+      color: #111;
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .post-title-link:hover {
+      color: #2a7ae2;
     }
     .post-breadcrumb {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
       color: #999;
       margin-top: 3px;
-      margin-left: 115px;
       font-style: italic;
+    }
+    .view-all-link {
+      padding: 10px 0;
+      font-weight: 500;
+    }
+    .view-all-link a {
+      color: #2a7ae2;
+      text-decoration: none;
     }
     .category-tag .count {
       font-size: 0.85em;
