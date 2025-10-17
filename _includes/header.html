@@ -1,35 +1,217 @@
-<header class="site-header" role="banner">
+<link rel="stylesheet" href="{{ '/assets/css/menu.css' | relative_url }}">
 
+<header class="site-header" role="banner">
   <div class="wrapper">
-    {%- assign default_paths = site.pages | map: "path" -%}
-    {%- assign page_paths = site.header_pages | default: default_paths -%}
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
-    {%- if page_paths -%}
-      <nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
+    <nav class="site-nav" aria-label="Main navigation">
+      <!-- Desktop Navigation -->
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ "/" | relative_url }}">Home</a>
+        </li>
 
-        <div class="trigger">
-          <!-- Search box -->
-          <form action="{{ site.baseurl }}/search/" method="get" style="display: inline-block; margin-right: 15px;">
-            <input type="text" name="q" placeholder="Search..." style="padding: 5px 10px; border: 1px solid #e8e8e8; border-radius: 3px; font-size: 14px;">
-          </form>
+        <!-- Digital Art and Technology Mega Menu -->
+        <li class="nav-item has-dropdown">
+          <a class="nav-link" href="{{ site.baseurl }}/category/digital-art-and-technology/">Digital Art & Technology</a>
+          <div class="mega-menu">
+            <div class="mega-menu-content">
+              <div class="mega-menu-section">
+                <h3>Year 1 Modules</h3>
+                <ul class="mega-menu-links">
+                  {% assign dat_year1 = "DAT401 - Strategies for Digital Art and Technology,DAT402 - Digital Culture,DAT403 - Digital Media Design,DAT404 - Web Technologies,DAT405 - Creative Coding,DAT406 - Digital Making" | split: "," %}
+                  {% for module_name in dat_year1 %}
+                    {% for category in site.categories %}
+                      {% if category[0] == module_name %}
+                        <li>
+                          <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                            {{ category[0] }}
+                            <span class="post-count">{{ category[1] | size }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
 
-          {%- for path in page_paths -%}
-            {%- assign my_page = site.pages | where: "path", path | first -%}
-            {%- if my_page.title -%}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      </nav>
-    {%- endif -%}
+              <div class="mega-menu-section">
+                <h3>Year 2 Modules</h3>
+                <ul class="mega-menu-links">
+                  {% assign dat_year2 = "DAT501 - Strategies for Digital Art and Technology,DAT503 - Reflexive Design,DAT504 - Advanced Web Technologies,DAT505 - Advanced Creative Coding,DAT506 - Emerging Technologies,INDE601 - Netscapes" | split: "," %}
+                  {% for module_name in dat_year2 %}
+                    {% for category in site.categories %}
+                      {% if category[0] == module_name %}
+                        <li>
+                          <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                            {{ category[0] }}
+                            <span class="post-count">{{ category[1] | size }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div class="mega-menu-section">
+                <h3>Year 3 Modules</h3>
+                <ul class="mega-menu-links">
+                  {% assign dat_year3 = "DAT601 - Realtime,DAT602 - Everyware,DAT612 - Final Year Project,DAT613 - Dissertation" | split: "," %}
+                  {% for module_name in dat_year3 %}
+                    {% for category in site.categories %}
+                      {% if category[0] == module_name %}
+                        <li>
+                          <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                            {{ category[0] }}
+                            <span class="post-count">{{ category[1] | size }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Projects Mega Menu -->
+        <li class="nav-item has-dropdown">
+          <a class="nav-link" href="{{ site.baseurl }}/category/projects/">Projects</a>
+          <div class="mega-menu">
+            <div class="mega-menu-content">
+              <div class="mega-menu-section">
+                <h3>Project Categories</h3>
+                <ul class="mega-menu-links">
+                  {% assign project_cats = "Photography,Motion Graphics,Retro Computing" | split: "," %}
+                  {% for project_name in project_cats %}
+                    {% for category in site.categories %}
+                      {% if category[0] == project_name %}
+                        <li>
+                          <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                            {{ category[0] }}
+                            <span class="post-count">{{ category[1] | size }}</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/categories/">Categories</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/search/">Search</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/about/">About</a>
+        </li>
+      </ul>
+
+      <!-- Desktop Search Box -->
+      <form action="{{ site.baseurl }}/search/" method="get" class="nav-search">
+        <input type="text" name="q" placeholder="Search..." aria-label="Search">
+      </form>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </nav>
   </div>
 </header>
+
+<!-- Mobile Drawer Overlay -->
+<div class="mobile-drawer-overlay"></div>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer">
+  <div class="mobile-drawer-header">
+    <h2>Menu</h2>
+    <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+  </div>
+
+  <!-- Mobile Search -->
+  <div class="mobile-search">
+    <form action="{{ site.baseurl }}/search/" method="get">
+      <input type="text" name="q" placeholder="Search..." aria-label="Search">
+    </form>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <ul class="mobile-nav-list">
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="{{ "/" | relative_url }}">Home</a>
+    </li>
+
+    <!-- Digital Art & Technology Accordion -->
+    <li class="mobile-nav-item">
+      <button class="mobile-accordion-toggle" aria-expanded="false">
+        Digital Art & Technology
+      </button>
+      <div class="mobile-accordion-content">
+        <ul class="mobile-accordion-links">
+          <li><a href="{{ site.baseurl }}/category/digital-art-and-technology/">View All</a></li>
+          {% assign all_dat = "DAT401 - Strategies for Digital Art and Technology,DAT402 - Digital Culture,DAT403 - Digital Media Design,DAT404 - Web Technologies,DAT405 - Creative Coding,DAT406 - Digital Making,DAT501 - Strategies for Digital Art and Technology,DAT503 - Reflexive Design,DAT504 - Advanced Web Technologies,DAT505 - Advanced Creative Coding,DAT506 - Emerging Technologies,DAT601 - Realtime,DAT602 - Everyware,DAT612 - Final Year Project,DAT613 - Dissertation,INDE601 - Netscapes" | split: "," %}
+          {% for module_name in all_dat %}
+            {% for category in site.categories %}
+              {% if category[0] == module_name %}
+                <li>
+                  <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                    {{ category[0] }} ({{ category[1] | size }})
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+
+    <!-- Projects Accordion -->
+    <li class="mobile-nav-item">
+      <button class="mobile-accordion-toggle" aria-expanded="false">
+        Projects
+      </button>
+      <div class="mobile-accordion-content">
+        <ul class="mobile-accordion-links">
+          <li><a href="{{ site.baseurl }}/category/projects/">View All Projects</a></li>
+          {% assign project_cats = "Photography,Motion Graphics,Retro Computing" | split: "," %}
+          {% for project_name in project_cats %}
+            {% for category in site.categories %}
+              {% if category[0] == project_name %}
+                <li>
+                  <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
+                    {{ category[0] }} ({{ category[1] | size }})
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/categories/">All Categories</a>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/search/">Search</a>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="{{ site.baseurl }}/about/">About</a>
+    </li>
+  </ul>
+</div>
+
+<script src="{{ '/assets/js/menu.js' | relative_url }}"></script>

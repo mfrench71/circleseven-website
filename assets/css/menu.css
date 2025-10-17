@@ -1,0 +1,418 @@
+/* ============================================
+   MEGA MENU STYLES - Desktop & Mobile
+   ============================================ */
+
+/* Header Container */
+.site-header {
+  position: relative;
+  border-bottom: 1px solid #e8e8e8;
+  background: white;
+  z-index: 1000;
+}
+
+.site-header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Site Title */
+.site-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #111;
+  white-space: nowrap;
+}
+
+/* ============================================
+   DESKTOP NAVIGATION
+   ============================================ */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #111;
+  font-size: 15px;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #2a7ae2;
+}
+
+/* Has Dropdown Indicator */
+.has-dropdown > .nav-link::after {
+  content: " ▾";
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* ============================================
+   MEGA MENU DROPDOWN
+   ============================================ */
+
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 600px;
+  max-width: 800px;
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-top: 5px;
+  z-index: 1001;
+}
+
+.nav-item.has-dropdown:hover .mega-menu,
+.nav-item.has-dropdown.active .mega-menu {
+  display: block;
+}
+
+.mega-menu-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.mega-menu-section {
+  min-width: 0;
+}
+
+.mega-menu-section h3 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  text-transform: uppercase;
+  margin: 0 0 15px 0;
+  letter-spacing: 0.5px;
+}
+
+.mega-menu-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mega-menu-links li {
+  margin-bottom: 8px;
+}
+
+.mega-menu-links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: #111;
+  border-radius: 3px;
+  transition: background 0.2s, color 0.2s;
+  font-size: 14px;
+}
+
+.mega-menu-links a:hover {
+  background: #f5f5f5;
+  color: #2a7ae2;
+}
+
+.post-count {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+
+/* ============================================
+   SEARCH BOX IN NAV
+   ============================================ */
+
+.nav-search {
+  margin-left: 10px;
+}
+
+.nav-search input {
+  padding: 8px 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  font-size: 14px;
+  width: 180px;
+  transition: width 0.3s, border-color 0.2s;
+}
+
+.nav-search input:focus {
+  outline: none;
+  border-color: #2a7ae2;
+  width: 220px;
+}
+
+/* ============================================
+   MOBILE MENU TOGGLE
+   ============================================ */
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #111;
+  position: absolute;
+  transition: transform 0.3s;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+.mobile-menu-toggle.active .hamburger {
+  background: transparent;
+}
+
+.mobile-menu-toggle.active .hamburger::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-toggle.active .hamburger::after {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ============================================
+   MOBILE DRAWER OVERLAY
+   ============================================ */
+
+.mobile-drawer-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mobile-drawer-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 85%;
+  max-width: 400px;
+  height: 100%;
+  background: white;
+  z-index: 2001;
+  overflow-y: auto;
+  transition: left 0.3s;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+}
+
+.mobile-drawer.active {
+  left: 0;
+}
+
+.mobile-drawer-header {
+  padding: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-drawer-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.mobile-drawer-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+}
+
+.mobile-nav-link:active {
+  background: #f5f5f5;
+}
+
+/* Mobile Accordion */
+.mobile-accordion-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  color: #111;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.mobile-accordion-toggle::after {
+  content: "▸";
+  font-size: 14px;
+  transition: transform 0.3s;
+}
+
+.mobile-accordion-toggle.active::after {
+  transform: rotate(90deg);
+}
+
+.mobile-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: #fafafa;
+}
+
+.mobile-accordion-content.active {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+}
+
+.mobile-accordion-links {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.mobile-accordion-links li {
+  border-top: 1px solid #e8e8e8;
+}
+
+.mobile-accordion-links a {
+  display: block;
+  padding: 12px 20px 12px 40px;
+  text-decoration: none;
+  color: #111;
+  font-size: 15px;
+}
+
+.mobile-accordion-links a:active {
+  background: #f0f0f0;
+}
+
+.mobile-search {
+  padding: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.mobile-search input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+@media (max-width: 900px) {
+  .site-nav .nav-list {
+    display: none;
+  }
+
+  .nav-search {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header .wrapper {
+    padding: 12px 15px;
+  }
+
+  .site-title {
+    font-size: 20px;
+  }
+
+  .mobile-drawer {
+    width: 100%;
+    max-width: none;
+  }
+}
