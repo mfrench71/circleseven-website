@@ -10,10 +10,7 @@
   <!-- Custom CSS (loads after theme - higher priority) -->
   <link rel="stylesheet" href="{{ "/assets/css/variables.css" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/post-layouts.css" | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/mega-menu.css" | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/mobile-menu.css" | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/accessibility.css" | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/css/search.css" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/menu.css" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/embeds.css" | relative_url }}">
 
   {%- feed_meta -%}
@@ -32,9 +29,8 @@
     crossorigin=""></script>
 
   <!-- Custom JavaScript -->
-  <script src="{{ "/assets/js/search.js" | relative_url }}" defer></script>
   <script src="{{ "/assets/js/embeds.js" | relative_url }}" defer></script>
-  <script src="{{ "/assets/js/mega-menu.js" | relative_url }}" defer></script>
+  <script src="{{ "/assets/js/menu.js" | relative_url }}" defer></script>
 
   <!-- Structured Data -->
   {%- include structured-data.html -%}
