@@ -2,9 +2,14 @@
    MEGA MENU STYLES - Desktop & Mobile
    ============================================ */
 
+/* CSS Variables */
+:root {
+  --header-height: 55px; /* Height of fixed header */
+}
+
 /* Body Padding for Fixed Header */
 body {
-  padding-top: 60px; /* Adjust based on header height */
+  padding-top: var(--header-height);
 }
 
 /* Header Container */
@@ -13,6 +18,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  height: var(--header-height);
   border-bottom: 1px solid #e8e8e8;
   background: white;
   z-index: 1000;
@@ -23,7 +29,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  height: 100%;
+  padding: 0 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -88,7 +95,7 @@ body {
 .mega-menu {
   display: none;
   position: fixed;
-  top: 60px; /* Align with bottom of fixed header */
+  top: var(--header-height); /* Align with bottom of fixed header */
   left: 50%;
   transform: translateX(-50%);
   min-width: 600px;
