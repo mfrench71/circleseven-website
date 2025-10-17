@@ -4,7 +4,7 @@
 
 /* CSS Variables */
 :root {
-  --header-height: 65px; /* Actual rendered height of fixed header including border */
+  --header-height: 60px; /* Fixed header height */
 }
 
 /* Body Padding for Fixed Header */
@@ -18,7 +18,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(var(--header-height) - 1px); /* Height minus border = 64px */
+  height: var(--header-height); /* Simple fixed height */
   border-bottom: 1px solid #e8e8e8;
   background: white;
   z-index: 1000;
@@ -95,7 +95,7 @@ body {
 .mega-menu {
   display: none;
   position: fixed;
-  top: calc(var(--header-height) - 1px); /* Align directly with bottom border */
+  top: var(--header-height); /* Align with header bottom (after border) */
   left: 50%;
   transform: translateX(-50%);
   min-width: 600px;
