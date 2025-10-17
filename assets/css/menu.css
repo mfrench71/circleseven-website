@@ -209,13 +209,12 @@ body {
   border-radius: 3px;
   font-size: 14px;
   width: 180px;
-  transition: width 0.3s, border-color 0.2s;
+  transition: border-color 0.2s;
 }
 
 .nav-search input:focus {
   outline: none;
   border-color: #2a7ae2;
-  width: 220px;
 }
 
 /* ============================================
