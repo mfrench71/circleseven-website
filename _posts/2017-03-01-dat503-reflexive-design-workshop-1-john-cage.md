@@ -1,0 +1,22 @@
+---
+layout: post
+title: "DAT503 - Reflexive Design Workshop 1 - John Cage"
+date: 2017-03-01 10:02:28 +0000
+categories: DAT503 - Reflexive Design Digital Art &amp; Technology
+---
+
+<strong>John Cage - 4:33 silence</strong>
+
+During the first part of today's workshop we witnessed a recreation of John Cage's 4'33 piece, performed by our lecturer.
+
+[embed]https://www.youtube.com/watch?v=JTEFKFiXSx4[/embed]
+
+Following this, we were asked to make brief observations on the performance. These are mine:
+<ul>
+ 	<li>Listening to sounds coming from outside the room, listening to the sound of the projector</li>
+ 	<li>The 'lack of performance' (sound) concentrated my hearing</li>
+ 	<li>Observing our lecturer for any reaction as a result of the talk in the room</li>
+ 	<li>I noticed that the noise level increased from silence at the beginning to quite a high level of chatter/questions towards the end of the piece</li>
+ 	<li>We expected a musical performance. When we didn't get what we expected, it caused confusion amongst some of the group</li>
+ 	<li>Was the performance, in fact, the audience, rather than the lecturer?</li>
+</ul>

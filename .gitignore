@@ -1,0 +1,15 @@
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+.bundle
+Gemfile.lock
+.DS_Store
+
+# WordPress export and conversion scripts
+*.xml
+wp_convert.py
+
+# Claude settings
+.claude/
