@@ -18,11 +18,11 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Read <a href="https://www.circleseven.co.uk/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a> and <a href="https://www.circleseven.co.uk/arcade-sinclair-spectrum-white-lightning-feature-part-2/">part two</a>.</p>
+<p>Read <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a> and <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-2/">part two</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>For some further context for these articles, please see<a href="https://www.circleseven.co.uk/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121"> 'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+<p>For some further context for these articles, please see<a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121"> 'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

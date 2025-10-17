@@ -6,7 +6,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->
-<p>In my <a href="https://www.circleseven.co.uk/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's&nbsp; sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
+<p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's&nbsp; sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
