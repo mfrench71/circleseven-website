@@ -3,45 +3,66 @@ layout: default
 ---
 
 <div class="category-archive">
-  <h1>{{ page.title }}</h1>
+  <h1 class="page-heading">{{ page.title }}</h1>
 
   {% if page.description %}
     <p class="category-description">{{ page.description }}</p>
   {% endif %}
 
-  <p class="post-count">{{ site.categories[page.category] | size }} posts in this category</p>
+  <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
 
-  <ul class="post-list">
+  <div class="post-grid">
     {% for post in site.categories[page.category] %}
-      <li class="post-item">
-        <div class="post-image">
+      <article class="post-card">
+        <!-- Card Image -->
+        <div class="post-card-image">
           <a href="{{ post.url | relative_url }}">
             {% if post.image %}
-              <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
             {% else %}
-              <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ post.title | escape }}">
+              <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
             {% endif %}
           </a>
         </div>
-        <div class="post-content">
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-          <h2>
-            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+
+        <!-- Card Content -->
+        <div class="post-card-content">
+          <!-- Category Badge -->
+          {% if post.categories.size > 0 %}
+            {% assign first_category = post.categories | first %}
+            <a href="{{ site.baseurl }}/category/{{ first_category | slugify }}/" class="category-badge badge-{{ first_category | slugify }}">
+              {{ first_category }}
+            </a>
+          {% endif %}
+
+          <!-- Title -->
+          <h2 class="post-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
           </h2>
+
+          <!-- Excerpt -->
           {% if post.excerpt %}
-            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html }}</p>
           {% endif %}
-          {% if post.categories.size > 1 %}
-            <span class="post-breadcrumb">
-              {% for cat in post.categories %}
-                {{ cat }}{% unless forloop.last %} › {% endunless %}
-              {% endfor %}
-            </span>
-          {% endif %}
+
+          <!-- Author & Meta -->
+          <div class="post-card-meta">
+            <img src="{{ '/assets/images/author.jpg' | relative_url }}"
+                 alt="Matthew French"
+                 class="post-author-avatar"
+                 onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
+            <div class="post-meta-info">
+              <span class="post-author-name">Matthew French</span>
+              <span class="post-date-reading">
+                {{ post.date | date: "%b %-d, %Y" }}
+                {%- if post.content -%}
+                  · {% include reading-time.html %}
+                {%- endif -%}
+              </span>
+            </div>
+          </div>
         </div>
-      </li>
+      </article>
     {% endfor %}
-  </ul>
+  </div>
 </div>
-
-

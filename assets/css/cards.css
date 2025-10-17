@@ -304,9 +304,30 @@
 
 /* Page Heading */
 .page-heading {
-  font-size: clamp(32px, 4vw, 48px);
+  font-size: clamp(28px, 4vw, 48px);
   font-weight: 700;
   letter-spacing: -0.03em;
   margin: 0 0 40px 0;
   color: #111;
+}
+
+/* Post Count Info */
+.post-count-info,
+.tag-description,
+.category-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* Archive/Tag Page Headers */
+.category-archive,
+.tag-page {
+  margin-bottom: 32px;
+}
+
+.tag-icon {
+  font-size: 0.9em;
+  margin-right: 8px;
 }
