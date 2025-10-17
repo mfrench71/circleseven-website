@@ -14,13 +14,15 @@ layout: default
     {% assign posts = site.tags[page.tag] | default: page.posts | sort: 'date' | reverse %}
     {% for post in posts %}
       <li class="post-item">
-        {% if post.image %}
         <div class="post-image">
           <a href="{{ post.url | relative_url }}">
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+            {% if post.image %}
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+            {% else %}
+              <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+            {% endif %}
           </a>
         </div>
-        {% endif %}
         <div class="post-content">
           <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
           <h2>
@@ -40,8 +42,4 @@ layout: default
       </li>
     {% endfor %}
   </ul>
-
-  <div class="all-tags-link">
-    <a href="{{ '/tags/' | relative_url }}">← View all tags</a>
-  </div>
 </div>

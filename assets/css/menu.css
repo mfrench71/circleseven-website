@@ -99,11 +99,10 @@ body {
    ============================================ */
 
 .mega-menu {
-  display: none;
   position: fixed;
   top: var(--header-height); /* Align with header bottom (after border) */
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-10px);
   min-width: 600px;
   max-width: 800px;
   background: white;
@@ -115,6 +114,10 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 15px 20px;
   z-index: 999; /* Just below header */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+  will-change: opacity, transform;
 }
 
 /* Comprehensive reset for all elements inside mega menu */
@@ -138,7 +141,10 @@ body {
 
 .nav-item.has-dropdown:hover .mega-menu,
 .nav-item.has-dropdown.active .mega-menu {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0s;
 }
 
 .mega-menu-content {

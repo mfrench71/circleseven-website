@@ -71,20 +71,18 @@
     dropdowns.forEach(function(dropdown) {
       let hoverTimeout;
 
-      // Mouse enter - show dropdown with slight delay
+      // Mouse enter - show dropdown immediately for better responsiveness
       dropdown.addEventListener('mouseenter', function() {
         clearTimeout(hoverTimeout);
-        hoverTimeout = setTimeout(function() {
-          dropdown.classList.add('active');
-        }, 100);
+        dropdown.classList.add('active');
       });
 
-      // Mouse leave - hide dropdown with delay
+      // Mouse leave - hide dropdown with short delay to prevent accidental closes
       dropdown.addEventListener('mouseleave', function() {
         clearTimeout(hoverTimeout);
         hoverTimeout = setTimeout(function() {
           dropdown.classList.remove('active');
-        }, 200);
+        }, 150);
       });
 
       // Click toggle for touch devices
