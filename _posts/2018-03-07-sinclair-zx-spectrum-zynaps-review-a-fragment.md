@@ -14,7 +14,7 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":128,"sizeSlug":"medium","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/zynaps_original.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/zynaps_original-300x285.jpg" alt="" class="wp-image-128" style="border-radius:6px"/></a><figcaption class="wp-element-caption">The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
+<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/zynaps_original.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/zynaps_original-300x285.jpg" alt="" class="wp-image-128" style="border-radius:6px"/></a><figcaption class="wp-element-caption">The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:heading -->
