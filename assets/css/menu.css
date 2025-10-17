@@ -31,9 +31,11 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 15px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Site Title */
@@ -53,6 +55,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-left: auto; /* Push to right on mobile */
 }
 
 .nav-list {
@@ -226,8 +229,9 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10px;
-  margin-left: 10px;
+  padding: 8px;
+  margin: 0;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .hamburger {
@@ -302,8 +306,10 @@ body {
   background: white;
   z-index: 2001;
   overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal scroll */
   transition: left 0.3s;
   box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+  box-sizing: border-box;
 }
 
 .mobile-drawer.active {
@@ -408,7 +414,10 @@ body {
   padding: 12px 20px 12px 40px;
   text-decoration: none;
   color: #111;
-  font-size: 15px;
+  font-size: 14px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .mobile-accordion-links a:active {
@@ -448,15 +457,30 @@ body {
 
 @media (max-width: 600px) {
   .site-header .wrapper {
-    padding: 12px 15px;
+    padding: 0 10px;
   }
 
   .site-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .mobile-drawer {
     width: 100%;
     max-width: none;
+  }
+
+  .mobile-accordion-links a {
+    font-size: 13px;
+    padding: 10px 15px 10px 30px;
+  }
+
+  .mobile-accordion-toggle {
+    font-size: 15px;
+    padding: 12px 15px;
+  }
+
+  .mobile-nav-link {
+    font-size: 15px;
+    padding: 12px 15px;
   }
 }
