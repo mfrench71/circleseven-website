@@ -15,7 +15,7 @@ permalink: /categories/
       {% assign posts_count = category[1] | size %}
       {% assign font_size = posts_count | times: 1.5 | plus: 13 %}
       {% if font_size > 24 %}{% assign font_size = 24 %}{% endif %}
-      <a href="#{{ category_name | slugify }}" class="category-tag" style="font-size: {{ font_size }}px;">
+      <a href="{{ site.baseurl }}/category/{{ category_name | slugify }}/" class="category-tag" style="font-size: {{ font_size }}px;">
         {{ category_name }} <span class="count">({{ posts_count }})</span>
       </a>
     {% endfor %}
@@ -28,7 +28,10 @@ permalink: /categories/
     {% assign posts = category[1] %}
 
     <div class="category-section" id="{{ category_name | slugify }}">
-      <h2>{{ category_name }} <span class="count">({{ posts | size }})</span></h2>
+      <h2>
+        <a href="{{ site.baseurl }}/category/{{ category_name | slugify }}/">{{ category_name }}</a>
+        <span class="count">({{ posts | size }})</span>
+      </h2>
 
       <ul class="post-list">
         {% for post in posts %}
@@ -77,6 +80,13 @@ permalink: /categories/
       border-bottom: 2px solid #e8e8e8;
       padding-bottom: 10px;
       margin-bottom: 20px;
+    }
+    .category-section h2 a {
+      color: #111;
+      text-decoration: none;
+    }
+    .category-section h2 a:hover {
+      color: #2a7ae2;
     }
     .category-section h2 .count {
       color: #666;
