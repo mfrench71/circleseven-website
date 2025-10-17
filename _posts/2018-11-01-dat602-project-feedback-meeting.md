@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "DAT602 - Project Feedback Meeting""
+title: "DAT602 - Project Feedback Meeting"
 date: 2018-11-01 07:57:28 +0000
 categories: DAT602 - Everyware Digital Art and Technology
 ---
