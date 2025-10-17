@@ -1,0 +1,25 @@
+<!-- Recent Posts Widget -->
+<div class="widget widget-recent-posts">
+  <h3 class="widget-title">Recent Posts</h3>
+  <ul class="recent-posts-list">
+    {% for post in site.posts limit:5 %}
+    <li class="recent-post-item">
+      {% if post.image %}
+      <div class="recent-post-thumbnail">
+        <a href="{{ post.url | relative_url }}">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+        </a>
+      </div>
+      {% endif %}
+      <div class="recent-post-content">
+        <h4 class="recent-post-title">
+          <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h4>
+        <time class="recent-post-date" datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%b %-d, %Y" }}
+        </time>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

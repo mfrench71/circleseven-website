@@ -1,0 +1,397 @@
+/* ============================================
+   LAYOUT SYSTEM - Two Column Grid
+   Responsive sidebar layout with widgets
+   ============================================ */
+
+/* Layout Grid */
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  align-items: start;
+}
+
+.main-content {
+  min-width: 0; /* Prevent grid blowout */
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 20px);
+  max-height: calc(100vh - var(--header-height) - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #e0e0e0 transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* Sidebar Widgets Container */
+.sidebar-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ============================================
+   WIDGET BASE STYLES
+   ============================================ */
+
+.widget {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  transition: box-shadow 0.2s ease;
+}
+
+.widget:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.widget-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============================================
+   SEARCH WIDGET
+   ============================================ */
+
+.widget-search-form {
+  margin: 0;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.search-input-wrapper input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.search-input-wrapper input:focus {
+  outline: none;
+  border-color: #2a7ae2;
+  box-shadow: 0 0 0 3px rgba(42, 122, 226, 0.1);
+}
+
+.search-input-wrapper button {
+  padding: 10px 16px;
+  background: #2a7ae2;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input-wrapper button:hover {
+  background: #1565c0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
+}
+
+.search-input-wrapper button:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   RECENT POSTS WIDGET
+   ============================================ */
+
+.recent-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recent-post-item {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.recent-post-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.recent-post-thumbnail {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.recent-post-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.recent-post-thumbnail:hover img {
+  transform: scale(1.1);
+}
+
+.recent-post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.recent-post-title {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.recent-post-title a {
+  color: #111;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.recent-post-title a:hover {
+  color: #2a7ae2;
+}
+
+.recent-post-date {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+/* ============================================
+   TAG CLOUD WIDGET
+   ============================================ */
+
+.tag-cloud-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  line-height: 1;
+}
+
+.tag-cloud-compact .tag-cloud-item {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #555;
+  font-size: 12px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tag-cloud-compact .tag-cloud-item:hover {
+  background: #2a7ae2;
+  color: white;
+  border-color: #2a7ae2;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(42, 122, 226, 0.3);
+}
+
+.tag-cloud-compact .tag-medium {
+  font-size: 13px;
+  padding: 7px 14px;
+}
+
+.tag-cloud-compact .tag-large {
+  font-size: 14px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+
+/* ============================================
+   CATEGORIES WIDGET
+   ============================================ */
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.category-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #111;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.category-item a:hover {
+  background: #f5f5f5;
+  color: #2a7ae2;
+  padding-left: 16px;
+}
+
+.category-name {
+  flex: 1;
+}
+
+.category-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 8px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.category-item a:hover .category-count {
+  background: #2a7ae2;
+  color: white;
+}
+
+/* ============================================
+   SOCIAL FOLLOW WIDGET
+   ============================================ */
+
+.social-links-compact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.social-links-compact li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #555;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.social-links-compact li a:hover {
+  background: #f5f5f5;
+  color: #2a7ae2;
+  transform: translateX(4px);
+}
+
+.social-links-compact svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.social-links-compact li a:hover svg {
+  transform: scale(1.1);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Tablet - Stack sidebar below content */
+@media (max-width: 900px) {
+  .layout-sidebar {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .sidebar-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Mobile - Full width widgets */
+@media (max-width: 600px) {
+  .layout-sidebar {
+    gap: 30px;
+  }
+
+  .sidebar-widgets {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .widget {
+    padding: 16px;
+  }
+
+  .widget-title {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .recent-post-thumbnail {
+    width: 50px;
+    height: 50px;
+  }
+
+  .recent-post-title {
+    font-size: 13px;
+  }
+}
