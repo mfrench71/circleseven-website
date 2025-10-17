@@ -228,21 +228,29 @@ body {
 
 .mobile-menu-toggle {
   display: none;
-  background: none;
-  border: none;
-  outline: none;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
   margin: 0;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.mobile-menu-toggle:focus {
-  outline: none;
-  border: none;
+.mobile-menu-toggle:focus,
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
 }
 
 .hamburger {
@@ -489,7 +497,8 @@ body {
 
 @media (max-width: 600px) {
   .site-header .wrapper {
-    padding: 0 12px;
+    padding: 8px 12px;
+    min-height: 64px;
   }
 
   .site-title {
