@@ -9,13 +9,17 @@ import re
 from pathlib import Path
 
 def fix_img_tags(content):
-    """Fix malformed img tags with space before /"""
-    # Pattern: alt="" / loading="lazy">
+    """Fix malformed img tags with / before attributes"""
+    # Pattern 1: alt=""/ loading="lazy"> (no space before /)
+    # Should be: alt="" loading="lazy">
+    content = re.sub(r'alt="([^"]*)"/\s+loading="lazy"', r'alt="\1" loading="lazy"', content)
+
+    # Pattern 2: alt="" / loading="lazy"> (space before /)
     # Should be: alt="" loading="lazy">
     content = re.sub(r'alt="([^"]*)" / loading="lazy"', r'alt="\1" loading="lazy"', content)
 
-    # Also fix any other attributes with this pattern
-    content = re.sub(r'" / ([a-z]+=)', r'" \1', content)
+    # Pattern 3: Any attribute followed by / and another attribute
+    content = re.sub(r'"\s*/\s+([a-z]+=)', r'" \1', content)
 
     return content
 

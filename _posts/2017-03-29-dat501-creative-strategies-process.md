@@ -35,13 +35,13 @@ The oblique strategies cards I picked were:
 
 Here is the completed work:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01img_2019_33567664512_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01img_2019_33567664512_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02img_2020_32881345184_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02img_2020_32881345184_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03img_2021_33339422920_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03img_2021_33339422920_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04img_2022_33567660912_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04img_2022_33567660912_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05img_2023_33339420170_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05img_2023_33339420170_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
 </figure>

@@ -11,16 +11,16 @@ Authors: Paul Dourish, Genevieve Bell Published: 15 May 2013
 
 This paper asserts that design-oriented thinking is a collective imagining influenced by both the prevalence of science fiction in the cultural backdrop of the ubiquitous computing research community, and by its inherent preoccupation with visions of near-future technology and alternative technology.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dourish-headshot.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dourish-headshot.jpg" alt=""/ loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dourish-headshot.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dourish-headshot.jpg" alt="" loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/genevieve-bell-760x1024.jpg" width="760" height="1024" alt=""/ loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/genevieve-bell-760x1024.jpg" width="760" height="1024" alt="" loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
 </figure>
 
 The authors cite the example of *Star Trek* directly influencing the research and engineering activities of NASA. Portable communicators, digital pads to replace paper and VR emerged in contemporary research into HCI and ubiquitous computing. Similarly, author and scientist, Arthur C Clarke's 'invention' of the communications satellite illustrates how science fiction not only anticipates but actively shapes technological advances through its effect on the collective imagination.
 
 Furthermore, science fiction is regarded as a context helpfully providing a familiar and recognisable backdrop against which we can understand technological advancements. For example, the Esper machine in Ridley Scott's *Bladerunner* film foreshadows image manipulation and search technology by several decades. However, frustration can arise when our new technology does not live up to the our expectations based upon the imaginings of science fiction writers, artists and filmmakers.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg" alt=""/ loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg" alt="" loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
 
 Science fiction uses "techniques of extrapolation and speculation ... in a narrative form, to construct near- future, far-future, or fantastic worlds in which science, technology, and society intersect" (Thacker, 2001).
 
@@ -35,9 +35,9 @@ The authors chose the following selection of broadcasts because of their interse
 
 **Star Trek (1966 - 1969)** The Enterprise crew's clamshell communicators could be said to have influenced recent mobile phone designs. Two other technologies mentioned (the phaser and matter transporter have, again, yet to have materialised).
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" width="738" height="1024" alt=""/ loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" width="738" height="1024" alt="" loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" width="628" height="1024" alt=""/ loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" width="628" height="1024" alt="" loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
 </figure>
 
 **Blake's 7 (1978 - 1981)** The show featured several very different computational devices: ZEN, ORAC, and SLAVE. They share an ability to receive and understand verbal commands and control complex machinery.

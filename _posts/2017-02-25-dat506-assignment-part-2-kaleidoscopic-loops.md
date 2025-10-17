@@ -7,7 +7,7 @@ categories: ["DAT506 - Emerging Technologies", "Digital Art and Technology"]
 
 Brief: Your task within your groups is to produce a creative and engaging visual experience set to music. Creating a series of short 3D full-dome Blender animation clips; the content will be made suitable for playback within the Immersive Vision Theatre and mixed and adapted live using Resolume VJ software.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt=""/ loading="lazy"></a><figcaption>Immersion Vision Theatre at Plymouth University</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt="" loading="lazy"></a><figcaption>Immersion Vision Theatre at Plymouth University</figcaption></figure>
 
 The piece of music that we chose was *Sandstorm* by Darude. The title of this piece allowed me to establish a loose theme for my Blender animation loops - particles.
 
