@@ -1,0 +1,223 @@
+/* ============================================
+   POST LAYOUT STYLES
+   Shared styles for post listings across site
+   ============================================ */
+
+/* Post List Container */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual Post Item */
+.post-item {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Post Featured Image */
+.post-image {
+  flex-shrink: 0;
+  width: 250px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.post-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Post Content Area */
+.post-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Post Metadata (date) */
+.post-meta {
+  font-size: 14px;
+  color: #828282;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Post Excerpt */
+.post-excerpt {
+  margin: 10px 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Post Categories/Tags */
+.post-categories {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  display: block;
+}
+
+.category {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 5px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.category:hover {
+  background: #2a7ae2;
+  color: white;
+}
+
+/* Post Breadcrumb (category hierarchy) */
+.post-breadcrumb {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Pagination Controls */
+.pagination {
+  margin: 30px 0;
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.pagination a,
+.pagination span {
+  padding: 8px 16px;
+  margin: 0 5px;
+  text-decoration: none;
+  color: #2a7ae2;
+}
+
+.pagination .disabled {
+  color: #828282;
+}
+
+.pagination .page-number {
+  font-weight: bold;
+  color: #111;
+}
+
+/* Pagination Page Numbers */
+.pagination-pages {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pagination-pages a,
+.pagination-pages span {
+  padding: 8px 12px;
+  margin: 0 2px;
+  text-decoration: none;
+  color: #2a7ae2;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.pagination-pages .current {
+  background: #2a7ae2;
+  color: white;
+  border-color: #2a7ae2;
+}
+
+/* Compact Post Item (for categories page) */
+.post-item-compact {
+  margin-bottom: 15px;
+  padding: 10px 0;
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.post-image-small {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.post-image-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-title-link {
+  color: #111;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.post-title-link:hover {
+  color: #2a7ae2;
+}
+
+.post-link {
+  color: #111;
+  text-decoration: none;
+}
+
+.post-link:hover {
+  color: #2a7ae2;
+}
+
+/* View All Link */
+.view-all-link {
+  padding: 10px 0;
+  font-weight: 500;
+}
+
+.view-all-link a {
+  color: #2a7ae2;
+  text-decoration: none;
+}
+
+/* Post Count Badge */
+.post-count {
+  color: #666; /* Darkened from #999 for WCAG AA contrast */
+  font-size: 14px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .post-item {
+    flex-direction: column;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 200px;
+  }
+}
