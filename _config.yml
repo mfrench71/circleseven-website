@@ -9,7 +9,7 @@ email: info@circleseven.co.uk
 # Build settings
 markdown: kramdown
 theme: minima
-permalink: /:year/:month/:day/:title/
+permalink: /:title/
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
