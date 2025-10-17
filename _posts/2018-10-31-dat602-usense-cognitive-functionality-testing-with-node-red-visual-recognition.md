@@ -6,7 +6,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->
-<p>In my <a href="https://www.circleseven.co.uk/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's&nbsp; sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
+<p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's&nbsp; sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -22,7 +22,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":979,"sizeSlug":"full","linkDestination":"custom"} -->
-<figure class="wp-block-image size-full"><img src="https://res.cloudinary.com/circleseven/image/upload/visual_recognition_flow-e1540983848824.png" alt="" class="wp-image-979"/></figure>
+<figure class="wp-block-image size-full"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" class="wp-image-979"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:list {"ordered":true} -->
@@ -61,21 +61,21 @@ categories: DAT602 - Everyware Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":983,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/male_photo-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/male_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-983"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-983"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":982,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/male_result-e1540983795734.png"><img src="https://res.cloudinary.com/circleseven/image/upload/male_result-e1540983795734.png" alt="" class="wp-image-982"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" class="wp-image-982"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":986,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/female_photo-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/female_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-986"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-986"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":985,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/female_result-e1540983699762.png"><img src="https://res.cloudinary.com/circleseven/image/upload/female_result-e1540983699762.png" alt="" class="wp-image-985"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" class="wp-image-985"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 

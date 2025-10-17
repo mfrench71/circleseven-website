@@ -120,7 +120,7 @@ categories: DAT506 - Emerging Technologies Digital Art and Technology
 <!-- /wp:list -->
 
 <!-- wp:image {"id":860,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/cycling-jacket.png"><img src="https://res.cloudinary.com/circleseven/image/upload/cycling-jacket-1024x789.png" alt="" class="wp-image-860"/></a><figcaption class="wp-element-caption">LED layout variations</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycling-jacket-1024x789.png" alt="" class="wp-image-860"/></a><figcaption class="wp-element-caption">LED layout variations</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -144,7 +144,7 @@ https://www.youtube.com/watch?v=Q2jtvg6xZWQ&amp;t=2s
 <!-- /wp:embed -->
 
 <!-- wp:image {"id":861,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/cycle-jacket_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/cycle-jacket_bb-1024x782.png" alt="" class="wp-image-861"/></a><figcaption class="wp-element-caption">Cycling jacket Fritzing diagram</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycle-jacket_bb-1024x782.png" alt="" class="wp-image-861"/></a><figcaption class="wp-element-caption">Cycling jacket Fritzing diagram</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -156,7 +156,7 @@ https://www.youtube.com/watch?v=Q2jtvg6xZWQ&amp;t=2s
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":862,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/flora_logo-e1488013904135.png"><img src="https://res.cloudinary.com/circleseven/image/upload/flora_logo-e1488013904135.png" alt="" class="wp-image-862"/></a><figcaption class="wp-element-caption">Adafruit Flora microcontroller</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/flora_logo-e1488013904135.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/flora_logo-e1488013904135.png" alt="" class="wp-image-862"/></a><figcaption class="wp-element-caption">Adafruit Flora microcontroller</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:list -->
@@ -210,7 +210,7 @@ https://www.youtube.com/watch?v=A_Eyra53fWE
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":863,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_1936-copy-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_1936-copy-scaled-1-1024x768.jpg" alt="" class="wp-image-863"/></a><figcaption class="wp-element-caption">Prototype Bicycle Speed Meter</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1-1024x768.jpg" alt="" class="wp-image-863"/></a><figcaption class="wp-element-caption">Prototype Bicycle Speed Meter</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:list -->
@@ -242,7 +242,7 @@ https://www.youtube.com/watch?v=OXasguabfYE
 <!-- /wp:embed -->
 
 <!-- wp:image {"id":864,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/speed-meter_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/speed-meter_bb-925x1024.png" alt="" class="wp-image-864"/></a><figcaption class="wp-element-caption">Speed Meter Fritzing Diagram</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speed-meter_bb-925x1024.png" alt="" class="wp-image-864"/></a><figcaption class="wp-element-caption">Speed Meter Fritzing Diagram</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -250,7 +250,7 @@ https://www.youtube.com/watch?v=OXasguabfYE
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":865,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/gps-shield.png"><img src="https://res.cloudinary.com/circleseven/image/upload/gps-shield.png" alt="" class="wp-image-865"/></a><figcaption class="wp-element-caption">Adafruit GPS Shield</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/gps-shield.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/gps-shield.png" alt="" class="wp-image-865"/></a><figcaption class="wp-element-caption">Adafruit GPS Shield</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:list -->

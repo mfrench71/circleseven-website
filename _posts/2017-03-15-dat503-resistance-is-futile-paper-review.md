@@ -19,11 +19,11 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":827,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/dourish-headshot.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dourish-headshot.jpg" alt="" class="wp-image-827"/></a><figcaption class="wp-element-caption">Paul Dourish</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dourish-headshot.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dourish-headshot.jpg" alt="" class="wp-image-827"/></a><figcaption class="wp-element-caption">Paul Dourish</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":828,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/genevieve-bell.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/genevieve-bell-760x1024.jpg" alt="" class="wp-image-828"/></a><figcaption class="wp-element-caption">Genevieve Bell</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/genevieve-bell-760x1024.jpg" alt="" class="wp-image-828"/></a><figcaption class="wp-element-caption">Genevieve Bell</figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -36,7 +36,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":829,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/5624b2201761298dfb59719b5525ebf1-1.jpg" alt="" class="wp-image-829"/></a><figcaption class="wp-element-caption">The Esper machine, from Bladerunner</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg" alt="" class="wp-image-829"/></a><figcaption class="wp-element-caption">The Esper machine, from Bladerunner</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -67,11 +67,11 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":831,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" alt="" class="wp-image-831"/></a><figcaption class="wp-element-caption">Star Trek Communicator</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" alt="" class="wp-image-831"/></a><figcaption class="wp-element-caption">Star Trek Communicator</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":830,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" alt="" class="wp-image-830"/></a><figcaption class="wp-element-caption">Clamshell mobile phone</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" alt="" class="wp-image-830"/></a><figcaption class="wp-element-caption">Clamshell mobile phone</figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 

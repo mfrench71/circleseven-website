@@ -32,11 +32,11 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Following on from my <a href="http://www.circleseven.co.uk/2016/03/29/dat-404-web-technologies-assignment-preparation/">investigation </a><a href="https://www.circleseven.co.uk/dat-404-web-technologies-assignment-preparation/">into visual effects provider web sites</a>&nbsp;and the creation of three alternative web designs based on these web sites, I decided to turn the following Photoshop mockup into a completed smash page web design for my chosen professional practice of broadcast visual effects:</p>
+<p>Following on from my <a href="http://www.circleseven.co.uk/2016/03/29/dat-404-web-technologies-assignment-preparation/">investigation </a><a href="{{ site.baseurl }}/dat-404-web-technologies-assignment-preparation/">into visual effects provider web sites</a>&nbsp;and the creation of three alternative web designs based on these web sites, I decided to turn the following Photoshop mockup into a completed smash page web design for my chosen professional practice of broadcast visual effects:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":599,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/website_mockup.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/website_mockup-755x1024.jpg" alt="" class="wp-image-599"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/website_mockup.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/website_mockup-755x1024.jpg" alt="" class="wp-image-599"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

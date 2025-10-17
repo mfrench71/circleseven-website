@@ -6,7 +6,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 ---
 
 <!-- wp:image {"id":779,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/5116459810_523ce620e5_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/5116459810_523ce620e5_o-1022x1024.jpg" alt="" class="wp-image-779"/></a><figcaption class="wp-element-caption">Lev Manovich</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5116459810_523ce620e5_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5116459810_523ce620e5_o-1022x1024.jpg" alt="" class="wp-image-779"/></a><figcaption class="wp-element-caption">Lev Manovich</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -47,15 +47,15 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":782,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677.jpg" alt="" class="wp-image-782"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677.jpg" alt="" class="wp-image-782"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":783,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/6334570705_fc324fa6ee_b_33199821131_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/6334570705_fc324fa6ee_b_33199821131_o.jpg" alt="" class="wp-image-783"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg" alt="" class="wp-image-783"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":781,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/0716201517000002_32513294473_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/0716201517000002_32513294473_o-1024x645.jpg" alt="" class="wp-image-781"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/0716201517000002_32513294473_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/0716201517000002_32513294473_o-1024x645.jpg" alt="" class="wp-image-781"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -110,7 +110,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":780,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/manovich_on_broadway_zoomed_out.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/manovich_on_broadway_zoomed_out-1024x576.jpg" alt="" class="wp-image-780"/></a><figcaption class="wp-element-caption">Screenshot from On Broadway application, showing full zoomed-out view – all 13 miles of Broadway in Manhattan</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/manovich_on_broadway_zoomed_out.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/manovich_on_broadway_zoomed_out-1024x576.jpg" alt="" class="wp-image-780"/></a><figcaption class="wp-element-caption">Screenshot from On Broadway application, showing full zoomed-out view – all 13 miles of Broadway in Manhattan</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

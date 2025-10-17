@@ -18,7 +18,7 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>For some further context for this article, please see <a href="https://www.circleseven.co.uk/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+<p>For some further context for this article, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -87,10 +87,10 @@ categories: Projects Retro Computing
 
 <!-- wp:gallery {"imageCrop":false,"linkTo":"media","sizeSlug":"medium","align":"left"} -->
 <figure class="wp-block-gallery alignleft has-nested-images columns-default"><!-- wp:image {"id":88,"sizeSlug":"medium","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_2230-e1520611800537-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2230-e1520611800537-225x300.jpg" alt="" class="wp-image-88" style="border-radius:6px"/></a></figure>
+<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2230-e1520611800537-225x300.jpg" alt="" class="wp-image-88" style="border-radius:6px"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":91,"sizeSlug":"medium","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_2231-e1520611813740-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2231-e1520611813740-225x300.jpg" alt="" class="wp-image-91" style="border-radius:6px"/></a></figure>
+<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2231-e1520611813740-225x300.jpg" alt="" class="wp-image-91" style="border-radius:6px"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->

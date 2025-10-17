@@ -28,7 +28,7 @@ categories: DAT403 - Digital Media Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":678,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/mac-os-widget.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/mac-os-widget.jpg" alt="" class="wp-image-678"/></a><figcaption class="wp-element-caption">Mac OS X widget</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mac-os-widget.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mac-os-widget.jpg" alt="" class="wp-image-678"/></a><figcaption class="wp-element-caption">Mac OS X widget</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -41,31 +41,31 @@ categories: DAT403 - Digital Media Design
 
 <!-- wp:gallery {"imageCrop":false,"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default"><!-- wp:image {"id":679,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22300011803_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22300011803_o.jpg" alt="" class="wp-image-679"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22300011803_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22300011803_o.jpg" alt="" class="wp-image-679"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":683,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22502808187_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22502808187_o.jpg" alt="" class="wp-image-683"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22502808187_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22502808187_o.jpg" alt="" class="wp-image-683"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":680,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22502860588_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22502860588_o.jpg" alt="" class="wp-image-680"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22502860588_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22502860588_o.jpg" alt="" class="wp-image-680"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":685,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22528854159_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22528854159_o.jpg" alt="" class="wp-image-685"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22528854159_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22528854159_o.jpg" alt="" class="wp-image-685"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":684,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22529006679_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22529006679_o.jpg" alt="" class="wp-image-684"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22529006679_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22529006679_o.jpg" alt="" class="wp-image-684"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":681,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22529006719_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22529006719_o.jpg" alt="" class="wp-image-681"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22529006719_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22529006719_o.jpg" alt="" class="wp-image-681"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":682,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/print_22733165570_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/print_22733165570_o.jpg" alt="" class="wp-image-682"/></a></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22733165570_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22733165570_o.jpg" alt="" class="wp-image-682"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -82,7 +82,7 @@ categories: DAT403 - Digital Media Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":686,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/illustrator_artboard_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/illustrator_artboard_palette-225x300.jpg" alt="" class="wp-image-686"/></a><figcaption class="wp-element-caption">Illustrator art board palette</figcaption></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_artboard_palette.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/illustrator_artboard_palette-225x300.jpg" alt="" class="wp-image-686"/></a><figcaption class="wp-element-caption">Illustrator art board palette</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -94,7 +94,7 @@ categories: DAT403 - Digital Media Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":687,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/illustrator_layers_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/illustrator_layers_palette-229x300.jpg" alt="" class="wp-image-687"/></a><figcaption class="wp-element-caption">Illustrator layers palette</figcaption></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_layers_palette.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/illustrator_layers_palette-229x300.jpg" alt="" class="wp-image-687"/></a><figcaption class="wp-element-caption">Illustrator layers palette</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -118,7 +118,7 @@ categories: DAT403 - Digital Media Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":689,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design-1.jpg" alt="" class="wp-image-689"/></a><figcaption class="wp-element-caption">Final rendered image</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design-1.jpg" alt="" class="wp-image-689"/></a><figcaption class="wp-element-caption">Final rendered image</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -127,34 +127,34 @@ categories: DAT403 - Digital Media Design
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":691,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/business-cards_22520824487_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/business-cards_22520824487_o-300x188.jpg" alt="" class="wp-image-691"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/business-cards_22520824487_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/business-cards_22520824487_o-300x188.jpg" alt="" class="wp-image-691"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":694,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22318031703_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22318031703_o-300x195.jpg" alt="" class="wp-image-694"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o-300x195.jpg" alt="" class="wp-image-694"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":692,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22520876288_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22520876288_o-300x197.jpg" alt="" class="wp-image-692"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o-300x197.jpg" alt="" class="wp-image-692"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":693,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22520914968_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22520914968_o-300x188.jpg" alt="" class="wp-image-693"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o-300x188.jpg" alt="" class="wp-image-693"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":697,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22913182696_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22913182696_o-214x300.jpg" alt="" class="wp-image-697"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-214x300.jpg" alt="" class="wp-image-697"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":696,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22939166355_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/corporate-identity-design_22939166355_o-213x300.jpg" alt="" class="wp-image-696"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-213x300.jpg" alt="" class="wp-image-696"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":690,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/letterhead-finished_22925789972_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/letterhead-finished_22925789972_o-300x188.jpg" alt="" class="wp-image-690"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/letterhead-finished_22925789972_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/letterhead-finished_22925789972_o-300x188.jpg" alt="" class="wp-image-690"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":695,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/magazine-article_22939188495_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/magazine-article_22939188495_o-300x188.jpg" alt="" class="wp-image-695"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/magazine-article_22939188495_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/magazine-article_22939188495_o-300x188.jpg" alt="" class="wp-image-695"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->

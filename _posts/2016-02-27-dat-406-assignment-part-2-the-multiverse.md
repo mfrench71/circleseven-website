@@ -28,7 +28,7 @@ categories: DAT406 - Digital Making Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":637,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/ivtt-1024x820-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/ivtt-1024x820-1.jpg" alt="" class="wp-image-637"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1.jpg" alt="" class="wp-image-637"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -53,31 +53,31 @@ categories: DAT406 - Digital Making Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":639,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/01-blender-landscape-mesh_24666379814_o-300x234.jpg" alt="" class="wp-image-639"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o-300x234.jpg" alt="" class="wp-image-639"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":643,"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"><img src="https://res.cloudinary.com/circleseven/image/upload/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" alt="" class="wp-image-643"/></figure>
+<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" alt="" class="wp-image-643"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":640,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/03-blender-isolated-mesh_24670232283_o-300x224.jpg" alt="" class="wp-image-640"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o-300x224.jpg" alt="" class="wp-image-640"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":644,"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"><img src="https://res.cloudinary.com/circleseven/image/upload/04-blender-duplicated-verts_25001404810_o-284x300.jpg" alt="" class="wp-image-644"/></figure>
+<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg" alt="" class="wp-image-644"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":638,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/05-blender-modelled-cube_25178751652_o-300x218.jpg" alt="" class="wp-image-638"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o-300x218.jpg" alt="" class="wp-image-638"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":642,"sizeSlug":"medium","linkDestination":"none"} -->
-<figure class="wp-block-image size-medium"><img src="https://res.cloudinary.com/circleseven/image/upload/06-blender-landscape-solid_25203901931_o-300x203.jpg" alt="" class="wp-image-642"/></figure>
+<figure class="wp-block-image size-medium"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg" alt="" class="wp-image-642"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":641,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/07-blender-node-editor_25001400960_o-300x172.jpg" alt="" class="wp-image-641"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-300x172.jpg" alt="" class="wp-image-641"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 

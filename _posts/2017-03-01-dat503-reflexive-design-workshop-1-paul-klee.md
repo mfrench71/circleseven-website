@@ -24,7 +24,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:heading -->
 
 <!-- wp:image {"id":797,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_1952-e1488307592696-225x300-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_1952-e1488307592696-225x300-1.jpg" alt="" class="wp-image-797"/></a><figcaption class="wp-element-caption">Invisible Cities, Italo Calvino</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg" alt="" class="wp-image-797"/></a><figcaption class="wp-element-caption">Invisible Cities, Italo Calvino</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:list -->
@@ -71,15 +71,15 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":798,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1949_33170301305_o-768x1024.jpg" alt="" class="wp-image-798"/></figure>
+<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" alt="" class="wp-image-798"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":799,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1950_32787849760_o-1024x768.jpg" alt="" class="wp-image-799"/></figure>
+<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" alt="" class="wp-image-799"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":800,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1951_33170300335_o-1024x768.jpg" alt="" class="wp-image-800"/></figure>
+<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" alt="" class="wp-image-800"/></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 

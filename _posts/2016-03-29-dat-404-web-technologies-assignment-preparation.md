@@ -22,7 +22,7 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":610,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/ilm.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/ilm-300x212.jpg" alt="" class="wp-image-610"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ilm.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ilm-300x212.jpg" alt="" class="wp-image-610"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -30,7 +30,7 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":611,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/dneg.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dneg-300x204.jpg" alt="" class="wp-image-611"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dneg.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dneg-300x204.jpg" alt="" class="wp-image-611"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -38,7 +38,7 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":612,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/weta.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/weta-300x277.jpg" alt="" class="wp-image-612"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/weta.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/weta-300x277.jpg" alt="" class="wp-image-612"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -46,7 +46,7 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":613,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/framestore.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/framestore-300x275.jpg" alt="" class="wp-image-613"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/framestore.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/framestore-300x275.jpg" alt="" class="wp-image-613"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -67,14 +67,14 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":609,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/mockup_01_25508271853_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/mockup_01_25508271853_o-221x300.jpg" alt="" class="wp-image-609"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_01_25508271853_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_01_25508271853_o-221x300.jpg" alt="" class="wp-image-609"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":608,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/mockup_02_26044527901_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/mockup_02_26044527901_o-221x300.jpg" alt="" class="wp-image-608"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_02_26044527901_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_02_26044527901_o-221x300.jpg" alt="" class="wp-image-608"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":607,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/mockup_03_26085912016_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/mockup_03_26085912016_o-221x300.jpg" alt="" class="wp-image-607"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_03_26085912016_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_03_26085912016_o-221x300.jpg" alt="" class="wp-image-607"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->

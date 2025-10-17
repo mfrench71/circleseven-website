@@ -34,7 +34,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":966,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/speech_to_text_node.png"><img src="https://res.cloudinary.com/circleseven/image/upload/speech_to_text_node.png" alt="" class="wp-image-966"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speech_to_text_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speech_to_text_node.png" alt="" class="wp-image-966"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -46,7 +46,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":967,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.42.45.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.42.45.png" alt="" class="wp-image-967"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.42.45.png" alt="" class="wp-image-967"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -54,7 +54,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":968,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.43.14.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.43.14.png" alt="" class="wp-image-968"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.43.14.png" alt="" class="wp-image-968"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -62,7 +62,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":969,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.44.13.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-27-at-12.44.13.png" alt="" class="wp-image-969"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png" alt="" class="wp-image-969"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -74,7 +74,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":970,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/edit_twitter_input_node.png"><img src="https://res.cloudinary.com/circleseven/image/upload/edit_twitter_input_node.png" alt="" class="wp-image-970"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/edit_twitter_input_node.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/edit_twitter_input_node.png" alt="" class="wp-image-970"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -82,7 +82,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":971,"sizeSlug":"full","linkDestination":"custom"} -->
-<figure class="wp-block-image size-full"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-13.19.54.png" alt="" class="wp-image-971"/></figure>
+<figure class="wp-block-image size-full"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.19.54.png" alt="" class="wp-image-971"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -94,7 +94,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":972,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.44.41.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.44.41.png" alt="" class="wp-image-972"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.44.41.png" alt="" class="wp-image-972"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -106,7 +106,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":973,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.46.14.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.46.14.png" alt="" class="wp-image-973"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.46.14.png" alt="" class="wp-image-973"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -122,7 +122,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":974,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-13.20.15.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-13.20.15.png" alt="" class="wp-image-974"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-13.20.15.png" alt="" class="wp-image-974"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -134,7 +134,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":975,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.09.36.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.09.36.png" alt="" class="wp-image-975"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.09.36.png" alt="" class="wp-image-975"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -142,7 +142,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":976,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.10.02.png"><img src="https://res.cloudinary.com/circleseven/image/upload/Screenshot-2018-10-26-at-15.10.02.png" alt="" class="wp-image-976"/></a></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-26-at-15.10.02.png" alt="" class="wp-image-976"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

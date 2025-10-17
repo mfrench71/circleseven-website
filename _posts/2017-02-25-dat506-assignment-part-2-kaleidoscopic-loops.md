@@ -10,7 +10,7 @@ categories: DAT506 - Emerging Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":855,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/ivtt-1024x820-1-300x240-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/ivtt-1024x820-1-300x240-1.jpg" alt="" class="wp-image-855"/></a><figcaption class="wp-element-caption">Immersion Vision Theatre at Plymouth University</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt="" class="wp-image-855"/></a><figcaption class="wp-element-caption">Immersion Vision Theatre at Plymouth University</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

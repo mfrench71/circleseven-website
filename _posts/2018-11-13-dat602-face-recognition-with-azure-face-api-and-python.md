@@ -84,7 +84,7 @@ recogn()</pre>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":942,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/face_detect-e1541676689943.png"><img src="https://res.cloudinary.com/circleseven/image/upload/face_detect-e1541676689943-1024x723.png" alt="" class="wp-image-942"/></a><figcaption class="wp-element-caption">Face detection result</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" alt="" class="wp-image-942"/></a><figcaption class="wp-element-caption">Face detection result</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -131,7 +131,7 @@ conn.close()</pre>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":945,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/faces_photos-e1541679916440.png"><img src="https://res.cloudinary.com/circleseven/image/upload/faces_photos-e1541679916440.png" alt="" class="wp-image-945"/></a><figcaption class="wp-element-caption">Directory of faces</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/faces_photos-e1541679916440.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/faces_photos-e1541679916440.png" alt="" class="wp-image-945"/></a><figcaption class="wp-element-caption">Directory of faces</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

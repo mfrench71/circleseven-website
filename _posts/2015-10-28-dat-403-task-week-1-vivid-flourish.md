@@ -11,10 +11,10 @@ categories: DAT403 - Digital Media Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":721,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/Vivid-Effects-cutout.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/Vivid-Effects-cutout-200x300.jpg" alt="" class="wp-image-721"/></a><figcaption class="wp-element-caption">Vivid Effects' original image</figcaption></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects-cutout.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-cutout-200x300.jpg" alt="" class="wp-image-721"/></a><figcaption class="wp-element-caption">Vivid Effects' original image</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":722,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/Vivid-Effects.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/Vivid-Effects-200x300.jpg" alt="" class="wp-image-722"/></a><figcaption class="wp-element-caption">'Vivid Effects' finished image</figcaption></figure>
+<figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-200x300.jpg" alt="" class="wp-image-722"/></a><figcaption class="wp-element-caption">'Vivid Effects' finished image</figcaption></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->

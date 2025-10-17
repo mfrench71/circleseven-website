@@ -18,11 +18,11 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Read <a href="https://www.circleseven.co.uk/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a>.</p>
+<p>Read <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>For some further context for these articles, please see <a href="https://www.circleseven.co.uk/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+<p>For some further context for these articles, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -119,10 +119,10 @@ categories: Projects Retro Computing
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium","align":"left"} -->
 <figure class="wp-block-gallery alignleft has-nested-images columns-default is-cropped"><!-- wp:image {"id":59,"sizeSlug":"full","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->
-<figure class="wp-block-image size-full has-custom-border"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_2232-e1520612840652-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/></a></figure>
+<figure class="wp-block-image size-full has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2232-e1520612840652-scaled.jpg" alt="" class="wp-image-59" style="border-radius:6px"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":60,"sizeSlug":"medium","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->
-<figure class="wp-block-image size-medium has-custom-border"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_2233-e1520612866457-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/></a></figure>
+<figure class="wp-block-image size-medium has-custom-border"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2233-e1520612866457-225x300.jpg" alt="" class="wp-image-60" style="border-radius:6px"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
