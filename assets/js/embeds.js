@@ -81,9 +81,8 @@
       // Create unique map ID
       const mapId = 'leaflet-map-' + index;
       mapDiv.id = mapId;
-      mapDiv.classList.add('leaflet-container');
 
-      // Initialize map
+      // Initialize map (Leaflet will add 'leaflet-container' class automatically)
       setTimeout(function() {
         initializeLeafletMap(mapId, lat, lng, zoom);
       }, 100);
