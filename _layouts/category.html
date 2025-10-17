@@ -9,24 +9,10 @@ layout: default
     <p class="category-description">{{ page.description }}</p>
   {% endif %}
 
-  {% assign posts_per_page = 10 %}
-  {% assign total_posts = site.categories[page.category] | size %}
-  {% assign page_param = page.url | split: '/page/' | last | times: 1 %}
-  {% if page_param == 0 %}
-    {% assign current_page = 1 %}
-  {% else %}
-    {% assign current_page = page_param %}
-  {% endif %}
-  {% assign total_pages = total_posts | divided_by: posts_per_page | plus: 1 %}
-  {% if total_posts modulo posts_per_page == 0 and total_posts > 0 %}
-    {% assign total_pages = total_pages | minus: 1 %}
-  {% endif %}
-  {% assign offset = current_page | minus: 1 | times: posts_per_page %}
-
-  <p class="post-count">{{ total_posts }} posts in this category</p>
+  <p class="post-count">{{ site.categories[page.category] | size }} posts in this category</p>
 
   <ul class="post-list">
-    {% for post in site.categories[page.category] limit: posts_per_page offset: offset %}
+    {% for post in site.categories[page.category] %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <h2>
@@ -45,46 +31,6 @@ layout: default
       </li>
     {% endfor %}
   </ul>
-
-  <!-- Pagination -->
-  {% if total_pages > 1 %}
-  <div class="pagination">
-    {% assign category_slug = page.category | slugify %}
-    {% assign prev_page = current_page | minus: 1 %}
-    {% assign next_page = current_page | plus: 1 %}
-
-    {% if current_page > 1 %}
-      {% if prev_page == 1 %}
-        <a href="{{ site.baseurl }}/category/{{ category_slug }}/" class="previous">← Previous</a>
-      {% else %}
-        <a href="{{ site.baseurl }}/category/{{ category_slug }}/page/{{ prev_page }}/" class="previous">← Previous</a>
-      {% endif %}
-    {% else %}
-      <span class="previous disabled">← Previous</span>
-    {% endif %}
-
-    <span class="page-number">Page {{ current_page }} of {{ total_pages }}</span>
-
-    {% if current_page < total_pages %}
-      <a href="{{ site.baseurl }}/category/{{ category_slug }}/page/{{ next_page }}/" class="next">Next →</a>
-    {% else %}
-      <span class="next disabled">Next →</span>
-    {% endif %}
-  </div>
-
-  <!-- Page numbers -->
-  <div class="pagination-pages">
-    {% for page_num in (1..total_pages) %}
-      {% if page_num == current_page %}
-        <span class="current">{{ page_num }}</span>
-      {% elsif page_num == 1 %}
-        <a href="{{ site.baseurl }}/category/{{ category_slug }}/">{{ page_num }}</a>
-      {% else %}
-        <a href="{{ site.baseurl }}/category/{{ category_slug }}/page/{{ page_num }}/">{{ page_num }}</a>
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% endif %}
 
   <p><a href="{{ site.baseurl }}/categories/">← Back to all categories</a></p>
 </div>
@@ -121,43 +67,5 @@ layout: default
     color: #999;
     margin-top: 5px;
     font-style: italic;
-  }
-  .pagination {
-    margin: 30px 0;
-    text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid #e8e8e8;
-    border-bottom: 1px solid #e8e8e8;
-  }
-  .pagination a, .pagination span {
-    padding: 8px 16px;
-    margin: 0 5px;
-    text-decoration: none;
-    color: #2a7ae2;
-  }
-  .pagination .disabled {
-    color: #828282;
-  }
-  .pagination .page-number {
-    font-weight: bold;
-    color: #111;
-  }
-  .pagination-pages {
-    text-align: center;
-    margin: 20px 0;
-  }
-  .pagination-pages a, .pagination-pages span {
-    padding: 8px 12px;
-    margin: 0 2px;
-    text-decoration: none;
-    color: #2a7ae2;
-    border: 1px solid #e8e8e8;
-    border-radius: 3px;
-    display: inline-block;
-  }
-  .pagination-pages .current {
-    background: #2a7ae2;
-    color: white;
-    border-color: #2a7ae2;
   }
 </style>
