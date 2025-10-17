@@ -41,6 +41,12 @@ exclude:
   - DNS_SETUP_GUIDE.md
   - MIGRATION_GUIDE.md
 
+# Header pages (navigation)
+header_pages:
+  - categories.md
+  - search.md
+  - about.md
+
 # Defaults
 defaults:
   - scope:
