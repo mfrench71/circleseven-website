@@ -18,7 +18,7 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>For some further context for this article, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+<p>For some further context for this article, please see <a href="https://www.circleseven.co.uk/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

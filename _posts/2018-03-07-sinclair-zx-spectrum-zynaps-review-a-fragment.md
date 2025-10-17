@@ -10,7 +10,7 @@ categories: Projects Retro Computing
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121">'Arcade'</a>. The text below is a far as we got ...</p>
+<p>As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, <a href="https://www.circleseven.co.uk/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121">'Arcade'</a>. The text below is a far as we got ...</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":128,"sizeSlug":"medium","linkDestination":"media","style":{"border":{"radius":"6px"}}} -->

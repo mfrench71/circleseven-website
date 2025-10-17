@@ -14,7 +14,7 @@ categories: DAT403 - Digital Media Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>I wanted to combine my fondness for the unspoilt English countryside with my love of Shane Meadows' <em>This Is England</em> film and TV series. I spent some time looking at images of movie posters to <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">identify their common elements</a> and for inspiration.</p>
+<p>I wanted to combine my fondness for the unspoilt English countryside with my love of Shane Meadows' <em>This Is England</em> film and TV series. I spent some time looking at images of movie posters to <a href="https://www.circleseven.co.uk/dat-403-movie-poster-tropes-what-are-they/">identify their common elements</a> and for inspiration.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -32,7 +32,7 @@ categories: DAT403 - Digital Media Design Digital Art and Technology
 <!-- /wp:gallery -->
 
 <!-- wp:paragraph -->
-<p>The main elements of the concept poster were to include images of past and present presidents of the Campaign to Protect Rural England (Andrew Motion, Bill Bryson and David Dimbleby). These would be combined with images of rural England, <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">movie poster tropes</a>: credits, star reviews and main 'cast member' names.</p>
+<p>The main elements of the concept poster were to include images of past and present presidents of the Campaign to Protect Rural England (Andrew Motion, Bill Bryson and David Dimbleby). These would be combined with images of rural England, <a href="https://www.circleseven.co.uk/dat-403-movie-poster-tropes-what-are-they/">movie poster tropes</a>: credits, star reviews and main 'cast member' names.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

@@ -68,7 +68,7 @@ categories: DAT612 - Final Year Project Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Having carried out some research on the various photogrammetry software packages available and the recommended shooting techniques and workflow, I decided to use RealityCapture. This seemed to combine speed of processing with an intuitive workflow. Below is a link to the, admittedly somewhat rough, result of my <a href="{{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test1/">first proper test</a>, carried out in my back garden.</p>
+<p>Having carried out some research on the various photogrammetry software packages available and the recommended shooting techniques and workflow, I decided to use RealityCapture. This seemed to combine speed of processing with an intuitive workflow. Below is a link to the, admittedly somewhat rough, result of my <a href="https://www.circleseven.co.uk/dat612-photogrammetry-with-realitycapture-test1/">first proper test</a>, carried out in my back garden.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -84,7 +84,7 @@ categories: DAT612 - Final Year Project Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>My <a href="{{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test2-the-armoury/">second test</a> was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne’s Quay, Radford Lake. While the circumstances of the photo shoot were not ideal (a blue-sky day with strong, low sunlight caused shadowing on the outside of the structure), I was satisfied with the result which can be seen at the link below.</p>
+<p>My <a href="https://www.circleseven.co.uk/dat612-photogrammetry-with-realitycapture-test2-the-armoury/">second test</a> was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne’s Quay, Radford Lake. While the circumstances of the photo shoot were not ideal (a blue-sky day with strong, low sunlight caused shadowing on the outside of the structure), I was satisfied with the result which can be seen at the link below.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

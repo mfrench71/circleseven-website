@@ -6,7 +6,7 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 ---
 
 <!-- wp:paragraph -->
-<p>Following on from the <a href="{{ site.baseurl }}/dat-401-assignment-week-4-remixes-mashups-and-the-readymade/">previous post</a>, I spent some time mashing up some clips from my favourite movie, <em>Blade Runner</em>, with the audio from the latest <em>match.com</em> television advert.</p>
+<p>Following on from the <a href="https://www.circleseven.co.uk/dat-401-assignment-week-4-remixes-mashups-and-the-readymade/">previous post</a>, I spent some time mashing up some clips from my favourite movie, <em>Blade Runner</em>, with the audio from the latest <em>match.com</em> television advert.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

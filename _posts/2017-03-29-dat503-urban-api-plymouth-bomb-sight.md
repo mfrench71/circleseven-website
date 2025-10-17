@@ -82,7 +82,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>I had in mind the <a href="{{ site.baseurl }}/dat503-on-broadway-paper-review/">'On Broadway' paper by Manovich</a>. When Manovich was testing the application, he observed:</p>
+<p>I had in mind the <a href="https://www.circleseven.co.uk/dat503-on-broadway-paper-review/">'On Broadway' paper by Manovich</a>. When Manovich was testing the application, he observed:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:quote -->

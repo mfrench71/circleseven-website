@@ -14,7 +14,7 @@ categories: DAT505 - Advanced Creative Coding Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>The data we were provided with were a list of our results from the <a href="{{ site.baseurl }}/dat-505-assignment-part-1-mobile-app-development/">previous DAT 505 assignment</a>:</p>
+<p>The data we were provided with were a list of our results from the <a href="https://www.circleseven.co.uk/dat-505-assignment-part-1-mobile-app-development/">previous DAT 505 assignment</a>:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
