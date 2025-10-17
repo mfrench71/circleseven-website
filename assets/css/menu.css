@@ -10,6 +10,7 @@
 /* Body Padding for Fixed Header */
 body {
   padding-top: var(--header-height);
+  overflow-x: hidden; /* Prevent horizontal scroll and shadow bleeding */
 }
 
 /* Header Container */
@@ -317,11 +318,15 @@ body {
 }
 
 .mobile-drawer-header {
+  position: sticky;
+  top: 0;
   padding: 20px;
   border-bottom: 1px solid #e8e8e8;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: white;
+  z-index: 10;
 }
 
 .mobile-drawer-header h2 {
@@ -425,16 +430,22 @@ body {
 }
 
 .mobile-search {
-  padding: 20px;
+  position: sticky;
+  top: 65px; /* Below header */
+  padding: 15px;
   border-bottom: 1px solid #e8e8e8;
+  background: white;
+  z-index: 9;
+  box-sizing: border-box;
 }
 
 .mobile-search input {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #e8e8e8;
   border-radius: 4px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 /* ============================================
