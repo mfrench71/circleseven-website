@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: default
 ---
 
 <div class="home">
@@ -17,9 +17,7 @@ layout: home
         {% endif %}
         {% if post.categories.size > 0 %}
           <span class="post-categories">
-            {% for category in post.categories %}
-              <span class="category">{{ category }}</span>{% unless forloop.last %}, {% endunless %}
-            {% endfor %}
+            <span class="category">{{ post.categories | join: ', ' }}</span>
           </span>
         {% endif %}
       </li>
