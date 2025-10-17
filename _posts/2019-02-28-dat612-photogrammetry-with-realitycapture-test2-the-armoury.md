@@ -13,6 +13,14 @@ While the circumstances of the photo shoot were not ideal (a blue-sky day with s
 
 The above model was created from approximately 400 photographs taken over two days. This number of photographs is probably excessive. However, I encountered a number of issues during the processing of the images in RealityCapture which led to missing portions of the structure (the chimney) and decided to repeat the photo shoot in an attempt to fill the gaps.
 
-Clearly there are a number of anomalies, especially around the chimney, and there are some floating artefacts which need to be addressed. However, I am pleased with the appearance of the building's texture and the fact that I have been able to capture small details, such as the '1640' inscription above the fireplace (see my <a href="http://www.circleseven.co.uk/2019/02/25/dat612-visit-to-the-boathouse-radford-lake-devon-rural-archive/">previous post</a> for further information about this feature).
-<h2>Camera Settings</h2>
-[table id=3 /]
+Clearly there are a number of anomalies, especially around the chimney, and there are some floating artefacts which need to be addressed. However, I am pleased with the appearance of the building's texture and the fact that I have been able to capture small details, such as the '1640' inscription above the fireplace (see my <a href="{{ site.baseurl }}/dat612-visit-to-the-boathouse-radford-lake-devon-rural-archive/">previous post</a> for further information about this feature).
+
+## Camera Settings
+
+| Setting | Value |
+|---------|-------|
+| Location | Boathouse, St. Keverne's Quay, Radford Lake |
+| Subject | Armoury Building |
+| Number of Photos | ~400 (over 2 days) |
+| Software | RealityCapture |
+| Conditions | Blue-sky day with low sunlight |
