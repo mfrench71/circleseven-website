@@ -135,15 +135,17 @@
 <!-- Mobile Drawer -->
 <div class="mobile-drawer">
   <div class="mobile-drawer-header">
-    <h2>Menu</h2>
-    <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
-  </div>
+    <div class="mobile-drawer-title">
+      <h2>Menu</h2>
+      <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+    </div>
 
-  <!-- Mobile Search -->
-  <div class="mobile-search">
-    <form action="{{ site.baseurl }}/search/" method="get">
-      <input type="text" name="q" placeholder="Search..." aria-label="Search">
-    </form>
+    <!-- Mobile Search -->
+    <div class="mobile-search">
+      <form action="{{ site.baseurl }}/search/" method="get">
+        <input type="text" name="q" placeholder="Search..." aria-label="Search">
+      </form>
+    </div>
   </div>
 
   <!-- Mobile Navigation -->

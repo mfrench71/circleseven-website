@@ -230,14 +230,16 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
-  margin: 0 0 0 10px;
+  padding: 10px;
+  margin: 0;
   flex-shrink: 0;
+  width: 44px;
+  height: 44px;
 }
 
 .hamburger {
   display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
   background: #111;
   position: relative;
@@ -248,7 +250,7 @@ body {
 .hamburger::after {
   content: '';
   display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
   background: #111;
   position: absolute;
@@ -256,11 +258,11 @@ body {
 }
 
 .hamburger::before {
-  top: -7px;
+  top: -8px;
 }
 
 .hamburger::after {
-  top: 7px;
+  top: 8px;
 }
 
 .mobile-menu-toggle.active .hamburger {
@@ -268,7 +270,7 @@ body {
 }
 
 .mobile-menu-toggle.active .hamburger::before {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 
 .mobile-menu-toggle.active .hamburger::after {
@@ -322,15 +324,18 @@ body {
 .mobile-drawer-header {
   position: sticky;
   top: 0;
+  background: white;
+  z-index: 10;
+  margin: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.mobile-drawer-title {
   padding: 15px;
   border-bottom: 1px solid #e8e8e8;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  z-index: 10;
-  margin: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .mobile-drawer-header h2 {
@@ -434,9 +439,8 @@ body {
 }
 
 .mobile-search {
-  padding: 12px 15px;
+  padding: 0 15px 12px 15px;
   border-bottom: 1px solid #e8e8e8;
-  background: white;
   box-sizing: border-box;
   margin: 0;
 }
