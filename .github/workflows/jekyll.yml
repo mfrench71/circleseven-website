@@ -38,6 +38,24 @@ jobs:
           JEKYLL_ENV: production
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
 
+      - name: Install Node.js for minification
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install minification tools
+        run: |
+          npm install -g clean-css-cli
+          npm install -g terser
+
+      - name: Minify CSS files
+        run: |
+          find _site/assets/css -name "*.css" -type f ! -name "*.min.css" -exec sh -c 'cleancss -o "${0%.css}.min.css" "$0" && mv "${0%.css}.min.css" "$0"' {} \;
+
+      - name: Minify JS files
+        run: |
+          find _site/assets/js -name "*.js" -type f ! -name "*.min.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js" -c -m && mv "${0%.js}.min.js" "$0"' {} \;
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -4,6 +4,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
 
+  <!-- Preconnect to external domains for faster resource loading -->
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://www.circleseven.co.uk" crossorigin>
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://www.circleseven.co.uk">
+
   <!-- Theme CSS (loads first) -->
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
 
