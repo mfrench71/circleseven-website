@@ -230,14 +230,14 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
-  margin: 0;
+  padding: 10px 8px;
+  margin: 0 0 0 10px;
   flex-shrink: 0; /* Prevent shrinking */
 }
 
 .hamburger {
   display: block;
-  width: 24px;
+  width: 22px;
   height: 2px;
   background: #111;
   position: relative;
@@ -248,7 +248,7 @@ body {
 .hamburger::after {
   content: '';
   display: block;
-  width: 24px;
+  width: 22px;
   height: 2px;
   background: #111;
   position: absolute;
@@ -256,11 +256,11 @@ body {
 }
 
 .hamburger::before {
-  top: -8px;
+  top: -7px;
 }
 
 .hamburger::after {
-  top: 8px;
+  top: 7px;
 }
 
 .mobile-menu-toggle.active .hamburger {
@@ -321,7 +321,7 @@ body {
 
 .mobile-drawer-header {
   position: sticky;
-  top: -1px; /* Stick immediately, -1px prevents gap */
+  top: 0; /* Stick at top without offset */
   padding: 15px;
   border-bottom: 1px solid #e8e8e8;
   display: flex;
@@ -329,6 +329,7 @@ body {
   align-items: center;
   background: white;
   z-index: 10;
+  margin: 0; /* Ensure no margin */
 }
 
 .mobile-drawer-header h2 {
@@ -433,12 +434,13 @@ body {
 
 .mobile-search {
   position: sticky;
-  top: 49px; /* Stick right below header (header height ~50px) */
+  top: 50px; /* Stick right below header (calculated from header padding + h2) */
   padding: 12px 15px;
   border-bottom: 1px solid #e8e8e8;
   background: white;
   z-index: 9;
   box-sizing: border-box;
+  margin: 0; /* Ensure no margin */
 }
 
 .mobile-search input {
@@ -479,25 +481,6 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .mobile-menu-toggle {
-    padding: 10px 8px;
-    margin-left: 10px;
-  }
-
-  .hamburger {
-    width: 22px;
-  }
-
-  .hamburger::before {
-    width: 22px;
-    top: -7px;
-  }
-
-  .hamburger::after {
-    width: 22px;
-    top: 7px;
   }
 
   .mobile-drawer {
