@@ -1,0 +1,128 @@
+---
+layout: home
+---
+
+<div class="home">
+  <h1 class="page-heading">Posts</h1>
+
+  <ul class="post-list">
+    {% for post in paginator.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <h2>
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        </h2>
+        {% if post.excerpt %}
+          <p>{{ post.excerpt | strip_html | truncatewords: 50 }}</p>
+        {% endif %}
+        {% if post.categories.size > 0 %}
+          <span class="post-categories">
+            {% for category in post.categories %}
+              <span class="category">{{ category }}</span>{% unless forloop.last %}, {% endunless %}
+            {% endfor %}
+          </span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- Pagination links -->
+  {% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Previous</a>
+    {% else %}
+      <span class="previous disabled">← Previous</span>
+    {% endif %}
+
+    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next →</a>
+    {% else %}
+      <span class="next disabled">Next →</span>
+    {% endif %}
+  </div>
+
+  <!-- Page numbers -->
+  <div class="pagination-pages">
+    {% if paginator.total_pages > 1 %}
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+          <span class="current">{{ page }}</span>
+        {% elsif page == 1 %}
+          <a href="{{ '/' | relative_url }}">{{ page }}</a>
+        {% else %}
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <style>
+    .post-list {
+      list-style: none;
+      padding: 0;
+    }
+    .post-list > li {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .post-meta {
+      font-size: 14px;
+      color: #828282;
+    }
+    .post-categories {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+      display: block;
+    }
+    .category {
+      background: #f0f0f0;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    .pagination {
+      margin: 30px 0;
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .pagination a, .pagination span {
+      padding: 8px 16px;
+      margin: 0 5px;
+      text-decoration: none;
+      color: #2a7ae2;
+    }
+    .pagination .disabled {
+      color: #828282;
+    }
+    .pagination .page-number {
+      font-weight: bold;
+      color: #111;
+    }
+    .pagination-pages {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .pagination-pages a, .pagination-pages span {
+      padding: 8px 12px;
+      margin: 0 2px;
+      text-decoration: none;
+      color: #2a7ae2;
+      border: 1px solid #e8e8e8;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .pagination-pages .current {
+      background: #2a7ae2;
+      color: white;
+      border-color: #2a7ae2;
+    }
+  </style>
+</div>
