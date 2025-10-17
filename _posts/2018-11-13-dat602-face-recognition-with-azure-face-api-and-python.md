@@ -5,45 +5,26 @@ date: 2018-11-13 15:31:22 +0000
 categories: DAT602 - Everyware Digital Art and Technology
 ---
 
-<!-- wp:paragraph -->
 <p>Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Microsoft Azure Cognitive Services</a> (Microsoft, no date).</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>The API provides functionality to implement face detection ("detect one or more human faces in an image and get back face rectangles for where in the image the faces are, along with face attributes which contain machine learning-based predictions of facial features. The face attribute features available are: Age, Emotion, Gender, Pose, Smile, and Facial Hair along with 27 landmarks for each face in the image") and face verification ("check the likelihood that two faces belong to the same person. The API will return a confidence score about how likely it is that the two faces belong to one person").</p>
-<!-- /wp:paragraph -->
+The API provides functionality to implement face detection ("detect one or more human faces in an image and get back face rectangles for where in the image the faces are, along with face attributes which contain machine learning-based predictions of facial features. The face attribute features available are: Age, Emotion, Gender, Pose, Smile, and Facial Hair along with 27 landmarks for each face in the image") and face verification ("check the likelihood that two faces belong to the same person. The API will return a confidence score about how likely it is that the two faces belong to one person").
 
-<!-- wp:paragraph -->
-<p>If I could get this working, I could use this for our reworked uSense project, the aim of which, now, is to allow face-based authentication via a Raspberry Pi and Pi camera for users to be able to access personalised content (such as their Twitter feed, YouTube playlists, Facebook, etc.).</p>
-<!-- /wp:paragraph -->
+If I could get this working, I could use this for our reworked uSense project, the aim of which, now, is to allow face-based authentication via a Raspberry Pi and Pi camera for users to be able to access personalised content (such as their Twitter feed, YouTube playlists, Facebook, etc.).
 
-<!-- wp:paragraph -->
-<p>As I had some familiarity with scripting in Python from previous assignments, I decided to use this to test calls to the face recognition API.</p>
-<!-- /wp:paragraph -->
+As I had some familiarity with scripting in Python from previous assignments, I decided to use this to test calls to the face recognition API.
 
-<!-- wp:paragraph -->
-<p><strong>Testing the Pi Camera</strong></p>
-<!-- /wp:paragraph -->
+**Testing the Pi Camera**
 
-<!-- wp:paragraph -->
-<p>The first step was to ensure that the Pi camera was functioning correctly!</p>
-<!-- /wp:paragraph -->
+The first step was to ensure that the Pi camera was functioning correctly!
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import picamera camera = picamera.PiCamera()
 print('Taking photo')
 camera.capture('test.jpg')</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>Testing Face - Detect</strong></p>
-<!-- /wp:paragraph -->
+**Testing Face - Detect**
 
-<!-- wp:paragraph -->
 <p>The next step was to test the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236">Face - Detect API</a> call on a test image.&nbsp;The Python script below will take an image from a local path, post it to Azure's /'detect'&nbsp; endpoint and identify if there are any faces in the photo. If there are, the script will draw a blue rectangle around the faces.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64
 import requests
 from PIL import Image, ImageDraw
@@ -77,29 +58,17 @@ def recogn():
     
     
 recogn()</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p>Here is a sample test result:</p>
-<!-- /wp:paragraph -->
+Here is a sample test result:
 
-<!-- wp:image {"id":942,"sizeSlug":"large","linkDestination":"media"} -->
 <figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" alt="" class="wp-image-942"/></a><figcaption class="wp-element-caption">Face detection result</figcaption></figure>
-<!-- /wp:image -->
 
-<!-- wp:paragraph -->
-<p><strong>PersonGroup - Create</strong></p>
-<!-- /wp:paragraph -->
+**PersonGroup - Create**
 
-<!-- wp:paragraph -->
 <p>With a successful Face - Detect complete,&nbsp; a <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244">Person Group</a> has to be created for use with identification at a later stage.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>"A person group is the container for the uploaded person data, including face images and face recognition features."</p>
-<!-- /wp:paragraph -->
+"A person group is the container for the uploaded person data, including face images and face recognition features."
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import requests
 import urllib, httplib, base64
 
@@ -116,33 +85,19 @@ response = conn.getresponse()
 data = response.read()
 print(data)
 conn.close()</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>PersonGroup Person - Create</strong></p>
-<!-- /wp:paragraph -->
+**PersonGroup Person - Create**
 
-<!-- wp:paragraph -->
-<p>With a PersonGroup initialised, it can be populated with people and faces using&nbsp; the PersonGroup Person - Create API call.</p>
-<!-- /wp:paragraph -->
+With a PersonGroup initialised, it can be populated with people and faces using&nbsp; the PersonGroup Person - Create API call.
 
-<!-- wp:paragraph -->
-<p>I created an images directory with sub-directories containing photographs of the people I wanted to use to train the face recognition system. The subdirectories were named according to the person's name:</p>
-<!-- /wp:paragraph -->
+I created an images directory with sub-directories containing photographs of the people I wanted to use to train the face recognition system. The subdirectories were named according to the person's name:
 
-<!-- wp:image {"id":945,"sizeSlug":"full","linkDestination":"media"} -->
 <figure class="wp-block-image size-full"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/faces_photos-e1541679916440.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/faces_photos-e1541679916440.png" alt="" class="wp-image-945"/></a><figcaption class="wp-element-caption">Directory of faces</figcaption></figure>
-<!-- /wp:image -->
 
-<!-- wp:paragraph -->
-<p>I wanted to use a variety of images, as, during testing, I noticed that the lighting conditions when a photo was taken had a subsequent impact on the reliability of face detection.</p>
-<!-- /wp:paragraph -->
+I wanted to use a variety of images, as, during testing, I noticed that the lighting conditions when a photo was taken had a subsequent impact on the reliability of face detection.
 
-<!-- wp:paragraph -->
 <p><a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b">Image requirements for the Face API</a>.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64, json
 import sys
 import os
@@ -187,21 +142,13 @@ def addFaceToPerson(list):
     conn.close()
 
 addFaceToPerson(addPeople())</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>PersonGroup Person - List</strong></p>
-<!-- /wp:paragraph -->
+**PersonGroup Person - List**
 
-<!-- wp:paragraph -->
 <p>To verify the information in my PersonGroup, the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395241">PersonGroup Person - List API</a> call can be used.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>"List all persons’ information in the specified person group, including personId, name, userData and persistedFaceIds of registered person faces."</p>
-<!-- /wp:paragraph -->
+"List all persons’ information in the specified person group, including personId, name, userData and persistedFaceIds of registered person faces."
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import httplib, urllib, base64, json
 
 headers = {
@@ -224,13 +171,9 @@ try:
     conn.close()
 except Exception as e:
     print("[Errno {0}] {1}".format(e.errno, e.strerror))</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p>Here is the ouput</p>
-<!-- /wp:paragraph -->
+Here is the ouput
 
-<!-- wp:enlighter/codeblock {"language":"json"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="json" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">[  
    {  
       "personId":"4b334dda-e191-4557-9596-167ff19b0a28",
@@ -284,17 +227,11 @@ except Exception as e:
       "userData":null
    }
 ]</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>PersonGroup - Train</strong></p>
-<!-- /wp:paragraph -->
+**PersonGroup - Train**
 
-<!-- wp:paragraph -->
 <p>The PersonGroup has been populated with people and their faces. The PersonGroup can now be trained to recognise the faces using the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249">PersonGroup - Train API</a> call.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64, json
 
 group_id = 'users'
@@ -308,21 +245,13 @@ conn.request("POST", "/face/v1.0/persongroups/users/train?%s" % params, "{body}"
 response = conn.getresponse()
 data = json.loads(response.read())
 print(data) # should be empty</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>PersonGroup Identify</strong></p>
-<!-- /wp:paragraph -->
+**PersonGroup Identify**
 
-<!-- wp:paragraph -->
 <p>We now have a PersonGroup trained with the faces of known users of the system. The <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239">Identify API</a> call accepts a list of faceIds from detectFace and returns the personId and a confidence value of possible matches. The&nbsp; personId can be used to retrieve the person's name and the confidence value as a measure of recognition.</p>
-<!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>The code for taking a photo of a person, processing their image and comparing it with the list of known users looks like:</p>
-<!-- /wp:paragraph -->
+The code for taking a photo of a person, processing their image and comparing it with the list of known users looks like:
 
-<!-- wp:enlighter/codeblock {"language":"python"} -->
 <pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import requests
 import paho.mqtt.client as mqttClient
 from operator import itemgetter
@@ -343,7 +272,6 @@ group_id = 'users' # name of personGroup
 camera = PiCamera() # initiate camera
 
 #Functions
-
 
 # Iterate specified directory detecting faces
 def iter():
@@ -396,7 +324,6 @@ def identify(ids):
         SortedconfidenceList = zip(confidenceList, fileList) # merge fileList and confidence list
         sortedConfidence = sorted(SortedconfidenceList, key=itemgetter(1)) # sort confidence list by confidence
         return sortedConfidence[-1] # returns tuple with highest confidence value (sorted from smallest to biggest)
-
 
 # Get known person's name from person_Id with API GET request
 def getName(person_Id):
@@ -460,12 +387,7 @@ print('Connecting to MQTT broker')
 client.connect(broker_address, port=port)          #connect to broker
 client.publish("DAT602/test", getName(result[0][0]))
 client.disconnect()</pre>
-<!-- /wp:enlighter/codeblock -->
 
-<!-- wp:paragraph -->
-<p><strong>Bibliography</strong></p>
-<!-- /wp:paragraph -->
+**Bibliography**
 
-<!-- wp:paragraph -->
-<p>Microsoft (no date) <em>Face</em>. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>
-<!-- /wp:paragraph -->
+<p>Microsoft (no date) *Face*. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>

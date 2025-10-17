@@ -5,7 +5,7 @@ date: 2018-10-22 08:02:23 +0000
 categories: DAT602 - Everyware Digital Art and Technology
 ---
 
-<strong>Presentation Guidelines</strong>
+**Presentation Guidelines**
 
 Each group will have 20 minutes to present their proposal (10 minutes of presentation, and 10 minutes of Q&amp;A). For each presentation, it is recommended that you use a minimum of 5 to a maximum of 10 slides.
 
@@ -13,11 +13,11 @@ It is highly recommended to do as much preparation for the development of this p
 
 A structure that you should be using is the following:
 <ol>
- 	<li>Introduction (provide a brief explanation about your project and why you believe it is important or interesting)</li>
- 	<li>Context (here you may include inspiring works, research projects, or literature review – demonstrate the context that the work is based on)</li>
- 	<li>Methodology (how you are considering to develop this project – milestones, technologies involved, problems that you need to solve)</li>
- 	<li>Intended Outcomes (show how the final project might look/function like)</li>
- 	<li>Conclusion (summarise and conclude)</li>
+ 	- Introduction (provide a brief explanation about your project and why you believe it is important or interesting)
+ 	- Context (here you may include inspiring works, research projects, or literature review – demonstrate the context that the work is based on)
+ 	- Methodology (how you are considering to develop this project – milestones, technologies involved, problems that you need to solve)
+ 	- Intended Outcomes (show how the final project might look/function like)
+ 	- Conclusion (summarise and conclude)
 </ol>
 The proposal presentations were scheduled for Thursday 18 October. From 11 October - 17 October, I developed the content for the introduction (including the product mock-up artwork), context, methodology, functionality, and referencing.
 
@@ -38,9 +38,8 @@ The final presentation can be seen here:
 <a href="https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing">https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing</a>
 <h2>Feedback</h2>
 We received some valuable and insightful feedback from the 3D Design student cohort and tutors in attendance. This can be summarised as follows:
-<ul>
- 	<li>Move away from a tablet design. The general feeling was that a tablet design was not ideal and also difficult to implement. Perhaps a photo-frame or a design that was more in keeping with domestic context (such as a tactile ornament) would be more suitable.</li>
- 	<li>Face detection might be used to establish whether the user is in front of the device and the device could use its integrated screen to display appropriate images. If the user is not present, the image could be projected from the device, so the user can see it wherever they are. Ultimately, we thought that projecting the image would be a better solution, regardless of whether the user was sitting at the device.</li>
- 	<li>The project does not have to be commercially viable.</li>
- 	<li>"Your presentation was good in overall, however, you need to simplify, be more precise, and demonstrate more depth of research (and knowledge). Many of your claims are too vague and unsupported, and you didn’t demonstrate sufficient sources of inspiration."</li>
-</ul>
+ 	- Move away from a tablet design. The general feeling was that a tablet design was not ideal and also difficult to implement. Perhaps a photo-frame or a design that was more in keeping with domestic context (such as a tactile ornament) would be more suitable.
+ 	- Face detection might be used to establish whether the user is in front of the device and the device could use its integrated screen to display appropriate images. If the user is not present, the image could be projected from the device, so the user can see it wherever they are. Ultimately, we thought that projecting the image would be a better solution, regardless of whether the user was sitting at the device.
+ 	- The project does not have to be commercially viable.
+ 	- "Your presentation was good in overall, however, you need to simplify, be more precise, and demonstrate more depth of research (and knowledge). Many of your claims are too vague and unsupported, and you didn’t demonstrate sufficient sources of inspiration."
+

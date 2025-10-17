@@ -14,12 +14,11 @@ This is the completed piece:
 The sound is composed of real-world elements and imported raw data in the form of a PDF file and Photoshop images. Experimentation revealed that certain raw data files produce better results than others.
 
 The real-world sounds we recorded and assembled included:
-<ul>
- 	<li>A shop door entrance/exit alarm that was triggered by a shopper</li>
- 	<li>A conversation with an acquaintance of the one of the members of the group</li>
- 	<li>The sound of a woman in a shopping centre 'crying'</li>
- 	<li>A street busker singing and playing guitar</li>
-</ul>
+ 	- A shop door entrance/exit alarm that was triggered by a shopper
+ 	- A conversation with an acquaintance of the one of the members of the group
+ 	- The sound of a woman in a shopping centre 'crying'
+ 	- A street busker singing and playing guitar
+
 We attempted to assemble the sounds in such a way as to create an ambience and sense of atmosphere which reflected the places that the recordings had occurred. For instance, the shop alarm sound was looped and changed in pitch to create a background hum. The raw data was incorporated as an abstract element, but this also gave the piece a feeling of bringing technology to life. Other samples, such as some of the vocalisations, were manipulated, cut up and reassembled to remove them from their context and, in doing so, present them in a novel way.
 
 During the course of this workshop, we viewed the following audio pieces:

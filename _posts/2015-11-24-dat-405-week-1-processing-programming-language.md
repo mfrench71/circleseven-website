@@ -8,13 +8,12 @@ categories: DAT405 - Creative Coding Digital Art and Technology
 Today we were introduced to the Processing programming language (<a href="http://www.processing.org">http://www.processing.org</a>).
 
 Working through six practical tasks, we became familiar with:
-<ul>
- 	<li>Declaring variables names and their types e.g. String, int and float</li>
- 	<li>Assigning values to variables</li>
- 	<li>Performing calculations using mathematical operators e.g. addition and multiplication</li>
- 	<li>Outputting to the console, including concatenation</li>
- 	<li>Commenting code</li>
-</ul>
+ 	- Declaring variables names and their types e.g. String, int and float
+ 	- Assigning values to variables
+ 	- Performing calculations using mathematical operators e.g. addition and multiplication
+ 	- Outputting to the console, including concatenation
+ 	- Commenting code
+
 The final Processing code produced was:
 <pre class="EnlighterJSRAW" data-enlighter-language="generic">// Declare variables:
 

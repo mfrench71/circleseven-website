@@ -5,7 +5,7 @@ date: 2018-10-22 07:59:43 +0000
 categories: DAT602 - Everyware Digital Art and Technology
 ---
 
-<strong>The Project Brief</strong>
+**The Project Brief**
 
 In this assignment, you are asked in groups to develop a physical “intelligent” object for the Future Home.
 
@@ -13,12 +13,12 @@ You have the freedom to select any tools or resources in accomplishing your goal
 
 However, you are constrained by the following:
 <ol>
- 	<li>The object/system that you create needs to be part of the context – home / domestic life / personal space.</li>
- 	<li>The object/system has to add something significantly new and innovative to the main context rather than (a) provide a device that uses a sensor to trigger a specific elementary outcome, or (b) replicate an already existing object/system.</li>
- 	<li>The object/system has to be fully functional and demonstrate exactly what it is intended to do according to your main idea/concept that you will propose.</li>
- 	<li>You need to be methodological, work efficiently as a group, and demonstrate professional practices – documentation, schematics, working progress. It is necessary to use blogs and GitHub to show your progress throughout the module’s duration.</li>
+ 	- The object/system that you create needs to be part of the context – home / domestic life / personal space.
+ 	- The object/system has to add something significantly new and innovative to the main context rather than (a) provide a device that uses a sensor to trigger a specific elementary outcome, or (b) replicate an already existing object/system.
+ 	- The object/system has to be fully functional and demonstrate exactly what it is intended to do according to your main idea/concept that you will propose.
+ 	- You need to be methodological, work efficiently as a group, and demonstrate professional practices – documentation, schematics, working progress. It is necessary to use blogs and GitHub to show your progress throughout the module’s duration.
 </ol>
-<strong>Our Project Idea</strong>
+**Our Project Idea**
 
 On 10 October 2018, I created a Facebook group for use by  myself, Lee Lashbrook, and Sam Williams. This group could be used to share ideas, thoughts and progress on an informal basis.
 

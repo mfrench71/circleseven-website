@@ -5,152 +5,76 @@ date: 2015-10-29 10:26:24 +0000
 categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
-<!-- wp:paragraph -->
-<p>Today's practical exercise focussed on text effects within Photoshop.</p>
-<!-- /wp:paragraph -->
+Today's practical exercise focussed on text effects within Photoshop.
 
-<!-- wp:paragraph -->
-<p>I created the following from a high contrast photo:</p>
-<!-- /wp:paragraph -->
+I created the following from a high contrast photo:
 
-<!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
-<div class="wp-block-column" style="flex-basis:100%"><!-- wp:gallery {"ids":[587,586],"columns":2,"imageCrop":false,"linkTo":"media","sizeSlug":"medium"} -->
-<figure class="wp-block-gallery has-nested-images columns-2"><!-- wp:image {"id":587,"sizeSlug":"medium","linkDestination":"media","className":"is-style-default"} -->
-<figure class="wp-block-image size-medium is-style-default"><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
-<!-- /wp:image -->
+<div class="wp-block-columns"><div class="wp-block-column" style="flex-basis:100%"><figure class="wp-block-gallery has-nested-images columns-2"><figure class="wp-block-image size-medium is-style-default"><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
 
-<!-- wp:image {"id":586,"sizeSlug":"medium","linkDestination":"media"} -->
 <figure class="wp-block-image size-medium"><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/></a></figure>
-<!-- /wp:image --></figure>
-<!-- /wp:gallery --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
+</figure>
+</div>
+</div>
 
-<!-- wp:paragraph -->
-<p>Briefly, the steps taken to create this effect are:</p>
-<!-- /wp:paragraph -->
+Briefly, the steps taken to create this effect are:
 
-<!-- wp:list -->
-<ul><!-- wp:list-item -->
-<li>Select &gt; Colour Range &gt; Shadows</li>
-<!-- /wp:list-item -->
+- Select &gt; Colour Range &gt; Shadows
 
-<!-- wp:list-item -->
-<li>New Layer &gt; Fill Black</li>
-<!-- /wp:list-item -->
+- New Layer &gt; Fill Black
 
-<!-- wp:list-item -->
-<li>Select Colour Range &nbsp;&gt; Midtones</li>
-<!-- /wp:list-item -->
+- Select Colour Range &nbsp;&gt; Midtones
 
-<!-- wp:list-item -->
-<li>New Layer &gt; Fill Black</li>
-<!-- /wp:list-item -->
+- New Layer &gt; Fill Black
 
-<!-- wp:list-item -->
-<li>Create two text layers and fill with text</li>
-<!-- /wp:list-item -->
+- Create two text layers and fill with text
 
-<!-- wp:list-item -->
-<li>With the text layer selected, load a selection from the Shadows layer</li>
-<!-- /wp:list-item -->
+- With the text layer selected, load a selection from the Shadows layer
 
-<!-- wp:list-item -->
-<li>Add a layer mask</li>
-<!-- /wp:list-item -->
+- Add a layer mask
 
-<!-- wp:list-item -->
-<li>Repeat for the other text layer using the Midtones layer</li>
-<!-- /wp:list-item -->
+- Repeat for the other text layer using the Midtones layer
 
-<!-- wp:list-item -->
-<li>Adjust the typeface and settings to achieve the desired look</li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list -->
+- Adjust the typeface and settings to achieve the desired look
 
-<!-- wp:paragraph -->
-<p>We also looked at the six <em>elements</em> of design:</p>
-<!-- /wp:paragraph -->
+We also looked at the six *elements* of design:
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li>Line</li>
-<!-- /wp:list-item -->
+<ol>- Line
 
-<!-- wp:list-item -->
-<li>Shape/form</li>
-<!-- /wp:list-item -->
+- Shape/form
 
-<!-- wp:list-item -->
-<li>Space</li>
-<!-- /wp:list-item -->
+- Space
 
-<!-- wp:list-item -->
-<li>Texture</li>
-<!-- /wp:list-item -->
+- Texture
 
-<!-- wp:list-item -->
-<li>Value</li>
-<!-- /wp:list-item -->
+- Value
 
-<!-- wp:list-item -->
-<li>Colour</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+- Colour
+</ol>
 
-<!-- wp:paragraph -->
-<p>And the <em>principles</em> of design:</p>
-<!-- /wp:paragraph -->
+And the *principles* of design:
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li>Balance</li>
-<!-- /wp:list-item -->
+<ol>- Balance
 
-<!-- wp:list-item -->
-<li>Alignment</li>
-<!-- /wp:list-item -->
+- Alignment
 
-<!-- wp:list-item -->
-<li>Proximity/unity</li>
-<!-- /wp:list-item -->
+- Proximity/unity
 
-<!-- wp:list-item -->
-<li>Repetition/consistency</li>
-<!-- /wp:list-item -->
+- Repetition/consistency
 
-<!-- wp:list-item -->
-<li>Contrast</li>
-<!-- /wp:list-item -->
+- Contrast
 
-<!-- wp:list-item -->
-<li>White space</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+- White space
+</ol>
 
-<!-- wp:paragraph -->
-<p>We briefly looked at the Gestalt psychology principles of perception:</p>
-<!-- /wp:paragraph -->
+We briefly looked at the Gestalt psychology principles of perception:
 
-<!-- wp:list {"ordered":true} -->
-<ol><!-- wp:list-item -->
-<li>Figure/ground (contrast/dominance)</li>
-<!-- /wp:list-item -->
+<ol>- Figure/ground (contrast/dominance)
 
-<!-- wp:list-item -->
-<li>Similarity (repetition)</li>
-<!-- /wp:list-item -->
+- Similarity (repetition)
 
-<!-- wp:list-item -->
-<li>Proximity (balance/contrast)</li>
-<!-- /wp:list-item -->
+- Proximity (balance/contrast)
 
-<!-- wp:list-item -->
-<li>Closure</li>
-<!-- /wp:list-item -->
+- Closure
 
-<!-- wp:list-item -->
-<li>Continuation</li>
-<!-- /wp:list-item --></ol>
-<!-- /wp:list -->
+- Continuation
+</ol>
