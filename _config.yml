@@ -10,6 +10,7 @@ email: info@circleseven.co.uk
 author: Matthew French
 lang: en-GB
 timezone: Europe/London
+github_username: mfrench71
 
 # Build settings
 markdown: kramdown

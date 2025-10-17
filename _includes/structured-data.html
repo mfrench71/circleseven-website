@@ -30,6 +30,35 @@
   "articleSection": "{{ page.categories | first }}"{% endif %}
 }
 </script>
+
+{% if page.categories.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}{{ site.baseurl }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ page.categories | first }}",
+      "item": "{{ site.url }}{{ site.baseurl }}/category/{{ page.categories | first | slugify }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ page.title | escape }}",
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
 {% endif %}
 
 {% if page.layout == "page" or page.layout == "default" %}
