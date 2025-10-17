@@ -307,14 +307,16 @@ body {
   background: white;
   z-index: 2001;
   overflow-y: auto;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
   transition: left 0.3s;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.2); /* Shadow only on right side */
+  box-shadow: none; /* Remove shadow completely */
   box-sizing: border-box;
+  border-right: 1px solid #e8e8e8; /* Use border instead of shadow */
 }
 
 .mobile-drawer.active {
   left: 0;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15); /* Only show shadow when open, subtle */
 }
 
 .mobile-drawer-header {
