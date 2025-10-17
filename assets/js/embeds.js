@@ -11,6 +11,7 @@
     processWordPressEmbeds();
     processLegacyShortcodes();
     makeSketchfabResponsive();
+    processLeafletMaps();
   });
 
   /**
@@ -217,6 +218,86 @@
         container.remove();
       }
     });
+  }
+
+  /**
+   * Process Leaflet map shortcodes
+   * Converts [leaflet-map] WordPress shortcodes to interactive Leaflet maps
+   */
+  function processLeafletMaps() {
+    // Check if Leaflet is loaded
+    if (typeof L === 'undefined') {
+      console.warn('Leaflet.js not loaded, skipping map processing');
+      return;
+    }
+
+    const postContent = document.querySelector('.post-content');
+    if (!postContent) return;
+
+    const html = postContent.innerHTML;
+
+    // Match [leaflet-map lat=X lng=Y zoom=Z] pattern
+    const leafletPattern = /\[leaflet-map\s+lat=["']?([-\d.]+)["']?\s+lng=["']?([-\d.]+)["']?\s+zoom=["']?(\d+)["']?\]/g;
+    let newHtml = html;
+    let match;
+    let mapCounter = 0;
+
+    while ((match = leafletPattern.exec(html)) !== null) {
+      const lat = parseFloat(match[1]);
+      const lng = parseFloat(match[2]);
+      const zoom = parseInt(match[3]);
+
+      // Create unique map ID
+      const mapId = 'leaflet-map-' + mapCounter++;
+
+      // Create map container HTML
+      const mapContainer = `<div id="${mapId}" class="leaflet-container" style="height: 400px; margin: 20px 0; border-radius: 4px;"></div>`;
+
+      // Replace shortcode with container
+      newHtml = newHtml.replace(match[0], mapContainer);
+
+      // Initialize map after DOM update (use setTimeout to ensure element exists)
+      setTimeout(function() {
+        initializeLeafletMap(mapId, lat, lng, zoom);
+      }, 100);
+    }
+
+    if (newHtml !== html) {
+      postContent.innerHTML = newHtml;
+    }
+  }
+
+  /**
+   * Initialize a Leaflet map with given parameters
+   */
+  function initializeLeafletMap(mapId, lat, lng, zoom) {
+    const mapElement = document.getElementById(mapId);
+    if (!mapElement) return;
+
+    try {
+      // Create map
+      const map = L.map(mapId).setView([lat, lng], zoom);
+
+      // Add OpenStreetMap tile layer
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+      }).addTo(map);
+
+      // Add marker at the location
+      L.marker([lat, lng]).addTo(map)
+        .bindPopup('Location')
+        .openPopup();
+
+      // Fix map rendering issues
+      setTimeout(function() {
+        map.invalidateSize();
+      }, 100);
+
+    } catch (error) {
+      console.error('Error initializing Leaflet map:', error);
+      mapElement.innerHTML = '<div class="wordpress-embed-placeholder">Map could not be loaded</div>';
+    }
   }
 
   // Run additional fixes after initial processing
