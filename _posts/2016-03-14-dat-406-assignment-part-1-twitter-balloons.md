@@ -22,7 +22,7 @@ categories: DAT406 - Digital Making Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":629,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump-300x266.jpg" alt="" class="wp-image-629"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/Rite-Tag-Donald-Trump.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/Rite-Tag-Donald-Trump-300x266.jpg" alt="" class="wp-image-629"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -48,7 +48,7 @@ categories: DAT406 - Digital Making Digital Art and Technology
 <!-- /wp:list -->
 
 <!-- wp:image {"id":630,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/87818129_151022626.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/87818129_151022626-300x169.jpg" alt="" class="wp-image-630"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/87818129_151022626.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/87818129_151022626-300x169.jpg" alt="" class="wp-image-630"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

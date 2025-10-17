@@ -11,7 +11,7 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium","align":"left"} -->
 <figure class="wp-block-gallery alignleft has-nested-images columns-default is-cropped"><!-- wp:image {"id":539,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/nazca_lines.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/nazca_lines-300x240.jpg" alt="" class="wp-image-539"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/nazca_lines.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/nazca_lines-300x240.jpg" alt="" class="wp-image-539"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -113,27 +113,27 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":544,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas-scaled-1-300x169.jpg" alt="" class="wp-image-544"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/dignitas-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dignitas-scaled-1-300x169.jpg" alt="" class="wp-image-544"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":541,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas_detail-297x300.jpg" alt="" class="wp-image-541"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/dignitas_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dignitas_detail-297x300.jpg" alt="" class="wp-image-541"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":546,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr-300x245.jpg" alt="" class="wp-image-546"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/dnr.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dnr-300x245.jpg" alt="" class="wp-image-546"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":543,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr_detail-300x283.jpg" alt="" class="wp-image-543"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/dnr_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/dnr_detail-300x283.jpg" alt="" class="wp-image-543"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":545,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv-197x300.jpg" alt="" class="wp-image-545"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/hiv.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/hiv-197x300.jpg" alt="" class="wp-image-545"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":542,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv_detail-267x300.jpg" alt="" class="wp-image-542"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/hiv_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/hiv_detail-267x300.jpg" alt="" class="wp-image-542"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -181,15 +181,15 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":549,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hitman.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hitman-224x300.jpg" alt="" class="wp-image-549"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/hitman.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/hitman-224x300.jpg" alt="" class="wp-image-549"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":550,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/qr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/qr-259x300.jpg" alt="" class="wp-image-550"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/qr.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/qr-259x300.jpg" alt="" class="wp-image-550"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":551,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/usb-finger.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/usb-finger-284x300.jpg" alt="" class="wp-image-551"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/usb-finger.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/usb-finger-284x300.jpg" alt="" class="wp-image-551"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -199,6 +199,6 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 
 <!-- wp:gallery {"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":553,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/crim-rec-zoom.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/crim-rec-zoom-300x169.jpg" alt="" class="wp-image-553"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/crim-rec-zoom.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/crim-rec-zoom-300x169.jpg" alt="" class="wp-image-553"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->

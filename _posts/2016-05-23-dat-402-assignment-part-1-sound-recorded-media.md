@@ -44,7 +44,7 @@ categories: DAT402 - Digital Culture Digital Art and Technology
 <!-- /wp:list -->
 
 <!-- wp:image {"id":565,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover" class="wp-image-565"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/sound-design-cover.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover" class="wp-image-565"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -60,7 +60,7 @@ categories: DAT402 - Digital Culture Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":568,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt="" class="wp-image-568"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt="" class="wp-image-568"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -128,7 +128,7 @@ https://soundcloud.com/matthew-french-602634074/dat402-mastered
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":569,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt="" class="wp-image-569"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt="" class="wp-image-569"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -140,7 +140,7 @@ https://soundcloud.com/matthew-french-602634074/dat402-mastered
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":570,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt="" class="wp-image-570"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt="" class="wp-image-570"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -160,7 +160,7 @@ https://soundcloud.com/matthew-french-602634074/dat402-mastered
 <!-- /wp:heading -->
 
 <!-- wp:image {"id":571,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt="" class="wp-image-571"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_1785-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_1785-scaled-1-300x225.jpg" alt="" class="wp-image-571"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

@@ -36,7 +36,7 @@ categories: DAT404 - Web Technologies Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":599,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/website_mockup.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/website_mockup-755x1024.jpg" alt="" class="wp-image-599"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/website_mockup.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/website_mockup-755x1024.jpg" alt="" class="wp-image-599"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

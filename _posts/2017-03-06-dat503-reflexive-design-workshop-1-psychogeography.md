@@ -57,11 +57,11 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":806,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":805,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -146,5 +146,5 @@ https://youtu.be/Fkbo_qR0gZw
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":807,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/psychogeography.png"><img src="https://res.cloudinary.com/circleseven/image/upload/psychogeography-864x1024.png" alt="" class="wp-image-807"/></a></figure>
 <!-- /wp:image -->

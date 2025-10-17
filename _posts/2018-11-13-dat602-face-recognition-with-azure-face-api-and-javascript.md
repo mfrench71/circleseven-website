@@ -134,7 +134,7 @@ categories: DAT602 - Everyware Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":938,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt="" class="wp-image-938"/></a><figcaption class="wp-element-caption">HTML page</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/face_login_html.png"><img src="https://res.cloudinary.com/circleseven/image/upload/face_login_html.png" alt="" class="wp-image-938"/></a><figcaption class="wp-element-caption">HTML page</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -263,7 +263,7 @@ var canvas = document.getElementById('viewport'),
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":939,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt="" class="wp-image-939"/></a></figure>
+<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/matthew_result-1.png"><img src="https://res.cloudinary.com/circleseven/image/upload/matthew_result-1.png" alt="" class="wp-image-939"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

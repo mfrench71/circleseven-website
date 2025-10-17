@@ -17,11 +17,11 @@ categories: DAT403 - Digital Media Design Digital Art and Technology
 <div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
 <div class="wp-block-column" style="flex-basis:100%"><!-- wp:gallery {"ids":[587,586],"columns":2,"imageCrop":false,"linkTo":"media","sizeSlug":"medium"} -->
 <figure class="wp-block-gallery has-nested-images columns-2"><!-- wp:image {"id":587,"sizeSlug":"medium","linkDestination":"media","className":"is-style-default"} -->
-<figure class="wp-block-image size-medium is-style-default"><a href="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
+<figure class="wp-block-image size-medium is-style-default"><a href="https://res.cloudinary.com/circleseven/image/upload/text-effects-original-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":586,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/text-effects-finished-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery --></div>
 <!-- /wp:column --></div>

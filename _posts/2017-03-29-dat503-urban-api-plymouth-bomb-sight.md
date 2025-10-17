@@ -37,15 +37,15 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":838,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt="" class="wp-image-838"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt="" class="wp-image-838"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":837,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt="" class="wp-image-837"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt="" class="wp-image-837"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":836,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt="" class="wp-image-836"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt="" class="wp-image-836"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -58,7 +58,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":839,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42-1024x848.jpeg" alt="" class="wp-image-839"/></a><figcaption class="wp-element-caption"> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/Page42.jpeg"><img src="https://res.cloudinary.com/circleseven/image/upload/Page42-1024x848.jpeg" alt="" class="wp-image-839"/></a><figcaption class="wp-element-caption"> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -66,7 +66,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":840,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg" alt="" class="wp-image-840"/></a><figcaption class="wp-element-caption">Sample of GeoJSON data</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/geojson_capture.jpeg"><img src="https://res.cloudinary.com/circleseven/image/upload/geojson_capture.jpeg" alt="" class="wp-image-840"/></a><figcaption class="wp-element-caption">Sample of GeoJSON data</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -96,7 +96,7 @@ categories: DAT503 - Reflexive Design Digital Art and Technology
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":841,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" alt="" class="wp-image-841"/></a><figcaption class="wp-element-caption">Sample of casualty JSON data</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/casualty_json.jpeg"><img src="https://res.cloudinary.com/circleseven/image/upload/casualty_json-1024x319.jpeg" alt="" class="wp-image-841"/></a><figcaption class="wp-element-caption">Sample of casualty JSON data</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -131,31 +131,31 @@ https://www.youtube.com/watch?v=jfu0DBpCT8Q
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":845,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt="" class="wp-image-845"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt="" class="wp-image-845"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":844,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt="" class="wp-image-844"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt="" class="wp-image-844"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":847,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt="" class="wp-image-847"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt="" class="wp-image-847"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":846,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt="" class="wp-image-846"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt="" class="wp-image-846"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":843,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png" alt="" class="wp-image-843"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-google-maps-view_33472895031_o.png" alt="" class="wp-image-843"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":848,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt="" class="wp-image-848"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt="" class="wp-image-848"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":842,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png" alt="" class="wp-image-842"/></a></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/plymouth-bombsight-location-background-information_33561359746_o.png" alt="" class="wp-image-842"/></a></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 

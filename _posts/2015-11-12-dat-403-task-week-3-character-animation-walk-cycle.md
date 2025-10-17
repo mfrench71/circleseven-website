@@ -32,7 +32,7 @@ https://youtu.be/VUR-QMgxl1A
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":741,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg" alt="" class="wp-image-741"/></a><figcaption class="wp-element-caption">After Effects character animation layers panel</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/after-effects-character-animation-layers.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/after-effects-character-animation-layers.jpg" alt="" class="wp-image-741"/></a><figcaption class="wp-element-caption">After Effects character animation layers panel</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -44,5 +44,5 @@ https://youtu.be/VUR-QMgxl1A
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":742,"sizeSlug":"full","linkDestination":"media"} -->
-<figure class="wp-block-image size-full"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/walk-cycle.gif"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/walk-cycle.gif" alt="" class="wp-image-742"/></a><figcaption class="wp-element-caption">Walk cycle reference image</figcaption></figure>
+<figure class="wp-block-image size-full"><a href="https://res.cloudinary.com/circleseven/image/upload/walk-cycle.gif"><img src="https://res.cloudinary.com/circleseven/image/upload/walk-cycle.gif" alt="" class="wp-image-742"/></a><figcaption class="wp-element-caption">Walk cycle reference image</figcaption></figure>
 <!-- /wp:image -->

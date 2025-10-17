@@ -44,7 +44,7 @@ categories: DAT503 - Reflexive Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":813,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2016-scaled-1-768x1024.jpg" alt="" class="wp-image-813"/><figcaption class="wp-element-caption">Result of directed drawing</figcaption></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2016-scaled-1-768x1024.jpg" alt="" class="wp-image-813"/><figcaption class="wp-element-caption">Result of directed drawing</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -99,19 +99,19 @@ categories: DAT503 - Reflexive Design
 
 <!-- wp:gallery {"linkTo":"media"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped"><!-- wp:image {"id":816,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg" alt="" class="wp-image-816"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_1999_33087914500_o-1024x768.jpg" alt="" class="wp-image-816"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":815,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg" alt="" class="wp-image-815"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_2001_32657092913_o-1024x768.jpg" alt="" class="wp-image-815"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":817,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg" alt="" class="wp-image-817"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_2002_32657092573_o-1024x768.jpg" alt="" class="wp-image-817"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image {"id":818,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg" alt="" class="wp-image-818"/></figure>
+<figure class="wp-block-image size-large"><img src="https://res.cloudinary.com/circleseven/image/upload/img_2003_32657093133_o-1024x768.jpg" alt="" class="wp-image-818"/></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -128,7 +128,7 @@ categories: DAT503 - Reflexive Design
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":814,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2005-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_2005-scaled-1-1024x768.jpg" alt="" class="wp-image-814"/></a><figcaption class="wp-element-caption">Communication technologies and techniques</figcaption></figure>
+<figure class="wp-block-image size-large"><a href="https://res.cloudinary.com/circleseven/image/upload/IMG_2005-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/IMG_2005-scaled-1-1024x768.jpg" alt="" class="wp-image-814"/></a><figcaption class="wp-element-caption">Communication technologies and techniques</figcaption></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->

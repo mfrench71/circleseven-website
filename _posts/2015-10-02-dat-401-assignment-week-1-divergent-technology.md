@@ -22,7 +22,7 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":495,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/03/roadkill_recombinator-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/03/roadkill_recombinator-1-300x120.jpg" alt="" class="wp-image-495"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/roadkill_recombinator-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/roadkill_recombinator-1-300x120.jpg" alt="" class="wp-image-495"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -42,7 +42,7 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":493,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/03/pizza-base-ideas-sketch-2-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/03/pizza-base-ideas-sketch-2-300x225.jpg" alt="" class="wp-image-493"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/pizza-base-ideas-sketch-2-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/pizza-base-ideas-sketch-2-300x225.jpg" alt="" class="wp-image-493"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
@@ -80,7 +80,7 @@ categories: DAT401 - Strategies for Digital Art and Technology Digital Art and T
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":489,"sizeSlug":"medium","linkDestination":"media"} -->
-<figure class="wp-block-image size-medium"><a href="https://www.circleseven.co.uk/wp-content/uploads/2015/10/assigment_week_01a-e1443776210378.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/assigment_week_01a-e1443776210378-300x121.jpg" alt="" class="wp-image-489"/></a></figure>
+<figure class="wp-block-image size-medium"><a href="https://res.cloudinary.com/circleseven/image/upload/assigment_week_01a-e1443776210378.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/assigment_week_01a-e1443776210378-300x121.jpg" alt="" class="wp-image-489"/></a></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
