@@ -2,7 +2,7 @@
 layout: post
 title: "DAT506 - Assignment Part 1 - Smart Cycling Jacket"
 date: 2017-02-25 13:11:06 +0000
-categories: DAT506 - Emerging Technologies Digital Art and Technology
+categories: ["DAT506 - Emerging Technologies Digital Art and Technology"]
 ---
 
 Brief: By embedding technology in items such as clothing and jewellery, the wearables movement aims to make smart clothes and devices that enhance everyday life. Working in groups, and using the fablab and workshop equipment and maker technologies we explore in the class, your task is to produce a piece of wearable technology which will be presented as part of a DAT fashion show.

@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Face Recognition with Azure Face API and Python"
 date: 2018-11-13 15:31:22 +0000
-categories: DAT602 - Everyware Digital Art and Technology
+categories: ["DAT602 - Everyware Digital Art and Technology"]
 ---
 
 <p>Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Microsoft Azure Cognitive Services</a> (Microsoft, no date).</p>

@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Proposal Presentation and Feedback - uSense"
 date: 2018-10-22 08:02:23 +0000
-categories: DAT602 - Everyware Digital Art and Technology
+categories: ["DAT602 - Everyware Digital Art and Technology"]
 ---
 
 **Presentation Guidelines**

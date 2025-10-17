@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Movie poster tropes - What are they?"
 date: 2015-11-03 20:39:32 +0000
-categories: DAT403 - Digital Media Design Digital Art and Technology
+categories: ["DAT403 - Digital Media Design Digital Art and Technology"]
 ---
 
 <blockquote class="wp-block-quote"><p>"A literary trope is the use of figurative language – via word, phrase, or even an image – for artistic effect such as using a figure of speech. The word trope has also come to be used for describing commonly recurring literary and rhetorical devices, motifs or clichés in creative works."</p>

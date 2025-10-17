@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Assignment - Animation Show Reel"
 date: 2015-11-21 08:57:00 +0000
-categories: DAT403 - Digital Media Design Digital Art and Technology
+categories: ["DAT403 - Digital Media Design Digital Art and Technology"]
 ---
 
 Brief: Manufacture an animated show reel that displays the skills you have learnt from this module. This is the format for submitting your animation tests, experiments, graphics designs and After Effect's exploration in and out of the practical sessions. Each asset implemented must be your own work and individual to you. The show case of animated material should have an overarching theme or narrative. Focus is to be negotiated through discussion with the module leader. Add a description to the film describing and justifying the specific visual choices you have made. Break down the elements included and explain your theme/ narrative.

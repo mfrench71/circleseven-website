@@ -2,7 +2,7 @@
 layout: post
 title: "DAT501 - Creative Strategies: Process"
 date: 2017-03-29 09:22:22 +0000
-categories: DAT501 - Strategies for Digital Art and Technology Digital Art and Technology
+categories: ["DAT501 - Strategies for Digital Art and Technology Digital Art and Technology"]
 ---
 
 Artists often start work without a clear idea of where they are going to end up. They react to what they have already made to expand their work, and they continue until it is finished. This methodology has a focus on the process.

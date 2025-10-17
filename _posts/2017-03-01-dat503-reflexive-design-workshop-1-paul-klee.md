@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - Reflexive Design Workshop 1 - Paul Klee"
 date: 2017-03-01 10:17:49 +0000
-categories: DAT503 - Reflexive Design Digital Art and Technology
+categories: ["DAT503 - Reflexive Design Digital Art and Technology"]
 ---
 
 **Paul Klee - "Drawing is taking a line for a walk"**

@@ -5,29 +5,14 @@ permalink: /categories/
 ---
 
 <div class="categories-page">
-  {% comment %}
-  Build a list of unique full category strings from all posts
-  {% endcomment %}
-  {% assign all_categories = "" | split: "" %}
-  {% for post in site.posts %}
-    {% assign cat_string = post.categories | join: " " %}
-    {% unless all_categories contains cat_string %}
-      {% assign all_categories = all_categories | push: cat_string %}
-    {% endunless %}
-  {% endfor %}
-  {% assign sorted_categories = all_categories | sort %}
+  {% assign sorted_categories = site.categories | sort %}
 
   <p>Browse posts by category. Click on a category to see all posts in that category.</p>
 
   <div class="category-cloud">
-    {% for category_name in sorted_categories %}
-      {% assign posts_count = 0 %}
-      {% for post in site.posts %}
-        {% assign post_cat = post.categories | join: " " %}
-        {% if post_cat == category_name %}
-          {% assign posts_count = posts_count | plus: 1 %}
-        {% endif %}
-      {% endfor %}
+    {% for category in sorted_categories %}
+      {% assign category_name = category[0] %}
+      {% assign posts_count = category[1] | size %}
       <a href="#{{ category_name | slugify }}" class="category-tag" style="font-size: {{ posts_count | times: 2 | plus: 12 }}px;">
         {{ category_name }} ({{ posts_count }})
       </a>
@@ -36,28 +21,19 @@ permalink: /categories/
 
   <hr style="margin: 40px 0;">
 
-  {% for category_name in sorted_categories %}
+  {% for category in sorted_categories %}
+    {% assign category_name = category[0] %}
+    {% assign posts = category[1] %}
+
     <div class="category-section" id="{{ category_name | slugify }}">
-      <h2>{{ category_name }} <span class="count">
-        {% assign posts_in_cat = 0 %}
-        {% for post in site.posts %}
-          {% assign post_cat = post.categories | join: " " %}
-          {% if post_cat == category_name %}
-            {% assign posts_in_cat = posts_in_cat | plus: 1 %}
-          {% endif %}
-        {% endfor %}
-        ({{ posts_in_cat }} posts)
-      </span></h2>
+      <h2>{{ category_name }} <span class="count">({{ posts | size }} posts)</span></h2>
 
       <ul class="post-list">
-        {% for post in site.posts %}
-          {% assign post_cat = post.categories | join: " " %}
-          {% if post_cat == category_name %}
-            <li>
-              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            </li>
-          {% endif %}
+        {% for post in posts %}
+          <li>
+            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </li>
         {% endfor %}
       </ul>
     </div>

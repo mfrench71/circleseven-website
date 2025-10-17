@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 - The Boathouse at Radford Lake - A Digital Reconstruction & Restoration"
 date: 2019-05-21 14:29:03 +0000
-categories: DAT612 - Final Year Project Digital Art and Technology
+categories: ["DAT612 - Final Year Project Digital Art and Technology"]
 ---
 
 **Concept**

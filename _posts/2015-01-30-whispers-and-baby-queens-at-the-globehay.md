@@ -2,7 +2,7 @@
 layout: post
 title: "Whispers and Baby Queens at The Globe@Hay"
 date: 2015-01-30 13:47:00 +0000
-categories: Photography Projects
+categories: ["Photography Projects"]
 ---
 
 <p>The <a href="http://www.globeathay.org/">Globe@Hay</a> very kindly allowed me to photograph acoustic duo <a href="https://www.facebook.com/pages/Whispers/1452365364976478">*Whispers*</a> and *<a href="https://www.facebook.com/pages/Baby-Queens/523170581048847">Baby Queens</a>*. Here's a selection of images from the night... </p>

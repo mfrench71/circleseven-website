@@ -2,7 +2,7 @@
 layout: post
 title: "DAT501 - Creative Strategies: Personal Manifesto"
 date: 2017-03-27 09:18:13 +0000
-categories: DAT501 - Strategies for Digital Art and Technology Digital Art and Technology
+categories: ["DAT501 - Strategies for Digital Art and Technology Digital Art and Technology"]
 ---
 
 **Creative Strategies: Personal Manifesto**

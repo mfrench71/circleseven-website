@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - Reflexive Design Workshop 1 - John Cage"
 date: 2017-03-01 10:02:28 +0000
-categories: DAT503 - Reflexive Design Digital Art and Technology
+categories: ["DAT503 - Reflexive Design Digital Art and Technology"]
 ---
 
 **John Cage - 4:33 silence**

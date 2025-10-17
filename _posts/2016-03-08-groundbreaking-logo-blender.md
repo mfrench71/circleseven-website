@@ -2,7 +2,7 @@
 layout: post
 title: "Groundbreaking Logo - Blender"
 date: 2016-03-08 09:13:00 +0000
-categories: Motion Graphics Projects
+categories: ["Motion Graphics Projects"]
 ---
 
 <p>Some time ago, I was just starting out with&nbsp;Maxon's Cinema 4D application and followed along with <a href="http://cgi.tutsplus.com/tutorials/create-a-powerful-groundbreaking-logo-reveal-cg-part--cg-27011">this tutorial</a>, both as a learning exercise and because I liked the end result.</p>

@@ -17,7 +17,9 @@ layout: default
         {% endif %}
         {% if post.categories.size > 0 %}
           <span class="post-categories">
-            <span class="category">{{ post.categories | join: ', ' }}</span>
+            {% for category in post.categories %}
+              <span class="category">{{ category }}</span>
+            {% endfor %}
           </span>
         {% endif %}
       </li>

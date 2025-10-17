@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 - Photogrammetry with RealityCapture Test#1"
 date: 2019-02-13 07:51:35 +0000
-categories: DAT612 - Final Year Project Digital Art and Technology
+categories: ["DAT612 - Final Year Project Digital Art and Technology"]
 ---
 
 My final year project will involve the use of photogrammetry to create a 3D model of an existing item of cultural heritage significance, for instance: the remains of a building, building interior, or individual objects.

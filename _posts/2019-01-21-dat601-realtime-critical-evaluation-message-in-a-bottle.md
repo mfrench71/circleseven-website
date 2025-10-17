@@ -2,7 +2,7 @@
 layout: post
 title: "DAT601 - Realtime - Critical Evaluation - 'Message in a Bottle"
 date: 2019-01-21 15:13:40 +0000
-categories: DAT601 - Realtime Digital Art and Technology
+categories: ["DAT601 - Realtime Digital Art and Technology"]
 ---
 
 **Conception**
