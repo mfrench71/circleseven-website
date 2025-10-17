@@ -3,12 +3,19 @@
    Responsive sidebar layout with widgets
    ============================================ */
 
-/* Layout Grid */
+/* Layout Grid - More spacious main content */
 .layout-sidebar {
   display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 40px;
+  grid-template-columns: minmax(0, 900px) 300px;
+  gap: 60px;
   align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Override wrapper max-width for sidebar layout */
+.wrapper.layout-sidebar {
+  max-width: 1400px;
 }
 
 .main-content {
