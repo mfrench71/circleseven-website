@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 401 - Assignment - Week 4 - Remixes Mashups and the Readymade"
 date: 2015-10-22 08:40:00 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology Digital Art and Technology"]
+categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
 ---
 
 Brief: Working individually or in your groups, produce an intervention/remix/readymade action that will be documented as a short film.

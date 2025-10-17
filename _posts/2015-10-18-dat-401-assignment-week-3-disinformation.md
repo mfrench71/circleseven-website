@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 401 - Assignment - Week 3 - Disinformation"
 date: 2015-10-18 10:56:00 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology Digital Art and Technology"]
+categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
 ---
 
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**

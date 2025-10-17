@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 – Final Year Project Proposal"
 date: 2019-02-05 07:45:55 +0000
-categories: ["DAT612 - Final Year Project Digital Art and Technology"]
+categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
 ---
 
 **Outline of area of study/context**

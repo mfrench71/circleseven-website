@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - On Broadway - Paper Review"
 date: 2017-03-08 09:52:14 +0000
-categories: ["DAT503 - Reflexive Design Digital Art and Technology"]
+categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 ---
 
 <figure class="wp-block-image size-large"><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5116459810_523ce620e5_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5116459810_523ce620e5_o-1022x1024.jpg" alt="" class="wp-image-779"/></a><figcaption class="wp-element-caption">Lev Manovich</figcaption></figure>

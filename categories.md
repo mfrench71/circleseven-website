@@ -7,14 +7,16 @@ permalink: /categories/
 <div class="categories-page">
   {% assign sorted_categories = site.categories | sort %}
 
-  <p>Browse posts by category. Click on a category to see all posts in that category.</p>
+  <p>Browse posts by category. Posts are organized into parent categories (bold) and subcategories.</p>
 
   <div class="category-cloud">
     {% for category in sorted_categories %}
       {% assign category_name = category[0] %}
       {% assign posts_count = category[1] | size %}
-      <a href="#{{ category_name | slugify }}" class="category-tag" style="font-size: {{ posts_count | times: 2 | plus: 12 }}px;">
-        {{ category_name }} ({{ posts_count }})
+      {% assign font_size = posts_count | times: 1.5 | plus: 13 %}
+      {% if font_size > 24 %}{% assign font_size = 24 %}{% endif %}
+      <a href="#{{ category_name | slugify }}" class="category-tag" style="font-size: {{ font_size }}px;">
+        {{ category_name }} <span class="count">({{ posts_count }})</span>
       </a>
     {% endfor %}
   </div>
@@ -26,13 +28,20 @@ permalink: /categories/
     {% assign posts = category[1] %}
 
     <div class="category-section" id="{{ category_name | slugify }}">
-      <h2>{{ category_name }} <span class="count">({{ posts | size }} posts)</span></h2>
+      <h2>{{ category_name }} <span class="count">({{ posts | size }})</span></h2>
 
       <ul class="post-list">
         {% for post in posts %}
           <li>
             <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {% if post.categories.size > 1 %}
+              <span class="post-breadcrumb">
+                {% for cat in post.categories %}
+                  {{ cat }}{% unless forloop.last %} › {% endunless %}
+                {% endfor %}
+              </span>
+            {% endif %}
           </li>
         {% endfor %}
       </ul>
@@ -88,6 +97,18 @@ permalink: /categories/
       margin-right: 15px;
       display: inline-block;
       min-width: 100px;
+    }
+    .post-breadcrumb {
+      display: block;
+      font-size: 12px;
+      color: #999;
+      margin-top: 3px;
+      margin-left: 115px;
+      font-style: italic;
+    }
+    .category-tag .count {
+      font-size: 0.85em;
+      opacity: 0.7;
     }
   </style>
 </div>

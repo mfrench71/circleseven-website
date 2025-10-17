@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 401 - Assignment - Week 2 - Crowdsourcing & Collaboration"
 date: 2015-10-10 15:11:57 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology Digital Art and Technology"]
+categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
 ---
 
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.

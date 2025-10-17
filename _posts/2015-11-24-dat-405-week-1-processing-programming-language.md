@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 405 - Week 1 - Processing Programming Language"
 date: 2015-11-24 08:58:24 +0000
-categories: ["DAT405 - Creative Coding Digital Art and Technology"]
+categories: ["DAT405 - Creative Coding", "Digital Art and Technology"]
 ---
 
 Today we were introduced to the Processing programming language (<a href="http://www.processing.org">http://www.processing.org</a>).

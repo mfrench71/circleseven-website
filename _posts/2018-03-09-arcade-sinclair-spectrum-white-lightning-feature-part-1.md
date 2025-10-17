@@ -2,7 +2,7 @@
 layout: post
 title: "'Arcade' - Sinclair Spectrum White Lightning Feature - Part 1"
 date: 2018-03-09 08:50:00 +0000
-categories: ["Projects Retro Computing"]
+categories: ["Projects", "Retro Computing"]
 ---
 
 This is part one an a series of Spectrum White Lightning articles originally written in the late 1980s (when I was a teenager) for inclusion in our ZX Spectrum fanzine, 'Arcade'. Having re-read my scribblings almost 30 years later, I don't pretend to understand any of it. It might be useful. It might not. If you do find it useful or, at least, interesting, please leave a comment below.

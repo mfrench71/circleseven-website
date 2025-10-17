@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 402 - Assignment Part 2 - Digital Spheres of Culture"
 date: 2016-05-25 10:16:34 +0000
-categories: ["DAT402 - Digital Culture Digital Art and Technology"]
+categories: ["DAT402 - Digital Culture", "Digital Art and Technology"]
 ---
 
 Brief: Working individually, choose a sphere of online network culture that uses video to communicate ideas. Collect materials that exemplify the way in which this community or genre uses online video and edit together a clip compilation that explores their use of online video. Think about dialogues, conversations between participants and look for themes that are repeated in the video content you collect. There are many trends in video sharing that offer sometimes unexpected insights into the way in which people use networked communication technologies.

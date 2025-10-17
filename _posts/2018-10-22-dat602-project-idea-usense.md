@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Project Idea - uSense"
 date: 2018-10-22 07:59:43 +0000
-categories: ["DAT602 - Everyware Digital Art and Technology"]
+categories: ["DAT602 - Everyware", "Digital Art and Technology"]
 ---
 
 **The Project Brief**
