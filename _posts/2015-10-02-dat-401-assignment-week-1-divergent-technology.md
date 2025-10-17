@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 401 - Assignment - Week 1 - Divergent Technology"
 date: 2015-10-02 08:18:00 +0000
-categories: DAT401 - Strategies for Digital Art &amp; Technology Digital Art &amp; Technology
+categories: DAT401 - Strategies for Digital Art and Technology Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

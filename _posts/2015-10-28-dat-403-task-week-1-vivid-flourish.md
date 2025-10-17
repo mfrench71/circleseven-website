@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 – Task – Week 1 – ‘Vivid Flourish'"
 date: 2015-10-28 14:04:32 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

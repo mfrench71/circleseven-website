@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - uSense Cognitive Functionality Testing with Node-RED - Sentiment and Tone"
 date: 2018-10-27 08:08:18 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

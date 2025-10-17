@@ -2,7 +2,7 @@
 layout: post
 title: "DAT501 - Creative Strategies: Process"
 date: 2017-03-29 09:22:22 +0000
-categories: DAT501 - Strategies for Digital Art &amp; Technology Digital Art &amp; Technology
+categories: DAT501 - Strategies for Digital Art and Technology Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

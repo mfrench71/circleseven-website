@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 405 - Assignment - Space Invaders"
 date: 2016-01-18 08:50:01 +0000
-categories: DAT405 - Creative Coding Digital Art &amp; Technology
+categories: DAT405 - Creative Coding Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

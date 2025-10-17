@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 - Visit to Slade's Sawmill/Kingsbridge Cookworthy Museum"
 date: 2019-02-20 15:56:21 +0000
-categories: DAT612 - Final Year Project Digital Art &amp; Technology
+categories: DAT612 - Final Year Project Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

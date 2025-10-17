@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 505 - Assignment - Part 3 - Python Multimedia"
 date: 2016-10-26 10:50:47 +0000
-categories: DAT505 - Advanced Creative Coding Digital Art &amp; Technology
+categories: DAT505 - Advanced Creative Coding Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

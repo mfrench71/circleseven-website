@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 406 - Assignment Part 1 - Twitter Balloons"
 date: 2016-03-14 11:22:36 +0000
-categories: DAT406 - Digital Making Digital Art &amp; Technology
+categories: DAT406 - Digital Making Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

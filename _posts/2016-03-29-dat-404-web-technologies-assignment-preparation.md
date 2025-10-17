@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 404 - Web Technologies Assignment Preparation"
 date: 2016-03-29 07:57:39 +0000
-categories: DAT404 - Web Technologies Digital Art &amp; Technology
+categories: DAT404 - Web Technologies Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

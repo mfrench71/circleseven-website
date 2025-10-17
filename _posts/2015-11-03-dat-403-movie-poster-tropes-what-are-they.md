@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Movie poster tropes - What are they?"
 date: 2015-11-03 20:39:32 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:quote -->

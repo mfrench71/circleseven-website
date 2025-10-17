@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - On Broadway - Paper Review"
 date: 2017-03-08 09:52:14 +0000
-categories: DAT503 - Reflexive Design Digital Art &amp; Technology
+categories: DAT503 - Reflexive Design Digital Art and Technology
 ---
 
 <!-- wp:image {"id":779,"sizeSlug":"large","linkDestination":"media"} -->

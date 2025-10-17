@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 402 - Assignment Part 1 - Sound & Recorded Media"
 date: 2016-05-23 07:47:26 +0000
-categories: DAT402 - Digital Culture Digital Art &amp; Technology
+categories: DAT402 - Digital Culture Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

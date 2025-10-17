@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 505 - Assignment Part 1 - Mobile App Development"
 date: 2016-10-13 09:37:36 +0000
-categories: DAT505 - Advanced Creative Coding Digital Art &amp; Technology
+categories: DAT505 - Advanced Creative Coding Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

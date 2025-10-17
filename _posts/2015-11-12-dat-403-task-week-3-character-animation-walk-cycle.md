@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Task - Week 3 - Character Animation Walk Cycle"
 date: 2015-11-12 08:34:48 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

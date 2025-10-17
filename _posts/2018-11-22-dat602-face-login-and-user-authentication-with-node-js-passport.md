@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Face Login and User Authentication with Node.js Passport"
 date: 2018-11-22 13:07:17 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

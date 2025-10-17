@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Assignment - Photomontage"
 date: 2015-11-16 09:09:00 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

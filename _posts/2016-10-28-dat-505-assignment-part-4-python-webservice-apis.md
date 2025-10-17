@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 505 - Assignment Part 4 - Python Webservice APIs"
 date: 2016-10-28 11:00:59 +0000
-categories: DAT505 - Advanced Creative Coding Digital Art &amp; Technology
+categories: DAT505 - Advanced Creative Coding Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - Reflexive Design Workshop 3 - Sound"
 date: 2017-03-06 11:29:05 +0000
-categories: DAT503 - Reflexive Design Digital Art &amp; Technology
+categories: DAT503 - Reflexive Design Digital Art and Technology
 ---
 
 We were asked, in groups, to venture out to record our own sounds, voices and atmospheres and then assemble them into a creative soundscape. We were also encouraged to add raw data via Audacity software as a way of producing a sonification of data - to bring data out of the digital realm and into the physical via the medium of sound.

@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 – Task – Week 1 - 'Drama Queen' Photomontage"
 date: 2015-10-27 14:00:31 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

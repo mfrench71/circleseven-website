@@ -2,7 +2,7 @@
 layout: post
 title: "DAT506 - Assignment Part 2 - Kaleidoscopic Loops"
 date: 2017-02-25 12:57:33 +0000
-categories: DAT506 - Emerging Technologies Digital Art &amp; Technology
+categories: DAT506 - Emerging Technologies Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

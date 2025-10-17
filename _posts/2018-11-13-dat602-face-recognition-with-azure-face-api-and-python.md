@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Face Recognition with Azure Face API and Python"
 date: 2018-11-13 15:31:22 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

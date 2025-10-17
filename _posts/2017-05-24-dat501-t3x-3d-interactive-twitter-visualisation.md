@@ -2,7 +2,7 @@
 layout: post
 title: "DAT501 - t3X: 3D Interactive Twitter Visualisation"
 date: 2017-05-24 09:46:57 +0000
-categories: DAT501 - Strategies for Digital Art &amp; Technology Digital Art &amp; Technology
+categories: DAT501 - Strategies for Digital Art and Technology Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

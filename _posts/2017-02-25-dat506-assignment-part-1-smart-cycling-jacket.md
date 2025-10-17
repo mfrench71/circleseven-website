@@ -2,7 +2,7 @@
 layout: post
 title: "DAT506 - Assignment Part 1 - Smart Cycling Jacket"
 date: 2017-02-25 13:11:06 +0000
-categories: DAT506 - Emerging Technologies Digital Art &amp; Technology
+categories: DAT506 - Emerging Technologies Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

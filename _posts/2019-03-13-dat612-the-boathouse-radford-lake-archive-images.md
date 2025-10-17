@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 - The Boathouse, Radford Lake - Archive Images"
 date: 2019-03-13 15:39:30 +0000
-categories: DAT612 - Final Year Project Digital Art &amp; Technology
+categories: DAT612 - Final Year Project Digital Art and Technology
 ---
 
 <!-- wp:gallery {"linkTo":"media"} -->

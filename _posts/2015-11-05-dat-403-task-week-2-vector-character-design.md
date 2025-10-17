@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 - Task - Week 2 - Vector Character Design"
 date: 2015-11-05 14:14:14 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - Face Login - Twitter Visualisations"
 date: 2018-11-23 10:15:05 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

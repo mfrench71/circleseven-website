@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 403 – Task – Week 2 – Vector Logo Design"
 date: 2015-11-04 14:54:15 +0000
-categories: DAT403 - Digital Media Design Digital Art &amp; Technology
+categories: DAT403 - Digital Media Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

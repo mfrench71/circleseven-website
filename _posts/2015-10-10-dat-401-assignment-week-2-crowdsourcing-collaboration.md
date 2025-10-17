@@ -2,7 +2,7 @@
 layout: post
 title: "DAT 401 - Assignment - Week 2 - Crowdsourcing & Collaboration"
 date: 2015-10-10 15:11:57 +0000
-categories: DAT401 - Strategies for Digital Art &amp; Technology Digital Art &amp; Technology
+categories: DAT401 - Strategies for Digital Art and Technology Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->

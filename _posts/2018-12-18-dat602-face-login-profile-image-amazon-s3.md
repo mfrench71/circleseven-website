@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 – Face Login – Profile Image/Amazon S3"
 date: 2018-12-18 09:06:13 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

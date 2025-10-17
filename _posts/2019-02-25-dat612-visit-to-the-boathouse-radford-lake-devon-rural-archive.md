@@ -2,7 +2,7 @@
 layout: post
 title: "DAT612 - Visit to The Boathouse, Radford Lake/Devon Rural Archive"
 date: 2019-02-25 11:15:20 +0000
-categories: DAT612 - Final Year Project Digital Art &amp; Technology
+categories: DAT612 - Final Year Project Digital Art and Technology
 ---
 
 <!-- wp:paragraph -->

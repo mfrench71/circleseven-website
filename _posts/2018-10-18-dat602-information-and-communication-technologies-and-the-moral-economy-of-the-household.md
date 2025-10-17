@@ -2,7 +2,7 @@
 layout: post
 title: "DAT602 - “Information and Communication Technologies and the Moral Economy of the Household”"
 date: 2018-10-18 07:54:58 +0000
-categories: DAT602 - Everyware Digital Art &amp; Technology
+categories: DAT602 - Everyware Digital Art and Technology
 ---
 
 <strong>Homework</strong>

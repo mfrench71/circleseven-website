@@ -2,7 +2,7 @@
 layout: post
 title: "DAT503 - Urban API - Plymouth Bomb Sight"
 date: 2017-03-29 12:15:12 +0000
-categories: DAT503 - Reflexive Design Digital Art &amp; Technology
+categories: DAT503 - Reflexive Design Digital Art and Technology
 ---
 
 <!-- wp:paragraph {"className":"brief"} -->
