@@ -1,0 +1,122 @@
+/* ============================================
+   FOOTER STYLES
+   Social icons and footer layout
+   ============================================ */
+
+.site-footer {
+  border-top: 1px solid #e8e8e8;
+  padding: 30px 0;
+  background: #f9f9f9;
+}
+
+.footer-col-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+/* Social Media Icons in Footer */
+.social-links {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-top: 1px solid #e8e8e8;
+}
+
+.social-media-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social-media-list li {
+  margin: 0;
+}
+
+.social-media-list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #666;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.social-media-list a:hover {
+  background: #2a7ae2;
+  color: white;
+  border-color: #2a7ae2;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(42, 122, 226, 0.3);
+}
+
+.social-media-list svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-media-list .username {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.social-media-list a:hover .username {
+  opacity: 1;
+}
+
+.social-media-list .username::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #333;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .footer-col-wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .social-media-list {
+    gap: 8px;
+  }
+
+  .social-media-list a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .social-media-list svg {
+    width: 18px;
+    height: 18px;
+  }
+}
