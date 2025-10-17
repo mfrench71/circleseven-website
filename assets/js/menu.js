@@ -64,28 +64,13 @@
 
   /**
    * Initialize desktop dropdown menus
+   * Relies primarily on CSS :hover with minimal JS for touch devices
    */
   function initDesktopDropdowns() {
     const dropdowns = document.querySelectorAll('.has-dropdown');
 
     dropdowns.forEach(function(dropdown) {
-      let hoverTimeout;
-
-      // Mouse enter - show dropdown immediately for better responsiveness
-      dropdown.addEventListener('mouseenter', function() {
-        clearTimeout(hoverTimeout);
-        dropdown.classList.add('active');
-      });
-
-      // Mouse leave - hide dropdown with short delay to prevent accidental closes
-      dropdown.addEventListener('mouseleave', function() {
-        clearTimeout(hoverTimeout);
-        hoverTimeout = setTimeout(function() {
-          dropdown.classList.remove('active');
-        }, 150);
-      });
-
-      // Click toggle for touch devices
+      // Click toggle for touch devices only
       const link = dropdown.querySelector('.nav-link');
       if (link) {
         link.addEventListener('click', function(e) {
@@ -106,7 +91,7 @@
       }
     });
 
-    // Close dropdowns when clicking outside
+    // Close dropdowns when clicking outside (touch devices)
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.has-dropdown')) {
         document.querySelectorAll('.has-dropdown.active').forEach(function(dropdown) {
