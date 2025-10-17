@@ -58,7 +58,7 @@ The core features of the cylcing jacket were to be:
 
 - High visibility mode
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycling-jacket-1024x789.png" alt="" class="wp-image-860"/ loading="lazy"></a><figcaption>LED layout variations</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycling-jacket-1024x789.png" alt=""/ loading="lazy"></a><figcaption>LED layout variations</figcaption></figure>
 
 **Testing**
 
@@ -68,13 +68,13 @@ The core features of the cylcing jacket were to be:
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/Q2jtvg6xZWQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycle-jacket_bb-1024x782.png" alt="" class="wp-image-861"/ loading="lazy"></a><figcaption>Cycling jacket Fritzing diagram</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycle-jacket_bb-1024x782.png" alt=""/ loading="lazy"></a><figcaption>Cycling jacket Fritzing diagram</figcaption></figure>
 
 **Fabrication of the Cycling Jacket**
 
 Wearable technology presents its own challenges when it comes to assembling the end product. Luckily we were able get to grips with some, to us, new materials and technologies, such as:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/flora_logo-e1488013904135.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/flora_logo-e1488013904135.png" alt="" class="wp-image-862"/ loading="lazy"></a><figcaption>Adafruit Flora microcontroller</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/flora_logo-e1488013904135.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/flora_logo-e1488013904135.png" alt=""/ loading="lazy"></a><figcaption>Adafruit Flora microcontroller</figcaption></figure>
 
 - Adafruit Flora microcontroller
 
@@ -98,13 +98,13 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 **Speed Meter**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1-1024x768.jpg" alt="" class="wp-image-863"/ loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1-1024x768.jpg" alt=""/ loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
 
 - We wanted to add an indication of the cyclist’s speed so that other roads users would be aware of how fast the cyclist was travelling (for overtaking).
 
 - A large digital readout on the back of the jacket was considered but the cost would have been prohibitive.
 
-- Eventually, we opted for a simple prototype speed meter attached to the rear of the bike &nbsp;as a proof of concept.
+- Eventually, we opted for a simple prototype speed meter attached to the rear of the bike as a proof of concept.
 
 - As speed of travel increases, the speed ‘bar’ goes up.
 
@@ -112,11 +112,11 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/OXasguabfYE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speed-meter_bb-925x1024.png" alt="" class="wp-image-864"/ loading="lazy"></a><figcaption>Speed Meter Fritzing Diagram</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speed-meter_bb-925x1024.png" alt=""/ loading="lazy"></a><figcaption>Speed Meter Fritzing Diagram</figcaption></figure>
 
 **GPS Tracker**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/gps-shield.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/gps-shield.png" alt="" class="wp-image-865"/ loading="lazy"></a><figcaption>Adafruit GPS Shield</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/gps-shield.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/gps-shield.png" alt=""/ loading="lazy"></a><figcaption>Adafruit GPS Shield</figcaption></figure>
 
 - The ubiquity of GPS-enabled devices, such as the Garmin range of watches, prompted the team to investigate the possibility of a wearable GPS tracker.
 

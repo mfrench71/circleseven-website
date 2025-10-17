@@ -7,9 +7,9 @@ categories: ["DAT506 - Emerging Technologies", "Digital Art and Technology"]
 
 Brief: Your task within your groups is to produce a creative and engaging visual experience set to music. Creating a series of short 3D full-dome Blender animation clips; the content will be made suitable for playback within the Immersive Vision Theatre and mixed and adapted live using Resolume VJ software.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt="" class="wp-image-855"/ loading="lazy"></a><figcaption>Immersion Vision Theatre at Plymouth University</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ivtt-1024x820-1-300x240-1.jpg" alt=""/ loading="lazy"></a><figcaption>Immersion Vision Theatre at Plymouth University</figcaption></figure>
 
-The piece of music that we chose was *Sandstorm* by Darude. The title of this piece allowed me to establish a loose theme for &nbsp;my Blender animation loops - particles.
+The piece of music that we chose was *Sandstorm* by Darude. The title of this piece allowed me to establish a loose theme for my Blender animation loops - particles.
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/y6120QOlsfU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
@@ -23,7 +23,7 @@ Loop 1 uses a set of animated spline objects to create an abstract animation loo
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/WfGhsyjOCh4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-Loop 2 takes the viewer on a roller-coaster-style ride through a claustrophobic tunnel. Along the way, the viewer encounters a mysterious glowing sphere, a myriad of coloured particles trailing in its wake.&nbsp; A light attached to the very front of the camera is used to illuminate the tunnel just in front of the viewer, creating a feeling of anticipation and desire to know what lies behind the next turn. A second lamp, parented to the sphere, causes the sphere to glow and to cast its own light before it. The viewer sees this light before the object itself, adding further mystery to the journey through the tunnel.
+Loop 2 takes the viewer on a roller-coaster-style ride through a claustrophobic tunnel. Along the way, the viewer encounters a mysterious glowing sphere, a myriad of coloured particles trailing in its wake. A light attached to the very front of the camera is used to illuminate the tunnel just in front of the viewer, creating a feeling of anticipation and desire to know what lies behind the next turn. A second lamp, parented to the sphere, causes the sphere to glow and to cast its own light before it. The viewer sees this light before the object itself, adding further mystery to the journey through the tunnel.
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/NBw5GVft1gQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 

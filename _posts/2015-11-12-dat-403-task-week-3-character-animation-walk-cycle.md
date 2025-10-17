@@ -19,10 +19,10 @@ In order to animate effectively, the first task was to use the Pan Behind (Ancho
 
 Pick whips were used to parent the head, left arm and right arm to the body to ensure that the animation would work realistically.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg" alt="" class="wp-image-741"/ loading="lazy"></a><figcaption>After Effects character animation layers panel</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/after-effects-character-animation-layers.jpg" alt=""/ loading="lazy"></a><figcaption>After Effects character animation layers panel</figcaption></figure>
 
 The Puppet Pin tool was used to add pin points to elements to enable editing and animating of additional body parts, such as knees, ankles, etc.
 
 Over the course of a 1 second/30 frame composition, the puppet pin points, rotation and position of the individual elements were keyframed to produce the animated walk cycle. A reference image was used as a guide to the position of body, arms and legs.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/walk-cycle.gif"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/walk-cycle.gif" alt="" class="wp-image-742"/ loading="lazy"></a><figcaption>Walk cycle reference image</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/walk-cycle.gif"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/walk-cycle.gif" alt=""/ loading="lazy"></a><figcaption>Walk cycle reference image</figcaption></figure>

@@ -18,7 +18,7 @@ Psychogeography
 
 Dérive:
 
-<blockquote><p>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually&nbsp;urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"</p>
+<blockquote><p>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"</p>
 </blockquote>
 
 <p>(<a href="https://en.wikipedia.org/wiki/Dérive">https://en.wikipedia.org/wiki/Dérive</a>)</p>
@@ -29,9 +29,9 @@ Dérive:
 
 - Now draw in the nearest path you can to that circle that you could actually walk. Notice how man-made and natural features constrain our progress.
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt="" class="wp-image-806"/ loading="lazy"></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt="" class="wp-image-805"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 </figure>
 
 Now walk the route:
@@ -64,7 +64,7 @@ https://youtu.be/Fkbo_qR0gZw
 
 **02:48 - 03:10** We reached a much quieter spot with little traffic. Nonetheless, we were able to observe in the distance the constant flow of cars travelling in the busier parts of the cities. From my standpoint, this seemed to highlight my appreciation of quiet where we stood, and not having to be on constant look-out for cars was a welcome relief.
 
-**03:11 - 03:33** This section of the journey, whilst very quiet, had a rather different feeling to those that had gone before. We stumbled upon what seemed to be a sheltering place, possibly for homeless people. The area was padlocked and fenced in and rather sobering. Along with the graffiti and CCTV signs, this&nbsp;area was slightly oppressive.
+**03:11 - 03:33** This section of the journey, whilst very quiet, had a rather different feeling to those that had gone before. We stumbled upon what seemed to be a sheltering place, possibly for homeless people. The area was padlocked and fenced in and rather sobering. Along with the graffiti and CCTV signs, this area was slightly oppressive.
 
 **03:34 - 03:45** We made our way to the harbour area which was very open and there seemed to be a lot more light. There was the ever-present surrounding buildings overlooking us.
 
@@ -74,4 +74,4 @@ https://youtu.be/Fkbo_qR0gZw
 
 **04:30 - 04:38** I now felt myself to be on familiar territory with the University campus just across the road. I could see the large screen display from The House building - a building I see almost every day as I walk to university. We had completed our circular route, with just a few diversions from our planned route.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt="" class="wp-image-807"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/psychogeography.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/psychogeography-864x1024.png" alt=""/ loading="lazy"></a></figure>

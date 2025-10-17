@@ -5,7 +5,7 @@ date: 2016-04-22 14:38:19 +0000
 categories: ["DAT404 - Web Technologies", "Digital Art and Technology"]
 ---
 
-Your task is to create a 'splash' webpage that self-promotes you and your professional practice. The web design&nbsp;must be built from scratch (i.e. not using a content management system) using:
+Your task is to create a 'splash' webpage that self-promotes you and your professional practice. The web design must be built from scratch (i.e. not using a content management system) using:
 
 - The structure of HTML elements
 
@@ -17,9 +17,9 @@ Your task is to create a 'splash' webpage that self-promotes you and your profes
 
 Basic content for the webpage (text and imagery) will be provided by yourself. However, in consideration to global limitations on accessibility and bandwidth the page weight has been limited to 500k.
 
-<p>Following on from my <a href="http://www.circleseven.co.uk/2016/03/29/dat-404-web-technologies-assignment-preparation/">investigation </a><a href="{{ site.baseurl }}/dat-404-web-technologies-assignment-preparation/">into visual effects provider web sites</a>&nbsp;and the creation of three alternative web designs based on these web sites, I decided to turn the following Photoshop mockup into a completed smash page web design for my chosen professional practice of broadcast visual effects:</p>
+<p>Following on from my <a href="http://www.circleseven.co.uk/2016/03/29/dat-404-web-technologies-assignment-preparation/">investigation </a><a href="{{ site.baseurl }}/dat-404-web-technologies-assignment-preparation/">into visual effects provider web sites</a> and the creation of three alternative web designs based on these web sites, I decided to turn the following Photoshop mockup into a completed smash page web design for my chosen professional practice of broadcast visual effects:</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/website_mockup.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/website_mockup-755x1024.jpg" alt="" class="wp-image-599"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/website_mockup.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/website_mockup-755x1024.jpg" alt=""/ loading="lazy"></a></figure>
 
 <p>The <a href="http://www.circleseven.co.uk/dat404" target="_blank" rel="noreferrer noopener">completed web site</a> site comprises:</p>
 
@@ -27,7 +27,7 @@ Basic content for the webpage (text and imagery) will be provided by yourself. H
 
 - Images which make up the graphical content of the page.
 
-- Two CSS (cascading style sheet) documents, one of which is&nbsp;used to style the appearance and layout of the web page, while the other provides the styling for the marquee element.
+- Two CSS (cascading style sheet) documents, one of which is used to style the appearance and layout of the web page, while the other provides the styling for the marquee element.
 
 - A Javascript document which provides the functionality for the marquee and the Google Map API code. This file leverages the functionality of the jQuery library.
 

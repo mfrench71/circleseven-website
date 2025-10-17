@@ -9,9 +9,9 @@ Today's practical exercise focussed on text effects within Photoshop.
 
 I created the following from a high contrast photo:
 
-<div><div style="flex-basis:100%"><figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt="" class="wp-image-587"/ loading="lazy"></a></figure>
+<div><div style="flex-basis:100%"><figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-original-scaled-1-230x300.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt="" class="wp-image-586"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2015/10/text-effects-finished-scaled-1-230x300.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>
 </div>
 </div>
@@ -22,7 +22,7 @@ Briefly, the steps taken to create this effect are:
 
 - New Layer &gt; Fill Black
 
-- Select Colour Range &nbsp;&gt; Midtones
+- Select Colour Range &gt; Midtones
 
 - New Layer &gt; Fill Black
 

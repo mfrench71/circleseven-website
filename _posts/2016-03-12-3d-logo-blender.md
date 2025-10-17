@@ -15,7 +15,7 @@ Once the outline was created, it is then extruded and bevelled to create the fin
 
 - Oliver Villar for his comprehensive <a href="http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo">Blender tutorial</a>.
 
-- Paul Barnes for his&nbsp;Blender shaky cam effect <a href="https://www.youtube.com/watch?v=B1sTWSxtyXo">YouTube video</a>.
+- Paul Barnes for his Blender shaky cam effect <a href="https://www.youtube.com/watch?v=B1sTWSxtyXo">YouTube video</a>.
 
 - Andrew Price for his <a href="http://www.blenderguru.com/articles/7-ways-get-rid-fireflies/">article</a> on removing fireflies in Blender.
 

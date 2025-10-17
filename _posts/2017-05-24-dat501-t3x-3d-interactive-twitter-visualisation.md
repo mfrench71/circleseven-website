@@ -25,7 +25,7 @@ The inspiration for this project derives from research carried out into the work
 
 John Cage (Cage, 2017) is well known for creating works of art and performances where the audience became part of the composition and where random factors, such as background sounds, determined the finished piece.
 
-Jonathan McCabe is a generative artist living in Canberra, Australia. &nbsp;He is particularly interested in theories of natural pattern formation and their application to computer art and design. “Computers are seen to be logical and deterministic, but I believe there is potential for surprise there. It is known that completely deterministic systems can be unpredictable” (McCabe, 2017).
+Jonathan McCabe is a generative artist living in Canberra, Australia. He is particularly interested in theories of natural pattern formation and their application to computer art and design. “Computers are seen to be logical and deterministic, but I believe there is potential for surprise there. It is known that completely deterministic systems can be unpredictable” (McCabe, 2017).
 
 Paul Prudence is an audio-visual performer working with generative video environments and abstract soundscapes. “I can control the amount of randomness, I drive it, but it also has a mind of its own. I like to be surprised during the performance" (Prudence, 2017).
 

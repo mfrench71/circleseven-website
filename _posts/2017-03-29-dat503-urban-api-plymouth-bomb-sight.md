@@ -9,33 +9,33 @@ Brief: Urban API is a live project. The project will generate an open real-time 
 
 **The Project has TWO components:**
 
-<ol>- Methodologies: A series of research, design and production methods will be&nbsp;presented along with practical mini projects to help students build an&nbsp;appropriate set of methodological design and research tools to complete the&nbsp;overall project. As part of this process, some key practical skills will be&nbsp;introduced such as hacking the Open Data and Google Maps API and Unity&nbsp;3D.
+<ol>- Methodologies: A series of research, design and production methods will be presented along with practical mini projects to help students build an appropriate set of methodological design and research tools to complete the overall project. As part of this process, some key practical skills will be introduced such as hacking the Open Data and Google Maps API and Unity 3D.
 
-- Planning: Following the introduction, students will be tasked to identify a site&nbsp;(used in the broadest sense) that will be the focus of their project.
+- Planning: Following the introduction, students will be tasked to identify a site (used in the broadest sense) that will be the focus of their project.
 </ol>
 
 <h5>Plymouth Bomb Sight</h5>
 
-As a group, we decided to develop a&nbsp;'Plymouth Bomb Sight' mobile application. This would both map the sites of bombs that fell on Plymouth during World War Two, as well as providing educational and historical background information. The mobile application would provide a Google Maps view of the bomb sites along with an augmented reality camera view interface to the data.
+As a group, we decided to develop a 'Plymouth Bomb Sight' mobile application. This would both map the sites of bombs that fell on Plymouth during World War Two, as well as providing educational and historical background information. The mobile application would provide a Google Maps view of the bomb sites along with an augmented reality camera view interface to the data.
 
 Conceptual sketches and logo ideas:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt="" class="wp-image-838"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-01_33570786571_o.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt="" class="wp-image-837"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-conceptual-sketch-02_33570788761_o.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt="" class="wp-image-836"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-logo-ideas_33570788371_o.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 **Data Sources**
 
 <p>We were able to access bomb site location data for Plymouth via the City Council Archives. The '<a href="http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND">Bomb Book</a>' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42-1024x848.jpeg" alt="" class="wp-image-839"/ loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Page42-1024x848.jpeg" alt=""/ loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
 
 A small JavaScript application was developed using the Google Maps API to store the location of each site as latitude and longitude coordinates within a GeoJSON file. We collected data on approximately 2000 bombs.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/geojson_capture.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg" alt="" class="wp-image-840"/ loading="lazy"></a><figcaption>Sample of GeoJSON data</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/geojson_capture.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/geojson_capture.jpeg" alt=""/ loading="lazy"></a><figcaption>Sample of GeoJSON data</figcaption></figure>
 
 The second data source we accessed was bomb casualty information:
 
@@ -50,7 +50,7 @@ As we read through the accounts of those who had died during the bombing of Plym
 
 Again, we extracted this data and converted it to a JSON file. We wanted to associate casualty data with bomb location data, potentially linking the recorded place of death to a particular bomb. A second small JavaScript application was developed to leverage the Google Maps Geocoding API to take the street address of casualties and convert them to latitude and longitude coordinates. We collected data on approximately 1000 casualties.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" alt="" class="wp-image-841"/ loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" alt=""/ loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
 
 **How it Works**
 
@@ -58,7 +58,7 @@ The application determines the geographic location of the user. Their location i
 
 Initially, bomb data is presented via a Google Maps view, with different bomb types (exploded, unexploded, incendiary and paramines) depicted with different icons. Clicking on a bomb icon in this view informs the user as to the type of bomb clicked on. The user is able to filter bomb data by date using a slider. A list of air raids is also accessible, again allowing the user to see the bombs that were dropped during a particular raid.
 
-An augmented reality camera provides a first-person perspective on the bomb data. Clicking an icon in this view provides access to details about the casualties of the bomb selected. Additional background information is available on buildings and locations&nbsp;in close proximity to the bomb site selected.
+An augmented reality camera provides a first-person perspective on the bomb data. Clicking an icon in this view provides access to details about the casualties of the bomb selected. Additional background information is available on buildings and locations in close proximity to the bomb site selected.
 
 Recreation of Charles Church, Plymouth, which was largely destroyed by fire during World War Two:
 
@@ -66,22 +66,22 @@ Recreation of Charles Church, Plymouth, which was largely destroyed by fire duri
 
 Mobile application screen shots:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt="" class="wp-image-845"/ loading="lazy"></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-air-raid-list_33700017625_o-576x1024.png" alt=""/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt="" class="wp-image-844"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-augmented-reality-view_33561359696_o.png" alt=""/ loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt="" class="wp-image-847"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-details_33700016455_o-576x1024.png" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt="" class="wp-image-846"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-casualty-list_33315880710_o-576x1024.png" alt=""/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png" alt="" class="wp-image-843"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-google-maps-view_33472895031_o.png" alt=""/ loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt="" class="wp-image-848"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-loading-screen_32886604283_o-576x1024.png" alt=""/ loading="lazy"></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png" alt="" class="wp-image-842"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/plymouth-bombsight-location-background-information_33561359746_o.png" alt=""/ loading="lazy"></a></figure>
 </figure>
 
-Below is a&nbsp;short promotional video produced to accompany the Plymouth Bomb Sight project:
+Below is a short promotional video produced to accompany the Plymouth Bomb Sight project:
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/UCzb8Z173D8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
@@ -89,7 +89,7 @@ Below is a&nbsp;short promotional video produced to accompany the Plymouth Bomb 
 
 Evaluation of the mobile application was carried out in a controlled setting i.e. by the members of the project team (although it was also tested 'in the wild' y a member of the team); the process was iterative, beginning from the development of the first version or prototype and continuing until the end of the time allowed for the project.
 
-Informal formative assessment and feedback from&nbsp;our tutors throughout the conceptualisation and development phases were also influential in how the application was developed. We took on board, and implemented, a number of their suggestions which we believe have resulted in an improved end product.
+Informal formative assessment and feedback from our tutors throughout the conceptualisation and development phases were also influential in how the application was developed. We took on board, and implemented, a number of their suggestions which we believe have resulted in an improved end product.
 
 As a result of the ongoing evaluation, there were a number of enhancements and changes made to the application, relating to usability, performance and the overall user experience. Some examples are detailed below:
 

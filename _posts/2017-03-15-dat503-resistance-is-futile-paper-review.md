@@ -11,16 +11,16 @@ Authors: Paul Dourish, Genevieve Bell Published: 15 May 2013
 
 This paper asserts that design-oriented thinking is a collective imagining influenced by both the prevalence of science fiction in the cultural backdrop of the ubiquitous computing research community, and by its inherent preoccupation with visions of near-future technology and alternative technology.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dourish-headshot.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dourish-headshot.jpg" alt="" class="wp-image-827"/ loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dourish-headshot.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dourish-headshot.jpg" alt=""/ loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/genevieve-bell-760x1024.jpg" alt="" class="wp-image-828"/ loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/genevieve-bell-760x1024.jpg" alt=""/ loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
 </figure>
 
-The authors cite the example of *Star Trek* directly influencing the research and engineering activities of NASA. Portable communicators, digital pads to replace paper and VR emerged in contemporary research into HCI and ubiquitous computing. Similarly, author and scientist, Arthur C Clarke's 'invention' of the communications satellite illustrates how science fiction not only anticipates&nbsp;but actively shapes technological advances through its effect on the collective imagination.
+The authors cite the example of *Star Trek* directly influencing the research and engineering activities of NASA. Portable communicators, digital pads to replace paper and VR emerged in contemporary research into HCI and ubiquitous computing. Similarly, author and scientist, Arthur C Clarke's 'invention' of the communications satellite illustrates how science fiction not only anticipates but actively shapes technological advances through its effect on the collective imagination.
 
 Furthermore, science fiction is regarded as a context helpfully providing a familiar and recognisable backdrop against which we can understand technological advancements. For example, the Esper machine in Ridley Scott's *Bladerunner* film foreshadows image manipulation and search technology by several decades. However, frustration can arise when our new technology does not live up to the our expectations based upon the imaginings of science fiction writers, artists and filmmakers.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg" alt="" class="wp-image-829"/ loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5624b2201761298dfb59719b5525ebf1-1.jpg" alt=""/ loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
 
 Science fiction uses "techniques of extrapolation and speculation ... in a narrative form, to construct near- future, far-future, or fantastic worlds in which science, technology, and society intersect" (Thacker, 2001).
 
@@ -35,9 +35,9 @@ The authors chose the following selection of broadcasts because of their interse
 
 **Star Trek (1966 - 1969)** The Enterprise crew's clamshell communicators could be said to have influenced recent mobile phone designs. Two other technologies mentioned (the phaser and matter transporter have, again, yet to have materialised).
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" alt="" class="wp-image-831"/ loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024.jpg" alt=""/ loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" alt="" class="wp-image-830"/ loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024.jpg" alt=""/ loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
 </figure>
 
 **Blake's 7 (1978 - 1981)** The show featured several very different computational devices: ZEN, ORAC, and SLAVE. They share an ability to receive and understand verbal commands and control complex machinery.
@@ -54,7 +54,7 @@ The mix of British-made and American-made shows provides a contrast in how scien
 
 **... Technological Breakdown**
 
-Again, the cultural origins of these shows are key to understanding different ways in which we think about technology and how we think about narratives around science and society. In some science fiction, technology 'just works'. It seemingly requires no maintenance or attention. On the other hand, as in Doctor Who, for instance, there are constant niggling problems and a failure to operate in&nbsp;ways that are fit for purpose - such as the TARDIS and its many malfunctions. &nbsp;This illustrates, perhaps, the American 'can do' attitude verses the British 'musn't grumble' approach.
+Again, the cultural origins of these shows are key to understanding different ways in which we think about technology and how we think about narratives around science and society. In some science fiction, technology 'just works'. It seemingly requires no maintenance or attention. On the other hand, as in Doctor Who, for instance, there are constant niggling problems and a failure to operate in ways that are fit for purpose - such as the TARDIS and its many malfunctions. This illustrates, perhaps, the American 'can do' attitude verses the British 'musn't grumble' approach.
 
 **Regimes of Surveillance**
 
@@ -62,25 +62,25 @@ This paper suggests that by referring to pervasive surveillance in science ficti
 
 **Design Fiction**
 
-<p>In 2009, <a href="https://en.wikipedia.org/wiki/Julian_Bleecker">Julian Bleecker</a>'s essay '<a href="http://drbfw5wfjlxon.cloudfront.net/writing/DesignFiction_WebEdition.pdf">Design Fiction:&nbsp;A short essay on design, science, fact and fiction</a>&nbsp;(PDF)' brought together the ideas propounded by Dourish, Bell, and Bruce Stirling's original coining of the phrase.</p>
+<p>In 2009, <a href="https://en.wikipedia.org/wiki/Julian_Bleecker">Julian Bleecker</a>'s essay '<a href="http://drbfw5wfjlxon.cloudfront.net/writing/DesignFiction_WebEdition.pdf">Design Fiction: A short essay on design, science, fact and fiction</a> (PDF)' brought together the ideas propounded by Dourish, Bell, and Bruce Stirling's original coining of the phrase.</p>
 
-<p>Subsequently, design fiction has taken hold as an established discipline,&nbsp;leading to the formation of agencies such as Design Friction ("We are a design practice producing speculative and critical scenarios for the upcoming presents"), <a href="http://nearfuturelaboratory.com/">The Near Future Laboratory</a> ("We explore futures, chart the unexpected and transform opportunities into new and tangible forms"), <a href="http://superflux.in/">Superflux</a> ("Translating future&nbsp;uncertainty into&nbsp;present day&nbsp;choices") and <a href="http://www.tomorrowsthoughtstoday.com">Tomorrow's Thoughts Today</a>.</p>
+<p>Subsequently, design fiction has taken hold as an established discipline, leading to the formation of agencies such as Design Friction ("We are a design practice producing speculative and critical scenarios for the upcoming presents"), <a href="http://nearfuturelaboratory.com/">The Near Future Laboratory</a> ("We explore futures, chart the unexpected and transform opportunities into new and tangible forms"), <a href="http://superflux.in/">Superflux</a> ("Translating future uncertainty into present day choices") and <a href="http://www.tomorrowsthoughtstoday.com">Tomorrow's Thoughts Today</a>.</p>
 
 **Science Fiction Prototyping**
 
-<blockquote><p>"Science fiction prototyping refers to the idea of using&nbsp;science fiction&nbsp;to describe and explore the implications of futuristic technologies and the social structures enabled by them."</p>
+<blockquote><p>"Science fiction prototyping refers to the idea of using science fiction to describe and explore the implications of futuristic technologies and the social structures enabled by them."</p>
 
 <p>(<a href="https://en.wikipedia.org/wiki/Science_fiction_prototyping">https://en.wikipedia.org/wiki/Science_fiction_prototyping</a>)</p>
 </blockquote>
 
 In contrast to the ideas explored in Dourish and Bell's paper, i.e. looking back at the canon of science fiction media to see how it has influenced the development of current technologies, science fiction prototyping takes the form of science fiction literature written for the explicit purpose of extrapolating a future for an intended technology outcome.
 
-<blockquote><p>"The main (but not exclusive) methodology is the use of&nbsp;science-fiction&nbsp;stories, grounded in existing practice which are written for the explicit purpose of acting as prototypes for people to explore a wide variety of futures."</p>
+<blockquote><p>"The main (but not exclusive) methodology is the use of science-fiction stories, grounded in existing practice which are written for the explicit purpose of acting as prototypes for people to explore a wide variety of futures."</p>
 </blockquote>
 
 (ibid)
 
-In some ways, then, the designers &nbsp;in today's creative community, working with scientists and technologists, are no longer relying on their cultural heritage of science fiction popular culture to fuel their creative impulse; they are becoming part of that culture, imagining future worlds and societies into which they can place their conceptual ideas as a testing ground for new technologies.
+In some ways, then, the designers in today's creative community, working with scientists and technologists, are no longer relying on their cultural heritage of science fiction popular culture to fuel their creative impulse; they are becoming part of that culture, imagining future worlds and societies into which they can place their conceptual ideas as a testing ground for new technologies.
 
 I am reminded of Tolkien's creation of the fantasy world of Middle Earth. A secondary world created, initially, as a backdrop into which to play out his true passion - that of language invention. Without the peoples, places and societies of Middle Earth, to speak and to breath life into these languages, there would have been no meaningful context into which to place these linguistic creations.
 

@@ -5,7 +5,7 @@ date: 2018-11-13 13:28:05 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
 ---
 
-<p>In my previous post, I developed some Python scripts which used Microsoft's Azure <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Face API</a>&nbsp; (Microsoft, no date) to train and recognise faces.</p>
+<p>In my previous post, I developed some Python scripts which used Microsoft's Azure <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Face API</a> (Microsoft, no date) to train and recognise faces.</p>
 
 Whilst the scripts functioned in the way I intended, the usability of the Python scripts for face recognition is not ideal for a number of reasons.
 
@@ -40,167 +40,167 @@ I developed a basic HTML page with sections to display the live camera preview, 
 
 <pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;!doctype html>
 &lt;html lang="en">
-  &lt;head>
-    &lt;!-- Required meta tags -->
-    &lt;meta charset="utf-8">
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    &lt;title>Face Login Test&lt;/title>
-    &lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    &lt;style>
-        #results, #identity, #name {
-          display: block;
-          font-family: monospace;
-          white-space: pre;
-          margin: 1em 0;
-        }
-    &lt;/style>
+ &lt;head>
+ &lt;!-- Required meta tags -->
+ &lt;meta charset="utf-8">
+ &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ &lt;title>Face Login Test&lt;/title>
+ &lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ &lt;style>
+ #results, #identity, #name {
+ display: block;
+ font-family: monospace;
+ white-space: pre;
+ margin: 1em 0;
+ }
+ &lt;/style>
 &lt;/head>
 &lt;body>
-    &lt;div class="container">
-        &lt;div class="row">
-            &lt;div class="col">
-                &lt;div id="my_camera">&lt;/div>
-                &lt;form class="mb-2 mt-2">
-                  &lt;input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
-                &lt;/form>
-            &lt;/div>
-            &lt;div class="col">
-                &lt;canvas id="viewport" width="320" height="240">&lt;/canvas>
-            &lt;/div>
-        &lt;/div>
-        
-        &lt;div class="row">
-          &lt;div class="col">Detect face:
-            &lt;pre id="results">
-            &lt;/pre>
-         &lt;/div>
-          &lt;div class="col">Identity:
-            &lt;pre id="identity">
-            &lt;/pre>
-        &lt;/div>
-          &lt;div class="col">Name:
-            &lt;pre id="name">
-            &lt;/pre>
-         &lt;/div>
-        &lt;/div>
-    &lt;/div>
-    &lt;script src="https://code.jquery.com/jquery-3.3.1.min.js">&lt;/script>
-    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">&lt;/script>
-    &lt;script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">&lt;/script>
-    &lt;script src="webcam.min.js">&lt;/script>
-    &lt;script src="javascript.js">&lt;/script>
+ &lt;div class="container">
+ &lt;div class="row">
+ &lt;div class="col">
+ &lt;div id="my_camera">&lt;/div>
+ &lt;form class="mb-2 mt-2">
+ &lt;input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
+ &lt;/form>
+ &lt;/div>
+ &lt;div class="col">
+ &lt;canvas id="viewport" width="320" height="240">&lt;/canvas>
+ &lt;/div>
+ &lt;/div>
+ 
+ &lt;div class="row">
+ &lt;div class="col">Detect face:
+ &lt;pre id="results">
+ &lt;/pre>
+ &lt;/div>
+ &lt;div class="col">Identity:
+ &lt;pre id="identity">
+ &lt;/pre>
+ &lt;/div>
+ &lt;div class="col">Name:
+ &lt;pre id="name">
+ &lt;/pre>
+ &lt;/div>
+ &lt;/div>
+ &lt;/div>
+ &lt;script src="https://code.jquery.com/jquery-3.3.1.min.js">&lt;/script>
+ &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">&lt;/script>
+ &lt;script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">&lt;/script>
+ &lt;script src="webcam.min.js">&lt;/script>
+ &lt;script src="javascript.js">&lt;/script>
 &lt;/body>
 &lt;/html></pre>
 
 This renders as:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt="" class="wp-image-938"/ loading="lazy"></a><figcaption>HTML page</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt=""/ loading="lazy"></a><figcaption>HTML page</figcaption></figure>
 
 **Capturing a Live Image**
 
-<p>I used <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">WebcamJS</a>&nbsp;to provide the live preview and image capture functionality.</p>
+<p>I used <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">WebcamJS</a> to provide the live preview and image capture functionality.</p>
 
-"WebcamJS is a small ... standalone JavaScript library for capturing still images from your computer's camera, and delivering them to you as JPEG or PNG&nbsp;Data URIs" (Huckaby, no date)
+"WebcamJS is a small ... standalone JavaScript library for capturing still images from your computer's camera, and delivering them to you as JPEG or PNG Data URIs" (Huckaby, no date)
 
 The code to initialise the camera:
 
 <pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Webcam.set({
-  width: 320,
-  height: 240,
-  image_format: 'jpeg',
-  jpeg_quality: 90
+ width: 320,
+ height: 240,
+ image_format: 'jpeg',
+ jpeg_quality: 90
 });
 Webcam.attach('#my_camera');
 
 var canvas = document.getElementById('viewport'),
-  context = canvas.getContext('2d')</pre>
+ context = canvas.getContext('2d')</pre>
 
 A button is used to allow the user to take a picture. This is linked to the take_snapshot() function which takes the image data and posts it to the Detect API call. If a face is detected, the results are returned and the HTML page updated accordingly:
 
 <pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function take_snapshot() {
-  // take snapshot and get image data
-  Webcam.snap(function(data_uri) {
-    base_image = new Image();
-    base_image.src = data_uri;
-    base_image.onload = function() {
-      context.drawImage(base_image, 0, 0, 320, 240);
+ // take snapshot and get image data
+ Webcam.snap(function(data_uri) {
+ base_image = new Image();
+ base_image.src = data_uri;
+ base_image.onload = function() {
+ context.drawImage(base_image, 0, 0, 320, 240);
 
-      let data = canvas.toDataURL('image/jpeg');
+ let data = canvas.toDataURL('image/jpeg');
 
-      fetch(data)
-        .then(res => res.blob())
-        .then(blobData => {
-          $.post({
-              url: "https://westus.api.cognitive.microsoft.com/face/v1.0/detect",
-              contentType: "application/octet-stream",
-              headers: {
-                'Ocp-Apim-Subscription-Key': 'XXXXX'
-              },
-              processData: false,
-              data: blobData
-            })
-            .done(function(data) {
-              $("#results").text(JSON.stringify(data, null, 2));
-              faceIdGlobal = data[0].faceId;
-              identify(faceIdGlobal);
-            })
-            .fail(function(err) {
-              $("#results").text(JSON.stringify(err));
-            })
-        });
-    }
-  });
+ fetch(data)
+ .then(res => res.blob())
+ .then(blobData => {
+ $.post({
+ url: "https://westus.api.cognitive.microsoft.com/face/v1.0/detect",
+ contentType: "application/octet-stream",
+ headers: {
+ 'Ocp-Apim-Subscription-Key': 'XXXXX'
+ },
+ processData: false,
+ data: blobData
+ })
+ .done(function(data) {
+ $("#results").text(JSON.stringify(data, null, 2));
+ faceIdGlobal = data[0].faceId;
+ identify(faceIdGlobal);
+ })
+ .fail(function(err) {
+ $("#results").text(JSON.stringify(err));
+ })
+ });
+ }
+ });
 };</pre>
 
 After the face detection API call, the identify() function is called to post the faceId returned from the take_snapshot() function to the Identify API endpoint. The results are then used to update the HTML page:
 
 <pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function identify(faceIdGlobal) {
-      $.post({
-            url: "https://westus.api.cognitive.microsoft.com/face/v1.0/identify",
-            contentType: "application/json",
-            headers: {
-              'Ocp-Apim-Subscription-Key': 'XXXXX'
-            },
-          data: "{personGroupId:'users', faceIds:['" + faceIdGlobal + "'], confidenceThreshold: '.5'}"
-      })
-      .done(function(data) {
-          $("#identity").text(JSON.stringify(data, null, 2));
-          personIdGlobal = data[0].candidates[0].personId;
-          getName(personIdGlobal);
-      })
-      .fail(function() {
-          alert("error");
-      });
-  };</pre>
+ $.post({
+ url: "https://westus.api.cognitive.microsoft.com/face/v1.0/identify",
+ contentType: "application/json",
+ headers: {
+ 'Ocp-Apim-Subscription-Key': 'XXXXX'
+ },
+ data: "{personGroupId:'users', faceIds:['" + faceIdGlobal + "'], confidenceThreshold: '.5'}"
+ })
+ .done(function(data) {
+ $("#identity").text(JSON.stringify(data, null, 2));
+ personIdGlobal = data[0].candidates[0].personId;
+ getName(personIdGlobal);
+ })
+ .fail(function() {
+ alert("error");
+ });
+ };</pre>
 
 Finally, the getName() function is called with the personId returned from the identify() function. This retrieves the name of the user identified and updates the HTML page:
 
 <pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function getName(personIdGlobal) {
-    var params = {
-          'personGroupId': 'users',
-          'personId': personIdGlobal
-      };
+ var params = {
+ 'personGroupId': 'users',
+ 'personId': personIdGlobal
+ };
 
-      $.get({
-            url: "https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/users/persons/" + personIdGlobal,
-            headers: {
-              'Ocp-Apim-Subscription-Key': 'XXXXX'
-            },
-      })
-      .done(function(data) {
-          $("#name").text(data.name);
-      })
-      .fail(function() {
-          alert("error");
-      });
-  }</pre>
+ $.get({
+ url: "https://westus.api.cognitive.microsoft.com/face/v1.0/persongroups/users/persons/" + personIdGlobal,
+ headers: {
+ 'Ocp-Apim-Subscription-Key': 'XXXXX'
+ },
+ })
+ .done(function(data) {
+ $("#name").text(data.name);
+ })
+ .fail(function() {
+ alert("error");
+ });
+ }</pre>
 
 The final result looks like:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt="" class="wp-image-939"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt=""/ loading="lazy"></a></figure>
 
 **Bibliography**
 
-<p>Huckaby, J. (no date)&nbsp;*WebcamJS*. Available at: <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md</a>&nbsp;(Accessed: 13 November 2018).</p>
+<p>Huckaby, J. (no date) *WebcamJS*. Available at: <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md</a> (Accessed: 13 November 2018).</p>
 
 <p>Microsoft (no date) *Face*. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>

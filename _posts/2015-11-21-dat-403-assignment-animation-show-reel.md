@@ -59,7 +59,7 @@ To bring the animation to life, the background gradient ramp was keyframed to si
 
 The wizard character was initially sketched then photographed and traced, coloured and detailed in Illustrator. The arms and legs were each separated into two parts to make articulation easier and more realistic. A green light was parented to the head of the wizard's staff to carry on the theme of the sequence. The green light can be seen lighting the wizard's face as it moves with his arm.
 
-The transition from night to day is further enhanced with a change of audio from a daytime outdoor feel to a&nbsp; more eerie night-time atmosphere.
+The transition from night to day is further enhanced with a change of audio from a daytime outdoor feel to a more eerie night-time atmosphere.
 
 **Final Animation Show Reel:**
 

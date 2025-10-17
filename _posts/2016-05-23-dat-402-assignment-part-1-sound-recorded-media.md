@@ -21,9 +21,9 @@ Using the class sessions you should develop your sound work and mix it appropria
 
 - The accompanying bibliography should incorporate information found through further research using the university library system
 
-- It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, &nbsp;etc.) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
+- It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, etc.) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover" class="wp-image-565"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover"/ loading="lazy"></a></figure>
 
 <p>The book excerpt that I studied was ‘<a href="https://books.google.co.uk/books/about/Sound_Design_and_Science_Fiction.html?id=vew3mQEACAAJ&amp;redir_esc=y">*Sound Design &amp; Science Fiction*</a>’ by William Whittington. This subject appealed to me because I enjoy the science fiction genre in general and the film-making process in particular, including sound design.</p>
 
@@ -31,7 +31,7 @@ Thematically, the areas of interest that stood out for me were the accounts of h
 
 <p>From a technical standpoint, I enjoyed the accounts of <a href="https://en.wikipedia.org/wiki/Ben_Burtt">Ben Burtt's</a> work for George Lucas on the original *Star Wars* trilogy.</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt="" class="wp-image-568"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt=""/ loading="lazy"></a></figure>
 
 Burtt:
 
@@ -52,35 +52,35 @@ To that end, I roamed my local area, recording the sounds of water, birds, foots
 
 **Introduction**
 
-Using a shotgun microphone and Zoom recorder, I recorded an out of tune radio broadcast whilst sitting in a car. This then transitions into an introductory voiceover using my own voice affected using a 'telephone voice' audio effect. This is&nbsp;to suggest the interruption of a radio programme by the announcer. To add emphasis to the final 'sound design' words of the voiceover, the audio is&nbsp;enhanced with a reverb effect.
+Using a shotgun microphone and Zoom recorder, I recorded an out of tune radio broadcast whilst sitting in a car. This then transitions into an introductory voiceover using my own voice affected using a 'telephone voice' audio effect. This is to suggest the interruption of a radio programme by the announcer. To add emphasis to the final 'sound design' words of the voiceover, the audio is enhanced with a reverb effect.
 
-What follows is a voiceover to give some background to my piece. The quotes are taken from&nbsp;*Sound Design &amp; Science Fiction* with some additions of my own.&nbsp;*Also Sprach Zarathustra* plays in the background. This is a piece of music which features in&nbsp;*2001: A Space Odyssey* in the film sequence known as 'The Dawn of Man'. This seemed appropriate for an introduction on the 'dawn of sound design'.
+What follows is a voiceover to give some background to my piece. The quotes are taken from *Sound Design &amp; Science Fiction* with some additions of my own. *Also Sprach Zarathustra* plays in the background. This is a piece of music which features in *2001: A Space Odyssey* in the film sequence known as 'The Dawn of Man'. This seemed appropriate for an introduction on the 'dawn of sound design'.
 
-The voiceover continues, explaining my aims and thinking for the sound work and is accompanied by an excerpt from John Williams'&nbsp;*Main Theme* from the&nbsp;*Star Wars* score.
+The voiceover continues, explaining my aims and thinking for the sound work and is accompanied by an excerpt from John Williams' *Main Theme* from the *Star Wars* score.
 
 **Part 1**
 
-I recorded the sound of primary school children playing outside at a school that is around the corner&nbsp;from where I live. The first audio clip is, essentially, as recorded. The second part features the same audio clip, but with the pitch shifted down and some reverberation to give a more sinister feel to the sound. This demonstrates how the same sound clip can be used to create a contrast or&nbsp;sense of place or evoke contrasting emotions.
+I recorded the sound of primary school children playing outside at a school that is around the corner from where I live. The first audio clip is, essentially, as recorded. The second part features the same audio clip, but with the pitch shifted down and some reverberation to give a more sinister feel to the sound. This demonstrates how the same sound clip can be used to create a contrast or sense of place or evoke contrasting emotions.
 
 **Part 2**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt="" class="wp-image-569"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt=""/ loading="lazy"></a></figure>
 
 This sequence is an attempt to emulate Ben Burtt's sound design for the cantina sequence in *Star Wars*. The recording is an assembly of street sounds and music and traffic combined with recordings of our dog (at both the original pitch and a raised pitch) and birdsong during a dawn chorus. The animal sounds are shifted in the stereo field to give an impression of space and immersion within the created audio environment.
 
 **Part 3**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt="" class="wp-image-570"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt=""/ loading="lazy"></a></figure>
 
-My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling&nbsp;of a mechanical/technological atmosphere.
+My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling of a mechanical/technological atmosphere.
 
 **Part 4**
 
-I wanted to experiment with some vocalisation effects to achieve my own version of the iconic voice of Darth Vader from the *Star Wars* films. The original Darth Vader voice was created with the use of SCUBA breathing equipment. I recorded my own voice, which I&nbsp;enhanced with pitch shift, reverberation and modulation effects such as subtle flange and chorus to achieve an approximation of the original. This section is accompanied by&nbsp;*The Imperial March*&nbsp;theme from the *Star Wars* movies. The appearance of Darth Vader in the film franchise is almost always accompanied by this piece of music, so it seemed fitting for me to use this to make use of its status&nbsp;as a piece that evokes an image of overwhelming power and tyranny.
+I wanted to experiment with some vocalisation effects to achieve my own version of the iconic voice of Darth Vader from the *Star Wars* films. The original Darth Vader voice was created with the use of SCUBA breathing equipment. I recorded my own voice, which I enhanced with pitch shift, reverberation and modulation effects such as subtle flange and chorus to achieve an approximation of the original. This section is accompanied by *The Imperial March* theme from the *Star Wars* movies. The appearance of Darth Vader in the film franchise is almost always accompanied by this piece of music, so it seemed fitting for me to use this to make use of its status as a piece that evokes an image of overwhelming power and tyranny.
 
 <h3>Further Reading/References</h3>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt="" class="wp-image-571"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt=""/ loading="lazy"></a></figure>
 
 **Literary References**
 
@@ -94,9 +94,9 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 **Audio References**
 
-- Coltsrock56 (2012)&nbsp;*John Williams - Star Wars main theme (full)*. Available at: <a href="https://www.youtube.com/watch?v=_D0ZQPqeJkk">https://www.youtube.com/watch?v=_D0ZQPqeJkk</a> (Accessed: 12 May 2016).
+- Coltsrock56 (2012) *John Williams - Star Wars main theme (full)*. Available at: <a href="https://www.youtube.com/watch?v=_D0ZQPqeJkk">https://www.youtube.com/watch?v=_D0ZQPqeJkk</a> (Accessed: 12 May 2016).
 
-- Merhawk102 (2007)&nbsp;*Star wars- the imperial march (Darth Vader’s theme)*. Available at: <a href="https://www.youtube.com/watch?v=-bzWSJG93P8">https://www.youtube.com/watch?v=-bzWSJG93P8</a> (Accessed: 11 May 2016).
+- Merhawk102 (2007) *Star wars- the imperial march (Darth Vader’s theme)*. Available at: <a href="https://www.youtube.com/watch?v=-bzWSJG93P8">https://www.youtube.com/watch?v=-bzWSJG93P8</a> (Accessed: 11 May 2016).
 
-- Yuri RR (2011)&nbsp;*Also Sprach Zarathustra, op. 30 - Strauss*. Available at: <a href="https://www.youtube.com/watch?v=dfe8tCcHnKY">https://www.youtube.com/watch?v=dfe8tCcHnKY</a> (Accessed: 11 May 2016).
+- Yuri RR (2011) *Also Sprach Zarathustra, op. 30 - Strauss*. Available at: <a href="https://www.youtube.com/watch?v=dfe8tCcHnKY">https://www.youtube.com/watch?v=dfe8tCcHnKY</a> (Accessed: 11 May 2016).
 

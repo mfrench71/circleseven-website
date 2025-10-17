@@ -5,7 +5,7 @@ date: 2015-09-29 19:54:00 +0000
 categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
 ---
 
-**Kylemcdonald.net –&nbsp;*Social Roulette***
+**Kylemcdonald.net – *Social Roulette***
 
 <p><a href="https://web.archive.org/web/20210119121445/http://www.socialroulette.net/" target="_blank" rel="noreferrer noopener">http://www.socialroulette.net/</a></p>
 
@@ -29,4 +29,4 @@ The question of whether Social Roulette is an appropriate means to determine the
 
 <p>This investment of time and effort that Facebook users make, of course, increases the jeopardy of Social Roulette. However, there appears to be no corresponding benefit to not losing. Unlike Russian roulette, where you keep your winnings and your life, Social Roulette lets you keep your account which, depending on your attachment to your investment, is either a good thing or a relief – see the quote from FaltyDL: “I still can’t tell whether I won or not.” (<a href="https://web.archive.org/web/20210119121445/http://www.socialroulette.net/" target="_blank" rel="noreferrer noopener">http://www.socialroulette.net/</a>)</p>
 
-There seems to be a theme in Kyle McDonald’s work involving identity, self-awareness and possible loss of identity. Social Roulette could be included within this theme as it deals with the possibility of loss of on-line identity.&nbsp; It’s interesting to consider the impact on those users of Facebook who ‘live’ through social media and those that project an identity through this medium, be it an extension of their actual identity or an alter ego.
+There seems to be a theme in Kyle McDonald’s work involving identity, self-awareness and possible loss of identity. Social Roulette could be included within this theme as it deals with the possibility of loss of on-line identity. It’s interesting to consider the impact on those users of Facebook who ‘live’ through social media and those that project an identity through this medium, be it an extension of their actual identity or an alter ego.

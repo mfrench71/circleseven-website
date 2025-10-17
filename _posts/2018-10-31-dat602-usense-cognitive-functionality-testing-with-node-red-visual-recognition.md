@@ -5,7 +5,7 @@ date: 2018-10-31 07:34:59 +0000
 categories: ["DAT602 - Everyware", "Digital Art and Technology"]
 ---
 
-<p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's&nbsp; sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
+<p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
 
 Ultimately, I hope to use visual recognition for emotion detection.
 
@@ -13,7 +13,7 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 **Flow Summary**
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" class="wp-image-979"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt=""/ loading="lazy"></figure>
 
 <ol>- An *injection* node sends an empty string to the *execute* node.
 
@@ -32,14 +32,14 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 Here are some results of testing on two different images:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-983"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" class="wp-image-982"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt=""/ loading="lazy"></a></figure>
 </figure>
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" alt="" class="wp-image-986"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" class="wp-image-985"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 In both tests, the results of the analysis of age and gender of the individual's face was accurate.

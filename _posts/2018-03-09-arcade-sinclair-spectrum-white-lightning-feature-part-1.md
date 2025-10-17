@@ -9,7 +9,7 @@ This is part one an a series of Spectrum White Lightning articles originally wri
 
 From the user manual:
 
-*"White Lightning*&nbsp;is a high level development system for the Spectrum 48K.&nbsp;It is aimed primarily at the user who has commercial games writing in mind and has the patience to learn a sizeable new language. It is not a games designer and stunning results probably won't be produced overnight, but it does have the power and flexibility to produce software of a commercial standard (with a little perseverance!). "
+*"White Lightning* is a high level development system for the Spectrum 48K. It is aimed primarily at the user who has commercial games writing in mind and has the patience to learn a sizeable new language. It is not a games designer and stunning results probably won't be produced overnight, but it does have the power and flexibility to produce software of a commercial standard (with a little perseverance!). "
 
 <p>For some further context for this article, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 
@@ -19,15 +19,15 @@ From the user manual:
 
 The first routine you may recognise as a part of the demonstration.
 
-<pre>0: DELAY 500 0 DO NOOP LOOP;<br>1: SET&nbsp;COL!&nbsp;ROW!&nbsp;SPN!&nbsp;PUTBLS&nbsp;DELAY;<br>2: SET1 45 10 10 SET;<br>3: SET2 46 10 10 SET;<br>4: SET3 47 10 10 SET;<br>5: SET4 48 10 10 SET;<br>6: GO 40 0 DO SET1 SET2 SET3 SET4 LOOP;</pre>
+<pre>0: DELAY 500 0 DO NOOP LOOP;<br>1: SET COL! ROW! SPN! PUTBLS DELAY;<br>2: SET1 45 10 10 SET;<br>3: SET2 46 10 10 SET;<br>4: SET3 47 10 10 SET;<br>5: SET4 48 10 10 SET;<br>6: GO 40 0 DO SET1 SET2 SET3 SET4 LOOP;</pre>
 
-After that, type&nbsp;<code>6 LOAD</code> and then <code>GO</code>.
+After that, type <code>6 LOAD</code> and then <code>GO</code>.
 
 **Notes on conversion:**
 
 Line 0: defines a word called <code>DELAY</code> which does a no-operation (does nothing) (NOOP) loop 0 - 500 to act as a pause.
 
-Line 1: sets up the parameters of the column, row, and sprite number. It also includes&nbsp;<code>PUTBLS</code> which block-moves sprite data from sprite to screen, and the pause in <code>DELAY</code>. This line saves typing because you can now enter the values as in lines 2, 3, 4, and 5.
+Line 1: sets up the parameters of the column, row, and sprite number. It also includes <code>PUTBLS</code> which block-moves sprite data from sprite to screen, and the pause in <code>DELAY</code>. This line saves typing because you can now enter the values as in lines 2, 3, 4, and 5.
 
 Lines 2 - 5: puts column, row, and sprite number values into line 1 parameters and also executes <code>PUTBLS</code> and <code>DELAY</code>.
 
@@ -45,7 +45,7 @@ Matthew F.
 
 **The Originals**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2230-e1520611800537-225x300.jpg" alt="" class="wp-image-88" style="border-radius:6px"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2230-e1520611800537-225x300.jpg" alt="" style="border-radius:6px"/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2231-e1520611813740-225x300.jpg" alt="" class="wp-image-91" style="border-radius:6px"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2231-e1520611813740-225x300.jpg" alt="" style="border-radius:6px"/ loading="lazy"></a></figure>
 </figure>

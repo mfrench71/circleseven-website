@@ -25,23 +25,23 @@ Review how your work evolved in response to the input of the cards.
 
 The oblique strategies cards I picked were:
 
-- Discover your formulas and abandon&nbsp;them
+- Discover your formulas and abandon them
 
-- Change specifics to&nbsp;ambiguities
+- Change specifics to ambiguities
 
-- Do the washing&nbsp;up
+- Do the washing up
 
-- Retrace your&nbsp;steps
+- Retrace your steps
 
 Here is the completed work:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01img_2019_33567664512_o-1024x768.jpg" alt="" class="wp-image-765"/ loading="lazy"></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01img_2019_33567664512_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02img_2020_32881345184_o-1024x768.jpg" alt="" class="wp-image-769"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02img_2020_32881345184_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03img_2021_33339422920_o-1024x768.jpg" alt="" class="wp-image-766"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03img_2021_33339422920_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04img_2022_33567660912_o-1024x768.jpg" alt="" class="wp-image-767"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04img_2022_33567660912_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05img_2023_33339420170_o-1024x768.jpg" alt="" class="wp-image-768"/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05img_2023_33339420170_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
 </figure>

@@ -7,7 +7,7 @@ categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art 
 
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/nazca_lines.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/nazca_lines-300x240.jpg" alt="" class="wp-image-539"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/nazca_lines.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/nazca_lines-300x240.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 Nazca Lines: Giant ancient line art drawn in the Peruvian desert so large that it can only be fully seen from the sky
@@ -56,17 +56,17 @@ We thought that individuals may want to communicate information after (or close 
 
 - "HIV+"
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas-scaled-1-300x169.jpg" alt="" class="wp-image-544"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas-scaled-1-300x169.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas_detail-297x300.jpg" alt="" class="wp-image-541"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas_detail-297x300.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr-300x245.jpg" alt="" class="wp-image-546"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr-300x245.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr_detail-300x283.jpg" alt="" class="wp-image-543"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr_detail-300x283.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv-197x300.jpg" alt="" class="wp-image-545"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv-197x300.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv_detail-267x300.jpg" alt="" class="wp-image-542"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv_detail-267x300.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 <p>(<a href="https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29">https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29</a>)</p>
@@ -89,14 +89,14 @@ We thought that individuals may want to communicate information after (or close 
 
 As we started looking into communication via X-ray, we inevitably stumbled upon other bodily methods of storing and transmitting information. Here a just a couple of ideas that we may see in the not too distant future:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hitman.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hitman-224x300.jpg" alt="" class="wp-image-549"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hitman.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hitman-224x300.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/qr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/qr-259x300.jpg" alt="" class="wp-image-550"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/qr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/qr-259x300.jpg" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/usb-finger.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/usb-finger-284x300.jpg" alt="" class="wp-image-551"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/usb-finger.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/usb-finger-284x300.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 Up until this point we have looked at the communication of information that the individual has either willingly provided or is for their benefit. How would we feel if we were required to carry with us government-mandated information?
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/crim-rec-zoom.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/crim-rec-zoom-300x169.jpg" alt="" class="wp-image-553"/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/crim-rec-zoom.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/crim-rec-zoom-300x169.jpg" alt=""/ loading="lazy"></a></figure>
 </figure>

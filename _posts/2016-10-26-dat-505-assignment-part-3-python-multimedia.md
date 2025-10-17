@@ -7,11 +7,11 @@ categories: ["DAT505 - Advanced Creative Coding", "Digital Art and Technology"]
 
 Brief: In the next practical you must create a graphical visualisation of a textual data file (to be given out in the practical). Read in the data and use it to generate some kind of visual output.
 
-Rather than using Pygame to create your visualisation&nbsp;(which is powerful, but can be tricky to install), we will be using a library called graphics.py. This can just be dropped into your folder and used (no install needed).
+Rather than using Pygame to create your visualisation (which is powerful, but can be tricky to install), we will be using a library called graphics.py. This can just be dropped into your folder and used (no install needed).
 
 <p>The data we were provided with were a list of our results from the <a href="{{ site.baseurl }}/dat-505-assignment-part-1-mobile-app-development/">previous DAT 505 assignment</a>:</p>
 
-52,&nbsp;47,&nbsp;57,&nbsp;49,&nbsp;59,&nbsp;62,&nbsp;44,&nbsp;76,&nbsp;52,&nbsp;52,&nbsp;44,&nbsp;59,&nbsp;59,&nbsp;79,&nbsp;59,&nbsp;42,&nbsp;57,&nbsp;48,&nbsp;80,&nbsp;43,&nbsp;72,&nbsp;74,&nbsp;59,&nbsp;44,&nbsp;57,&nbsp;55,&nbsp;49,&nbsp;54,&nbsp;54
+52, 47, 57, 49, 59, 62, 44, 76, 52, 52, 44, 59, 59, 79, 59, 42, 57, 48, 80, 43, 72, 74, 59, 44, 57, 55, 49, 54, 54
 
 Here is the result of my Python graphics programming:
 
