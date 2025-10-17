@@ -23,7 +23,7 @@ Using the class sessions you should develop your sound work and mix it appropria
 
 - It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, etc.) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" alt="Sound Design &amp; Science Fiction book cover"/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/sound-design-cover.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/sound-design-cover-204x300.jpg" width="204" height="300" alt="Sound Design &amp; Science Fiction book cover"/ loading="lazy"></a></figure>
 
 <p>The book excerpt that I studied was ‘<a href="https://books.google.co.uk/books/about/Sound_Design_and_Science_Fiction.html?id=vew3mQEACAAJ&amp;redir_esc=y">*Sound Design &amp; Science Fiction*</a>’ by William Whittington. This subject appealed to me because I enjoy the science fiction genre in general and the film-making process in particular, including sound design.</p>
 
@@ -31,7 +31,7 @@ Thematically, the areas of interest that stood out for me were the accounts of h
 
 <p>From a technical standpoint, I enjoyed the accounts of <a href="https://en.wikipedia.org/wiki/Ben_Burtt">Ben Burtt's</a> work for George Lucas on the original *Star Wars* trilogy.</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/516px-Ben_Burtt_Celebration_Europe_II-172x300.jpg" width="172" height="300" alt=""/ loading="lazy"></a></figure>
 
 Burtt:
 
@@ -64,13 +64,13 @@ I recorded the sound of primary school children playing outside at a school that
 
 **Part 2**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" width="225" height="300" alt=""/ loading="lazy"></a></figure>
 
 This sequence is an attempt to emulate Ben Burtt's sound design for the cantina sequence in *Star Wars*. The recording is an assembly of street sounds and music and traffic combined with recordings of our dog (at both the original pitch and a raised pitch) and birdsong during a dawn chorus. The animal sounds are shifted in the stereo field to give an impression of space and immersion within the created audio environment.
 
 **Part 3**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" width="300" height="225" alt=""/ loading="lazy"></a></figure>
 
 My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling of a mechanical/technological atmosphere.
 
@@ -80,7 +80,7 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 <h3>Further Reading/References</h3>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" width="300" height="225" alt=""/ loading="lazy"></a></figure>
 
 **Literary References**
 

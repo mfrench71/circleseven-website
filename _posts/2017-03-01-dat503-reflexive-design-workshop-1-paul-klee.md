@@ -36,11 +36,11 @@ Thus, when traveling in the territory of Ersilia, you come upon the ruins of aba
 
 And here are the three interpretations:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" alt=""/ loading="lazy"></figure>
+<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" width="768" height="1024" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" alt=""/ loading="lazy"></figure>
+<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" width="1024" height="768" alt=""/ loading="lazy"></figure>
 </figure>
 
 There are clearly a number of common elements in the three drawings above. What appears to be the basic outlines of towers or buildings (the houses and poles mentioned in the text, perhaps) are present in all three of the interpretations, as well as areas where the lines concentrate and darken.

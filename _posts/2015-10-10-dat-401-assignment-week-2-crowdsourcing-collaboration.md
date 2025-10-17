@@ -27,21 +27,21 @@ There was an initial group discussion around:
 
 Lyric sheets were produced as an aide memoire for participants, along with brief instructions:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15111-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_15111-225x300.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15111-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_15111-225x300.jpg" width="225" height="300" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 A motivation/reward device (a bag of Cadbury's Eclairs) was employed to entice people to contribute to the project.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15371-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_15371-225x300.jpg" alt=""/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15371-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_15371-225x300.jpg" width="225" height="300" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 Once the group had attracted the attention of a potential contributor, we explained who we were, what we were doing and what was expected from them. We gained permission to film from each person and a number of people even expressed an interest in viewing the final project.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1570.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1570-200x300.png" alt=""/ loading="lazy"></a></figure>
+<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1570.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1570-200x300.png" width="200" height="300" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1571.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1571-200x300.png" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1571.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1571-200x300.png" width="200" height="300" alt=""/ loading="lazy"></a></figure>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1572.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1572-200x300.png" alt=""/ loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1572.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1572-200x300.png" width="200" height="300" alt=""/ loading="lazy"></a></figure>
 </figure>
 
 Each video clip was captured using an iPhone; the group thought this would be more unobtrusive than a DSLR or full-sized video camera. An audio recorder borrowed from the Media Hub was used to capture better quality sound than that available with the iPhone.

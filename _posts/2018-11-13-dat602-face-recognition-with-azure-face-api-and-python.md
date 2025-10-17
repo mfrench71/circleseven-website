@@ -61,7 +61,7 @@ recogn()</pre>
 
 Here is a sample test result:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" alt=""/ loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" width="1024" height="723" alt=""/ loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
 
 **PersonGroup - Create**
 
