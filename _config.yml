@@ -31,6 +31,9 @@ exclude:
   - vendor/ruby/
   - README.md
   - admin/ # CMS admin folder doesn't need processing
+  - CLOUDINARY_SETUP.md
+  - DNS_SETUP_GUIDE.md
+  - MIGRATION_GUIDE.md
 
 # Defaults
 defaults:
