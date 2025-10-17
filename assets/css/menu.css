@@ -95,17 +95,18 @@ body {
 .mega-menu {
   display: none;
   position: fixed;
-  top: calc(var(--header-height) - 1px); /* Align with grey border line */
+  top: var(--header-height); /* Start right at bottom of header */
   left: 50%;
   transform: translateX(-50%);
   min-width: 600px;
   max-width: 800px;
   background: white;
   border: 1px solid #e8e8e8;
-  border-top: 1px solid #e8e8e8; /* Match the header border */
+  border-top: none; /* No top border - use header's bottom border */
   border-radius: 0 0 4px 4px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 15px 20px; /* Reduced from 20px */
+  padding: 15px 20px;
+  margin-top: -1px; /* Pull up to overlap with header border */
   z-index: 999; /* Just below header */
 }
 
