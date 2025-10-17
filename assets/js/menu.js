@@ -30,6 +30,9 @@
       overlay.classList.add('active');
       drawer.classList.add('active');
       document.body.style.overflow = 'hidden'; // Prevent body scroll
+
+      // Collapse all accordions when opening drawer
+      collapseAllAccordions();
     });
 
     // Close drawer
@@ -111,6 +114,18 @@
         document.querySelectorAll('.has-dropdown.active').forEach(function(dropdown) {
           dropdown.classList.remove('active');
         });
+      }
+    });
+  }
+
+  /**
+   * Collapse all mobile accordions
+   */
+  function collapseAllAccordions() {
+    document.querySelectorAll('.mobile-accordion-toggle').forEach(function(accordion) {
+      accordion.classList.remove('active');
+      if (accordion.nextElementSibling) {
+        accordion.nextElementSibling.classList.remove('active');
       }
     });
   }
