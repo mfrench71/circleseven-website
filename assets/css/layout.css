@@ -23,31 +23,7 @@
 }
 
 .sidebar {
-  position: sticky;
-  top: calc(var(--header-height) + 20px);
-  max-height: calc(100vh - var(--header-height) - 40px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* Custom scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: #e0e0e0 transparent;
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
-  border-radius: 3px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
+  position: static;
 }
 
 /* Sidebar Widgets Container */
@@ -78,11 +54,18 @@
   font-weight: 600;
   margin: 0 0 16px 0;
   padding-bottom: 12px;
-  border-bottom: 2px solid #f0f0f0;
-  color: #111;
+  border-bottom: 2px solid #20b2aa;
+  color: #20b2aa;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.widget-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
 }
 
 /* ============================================
@@ -346,6 +329,119 @@
 }
 
 .social-links-compact li a:hover svg {
+  transform: scale(1.1);
+}
+
+/* ============================================
+   SIDEBAR SOCIAL LINKS (New Combined Widget)
+   ============================================ */
+
+.social-links-sidebar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.social-links-sidebar li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  text-decoration: none;
+  color: #444;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.social-links-sidebar li a:hover {
+  background: #e0f7f6;
+  color: #20b2aa;
+  transform: translateX(4px);
+}
+
+.social-links-sidebar svg {
+  flex-shrink: 0;
+  color: #20b2aa;
+  transition: transform 0.2s;
+}
+
+.social-links-sidebar li a:hover svg {
+  transform: scale(1.15);
+}
+
+/* ============================================
+   RSS SUBSCRIBE WIDGET
+   ============================================ */
+
+.rss-subscribe-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #444;
+  background: #e0f7f6;
+  border: 2px solid #20b2aa;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.rss-subscribe-link:hover {
+  background: #20b2aa;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
+}
+
+.rss-subscribe-link svg {
+  flex-shrink: 0;
+  color: #20b2aa;
+  transition: all 0.2s;
+}
+
+.rss-subscribe-link:hover svg {
+  color: white;
+  transform: rotate(15deg);
+}
+
+/* ============================================
+   CONTACT WIDGET
+   ============================================ */
+
+.email-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #444;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.email-link:hover {
+  border-color: #20b2aa;
+  background: #e0f7f6;
+  color: #20b2aa;
+}
+
+.email-link svg {
+  flex-shrink: 0;
+  color: #20b2aa;
+  transition: transform 0.2s;
+}
+
+.email-link:hover svg {
   transform: scale(1.1);
 }
 

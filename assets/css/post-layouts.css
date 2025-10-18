@@ -302,51 +302,115 @@ div.category-section h2 {
   vertical-align: middle;
 }
 
+/* Post Meta Footer Container */
+.post-meta-footer {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 /* Post Categories Footer */
 .post-categories-footer {
-  margin-top: 40px;
-  padding: 20px;
-  background: #fafafa;
-  border-left: 4px solid #2a7ae2;
+  padding: 16px 18px;
+  background: #e0f7f6;
+  border-left: 4px solid #20b2aa;
+  border-radius: 4px;
   font-size: 14px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .post-categories-footer strong {
-  color: #666;
+  color: #20b2aa;
   font-weight: 600;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .post-categories-footer strong::before {
   content: '\f07b';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
-  margin-right: 6px;
-  color: #2a7ae2;
+  color: #20b2aa;
+  font-size: 14px;
 }
 
 .post-categories-footer a.category {
   background: #fff;
-  padding: 5px 12px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  padding: 5px 14px;
+  border-radius: 16px;
+  border: 1px solid #20b2aa;
   text-decoration: none;
-  color: #444;
+  color: #20b2aa;
   transition: all 0.2s ease;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .post-categories-footer a.category:hover {
-  background: #2a7ae2;
+  background: #20b2aa;
   color: white;
-  border-color: #2a7ae2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(32, 178, 170, 0.2);
+}
+
+/* Post Tags Footer */
+.post-tags-footer {
+  padding: 16px 18px;
+  background: #f0f7f7;
+  border-left: 4px solid #1a9991;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-tags-footer strong {
+  color: #1a9991;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-tags-footer strong::before {
+  content: '\f02b';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #1a9991;
+  font-size: 14px;
+}
+
+.post-tags-footer a.post-tag {
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid #d0e8e6;
+  text-decoration: none;
+  color: #555;
+  transition: all 0.2s ease;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.post-tags-footer a.post-tag:hover {
+  background: #1a9991;
+  color: white;
+  border-color: #1a9991;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(26, 153, 145, 0.2);
 }
 
 /* Related Posts Section */

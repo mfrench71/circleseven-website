@@ -8,7 +8,7 @@
 .wp-block-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 12px;
   margin: 32px 0;
   align-items: start;
 }
@@ -35,9 +35,9 @@
 .gallery figure img,
 .wp-block-gallery figure img {
   width: 100%;
-  height: auto;
+  height: 280px;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   transition: opacity 0.3s ease;
 }
 

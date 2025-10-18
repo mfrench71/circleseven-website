@@ -127,10 +127,22 @@
   color: #6a1b9a;
 }
 
-/* Default badge */
+/* DAT500 series - not yet defined */
+.badge-dat507, .badge-dat508, .badge-dat509, .badge-dat510, .badge-dat511, .badge-dat512 {
+  background: #e1f5fe;
+  color: #0277bd;
+}
+
+/* INDE600 series */
+.badge-inde602, .badge-inde603, .badge-inde604, .badge-inde605, .badge-inde606 {
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+
+/* Default badge - must have visible contrast */
 .category-badge:not([class*="badge-"]) {
-  background: #f5f5f5;
-  color: #666;
+  background: #e3f2fd;
+  color: #1565c0;
 }
 
 /* Post Title */
