@@ -7,6 +7,7 @@ description: >-
 baseurl: "/circleseven-website"
 url: "https://mfrench71.github.io"
 email: info@circleseven.co.uk
+gravatar_hash: f99984f82813cfd7f33735e6730d8b4c
 author: Matthew French
 lang: en-GB
 timezone: Europe/London
