@@ -5,22 +5,57 @@ permalink: /search/
 ---
 
 <div id="search-container">
-  <input type="text" id="search-input" placeholder="Search posts..." style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px; box-sizing: border-box; max-width: 100%;">
-  <div id="results-container"></div>
-  <div id="pagination-container" style="margin-top: 30px;"></div>
+  <input type="text" id="search-input" placeholder="Search posts..." class="search-input">
+  <div id="search-results-info" class="search-results-info"></div>
+  <div id="results-container" class="post-grid"></div>
+  <div id="loading-indicator" class="load-more-container" style="display: none;">
+    <div class="load-more-spinner">
+      <div class="spinner"></div>
+      <span>Loading more results...</span>
+    </div>
+  </div>
 </div>
+
+<style>
+.search-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #2a7ae2;
+}
+
+.search-results-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+</style>
 
 <script src="https://unpkg.com/lunr/lunr.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('results-container');
-    const paginationContainer = document.getElementById('pagination-container');
+    const resultsInfo = document.getElementById('search-results-info');
+    const loadingIndicator = document.getElementById('loading-indicator');
+
     let searchData = [];
     let idx;
     let currentResults = [];
-    let currentPage = 1;
-    const resultsPerPage = 10;
+    let displayedCount = 0;
+    const resultsPerLoad = 12; // Show 12 cards initially
+    const loadMoreCount = 6;   // Load 6 more on scroll
+    let isLoading = false;
 
     // Load search data
     fetch('{{ site.baseurl }}/search.json')
@@ -49,15 +84,31 @@ permalink: /search/
         }
       });
 
-    // Search on input
+    // Search on input (debounced)
+    let searchTimeout;
     searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
       const query = this.value;
-      if (query.length > 2) {
-        currentPage = 1;
-        performSearch(query);
-      } else {
-        resultsContainer.innerHTML = '';
-        paginationContainer.innerHTML = '';
+
+      searchTimeout = setTimeout(() => {
+        if (query.length > 2) {
+          performSearch(query);
+        } else {
+          resultsContainer.innerHTML = '';
+          resultsInfo.innerHTML = '';
+        }
+      }, 300); // Debounce 300ms
+    });
+
+    // Scroll listener for infinite scroll
+    window.addEventListener('scroll', function() {
+      if (isLoading || displayedCount >= currentResults.length) return;
+
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const documentHeight = document.documentElement.offsetHeight;
+
+      if (scrollPosition >= documentHeight - 300) {
+        loadMoreResults();
       }
     });
 
@@ -65,100 +116,95 @@ permalink: /search/
       try {
         const results = idx.search(query);
         currentResults = results;
-        displayResults(results, currentPage);
+        displayedCount = 0;
+        resultsContainer.innerHTML = '';
+
+        if (results.length > 0) {
+          resultsInfo.innerHTML = `Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`;
+          displayResults(resultsPerLoad);
+        } else {
+          resultsInfo.innerHTML = `No results found for "${query}"`;
+        }
       } catch (e) {
-        // Handle search errors gracefully
-        resultsContainer.innerHTML = '<p>Please enter a valid search term.</p>';
-        paginationContainer.innerHTML = '';
+        resultsInfo.innerHTML = 'Please enter a valid search term.';
       }
     }
 
-    function displayResults(results, page) {
-      if (results.length > 0) {
-        const totalPages = Math.ceil(results.length / resultsPerPage);
-        const startIndex = (page - 1) * resultsPerPage;
-        const endIndex = startIndex + resultsPerPage;
-        const pageResults = results.slice(startIndex, endIndex);
+    function displayResults(count) {
+      const endIndex = Math.min(displayedCount + count, currentResults.length);
+      const resultsToShow = currentResults.slice(displayedCount, endIndex);
 
-        let html = '<h2>Search Results (' + results.length + ')</h2><ul style="list-style: none; padding: 0;">';
+      resultsToShow.forEach((result, index) => {
+        const item = searchData.find(post => post.url === result.ref);
+        if (item) {
+          const card = createPostCard(item);
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          resultsContainer.appendChild(card);
 
-        pageResults.forEach(function(result) {
-          const item = searchData.find(post => post.url === result.ref);
-          if (item) {
-            html += '<li style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;">';
-            html += '<h3 style="margin: 0;"><a href="' + item.url + '">' + item.title + '</a></h3>';
-            html += '<p style="color: #666; font-size: 14px; margin: 5px 0;">' + item.date;
-            if (item.category) {
-              html += ' &bull; ' + item.category;
-            }
-            html += '</p>';
-
-            // Show excerpt
-            const excerpt = item.content.substring(0, 200) + '...';
-            html += '<p style="margin: 10px 0 0 0;">' + excerpt + '</p>';
-            html += '</li>';
-          }
-        });
-
-        html += '</ul>';
-        resultsContainer.innerHTML = html;
-
-        // Display pagination
-        if (totalPages > 1) {
-          displayPagination(page, totalPages);
-        } else {
-          paginationContainer.innerHTML = '';
+          // Animate in
+          setTimeout(() => {
+            card.style.transition = 'all 0.4s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 50);
         }
-      } else {
-        resultsContainer.innerHTML = '<p>No results found for "' + searchInput.value + '"</p>';
-        paginationContainer.innerHTML = '';
-      }
-    }
-
-    function displayPagination(page, totalPages) {
-      let html = '<div class="pagination" style="margin: 30px 0; text-align: center; padding: 20px 0; border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;">';
-
-      // Previous button
-      if (page > 1) {
-        html += '<a href="#" class="previous" data-page="' + (page - 1) + '" style="padding: 8px 16px; margin: 0 5px; text-decoration: none; color: #2a7ae2;">← Previous</a>';
-      } else {
-        html += '<span class="previous disabled" style="padding: 8px 16px; margin: 0 5px; color: #828282;">← Previous</span>';
-      }
-
-      // Page number
-      html += '<span class="page-number" style="padding: 8px 16px; margin: 0 5px; font-weight: bold; color: #111;">Page ' + page + ' of ' + totalPages + '</span>';
-
-      // Next button
-      if (page < totalPages) {
-        html += '<a href="#" class="next" data-page="' + (page + 1) + '" style="padding: 8px 16px; margin: 0 5px; text-decoration: none; color: #2a7ae2;">Next →</a>';
-      } else {
-        html += '<span class="next disabled" style="padding: 8px 16px; margin: 0 5px; color: #828282;">Next →</span>';
-      }
-
-      html += '</div>';
-
-      // Page numbers
-      html += '<div class="pagination-pages" style="text-align: center; margin: 20px 0;">';
-      for (let i = 1; i <= totalPages; i++) {
-        if (i === page) {
-          html += '<span class="current" style="padding: 8px 12px; margin: 0 2px; border: 1px solid #2a7ae2; border-radius: 3px; display: inline-block; background: #2a7ae2; color: white;">' + i + '</span>';
-        } else {
-          html += '<a href="#" data-page="' + i + '" style="padding: 8px 12px; margin: 0 2px; text-decoration: none; color: #2a7ae2; border: 1px solid #e8e8e8; border-radius: 3px; display: inline-block;">' + i + '</a>';
-        }
-      }
-      html += '</div>';
-
-      paginationContainer.innerHTML = html;
-
-      // Add click handlers for pagination links
-      paginationContainer.querySelectorAll('a[data-page]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          currentPage = parseInt(this.getAttribute('data-page'));
-          displayResults(currentResults, currentPage);
-          window.scrollTo(0, 0);
-        });
       });
+
+      displayedCount = endIndex;
+    }
+
+    function loadMoreResults() {
+      if (isLoading || displayedCount >= currentResults.length) return;
+
+      isLoading = true;
+      loadingIndicator.style.display = 'flex';
+
+      setTimeout(() => {
+        displayResults(loadMoreCount);
+        loadingIndicator.style.display = 'none';
+        isLoading = false;
+      }, 500);
+    }
+
+    function createPostCard(item) {
+      const article = document.createElement('article');
+      article.className = 'post-card';
+
+      // Slugify category for badge class
+      const categorySlug = item.category ? item.category.toLowerCase().replace(/\s+/g, '-') : '';
+      const categoryBadge = item.category ?
+        `<a href="{{ site.baseurl }}/category/${categorySlug}/" class="category-badge badge-${categorySlug}">${item.category}</a>` : '';
+
+      article.innerHTML = `
+        <div class="post-card-image">
+          <a href="${item.url}">
+            <img src="${item.image || '{{ "/assets/images/default-post.svg" | relative_url }}'}"
+                 alt="${item.title}"
+                 loading="lazy"
+                 onerror="this.src='{{ '/assets/images/default-post.svg' | relative_url }}'">
+          </a>
+        </div>
+        <div class="post-card-content">
+          ${categoryBadge}
+          <h2 class="post-card-title">
+            <a href="${item.url}">${item.title}</a>
+          </h2>
+          <p class="post-card-excerpt">${item.content.substring(0, 150)}...</p>
+          <div class="post-card-meta">
+            <img src="{{ '/assets/images/author.jpg' | relative_url }}"
+                 alt="Matthew French"
+                 class="post-author-avatar"
+                 onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
+            <div class="post-meta-info">
+              <span class="post-author-name">Matthew French</span>
+              <span class="post-date-reading">${item.date}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      return article;
     }
   });
 </script>
