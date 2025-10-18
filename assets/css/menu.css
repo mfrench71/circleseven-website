@@ -44,6 +44,9 @@ body {
 
 /* Site Title */
 .site-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
@@ -55,6 +58,15 @@ body {
 
 .site-title:hover {
   opacity: 0.8;
+}
+
+.site-logo {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.site-title:hover .site-logo {
+  transform: rotate(5deg);
 }
 
 /* ============================================

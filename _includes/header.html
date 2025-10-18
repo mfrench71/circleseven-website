@@ -4,7 +4,16 @@
 
 <header class="site-header" role="banner">
   <div class="wrapper">
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
+      <svg class="site-logo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#20b2aa" stroke="none"/>
+        <g transform="translate(32, 25)">
+          <rect x="0" y="0" width="36" height="8" fill="white"/>
+          <path d="M 26,8 L 11,50 L 21,50 L 36,8 Z" fill="white"/>
+        </g>
+      </svg>
+      <span>{{ site.title | escape }}</span>
+    </a>
 
     <nav class="site-nav" aria-label="Main navigation">
       <!-- Desktop Navigation -->

@@ -25,6 +25,7 @@
 
 .sidebar {
   position: static;
+  margin-top: -88px;
 }
 
 /* Sidebar Widgets Container */
@@ -340,11 +341,11 @@
 .contact-email {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 0;
-  margin-bottom: 12px;
+  gap: 6px;
+  padding: 6px 0;
+  margin-bottom: 8px;
   border-bottom: 1px solid #e0f7f6;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .contact-email svg {
@@ -370,7 +371,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .social-links-sidebar li {
@@ -378,18 +379,29 @@
 }
 
 .social-links-sidebar li a {
-  display: block;
-  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
   text-decoration: none;
   color: #444;
   transition: all 0.2s;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
+}
+
+.social-links-sidebar li a svg {
+  flex-shrink: 0;
+  color: #20b2aa;
+  transition: transform 0.2s;
 }
 
 .social-links-sidebar li a:hover {
   color: #20b2aa;
-  padding-left: 4px;
+}
+
+.social-links-sidebar li a:hover svg {
+  transform: scale(1.1);
 }
 
 
