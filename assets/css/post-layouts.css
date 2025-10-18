@@ -115,7 +115,7 @@ div.pagination span {
   padding: 8px 16px;
   margin: 0 5px;
   text-decoration: none;
-  color: #2a7ae2;
+  color: #20b2aa;
 }
 
 .home .pagination .disabled,
@@ -140,20 +140,49 @@ div.pagination-pages {
 .home .pagination-pages span,
 div.pagination-pages a,
 div.pagination-pages span {
-  padding: 8px 12px;
+  padding: 0;
   margin: 0 2px;
   text-decoration: none;
-  color: #2a7ae2;
+  color: #20b2aa;
   border: 1px solid #e8e8e8;
   border-radius: 3px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.home .pagination-pages a:hover,
+div.pagination-pages a:hover {
+  background: #20b2aa;
+  color: white;
+  border-color: #20b2aa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(32, 178, 170, 0.3);
 }
 
 .home .pagination-pages .current,
 div.pagination-pages .current {
-  background: #2a7ae2;
+  padding: 0;
+  margin: 0 2px;
+  background: #20b2aa;
   color: white;
-  border-color: #2a7ae2;
+  border: 1px solid #20b2aa;
+  border-radius: 3px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 /* Compact Post Item (for categories page) */
@@ -313,7 +342,8 @@ div.category-section h2 {
 /* Post Categories Footer */
 .post-categories-footer {
   padding: 16px 18px;
-  background: #e0f7f6;
+  background: transparent;
+  border: 1px solid #20b2aa;
   border-left: 4px solid #20b2aa;
   border-radius: 4px;
   font-size: 14px;
@@ -342,34 +372,15 @@ div.category-section h2 {
   font-size: 14px;
 }
 
-.post-categories-footer a.category {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.post-categories-footer .category-badge {
   margin-bottom: 0;
-  width: fit-content;
-  text-decoration: none;
-  transition: all 0.2s;
-  background: #e3f2fd;
-  color: #1565c0;
-  border: none;
-}
-
-.post-categories-footer a.category:hover {
-  background: #1565c0;
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(21, 101, 192, 0.3);
 }
 
 /* Post Tags Footer */
 .post-tags-footer {
   padding: 16px 18px;
-  background: #f0f7f7;
+  background: transparent;
+  border: 1px solid #1a9991;
   border-left: 4px solid #1a9991;
   border-radius: 4px;
   font-size: 14px;
@@ -399,23 +410,24 @@ div.category-section h2 {
 }
 
 .post-tags-footer a.post-tag {
-  background: #fff;
+  display: inline-block;
   padding: 4px 12px;
   border-radius: 12px;
-  border: 1px solid #d0e8e6;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0;
+  width: fit-content;
   text-decoration: none;
-  color: #555;
-  transition: all 0.2s ease;
-  font-weight: 400;
-  font-size: 12px;
+  transition: all 0.2s;
+  background: #e3f2fd;
+  color: #1565c0;
 }
 
 .post-tags-footer a.post-tag:hover {
-  background: #1a9991;
-  color: white;
-  border-color: #1a9991;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(26, 153, 145, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Related Posts Section - Teal Theme */

@@ -3,8 +3,6 @@ layout: default-sidebar
 ---
 
 <div class="home">
-  <h1 class="page-heading">Posts</h1>
-
   <div class="post-grid">
     {% for post in paginator.posts %}
       <article class="post-card{% if forloop.first %} featured{% endif %}">

@@ -3,7 +3,10 @@ layout: default
 ---
 
 <div class="category-archive">
-  <h1 class="page-heading">{{ page.title }}</h1>
+  <h1 class="page-heading">
+    <i class="fas fa-folder category-icon"></i>
+    {{ page.title }}
+  </h1>
 
   {% if page.description %}
     <p class="category-description">{{ page.description }}</p>

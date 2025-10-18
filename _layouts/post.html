@@ -25,7 +25,7 @@ layout: default
     <div class="post-categories-footer">
       <strong>Categories:</strong>
       {%- for category in page.categories -%}
-        <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category">{{ category }}</a>
+        <a href="{{ site.baseurl }}/category/{{ category | slugify }}/" class="category-badge badge-{{ category | slugify }}">{{ category }}</a>
       {%- endfor -%}
     </div>
     {%- endif -%}

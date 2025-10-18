@@ -419,7 +419,9 @@
   margin-bottom: 32px;
 }
 
-.tag-icon {
+.tag-icon,
+.category-icon {
   font-size: 0.9em;
   margin-right: 8px;
+  color: #20b2aa;
 }

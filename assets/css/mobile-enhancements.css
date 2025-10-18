@@ -20,9 +20,12 @@ a, button {
 /* Text Links Exception */
 .post-card-title a,
 .category-badge,
+.post-tag,
 .post-link,
 p a,
-.post-excerpt {
+.post-excerpt,
+.pagination-pages a,
+.pagination-pages span {
   min-height: unset;
   min-width: unset;
   display: inline;

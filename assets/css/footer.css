@@ -16,6 +16,26 @@
   margin-bottom: 30px;
 }
 
+/* Subscribe and Contact Links */
+.feed-subscribe a,
+.contact-list a {
+  color: #20b2aa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.feed-subscribe a:hover,
+.contact-list a:hover {
+  color: #1a9991;
+  text-decoration: underline;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Social Media Icons in Footer */
 .social-links {
   display: flex;
@@ -28,6 +48,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 12px;
   list-style: none;
   margin: 0;
@@ -36,6 +57,8 @@
 
 .social-media-list li {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .social-media-list a {
@@ -54,11 +77,9 @@
 }
 
 .social-media-list a:hover {
-  background: #2a7ae2;
+  background: #20b2aa;
   color: white;
-  border-color: #2a7ae2;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(42, 122, 226, 0.3);
+  border-color: #20b2aa;
 }
 
 .social-media-list svg {
@@ -67,36 +88,7 @@
 }
 
 .social-media-list .username {
-  position: absolute;
-  left: 50%;
-  bottom: -30px;
-  transform: translateX(-50%);
-  background: #333;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 3px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
-
-.social-media-list a:hover .username {
-  opacity: 1;
-}
-
-.social-media-list .username::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #333;
+  display: none;
 }
 
 /* Mobile Responsive */

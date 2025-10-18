@@ -4,7 +4,7 @@ layout: default
 <div class="tag-page">
   <header class="page-header">
     <h1 class="page-heading">
-      <span class="tag-icon">🏷️</span>
+      <i class="fas fa-tag tag-icon"></i>
       Tag: {{ page.tag }}
     </h1>
     <p class="tag-description">{{ site.tags[page.tag].size | default: page.posts.size }} post{% if page.posts.size != 1 %}s{% endif %} tagged with "{{ page.tag }}"</p>
