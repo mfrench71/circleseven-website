@@ -4,7 +4,7 @@
 
 /* CSS Variables */
 :root {
-  --header-height: 60px; /* Fixed header height */
+  --header-height: 64px; /* Slightly taller for better presence */
 }
 
 /* Body Padding for Fixed Header */
@@ -19,22 +19,25 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: var(--header-height); /* Simple fixed height */
-  border-bottom: 1px solid #e8e8e8;
-  background: white;
+  height: var(--header-height);
+  border-bottom: 1px solid #e0e0e0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  box-sizing: border-box; /* Include border in height calculation */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 .site-header .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 60px;
+  min-height: 64px;
   height: 100%;
-  padding: 0 15px;
-  max-width: 1200px;
+  padding: 0 24px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -42,11 +45,17 @@ body {
 
 /* Site Title */
 .site-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 700;
   text-decoration: none;
   color: #111;
   white-space: nowrap;
+  letter-spacing: -0.5px;
+  transition: color 0.2s ease;
+}
+
+.site-title:hover {
+  color: #2a7ae2;
 }
 
 /* ============================================
@@ -56,7 +65,7 @@ body {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   margin-left: auto; /* Push to right on mobile */
 }
 
@@ -66,7 +75,7 @@ body {
   margin: 0;
   padding: 0;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .nav-item {
@@ -74,24 +83,35 @@ body {
 }
 
 .nav-link {
-  display: block;
-  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
   text-decoration: none;
-  color: #111;
-  font-size: 15px;
-  transition: color 0.2s;
+  color: #444;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
   white-space: nowrap;
+  border-radius: 6px;
 }
 
 .nav-link:hover {
   color: #2a7ae2;
+  background: #f5f8ff;
 }
 
 /* Has Dropdown Indicator */
 .has-dropdown > .nav-link::after {
   content: " ▾";
-  font-size: 12px;
-  margin-left: 4px;
+  font-size: 10px;
+  margin-left: 5px;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.has-dropdown:hover > .nav-link::after,
+.has-dropdown.active > .nav-link::after {
+  transform: rotate(180deg);
 }
 
 /* ============================================
@@ -110,9 +130,9 @@ body {
   border-right: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8;
   border-top: none; /* No top border - shares header's bottom border */
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 12px 16px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  padding: 8px 12px;
   z-index: 999; /* Just below header */
   opacity: 0;
   visibility: hidden;
@@ -156,7 +176,7 @@ body {
 .mega-menu-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 16px; /* Reduced for tighter spacing */
+  gap: 12px;
 }
 
 .mega-menu-section {
@@ -164,13 +184,13 @@ body {
 }
 
 .mega-menu-section h3 {
-  font-size: 13px !important;
-  font-weight: bold !important;
-  color: #666 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #888 !important;
   text-transform: uppercase !important;
-  margin: 0 0 6px 0 !important;
-  padding: 0 !important;
-  letter-spacing: 0.5px !important;
+  margin: 0 0 4px 0 !important;
+  padding: 0 0 0 6px !important;
+  letter-spacing: 0.8px !important;
   line-height: 1.2 !important;
 }
 
@@ -191,25 +211,31 @@ body {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  padding: 3px 6px !important;
+  padding: 6px 8px !important;
   margin: 0 !important;
   text-decoration: none !important;
-  color: #111 !important;
-  border-radius: 3px !important;
-  transition: background 0.2s, color 0.2s !important;
+  color: #333 !important;
+  border-radius: 4px !important;
+  transition: all 0.15s ease !important;
   font-size: 13px !important;
-  line-height: 1.3 !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
 }
 
 .mega-menu-links a:hover {
-  background: #f5f5f5;
+  background: #e8f3ff;
   color: #2a7ae2;
+  transform: translateX(2px);
 }
 
 .post-count {
-  font-size: 12px;
-  color: #666; /* Darkened from #999 for WCAG AA contrast */
-  margin-left: 8px;
+  font-size: 11px;
+  color: #999;
+  margin-left: 6px;
+  font-weight: 500;
+  background: #f0f0f0;
+  padding: 1px 6px;
+  border-radius: 10px;
 }
 
 /* ============================================
@@ -217,21 +243,34 @@ body {
    ============================================ */
 
 .nav-search {
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .nav-search input {
-  padding: 8px 12px;
-  border: 1px solid #e8e8e8;
-  border-radius: 3px;
-  font-size: 14px;
-  width: 180px;
-  transition: border-color 0.2s;
+  padding: 8px 14px 8px 36px;
+  border: 1px solid #d0d0d0;
+  border-radius: 20px;
+  font-size: 13px;
+  width: 200px;
+  background: #f8f9fa;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 16px;
+  transition: all 0.2s ease;
 }
 
 .nav-search input:focus {
   outline: none;
   border-color: #2a7ae2;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(42, 122, 226, 0.1);
+  width: 240px;
+}
+
+.nav-search input::placeholder {
+  color: #999;
+  font-size: 13px;
 }
 
 /* ============================================
