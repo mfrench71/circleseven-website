@@ -5,7 +5,7 @@ layout: default-sidebar
 <div class="home">
   <div class="post-grid">
     {% for post in paginator.posts %}
-      <article class="post-card{% if forloop.first %} featured{% endif %}">
+      <article class="post-card{% if forloop.first and paginator.page == 1 %} featured{% endif %}">
         <!-- Card Image -->
         <div class="post-card-image">
           <a href="{{ post.url | relative_url }}">
