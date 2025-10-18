@@ -3,22 +3,18 @@
    Modern grid layouts for photo galleries
    ============================================ */
 
-/* Gallery Grid Layout */
+/* Gallery Grid Layout - Only for explicit gallery containers */
 .gallery,
-.wp-block-gallery,
-.post-content figure + figure,
-.page-content figure + figure {
+.wp-block-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
   margin: 32px 0;
 }
 
-/* Individual Gallery Items */
+/* Individual Gallery Items - Only within gallery containers */
 .gallery figure,
-.wp-block-gallery figure,
-.post-content figure,
-.page-content figure {
+.wp-block-gallery figure {
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -28,16 +24,14 @@
 }
 
 .gallery figure:hover,
-.post-content figure:hover,
-.page-content figure:hover {
+.wp-block-gallery figure:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Gallery Images */
+/* Gallery Images - Only within gallery containers */
 .gallery figure img,
-.post-content figure img,
-.page-content figure img {
+.wp-block-gallery figure img {
   width: 100%;
   height: auto;
   display: block;
@@ -46,10 +40,23 @@
 }
 
 .gallery figure:hover img,
-.post-content figure:hover img,
-.page-content figure:hover img {
+.wp-block-gallery figure:hover img {
   opacity: 0.9;
   transform: scale(1.05);
+}
+
+/* Individual figures in post content - Keep natural layout */
+.post-content figure,
+.page-content figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.post-content figure img,
+.page-content figure img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
 }
 
 /* Gallery Links */
