@@ -22,6 +22,21 @@
   /* Colors - Borders */
   --color-border: #e8e8e8;
   --color-border-light: #f0f0f0;
+  --color-border-medium: #e0e0e0;
+
+  /* Colors - Additional */
+  --color-link: #2a7ae2;
+  --color-text-dark: #333;
+  --color-text-charcoal: #444;
+  --color-text-gray-light: #999;
+  --color-bg-near-white: #f9f9f9;
+  --color-bg-blue-light: #e3f2fd;
+  --color-blue-primary: #1565c0;
+  --color-purple-primary: #667eea;
+
+  /* Semantic Color Aliases */
+  --teal-primary: var(--color-primary);
+  --teal-dark: var(--color-primary-hover);
 
   /* Spacing Scale */
   --spacing-xs: 5px;
