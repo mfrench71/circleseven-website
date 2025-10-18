@@ -12,6 +12,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding-right: 20px;
+  position: relative;
 }
 
 /* Override wrapper max-width for sidebar layout */
@@ -24,15 +25,16 @@
 }
 
 .sidebar {
-  position: sticky;
-  top: 20px;
-  margin-top: -88px;
-  max-height: calc(100vh - 40px);
+  position: fixed;
+  top: 120px; /* Header height + Posts heading height + margin */
+  right: calc((100vw - 1400px) / 2 + 20px);
+  width: 300px;
+  max-height: calc(100vh - 140px);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* Hide scrollbar for sidebar but keep functionality */
+/* Custom scrollbar for sidebar */
 .sidebar::-webkit-scrollbar {
   width: 4px;
 }
@@ -48,6 +50,13 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: #c0c0c0;
+}
+
+/* For smaller screens where sidebar would be too close to edge */
+@media (max-width: 1440px) {
+  .sidebar {
+    right: 20px;
+  }
 }
 
 /* Sidebar Widgets Container */

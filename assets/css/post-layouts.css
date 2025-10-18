@@ -350,6 +350,8 @@ div.category-section h2 {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 0;
+  width: fit-content;
   text-decoration: none;
   transition: all 0.2s;
   background: #e3f2fd;
