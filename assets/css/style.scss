@@ -2,4 +2,27 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
+// Override minima theme colors with teal
+$brand-color: #20b2aa !default;
+$link-base-color: #20b2aa !default;
+$link-visited-color: #20b2aa !default;
+$link-hover-color: #1a9991 !default;
+
 @import "minima";
+
+// Additional link color overrides for post/page content
+.post-content a,
+.page-content a,
+p a,
+li a {
+  color: #20b2aa;
+
+  &:visited {
+    color: #20b2aa;
+  }
+
+  &:hover {
+    color: #1a9991;
+    text-decoration: underline;
+  }
+}

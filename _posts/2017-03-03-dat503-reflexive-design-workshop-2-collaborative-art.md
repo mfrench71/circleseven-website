@@ -52,14 +52,14 @@ For the last exercise, one person from each of two groups of four were bound tog
 
 The results are below:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
+<div class="gallery">
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
-</figure>
+</div>
 
 There are certainly some lessons to be learned about cooperation, coordination, communication, delegation and planning. These exercises made it clear that it's very easy groups to descend into ad-hoc contributions to an overall aim which do not progress the group to their goal. Dominant or assertive personalities can influence the outcome of a collaborative effort, not always to the benefit of the team.
 

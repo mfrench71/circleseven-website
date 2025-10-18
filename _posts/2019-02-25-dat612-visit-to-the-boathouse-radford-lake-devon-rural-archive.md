@@ -14,85 +14,59 @@ This site lends itself well to my proposed final year project at Plymouth Univer
 
 Here is how the Boathouse and surrounding landscape looks today:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261898525_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261898525_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261898525_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261898525_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306697_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306697_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261902085_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261902085_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46452683684_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46452683684_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307697_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307697_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901585_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901585_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307117_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307117_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901235_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901235_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901355_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901355_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234305677_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234305677_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901925_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901925_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307947_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307947_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306377_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306377_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306457_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306457_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901745_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261901745_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234305517_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234305517_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306827_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306827_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261899775_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261899775_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306737_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234306737_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261900195_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_46261900195_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307447_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307447_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307377_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307377_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307827_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-present-day_32234307827_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-</figure>
 
-<figure><div>
-https://vimeo.com/318999571
-</div></figure>
+</div>
+
+<figure>
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/318999571" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 <p>These are the archive images that I have been able to source from the internet and from the very helpful staff at the <a href="http://www.devonruralarchive.com/" target="_blank" rel="noreferrer noopener">Devon Rural Archive:</a></p>
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376137_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376137_o.png" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376137_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376137_o.png" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376247_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376247_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376327_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376327_o-1024x646.jpg" width="1024" height="646" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376337_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376337_o.png" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376407_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376407_o-1024x665.jpg" width="1024" height="665" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376417_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376417_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376497_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376497_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376597_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_32234376597_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47124204942_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47124204942_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098201_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098201_o.png" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098311_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098311_o.png" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098371_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/boathouse-radford-lake-archived_47176098371_o.png" alt="" loading="lazy"></a></figure>
-</figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/IMG_0118-e1550849775191-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/IMG_0118-e1550849775191-scaled-1-758x1024.jpg" width="758" height="1024" alt="" loading="lazy"></a></figure>
+
+</div>
 
 The final image (captioned 'St. Kevern's Quay between 1884 - 1900 showing display gardens and summer house in the woods') was taken from a 'A History of Radford' by Brian Steele, kindly sourced by the Devon Rural Archive. The accompanying text also provides some useful information and is reproduced here:
 
@@ -106,25 +80,18 @@ In the woods above the quay a quarried area exists which once contained a terrac
 
 <p>The following images are from the <a href="http://web.plymouth.gov.uk/archivecatalogue.htm" target="_blank" rel="noreferrer noopener">Plymouth City Council Archives catalogue</a>:</p>
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_32265282617_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_32265282617_o.jpg" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_32265282617_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_32265282617_o.jpg" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036555_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036555_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036635_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036635_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036675_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036675_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036695_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036695_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036745_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_46293036745_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561622_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561622_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561752_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561752_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561932_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_47155561932_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_47155562022_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_47155562022_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/06/radford-boathouse-pcc_47155562082_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/06/radford-boathouse-pcc_47155562082_o.jpg" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>

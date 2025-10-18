@@ -7,38 +7,47 @@
 .gallery,
 .wp-block-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px;
   margin: 32px 0;
-  align-items: start;
 }
 
 /* Individual Gallery Items - Only within gallery containers */
 .gallery figure,
 .wp-block-gallery figure {
-  margin: 0;
+  margin: 0 !important;
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
-  background: #f5f5f5;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: fit-content;
+  border-radius: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  aspect-ratio: 1 / 1;
 }
 
 .gallery figure:hover,
 .wp-block-gallery figure:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 /* Gallery Images - Only within gallery containers */
 .gallery figure img,
-.wp-block-gallery figure img {
-  width: 100%;
-  height: 280px;
-  display: block;
+.wp-block-gallery figure img,
+.post-content .gallery figure img,
+.page-content .gallery figure img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
   object-fit: cover;
-  transition: opacity 0.3s ease;
+  object-position: center;
+  transition: opacity 0.2s ease;
+}
+
+.gallery figure a,
+.wp-block-gallery figure a {
+  display: block !important;
+  width: 100%;
+  height: 100%;
 }
 
 .gallery figure:hover img,
@@ -47,17 +56,37 @@
 }
 
 /* Individual figures in post content - Keep natural layout */
-.post-content figure,
-.page-content figure {
+.post-content > figure,
+.page-content > figure {
   margin: 1.5rem 0;
   text-align: center;
 }
 
-.post-content figure img,
-.page-content figure img {
+.post-content > figure img,
+.page-content > figure img {
   max-width: 100%;
   height: auto;
   display: inline-block;
+}
+
+/* GALLERY OVERRIDES - These must come AFTER regular figure styles */
+/* Explicitly override post-content figure styles for gallery items */
+.post-content .gallery figure,
+.page-content .gallery figure,
+.gallery .post-content figure,
+.gallery .page-content figure {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.post-content .gallery figure img,
+.page-content .gallery figure img,
+.gallery .post-content figure img,
+.gallery .page-content figure img {
+  max-width: none !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
 }
 
 /* Gallery Links */
@@ -114,46 +143,39 @@
 }
 
 /* Responsive Gallery Layouts */
-@media (min-width: 1200px) {
+@media (max-width: 768px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 4px;
   }
 }
 
-@media (min-width: 900px) and (max-width: 1199px) {
+@media (max-width: 600px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 4px;
   }
 }
 
-@media (min-width: 600px) and (max-width: 899px) {
+@media (max-width: 480px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 599px) {
-  .gallery,
-  .wp-block-gallery {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 3px;
   }
 
   .gallery figure,
-  .post-content figure,
-  .page-content figure {
-    border-radius: 4px;
+  .wp-block-gallery figure {
+    border-radius: 1px;
   }
 
   .gallery figcaption,
   .post-content figcaption,
   .page-content figcaption {
-    font-size: 12px;
-    padding: 8px;
+    font-size: 11px;
+    padding: 6px;
   }
 }
 
@@ -199,31 +221,41 @@ body.glightbox-open {
 
 /* Two Column Gallery */
 .gallery-2col {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr) !important;
 }
 
-/* Three Column Gallery (Default) */
+/* Three Column Gallery */
 .gallery-3col {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr) !important;
 }
 
 /* Four Column Gallery */
 .gallery-4col {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/* Five Column Gallery */
+.gallery-5col {
+  grid-template-columns: repeat(5, 1fr) !important;
 }
 
 @media (max-width: 900px) {
-  .gallery-3col,
-  .gallery-4col {
-    grid-template-columns: repeat(2, 1fr);
+  .gallery-4col,
+  .gallery-5col {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .gallery-3col {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
 @media (max-width: 600px) {
   .gallery-2col,
   .gallery-3col,
-  .gallery-4col {
-    grid-template-columns: 1fr;
+  .gallery-4col,
+  .gallery-5col {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
@@ -264,14 +296,14 @@ body.glightbox-open {
 }
 
 /* Image Aspect Ratio Options */
-.gallery-square figure img {
+.gallery-square figure {
   aspect-ratio: 1 / 1;
 }
 
-.gallery-landscape figure img {
+.gallery-landscape figure {
   aspect-ratio: 16 / 9;
 }
 
-.gallery-portrait figure img {
+.gallery-portrait figure {
   aspect-ratio: 3 / 4;
 }

@@ -36,9 +36,10 @@ The remaining three sites (Double Negative, Weta Digital and Framestore) use sim
 
 **Mockups of my own professional practice website:**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_01_25508271853_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_01_25508271853_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_01_25508271853_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_01_25508271853_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_02_26044527901_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_02_26044527901_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_03_26085912016_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_03_26085912016_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>

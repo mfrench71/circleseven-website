@@ -18,7 +18,9 @@ Photographs were taken from ground level, hence the missing shed roof (the camer
 
 It was interesting to partially capture the interior of the the shed (through the green door), and it seemed to pay to capture more images as I traversed around the corners of the house and shed.
 
+<div class="embed-container">
 <iframe src="https://sketchfab.com/models/cba075b160b14f91b90ea96429630c67/embed" width="320" height="240" frameborder="0"><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span></iframe>
+</div>
 
 ## Camera Settings
 

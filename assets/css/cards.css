@@ -31,6 +31,18 @@
   border-color: #d0d0d0;
 }
 
+/* Lazy Card Loading States */
+.lazy-card {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.lazy-card-loaded {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
 /* Card Image */
 .post-card-image {
   position: relative;
@@ -183,9 +195,13 @@
 }
 
 .post-card-title a {
-  color: inherit;
+  color: #111;
   text-decoration: none;
   transition: color 0.2s;
+}
+
+.post-card-title a:visited {
+  color: #111;
 }
 
 .post-card:hover .post-card-title a {

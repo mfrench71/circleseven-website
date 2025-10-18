@@ -30,10 +30,12 @@ Dérive:
 
 - Now draw in the nearest path you can to that circle that you could actually walk. Notice how man-made and natural features constrain our progress.
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
+<div class="gallery">
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></figure>
-</figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+
+</div>
 
 Now walk the route:
 

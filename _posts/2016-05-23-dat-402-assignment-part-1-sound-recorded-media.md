@@ -47,7 +47,9 @@ My aim was to emulate Burtt; to venture out and collect a range of unique sound 
 
 To that end, I roamed my local area, recording the sounds of water, birds, footsteps, traffic and people (including children). I created my own vocal pieces for a variety of uses, including voiceovers, screams and the 'voice' of Darth Vader. I made use of whatever came to hand, including Gwynne, our six-month old labrador/retriever cross. A metal well cover, when hit with my hand and then a stone, came in useful for some industrial sounds.
 
+<div class="embed-container">
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https://soundcloud.com/matthew-french-602634074/dat402-mastered&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+</div>
 
 <h3>A breakdown of the final sound design piece</h3>
 

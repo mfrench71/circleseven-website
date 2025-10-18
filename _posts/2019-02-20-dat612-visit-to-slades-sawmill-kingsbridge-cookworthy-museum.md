@@ -14,28 +14,21 @@ tags: ["DAT612", "Photogrammetry", "Photography"]
 
 Some photos from the now overgrown and derelict saw mill site.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181605_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181605_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181605_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181605_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181165_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242181165_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242182475_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242182475_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_33281038758_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_33281038758_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432812714_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432812714_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432810484_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432810484_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432809934_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46432809934_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_32214330017_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_32214330017_o-scaled.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242182005_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_46242182005_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_32214329157_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_32214329157_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_33281039878_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/sawmill-south-pool-salcombe_33281039878_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 Following my muddy visit to the saw mill site, I paid a visit to the resource centre at the Kingsbridge Cookworthy Museum. With the help of the staff, I was able to view the range of photographs of the mill. Unfortunately, the majority of them were, for one reason or another, unusable; the most useful image is from this postcard of a painting of the mill dating from the early 1900s:
 

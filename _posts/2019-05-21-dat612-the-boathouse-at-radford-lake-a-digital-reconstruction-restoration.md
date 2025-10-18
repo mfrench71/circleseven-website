@@ -66,10 +66,12 @@ The lack of detailed photographs would make a digital restoration of this site c
 
 A visit to the Devon Rural Archive confirmed the lack of archive material relating to the saw mill. There was, however, material available for another site that I had in mind: the Boathouse at Radford Lake. This site lent itself well to my proposed project; it is easily accessible, can be photographed from (almost) 360 degrees, and there are some archive images available from which it would be possible to digitally recreate the structure and its surrounding environment. The staff at the Devon Rural Archive were also able to give me the name of a local historian (Brian Steele) who had written a booklet on the history of Radford. In turn, Brian provided me with contact details for Neill Mitchell, a relative of the last owner of Radford House (now demolished), in the grounds of which the Boathouse once stood. Neill was kind enough to send me some good quality scanned images of photographs and these have proved invaluable in creating the restoration assets.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_0131-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_0131-scaled-1-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_0131-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_0131-scaled-1-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-scaled-1-1024x642.jpg" width="1024" height="642" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 Additional images were sourced from the internet and from the archives at Plymouth City Council.
 
@@ -83,18 +85,16 @@ The first step was to determine an overall plan and the boundaries of the enviro
 
 To that end, I created an aerial plan of the site with the position of key features marked out which could then be used as a guide within Unity to start modelling the terrain, placing test features, and checking that the scale of the test models was accurate:
 
-<figure><figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/aerial-plan_33490774068_o-1018x1024.jpg" width="1018" height="1024" alt="" loading="lazy"></figure>
+<div class="gallery">
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-16_30_22_46981164925_o-1024x540.png" width="1024" height="540" alt="" loading="lazy"></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/aerial-plan_33490774068_o-1018x1024.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/aerial-plan_33490774068_o-1018x1024.jpg" width="1018" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-16_30_22_46981164925_o-1024x540.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-16_30_22_46981164925_o-1024x540.png" width="1024" height="540" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_16_57_47107898634_o-1024x536.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_16_57_47107898634_o-1024x536.png" width="1024" height="536" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_20_09_46981164815_o-1024x535.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_20_09_46981164815_o-1024x535.png" width="1024" height="535" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_06_57_47107899574_o-1024x539.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_06_57_47107899574_o-1024x539.png" width="1024" height="539" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_09_12_47897224921_o-1024x539.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_09_12_47897224921_o-1024x539.png" width="1024" height="539" alt="" loading="lazy"></a></figure>
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_16_57_47107898634_o-1024x536.png" width="1024" height="536" alt="" loading="lazy"></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone_-_dx11_-14_05_2019-17_20_09_46981164815_o-1024x535.png" width="1024" height="535" alt="" loading="lazy"></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_06_57_47107899574_o-1024x539.png" width="1024" height="539" alt="" loading="lazy"></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-17_09_12_47897224921_o-1024x539.png" width="1024" height="539" alt="" loading="lazy"></figure>
-</figure>
+</div>
 
 Over the course of the project, the terrain evolved and became more representative of the actual terrain of the location. Pathways through the woods were created, inviting users to explore the environment and to be able to view the areas of interest from different vantage points. Subtle changes in slope and elevation were incorporated, such as those in the formal garden area. Flowers, plants, ferns, and rocks were included to add interest and variation. Practical technical issues were also addressed at this time, such as adding ‘colliders’ to prevent users wandering outside the bounds of the environment or falling in the lake.
 
@@ -123,19 +123,23 @@ The structures that were created from photogrammetry are:
 - The quay wall (38 photographs)
 
 <figure>
-<div>https://youtu.be/gKkMz95iqCE</div>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/gKkMz95iqCE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 </figure>
 
-**Creating the ‘Restoration’**
+**Creating the 'Restoration'**
 
 To simulate the restoration process, a number of assets from the original buildings were required. These included, doors, windows, rooves, hedges, and pillars. These assets were modelled in Blender and then imported into the Unity environment.
 
 A sample of the ‘restoration’ assets:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/blender_-e__armoury_roofblend-14_05_2019-18_08_08_47897225071_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/blender_-e__armoury_roofblend-14_05_2019-18_08_08_47897225071_o-1024x586.png" width="1024" height="586" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/blender_-e__armoury_roofblend-14_05_2019-18_08_08_47897225071_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/blender_-e__armoury_roofblend-14_05_2019-18_08_08_47897225071_o-1024x586.png" width="1024" height="586" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/blender_-e__pressblend-14_05_2019-18_09_23_47107899614_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/blender_-e__pressblend-14_05_2019-18_09_23_47107899614_o-1024x598.png" width="1024" height="598" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 Once these assets were incorporated and correctly scaled and positioned in relation to the original buildings, simulating the restoration was a matter of animating assets based on a user’s line of sight. For example, when a user interacts with the armoury, the roof flies off, the windows and doors shoot smoothly out of sight, the floor lowers into the ground, and the crackling log fire is extinguished (along with the smoke from the chimney). Another keypress from the user reverses this process: everything settles gently back into place and the fire is rekindled. This animation process is applied to all of the restoration assets.
 
@@ -159,16 +163,15 @@ To that end, I incorporated the following elements:
 
 - Flora and fauna, including birds (with bird calls), butterflies, trees, bushes, grasses, flowers, and plants.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_27_47897234691_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_27_47897234691_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_27_47897234691_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_27_47897234691_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_54_47897224751_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_50_54_47897224751_o-1024x479.png" width="1024" height="479" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_51_44_47107899344_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_51_44_47107899344_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_53_24_46981165975_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-18_53_24_46981165975_o-1024x476.png" width="1024" height="476" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-19_00_24_47897234181_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-14_05_2019-19_00_24_47897234181_o-1024x476.png" width="1024" height="476" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 The pause menu (activated by pressing the TAB key) serves a number of purposes. The user is able to view a slideshow of images and supporting text sourced from research. Additionally, the length of day setting can be adjusted to simulate time-lapse-style visuals. A page of acknowledgements details those individuals and organisations who have provided assistance with this project. Finally, the user can terminate the application by pressing the ‘Exit’ button.
 
@@ -176,20 +179,17 @@ The pause menu (activated by pressing the TAB key) serves a number of purposes. 
 
 The outcome of this project is an attractive and dynamic environment in which the user is able to experience and interact with a real-world location. Photogrammetry and painstaking terrain and asset modelling with reference to archive material has resulted in a realistic and accurate representation of the Boathouse and its surroundings. Furthermore, the use of dynamic physical, audio, and atmospheric effects contributes to the overall experience of the environment.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_03_47107899134_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_03_47107899134_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_03_47107899134_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_03_47107899134_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_31_46981165485_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_31_31_46981165485_o-1024x479.png" width="1024" height="479" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_32_09_47107898964_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_32_09_47107898964_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_36_58_46981165295_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_36_58_46981165295_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_37_12_47107898884_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_37_12_47107898884_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_40_39_46981165165_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_40_39_46981165165_o-1024x476.png" width="1024" height="476" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_41_02_47107898744_o.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/unity-201838f1-personal-samplesceneunity-final-year-project-pc-mac-linux-standalone-_dx11_-16_05_2019-08_41_02_47107898744_o-1024x478.png" width="1024" height="478" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 **Critical Evaluation**
 

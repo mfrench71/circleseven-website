@@ -181,6 +181,18 @@ img {
   display: block;
 }
 
+/* Gallery images OVERRIDE - must maintain their grid dimensions */
+.gallery img,
+.gallery figure img,
+.post-content .gallery img,
+.page-content .gallery img {
+  max-width: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+}
+
 /* Prevent Layout Shift */
 .post-card-image {
   background: #f5f5f5;

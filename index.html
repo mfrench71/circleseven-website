@@ -42,6 +42,7 @@ layout: default-sidebar
             <img src="{% include gravatar-url.html email=site.email size=64 %}"
                  alt="{{ site.author | escape }}"
                  class="post-author-avatar"
+                 loading="lazy"
                  onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>

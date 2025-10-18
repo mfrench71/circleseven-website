@@ -62,7 +62,9 @@ Type <code>6 LOAD</code> then <code>FINAL</code>.
 
 **The Originals**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-</figure>
+
+</div>

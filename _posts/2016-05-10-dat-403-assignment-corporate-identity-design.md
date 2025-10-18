@@ -23,20 +23,17 @@ The choice of this name provided me with a natural choice of colour scheme to wo
 
 With a name and colour scheme to work with, I produced the following design ideas:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22300011803_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22300011803_o.jpg" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22300011803_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22300011803_o.jpg" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22502808187_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22502808187_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22502860588_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22502860588_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22528854159_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22528854159_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22529006679_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22529006679_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22529006719_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22529006719_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/print_22733165570_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/print_22733165570_o.jpg" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 I decided on that the last logo displayed above as the one I was most happy with and this would be used as the branding on my corporate literature.
 
@@ -66,19 +63,15 @@ Corporate assets were modelled in 3D Studio Max and then transferred to Cinema 4
 
 **Flat and Rendered Images:**
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/business-cards_22520824487_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/business-cards_22520824487_o-300x188.jpg" width="300" height="188" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/business-cards_22520824487_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/business-cards_22520824487_o-300x188.jpg" width="300" height="188" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o-300x195.jpg" width="300" height="195" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o-300x197.jpg" width="300" height="197" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o-300x188.jpg" width="300" height="188" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-214x300.jpg" width="214" height="300" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-213x300.jpg" width="213" height="300" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/letterhead-finished_22925789972_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/letterhead-finished_22925789972_o-300x188.jpg" width="300" height="188" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/magazine-article_22939188495_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/magazine-article_22939188495_o-300x188.jpg" width="300" height="188" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>

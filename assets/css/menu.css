@@ -23,6 +23,7 @@ body {
   left: 0;
   right: 0;
   height: var(--header-height);
+  border-top: none;
   border-bottom: 2px solid var(--teal-primary);
   background: white;
   z-index: 1000;
@@ -96,17 +97,20 @@ body {
 .nav-link {
   display: inline-flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 0 12px;
   text-decoration: none;
   color: #333;
   font-size: 14px;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
+  height: var(--header-height);
 }
 
 .nav-link:hover {
-  color: var(--teal-primary);
+  background: var(--teal-primary);
+  color: white;
+  text-decoration: none;
 }
 
 /* Has Dropdown Indicator */
@@ -315,9 +319,9 @@ body {
   outline: none !important;
   box-shadow: none !important;
   cursor: pointer;
-  padding: 4px;
-  margin: 0;
-  margin-left: 12px;
+  padding: 0;
+  margin-left: 6px;
+  margin-right: 6px;
   flex-shrink: 0;
   width: 32px;
   height: 32px;
@@ -356,6 +360,7 @@ body {
   height: 2px;
   background: #111;
   position: relative;
+  margin: 0;
   transition: background 0.3s;
 }
 
@@ -673,7 +678,7 @@ body {
   }
 
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
   }
 }
 

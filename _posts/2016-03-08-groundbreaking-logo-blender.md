@@ -10,9 +10,11 @@ tags: ["Academic", "After Effects", "Blender", "Tutorial", "Video", "Web Develop
 
 <p>Now having had a taste of <a href="http://www.blender.org">Blender</a> as part of my <a href="http://www.circleseven.co.uk/2016/02/27/dat-406-assignment-part-2-multiverse/">DAT406 university assignment</a>, I was keen to repeat the learning process and so decided to use the same tutorial. This time I would apply the techniques, albeit it in a slightly less polished and refined form than in Joe's tutorial, to Blender. This is the result...</p>
 
-<figure><div>
-https://vimeo.com/158203785
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/158203785" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 **Acknowledgements:**
 

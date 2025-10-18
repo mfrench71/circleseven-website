@@ -33,15 +33,14 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 Here are some results of testing on two different images:
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" loading="lazy"></a></figure>
-</figure>
-
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
-
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 In both tests, the results of the analysis of age and gender of the individual's face was accurate.
 

@@ -26,12 +26,13 @@ The *On Broadway* project focused on a single street in NYC – part of Broadway
 
 Manovich points to the wealth of existing representations of city life by artists, writers and filmmakers. However, he cites as direct inspiration, Edward Ruscha's *Every Building on the Sunset Strip*. It is an artist book that unfolds to 25 feet (8.33 meters) to show continuous photographic views of both sides of a 1.5-mile long section of Sunset Boulevard.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677.jpg" width="1024" height="677" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677.jpg" width="1024" height="677" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg" alt="" loading="lazy"></a></figure>
-
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/0716201517000002_32513294473_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/0716201517000002_32513294473_o-1024x645.jpg" width="1024" height="645" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 Manovich wanted to create a 21st century representation of the living city without using maps or graphs or numbers.
 

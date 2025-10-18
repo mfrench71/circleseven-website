@@ -14,10 +14,12 @@ Must combine minimum of 5 images. Clear title and tag line. It must be 210x297 m
 
 Once I had determined the requirements of a typical movie poster, I produced these rough pen and paper sketches as initial concepts.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_16101-e1445962906164.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_16101-e1445962906164-241x300.jpg" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<div class="gallery">
 
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_16101-e1445962906164.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_16101-e1445962906164-241x300.jpg" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_16111-e1445962964594-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_16111-e1445962964594-scaled-1-179x300.jpg" width="179" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 <p>The main elements of the concept poster were to include images of past and present presidents of the Campaign to Protect Rural England (Andrew Motion, Bill Bryson and David Dimbleby). These would be combined with images of rural England, <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">movie poster tropes</a>: credits, star reviews and main 'cast member' names.</p>
 

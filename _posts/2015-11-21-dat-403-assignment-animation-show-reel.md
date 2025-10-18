@@ -10,9 +10,11 @@ Brief: Manufacture an animated show reel that displays the skills you have lear
 
 **Title Element**
 
-<figure><div>
-https://youtu.be/g9qsHGGHJN4
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/g9qsHGGHJN4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 The introductory title sequence consists of a 10 second animation to introduce the show reel. This was designed to be an eyecatching and dramatic opening moment, both visually and aurally.
 
@@ -24,9 +26,11 @@ Camera shake, motion blur and appropriate sound effects are used to provide a hi
 
 **Greenlight Identity Spot**
 
-<figure><div>
-https://youtu.be/1mmBZgTzWX8
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/1mmBZgTzWX8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 This part showcases the 'Greenlight Design' logo and the animation plays on the 'light' aspects of my corporate identity design.
 
@@ -38,9 +42,11 @@ A dramatic camera move, combined with camera wiggle give a dynamic feel to the a
 
 **Audio Visualisation**
 
-<figure><div>
-https://youtu.be/cGzg9FSnwy4
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/cGzg9FSnwy4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 A similar environment as the above was used for the audio visualisation sequence. An audio file was sourced and the Bass &amp; Treble effect was used in conjunction with the Convert Audio to Keyframes command to create separate keyframed bass and treble layers. A third layer was created with keyframes from the audio without the Bass &amp; Treble effect. The keyframe information was used to drive three sets of particles produced via Trapcode's Particular plug-in. Organic waveforms were coloured green, amber and red for conistency with the overall theme of this piece.
 
@@ -48,9 +54,11 @@ Dynamic camera moves were timed to coincide with the dynamics of the audio and t
 
 **Character Animation**
 
-<figure><div>
-https://youtu.be/lJEtL77lCkk
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/lJEtL77lCkk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 Fifteen layers created in Illustrator were arranged in 3D space to create the backdrop and foreground for my character animation test. Blur was applied to foreground items to simulate a depth of field effect. The Z space arrangement of the layers created a smooth parallax scrolling effect as the camera moves from the left to right.
 
@@ -64,6 +72,8 @@ The transition from night to day is further enhanced with a change of audio from
 
 **Final Animation Show Reel:**
 
-<figure><div>
-https://vimeo.com/146500210
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/146500210" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>

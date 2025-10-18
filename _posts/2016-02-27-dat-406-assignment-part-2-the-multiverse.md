@@ -29,20 +29,17 @@ The creation of this piece in 3D software, Blender, begins with a mountainous la
 
 Finishing touches involve creating a metallic material for the cubes, adding an environment image, modifying the lighting and adding some compositing effects in Blender's node editor. Finally, the camera is animated and scenes are rendered.
 
-<figure><figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o-300x234.jpg" width="300" height="234" alt="" loading="lazy"></a></figure>
+<div class="gallery">
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" width="300" height="206" alt="" loading="lazy"></figure>
-
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o-300x234.jpg" width="300" height="234" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg" width="300" height="206" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o-300x224.jpg" width="300" height="224" alt="" loading="lazy"></a></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg" width="284" height="300" alt="" loading="lazy"></figure>
-
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg" width="284" height="300" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o-300x218.jpg" width="300" height="218" alt="" loading="lazy"></a></figure>
-
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg" width="300" height="203" alt="" loading="lazy"></figure>
-
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg" width="300" height="203" alt="" loading="lazy"></a></figure>
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-300x172.jpg" width="300" height="172" alt="" loading="lazy"></a></figure>
-</figure>
+
+</div>
 
 **Audio**
 
@@ -50,6 +47,8 @@ The audio I chose aims to highlight and complement the visuals and dynamic camer
 
 The final animation rendered with an equidistant fisheye lens for dome projection:
 
-<figure><div>
-https://vimeo.com/156469017
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/156469017" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>

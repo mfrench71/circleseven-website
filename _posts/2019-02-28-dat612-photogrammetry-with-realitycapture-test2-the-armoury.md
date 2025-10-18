@@ -10,7 +10,9 @@ My second test of the RealityCapture photogrammetry software was carried out on 
 
 While the circumstances of the photo shoot were not ideal (a blue-sky day with strong, low sunlight caused shadowing on the outside of the structure), I am satisfied with the result.
 
+<div class="embed-container">
 <iframe src="https://sketchfab.com/models/d1e4b837cf4843749a1be8f05ea35226/embed" width="640" height="480" frameborder="0"></iframe>
+</div>
 
 The above model was created from approximately 400 photographs taken over two days. This number of photographs is probably excessive. However, I encountered a number of issues during the processing of the images in RealityCapture which led to missing portions of the structure (the chimney) and decided to repeat the photo shoot in an attempt to fill the gaps.
 
