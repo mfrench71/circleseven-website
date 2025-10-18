@@ -267,6 +267,7 @@ body {
 
 .nav-search {
   margin-left: 8px;
+  flex-shrink: 0;
 }
 
 .nav-search input {
@@ -274,16 +275,16 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 13px;
-  width: 160px;
+  width: 180px;
   background: #fafafa;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
 }
 
 .nav-search input:focus {
   outline: none;
   border-color: var(--teal-primary);
   background-color: white;
-  width: 200px;
 }
 
 .nav-search input::placeholder {
@@ -302,12 +303,14 @@ body {
   outline: none !important;
   box-shadow: none !important;
   cursor: pointer;
-  padding: 6px;
+  padding: 4px;
   margin: 0;
-  margin-left: 8px;
+  margin-left: 12px;
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   align-items: center;
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
@@ -478,11 +481,12 @@ body {
 }
 
 .mobile-nav-link {
-  display: block;
-  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
   text-decoration: none;
   color: #444;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   background: transparent;
   border-radius: 3px;
@@ -493,11 +497,13 @@ body {
   content: "\f105";
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
-  margin-right: 8px;
+  margin-right: 6px;
+  margin-top: 1px;
   color: var(--teal-primary);
   opacity: 0;
   transition: opacity 0.2s ease;
-  font-size: 12px;
+  font-size: 10px;
+  flex-shrink: 0;
 }
 
 .mobile-nav-link:hover,
@@ -680,16 +686,18 @@ body {
 
 @media (max-width: 600px) {
   .site-header .wrapper {
-    padding: 8px 12px;
-    min-height: 64px;
+    padding: 0 12px;
+    justify-content: flex-start;
   }
 
   .site-title {
     font-size: 18px;
-    flex: 1;
+    flex: 0 0 auto;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  }
+
+  .site-nav {
+    margin-left: auto;
   }
 
   .mobile-drawer {
@@ -699,16 +707,16 @@ body {
 
   .mobile-accordion-links a {
     font-size: 13px;
-    padding: 10px 14px;
+    padding: 6px 10px;
   }
 
   .mobile-accordion-toggle {
-    font-size: 14px;
-    padding: 12px 14px;
+    font-size: 13px;
+    padding: 6px 10px;
   }
 
   .mobile-nav-link {
-    font-size: 14px;
-    padding: 12px 14px;
+    font-size: 13px;
+    padding: 6px 10px;
   }
 }
