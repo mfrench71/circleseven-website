@@ -43,7 +43,7 @@
                   {% for category in year1_cats %}
                     <li>
                       <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        {{ category[0] }}
+                        <span class="link-text">{{ category[0] }}</span>
                         <span class="post-count">{{ category[1] | size }}</span>
                       </a>
                     </li>
@@ -59,7 +59,7 @@
                   {% for category in year2_cats %}
                     <li>
                       <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        {{ category[0] }}
+                        <span class="link-text">{{ category[0] }}</span>
                         <span class="post-count">{{ category[1] | size }}</span>
                       </a>
                     </li>
@@ -75,7 +75,7 @@
                   {% for category in year3_cats %}
                     <li>
                       <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        {{ category[0] }}
+                        <span class="link-text">{{ category[0] }}</span>
                         <span class="post-count">{{ category[1] | size }}</span>
                       </a>
                     </li>
@@ -110,7 +110,7 @@
                   {% for category in project_categories %}
                     <li>
                       <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                        {{ category[0] }}
+                        <span class="link-text">{{ category[0] }}</span>
                         <span class="post-count">{{ category[1] | size }}</span>
                       </a>
                     </li>
@@ -188,7 +188,8 @@
           {% for category in sorted_dat %}
             <li>
               <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                {{ category[0] }} ({{ category[1] | size }})
+                <span class="link-text">{{ category[0] }}</span>
+                <span class="post-count">{{ category[1] | size }}</span>
               </a>
             </li>
           {% endfor %}
@@ -215,7 +216,8 @@
           {% for category in mobile_project_cats %}
             <li>
               <a href="{{ site.baseurl }}/category/{{ category[0] | slugify }}/">
-                {{ category[0] }} ({{ category[1] | size }})
+                <span class="link-text">{{ category[0] }}</span>
+                <span class="post-count">{{ category[1] | size }}</span>
               </a>
             </li>
           {% endfor %}
