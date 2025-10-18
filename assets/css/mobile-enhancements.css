@@ -224,10 +224,32 @@ img {
 @media (max-width: 900px) and (orientation: landscape) {
   .post-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
   }
 
   .post-card.featured {
     grid-column: span 2;
+  }
+
+  .wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* Tablet Portrait */
+@media (min-width: 601px) and (max-width: 900px) and (orientation: portrait) {
+  .post-grid {
+    gap: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
