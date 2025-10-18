@@ -144,6 +144,9 @@
 
         // Append new cards with animation
         newCards.forEach((card, index) => {
+          // Remove 'featured' class from newly loaded cards to maintain grid layout
+          card.classList.remove('featured');
+
           card.style.opacity = '0';
           card.style.transform = 'translateY(20px)';
           container.appendChild(card);
