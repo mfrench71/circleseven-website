@@ -1,0 +1,262 @@
+/* ============================================
+   IMAGE GALLERIES & LIGHTBOX
+   Modern grid layouts for photo galleries
+   ============================================ */
+
+/* Gallery Grid Layout */
+.gallery,
+.wp-block-gallery,
+.post-content figure + figure,
+.page-content figure + figure {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+
+/* Individual Gallery Items */
+.gallery figure,
+.wp-block-gallery figure,
+.post-content figure,
+.page-content figure {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f5f5f5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery figure:hover,
+.post-content figure:hover,
+.page-content figure:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Gallery Images */
+.gallery figure img,
+.post-content figure img,
+.page-content figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery figure:hover img,
+.post-content figure:hover img,
+.page-content figure:hover img {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Gallery Links */
+.gallery a,
+.post-content figure a,
+.page-content figure a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+}
+
+.gallery a::after,
+.post-content figure a[href*=".jpg"]::after,
+.post-content figure a[href*=".jpeg"]::after,
+.post-content figure a[href*=".png"]::after,
+.post-content figure a[href*=".gif"]::after,
+.post-content figure a[href*=".webp"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+
+.gallery a:hover::after,
+.post-content figure a:hover::after,
+.page-content figure a:hover::after {
+  opacity: 1;
+}
+
+/* Figcaption Styling */
+.gallery figcaption,
+.post-content figcaption,
+.page-content figcaption {
+  font-size: 14px;
+  color: #666;
+  padding: 12px;
+  text-align: center;
+  line-height: 1.4;
+  background: #fafafa;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* Responsive Gallery Layouts */
+@media (min-width: 1200px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+
+  .gallery figure,
+  .post-content figure,
+  .page-content figure {
+    border-radius: 4px;
+  }
+
+  .gallery figcaption,
+  .post-content figcaption,
+  .page-content figcaption {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* GLightbox Custom Styling */
+.glightbox-clean .gslide-description {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 16px 24px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.glightbox-clean .gslide-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Prevent body scroll when lightbox is open */
+body.glightbox-open {
+  overflow: hidden;
+}
+
+/* Loading State for Images */
+.gallery img[loading="lazy"],
+.post-content img[loading="lazy"],
+.page-content img[loading="lazy"] {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Gallery Grid Variations */
+
+/* Two Column Gallery */
+.gallery-2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Three Column Gallery (Default) */
+.gallery-3col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Four Column Gallery */
+.gallery-4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 900px) {
+  .gallery-3col,
+  .gallery-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-2col,
+  .gallery-3col,
+  .gallery-4col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Masonry-style Layout (Optional) */
+.gallery-masonry {
+  column-count: 3;
+  column-gap: 16px;
+}
+
+.gallery-masonry figure {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .gallery-masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-masonry {
+    column-count: 1;
+  }
+}
+
+/* Featured Image in Gallery */
+.gallery figure.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 600px) {
+  .gallery figure.featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Image Aspect Ratio Options */
+.gallery-square figure img {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-landscape figure img {
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-portrait figure img {
+  aspect-ratio: 3 / 4;
+}
