@@ -4,8 +4,8 @@ description: >-
   Portfolio and blog documenting Digital Art and Technology projects,
   academic work, and creative coding experiments from Plymouth University.
   Exploring interactive media, physical computing, and digital culture.
-baseurl: "/circleseven-website"
-url: "https://mfrench71.github.io"
+baseurl: ""
+url: "https://your-site-name.netlify.app"
 email: info@circleseven.co.uk
 gravatar_hash: f99984f82813cfd7f33735e6730d8b4c
 author: Matthew French
@@ -31,6 +31,10 @@ sass:
 paginate: 10
 paginate_path: "/page/:num/"
 
+# Include admin folder in build
+include:
+  - admin
+
 # Collections
 collections:
   pages:
@@ -47,7 +51,6 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
-  - admin/
   - scripts/
   - docs/
 
