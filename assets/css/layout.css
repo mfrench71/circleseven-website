@@ -11,6 +11,7 @@
   align-items: start;
   max-width: 1400px;
   margin: 0 auto;
+  padding-right: 20px;
 }
 
 /* Override wrapper max-width for sidebar layout */
@@ -336,114 +337,61 @@
    SIDEBAR SOCIAL LINKS (New Combined Widget)
    ============================================ */
 
+.contact-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e0f7f6;
+  font-size: 13px;
+}
+
+.contact-email svg {
+  flex-shrink: 0;
+  color: #20b2aa;
+}
+
+.contact-email a {
+  color: #20b2aa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.contact-email a:hover {
+  color: #1a9991;
+  text-decoration: underline;
+}
+
 .social-links-sidebar {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
+}
+
+.social-links-sidebar li {
+  margin: 0;
 }
 
 .social-links-sidebar li a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  display: block;
+  padding: 6px 0;
   text-decoration: none;
   color: #444;
-  border-radius: 4px;
   transition: all 0.2s;
   font-size: 13px;
   font-weight: 400;
 }
 
 .social-links-sidebar li a:hover {
-  background: #e0f7f6;
   color: #20b2aa;
-  transform: translateX(4px);
+  padding-left: 4px;
 }
 
-.social-links-sidebar svg {
-  flex-shrink: 0;
-  color: #20b2aa;
-  transition: transform 0.2s;
-}
-
-.social-links-sidebar li a:hover svg {
-  transform: scale(1.15);
-}
-
-/* ============================================
-   RSS SUBSCRIBE WIDGET
-   ============================================ */
-
-.rss-subscribe-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: #444;
-  background: #e0f7f6;
-  border: 2px solid #20b2aa;
-  border-radius: 6px;
-  transition: all 0.2s;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.rss-subscribe-link:hover {
-  background: #20b2aa;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.3);
-}
-
-.rss-subscribe-link svg {
-  flex-shrink: 0;
-  color: #20b2aa;
-  transition: all 0.2s;
-}
-
-.rss-subscribe-link:hover svg {
-  color: white;
-  transform: rotate(15deg);
-}
-
-/* ============================================
-   CONTACT WIDGET
-   ============================================ */
-
-.email-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: #444;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  transition: all 0.2s;
-  font-size: 13px;
-  word-break: break-all;
-}
-
-.email-link:hover {
-  border-color: #20b2aa;
-  background: #e0f7f6;
-  color: #20b2aa;
-}
-
-.email-link svg {
-  flex-shrink: 0;
-  color: #20b2aa;
-  transition: transform 0.2s;
-}
-
-.email-link:hover svg {
-  transform: scale(1.1);
-}
 
 /* ============================================
    RESPONSIVE BREAKPOINTS
