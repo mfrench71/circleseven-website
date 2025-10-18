@@ -304,25 +304,41 @@ div.category-section h2 {
 
 /* Post Categories Footer */
 .post-categories-footer {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #e8e8e8;
+  margin-top: 40px;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.post-categories-footer strong {
+  color: #666;
+  font-weight: 600;
   font-size: 14px;
 }
 
 .post-categories-footer a.category {
-  background: #f0f0f0;
-  padding: 4px 10px;
-  border-radius: 3px;
-  margin-left: 5px;
+  background: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
   text-decoration: none;
   color: #333;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 13px;
 }
 
 .post-categories-footer a.category:hover {
   background: #2a7ae2;
   color: white;
+  border-color: #2a7ae2;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(42, 122, 226, 0.3);
 }
 
 /* Related Posts Section */
