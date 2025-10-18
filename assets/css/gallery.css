@@ -7,9 +7,10 @@
 .gallery,
 .wp-block-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
   margin: 32px 0;
+  align-items: start;
 }
 
 /* Individual Gallery Items - Only within gallery containers */
@@ -21,6 +22,7 @@
   border-radius: 8px;
   background: #f5f5f5;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: fit-content;
 }
 
 .gallery figure:hover,
@@ -35,14 +37,13 @@
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
 }
 
 .gallery figure:hover img,
 .wp-block-gallery figure:hover img {
   opacity: 0.9;
-  transform: scale(1.05);
 }
 
 /* Individual figures in post content - Keep natural layout */
@@ -116,23 +117,30 @@
 @media (min-width: 1200px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 900px) and (max-width: 1199px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) and (max-width: 899px) {
   .gallery,
   .wp-block-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 599px) {
+  .gallery,
+  .wp-block-gallery {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .gallery figure,
