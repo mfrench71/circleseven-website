@@ -24,8 +24,30 @@
 }
 
 .sidebar {
-  position: static;
+  position: sticky;
+  top: 20px;
   margin-top: -88px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for sidebar but keep functionality */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #c0c0c0;
 }
 
 /* Sidebar Widgets Container */
@@ -337,17 +359,30 @@
 }
 
 /* ============================================
-   SIDEBAR SOCIAL LINKS (New Combined Widget)
+   SIDEBAR SOCIAL LINKS (Stylish Connect Widget)
    ============================================ */
+
+.widget-social {
+  background: linear-gradient(135deg, #e0f7f6 0%, #f0fffe 100%);
+  border: 1px solid #b2dfdb;
+}
 
 .contact-email {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 0;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #e0f7f6;
-  font-size: 12px;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #b2dfdb;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.contact-email:hover {
+  border-color: #20b2aa;
+  box-shadow: 0 2px 6px rgba(32, 178, 170, 0.15);
 }
 
 .contact-email svg {
@@ -358,22 +393,21 @@
 .contact-email a {
   color: #20b2aa;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s;
 }
 
 .contact-email a:hover {
   color: #1a9991;
-  text-decoration: underline;
 }
 
 .social-links-sidebar {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
 .social-links-sidebar li {
@@ -382,28 +416,41 @@
 
 .social-links-sidebar li a {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 4px 0;
+  padding: 12px 8px;
   text-decoration: none;
-  color: #444;
+  background: white;
+  border: 1px solid #b2dfdb;
+  border-radius: 8px;
+  color: #555;
   transition: all 0.2s;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
 }
 
 .social-links-sidebar li a svg {
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
   color: #20b2aa;
-  transition: transform 0.2s;
+  transition: all 0.2s;
 }
 
 .social-links-sidebar li a:hover {
-  color: #20b2aa;
+  background: #20b2aa;
+  border-color: #20b2aa;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(32, 178, 170, 0.25);
 }
 
 .social-links-sidebar li a:hover svg {
-  transform: scale(1.1);
+  color: white;
+  transform: scale(1.15);
 }
 
 
@@ -411,52 +458,27 @@
    RESPONSIVE BREAKPOINTS
    ============================================ */
 
-/* Tablet - Stack sidebar below content */
+/* Tablet - Hide sidebar, show content only */
 @media (max-width: 900px) {
   .layout-sidebar {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 0;
+    padding-right: 0;
   }
 
   .sidebar {
-    position: static;
-    max-height: none;
-    overflow: visible;
+    display: none;
   }
 
-  .sidebar-widgets {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+  .main-content {
+    max-width: 100%;
   }
 }
 
-/* Mobile - Full width widgets */
+/* Mobile - Ensure proper spacing */
 @media (max-width: 600px) {
   .layout-sidebar {
-    gap: 30px;
-  }
-
-  .sidebar-widgets {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .widget {
-    padding: 16px;
-  }
-
-  .widget-title {
-    font-size: 15px;
-    margin-bottom: 12px;
-  }
-
-  .recent-post-thumbnail {
-    width: 50px;
-    height: 50px;
-  }
-
-  .recent-post-title {
-    font-size: 13px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }

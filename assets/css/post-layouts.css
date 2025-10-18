@@ -343,22 +343,25 @@ div.category-section h2 {
 }
 
 .post-categories-footer a.category {
-  background: #fff;
-  padding: 5px 14px;
-  border-radius: 16px;
-  border: 1px solid #20b2aa;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   text-decoration: none;
-  color: #20b2aa;
-  transition: all 0.2s ease;
-  font-weight: 500;
-  font-size: 12px;
+  transition: all 0.2s;
+  background: #e3f2fd;
+  color: #1565c0;
+  border: none;
 }
 
 .post-categories-footer a.category:hover {
-  background: #20b2aa;
+  background: #1565c0;
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(32, 178, 170, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(21, 101, 192, 0.3);
 }
 
 /* Post Tags Footer */
@@ -413,12 +416,12 @@ div.category-section h2 {
   box-shadow: 0 4px 8px rgba(26, 153, 145, 0.2);
 }
 
-/* Related Posts Section */
+/* Related Posts Section - Teal Theme */
 .related-posts {
   margin-top: 60px;
   padding: 40px 0;
-  border-top: 2px solid #e8e8e8;
-  background: linear-gradient(to bottom, #fafafa 0%, #ffffff 100%);
+  border-top: 3px solid #20b2aa;
+  background: linear-gradient(135deg, #e0f7f6 0%, #f0fffe 50%, #ffffff 100%);
   margin-left: -30px;
   margin-right: -30px;
   padding-left: 30px;
@@ -428,7 +431,7 @@ div.category-section h2 {
 .related-posts h2 {
   font-size: 28px;
   margin-bottom: 24px;
-  color: #111;
+  color: #20b2aa;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -440,7 +443,7 @@ div.category-section h2 {
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   font-size: 20px;
-  color: #2a7ae2;
+  color: #20b2aa;
 }
 
 .related-posts .post-list {
@@ -467,8 +470,8 @@ div.category-section h2 {
 
 .related-posts .post-item-compact:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-  border-color: #2a7ae2;
+  box-shadow: 0 12px 24px rgba(32, 178, 170, 0.2);
+  border-color: #20b2aa;
 }
 
 .related-posts .post-image-small {
@@ -512,7 +515,7 @@ div.category-section h2 {
 }
 
 .related-posts .post-title-link:hover {
-  color: #2a7ae2;
+  color: #20b2aa;
 }
 
 .related-posts .post-meta {
