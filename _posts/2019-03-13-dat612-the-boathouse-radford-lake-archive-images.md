@@ -7,7 +7,7 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT612
-featured_image: 05/boathouse-radford-lake-archive-image_47313764412_o-scaled
+featured_image: boathouse-radford-lake-archive-image_47313764412_o
 ---
 <div class="gallery">
 
