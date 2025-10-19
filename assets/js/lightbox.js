@@ -40,6 +40,8 @@
       skin: 'clean',
       width: '95vw',
       height: '90vh',
+      zoomable: false,
+      draggable: false,
 
       onOpen: function() {
         document.body.classList.add('glightbox-open');
