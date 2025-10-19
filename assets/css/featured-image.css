@@ -5,25 +5,34 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
 }
 
 .post-featured-image {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  max-height: 500px;
+  object-fit: contain;
+  max-width: 100%;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .post-featured-image-wrapper {
-    margin: 1rem -1rem; /* Extend to screen edges on mobile */
+    margin: 1rem -20px; /* Extend to screen edges on mobile */
     border-radius: 0;
   }
 
   .post-featured-image {
-    max-height: 300px;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-featured-image-wrapper {
+    margin: 1rem -16px;
   }
 }
 
