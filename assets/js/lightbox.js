@@ -43,9 +43,9 @@
       // Keyboard navigation
       keyboardNavigation: true,
 
-      // Zoom
-      zoomable: true,
-      draggable: true,
+      // Disable zoom so images always fit viewport
+      zoomable: false,
+      draggable: false,
 
       // Skin
       skin: 'clean',
@@ -55,6 +55,10 @@
 
       // Descriptions from alt text or figcaption
       descPosition: 'bottom',
+
+      // Set max width and height to ensure images fit
+      width: '90vw',
+      height: '90vh',
 
       // Custom callbacks
       onOpen: function() {
