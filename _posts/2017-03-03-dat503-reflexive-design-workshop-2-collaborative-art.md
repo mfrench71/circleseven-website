@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "DAT503 - Reflexive Design Workshop 2 - Collaborative Art"
+title: DAT503 - Reflexive Design Workshop 2 - Collaborative Art
 date: 2017-03-03 11:17:47 +0000
-categories: ["DAT503 - Reflexive Design"]
-tags: ["DAT503"]
-
+categories:
+- DAT503 - Reflexive Design
+tags:
+- DAT503
+featured_image: 32657093133_0f78aa7d63_k-e1489868296989
 ---
 ## Chinese Whispers
 

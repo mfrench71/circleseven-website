@@ -1,10 +1,17 @@
 ---
 layout: post
-title: "DAT 401 - Task - Remix Workshop"
+title: DAT 401 - Task - Remix Workshop
 date: 2015-10-19 07:37:13 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
-tags: ["DAT401", "Photoshop", "Python", "Sound", "Video"]
-
+categories:
+- DAT401 - Strategies for Digital Art and Technology
+- Digital Art and Technology
+tags:
+- DAT401
+- Photoshop
+- Python
+- Sound
+- Video
+featured_image: holygrail2
 ---
 **Mashups and remixes** are a form of collage; placing found elements next to each other to create something new. They might be music mashups which (more or less) skilfully combine different songs into a new whole, comedy mashups of different videos or adbusts in which an advert is subverted by overlaying it with a new soundtrack.
 

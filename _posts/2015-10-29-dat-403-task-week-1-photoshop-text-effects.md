@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 403 - Task - Week 1 - Photoshop Text Effects"
+title: DAT 403 - Task - Week 1 - Photoshop Text Effects
 date: 2015-10-29 10:26:24 +0000
-categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
-tags: ["DAT403", "Photoshop", "Unity"]
-
+categories:
+- DAT403 - Digital Media Design
+- Digital Art and Technology
+tags:
+- DAT403
+- Photoshop
+- Unity
+featured_image: text-effects-finished-scaled-1
 ---
 Today's practical exercise focussed on text effects within Photoshop.
 

@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 401 - Research Task - Portfolios"
+title: DAT 401 - Research Task - Portfolios
 date: 2015-09-29 19:54:00 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
-tags: ["After Effects", "DAT401", "Video"]
-
+categories:
+- DAT401 - Strategies for Digital Art and Technology
+- Digital Art and Technology
+tags:
+- After Effects
+- DAT401
+- Video
+featured_image: 6y7tez5wmDxe3NktQQAQxO9OGKP
 ---
 **Kylemcdonald.net – *Social Roulette***
 

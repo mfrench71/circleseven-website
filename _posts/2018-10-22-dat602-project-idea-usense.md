@@ -1,10 +1,19 @@
 ---
 layout: post
-title: "DAT602 - Project Idea - uSense"
+title: DAT602 - Project Idea - uSense
 date: 2018-10-22 07:59:43 +0000
-categories: ["DAT602 - Everyware", "Digital Art and Technology"]
-tags: ["Academic", "Arduino", "DAT602", "JavaScript", "Photoshop", "Unity", "Web Development"]
-
+categories:
+- DAT602 - Everyware
+- Digital Art and Technology
+tags:
+- Academic
+- Arduino
+- DAT602
+- JavaScript
+- Photoshop
+- Unity
+- Web Development
+featured_image: usense-mockup-150-e1540204603760
 ---
 ## The Project Brief
 

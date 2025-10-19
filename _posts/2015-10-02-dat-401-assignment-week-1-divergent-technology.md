@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 401 - Assignment - Week 1 - Divergent Technology"
+title: DAT 401 - Assignment - Week 1 - Divergent Technology
 date: 2015-10-02 08:18:00 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
-tags: ["Academic", "DAT401", "Video"]
-
+categories:
+- DAT401 - Strategies for Digital Art and Technology
+- Digital Art and Technology
+tags:
+- Academic
+- DAT401
+- Video
+featured_image: assigment_week_01a-e1443776210378
 ---
 Brief: Produce an instructional illustration for a divergent use.
 

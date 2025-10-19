@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT602 - “The Veldt” by Ray Bradbury"
+title: DAT602 - “The Veldt” by Ray Bradbury
 date: 2018-10-16 08:04:56 +0000
-categories: ["DAT602 - Everyware", "Digital Art and Technology"]
-tags: ["DAT602", "Sound"]
-
+categories:
+- DAT602 - Everyware
+- Digital Art and Technology
+tags:
+- DAT602
+- Sound
+featured_image: veldt
 ---
 ## Homework
 

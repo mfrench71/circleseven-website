@@ -1,10 +1,18 @@
 ---
 layout: post
-title: "DAT612 - The Boathouse at Radford Lake - A Digital Reconstruction & Restoration"
+title: DAT612 - The Boathouse at Radford Lake - A Digital Reconstruction & Restoration
 date: 2019-05-21 14:29:03 +0000
-categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
-tags: ["Blender", "DAT612", "Photogrammetry", "Photography", "Sound", "Unity"]
-
+categories:
+- DAT612 - Final Year Project
+- Digital Art and Technology
+tags:
+- Blender
+- DAT612
+- Photogrammetry
+- Photography
+- Sound
+- Unity
+featured_image: Unity-2018.3.8f1-Personal-SampleScene.unity-Final-Year-Project-PC-Mac-Linux-Standalone-_DX11_-16_05_2019-08_31_03
 ---
 ## Concept
 

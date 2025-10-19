@@ -1,0 +1,65 @@
+{%- comment -%}
+Extract and display post card thumbnail image
+
+Checks in order:
+1. post.featured_image or post.image in front matter
+2. First image in post content
+3. Default image
+
+Outputs thumbnail optimized for cards (300x200)
+{%- endcomment -%}
+
+{%- assign featured_img = nil -%}
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
+
+{%- comment -%} Check front matter first {%- endcomment -%}
+{%- if include.post.featured_image -%}
+  {%- assign featured_img = include.post.featured_image -%}
+{%- elsif include.post.image -%}
+  {%- assign featured_img = include.post.image -%}
+{%- else -%}
+  {%- comment -%} Extract first image from content {%- endcomment -%}
+  {%- assign img_parts = include.post.content | split: '<img ' -%}
+  {%- if img_parts.size > 1 -%}
+    {%- assign first_img = img_parts[1] | split: '>' | first -%}
+
+    {%- comment -%} Extract src from img tag {%- endcomment -%}
+    {%- assign src_parts = first_img | split: 'src="' -%}
+    {%- if src_parts.size > 1 -%}
+      {%- assign src = src_parts[1] | split: '"' | first -%}
+
+      {%- comment -%} Extract filename from various URL formats {%- endcomment -%}
+      {%- if src contains 'cloudinary.com' -%}
+        {%- assign url_parts = src | split: '/upload/' -%}
+        {%- if url_parts.size > 1 -%}
+          {%- assign after_upload = url_parts[1] | split: '/' -%}
+          {%- assign featured_img = after_upload | last -%}
+        {%- endif -%}
+      {%- elsif src contains 'circleseven.co.uk/wp-content/uploads' -%}
+        {%- assign url_parts = src | split: '/' -%}
+        {%- assign featured_img = url_parts | last -%}
+      {%- else -%}
+        {%- assign featured_img = src -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Output the card image {%- endcomment -%}
+{%- if featured_img and featured_img != '' -%}
+  {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+
+  {%- if featured_img contains 'http' -%}
+    <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="lazy">
+  {%- else -%}
+    <img
+      src="{{ cloudinary_url }}/c_fill,g_auto,w_300,h_200,q_auto,f_auto/{{ img_id }}"
+      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_300,h_200,q_auto,f_auto/{{ img_id }} 1x,
+              {{ cloudinary_url }}/c_fill,g_auto,w_600,h_400,q_auto,f_auto/{{ img_id }} 2x"
+      alt="{{ include.post.title | escape }}"
+      loading="lazy"
+    >
+  {%- endif -%}
+{%- else -%}
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ include.post.title | escape }}" loading="lazy">
+{%- endif -%}

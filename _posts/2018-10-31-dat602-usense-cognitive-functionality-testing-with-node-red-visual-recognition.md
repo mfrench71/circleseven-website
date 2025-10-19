@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT602 - uSense Cognitive Functionality Testing with Node-RED - Visual Recognition"
+title: DAT602 - uSense Cognitive Functionality Testing with Node-RED - Visual Recognition
 date: 2018-10-31 07:34:59 +0000
-categories: ["DAT602 - Everyware", "Digital Art and Technology"]
-tags: ["DAT602", "Photography"]
-
+categories:
+- DAT602 - Everyware
+- Digital Art and Technology
+tags:
+- DAT602
+- Photography
+featured_image: visual_recognition_flow-e1540983848824
 ---
 <p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
 

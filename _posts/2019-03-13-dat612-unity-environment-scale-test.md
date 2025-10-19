@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT612 - Unity Environment Scale Test"
+title: DAT612 - Unity Environment Scale Test
 date: 2019-03-13 15:52:09 +0000
-categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
-tags: ["DAT612", "Unity"]
-
+categories:
+- DAT612 - Final Year Project
+- Digital Art and Technology
+tags:
+- DAT612
+- Unity
+featured_image: environment_01
 ---
 <div class="gallery">
 

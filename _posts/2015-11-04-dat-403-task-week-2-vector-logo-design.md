@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT 403 – Task – Week 2 – Vector Logo Design"
+title: DAT 403 – Task – Week 2 – Vector Logo Design
 date: 2015-11-04 14:54:15 +0000
-categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
-tags: ["DAT403", "Illustrator"]
-
+categories:
+- DAT403 - Digital Media Design
+- Digital Art and Technology
+tags:
+- DAT403
+- Illustrator
+featured_image: vector-logo-2
 ---
 This lecture focussed on Illustrator's shape tools to create vector logo designs.
 

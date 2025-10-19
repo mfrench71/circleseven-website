@@ -1,10 +1,16 @@
 ---
 layout: post
-title: "DAT 402 - Assignment Part 1 - Sound & Recorded Media"
+title: DAT 402 - Assignment Part 1 - Sound & Recorded Media
 date: 2016-05-23 07:47:26 +0000
-categories: ["DAT402 - Digital Culture", "Digital Art and Technology"]
-tags: ["Academic", "DAT402", "Sound", "Video"]
-
+categories:
+- DAT402 - Digital Culture
+- Digital Art and Technology
+tags:
+- Academic
+- DAT402
+- Sound
+- Video
+featured_image: dat402_audio_featured-scaled-1
 ---
 Brief: Working individually create a radiophonic sound work that responds to one of the pieces of class reading material. Select one idea from your chosen reading to explore through sound. The work should be long enough to make a good job of this and you should provide a few sentences to introduce the piece that support your thinking and approach.
 

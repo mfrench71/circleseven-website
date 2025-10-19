@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 505 - Assignment Part 2 - Python Chatbot"
+title: DAT 505 - Assignment Part 2 - Python Chatbot
 date: 2016-10-25 09:58:46 +0000
-categories: ["DAT505 - Advanced Creative Coding", "Digital Art and Technology"]
-tags: ["Academic", "DAT505", "Python"]
-
+categories:
+- DAT505 - Advanced Creative Coding
+- Digital Art and Technology
+tags:
+- Academic
+- DAT505
+- Python
+featured_image: python_chat_feature
 ---
 Brief: In the practical session you will create an interactive Python chatbot. This should engage the user in interesting and intelligent conversation. The bot should be able to ask and answer questions. Try to make it as realistic and life-like as possible.
 

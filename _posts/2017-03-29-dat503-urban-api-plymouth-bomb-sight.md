@@ -1,10 +1,17 @@
 ---
 layout: post
-title: "DAT503 - Urban API - Plymouth Bomb Sight"
+title: DAT503 - Urban API - Plymouth Bomb Sight
 date: 2017-03-29 12:15:12 +0000
-categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
-tags: ["Academic", "DAT503", "Photography", "Photoshop", "Unity"]
-
+categories:
+- DAT503 - Reflexive Design
+- Digital Art and Technology
+tags:
+- Academic
+- DAT503
+- Photography
+- Photoshop
+- Unity
+featured_image: Page40-e1490005935534
 ---
 Brief: Urban API is a live project. The project will generate an open real-time intervention or map of the city. The project should map or challenge the city as complex cultural, political and social phenomenon or the project should hack the city in its functions as a whole or aspects of it.
 

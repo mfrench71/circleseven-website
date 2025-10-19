@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT602 - Proposal Presentation and Feedback - uSense"
+title: DAT602 - Proposal Presentation and Feedback - uSense
 date: 2018-10-22 08:02:23 +0000
-categories: ["DAT602 - Everyware", "Digital Art and Technology"]
-tags: ["DAT602", "Tutorial"]
-
+categories:
+- DAT602 - Everyware
+- Digital Art and Technology
+tags:
+- DAT602
+- Tutorial
+featured_image: usense-mockup-150-e1540204603760
 ---
 ## Presentation Guidelines
 

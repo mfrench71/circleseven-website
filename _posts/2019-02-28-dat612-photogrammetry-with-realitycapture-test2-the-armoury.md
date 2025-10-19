@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT612 - Photogrammetry with RealityCapture Test#2 - The Armoury"
+title: DAT612 - Photogrammetry with RealityCapture Test#2 - The Armoury
 date: 2019-02-28 14:22:17 +0000
-categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
-tags: ["DAT612", "Photogrammetry", "Photography"]
-
+categories:
+- DAT612 - Final Year Project
+- Digital Art and Technology
+tags:
+- DAT612
+- Photogrammetry
+- Photography
+featured_image: armoury_feature
 ---
 My second test of the RealityCapture photogrammetry software was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne's Quay, Radford Lake.
 

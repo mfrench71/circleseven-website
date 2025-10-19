@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 404 - Web Technologies Assignment Preparation"
+title: DAT 404 - Web Technologies Assignment Preparation
 date: 2016-03-29 07:57:39 +0000
-categories: ["DAT404 - Web Technologies", "Digital Art and Technology"]
-tags: ["Academic", "DAT404", "Web Development"]
-
+categories:
+- DAT404 - Web Technologies
+- Digital Art and Technology
+tags:
+- Academic
+- DAT404
+- Web Development
+featured_image: mockup_feature
 ---
 In preparation for completing the assignment for DAT 404 (Web Technologies), we were tasked with investigating web site design and splash page design for our chosen professional practice and then mocking up a number of our own designs.
 

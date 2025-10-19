@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT 403 - Task - Week 2 - Vector Character Design"
+title: DAT 403 - Task - Week 2 - Vector Character Design
 date: 2015-11-05 14:14:14 +0000
-categories: ["DAT403 - Digital Media Design", "Digital Art and Technology"]
-tags: ["DAT403", "Illustrator"]
-
+categories:
+- DAT403 - Digital Media Design
+- Digital Art and Technology
+tags:
+- DAT403
+- Illustrator
+featured_image: character-design-featured
 ---
 Today we were tasked with hand sketching our own character with the aim of placing this in Adobe Illustrator to convert to a vector character design by hand.
 

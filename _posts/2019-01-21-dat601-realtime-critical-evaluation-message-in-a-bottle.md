@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT601 - Realtime - Critical Evaluation - 'Message in a Bottle"
+title: DAT601 - Realtime - Critical Evaluation - 'Message in a Bottle
 date: 2019-01-21 15:13:40 +0000
-categories: ["DAT601 - Realtime", "Digital Art and Technology"]
-tags: ["DAT601", "Sound", "Video"]
-
+categories:
+- DAT601 - Realtime
+- Digital Art and Technology
+tags:
+- DAT601
+- Sound
+- Video
+featured_image: dsc0023_46699515701_o-scaled
 ---
 ## Conception
 

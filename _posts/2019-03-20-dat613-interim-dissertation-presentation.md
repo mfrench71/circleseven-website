@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT613 - Interim Dissertation Presentation"
+title: DAT613 - Interim Dissertation Presentation
 date: 2019-03-20 12:58:09 +0000
-categories: ["DAT613 - Dissertation", "Digital Art and Technology"]
-tags: ["Academic", "DAT613"]
-
+categories:
+- DAT613 - Dissertation
+- Digital Art and Technology
+tags:
+- Academic
+- DAT613
+featured_image: dissertation_presentation_feature
 ---
 Below is the link to a Google slides document for my interim dissertation presentation based on the question:
 

@@ -1,10 +1,17 @@
 ---
 layout: post
-title: "DAT612 – Final Year Project Proposal"
+title: DAT612 – Final Year Project Proposal
 date: 2019-02-05 07:45:55 +0000
-categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
-tags: ["Academic", "Blender", "DAT612", "Photogrammetry", "Photoshop"]
-
+categories:
+- DAT612 - Final Year Project
+- Digital Art and Technology
+tags:
+- Academic
+- Blender
+- DAT612
+- Photogrammetry
+- Photoshop
+featured_image: PalmyraArch_Destruction
 ---
 ## Outline of area of study/context
 

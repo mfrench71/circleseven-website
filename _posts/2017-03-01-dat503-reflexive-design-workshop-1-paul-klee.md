@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT503 - Reflexive Design Workshop 1 - Paul Klee"
+title: DAT503 - Reflexive Design Workshop 1 - Paul Klee
 date: 2017-03-01 10:17:49 +0000
-categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
-tags: ["Blender", "DAT503", "Photoshop"]
-
+categories:
+- DAT503 - Reflexive Design
+- Digital Art and Technology
+tags:
+- Blender
+- DAT503
+- Photoshop
+featured_image: ersilia-e1488384536818
 ---
 ## Paul Klee - "Drawing is taking a line for a walk"
 

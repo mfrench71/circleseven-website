@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT503 - Resistance is Futile - Paper Review"
+title: DAT503 - Resistance is Futile - Paper Review
 date: 2017-03-15 11:51:05 +0000
-categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
-tags: ["DAT503", "Unity"]
-
+categories:
+- DAT503 - Reflexive Design
+- Digital Art and Technology
+tags:
+- DAT503
+- Unity
+featured_image: 5624b2201761298dfb59719b5525ebf1
 ---
 **"Resistance is futile’": reading science fiction alongside ubiquitous computing**
 

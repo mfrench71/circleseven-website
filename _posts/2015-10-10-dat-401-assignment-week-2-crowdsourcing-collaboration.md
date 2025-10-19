@@ -1,10 +1,17 @@
 ---
 layout: post
-title: "DAT 401 - Assignment - Week 2 - Crowdsourcing & Collaboration"
+title: DAT 401 - Assignment - Week 2 - Crowdsourcing & Collaboration
 date: 2015-10-10 15:11:57 +0000
-categories: ["DAT401 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
-tags: ["Academic", "DAT401", "Photoshop", "Sound", "Video"]
-
+categories:
+- DAT401 - Strategies for Digital Art and Technology
+- Digital Art and Technology
+tags:
+- Academic
+- DAT401
+- Photoshop
+- Sound
+- Video
+featured_image: the-fresh-prince-of-Bel-Air
 ---
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.
 

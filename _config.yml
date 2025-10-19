@@ -13,6 +13,10 @@ lang: en-GB
 timezone: Europe/London
 github_username: mfrench71
 
+# Cloudinary settings
+cloudinary_cloud_name: circleseven
+cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
+
 # Build settings
 markdown: kramdown
 theme: minima

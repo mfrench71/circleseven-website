@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT503 - Reflexive Design Workshop 1 - Psychogeography"
+title: DAT503 - Reflexive Design Workshop 1 - Psychogeography
 date: 2017-03-06 10:28:15 +0000
-categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
-tags: ["DAT503", "Photography", "Sound"]
-
+categories:
+- DAT503 - Reflexive Design
+- Digital Art and Technology
+tags:
+- DAT503
+- Photography
+- Sound
+featured_image: debord-guide1-e1684144506924
 ---
 ## Psychogeography
 

@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT503 - Reflexive Design Workshop 1 - John Cage"
+title: DAT503 - Reflexive Design Workshop 1 - John Cage
 date: 2017-03-01 10:02:28 +0000
-categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
-tags: ["DAT503", "Sound"]
-
+categories:
+- DAT503 - Reflexive Design
+- Digital Art and Technology
+tags:
+- DAT503
+- Sound
+featured_image: johncage-433-app
 ---
 ## John Cage - 4:33 silence
 

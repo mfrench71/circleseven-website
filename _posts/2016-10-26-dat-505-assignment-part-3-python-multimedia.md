@@ -1,10 +1,15 @@
 ---
 layout: post
-title: "DAT 505 - Assignment - Part 3 - Python Multimedia"
+title: DAT 505 - Assignment - Part 3 - Python Multimedia
 date: 2016-10-26 10:50:47 +0000
-categories: ["DAT505 - Advanced Creative Coding", "Digital Art and Technology"]
-tags: ["Academic", "DAT505", "Python"]
-
+categories:
+- DAT505 - Advanced Creative Coding
+- Digital Art and Technology
+tags:
+- Academic
+- DAT505
+- Python
+featured_image: python_multimedia_feature
 ---
 Brief: In the next practical you must create a graphical visualisation of a textual data file (to be given out in the practical). Read in the data and use it to generate some kind of visual output.
 

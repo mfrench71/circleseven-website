@@ -1,10 +1,17 @@
 ---
 layout: post
-title: "DAT506 - Assignment Part 2 - Kaleidoscopic Loops"
+title: DAT506 - Assignment Part 2 - Kaleidoscopic Loops
 date: 2017-02-25 12:57:33 +0000
-categories: ["DAT506 - Emerging Technologies", "Digital Art and Technology"]
-tags: ["Academic", "Blender", "DAT506", "Photography", "Photoshop"]
-
+categories:
+- DAT506 - Emerging Technologies
+- Digital Art and Technology
+tags:
+- Academic
+- Blender
+- DAT506
+- Photography
+- Photoshop
+featured_image: dat506-blender-feature
 ---
 Brief: Your task within your groups is to produce a creative and engaging visual experience set to music. Creating a series of short 3D full-dome Blender animation clips; the content will be made suitable for playback within the Immersive Vision Theatre and mixed and adapted live using Resolume VJ software.
 

@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "DAT612 - Visit to The Boathouse, Radford Lake/Devon Rural Archive"
+title: DAT612 - Visit to The Boathouse, Radford Lake/Devon Rural Archive
 date: 2019-02-25 11:15:20 +0000
-categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
-tags: ["DAT612", "Photography"]
-
+categories:
+- DAT612 - Final Year Project
+- Digital Art and Technology
+tags:
+- DAT612
+- Photography
+featured_image: IMG_0135-e1550843072802-scaled-1
 ---
 Just 10 minutes walk from my home is Radford Lake, a picturesque body of water set amongst woodland and parkland. At one end of the lake, hidden amongst the trees stands the ruin of an old boathouse.
 
