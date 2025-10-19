@@ -92,18 +92,24 @@ Priority 20: mail2.krystal.co.uk
 
 ### Step 2.3: Update Nameservers at 123-reg
 
+**First, get your Cloudflare nameservers:**
+1. In your **Cloudflare dashboard**, look for the nameserver assignment
+2. Cloudflare will show you **two specific nameservers** assigned to your domain
+3. They will look something like:
+   ```
+   Example (yours will be different):
+   ava.ns.cloudflare.com
+   bruce.ns.cloudflare.com
+   ```
+4. **Copy these** - you'll need them in the next step
+
 **At 123-reg:**
 1. Log in to your **123-reg account**
 2. Go to **"Manage Domains"**
 3. Select **circleseven.co.uk**
 4. Click **"Manage"** → **"Change Nameservers"**
 5. Select **"Use custom nameservers"**
-6. Enter Cloudflare's nameservers (shown in your Cloudflare dashboard):
-   ```
-   Example (yours may differ):
-   nameserver1.cloudflare.com
-   nameserver2.cloudflare.com
-   ```
+6. **Replace** the existing nameservers with the Cloudflare nameservers you copied
 7. Save changes
 
 **⏱️ Wait time:** DNS propagation can take 24-48 hours, but usually completes within 1-2 hours.
