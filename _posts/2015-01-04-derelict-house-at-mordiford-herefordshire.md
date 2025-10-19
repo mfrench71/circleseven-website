@@ -1,10 +1,13 @@
 ---
 layout: post
-title: "Derelict house at Mordiford, Herefordshire"
+title: Derelict house at Mordiford, Herefordshire
 date: 2015-01-04 14:21:00 +0000
-categories: ["Projects", "Photography"]
-tags: ["Photography"]
-
+categories:
+  - Projects
+  - Photography
+tags:
+  - Photography
+image: https://res.cloudinary.com/circleseven/image/upload/v1760720721/2022/12/dsc_0025_16178123268_o.jpg
 ---
 A pair of images of a derelict black and white house on the Mordiford Loop walk in Mordiford, Herefordshire.
 
