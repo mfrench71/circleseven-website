@@ -27,7 +27,7 @@ This activity certainly highlights the unreliability of memory and the mistakes 
 
 This activity involved working in pairs. One person would give instructions to the other in order to create a drawing. The instructor could not see what the other person was drawing and nor could they give explicit directions, such as 'draw a tree'. Instead, I received prompts such as 'draw a line east for two centimetres', 'draw a quarter circle towards the west', etc.
 
-<figure><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2016" width="768" height="1024" alt="" loading="lazy"><figcaption>Result of directed drawing</figcaption></figure>
+<figure><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2016-1" width="768" height="1024" alt="" loading="lazy"><figcaption>Result of directed drawing</figcaption></figure>
 
 This exercise highlighted the value of clear communication and planning and how relying on other people to realise a plan or vision can be problematic if instructions are not explicit. There is also a tendency in the person doing the drawing to complete emerging elements of the drawing they think they recognise before being instructed.
 
@@ -69,7 +69,7 @@ There are certainly some lessons to be learned about cooperation, coordination, 
 
 For the final activity, we were requested, in groups, to create and demonstrate a novel communication protocol. Here are some of the communication  technologies and techniques that we brainstormed:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
 
 We had to demonstrate the protocol worked, so one member of our team walked to a destination that only they knew, taking a photograph of their current location every minute for fifteen minutes until they reached their destination. The photos were sent them back to the rest of the group via Facebook Messenger.
 

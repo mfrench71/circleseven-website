@@ -39,9 +39,9 @@ Here are some results of testing on two different images:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/male_photo"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/male_photo" width="1024" height="769" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/male_photo-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/male_photo-1" width="1024" height="769" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/male_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/male_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/male_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/male_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/male_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/female_photo"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/female_photo" width="1024" height="769" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/female_photo-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/female_photo-1" width="1024" height="769" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/female_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/female_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/female_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/female_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/female_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
 </div>

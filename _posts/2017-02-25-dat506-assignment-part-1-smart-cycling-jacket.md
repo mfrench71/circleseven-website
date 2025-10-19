@@ -106,7 +106,7 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 ## Speed Meter
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
 
 - We wanted to add an indication of the cyclist’s speed so that other roads users would be aware of how fast the cyclist was travelling (for overtaking).
 
