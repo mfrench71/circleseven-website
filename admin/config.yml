@@ -11,11 +11,11 @@ public_folder: "/assets/images/uploads" # The src attribute for uploaded media w
 # Cloudinary media library integration
 # To enable: Sign up at cloudinary.com, get your cloud_name and api_key,
 # then uncomment the lines below and fill in your credentials
-# media_library:
-#   name: cloudinary
-#   config:
-#     cloud_name: your_cloud_name
-#     api_key: your_api_key
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: circleseven
+    api_key: 732138267195618
 
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
