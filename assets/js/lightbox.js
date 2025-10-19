@@ -78,20 +78,21 @@
   }
 
   /**
-   * Group images within the same post content or gallery
-   * This enables navigation between images in the same context
+   * Group images within the same gallery container
+   * This enables navigation between images in the same gallery only
    */
   function groupGalleryImages() {
-    // Find all post content areas
-    const postContents = document.querySelectorAll('.post-content, .page-content, article');
+    // Find all gallery containers
+    const galleries = document.querySelectorAll('.gallery, .wp-block-gallery');
+    let galleryIndex = 0;
 
-    postContents.forEach((content, index) => {
-      const imageLinks = content.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
+    galleries.forEach((gallery) => {
+      const imageLinks = gallery.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
 
-      // Add gallery attribute to group images
-      if (imageLinks.length > 1) {
+      // Add gallery attribute to group images within this specific gallery
+      if (imageLinks.length > 0) {
         imageLinks.forEach(link => {
-          link.setAttribute('data-gallery', `gallery-${index}`);
+          link.setAttribute('data-gallery', `gallery-${galleryIndex}`);
 
           // Try to get description from figcaption or alt text
           const figure = link.closest('figure');
@@ -106,7 +107,33 @@
             }
           }
         });
+        galleryIndex++;
       }
+    });
+
+    // Handle standalone images (not in a gallery) - each gets its own gallery
+    const postContents = document.querySelectorAll('.post-content, .page-content, article');
+    postContents.forEach((content) => {
+      const standaloneImageLinks = content.querySelectorAll('figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".jpg"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".jpeg"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".png"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".gif"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".webp"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*="cloudinary.com/"]');
+
+      standaloneImageLinks.forEach(link => {
+        // Each standalone image gets its own unique gallery (no navigation to other images)
+        link.setAttribute('data-gallery', `standalone-${galleryIndex}`);
+
+        // Try to get description from figcaption or alt text
+        const figure = link.closest('figure');
+        if (figure) {
+          const figcaption = figure.querySelector('figcaption');
+          const img = link.querySelector('img');
+
+          if (figcaption && figcaption.textContent.trim()) {
+            link.setAttribute('data-glightbox', `description: ${figcaption.textContent.trim()}`);
+          } else if (img && img.alt) {
+            link.setAttribute('data-glightbox', `description: ${img.alt}`);
+          }
+        }
+        galleryIndex++;
+      });
     });
   }
 
