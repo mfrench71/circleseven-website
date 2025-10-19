@@ -37,8 +37,8 @@ Dérive:
 
 <div class="gallery">
 
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/img_1953_33170312145_o-1024x768" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/img_1957_33128679056_o-1024x768" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1953_33170312145_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/img_1953_33170312145_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1957_33128679056_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/img_1957_33128679056_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
 </div>
 
@@ -84,4 +84,4 @@ Now walk the route:
 
 **04:30 - 04:38** I now felt myself to be on familiar territory with the University campus just across the road. I could see the large screen display from The House building - a building I see almost every day as I walk to university. We had completed our circular route, with just a few diversions from our planned route.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography-864x1024" width="864" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography" width="864" height="1024" alt="" loading="lazy"></a></figure>

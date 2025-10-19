@@ -112,7 +112,8 @@ class CloudinaryMigrator:
 
             # Generate Cloudinary URLs using public_id
             # Use q_auto,f_auto for automatic quality/format optimization
-            full_url = self.generate_cloudinary_url(public_id, 'q_auto,f_auto')
+            # Limit lightbox size to 2000px width for reasonable loading
+            full_url = self.generate_cloudinary_url(public_id, 'c_limit,w_2000,q_auto,f_auto')
             thumb_url = self.generate_cloudinary_url(public_id, 'c_limit,w_800,h_800,q_auto,f_auto')
 
             # Build new figure tag
@@ -196,13 +197,13 @@ class CloudinaryMigrator:
             nonlocal modified
             url_path = match.group(1)
 
-            # Extract public_id from the path
+            # Extract public_id from the path (this will strip size suffixes)
             public_id, filename = self.extract_filename(f'/wp-content/uploads/{url_path}')
             if not public_id:
                 return match.group(0)
 
-            # Generate Cloudinary URL (full resolution for lightbox)
-            cloudinary_url = self.generate_cloudinary_url(public_id, 'q_auto,f_auto')
+            # Generate Cloudinary URL with reasonable max size for lightbox (2000px width)
+            cloudinary_url = self.generate_cloudinary_url(public_id, 'c_limit,w_2000,q_auto,f_auto')
 
             modified = True
             self.changes_log.append({
@@ -215,6 +216,32 @@ class CloudinaryMigrator:
             return f'<a href="{cloudinary_url}">'
 
         new_content = re.sub(pattern, replace_link, content)
+
+        return new_content, modified
+
+    def migrate_cloudinary_size_suffixes(self, content, file_path):
+        """Remove WordPress size suffixes from existing Cloudinary URLs"""
+        modified = False
+
+        # Pattern to match Cloudinary URLs with WordPress size suffixes
+        # Matches: https://res.cloudinary.com/.../upload/{transformations}/{month}/{filename-WIDTHxHEIGHT}
+        pattern = r'(https://res\.cloudinary\.com/circleseven/image/upload/[^/]+/\d{2}/[^"\s<>]+?)(-scaled|-\d+x\d+)(?=["\s<>])'
+
+        def replace_url(match):
+            nonlocal modified
+            base_url = match.group(1)
+            suffix = match.group(2)
+
+            modified = True
+            self.changes_log.append({
+                'file': str(file_path),
+                'removed_suffix': suffix,
+                'from_url': base_url + suffix
+            })
+
+            return base_url
+
+        new_content = re.sub(pattern, replace_url, content)
 
         return new_content, modified
 
@@ -242,7 +269,10 @@ class CloudinaryMigrator:
         # Migrate {{ site.baseurl }}/wp-content/uploads links
         content, link_modified = self.migrate_baseurl_links(content, file_path)
 
-        modified = fig_modified or img_modified or link_modified
+        # Remove WordPress size suffixes from existing Cloudinary URLs
+        content, suffix_modified = self.migrate_cloudinary_size_suffixes(content, file_path)
+
+        modified = fig_modified or img_modified or link_modified or suffix_modified
 
         if modified:
             if not self.dry_run:

@@ -38,13 +38,13 @@ Finishing touches involve creating a metallic material for the cubes, adding an 
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/01-blender-landscape-mesh_24666379814_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/01-blender-landscape-mesh_24666379814_o-300x234" width="300" height="234" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/01-blender-landscape-mesh_24666379814_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/01-blender-landscape-mesh_24666379814_o-300x234" width="300" height="234" alt="" loading="lazy"></a></figure>
 <figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/02-blender-shrinkwrap-mesh_25270766696_o-300x206" width="300" height="206" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/03-blender-isolated-mesh_24670232283_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/03-blender-isolated-mesh_24670232283_o-300x224" width="300" height="224" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/03-blender-isolated-mesh_24670232283_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/03-blender-isolated-mesh_24670232283_o-300x224" width="300" height="224" alt="" loading="lazy"></a></figure>
 <figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/04-blender-duplicated-verts_25001404810_o-284x300.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/04-blender-duplicated-verts_25001404810_o-284x300" width="284" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/05-blender-modelled-cube_25178751652_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/05-blender-modelled-cube_25178751652_o-300x218" width="300" height="218" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/05-blender-modelled-cube_25178751652_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/05-blender-modelled-cube_25178751652_o-300x218" width="300" height="218" alt="" loading="lazy"></a></figure>
 <figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/06-blender-landscape-solid_25203901931_o-300x203.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/06-blender-landscape-solid_25203901931_o-300x203" width="300" height="203" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/07-blender-node-editor_25001400960_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/07-blender-node-editor_25001400960_o-300x172" width="300" height="172" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/07-blender-node-editor_25001400960_o-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/07-blender-node-editor_25001400960_o-300x172" width="300" height="172" alt="" loading="lazy"></a></figure>
 
 </div>
 
