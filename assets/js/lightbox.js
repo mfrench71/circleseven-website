@@ -22,6 +22,8 @@
 
       if (hasImg && !isFigureWithVideo) {
         link.classList.add('glightbox');
+        // Force GLightbox to treat this as an image, not external content
+        link.setAttribute('data-type', 'image');
       }
     });
 
