@@ -40,59 +40,59 @@ This basic system would need to:
 I developed a basic HTML page with sections to display the live camera preview, the captured image, a button to call the Javascript, and the JSON results returned by the various Face API calls. Bootstrap and JQuery were linked via CDNs and local Javascript files for the webcam and the API calls were linked.
 
 ```html
-&lt;!doctype html>
-&lt;html lang="en">
- &lt;head>
- &lt;!-- Required meta tags -->
- &lt;meta charset="utf-8">
- &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- &lt;title>Face Login Test&lt;/title>
- &lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
- &lt;style>
+<!doctype html>
+<html lang="en">
+ <head>
+ <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <title>Face Login Test</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ <style>
  #results, #identity, #name {
  display: block;
  font-family: monospace;
  white-space: pre;
  margin: 1em 0;
  }
- &lt;/style>
-&lt;/head>
-&lt;body>
- &lt;div class="container">
- &lt;div class="row">
- &lt;div class="col">
- &lt;div id="my_camera">&lt;/div>
- &lt;form class="mb-2 mt-2">
- &lt;input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
- &lt;/form>
- &lt;/div>
- &lt;div class="col">
- &lt;canvas id="viewport" width="320" height="240">&lt;/canvas>
- &lt;/div>
- &lt;/div>
+ </style>
+</head>
+<body>
+ <div class="container">
+ <div class="row">
+ <div class="col">
+ <div id="my_camera"></div>
+ <form class="mb-2 mt-2">
+ <input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
+ </form>
+ </div>
+ <div class="col">
+ <canvas id="viewport" width="320" height="240"></canvas>
+ </div>
+ </div>
  
- &lt;div class="row">
- &lt;div class="col">Detect face:
- &lt;pre id="results">
- &lt;/pre>
- &lt;/div>
- &lt;div class="col">Identity:
- &lt;pre id="identity">
- &lt;/pre>
- &lt;/div>
- &lt;div class="col">Name:
- &lt;pre id="name">
- &lt;/pre>
- &lt;/div>
- &lt;/div>
- &lt;/div>
- &lt;script src="https://code.jquery.com/jquery-3.3.1.min.js">&lt;/script>
- &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">&lt;/script>
- &lt;script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js">&lt;/script>
- &lt;script src="webcam.min.js">&lt;/script>
- &lt;script src="javascript.js">&lt;/script>
-&lt;/body>
-&lt;/html>
+ <div class="row">
+ <div class="col">Detect face:
+ <pre id="results">
+ </pre>
+ </div>
+ <div class="col">Identity:
+ <pre id="identity">
+ </pre>
+ </div>
+ <div class="col">Name:
+ <pre id="name">
+ </pre>
+ </div>
+ </div>
+ </div>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+ <script src="webcam.min.js"></script>
+ <script src="javascript.js"></script>
+</body>
+</html>
 ```
 
 This renders as:

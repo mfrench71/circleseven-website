@@ -1,41 +1,43 @@
 #!/usr/bin/env python3
 """
-Convert EnlighterJS code blocks to standard HTML code blocks
-that work with Highlight.js
+Decode HTML entities within markdown code blocks
 """
 
 import re
 from pathlib import Path
 import html
 
-def fix_enlighterjs_code(file_path):
-    """Convert EnlighterJS pre tags to standard pre/code tags"""
+def fix_html_entities_in_code(file_path):
+    """Decode HTML entities in markdown code blocks"""
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
     modified = False
 
-    # Pattern to match EnlighterJS pre tags
-    # <pre class="EnlighterJSRAW" data-enlighter-language="LANG" ...>CODE</pre>
-    pattern = r'<pre class="EnlighterJSRAW"[^>]*data-enlighter-language="([^"]*)"[^>]*>(.*?)</pre>'
+    # Pattern to match markdown code blocks
+    # ```language\nCODE\n```
+    pattern = r'```(\w*)\n(.*?)```'
 
-    def replace_with_standard(match):
+    def decode_entities(match):
         nonlocal modified
         language = match.group(1)
         code_content = match.group(2)
 
-        # Unescape HTML entities in the code
-        # The content is already HTML-encoded in the source
-        code_content = html.unescape(code_content)
+        # Check if there are HTML entities
+        if '&lt;' in code_content or '&gt;' in code_content or '&amp;' in code_content or '&quot;' in code_content:
+            # Decode HTML entities
+            decoded_content = html.unescape(code_content)
+            modified = True
+            if language:
+                return f'```{language}\n{decoded_content}```'
+            else:
+                return f'```\n{decoded_content}```'
 
-        modified = True
-        if language:
-            return f'```{language}\n{code_content}\n```'
-        else:
-            return f'```\n{code_content}\n```'
+        # No changes needed
+        return match.group(0)
 
-    # Replace EnlighterJS blocks
-    content = re.sub(pattern, replace_with_standard, content, flags=re.DOTALL)
+    # Replace code blocks with decoded versions
+    content = re.sub(pattern, decode_entities, content, flags=re.DOTALL)
 
     if modified:
         with open(file_path, 'w', encoding='utf-8') as f:
@@ -56,7 +58,7 @@ def main():
 
     for post_file in sorted(posts_dir.glob('*.md')):
         total_posts += 1
-        if fix_enlighterjs_code(post_file):
+        if fix_html_entities_in_code(post_file):
             fixed_count += 1
             print(f'✓ Fixed: {post_file.name}')
 
