@@ -5,7 +5,13 @@ permalink: /search/
 ---
 
 <div id="search-container">
-  <input type="text" id="search-input" placeholder="Search posts..." class="search-input">
+  <input type="text" id="search-input" placeholder="Search posts..." class="search-input" disabled>
+  <div id="initial-loading" class="initial-loading">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <span>Loading search index...</span>
+    </div>
+  </div>
   <div id="search-results-info" class="search-results-info"></div>
   <div id="results-container" class="post-grid"></div>
   <div id="loading-indicator" class="load-more-container" style="display: none;">
@@ -28,6 +34,12 @@ permalink: /search/
   transition: border-color 0.3s;
 }
 
+.search-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .search-input:focus {
   outline: none;
   border-color: #2a7ae2;
@@ -38,6 +50,41 @@ permalink: /search/
   font-size: 14px;
   margin-bottom: 24px;
   font-weight: 500;
+}
+
+/* Initial loading indicator */
+.initial-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-spinner .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e8e8e8;
+  border-top-color: #20b2aa;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-spinner span {
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* Ensure search cards match standard card styling */
@@ -56,6 +103,7 @@ permalink: /search/
     const resultsContainer = document.getElementById('results-container');
     const resultsInfo = document.getElementById('search-results-info');
     const loadingIndicator = document.getElementById('loading-indicator');
+    const initialLoading = document.getElementById('initial-loading');
 
     let searchData = [];
     let idx;
@@ -82,6 +130,11 @@ permalink: /search/
             this.add(doc);
           }, this);
         });
+
+        // Hide loading indicator and enable search input
+        initialLoading.style.display = 'none';
+        searchInput.disabled = false;
+        searchInput.focus();
 
         // Get search query from URL if present
         const urlParams = new URLSearchParams(window.location.search);
