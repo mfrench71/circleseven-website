@@ -30,10 +30,24 @@
     // Group images by post/gallery for better navigation
     groupGalleryImages();
 
-    // Initialize GLightbox
+    // Initialize GLightbox with explicit type definition
+    const lightboxElements = [];
+
+    document.querySelectorAll('.glightbox').forEach(link => {
+      const href = link.getAttribute('href');
+      const img = link.querySelector('img');
+
+      lightboxElements.push({
+        'href': href,
+        'type': 'image',  // Force type to image, not inline/iframe
+        'alt': img ? img.alt : '',
+        'description': link.getAttribute('data-glightbox') || ''
+      });
+    });
+
     const lightbox = GLightbox({
-      // Selector for image links with glightbox class
-      selector: '.glightbox',
+      // Use elements array instead of selector to force type
+      elements: lightboxElements,
 
       // Touch navigation
       touchNavigation: true,
