@@ -14,11 +14,17 @@
     }
 
     // Add glightbox class to all image links (including Cloudinary URLs without extensions)
-    // Exclude links that contain iframes or videos
-    const imageLinks = document.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
+    // Only select links that contain img tags (not iframes or other content)
+    const imageLinks = document.querySelectorAll('figure a');
 
     imageLinks.forEach(link => {
-      link.classList.add('glightbox');
+      // Only add glightbox to links that contain an img tag
+      const hasImg = link.querySelector('img');
+      const isFigureWithVideo = link.closest('figure').querySelector('iframe, video');
+
+      if (hasImg && !isFigureWithVideo) {
+        link.classList.add('glightbox');
+      }
     });
 
     // Group images by post/gallery for better navigation
@@ -84,7 +90,17 @@
     let galleryIndex = 0;
 
     galleries.forEach((gallery) => {
-      const imageLinks = gallery.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
+      const allLinks = gallery.querySelectorAll('figure a');
+      const imageLinks = [];
+
+      // Filter to only links with img tags (no iframes/videos)
+      allLinks.forEach(link => {
+        const hasImg = link.querySelector('img');
+        const isFigureWithVideo = link.closest('figure').querySelector('iframe, video');
+        if (hasImg && !isFigureWithVideo) {
+          imageLinks.push(link);
+        }
+      });
 
       // Add gallery attribute to group images within this specific gallery
       if (imageLinks.length > 0) {
@@ -111,25 +127,31 @@
     // Handle standalone images (not in a gallery) - each gets its own gallery
     const postContents = document.querySelectorAll('.post-content, .page-content, article');
     postContents.forEach((content) => {
-      const standaloneImageLinks = content.querySelectorAll('figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
+      const allStandaloneLinks = content.querySelectorAll('figure:not(.gallery figure):not(.wp-block-gallery figure) a');
 
-      standaloneImageLinks.forEach(link => {
-        // Each standalone image gets its own unique gallery (no navigation to other images)
-        link.setAttribute('data-gallery', `standalone-${galleryIndex}`);
+      allStandaloneLinks.forEach(link => {
+        // Only process links with img tags (not iframes/videos)
+        const hasImg = link.querySelector('img');
+        const isFigureWithVideo = link.closest('figure').querySelector('iframe, video');
 
-        // Try to get description from figcaption or alt text
-        const figure = link.closest('figure');
-        if (figure) {
-          const figcaption = figure.querySelector('figcaption');
-          const img = link.querySelector('img');
+        if (hasImg && !isFigureWithVideo) {
+          // Each standalone image gets its own unique gallery (no navigation to other images)
+          link.setAttribute('data-gallery', `standalone-${galleryIndex}`);
 
-          if (figcaption && figcaption.textContent.trim()) {
-            link.setAttribute('data-glightbox', `description: ${figcaption.textContent.trim()}`);
-          } else if (img && img.alt) {
-            link.setAttribute('data-glightbox', `description: ${img.alt}`);
+          // Try to get description from figcaption or alt text
+          const figure = link.closest('figure');
+          if (figure) {
+            const figcaption = figure.querySelector('figcaption');
+            const img = link.querySelector('img');
+
+            if (figcaption && figcaption.textContent.trim()) {
+              link.setAttribute('data-glightbox', `description: ${figcaption.textContent.trim()}`);
+            } else if (img && img.alt) {
+              link.setAttribute('data-glightbox', `description: ${img.alt}`);
+            }
           }
+          galleryIndex++;
         }
-        galleryIndex++;
       });
     });
   }
@@ -142,9 +164,16 @@
         mutation.addedNodes.forEach(function(node) {
           if (node.nodeType === 1) { // Element node
             // Find new image links
-            const newImageLinks = node.querySelectorAll ?
-              node.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]') :
-              [];
+            const allNewLinks = node.querySelectorAll ? node.querySelectorAll('figure a') : [];
+            const newImageLinks = [];
+
+            allNewLinks.forEach(link => {
+              const hasImg = link.querySelector('img');
+              const isFigureWithVideo = link.closest('figure').querySelector('iframe, video');
+              if (hasImg && !isFigureWithVideo) {
+                newImageLinks.push(link);
+              }
+            });
 
             if (newImageLinks.length > 0) {
               // Add glightbox class to new links
