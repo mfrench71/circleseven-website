@@ -176,13 +176,32 @@ permalink: /search/
       const categoryBadge = item.category ?
         `<a href="{{ site.baseurl }}/category/${categorySlug}/" class="category-badge badge-${categorySlug}">${item.category}</a>` : '';
 
+      // Generate featured image URL
+      let imageHtml = '';
+      if (item.featured_image && item.featured_image.trim() !== '') {
+        const imgId = item.featured_image.replace(/\.(jpg|png|gif|webp|jpeg)$/i, '');
+        imageHtml = `<img src="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_300,h_200,q_auto,f_auto/${imgId}"
+                          srcset="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_300,h_200,q_auto,f_auto/${imgId} 1x,
+                                  {{ site.cloudinary_base_url }}/c_fill,g_auto,w_600,h_400,q_auto,f_auto/${imgId} 2x"
+                          alt="${item.title}"
+                          loading="lazy"
+                          onerror="this.src='{{ '/assets/images/default-post.svg' | relative_url }}'">`;
+      } else {
+        imageHtml = `<img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="${item.title}" loading="lazy">`;
+      }
+
+      // Generate reading time display
+      const readingTime = item.reading_time ? `· <span class="reading-time" title="${item.reading_time * 200} words">
+          <svg class="reading-time-icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+          ${item.reading_time} min read
+        </span>` : '';
+
       article.innerHTML = `
         <div class="post-card-image">
           <a href="${item.url}">
-            <img src="${item.image || '{{ "/assets/images/default-post.svg" | relative_url }}'}"
-                 alt="${item.title}"
-                 loading="lazy"
-                 onerror="this.src='{{ '/assets/images/default-post.svg' | relative_url }}'">
+            ${imageHtml}
           </a>
         </div>
         <div class="post-card-content">
@@ -192,13 +211,23 @@ permalink: /search/
           </h2>
           <p class="post-card-excerpt">${item.content.substring(0, 150)}...</p>
           <div class="post-card-meta">
-            <img src="{{ '/assets/images/author.jpg' | relative_url }}"
-                 alt="Matthew French"
+            <img src="https://www.gravatar.com/avatar/{{ site.gravatar_hash }}?s=64&d=mp"
+                 alt="{{ site.author | escape }}"
                  class="post-author-avatar"
+                 loading="lazy"
                  onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
             <div class="post-meta-info">
-              <span class="post-author-name">Matthew French</span>
-              <span class="post-date-reading">${item.date}</span>
+              <span class="post-author-name">{{ site.author | escape }}</span>
+              <span class="post-date-reading">
+                <svg class="calendar-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                ${item.date}
+                ${readingTime}
+              </span>
             </div>
           </div>
         </div>
