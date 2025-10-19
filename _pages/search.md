@@ -17,7 +17,7 @@ permalink: /search/
   <div id="loading-indicator" class="load-more-container" style="display: none;">
     <div class="load-more-spinner">
       <div class="spinner"></div>
-      <span>Loading more results...</span>
+      <span id="loading-text">Searching...</span>
     </div>
   </div>
 </div>
@@ -103,6 +103,7 @@ permalink: /search/
     const resultsContainer = document.getElementById('results-container');
     const resultsInfo = document.getElementById('search-results-info');
     const loadingIndicator = document.getElementById('loading-indicator');
+    const loadingText = document.getElementById('loading-text');
     const initialLoading = document.getElementById('initial-loading');
 
     let searchData = [];
@@ -174,21 +175,32 @@ permalink: /search/
     });
 
     function performSearch(query) {
-      try {
-        const results = idx.search(query);
-        currentResults = results;
-        displayedCount = 0;
-        resultsContainer.innerHTML = '';
+      // Show loading indicator
+      resultsContainer.innerHTML = '';
+      resultsInfo.innerHTML = '';
+      loadingText.textContent = 'Searching...';
+      loadingIndicator.style.display = 'flex';
 
-        if (results.length > 0) {
-          resultsInfo.innerHTML = `Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`;
-          displayResults(resultsPerLoad);
-        } else {
-          resultsInfo.innerHTML = `No results found for "${query}"`;
+      // Use setTimeout to allow loading indicator to render
+      setTimeout(() => {
+        try {
+          const results = idx.search(query);
+          currentResults = results;
+          displayedCount = 0;
+
+          if (results.length > 0) {
+            resultsInfo.innerHTML = `Found ${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`;
+            displayResults(resultsPerLoad);
+          } else {
+            resultsInfo.innerHTML = `No results found for "${query}"`;
+          }
+        } catch (e) {
+          resultsInfo.innerHTML = 'Please enter a valid search term.';
         }
-      } catch (e) {
-        resultsInfo.innerHTML = 'Please enter a valid search term.';
-      }
+
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+      }, 100);
     }
 
     function displayResults(count) {
@@ -219,6 +231,7 @@ permalink: /search/
       if (isLoading || displayedCount >= currentResults.length) return;
 
       isLoading = true;
+      loadingText.textContent = 'Loading more results...';
       loadingIndicator.style.display = 'flex';
 
       setTimeout(() => {
