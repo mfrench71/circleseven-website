@@ -13,7 +13,7 @@ featured_image: Vivid-Effects1-e1446049275274
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects-cutout.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-cutout-200x300.jpg" width="200" height="300" alt="" loading="lazy"></a><figcaption>Vivid Effects' original image</figcaption></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Vivid-Effects-200x300.jpg" width="200" height="300" alt="" loading="lazy"></a><figcaption>'Vivid Effects' finished image</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects-cutout.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects-cutout-200x300" width="200" height="300" alt="" loading="lazy"></a><figcaption>Vivid Effects' original image</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Vivid-Effects.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects-200x300" width="200" height="300" alt="" loading="lazy"></a><figcaption>'Vivid Effects' finished image</figcaption></figure>
 
 </div>

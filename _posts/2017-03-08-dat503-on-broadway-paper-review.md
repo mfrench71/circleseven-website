@@ -9,7 +9,7 @@ tags:
 - DAT503
 featured_image: top
 ---
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5116459810_523ce620e5_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/5116459810_523ce620e5_o-1022x1024.jpg" width="1022" height="1024" alt="" loading="lazy"></a><figcaption>Lev Manovich</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/5116459810_523ce620e5_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/5116459810_523ce620e5_o-1022x1024" width="1022" height="1024" alt="" loading="lazy"></a><figcaption>Lev Manovich</figcaption></figure>
 
 "Dr. Lev Manovich is one the leading theorists of digital culture worldwide, and a pioneer in the application of data science for analysis of contemporary culture."
 
@@ -31,9 +31,9 @@ Manovich points to the wealth of existing representations of city life by artist
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677.jpg" width="1024" height="677" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/6334570705_fc324fa6ee_b_33199821131_o.jpg" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/0716201517000002_32513294473_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/0716201517000002_32513294473_o-1024x645.jpg" width="1024" height="645" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/78c916ee5603a04eb909510b93e095e0_32513294513_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/78c916ee5603a04eb909510b93e095e0_32513294513_o-1024x677" width="1024" height="677" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/6334570705_fc324fa6ee_b_33199821131_o"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/6334570705_fc324fa6ee_b_33199821131_o" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/6334570705_fc324fa6ee_b_33199821131_o 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/6334570705_fc324fa6ee_b_33199821131_o 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/6334570705_fc324fa6ee_b_33199821131_o 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/0716201517000002_32513294473_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/0716201517000002_32513294473_o-1024x645" width="1024" height="645" alt="" loading="lazy"></a></figure>
 
 </div>
 
@@ -61,7 +61,7 @@ He was able to create a modern-day version of Ruscha's work thanks to the availa
 
 Manovich managed to develop an interactive interface to a wealth of visual and geographic data ... all without reference to a map.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/manovich_on_broadway_zoomed_out.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/manovich_on_broadway_zoomed_out-1024x576.jpg" width="1024" height="576" alt="" loading="lazy"></a><figcaption>Screenshot from On Broadway application, showing full zoomed-out view – all 13 miles of Broadway in Manhattan</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/manovich_on_broadway_zoomed_out.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/manovich_on_broadway_zoomed_out-1024x576" width="1024" height="576" alt="" loading="lazy"></a><figcaption>Screenshot from On Broadway application, showing full zoomed-out view – all 13 miles of Broadway in Manhattan</figcaption></figure>
 
 He saw the interface as a new visual metaphor for thinking about and exploring the city. Interestingly, when ordinary New Yorkers interacted with the interface, they immediately located images which were meaningful to them - where they lived or where they were born, for instance. This is much the same as we might explore a more conventional map-based interface such as Google Street View; we tend to first focus on our own town, city, or street.
 

@@ -50,7 +50,7 @@ Matthew F.
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2230-e1520611800537-225x300.jpg" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2231-e1520611813740-225x300.jpg" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2230-e1520611800537-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2230-e1520611800537-225x300" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2231-e1520611813740-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2231-e1520611813740-225x300" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>

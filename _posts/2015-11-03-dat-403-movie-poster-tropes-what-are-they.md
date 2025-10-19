@@ -21,32 +21,32 @@ But what *are* traditional movie poster tropes?
 
 - Credit block
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/credit-block.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/credit-block.jpg" alt="" loading="lazy"></a><figcaption>Credit block image from 'Sightseers'</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/credit-block"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/credit-block" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/credit-block 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/credit-block 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/credit-block 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Credit block image from 'Sightseers'</figcaption></figure>
 
 - Press/media reviews and star ratings
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/industry-review-star-rating.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/industry-review-star-rating.jpg" alt="" loading="lazy"></a><figcaption>Industry review star rating from 'Legend' movie poster</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/industry-review-star-rating"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/industry-review-star-rating" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/industry-review-star-rating 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/industry-review-star-rating 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/industry-review-star-rating 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Industry review star rating from 'Legend' movie poster</figcaption></figure>
 
 - Industry awards (Cannes, etc.)
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/industry-awards.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/industry-awards.jpg" alt="" loading="lazy"></a><figcaption>Industry awards image from 'This is England' poster</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/industry-awards"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/industry-awards" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/industry-awards 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/industry-awards 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/industry-awards 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Industry awards image from 'This is England' poster</figcaption></figure>
 
 - Pull-out quotes
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/pull-quote.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/pull-quote.jpg" alt="" loading="lazy"></a><figcaption>Pull quote image from 'Sightseers'</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/pull-quote"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/pull-quote" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/pull-quote 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/pull-quote 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/pull-quote 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Pull quote image from 'Sightseers'</figcaption></figure>
 
 - Main cast names/images
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cast.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cast.jpg" alt="" loading="lazy"></a><figcaption>Cast image from 'Looper' movie poster</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/cast"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/cast" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/cast 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/cast 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/cast 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Cast image from 'Looper' movie poster</figcaption></figure>
 
 - Tag line
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/tag-line.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/tag-line.jpg" alt="" loading="lazy"></a><figcaption>Tag line image from 'Sightseers'</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/tag-line"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/tag-line" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/tag-line 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/tag-line 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/tag-line 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Tag line image from 'Sightseers'</figcaption></figure>
 
 - Reference to previous works e.g. "from the director of ..."
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/from-the-director.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/from-the-director.jpg" alt="" loading="lazy"></a><figcaption>From the director image from '127 Hours'</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/from-the-director"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/from-the-director" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/from-the-director 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/from-the-director 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/from-the-director 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>From the director image from '127 Hours'</figcaption></figure>
 
 - Often simple but striking colour scheme with just one or two main colours
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/little_miss_sunshine_ver4.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/little_miss_sunshine_ver4.jpg" alt="" loading="lazy"></a><figcaption>'Little Miss Sunshine' poster image</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/little_miss_sunshine_ver4"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/little_miss_sunshine_ver4" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/little_miss_sunshine_ver4 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/little_miss_sunshine_ver4 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/little_miss_sunshine_ver4 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>'Little Miss Sunshine' poster image</figcaption></figure>

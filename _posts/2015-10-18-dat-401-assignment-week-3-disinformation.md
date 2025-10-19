@@ -14,7 +14,7 @@ featured_image: dignitas-scaled-1
 ---
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/nazca_lines.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/nazca_lines-300x240.jpg" width="300" height="240" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/nazca_lines.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/nazca_lines-300x240" width="300" height="240" alt="" loading="lazy"></a></figure>
 
 Nazca Lines: Giant ancient line art drawn in the Peruvian desert so large that it can only be fully seen from the sky
 
@@ -64,12 +64,12 @@ We thought that individuals may want to communicate information after (or close 
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas-scaled-1-300x169.jpg" width="300" height="169" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dignitas_detail-297x300.jpg" width="297" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr-300x245.jpg" width="300" height="245" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/dnr_detail-300x283.jpg" width="300" height="283" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv-197x300.jpg" width="197" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv_detail.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hiv_detail-267x300.jpg" width="267" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dignitas-scaled-1-300x169" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dignitas_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dignitas_detail-297x300" width="297" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dnr-300x245" width="300" height="245" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/dnr_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dnr_detail-300x283" width="300" height="283" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/hiv-197x300" width="197" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hiv_detail.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/hiv_detail-267x300" width="267" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 
@@ -95,12 +95,12 @@ As we started looking into communication via X-ray, we inevitably stumbled upon 
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hitman.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/hitman-224x300.jpg" width="224" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/qr.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/qr-259x300.jpg" width="259" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/usb-finger.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/usb-finger-284x300.jpg" width="284" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/hitman.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/hitman-224x300" width="224" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/qr.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/qr-259x300" width="259" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/usb-finger.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/usb-finger-284x300" width="284" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 
 Up until this point we have looked at the communication of information that the individual has either willingly provided or is for their benefit. How would we feel if we were required to carry with us government-mandated information?
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/crim-rec-zoom.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/crim-rec-zoom-300x169.jpg" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/crim-rec-zoom.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/crim-rec-zoom-300x169" width="300" height="169" alt="" loading="lazy"></a></figure>

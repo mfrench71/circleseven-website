@@ -18,7 +18,7 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 ## Flow Summary
 
-<figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" loading="lazy"></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/visual_recognition_flow-e1540983848824"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/visual_recognition_flow-e1540983848824" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/visual_recognition_flow-e1540983848824 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/visual_recognition_flow-e1540983848824 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/visual_recognition_flow-e1540983848824 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
 <ol>- An *injection* node sends an empty string to the *execute* node.
 
@@ -39,10 +39,10 @@ Here are some results of testing on two different images:
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_result-e1540983795734.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/male_result-e1540983795734.png" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_photo-scaled-1-1024x769.jpg" width="1024" height="769" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_result-e1540983699762.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/female_result-e1540983699762.png" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/male_photo-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/male_photo-scaled-1-1024x769" width="1024" height="769" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/male_result-e1540983795734"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/male_result-e1540983795734" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/male_result-e1540983795734 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/male_result-e1540983795734 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/male_result-e1540983795734 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/female_photo-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/female_photo-scaled-1-1024x769" width="1024" height="769" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/female_result-e1540983699762"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/female_result-e1540983699762" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/female_result-e1540983699762 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/female_result-e1540983699762 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/female_result-e1540983699762 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
 </div>
 

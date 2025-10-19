@@ -20,7 +20,7 @@ featured_image: ersilia-e1488384536818
 
 <h5>The Exercise</h5>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1952-e1488307592696-225x300-1.jpg" alt="" loading="lazy"></a><figcaption>Invisible Cities, Italo Calvino</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1952-e1488307592696-225x300-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/IMG_1952-e1488307592696-225x300-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/IMG_1952-e1488307592696-225x300-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/IMG_1952-e1488307592696-225x300-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/IMG_1952-e1488307592696-225x300-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Invisible Cities, Italo Calvino</figcaption></figure>
 
 - Do not lift the pencil off the paper throughout the whole exercise
 
@@ -44,9 +44,9 @@ And here are the three interpretations:
 
 <div class="gallery">
 
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg" width="768" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1949_33170301305_o-768x1024.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o-768x1024" width="768" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1950_32787849760_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o-1024x768" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1951_33170300335_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o-1024x768" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
 </div>
 

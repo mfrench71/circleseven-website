@@ -13,7 +13,7 @@ featured_image: zynaps-e1520423607776
 
 <p>As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121">'Arcade'</a>. The text below is a far as we got ...</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/zynaps_original.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/zynaps_original-300x285.jpg" width="300" height="285" alt="" style="border-radius:6px" loading="lazy"></a><figcaption>The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/zynaps_original.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/zynaps_original-300x285" width="300" height="285" alt="" style="border-radius:6px" loading="lazy"></a><figcaption>The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
 
 <h2>Zynaps</h2>
 
