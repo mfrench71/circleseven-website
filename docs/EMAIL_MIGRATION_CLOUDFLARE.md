@@ -29,7 +29,30 @@ This guide will walk you through migrating your @circleseven.co.uk email from Kr
 
 ## Phase 1: Preparation & Backup
 
-### Step 1.1: Document Current Email Setup
+### Step 1.1: Document Current DNS Records (Important!)
+
+**Before making any changes, document your existing DNS setup to prevent website downtime.**
+
+**At 123-reg:**
+1. Log in to your **123-reg account**
+2. Go to **"Manage Domains"**
+3. Select **circleseven.co.uk**
+4. Navigate to **DNS settings** or **"Manage DNS"**
+5. **Take screenshots** or write down ALL records:
+
+**Critical records to document:**
+- [ ] **A records** (points domain to IP address)
+  - Example: `@ → A → 185.xxx.xxx.xxx`
+  - Example: `www → A → 185.xxx.xxx.xxx`
+- [ ] **CNAME records** (aliases like www, subdomains)
+  - Example: `www → CNAME → your-site.netlify.app`
+- [ ] **MX records** (email - we'll replace these)
+- [ ] **TXT records** (verification, SPF, etc.)
+- [ ] **Any other records** (SRV, AAAA, etc.)
+
+**Save this information** - you'll verify Cloudflare imported everything correctly before switching nameservers.
+
+### Step 1.2: Document Current Email Setup
 
 **At Krystal/123-reg:**
 1. Log in to your Krystal control panel
@@ -79,22 +102,39 @@ If you send emails from your custom domain, consider:
 
 ### Step 2.3: Review DNS Records
 
-Cloudflare will scan and import your existing DNS records from 123-reg.
+**CRITICAL STEP:** Cloudflare will scan and import your existing DNS records from 123-reg. You MUST verify these match what you documented in Step 1.1.
 
-**Review and verify:**
-- [ ] A records (website)
-- [ ] MX records (email - these will be replaced)
-- [ ] CNAME records
-- [ ] TXT records (SPF, DKIM if any)
+**Compare with your Step 1.1 documentation:**
 
-**Make note of current MX records** (you'll replace these later):
-```
-Example current MX records (will vary):
-Priority 10: mail.krystal.co.uk
-Priority 20: mail2.krystal.co.uk
-```
+1. **Check A records** (critical for website access):
+   - [ ] Verify your domain's A record IP address matches
+   - [ ] Check www subdomain A record matches
+   - [ ] If you use Netlify, verify CNAME record is correct
 
-**Once reviewed:**
+2. **Check CNAME records**:
+   - [ ] Verify all subdomains are imported
+   - [ ] Check they point to the correct destinations
+
+3. **Check TXT records**:
+   - [ ] Verify any verification records are imported
+   - [ ] Check SPF records if present
+
+4. **MX records** (email - these will be replaced later):
+   - [ ] Note current MX records:
+   ```
+   Example (will vary):
+   Priority 10: mail.krystal.co.uk
+   Priority 20: mail2.krystal.co.uk
+   ```
+
+**If any records are missing:**
+1. Click **"Add record"** at the top
+2. Manually add the missing record(s) using your Step 1.1 documentation
+3. Double-check all critical records are present
+
+**⚠️ WARNING:** Do NOT proceed until you've verified all website-related DNS records (A, CNAME) are correctly imported. Missing records will cause your website to go down when you switch nameservers.
+
+**Once verified:**
 1. Click **"Continue"** at the bottom of the page
 
 ### Step 2.4: Get Cloudflare Nameservers
@@ -145,6 +185,45 @@ After clicking continue, Cloudflare will show you the nameserver change instruct
 dig NS circleseven.co.uk
 # Should show Cloudflare nameservers
 ```
+
+### Step 2.8: Verify Your Website Still Works
+
+**IMMEDIATELY after DNS becomes active, test your website:**
+
+1. **Visit your website:**
+   - Go to https://circleseven.co.uk
+   - Check it loads correctly
+   - Test www.circleseven.co.uk as well
+
+2. **Check DNS resolution:**
+   ```bash
+   # Check A record
+   dig circleseven.co.uk
+
+   # Check www subdomain
+   dig www.circleseven.co.uk
+   ```
+   - Verify the IP addresses match your Step 1.1 documentation
+
+3. **If website is down:**
+   - Go to Cloudflare → DNS → Records
+   - Compare with your Step 1.1 documentation
+   - Add any missing A or CNAME records
+   - Wait 2-5 minutes and test again
+
+4. **Test from different devices/networks:**
+   - Mobile phone (on cellular, not WiFi)
+   - Different browser
+   - Incognito/private mode
+   - Ask a friend to check
+
+**⚠️ If website issues persist:**
+- Check Cloudflare DNS records match Step 1.1
+- Verify proxy status (orange cloud vs grey cloud in DNS settings)
+- For Netlify sites, the orange cloud (proxied) should work fine
+- Wait up to 30 minutes for full DNS propagation
+
+**✅ Once your website is confirmed working, you can proceed to email setup.**
 
 ---
 
@@ -342,14 +421,17 @@ If you need professional sending capability:
 ## Summary Checklist
 
 ### Pre-Migration
+- [ ] **Documented current DNS records** (Step 1.1)
 - [ ] Documented all current email addresses
 - [ ] Backed up existing emails
 - [ ] Have personal email ready for forwarding
 
 ### Migration
 - [ ] Added domain to Cloudflare
+- [ ] **Verified Cloudflare imported all DNS records correctly** (Step 2.3)
 - [ ] Updated nameservers at 123-reg
 - [ ] Verified DNS is active on Cloudflare
+- [ ] **Tested website works after DNS switch** (Step 2.8)
 - [ ] Enabled Email Routing in Cloudflare
 - [ ] Added and verified destination email
 - [ ] Created forwarding rules
