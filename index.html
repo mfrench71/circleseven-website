@@ -5,6 +5,9 @@ layout: default-sidebar
 <div class="home">
   <div class="post-grid">
     {% for post in paginator.posts %}
+      {% if paginator.page == 1 and forloop.index > 9 %}
+        {% continue %}
+      {% endif %}
       <article class="post-card{% if forloop.first and paginator.page == 1 %} featured{% endif %}">
         <!-- Card Image -->
         <div class="post-card-image">
