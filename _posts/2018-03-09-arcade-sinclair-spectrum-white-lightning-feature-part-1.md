@@ -50,7 +50,7 @@ Matthew F.
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2230-e1520611800537-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2230-e1520611800537" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2231-e1520611813740-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2231-e1520611813740" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/12/IMG_2230-e1520611800537-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2230-e1520611800537" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/12/IMG_2231-e1520611813740-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2231-e1520611813740" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>

@@ -69,7 +69,7 @@ There are certainly some lessons to be learned about cooperation, coordination, 
 
 For the final activity, we were requested, in groups, to create and demonstrate a novel communication protocol. Here are some of the communication  technologies and techniques that we brainstormed:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/IMG_2005-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
 
 We had to demonstrate the protocol worked, so one member of our team walked to a destination that only they knew, taking a photograph of their current location every minute for fifteen minutes until they reached their destination. The photos were sent them back to the rest of the group via Facebook Messenger.
 

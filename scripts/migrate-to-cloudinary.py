@@ -112,8 +112,8 @@ class CloudinaryMigrator:
 
             # Generate Cloudinary URLs using public_id
             # Use q_auto,f_auto for automatic quality/format optimization
-            # Limit lightbox size to 2000px width for reasonable loading
-            full_url = self.generate_cloudinary_url(public_id, 'c_limit,w_2000,q_auto,f_auto')
+            # Limit lightbox size to 1600px width for better viewport fit
+            full_url = self.generate_cloudinary_url(public_id, 'c_limit,w_1600,q_auto,f_auto')
             thumb_url = self.generate_cloudinary_url(public_id, 'c_limit,w_800,h_800,q_auto,f_auto')
 
             # Build new figure tag
@@ -202,8 +202,8 @@ class CloudinaryMigrator:
             if not public_id:
                 return match.group(0)
 
-            # Generate Cloudinary URL with reasonable max size for lightbox (2000px width)
-            cloudinary_url = self.generate_cloudinary_url(public_id, 'c_limit,w_2000,q_auto,f_auto')
+            # Generate Cloudinary URL with reasonable max size for lightbox (1600px width)
+            cloudinary_url = self.generate_cloudinary_url(public_id, 'c_limit,w_1600,q_auto,f_auto')
 
             modified = True
             self.changes_log.append({

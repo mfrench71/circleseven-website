@@ -35,19 +35,19 @@ There was an initial group discussion around:
 
 Lyric sheets were produced as an aide memoire for participants, along with brief instructions:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15111-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15111" width="225" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/IMG_15111-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15111" width="225" height="300" alt="" loading="lazy"></a></figure>
 
 A motivation/reward device (a bag of Cadbury's Eclairs) was employed to entice people to contribute to the project.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15371-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15371" width="225" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/IMG_15371-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15371" width="225" height="300" alt="" loading="lazy"></a></figure>
 
 Once the group had attracted the attention of a potential contributor, we explained who we were, what we were doing and what was expected from them. We gained permission to film from each person and a number of people even expressed an interest in viewing the final project.
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1570"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1570" width="200" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1571"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1571" width="200" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1572"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1572" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/IMG_1570"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1570" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/IMG_1571"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1571" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/IMG_1572"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1572" width="200" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 

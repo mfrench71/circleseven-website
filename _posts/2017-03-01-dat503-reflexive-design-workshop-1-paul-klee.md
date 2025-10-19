@@ -20,7 +20,7 @@ featured_image: 05/ersilia-e1488384536818
 
 <h5>The Exercise</h5>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Invisible Cities, Italo Calvino</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/IMG_1952-e1488307592696-225x300-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Invisible Cities, Italo Calvino</figcaption></figure>
 
 - Do not lift the pencil off the paper throughout the whole exercise
 

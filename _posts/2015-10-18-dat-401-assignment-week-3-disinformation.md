@@ -14,7 +14,7 @@ featured_image: 10/dignitas-scaled-1
 ---
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/nazca_lines"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/nazca_lines" width="300" height="240" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/nazca_lines"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/nazca_lines" width="300" height="240" alt="" loading="lazy"></a></figure>
 
 Nazca Lines: Giant ancient line art drawn in the Peruvian desert so large that it can only be fully seen from the sky
 
@@ -64,12 +64,12 @@ We thought that individuals may want to communicate information after (or close 
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-scaled-1" width="300" height="169" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas_detail" width="297" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr" width="300" height="245" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr_detail" width="300" height="283" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv" width="197" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv_detail" width="267" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/dignitas-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-scaled-1" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/dignitas_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas_detail" width="297" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/dnr"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr" width="300" height="245" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/dnr_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr_detail" width="300" height="283" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/hiv"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv" width="197" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/hiv_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hiv_detail" width="267" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 
@@ -95,12 +95,12 @@ As we started looking into communication via X-ray, we inevitably stumbled upon 
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hitman"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hitman" width="224" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/qr"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/qr" width="259" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/usb-finger"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/usb-finger" width="284" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/hitman"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/hitman" width="224" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/qr"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/qr" width="259" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/usb-finger"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/usb-finger" width="284" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 
 Up until this point we have looked at the communication of information that the individual has either willingly provided or is for their benefit. How would we feel if we were required to carry with us government-mandated information?
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/crim-rec-zoom"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/crim-rec-zoom" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/04/crim-rec-zoom"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/crim-rec-zoom" width="300" height="169" alt="" loading="lazy"></a></figure>
