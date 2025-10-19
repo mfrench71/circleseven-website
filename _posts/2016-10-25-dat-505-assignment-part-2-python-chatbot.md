@@ -10,9 +10,11 @@ Brief: In the practical session you will create an interactive Python chatbot. T
 
 Below is a demonstration of the completed chatbot script:
 
-<figure><div>
-https://youtu.be/XsKA09tUvXQ
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/XsKA09tUvXQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 The main features of the script are:
 

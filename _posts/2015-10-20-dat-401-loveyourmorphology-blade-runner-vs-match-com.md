@@ -12,6 +12,8 @@ I find *match.com*'s adverts annoying upbeat and optimistic, but this was perfec
 
 And here's the result:
 
-<figure><div>
-https://youtu.be/Th0qiZY7J0w
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/Th0qiZY7J0w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>

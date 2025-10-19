@@ -10,9 +10,11 @@ For the character animation walk cycle task, my intention was that the character
 
 The Illustrator file was then imported as an asset into After Effects. The previous grouping meant that the individual elements of the character were available on separate layers within After Effects.
 
-<figure><div>
-https://youtu.be/VUR-QMgxl1A
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/VUR-QMgxl1A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 The layer ordering was changed to ensure that the character displayed as expected.
 

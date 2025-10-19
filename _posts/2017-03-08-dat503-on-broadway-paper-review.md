@@ -64,9 +64,11 @@ He saw the interface as a new visual metaphor for thinking about and exploring t
 
 The interface allowed the ordinary citizen to manipulate massive, impersonal-seeming datasets in a way that was meaningful and applicable to their own experience. It visualised data and the relationships between different sets of data in a unique way.
 
-<figure><div>
-https://youtu.be/wx6Hhuc6kw4
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/wx6Hhuc6kw4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 Manovich is using this project to highlight the fact that a massive amount of data is collected and used in ways that are often invisible to us. There is an imbalance in the data collected by cities and released by cities. Open Data only contains what the city wants to release and is often related to the city as an entity, rather than it's citizens.
 

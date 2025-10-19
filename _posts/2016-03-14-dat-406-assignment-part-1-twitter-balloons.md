@@ -36,21 +36,27 @@ US presidential election - balloons
 
 The following video shows the setup for proof of concept for the project. The code running on the Raspberry Pi causes one of four LEDs to be lit depending upon the occurrence of Twitter hashtags. At this stage, the Arduino is not being used.
 
-<figure><div>
-https://youtu.be/Nl4wgFlQfhU
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/Nl4wgFlQfhU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 The next video shows two terminal windows displaying the tweets from Donald Trump and Hillary Clinton that have been matched by the Python code running of the Raspberry Pi. Two stepper motors are connected to an Arduino and labelled to clearly show them rotating in response to the tweets.
 
-<figure><div>
-https://youtu.be/StY8G-A0jS0
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/StY8G-A0jS0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 #AmericanFloaters completed build
 
-<figure><div>
-https://youtu.be/IdDz_dOa3qU
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/IdDz_dOa3qU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 ## Issues encountered:
 

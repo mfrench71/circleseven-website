@@ -8,9 +8,11 @@ tags: ["Academic", "DAT501", "Photography", "Sound", "Web Development"]
 ---
 Brief: You are asked to create and present an artwork or performance in public exhibition. Your project should explore a creative use of technology, be it digital, mechanical, biological or not yet invented. It should be a response to work and ideas which you have encountered during the module either in the presentation sessions, on the field trip, or in your own research.
 
-<figure><div>
-https://youtu.be/dOMQ1jILvlA
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/dOMQ1jILvlA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 **t3X: 3D Interactive Twitter Visualisation**
 

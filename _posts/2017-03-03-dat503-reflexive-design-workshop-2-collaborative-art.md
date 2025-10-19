@@ -71,14 +71,18 @@ For the final activity, we were requested, in groups, to create and demonstrate 
 
 We had to demonstrate the protocol worked, so one member of our team walked to a destination that only they knew, taking a photograph of their current location every minute for fifteen minutes until they reached their destination. The photos were sent them back to the rest of the group via Facebook Messenger.
 
-<figure><div>
-https://youtu.be/Z8r_q8ilW0A
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/Z8r_q8ilW0A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 After fifteen minutes, the group had to use the photos to locate the fourth member. We agreed on some rules for the protocol, such as how often the photos would be sent, for how long the lone member would walk and what to do if we were unsuccessful in locating them.
 
-<figure><div>
-https://youtu.be/0NorqznWMys
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/0NorqznWMys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 Success!

@@ -42,8 +42,10 @@ Loop 5 is the classic disco ball brought up to date (and no particles!) Volumetr
 
 Loop 6 is, perhaps, the most recognised use of a particle system. 200,000 particles are combined in particle and fluid simulation systems to create this skull comprised of grains of 'sand'.
 
-<figure><div>
-https://youtu.be/va8Zd3hZUF8
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/va8Zd3hZUF8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 The final Blender animation combines a particle system and Blender's dynamic paint functionality. Cubes materialise, grow, and cluster into the shape of sphere. Some simple material options and a two-point lighting system add drama to the animation. Strong depth of field settings ensure the animation seems to appear almost from thin air.

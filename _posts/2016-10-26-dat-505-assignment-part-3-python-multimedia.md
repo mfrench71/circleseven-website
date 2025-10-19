@@ -16,8 +16,10 @@ Rather than using Pygame to create your visualisation (which is powerful, but ca
 
 Here is the result of my Python graphics programming:
 
-<figure><div>
-https://youtu.be/NOrGMizjUxc
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/NOrGMizjUxc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 <p>The source code for the project will available on <a href="https://github.com/mfrench71/DAT505/tree/master/Python%20Multimedia" target="_blank" rel="noreferrer noopener">GitHub</a>.</p>

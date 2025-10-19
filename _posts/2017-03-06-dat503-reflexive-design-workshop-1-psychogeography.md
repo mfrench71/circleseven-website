@@ -47,9 +47,11 @@ Now walk the route:
 
 - Take photographs, sound record and document your work in your blog.
 
-<figure><div>
-https://youtu.be/Fkbo_qR0gZw
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/Fkbo_qR0gZw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
 
 **00:00 - 00:26** Our circular journey began from the familiar and relatively quiet surroundings of the Roland Levinsky Building. The first boundary we had to negotiate was a highly trafficked, noisy city centre road. I always feel a certain amount of anxiety crossing busy roads such as this; the traffic is often unpredictable and seemingly heedless of pedestrians.
 

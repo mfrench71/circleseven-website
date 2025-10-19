@@ -16,6 +16,8 @@ You'll get more marks if you use the History file (it's harder !) Include a loop
 
 Here's a screen recording of the Python script in action on OSX and browsing via Chrome. The refresh time has been set to 20 seconds for a more interesting demonstration!
 
-<figure><div>
-https://youtu.be/Pu3ZwVSOg-o
-</div></figure>
+<figure>
+<div class="embed-container">
+<iframe src="https://www.youtube.com/embed/Pu3ZwVSOg-o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</figure>
