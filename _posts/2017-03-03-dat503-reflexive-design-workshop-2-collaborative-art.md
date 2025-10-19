@@ -33,7 +33,7 @@ This exercise highlighted the value of clear communication and planning and how 
 
 **'Automatic' Writing**
 
-For this part of the workshop, we were asked to just start writing. We were instructed to to think about what we were going to write, just to begin writing. Here is what I produced:
+For this part of the workshop, we were asked to just start writing. We were instructed not to think about what we were going to write, just to begin writing. Here is what I produced:
 
 <blockquote><p>"Nevertheless, it was something I couldn't see and all was darkness to me, washing at the shoes, lapping at my feet. The sun was above, in all honesty, it was all I could do to hold it together. The buttons had fallen from my coat, lost coins around someone bereft of money."</p>
 </blockquote>
@@ -50,7 +50,7 @@ The second drawing was a result of choosing a subject and then all four of us wi
 
 The third creation was born out of the group all sharing the single pen as before, but this time no subject was chosen and we decided what we wanted to draw as we went along.
 
-For the last exercise, one person from each of two groups of four were bound together with string around their wrists and this string held by other members of the group. Those whose wrists were tied were given whiteboard pens and placed in front of whiteboards. The idea was for everyone else in each group to maniuplate the strings in order to move the hand of the people holding the pens and, in so doing, create a collaborative piece of work.
+For the last exercise, one person from each of two groups of four were bound together with string around their wrists and this string held by other members of the group. Those whose wrists were tied were given whiteboard pens and placed in front of whiteboards. The idea was for everyone else in each group to manipulate the strings in order to move the hand of the people holding the pens and, in so doing, create a collaborative piece of work.
 
 The results are below:
 

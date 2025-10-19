@@ -13,7 +13,7 @@ featured_image: 11/fracktured_title
 ---
 Brief: Create a movie poster, using a composite of different images in Photoshop. Photos should be professionally cut-out, manipulated and blended together to create a carefully crafted and well justified design. The movie you're designing this marketing poster for is a documentary about a topical world issue that is important you. It should work as an original movie poster, including their traditional tropes but also work as a protest poster against something, activism art. Consider how this poster can benefit your portfolio.
 
-Must combine minimum of 5 images. Clear title and tag line. It must be 210x297 mm (A4), JPEG and optimized for web.
+Must combine minimum of 5 images. Clear title and tag line. It must be 210x297 mm (A4), JPEG and optimised for web.
 
 <p>I wanted to combine my fondness for the unspoilt English countryside with my love of Shane Meadows' *This Is England* film and TV series. I spent some time looking at images of movie posters to <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">identify their common elements</a> and for inspiration.</p>
 

@@ -19,7 +19,7 @@ featured_image: 05/usense-mockup-150-e1540204603760
 
 In this assignment, you are asked in groups to develop a physical “intelligent” object for the Future Home.
 
-You have the freedom to select any tools or resources in accomplishing your goal, such as: sensors /electronics / microcontrollers (Arduino, NodeMCU, Raspberry Pi, LattePanda), coding platforms (HTML, CSS, React, Node.js, JavaScript, Node-Red), databases (MongoDB, SQL, Firebase), PaaS/IaaS/SaaS (Amazon AWS, Heroku, Azure, IBM), visualization and computational media (Unity/Unreal, WebGL/Three.js, D3).
+You have the freedom to select any tools or resources in accomplishing your goal, such as: sensors /electronics / microcontrollers (Arduino, NodeMCU, Raspberry Pi, LattePanda), coding platforms (HTML, CSS, React, Node.js, JavaScript, Node-Red), databases (MongoDB, SQL, Firebase), PaaS/IaaS/SaaS (Amazon AWS, Heroku, Azure, IBM), visualisation and computational media (Unity/Unreal, WebGL/Three.js, D3).
 
 However, you are constrained by the following:
 <ol>

@@ -16,7 +16,7 @@ We have chosen materials (glass, plastic, fishing line) which are indisputably m
 
 Sabrina Raaf's 'Translator II: Grower' (2004-2005) is a work that is activated by chance factors. The robot draws green lines at the base of a wall. The height of the line is based on the level of CO2 in the room. The act of observing the artwork provides the chance stimulus that drives the artistic process (Raaf, 2004).
 
-Prismatica is an “installation includes 50 prisms made from panels laminated with a dichroic film - this allows the panels to transmit and reflect every color in the visible spectrum. Contained in their bases are projectors that create an infinite interplay of lights and reflections. And, as the prisms rotate, a soundtrack of bells play, too” (*Prismatica: Public Art Installation by RAW*, 2015).
+Prismatica is an "installation includes 50 prisms made from panels laminated with a dichroic film - this allows the panels to transmit and reflect every color in the visible spectrum. Contained in their bases are projectors that create an infinite interplay of lights and reflections. And, as the prisms rotate, a soundtrack of bells play, too" (*Prismatica: Public Art Installation by RAW*, 2015).
 
 ## Description of Project/Objective
 

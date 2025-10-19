@@ -23,7 +23,7 @@ Our daring hero has just escaped from an alien space station in his omnipotent S
 
 ## The Weaponry
 
-Pulse lasers are used for dealing with the swarms of marauding aliens and have several power settings. Plasma bombs can be launched by two independent throwers and are ideal for destroying ground based targets. Homing missiles are scaled down planet bursting warheads and, after being locked onto a target, they will will destroy any large craft. Seeker missiles are the most effective large scale destruction device. They carry advanced circuitry enabling them to lock onto a target and destroy it if they are able.
+Pulse lasers are used for dealing with the swarms of marauding aliens and have several power settings. Plasma bombs can be launched by two independent throwers and are ideal for destroying ground based targets. Homing missiles are scaled down planet bursting warheads and, after being locked onto a target, they will destroy any large craft. Seeker missiles are the most effective large scale destruction device. They carry advanced circuitry enabling them to lock onto a target and destroy it if they are able.
 
 ## The Opposition
 

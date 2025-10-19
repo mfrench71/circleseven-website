@@ -22,7 +22,7 @@ I took 72 photographs in RAW mode using my Nikon D3200 DSLR. RealityCapture proc
 
 Photographs were taken from ground level, hence the missing shed roof (the camera didn't see it). Also, reflective surfaces (such as windows) are difficult for the software to process, so these appear distorted. However, this shouldn't be a problem as the sites I have investigated have no windows!
 
-It was interesting to partially capture the interior of the the shed (through the green door), and it seemed to pay to capture more images as I traversed around the corners of the house and shed.
+It was interesting to partially capture the interior of the shed (through the green door), and it seemed to pay to capture more images as I traversed around the corners of the house and shed.
 
 <div class="embed-container">
 <iframe src="https://sketchfab.com/models/cba075b160b14f91b90ea96429630c67/embed" width="320" height="240" frameborder="0"><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span></iframe>
