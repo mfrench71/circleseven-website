@@ -27,7 +27,7 @@ Development of this idea progressed slowly and during the process of putting tog
 
 During a period of mental downtime, I was browsing Facebook and happened to see a video clip which inspired me to start brainstorming another alternative idea (this time with my partner). The result of this idea generation can be seen here:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/pizza-base-ideas-sketch-2"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/pizza-base-ideas-sketch-2" width="300" height="225" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/pizza-base-ideas-sketch-2"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/pizza-base-ideas-sketch-2" width="300" height="225" alt="" loading="lazy"></a></figure>
 
 ## Innovation and Creativity:
 
