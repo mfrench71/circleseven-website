@@ -1,51 +1,45 @@
-# Site settings
-title: Circle Seven
-description: >-
-  Portfolio and blog documenting Digital Art and Technology projects,
-  academic work, and creative coding experiments from Plymouth University.
-  Exploring interactive media, physical computing, and digital culture.
-baseurl: ""
-url: "https://circleseven.co.uk"
-email: mail@circleseven.co.uk
-gravatar_hash: c7c96a67607f30615596030dc2c3faf7
-author: Matthew French
-lang: en-GB
-timezone: Europe/London
-github_username: mfrench71
-
-# Cloudinary settings
-cloudinary_cloud_name: circleseven
-cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
-
-# Build settings
-markdown: kramdown
-theme: minima
-permalink: /:title/
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
-
-# CSS/JS optimization
-sass:
-  style: compressed
-
-# Pagination settings
-paginate: 10
-paginate_path: "/page/:num/"
-
-# Include admin folder in build
+cloudinary_cloud_name: circleseven
 include:
   - admin
-
-# Collections
+theme: minima
+gravatar_hash: c7c96a67607f30615596030dc2c3faf7
+author: Matthew French
+permalink: /:title/
+paginate_path: /page/:num/
+sass:
+  style: compressed
+lang: en-GB
+markdown: kramdown
+description: The portfolio and blog of Matthew French, documenting Digital Art
+  and Technology projects, academic work, and creative coding experiments from
+  Plymouth University. Exploring interactive media, physical computing, and
+  digital culture.
+url: https://circleseven.co.uk
+github_username: mfrench71
+cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
 collections:
   pages:
     output: true
     permalink: /:path/
-
-# Exclude from processing
+paginate: 10
+title: Circle Seven
+timezone: Europe/London
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -57,16 +51,5 @@ exclude:
   - README.md
   - scripts/
   - docs/
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
+email: mail@circleseven.co.uk
+baseurl: ""
