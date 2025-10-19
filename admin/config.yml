@@ -8,7 +8,9 @@ backend:
 media_folder: "assets/images/uploads" # Media files will be stored in the repo under assets/images/uploads
 public_folder: "/assets/images/uploads" # The src attribute for uploaded media will start with /assets/images/uploads
 
-# Cloudinary media library integration (optional - uncomment after setup)
+# Cloudinary media library integration
+# To enable: Sign up at cloudinary.com, get your cloud_name and api_key,
+# then uncomment the lines below and fill in your credentials
 # media_library:
 #   name: cloudinary
 #   config:
