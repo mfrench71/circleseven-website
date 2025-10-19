@@ -557,6 +557,19 @@ div.category-section h2 {
   }
 }
 
+/* Microformats2 Hidden Elements */
+.u-url[hidden],
+a.u-url {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .post-item {
