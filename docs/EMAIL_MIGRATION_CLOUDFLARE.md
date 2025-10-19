@@ -70,10 +70,14 @@ If you send emails from your custom domain, consider:
 1. Log in to **Cloudflare** (https://dash.cloudflare.com)
 2. Click **"Add a site"** or **"Add domain"** (button text may vary)
 3. Enter **circleseven.co.uk**
-4. Select **Free plan**
-5. Click **"Add site"** or **"Continue"**
+4. Click **"Add site"** or **"Continue"**
 
-### Step 2.2: Review DNS Records
+### Step 2.2: Select Plan
+
+1. Select **Free plan**
+2. Click **"Continue"**
+
+### Step 2.3: Review DNS Records
 
 Cloudflare will scan and import your existing DNS records from 123-reg.
 
@@ -90,18 +94,24 @@ Priority 10: mail.krystal.co.uk
 Priority 20: mail2.krystal.co.uk
 ```
 
-### Step 2.3: Update Nameservers at 123-reg
+**Once reviewed:**
+1. Click **"Continue"** at the bottom of the page
 
-**First, get your Cloudflare nameservers:**
-1. In your **Cloudflare dashboard**, look for the nameserver assignment
-2. Cloudflare will show you **two specific nameservers** assigned to your domain
-3. They will look something like:
+### Step 2.4: Get Cloudflare Nameservers
+
+After clicking continue, Cloudflare will show you the nameserver change instructions.
+
+**Copy your assigned nameservers:**
+1. Cloudflare will display **two specific nameservers** assigned to your domain
+2. They will look something like:
    ```
    Example (yours will be different):
    ava.ns.cloudflare.com
    bruce.ns.cloudflare.com
    ```
-4. **Copy these** - you'll need them in the next step
+3. **Copy these** - you'll need them in the next step
+
+### Step 2.5: Update Nameservers at 123-reg
 
 **At 123-reg:**
 1. Log in to your **123-reg account**
@@ -114,7 +124,16 @@ Priority 20: mail2.krystal.co.uk
 
 **⏱️ Wait time:** DNS propagation can take 24-48 hours, but usually completes within 1-2 hours.
 
-### Step 2.4: Verify DNS is Active on Cloudflare
+### Step 2.6: Complete Cloudflare Setup
+
+**Back in Cloudflare:**
+1. After updating nameservers at 123-reg, return to your Cloudflare tab
+2. Click **"Done, check nameservers"** or **"Continue"**
+3. Cloudflare will begin checking for the nameserver change
+
+**Note:** You don't need to wait for verification to complete before proceeding with the guide.
+
+### Step 2.7: Verify DNS is Active on Cloudflare
 
 **Check in Cloudflare:**
 1. Go to your domain overview in Cloudflare
