@@ -14,7 +14,8 @@
     }
 
     // Add glightbox class to all image links (including Cloudinary URLs without extensions)
-    const imageLinks = document.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
+    // Exclude links that contain iframes or videos
+    const imageLinks = document.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
 
     imageLinks.forEach(link => {
       link.classList.add('glightbox');
@@ -83,7 +84,7 @@
     let galleryIndex = 0;
 
     galleries.forEach((gallery) => {
-      const imageLinks = gallery.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
+      const imageLinks = gallery.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
 
       // Add gallery attribute to group images within this specific gallery
       if (imageLinks.length > 0) {
@@ -110,7 +111,7 @@
     // Handle standalone images (not in a gallery) - each gets its own gallery
     const postContents = document.querySelectorAll('.post-content, .page-content, article');
     postContents.forEach((content) => {
-      const standaloneImageLinks = content.querySelectorAll('figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".jpg"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".jpeg"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".png"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".gif"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*=".webp"], figure:not(.gallery figure):not(.wp-block-gallery figure) a[href*="cloudinary.com/"]');
+      const standaloneImageLinks = content.querySelectorAll('figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(.gallery figure):not(.wp-block-gallery figure):not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]');
 
       standaloneImageLinks.forEach(link => {
         // Each standalone image gets its own unique gallery (no navigation to other images)
@@ -142,7 +143,7 @@
           if (node.nodeType === 1) { // Element node
             // Find new image links
             const newImageLinks = node.querySelectorAll ?
-              node.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]') :
+              node.querySelectorAll('figure:not(:has(iframe)):not(:has(video)) a[href*=".jpg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".jpeg"], figure:not(:has(iframe)):not(:has(video)) a[href*=".png"], figure:not(:has(iframe)):not(:has(video)) a[href*=".gif"], figure:not(:has(iframe)):not(:has(video)) a[href*=".webp"], figure:not(:has(iframe)):not(:has(video)) a[href*="cloudinary.com/"]') :
               [];
 
             if (newImageLinks.length > 0) {
