@@ -39,6 +39,14 @@ permalink: /search/
   margin-bottom: 24px;
   font-weight: 500;
 }
+
+/* Ensure search cards match standard card styling */
+#results-container .post-card-title {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
 </style>
 
 <script src="https://unpkg.com/lunr/lunr.js"></script>

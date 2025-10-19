@@ -268,10 +268,20 @@
   gap: 4px;
 }
 
-.calendar-icon {
+.calendar-icon,
+.reading-time-icon {
   flex-shrink: 0;
   vertical-align: middle;
   color: #20b2aa;
+  font-size: 12px;
+}
+
+.reading-time {
+  font-size: 13px;
+  color: #888;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* Status Badges */
