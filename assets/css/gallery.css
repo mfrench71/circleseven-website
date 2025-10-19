@@ -200,6 +200,7 @@ body.glightbox-open {
 }
 
 /* Ensure lightbox images fit within viewport */
+.gslide-image img,
 .glightbox-clean .gslide-image img {
   max-width: 90vw !important;
   max-height: 90vh !important;
@@ -209,14 +210,29 @@ body.glightbox-open {
 }
 
 /* Container for the image */
+.gslide-media,
 .glightbox-clean .gslide-media {
   max-width: 90vw !important;
   max-height: 90vh !important;
 }
 
+.gslide-inner-content,
 .glightbox-clean .gslide-inner-content {
   max-width: 90vw !important;
   max-height: 90vh !important;
+}
+
+/* The main container */
+.ginner-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure the slide itself is constrained */
+.gslide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Loading State for Images */
