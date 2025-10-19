@@ -24,7 +24,7 @@ Brief: Your task within your groups is to create an animation using Blender suit
 
 With such an open-ended brief, I decided that an abstract concept would be most effective in representing the idea of 'the multiverse'. To that end, I decided to think about the relationship between virtual shape and the physical space of the IVT and how the audience will view the final animation.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ivtt-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/ivtt-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/ivtt-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/ivtt-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/ivtt-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ivtt"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/ivtt" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/ivtt-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/ivtt-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/ivtt-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
 Immersion Vision Theatre at Plymouth University
 

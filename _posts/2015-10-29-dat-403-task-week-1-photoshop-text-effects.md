@@ -17,8 +17,8 @@ I created the following from a high contrast photo:
 
 <div class="gallery">
 
-<div><div style="flex-basis:100%"><figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-original-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-original-1" width="230" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-finished-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-finished-1" width="230" height="300" alt="" loading="lazy"></a></figure>
+<div><div style="flex-basis:100%"><figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-original"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-original" width="230" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-finished"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-finished" width="230" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 
