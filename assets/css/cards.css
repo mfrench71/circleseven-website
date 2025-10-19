@@ -271,8 +271,10 @@
 .calendar-icon,
 .reading-time-icon {
   flex-shrink: 0;
-  color: #20b2aa;
-  font-size: inherit;
+  color: #20b2aa !important;
+  font-size: 13px !important;
+  width: 13px;
+  height: 13px;
 }
 
 /* Status Badges */

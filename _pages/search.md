@@ -199,10 +199,7 @@ permalink: /search/
       }
 
       // Generate reading time display
-      const readingTime = item.reading_time ? `· <span class="reading-time" title="${item.reading_time * 200} words">
-          <i class="far fa-clock reading-time-icon" aria-hidden="true"></i>
-          ${item.reading_time} min read
-        </span>` : '';
+      const readingTime = item.reading_time ? `· <i class="far fa-clock reading-time-icon" aria-hidden="true" title="${item.reading_time * 200} words"></i> ${item.reading_time} min read` : '';
 
       article.innerHTML = `
         <div class="post-card-image">
