@@ -9,7 +9,7 @@ tags:
 - DAT601
 - Sound
 - Video
-featured_image: 05/dsc0023_46699515701_o-scaled
+featured_image: dsc0023_46699515701_o
 ---
 ## Conception
 
