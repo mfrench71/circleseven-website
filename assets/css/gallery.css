@@ -180,18 +180,27 @@
 }
 
 /* GLightbox Custom Styling */
-.glightbox-clean .gslide-description {
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 16px 24px;
-  font-size: 14px;
-  line-height: 1.6;
+.glightbox-clean .gslide-description,
+.gslide-description {
+  background: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+  padding: 16px 24px !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
 }
 
-.glightbox-clean .gslide-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
+.glightbox-clean .gdesc-inner,
+.gdesc-inner {
+  background: rgba(0, 0, 0, 0.9) !important;
+  color: white !important;
+}
+
+.glightbox-clean .gslide-title,
+.gslide-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: white !important;
 }
 
 /* Prevent body scroll when lightbox is open */
