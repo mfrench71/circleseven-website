@@ -46,19 +46,29 @@ class CloudinaryMigrator:
             return False
 
     def extract_filename(self, url):
-        """Extract filename from WordPress URL"""
-        # Handle both /wp-content/uploads/YYYY/MM/filename and {{ site.baseurl }}/wp-content/...
-        match = re.search(r'/wp-content/uploads/(?:\d{4}/\d{2}/)?([^"\s<>]+)', url)
+        """Extract filename and path from WordPress URL"""
+        # Match: /wp-content/uploads/YYYY/MM/filename or {{ site.baseurl }}/wp-content/uploads/YYYY/MM/filename
+        match = re.search(r'/wp-content/uploads/(\d{4})/(\d{2})/([^"\s<>]+)', url)
+        if match:
+            year = match.group(1)
+            month = match.group(2)
+            filename = match.group(3)
+
+            # Cloudinary public_id: MM/filename (without extension)
+            # Using just month (not year/month) to match your Cloudinary structure
+            public_id = f"{month}/{os.path.splitext(filename)[0]}"
+            return public_id, filename
+
+        # Fallback for URLs without date path
+        match = re.search(r'/wp-content/uploads/([^"\s<>]+)', url)
         if match:
             filename = match.group(1)
-            # Remove file extension for Cloudinary public_id
             return os.path.splitext(filename)[0], filename
+
         return None, None
 
-    def generate_cloudinary_url(self, filename, transformation=''):
-        """Generate Cloudinary URL from filename"""
-        public_id = os.path.splitext(filename)[0]  # Remove extension
-
+    def generate_cloudinary_url(self, public_id, transformation=''):
+        """Generate Cloudinary URL from public_id (already has path, no extension)"""
         if transformation:
             return f"https://res.cloudinary.com/{self.cloud_name}/image/upload/{transformation}/{public_id}"
         else:
@@ -80,15 +90,15 @@ class CloudinaryMigrator:
             img_attrs = match.group(4)  # loading="lazy" etc
             caption = match.group(5) if match.group(5) else None
 
-            # Extract filename
+            # Extract public_id (with folder path, no extension)
             public_id, filename = self.extract_filename(src)
-            if not filename:
+            if not public_id:
                 return match.group(0)  # Return unchanged if can't parse
 
-            # Generate Cloudinary URLs
+            # Generate Cloudinary URLs using public_id
             # Use q_auto,f_auto for automatic quality/format optimization
-            full_url = self.generate_cloudinary_url(filename, 'q_auto,f_auto')
-            thumb_url = self.generate_cloudinary_url(filename, 'c_limit,w_800,h_800,q_auto,f_auto')
+            full_url = self.generate_cloudinary_url(public_id, 'q_auto,f_auto')
+            thumb_url = self.generate_cloudinary_url(public_id, 'c_limit,w_800,h_800,q_auto,f_auto')
 
             # Build new figure tag
             new_figure = '<figure>'
@@ -98,9 +108,9 @@ class CloudinaryMigrator:
 
             # Responsive image with srcset
             new_figure += f'<img src="{thumb_url}" '
-            new_figure += f'srcset="{self.generate_cloudinary_url(filename, "c_limit,w_400,q_auto,f_auto")} 400w, '
-            new_figure += f'{self.generate_cloudinary_url(filename, "c_limit,w_800,q_auto,f_auto")} 800w, '
-            new_figure += f'{self.generate_cloudinary_url(filename, "c_limit,w_1200,q_auto,f_auto")} 1200w" '
+            new_figure += f'srcset="{self.generate_cloudinary_url(public_id, "c_limit,w_400,q_auto,f_auto")} 400w, '
+            new_figure += f'{self.generate_cloudinary_url(public_id, "c_limit,w_800,q_auto,f_auto")} 800w, '
+            new_figure += f'{self.generate_cloudinary_url(public_id, "c_limit,w_1200,q_auto,f_auto")} 1200w" '
             new_figure += f'sizes="(max-width: 768px) 100vw, 800px" '
             new_figure += f'alt="{alt}"{img_attrs}>'
 
@@ -138,13 +148,13 @@ class CloudinaryMigrator:
             src = match.group(1)
             img_attrs = match.group(2)
 
-            # Extract filename
+            # Extract public_id (with folder path, no extension)
             public_id, filename = self.extract_filename(src)
-            if not filename:
+            if not public_id:
                 return match.group(0)
 
             # Generate Cloudinary URL with automatic optimization
-            cloudinary_url = self.generate_cloudinary_url(filename, 'q_auto,f_auto')
+            cloudinary_url = self.generate_cloudinary_url(public_id, 'q_auto,f_auto')
 
             modified = True
             self.changes_log.append({

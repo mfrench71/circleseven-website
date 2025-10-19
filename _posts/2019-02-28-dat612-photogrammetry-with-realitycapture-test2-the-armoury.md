@@ -9,7 +9,7 @@ tags:
 - DAT612
 - Photogrammetry
 - Photography
-featured_image: armoury_feature
+featured_image: 05/armoury_feature
 ---
 My second test of the RealityCapture photogrammetry software was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne's Quay, Radford Lake.
 

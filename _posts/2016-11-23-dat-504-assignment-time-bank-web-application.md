@@ -8,7 +8,7 @@ categories:
 tags:
 - Academic
 - DAT504
-featured_image: timebank_featured
+featured_image: 05/timebank_featured
 ---
 <h3>The Brief: Time Bank Web Application</h3>
 Your team has been contracted to produce an interactive PHP web application, for a newly set up *Time Bank*.

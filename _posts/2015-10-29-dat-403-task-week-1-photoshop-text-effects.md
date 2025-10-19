@@ -9,7 +9,7 @@ tags:
 - DAT403
 - Photoshop
 - Unity
-featured_image: text-effects-finished-scaled-1
+featured_image: 10/text-effects-finished-scaled-1
 ---
 Today's practical exercise focussed on text effects within Photoshop.
 
@@ -17,8 +17,8 @@ I created the following from a high contrast photo:
 
 <div class="gallery">
 
-<div><div style="flex-basis:100%"><figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-original-scaled-1-230x300" width="230" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-finished-scaled-1-230x300" width="230" height="300" alt="" loading="lazy"></a></figure>
+<div><div style="flex-basis:100%"><figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-original-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-original-scaled-1-230x300" width="230" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/text-effects-finished-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/text-effects-finished-scaled-1-230x300" width="230" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 

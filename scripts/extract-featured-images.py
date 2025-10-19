@@ -136,12 +136,23 @@ class FeaturedImageExtractor:
             self.stats['posts_skipped'] += 1
             return False
 
-        # Extract filename from WordPress URL
-        filename = thumbnail_url.split('/')[-1]
-        # Remove file extension for Cloudinary public_id
-        public_id = re.sub(r'\.(jpg|jpeg|png|gif|webp)$', '', filename, flags=re.IGNORECASE)
+        # Extract filename from WordPress URL with folder structure
+        # WordPress URLs: /wp-content/uploads/YYYY/MM/filename.ext
+        # Cloudinary public_id: MM/filename (without extension)
+        url_match = re.search(r'/wp-content/uploads/(\d{4})/(\d{2})/([^/]+)$', thumbnail_url)
+        if url_match:
+            year = url_match.group(1)
+            month = url_match.group(2)
+            filename = url_match.group(3)
+            # Remove extension
+            filename_no_ext = re.sub(r'\.(jpg|jpeg|png|gif|webp)$', '', filename, flags=re.IGNORECASE)
+            public_id = f"{month}/{filename_no_ext}"
+        else:
+            # Fallback: just filename without path
+            filename = thumbnail_url.split('/')[-1]
+            public_id = re.sub(r'\.(jpg|jpeg|png|gif|webp)$', '', filename, flags=re.IGNORECASE)
 
-        # Add featured_image to front matter
+        # Add featured_image to front matter (without extension, with folder)
         front_matter['featured_image'] = public_id
 
         # Rebuild file content

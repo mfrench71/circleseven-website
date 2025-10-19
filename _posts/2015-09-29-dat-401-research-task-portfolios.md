@@ -9,7 +9,7 @@ tags:
 - After Effects
 - DAT401
 - Video
-featured_image: 6y7tez5wmDxe3NktQQAQxO9OGKP
+featured_image: 09/6y7tez5wmDxe3NktQQAQxO9OGKP
 ---
 **Kylemcdonald.net – *Social Roulette***
 

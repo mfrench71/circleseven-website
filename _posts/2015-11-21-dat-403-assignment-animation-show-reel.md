@@ -10,7 +10,7 @@ tags:
 - DAT403
 - Photography
 - Sound
-featured_image: animation-show-reel-featured-image
+featured_image: 11/animation-show-reel-featured-image
 ---
 Brief: Manufacture an animated show reel that displays the skills you have learnt from this module. This is the format for submitting your animation tests, experiments, graphics designs and After Effect's exploration in and out of the practical sessions. Each asset implemented must be your own work and individual to you. The show case of animated material should have an overarching theme or narrative. Focus is to be negotiated through discussion with the module leader. Add a description to the film describing and justifying the specific visual choices you have made. Break down the elements included and explain your theme/ narrative.
 

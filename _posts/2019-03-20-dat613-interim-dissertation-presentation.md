@@ -8,7 +8,7 @@ categories:
 tags:
 - Academic
 - DAT613
-featured_image: dissertation_presentation_feature
+featured_image: 06/dissertation_presentation_feature
 ---
 Below is the link to a Google slides document for my interim dissertation presentation based on the question:
 

@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT613
 - Photogrammetry
-featured_image: dissertation_cover
+featured_image: 06/dissertation_cover
 ---
 ## Title/Question
 

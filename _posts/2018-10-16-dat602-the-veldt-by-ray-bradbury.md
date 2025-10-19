@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT602
 - Sound
-featured_image: veldt
+featured_image: 05/veldt
 ---
 ## Homework
 

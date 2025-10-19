@@ -11,7 +11,7 @@ tags:
 - Photoshop
 - Sound
 - Video
-featured_image: the-fresh-prince-of-Bel-Air
+featured_image: 10/the-fresh-prince-of-Bel-Air
 ---
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.
 
@@ -35,19 +35,19 @@ There was an initial group discussion around:
 
 Lyric sheets were produced as an aide memoire for participants, along with brief instructions:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15111-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_15111-225x300" width="225" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15111-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15111-225x300" width="225" height="300" alt="" loading="lazy"></a></figure>
 
 A motivation/reward device (a bag of Cadbury's Eclairs) was employed to entice people to contribute to the project.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15371-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_15371-225x300" width="225" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_15371-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_15371-225x300" width="225" height="300" alt="" loading="lazy"></a></figure>
 
 Once the group had attracted the attention of a potential contributor, we explained who we were, what we were doing and what was expected from them. We gained permission to film from each person and a number of people even expressed an interest in viewing the final project.
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1570.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1570-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1571.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1571-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1572.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1572-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1570.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1570-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1571.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1571-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1572.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/IMG_1572-200x300" width="200" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 

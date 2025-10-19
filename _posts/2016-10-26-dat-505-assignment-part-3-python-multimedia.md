@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT505
 - Python
-featured_image: python_multimedia_feature
+featured_image: 05/python_multimedia_feature
 ---
 Brief: In the next practical you must create a graphical visualisation of a textual data file (to be given out in the practical). Read in the data and use it to generate some kind of visual output.
 

@@ -20,7 +20,7 @@ Parameters:
 {%- endcomment -%}
 
 {%- assign cloudinary_url = site.cloudinary_base_url -%}
-{%- assign img_src = include.src | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' -%}
+{%- assign img_src = include.src | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
 
 {%- if include.transformation -%}
   {%- assign transform = include.transformation -%}

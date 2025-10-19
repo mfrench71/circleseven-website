@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT503
 - Sound
-featured_image: johncage-433-app
+featured_image: 05/johncage-433-app
 ---
 ## John Cage - 4:33 silence
 

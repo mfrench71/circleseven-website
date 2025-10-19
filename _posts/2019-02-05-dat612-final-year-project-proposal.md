@@ -11,7 +11,7 @@ tags:
 - DAT612
 - Photogrammetry
 - Photoshop
-featured_image: PalmyraArch_Destruction
+featured_image: 05/PalmyraArch_Destruction
 ---
 ## Outline of area of study/context
 
