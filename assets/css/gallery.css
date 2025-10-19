@@ -199,7 +199,14 @@ body.glightbox-open {
   overflow: hidden;
 }
 
-/* Let GLightbox handle image sizing - it has built-in viewport fitting */
+/* Ensure lightbox images fit within viewport */
+.gslide-image img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
 
 /* Loading State for Images */
 .gallery img[loading="lazy"],
