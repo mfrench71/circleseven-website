@@ -1,6 +1,6 @@
 # Circle Seven Website
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/prismatic-donut-15ed74/deploy-status)](https://app.netlify.com/sites/prismatic-donut-15ed74/deploys)
+[![Hosted on Netlify](https://img.shields.io/badge/Hosting-Netlify-00C7B7?logo=netlify&logoColor=white)](https://app.netlify.com/sites/prismatic-donut-15ed74/deploys)
 [![Hosted on Cloudflare](https://img.shields.io/badge/DNS-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
 [![Images on Cloudinary](https://img.shields.io/badge/Images-Cloudinary-3448C5?logo=cloudinary&logoColor=white)](https://cloudinary.com/)
 [![Jekyll](https://img.shields.io/badge/Jekyll-3.9+-CC0000?logo=jekyll&logoColor=white)](https://jekyllrb.com/)
