@@ -68,10 +68,10 @@ If you send emails from your custom domain, consider:
 ### Step 2.1: Add Domain to Cloudflare
 
 1. Log in to **Cloudflare** (https://dash.cloudflare.com)
-2. Click **"Add a site"**
+2. Click **"Add a site"** or **"Add domain"** (button text may vary)
 3. Enter **circleseven.co.uk**
 4. Select **Free plan**
-5. Click **"Add site"**
+5. Click **"Add site"** or **"Continue"**
 
 ### Step 2.2: Review DNS Records
 
