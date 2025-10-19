@@ -433,8 +433,7 @@ div.category-section h2 {
 /* Related Posts Section - Teal Theme */
 .related-posts {
   margin-top: 60px;
-  margin-bottom: 0;
-  padding: 40px 0 60px 0;
+  padding: 40px 0;
   border-top: 3px solid #20b2aa;
   background: linear-gradient(135deg, #e0f7f6 0%, #f0fffe 50%, #ffffff 100%);
   margin-left: -30px;
