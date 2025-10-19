@@ -207,6 +207,8 @@ body.glightbox-open {
   width: auto !important;
   height: auto !important;
   object-fit: contain !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 /* Container for the image */
@@ -214,18 +216,24 @@ body.glightbox-open {
 .glightbox-clean .gslide-media {
   max-width: 90vw !important;
   max-height: 90vh !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 .gslide-inner-content,
 .glightbox-clean .gslide-inner-content {
   max-width: 90vw !important;
   max-height: 90vh !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 /* The main container */
 .ginner-container {
   width: 100% !important;
   height: 100% !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 /* Ensure the slide itself is constrained */
@@ -233,6 +241,13 @@ body.glightbox-open {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Make sure backdrop stays behind */
+.goverlay {
+  z-index: 1 !important;
 }
 
 /* Loading State for Images */
