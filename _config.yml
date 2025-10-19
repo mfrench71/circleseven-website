@@ -5,13 +5,16 @@ description: >-
   academic work, and creative coding experiments from Plymouth University.
   Exploring interactive media, physical computing, and digital culture.
 baseurl: ""
-url: "https://your-site-name.netlify.app"
-email: info@circleseven.co.uk
-gravatar_hash: f99984f82813cfd7f33735e6730d8b4c
+url: "https://circleseven.co.uk"
+email: mail@circleseven.co.uk
+gravatar_hash: c7c96a67607f30615596030dc2c3faf7
 author: Matthew French
 lang: en-GB
 timezone: Europe/London
 github_username: mfrench71
+
+# Analytics
+cloudflare_analytics_token: YOUR_CLOUDFLARE_ANALYTICS_TOKEN_HERE
 
 # Build settings
 markdown: kramdown

@@ -1,0 +1,21 @@
+{%- comment -%}
+Table of Contents Component
+Automatically generates a TOC from h2 and h3 headings in post content
+Only displays if there are 3 or more headings
+{%- endcomment -%}
+
+{%- if page.layout == "post" -%}
+  {%- assign headings = content | split: '<h2' -%}
+  {%- assign h2_count = headings.size | minus: 1 -%}
+
+  {%- if h2_count >= 3 -%}
+  <aside class="table-of-contents" id="toc">
+    <h2 class="toc-title">Table of Contents</h2>
+    <nav aria-label="Table of contents">
+      <ol class="toc-list" id="toc-list">
+        <!-- Generated dynamically by JavaScript -->
+      </ol>
+    </nav>
+  </aside>
+  {%- endif -%}
+{%- endif -%}

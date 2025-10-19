@@ -67,36 +67,36 @@ layout: default-sidebar
 
   <!-- Pagination links -->
   {% if paginator.total_pages > 1 %}
-  <div class="pagination">
+  <nav class="pagination" aria-label="Pagination Navigation">
     {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">← Previous</a>
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous" aria-label="Go to previous page">← Previous</a>
     {% else %}
-      <span class="previous disabled">← Previous</span>
+      <span class="previous disabled" aria-hidden="true">← Previous</span>
     {% endif %}
 
-    <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    <span class="page-number" aria-current="page">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
 
     {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next →</a>
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next" aria-label="Go to next page">Next →</a>
     {% else %}
-      <span class="next disabled">Next →</span>
+      <span class="next disabled" aria-hidden="true">Next →</span>
     {% endif %}
-  </div>
+  </nav>
 
   <!-- Page numbers -->
-  <div class="pagination-pages">
+  <nav class="pagination-pages" aria-label="Page Numbers">
     {% if paginator.total_pages > 1 %}
       {% for page in (1..paginator.total_pages) %}
         {% if page == paginator.page %}
-          <span class="current">{{ page }}</span>
+          <span class="current" aria-current="page" aria-label="Current page, page {{ page }}">{{ page }}</span>
         {% elsif page == 1 %}
-          <a href="{{ '/' | relative_url }}">{{ page }}</a>
+          <a href="{{ '/' | relative_url }}" aria-label="Go to page {{ page }}">{{ page }}</a>
         {% else %}
-          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" aria-label="Go to page {{ page }}">{{ page }}</a>
         {% endif %}
       {% endfor %}
     {% endif %}
-  </div>
+  </nav>
   {% endif %}
 
   

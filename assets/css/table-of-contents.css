@@ -1,0 +1,123 @@
+/* Table of Contents Styles */
+
+.table-of-contents {
+  background: #f8f9fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  max-width: 100%;
+}
+
+.toc-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color, #333);
+  border-bottom: 2px solid var(--color-primary, #0084b4);
+  padding-bottom: 0.5rem;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list > li {
+  margin-bottom: 0.5rem;
+}
+
+.toc-list a {
+  color: var(--link-color, #0084b4);
+  text-decoration: none;
+  display: block;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.toc-list a:hover {
+  background-color: rgba(0, 132, 180, 0.1);
+  color: var(--link-hover-color, #005580);
+  padding-left: 0.75rem;
+}
+
+.toc-list a.active {
+  background-color: rgba(0, 132, 180, 0.15);
+  font-weight: 600;
+  border-left: 3px solid var(--color-primary, #0084b4);
+  padding-left: 0.75rem;
+}
+
+.toc-sublist {
+  list-style: none;
+  padding-left: 1.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.toc-sublist li {
+  margin-bottom: 0.35rem;
+}
+
+.toc-sublist a {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary, #666);
+}
+
+.toc-sublist a:hover {
+  color: var(--link-color, #0084b4);
+}
+
+/* Sticky TOC for desktop */
+@media (min-width: 992px) {
+  .table-of-contents {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    margin: 2rem 0 2rem 2rem;
+    float: right;
+    width: 280px;
+    font-size: 0.9rem;
+  }
+
+  .post-content {
+    overflow: visible;
+  }
+}
+
+/* Scrollbar styling for TOC */
+.table-of-contents::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-of-contents::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Mobile responsive */
+@media (max-width: 991px) {
+  .table-of-contents {
+    float: none;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .toc-title {
+    font-size: 1.1rem;
+  }
+}

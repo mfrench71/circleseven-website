@@ -26,8 +26,11 @@
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
-  }{% if page.categories %},
-  "articleSection": "{{ page.categories | first }}"{% endif %}
+  },
+  "inLanguage": "{{ site.lang | default: 'en-GB' }}"{% if page.categories %},
+  "articleSection": "{{ page.categories | first }}"{% endif %}{% if page.tags %},
+  "keywords": "{{ page.tags | join: ', ' }}"{% endif %}{% if page.content %},
+  "wordCount": {{ page.content | number_of_words }}{% endif %}
 }
 </script>
 

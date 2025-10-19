@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+{%- include breadcrumbs.html -%}
+
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
@@ -15,6 +17,8 @@ layout: default
       • {%- include reading-time.html -%}
     </p>
   </header>
+
+  {%- include table-of-contents.html -%}
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content | auto_gallery }}
