@@ -6,22 +6,22 @@ categories: ["DAT612 - Final Year Project", "Digital Art and Technology"]
 tags: ["Academic", "Blender", "DAT612", "Photogrammetry", "Photoshop"]
 
 ---
-**Outline of area of study/context**
+## Outline of area of study/context
 
 My area of study/context is very much related to my <a href="http://www.circleseven.co.uk/2019/02/05/dat613-dissertation-proposal/">dissertation</a>; however, rather than looking at how artificial intelligence can be used in conjunction with the cultural heritage preservation applications of photogrammetry, I will looking at how software applications and my own skills can be used with photogrammetry to bring to life and restore gaps in an artefact, building or location that is part of our cultural heritage.
 
-**Aims**
+## Aims
 
 The aim of my project is to use photogrammetry and 3D modelling techniques, to recreate a cultural heritage artefact in the digital realm. More specifically, I aim to select and research appropriate objects, buildings or locations, recreate them, and then attempt to enhance/restore them based on historical reference material. There is potential for creating a virtual environment that could be explored using VR technology; however, this is more of an aspiration than a specific aim.
 
-**Methodology/Timeline**
+## Methodology/Timeline
  	- Select and research a suitable historical artefact/building/location.
  	- Source any available historical images/diagrams/plans/schematics.
  	- Carry out photogrammetry.
  	- Enhance the created model using 3D modelling software.
  	- Develop a digital 3D environment/context by combining photogrammetry models with digital reconstructions of historical reference materials.
 
-**Technology**
+## Technology
 
 My intention is to exclusively open source software (and commercial software that can be used without charge for non-commercial applications or that has an education pricing tier). I have started compiling a list of possible applications to research and test. These include:
  	- Agisoft’s Metashape (previously Photoscan) (<a href="http://www.agisoft.com/">http://www.agisoft.com/</a>)

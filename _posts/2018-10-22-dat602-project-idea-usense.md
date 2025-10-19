@@ -6,7 +6,7 @@ categories: ["DAT602 - Everyware", "Digital Art and Technology"]
 tags: ["Academic", "Arduino", "DAT602", "JavaScript", "Photoshop", "Unity", "Web Development"]
 
 ---
-**The Project Brief**
+## The Project Brief
 
 In this assignment, you are asked in groups to develop a physical “intelligent” object for the Future Home.
 
@@ -19,7 +19,7 @@ However, you are constrained by the following:
  	- The object/system has to be fully functional and demonstrate exactly what it is intended to do according to your main idea/concept that you will propose.
  	- You need to be methodological, work efficiently as a group, and demonstrate professional practices – documentation, schematics, working progress. It is necessary to use blogs and GitHub to show your progress throughout the module’s duration.
 </ol>
-**Our Project Idea**
+## Our Project Idea
 
 On 10 October 2018, I created a Facebook group for use by  myself, Lee Lashbrook, and Sam Williams. This group could be used to share ideas, thoughts and progress on an informal basis.
 

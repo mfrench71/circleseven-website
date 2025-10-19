@@ -27,7 +27,7 @@ The group thought that it would be novel, challenging and unusual to present a p
 
 In his article, Clarke states that privacy includes "privacy of the physical person". Individuals choosing this method of communication maintain their physical privacy, but only up until the point that their message is revealed by the medium of x-ray. Individuals are, however, willingly abdicating their privacy at a time, to a large extent, of their choosing.
 
-**Why the human body?**
+## Why the human body?
 
 - Data/message remains inviolate
 
@@ -71,7 +71,7 @@ We thought that individuals may want to communicate information after (or close 
 
 <p><a href="https://en.wikipedia.org/wiki/Do_not_resuscitate">https://en.wikipedia.org/wiki/Do_not_resuscitate</a></p>
 
-**How else might messages be communicated?**
+## How else might messages be communicated?
 
 - Tatoos
 
@@ -83,7 +83,7 @@ We thought that individuals may want to communicate information after (or close 
 
 - URLs
 
-**Alternative methods of communication**
+## Alternative methods of communication
 
 As we started looking into communication via X-ray, we inevitably stumbled upon other bodily methods of storing and transmitting information. Here a just a couple of ideas that we may see in the not too distant future:
 

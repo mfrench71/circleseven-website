@@ -8,7 +8,7 @@ tags: ["Academic", "DAT403", "Photography", "Sound"]
 ---
 Brief: Manufacture an animated show reel that displays the skills you have learnt from this module. This is the format for submitting your animation tests, experiments, graphics designs and After Effect's exploration in and out of the practical sessions. Each asset implemented must be your own work and individual to you. The show case of animated material should have an overarching theme or narrative. Focus is to be negotiated through discussion with the module leader. Add a description to the film describing and justifying the specific visual choices you have made. Break down the elements included and explain your theme/ narrative.
 
-**Title Element**
+## Title Element
 
 <figure>
 <div class="embed-container">
@@ -24,7 +24,7 @@ Layered particle explosions are combined in a double explosion sequence. The fir
 
 Camera shake, motion blur and appropriate sound effects are used to provide a high-impact opening to the animation show reel.
 
-**Greenlight Identity Spot**
+## Greenlight Identity Spot
 
 <figure>
 <div class="embed-container">
@@ -40,7 +40,7 @@ Red, amber and green glowing circluar lights appear from beneath the reflective 
 
 A dramatic camera move, combined with camera wiggle give a dynamic feel to the animation. A brief camera shake when the green light bumps the logo is underscored by a deep audio thump, providing a satisfying finale to this part of the reel.
 
-**Audio Visualisation**
+## Audio Visualisation
 
 <figure>
 <div class="embed-container">
@@ -52,7 +52,7 @@ A similar environment as the above was used for the audio visualisation sequence
 
 Dynamic camera moves were timed to coincide with the dynamics of the audio and to highlight the three dimensional nature of the waveforms.
 
-**Character Animation**
+## Character Animation
 
 <figure>
 <div class="embed-container">
@@ -70,7 +70,7 @@ The wizard character was initially sketched then photographed and traced, colour
 
 The transition from night to day is further enhanced with a change of audio from a daytime outdoor feel to a more eerie night-time atmosphere.
 
-**Final Animation Show Reel:**
+## Final Animation Show Reel:
 
 <figure>
 <div class="embed-container">

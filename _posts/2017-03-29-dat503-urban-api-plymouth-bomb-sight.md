@@ -8,7 +8,7 @@ tags: ["Academic", "DAT503", "Photography", "Photoshop", "Unity"]
 ---
 Brief: Urban API is a live project. The project will generate an open real-time intervention or map of the city. The project should map or challenge the city as complex cultural, political and social phenomenon or the project should hack the city in its functions as a whole or aspects of it.
 
-**The Project has TWO components:**
+## The Project has TWO components:
 
 <ol>- Methodologies: A series of research, design and production methods will be presented along with practical mini projects to help students build an appropriate set of methodological design and research tools to complete the overall project. As part of this process, some key practical skills will be introduced such as hacking the Open Data and Google Maps API and Unity 3D.
 
@@ -29,7 +29,7 @@ Conceptual sketches and logo ideas:
 
 </div>
 
-**Data Sources**
+## Data Sources
 
 <p>We were able to access bomb site location data for Plymouth via the City Council Archives. The '<a href="http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND">Bomb Book</a>' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:</p>
 
@@ -54,7 +54,7 @@ Again, we extracted this data and converted it to a JSON file. We wanted to asso
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/casualty_json-1024x319.jpeg" width="1024" height="319" alt="" loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
 
-**How it Works**
+## How it Works
 
 The application determines the geographic location of the user. Their location is marked in the interface by a bold icon.
 
@@ -84,7 +84,7 @@ Below is a short promotional video produced to accompany the Plymouth Bomb Sight
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/UCzb8Z173D8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-**Evaluation**
+## Evaluation
 
 Evaluation of the mobile application was carried out in a controlled setting i.e. by the members of the project team (although it was also tested 'in the wild' y a member of the team); the process was iterative, beginning from the development of the first version or prototype and continuing until the end of the time allowed for the project.
 

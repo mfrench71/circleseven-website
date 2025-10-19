@@ -16,7 +16,7 @@ tags: ["Academic", "After Effects", "Blender", "Tutorial", "Video", "Web Develop
 </div>
 </figure>
 
-**Acknowledgements:**
+## Acknowledgements:
 
 - <a href="http://tutsplus.com/authors/joe-lilli">Joe Lilli</a> for the original Cinema 4D tutorial.
 

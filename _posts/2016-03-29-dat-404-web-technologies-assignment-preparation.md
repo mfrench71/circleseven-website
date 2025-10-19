@@ -34,7 +34,7 @@ The Industrial Light &amp; Magic site, particularly, is a good example of this w
 
 The remaining three sites (Double Negative, Weta Digital and Framestore) use similar web design site layouts. Hero images of dramatic moments from films they have worked on are featured. Framing these images are navigation elements, social media links and feeds, and teaser articles linking to awards won, other work, etc.
 
-**Mockups of my own professional practice website:**
+## Mockups of my own professional practice website:
 
 <div class="gallery">
 

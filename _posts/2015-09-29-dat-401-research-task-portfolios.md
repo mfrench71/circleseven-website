@@ -12,19 +12,19 @@ tags: ["After Effects", "DAT401", "Video"]
 
 <p>Kyle’s portfolio site (<a href="https://web.archive.org/web/20210119121445/http://kylemcdonald.net/" target="_blank" rel="noreferrer noopener">http://kylemcdonald.net/</a>) comprises a high-contrast grid layout with teaser images and text excerpts. A simple colour scheme serves to highlight different sections and links to project sites and contributors.</p>
 
-**Social Roulette**
+## Social Roulette
 
 Based on Russian roulette, Social Roulette is a game of chance where participants, rather than risking their lives, have a one in six chance of their Facebook account being deleted.
 
-**Novelty**
+## Novelty
 
 Personally, I have, from time to time, deactivated my Facebook account to ‘take a break’ from the seemingly endless minutiae of people’s lives. I have not, however, had the urge to delete my account permanently and question whether this is, in fact, possible. So, while the consequence of the game is not original, the mechanism by which the outcome is decided (a chance to tear down my wall, posts, photos, videos, memories and interactions at the whim of a ‘game’) I consider to be pretty original.
 
-**Appropriateness**
+## Appropriateness
 
 The question of whether Social Roulette is an appropriate means to determine the fate of your Facebook account is, I think, somewhat subjective. It should, perhaps, be left to the individual to decide to keep or not to keep their account. However, players who are ambivalent about the pervasiveness of social media may see Social Roulette as a means of abdicating their responsibility and leaving the decision to chance.
 
-**Impact**
+## Impact
 
 <p>“Facebook’s more than 1.44 billion monthly active users around the world spend an average of 20+ minutes per day on the social network, liking, commenting, and scrolling through status updates [which] accounts for nearly 20% of all time online.” (<a href="https://web.archive.org/web/20210119121445/http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T" target="_blank" rel="noreferrer noopener">http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T</a>)</p>
 

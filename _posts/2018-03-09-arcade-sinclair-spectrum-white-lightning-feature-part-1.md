@@ -13,7 +13,7 @@ From the user manual:
 
 <p>For some further context for this article, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 
-**White Lightning Feature**
+## White Lightning Feature
 
 <p>This feature is to help owners of White Lightning to get good, fast results from the package and to produce small routines to incorporate into larger Forth/BASIC programs to create 'arcade' quality games. I have included notes on the programs to help <a href="http://www.worldofspectrum.org/infoseekid.cgi?id=0008327">Laser BASIC</a> owners convert to their language.</p>
 
@@ -23,7 +23,7 @@ The first routine you may recognise as a part of the demonstration.
 
 After that, type <code>6 LOAD</code> and then <code>GO</code>.
 
-**Notes on conversion:**
+## Notes on conversion:
 
 Line 0: defines a word called <code>DELAY</code> which does a no-operation (does nothing) (NOOP) loop 0 - 500 to act as a pause.
 
@@ -43,7 +43,7 @@ Send any routines to me at my usual place of residence (not Adam's!)
 
 Matthew F.
 
-**The Originals**
+## The Originals
 
 <div class="gallery">
 

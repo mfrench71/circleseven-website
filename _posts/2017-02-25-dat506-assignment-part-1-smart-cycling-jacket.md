@@ -8,7 +8,7 @@ tags: ["Academic", "Arduino", "DAT506", "Sound", "Tutorial"]
 ---
 Brief: By embedding technology in items such as clothing and jewellery, the wearables movement aims to make smart clothes and devices that enhance everyday life. Working in groups, and using the fablab and workshop equipment and maker technologies we explore in the class, your task is to produce a piece of wearable technology which will be presented as part of a DAT fashion show.
 
-**Notes:**
+## Notes:
 
 <ol>- The definition of wearable is broad: anything that might adorn the body; so clothes, shoes, bags (worn not carried), jewellery, shin protectors, makeup, etc.
 
@@ -23,7 +23,7 @@ Explore the work of artists such as Mark Sheppard’s “Under(a)ware” which a
 
 All these works explore the role of clothing and what happens when we use technology to rethink or subvert standard thinking about clothing and the way we present ourselves.
 
-**Research**
+## Research
 
 - When conducting research we tried to come up with an original idea that hadn't been done before.
 
@@ -31,13 +31,13 @@ All these works explore the role of clothing and what happens when we use techno
 
 - A website which was useful for inspration was CyclingTips.com, mainly an article called ‘See and be Seen’ which gives tips on daytime lights and nighttime lights (<a href="https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/">https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/</a>)
 
-**Ideas**
+## Ideas
 
 - We had a few ideas on how we could create the product and what we could use. This included lights, sensors, and reflective features.
 
 - A number of ‘optional extras’ were also discussed, such as a speed indicator. We decided to concentrate on implementing the core features of the cycling jacket and revisit the extra features if time allowed.
 
-**The Design**
+## The Design
 
 - Our design was to create a cycling jacket which will help the cyclist indicate their actions to other road users in a clear way, especially when riding at night.
 
@@ -45,7 +45,7 @@ All these works explore the role of clothing and what happens when we use techno
 
 - As the lights would not be visible to the wearer, we wanted a visible feedback system that would tell the cyclist which lights were activated.
 
-**Features**
+## Features
 
 The core features of the cylcing jacket were to be:
 
@@ -61,7 +61,7 @@ The core features of the cylcing jacket were to be:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycling-jacket-1024x789.png" width="1024" height="789" alt="" loading="lazy"></a><figcaption>LED layout variations</figcaption></figure>
 
-**Testing**
+## Testing
 
 - Testing was crucial in establishing how feasible our idea was and whether we would be able to implement all the features in the time provided and with the skills and technology available to the team.
 
@@ -71,7 +71,7 @@ The core features of the cylcing jacket were to be:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/cycle-jacket_bb-1024x782.png" width="1024" height="782" alt="" loading="lazy"></a><figcaption>Cycling jacket Fritzing diagram</figcaption></figure>
 
-**Fabrication of the Cycling Jacket**
+## Fabrication of the Cycling Jacket
 
 Wearable technology presents its own challenges when it comes to assembling the end product. Luckily we were able get to grips with some, to us, new materials and technologies, such as:
 
@@ -95,9 +95,9 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/A_Eyra53fWE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-**Non-Wearable Enhancements (Prototypes)**
+## Non-Wearable Enhancements (Prototypes)
 
-**Speed Meter**
+## Speed Meter
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1-1024x768.jpg" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
 
@@ -115,7 +115,7 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/speed-meter_bb-925x1024.png" width="925" height="1024" alt="" loading="lazy"></a><figcaption>Speed Meter Fritzing Diagram</figcaption></figure>
 
-**GPS Tracker**
+## GPS Tracker
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/gps-shield.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/gps-shield.png" alt="" loading="lazy"></a><figcaption>Adafruit GPS Shield</figcaption></figure>
 

@@ -35,16 +35,16 @@ Around fifteen minutes into the intervention, we were approached by a member of 
 
 This encounter highlighted that fact that, despite the University campus premises being effectively open to the public, there are restrictions placed on activities that take place within the University boundaries; there is an unseen private space within the 'public' space.
 
-**Similar Interventions**
+## Similar Interventions
 
 <p><a href="https://en.wikipedia.org/wiki/Street_piano" target="_blank" rel="noreferrer noopener">https://en.wikipedia.org/wiki/Street_piano</a></p>
 
-**What we would have changed/liked to have done**
+## What we would have changed/liked to have done
 
 It would have been interesting to have used CCTV cameras to record peoples' reactions to the objects that we left on campus. This might be seen as more of a genuine intervention, there being no influence from the members of the team in the vicinity. However, we were obliged to keep an eye on our valuable guitars and obtaining CCTV footage from the University authorities might prove problematic!
 
 To create a real contrast between the objects and the environment, we would have liked to have staged an intervention within a public (or University) library to gauge the reaction of the public and members of staff in this ordinarily quiet location. Conversley, an intervention in a noisy locale, such as a construction site, might be used to highlight the 'noise pollution' from building works and be used as an attempt to 'beautify' such surroundings.
 
-**Social Media**
+## Social Media
 
 <p>We publicised the presence of these items on social media (<a href="https://www.facebook.com/groups/expressyourselfplymouth/">Facebook</a>).</p>

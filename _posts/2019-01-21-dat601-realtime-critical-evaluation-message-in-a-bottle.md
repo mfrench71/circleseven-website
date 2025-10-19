@@ -6,7 +6,7 @@ categories: ["DAT601 - Realtime", "Digital Art and Technology"]
 tags: ["DAT601", "Sound", "Video"]
 
 ---
-**Conception**
+## Conception
 
 The conception of *Message in a Bottle* grew out of a desire to produce an artistic installation based around the themes of light and sound.
 
@@ -52,7 +52,7 @@ Crucial to *Message in a Bottle* is an aesthetic that will draw people in and en
 
 This project would invite viewers to interact with it by reacting to their presence with a variety of different responses: coloured LED rings would flash more quickly, more bubbles would be produced the closer a person was to a bottle, and various audio clips would be triggered.
 
-**Implementation**
+## Implementation
 
 *Message in a Bottle* is composed of both man-made and natural elements; much like Max Liboiron’s *Sea Globes* (Liboiron, 2014), the elements chosen are integral in contributing to both the meaning and the physical integrity of the piece. Technology is used to enhance the artwork by emulating natural phenomena and providing a mechanism for interaction.
 
@@ -76,7 +76,7 @@ Work on the audio and air pumps to create bubbles was left until only a few days
 
 Despite the lack of early testing of certain elements, ultimately, an original and aesthetically-pleasing artwork was created. The interplay of light, water, air, and sound worked effectively and was visually appealing. The decisions made to avoid over-complicating were justified considering the additional development time and effort that would have been involved. Furthermore, in its final form, the project, realised in a subtle and inviting way, fulfilled its purpose of delivering a *Message in a Bottle*.
 
-**References**
+## References
 
 <p>Eliasson, O. (2014) *Ice Watch*. Available at: <a href="https://olafureliasson.net/archive/artwork/WEK109190/ice-watch">https://olafureliasson.net/archive/artwork/WEK109190/ice-watch</a> (Accessed: 8 January 2019)</p>
 

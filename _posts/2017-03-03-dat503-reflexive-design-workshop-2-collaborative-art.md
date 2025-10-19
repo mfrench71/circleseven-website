@@ -6,7 +6,7 @@ categories: ["DAT503 - Reflexive Design"]
 tags: ["DAT503"]
 
 ---
-**Chinese Whispers**
+## Chinese Whispers
 
 This workshop commenced with a standard Chinese Whispers activity.
 
@@ -15,13 +15,13 @@ This workshop commenced with a standard Chinese Whispers activity.
 
 <p><a href="https://en.wikipedia.org/wiki/Chinese_whispers">https://en.wikipedia.org/wiki/Chinese_whispers</a></p>
 
-**Chinese Whispers (Illustrated)**
+## Chinese Whispers (Illustrated)
 
 As a variation of the standard spoken Chinese Whispers, we then, as a class, repeated the activity, this time with a pair of drawings. By the time the original drawings had gone around the room, each person being shown the drawing for a few seconds and then drawing from memory, they had changed out of all recognition.
 
 This activity certainly highlights the unreliability of memory and the mistakes that can occur when working to a time limit. Also, the more participants that are involved, the greater the likelihood of mistakes and changes being introduced.
 
-**Directed Drawing**
+## Directed Drawing
 
 This activity involved working in pairs. One person would give instructions to the other in order to create a drawing. The instructor could not see what the other person was drawing and nor could they give explicit directions, such as 'draw a tree'. Instead, I received prompts such as 'draw a line east for two centimetres', 'draw a quarter circle towards the west', etc.
 
@@ -38,7 +38,7 @@ For this part of the workshop, we were asked to just start writing. We were inst
 
 This technique can be used as a means to overcome creative block and to generate ideas. I am quite pleased with some of the imagery in the above paragraph and could, potentially, develop the piece into a longer work.
 
-**Collaborative Drawing**
+## Collaborative Drawing
 
 This group exercise involved a number of attempts at collaborative drawing (some not *that* collaborative!). There were four of us in the group for this activity.
 
@@ -63,7 +63,7 @@ The results are below:
 
 There are certainly some lessons to be learned about cooperation, coordination, communication, delegation and planning. These exercises made it clear that it's very easy groups to descend into ad-hoc contributions to an overall aim which do not progress the group to their goal. Dominant or assertive personalities can influence the outcome of a collaborative effort, not always to the benefit of the team.
 
-**Creating a Communication Protocol**
+## Creating a Communication Protocol
 
 For the final activity, we were requested, in groups, to create and demonstrate a novel communication protocol. Here are some of the communication  technologies and techniques that we brainstormed:
 

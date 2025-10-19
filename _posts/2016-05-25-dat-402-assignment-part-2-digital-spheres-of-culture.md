@@ -9,7 +9,7 @@ tags: ["Academic", "DAT402", "Sound", "Unity", "Video"]
 Brief: Working individually, choose a sphere of online network culture that uses video to communicate ideas. Collect materials that exemplify the way in which this community or genre uses online video and edit together a clip compilation that explores their use of online video. Think about dialogues, conversations between participants and look for themes that are repeated in the video content you collect. There are many trends in video sharing that offer sometimes unexpected insights into the way in which people use networked communication technologies.
 Your task is to identify a genre of YouTube/Vine, etc. video making and explore the way users of the technology present themselves and their interests by watching and collecting examples, looking for themes across the content you review. The work should be long enough to make a good job of exploring at least one key theme and you should provide a few sentences to introduce the piece that support your thinking and approach in the document you hand in to support it. The piece should be accompanied by a Word document (.doc) that gives a short explanation of your thinking, and a list of sources of videos and ideas in Harvard bibliographic referencing style that are included in the work, or support your topic.
 
-**Deliverables – your work should include these as minimum:**
+## Deliverables – your work should include these as minimum:
 
 A video response to your chosen subculture that explores a key idea about how they present themselves using networked video, exported as a 1080p Mov file and uploaded to the DLE. The final piece should be betwen 3 and 5 minutes long;
 
@@ -21,7 +21,7 @@ It should show that you can use video to:
 
 It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of video (for example youtube videos etc) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
 
-**Example work**
+## Example work
 
 Natalie Bookchin's Testament Series
 
@@ -61,7 +61,7 @@ I used the Mayan apocalypse prediction as a focus because, as an event that nev
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/-eiXGz74Fkc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 <h3>References</h3>
-**Video References**
+## Video References
  	- ABC 10 News (2012) *San Diegans prepare for Mayan doomsday: Mayan calendar ends on December 21, 2012*. Available at: <a href="https://youtu.be/r6E61dmlZnc">https://youtu.be/r6E61dmlZnc</a> (Accessed: 20 May 2016).
  	- ABC15 Arizona (2012) *Mayan apocalypse a bust?* Available at: <a href="https://youtu.be/loZoC7VLEx0">https://youtu.be/loZoC7VLEx0</a> (Accessed: 20 May 2016).
  	- averageiowaguy (2012) *A Fireside chat - day 1 after Mayan apocalypse*. Available at: <a href="https://youtu.be/Rt-x9q16BA4">https://youtu.be/Rt-x9q16BA4</a> (Accessed: 20 May 2016).
@@ -84,11 +84,11 @@ I used the Mayan apocalypse prediction as a focus because, as an event that nev
  	- Tony Morabito (2011) *9 11 actual crash footage of 2nd plane*. Available at: <a href="https://youtu.be/mlnLVw0i7sA">https://youtu.be/mlnLVw0i7sA</a> (Accessed: 20 May 2016).
  	- UltimateChase (2010) *Hurricane Katrina historic storm surge video - Gulfport, Mississippi*. Available at: <a href="https://youtu.be/-Kou0HBpX4A">https://youtu.be/-Kou0HBpX4A</a> (Accessed: 20 May 2016).
 
-**Audio References**
+## Audio References
  	- emimusic (2009) *R.E.M. - it’s the end of the world*. Available at: <a href="https://youtu.be/Z0GFRcFm-aY">https://youtu.be/Z0GFRcFm-aY</a> (Accessed: 20 May 2016).
  	- xoLove1Anotherxo (2008) *Star Spangled banner karaoke instrumental*. Available at: <a href="https://youtu.be/GH2Oa9BJzYM">https://youtu.be/GH2Oa9BJzYM</a> (Accessed: 20 May 2016).
 
-**Literary References**
+## Literary References
  	- *2012 phenomenon* (2016) in *Wikipedia*. Available at: <a href="https://en.wikipedia.org/wiki/2012_phenomenon">https://en.wikipedia.org/wiki/2012_phenomenon</a> (Accessed: 22 May 2016).
  	- Oxford (2016) ‘Prepper’, in *Oxford Dictionary*. Available at: <a href="http://www.oxforddictionaries.com/definition/english/prepper">http://www.oxforddictionaries.com/definition/english/prepper</a> (Accessed: 22 May 2016).
 

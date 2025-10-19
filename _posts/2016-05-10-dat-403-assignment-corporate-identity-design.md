@@ -8,7 +8,7 @@ tags: ["Academic", "DAT403", "Illustrator", "Photoshop"]
 ---
 Brief: Design your own brand identity marketing yourself. Imagine you are about to start your own freelance design company and you need to pitch to investors. You’ll need elements like a unique and original name and logo, business cards, letter heads, web banners, flyers and example magazine articles. Using a combination of Illustrator and Photoshop comprise a single image displaying a composition of your different assets and designs.
 
-**Logo Designs**
+## Logo Designs
 
 I decided to base my logo on a fictitious design company called 'Greenlight Design'. The reason I chose this name was that it conveyed a feeling of approval, of forward momentum and of 'getting things done'.
 
@@ -39,7 +39,7 @@ I decided on that the last logo displayed above as the one I was most happy with
 
 Century Gothic was chosen as the typeface and I felt this was both simple and elegant. The word 'green' was coloured appropriately to reinforce the colour branding of the logo. Black and grey were chosen for the words 'light' and 'design' to contrast with the green. As a finishing touch to the text element and to add interest, a copy of the text was placed behind the main text and made almost transparent. The text was also manipulated and placed appropriately to produce some subtle but interesting text interactions.
 
-**Literature Design**
+## Literature Design
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_artboard_palette.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/illustrator_artboard_palette-225x300.jpg" width="225" height="300" alt="" loading="lazy"></a><figcaption>Illustrator art board palette</figcaption></figure>
 
@@ -55,13 +55,13 @@ A green 'torch light' background was added to the top-left of the business card 
 
 The magazine article incorporated design elements with amber and red from the logo. Text was arranged to give emphasis to the heading and highlight the pull-quote. Text was wrapped around an element from the logo to break up the blocks of text.
 
-**Final Rendered Images**
+## Final Rendered Images
 
 Corporate assets were modelled in 3D Studio Max and then transferred to Cinema 4D for texturing, lighting and rendering. Photoshop PSD files were created from the Illustrator layout and these were then applied to the individual models as materials. A reflective floor plane, matte backdrop and lights were used to create a simulated studio environment. Additional corporate assets (a notebook and desk calendar) were also included. The assets were placed in a aesthetically pleasing arrangement and the final image was then rendered.
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/corporate-identity-design-1.jpg" alt="" loading="lazy"></a><figcaption>Final rendered image</figcaption></figure>
 
-**Flat and Rendered Images:**
+## Flat and Rendered Images:
 
 <div class="gallery">
 

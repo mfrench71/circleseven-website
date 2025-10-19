@@ -8,6 +8,7 @@
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   list-style: none;
   padding: 0.75rem 0;
   margin: 0;
@@ -15,7 +16,8 @@
 }
 
 .breadcrumb-item {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
   color: var(--text-color-secondary, #666);
 }
 
@@ -36,10 +38,12 @@
 }
 
 .breadcrumb-separator {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
   padding: 0 0.5rem;
   color: var(--text-color-secondary, #999);
   user-select: none;
+  line-height: 1;
 }
 
 /* Responsive adjustments */

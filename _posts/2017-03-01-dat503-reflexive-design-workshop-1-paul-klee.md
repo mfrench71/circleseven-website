@@ -6,7 +6,7 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 tags: ["Blender", "DAT503", "Photoshop"]
 
 ---
-**Paul Klee - "Drawing is taking a line for a walk"**
+## Paul Klee - "Drawing is taking a line for a walk"
 
 <blockquote><p>"Whereas Picasso, Matisse, even Mondrian and Kandinsky concentrated on abstracting from perceived reality, Klee began with a point, extended it into a line and famously took it for a walk wherever it wished to go. The exact stage at which this abstract construct began to suggest an image was not premeditated."</p>
 </blockquote>

@@ -18,7 +18,7 @@ After some discussion, the group decided it would be interesting to compare the 
 
 Screen shot from ritetag.com showing popular Twitter hashtags for Donald Trump
 
-**High concept:**
+## High concept:
 
 - Balloons are used frequently during US presidential election campaigns (see photo)
 
@@ -52,7 +52,7 @@ https://youtu.be/StY8G-A0jS0
 https://youtu.be/IdDz_dOa3qU
 </div></figure>
 
-**Issues encountered:**
+## Issues encountered:
 
 - Power consumption issues were encountered on two occasions, both times leading to serial write failures/USB disconnects. The first of these failures happened when trying to run two stepper motors via the Arduino. Research on the Internet pointed towards a power supply issue. To surmount this problem, I connected a 9 volt battery to the Arduino to provide additional power. The second failure occurred when all four motors were in use. Again research suggested a lack of power supply from the Raspberry Pi's USB ports. Eventually I found adding a setting in Boot &gt; config.txt (max_usb_power = 1) that allowed me to increase available power to Pi's USB ports.
 

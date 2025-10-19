@@ -10,11 +10,11 @@ Artists often start work without a clear idea of where they are going to end up.
 
 The opposite, where you define where you want to be and then figure out how to get there, has a focus on the goal. This approach is more common in engineering.
 
-**Task:**
+## Task:
 
 Start creating a piece of work; algorithmic artwork, game character design, piece of music, etc. You may use a computer, or you may not.
 
-**After every 10 minutes:**
+## After every 10 minutes:
 
 - photograph your work
 

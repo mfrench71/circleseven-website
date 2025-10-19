@@ -61,17 +61,17 @@ The mix of British-made and American-made shows provides a contrast in how scien
 
 Again, the cultural origins of these shows are key to understanding different ways in which we think about technology and how we think about narratives around science and society. In some science fiction, technology 'just works'. It seemingly requires no maintenance or attention. On the other hand, as in Doctor Who, for instance, there are constant niggling problems and a failure to operate in ways that are fit for purpose - such as the TARDIS and its many malfunctions. This illustrates, perhaps, the American 'can do' attitude verses the British 'musn't grumble' approach.
 
-**Regimes of Surveillance**
+## Regimes of Surveillance
 
 This paper suggests that by referring to pervasive surveillance in science fiction (i.e. in the future), we are suggesting that the current environment is not highly surveilled; that any introduction of a ubiquitous surveillance infrastructure would be implemented in a pristine environment. In turn, surveillance in science fiction is generally all-pervasive and stable or non-existent. The influence of this mindset is to distract us from the fact that our surveillance infrastructure is constantly evolving and is comprised of a complex network of often interdependent entities.
 
-**Design Fiction**
+## Design Fiction
 
 <p>In 2009, <a href="https://en.wikipedia.org/wiki/Julian_Bleecker">Julian Bleecker</a>'s essay '<a href="http://drbfw5wfjlxon.cloudfront.net/writing/DesignFiction_WebEdition.pdf">Design Fiction: A short essay on design, science, fact and fiction</a> (PDF)' brought together the ideas propounded by Dourish, Bell, and Bruce Stirling's original coining of the phrase.</p>
 
 <p>Subsequently, design fiction has taken hold as an established discipline, leading to the formation of agencies such as Design Friction ("We are a design practice producing speculative and critical scenarios for the upcoming presents"), <a href="http://nearfuturelaboratory.com/">The Near Future Laboratory</a> ("We explore futures, chart the unexpected and transform opportunities into new and tangible forms"), <a href="http://superflux.in/">Superflux</a> ("Translating future uncertainty into present day choices") and <a href="http://www.tomorrowsthoughtstoday.com">Tomorrow's Thoughts Today</a>.</p>
 
-**Science Fiction Prototyping**
+## Science Fiction Prototyping
 
 <blockquote><p>"Science fiction prototyping refers to the idea of using science fiction to describe and explore the implications of futuristic technologies and the social structures enabled by them."</p>
 
@@ -91,7 +91,7 @@ I am reminded of Tolkien's creation of the fantasy world of Middle Earth. A seco
 
 Similarly, those involved in science fiction prototyping today are providing a context, both technological and societal, into which to place their designs and ideas, allowing them to be used, experienced and evaluated by fictional societies, providing valuable insights for their creators.
 
-**References**
+## References
 
 - Thacker, E (2001) *The science fiction of technoscience: the politics of simulation and a challenge for new media art*. Leonardo 34(2):155–158.
 

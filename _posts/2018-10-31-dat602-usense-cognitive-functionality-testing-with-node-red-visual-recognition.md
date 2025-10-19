@@ -12,7 +12,7 @@ Ultimately, I hope to use visual recognition for emotion detection.
 
 For this testing, I will be using a Raspberry Pi, Pi Camera, and a local installation on the Pi of Node-RED.
 
-**Flow Summary**
+## Flow Summary
 
 <figure><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/visual_recognition_flow-e1540983848824.png" alt="" loading="lazy"></figure>
 
@@ -29,7 +29,7 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 - The *visual recognition* node processes the image data and passes the result to a *debug* node to output to the console.
 </ol>
 
-**Results**
+## Results
 
 Here are some results of testing on two different images:
 
@@ -44,7 +44,7 @@ Here are some results of testing on two different images:
 
 In both tests, the results of the analysis of age and gender of the individual's face was accurate.
 
-**GitHub**
+## GitHub
 
 The code for the above flow is available here:
 

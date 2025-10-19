@@ -6,31 +6,31 @@ categories: ["DAT501 - Strategies for Digital Art and Technology", "Digital Art 
 tags: ["DAT501"]
 
 ---
-**Creative Strategies: Personal Manifesto**
+## Creative Strategies: Personal Manifesto
 
 A manifesto is a statement of intent that defines the beliefs and aspirations of an individual or a group. Some of them spend more time defining what the author rejects than what they accept, as if to break free from an established order - the Futurist Manifesto is the original example.
 
 Manifestos can be useful in (re)defining our thinking patterns.
 
-**Task:**
+## Task:
 
 Read...
 
-**John Cage and Sister Corita Kent: Immaculate Heart College Art Department Rules:**
+## John Cage and Sister Corita Kent: Immaculate Heart College Art Department Rules:
 
 <a href="https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/">https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/</a>
 
-**Bruce Mau: An Incomplete Manifesto for Growth:**
+## Bruce Mau: An Incomplete Manifesto for Growth:
 
 <a href="http://www.manifestoproject.it/bruce-mau/">http://www.manifestoproject.it/bruce-mau/</a>
 
-**Japanese Aesthetics:**
+## Japanese Aesthetics:
 
 <a href="http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/">http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/</a>
 
 (This isn't strictly a manifesto, as it isn't a claim - it is more a collection of observations on Japanese aesthetics. But, it has all the makings on one. If it had been written by an artist with the intention of defining the important aspects of their practice, it would be).
 
-**The Futurist Manifesto:**
+## The Futurist Manifesto:
 
 <a href="http://www.italianfuturism.org/manifestos/foundingmanifesto">http://www.italianfuturism.org/manifestos/foundingmanifesto</a>
 
@@ -44,7 +44,7 @@ Herzog is a documentary filmmaker who talks about different types of truth - the
 
 Herzog's stance foreshadowed and predicted 'reality' TV and the rise of 'alternative facts' in politics.
 
-**Write you own personal manifesto**
+## Write you own personal manifesto
 
 How do you make work? What is important to your creative process? What do you believe in? What do you reject? Consider the creative strategies and aesthetic decisions that are important in your own practice. Write down 10 as your own personal manifesto.
 <ol>

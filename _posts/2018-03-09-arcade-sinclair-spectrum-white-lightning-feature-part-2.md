@@ -16,7 +16,7 @@ From the user manual:
 
 <p>For some further context for these articles, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 
-**White Lightning Feature**
+## White Lightning Feature
 
 Yes, I've made it! Never fear! This feature has made it to its next month. Amazing, isn't it? Anyway, with the sprites in memory, type this into screen 6 and then type <code>6 LOAD</code> and then <code>TEST 1</code> and press 'Enter':
 
@@ -30,7 +30,7 @@ Don't be alarmed if nothing happens, just press 'Caps Shift' or 'Space' and watc
 
 When you press 'Space', the landscape goes left, and right when you press 'Caps Shift', rather than the expected right for 'Space' and left for 'Caps' because this simulates a character going over the landscape from left to right and so the landscape would go left and vice-versa.
 
-**Notes on conversion:**
+## Notes on conversion:
 
 Line 0: sets up sprite 44 - the lunar landscape.
 
@@ -60,7 +60,7 @@ SCR#7:
 
 Type <code>6 LOAD</code> then <code>FINAL</code>.
 
-**The Originals**
+## The Originals
 
 <div class="gallery">
 

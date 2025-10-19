@@ -14,7 +14,7 @@ https://youtu.be/dOMQ1jILvlA
 
 **t3X: 3D Interactive Twitter Visualisation**
 
-**Artist's Statement**
+## Artist's Statement
 
 **t3X is an interactive, audio-responsive, three-dimensional visualisation of Twitter data. The tweets displayed are based on a randomly selected search criterion relating to the theme of ‘chance events and randomness’ as these ideas might be applied to art. Users can manipulate the three-dimensional space using physical gestures and an analogue controller.**
 
@@ -34,7 +34,7 @@ Sabrina Raaf's 'Translator II: Grower' (Raff, 2017) is a work that is activated 
 
 Ultimately, the aim of t3X is to engage the audience. During the exhibition, I hope to see people having fun experimenting with the gestural control mechanism and the audio-responsive aspects. The output will be projected onto a side wall and hopefully this will attract and encourage others to have a go with t3X Twitter visualisation.
 
-**References**
+## References
 
 - Cage, J. (2017). *John Cage :: Official Website*. [online] Johncage.org. Available at: <a href="http://johncage.org/">http://johncage.org/</a> [Accessed 18 May 2017].
 

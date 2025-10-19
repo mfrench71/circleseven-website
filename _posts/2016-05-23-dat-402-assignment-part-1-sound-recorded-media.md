@@ -10,7 +10,7 @@ Brief: Working individually create a radiophonic sound work that responds to one
 
 Using the class sessions you should develop your sound work and mix it appropriately as well as explore the ideas in your reading. The piece should be accompanied by a Word document (.doc) that gives a short explanation of your thinking, and a list of sources of sounds and ideas in Harvard bibliographic referencing style that are included in the work, or support your topic.
 
-**Deliverables – your work should include these as minimum:**
+## Deliverables – your work should include these as minimum:
 
 - A radiophonic response to one or a number of the key ideas in your chosen essay – 2-10 minutes long, exported as a 24bit Wav and uploaded to the DLE.
 
@@ -53,7 +53,7 @@ To that end, I roamed my local area, recording the sounds of water, birds, foots
 
 <h3>A breakdown of the final sound design piece</h3>
 
-**Introduction**
+## Introduction
 
 Using a shotgun microphone and Zoom recorder, I recorded an out of tune radio broadcast whilst sitting in a car. This then transitions into an introductory voiceover using my own voice affected using a 'telephone voice' audio effect. This is to suggest the interruption of a radio programme by the announcer. To add emphasis to the final 'sound design' words of the voiceover, the audio is enhanced with a reverb effect.
 
@@ -61,23 +61,23 @@ What follows is a voiceover to give some background to my piece. The quotes are 
 
 The voiceover continues, explaining my aims and thinking for the sound work and is accompanied by an excerpt from John Williams' *Main Theme* from the *Star Wars* score.
 
-**Part 1**
+## Part 1
 
 I recorded the sound of primary school children playing outside at a school that is around the corner from where I live. The first audio clip is, essentially, as recorded. The second part features the same audio clip, but with the pitch shifted down and some reverberation to give a more sinister feel to the sound. This demonstrates how the same sound clip can be used to create a contrast or sense of place or evoke contrasting emotions.
 
-**Part 2**
+## Part 2
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-02-29-08.50.53-scaled-1-225x300.jpg" width="225" height="300" alt="" loading="lazy"></a></figure>
 
 This sequence is an attempt to emulate Ben Burtt's sound design for the cantina sequence in *Star Wars*. The recording is an assembly of street sounds and music and traffic combined with recordings of our dog (at both the original pitch and a raised pitch) and birdsong during a dawn chorus. The animal sounds are shifted in the stereo field to give an impression of space and immersion within the created audio environment.
 
-**Part 3**
+## Part 3
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/2016-05-09-12.39.08-scaled-1-300x225.jpg" width="300" height="225" alt="" loading="lazy"></a></figure>
 
 My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling of a mechanical/technological atmosphere.
 
-**Part 4**
+## Part 4
 
 I wanted to experiment with some vocalisation effects to achieve my own version of the iconic voice of Darth Vader from the *Star Wars* films. The original Darth Vader voice was created with the use of SCUBA breathing equipment. I recorded my own voice, which I enhanced with pitch shift, reverberation and modulation effects such as subtle flange and chorus to achieve an approximation of the original. This section is accompanied by *The Imperial March* theme from the *Star Wars* movies. The appearance of Darth Vader in the film franchise is almost always accompanied by this piece of music, so it seemed fitting for me to use this to make use of its status as a piece that evokes an image of overwhelming power and tyranny.
 
@@ -85,7 +85,7 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/04/IMG_1785-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/04/IMG_1785-scaled-1-300x225.jpg" width="300" height="225" alt="" loading="lazy"></a></figure>
 
-**Literary References**
+## Literary References
 
 - LoBrutto, V. (1994) *Sound-on-film: Interviews with creators of film sound*. United States: Greenwood Publishing Group.
 
@@ -95,7 +95,7 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 - Whittington, W. (2007) *Sound design and science fiction*. Austin: University of Texas Press.
 
-**Audio References**
+## Audio References
 
 - Coltsrock56 (2012) *John Williams - Star Wars main theme (full)*. Available at: <a href="https://www.youtube.com/watch?v=_D0ZQPqeJkk">https://www.youtube.com/watch?v=_D0ZQPqeJkk</a> (Accessed: 12 May 2016).
 

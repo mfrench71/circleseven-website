@@ -6,7 +6,7 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 tags: ["DAT503", "Sound"]
 
 ---
-**John Cage - 4:33 silence**
+## John Cage - 4:33 silence
 
 During the first part of today's workshop we witnessed a recreation of John Cage's 4'33 piece, performed by our lecturer.
 

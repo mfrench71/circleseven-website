@@ -8,7 +8,7 @@ tags: ["DAT401", "Photoshop", "Python", "Sound", "Video"]
 ---
 **Mashups and remixes** are a form of collage; placing found elements next to each other to create something new. They might be music mashups which (more or less) skilfully combine different songs into a new whole, comedy mashups of different videos or adbusts in which an advert is subverted by overlaying it with a new soundtrack.
 
-**Workshop Activity**
+## Workshop Activity
 
 During the mashup workshop and using Youtube's video editor functionality, I experimented with video material of special forces personnel taking part in a training exercise using an assault course. This was overplayed with audio of the *Everything is Awesome* song from *The Lego Movie* soundtrack.
 

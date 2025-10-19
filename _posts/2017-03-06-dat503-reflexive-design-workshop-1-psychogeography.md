@@ -6,9 +6,9 @@ categories: ["DAT503 - Reflexive Design", "Digital Art and Technology"]
 tags: ["DAT503", "Photography", "Sound"]
 
 ---
-**Psychogeography**
+## Psychogeography
 
-**Definitions:**
+## Definitions:
 
 Psychogeography
 

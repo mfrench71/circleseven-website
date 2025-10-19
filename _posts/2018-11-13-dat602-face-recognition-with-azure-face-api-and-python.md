@@ -14,7 +14,7 @@ If I could get this working, I could use this for our reworked uSense project, t
 
 As I had some familiarity with scripting in Python from previous assignments, I decided to use this to test calls to the face recognition API.
 
-**Testing the Pi Camera**
+## Testing the Pi Camera
 
 The first step was to ensure that the Pi camera was functioning correctly!
 
@@ -22,7 +22,7 @@ The first step was to ensure that the Pi camera was functioning correctly!
 print('Taking photo')
 camera.capture('test.jpg')</pre>
 
-**Testing Face - Detect**
+## Testing Face - Detect
 
 <p>The next step was to test the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236">Face - Detect API</a> call on a test image. The Python script below will take an image from a local path, post it to Azure's /'detect' endpoint and identify if there are any faces in the photo. If there are, the script will draw a blue rectangle around the faces.</p>
 
@@ -64,7 +64,7 @@ Here is a sample test result:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_detect-e1541676689943-1024x723.png" width="1024" height="723" alt="" loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
 
-**PersonGroup - Create**
+## PersonGroup - Create
 
 <p>With a successful Face - Detect complete, a <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244">Person Group</a> has to be created for use with identification at a later stage.</p>
 
@@ -87,7 +87,7 @@ data = response.read()
 print(data)
 conn.close()</pre>
 
-**PersonGroup Person - Create**
+## PersonGroup Person - Create
 
 With a PersonGroup initialised, it can be populated with people and faces using the PersonGroup Person - Create API call.
 
@@ -144,7 +144,7 @@ def addFaceToPerson(list):
 
 addFaceToPerson(addPeople())</pre>
 
-**PersonGroup Person - List**
+## PersonGroup Person - List
 
 <p>To verify the information in my PersonGroup, the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395241">PersonGroup Person - List API</a> call can be used.</p>
 
@@ -229,7 +229,7 @@ Here is the ouput
  }
 ]</pre>
 
-**PersonGroup - Train**
+## PersonGroup - Train
 
 <p>The PersonGroup has been populated with people and their faces. The PersonGroup can now be trained to recognise the faces using the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249">PersonGroup - Train API</a> call.</p>
 
@@ -247,7 +247,7 @@ response = conn.getresponse()
 data = json.loads(response.read())
 print(data) # should be empty</pre>
 
-**PersonGroup Identify**
+## PersonGroup Identify
 
 <p>We now have a PersonGroup trained with the faces of known users of the system. The <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239">Identify API</a> call accepts a list of faceIds from detectFace and returns the personId and a confidence value of possible matches. The personId can be used to retrieve the person's name and the confidence value as a measure of recognition.</p>
 
@@ -389,6 +389,6 @@ client.connect(broker_address, port=port) #connect to broker
 client.publish("DAT602/test", getName(result[0][0]))
 client.disconnect()</pre>
 
-**Bibliography**
+## Bibliography
 
 <p>Microsoft (no date) *Face*. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>

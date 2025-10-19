@@ -16,7 +16,7 @@ From the user manual:
 
 <p>For some further context for these articles, please see<a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121"> 'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
 
-**White Lightning Feature**
+## White Lightning Feature
 
 Last month we had a program that scrolled a landscape left and right. This month we have a window scrolling in eight possible directions under keyboard control. (Phew! Advanced stuff, eh?)
 
@@ -32,7 +32,7 @@ If you want to use your own keys, then here are the keyboard numbers (what a ser
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2236-e1520947600686-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2236-e1520947600686-300x225.jpg" width="300" height="225" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
-**Notes on conversion:**
+## Notes on conversion:
 
 Line 0: sets up the dimensions and positions of the window.
 
@@ -50,7 +50,7 @@ Next month: Who knows, I certainly don't. Something good as usual.
 
 Matthew F.
 
-**The Originals**
+## The Originals
 
 <div class="gallery">
 

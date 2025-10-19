@@ -6,11 +6,11 @@ categories: ["DAT613 - Dissertation", "Digital Art and Technology"]
 tags: ["Academic", "DAT613", "Photogrammetry"]
 
 ---
-**Title/Question**
+## Title/Question
 
-**Can artificial intelligence enhance the practice of digital cultural heritage?**
+## Can artificial intelligence enhance the practice of digital cultural heritage?
 
-**Outline of area of study/context**
+## Outline of area of study/context
 
 I’ve always had an interest in technology and in history. When I saw the television advertisement for Microsoft’s Artificial Intelligence services that featured Yves Ubelmann’s photogrammetry work in Syria, I was intrigued. I had carried out some basic photogrammetry and worked with Microsoft’s Face API on previous projects so the combination of photogrammetry with AI, particularly in an historical context, was something I wanted to explore further.
 
@@ -18,15 +18,15 @@ There seems now the potential for burgeoning artificial intelligence capabilitie
 
 Furthermore, the use of artificial intelligence in other areas of digital culture will be explored, specifically artificially-intelligent agents and virtual worlds,  and museum and curatorial practice.
 
-**Methodology**
+## Methodology
 
 Secondary information sources will be used to establish and review the current state of the use of artificial intelligence techniques as they are applied to digital cultural heritage. In turn, further qualitative research and review will be undertaken to investigate the extent to which artificial intelligence is being employed in this field, comparisons drawn between practitioners, and the potential for future developments.
 
-**Aims**
+## Aims
 
 The aim of this dissertation is to investigate how artificial intelligence techniques are being applied to digital cultural heritage practices and to establish what enhancement looks like in these fields, be it enhanced image quality in photogrammetry, a more human-like interaction in intelligent agents, or an improved learning outcome for museums and curatorial practices.
 
-**Bibliography**
+## Bibliography
 
 Cosido, O. et al. (2014) *Hybridization of Convergent Photogrammetry, Computer Vision, and Artificial Intelligence for Digital Documentation of Cultural Heritage - A Case Study: The Magdalena Palace:* 2014 International Conference on Cyberworlds. Santander, Spain, 6–8 October. Available at: <a href="https://ieeexplore-ieee-org.plymouth.idm.oclc.org/document/6980785?arnumber=6980785">https://ieeexplore-ieee-org.plymouth.idm.oclc.org/document/6980785?arnumber=6980785</a> (Accessed: 2 January 2019).
 

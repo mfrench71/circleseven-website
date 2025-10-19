@@ -14,23 +14,23 @@ tags: ["Photoshop"]
 
 <h2>Zynaps</h2>
 
-**The Scenario**
+## The Scenario
 
 Our daring hero has just escaped from an alien space station in his omnipotent Scorpion fighter, and is now travelling in deep space. He must now struggle against all odds through an asteroid field and then to a nearby planet, acquiring weaponry and upgrading his fighter craft. Finally, he must search for the alien base, where the final conflict can begin ...
 
-**The Weaponry**
+## The Weaponry
 
 Pulse lasers are used for dealing with the swarms of marauding aliens and have several power settings. Plasma bombs can be launched by two independent throwers and are ideal for destroying ground based targets. Homing missiles are scaled down planet bursting warheads and, after being locked onto a target, they will will destroy any large craft. Seeker missiles are the most effective large scale destruction device. They carry advanced circuitry enabling them to lock onto a target and destroy it if they are able.
 
-**The Opposition**
+## The Opposition
 
 Small craft attack your Scorpion in droves, but can be despatched with a quick burst of laser fire. Ground installations are dangerous and require either multiple laser strikes or a single plasma bomb or seeker missile to destroy them. Alien command ships are a more formidable opponent, being both well armed and protected, so destroying them requires multiple laser hits or a homing missile. Mother ships are rapid vessels, similar to command ships but much larger. Natural hazards include asteroids and flying debris. A warning is given - alien craft have a variety of missiles and mines at their disposal.
 
-**The Ship**
+## The Ship
 
 The Mk. 1 Scorpion fighter craft is equipped with a wide range of weaponry and a fuel scoop. The ship is propelled by drive units which can be adjusted to one of four velocity settings depending upon your flying requirements. The fuel scoops provide your Scorpion's energy. You need it to activate your weapons systems and collecting fuel does this. To collect fuel, you go into activation mode and your ship flashes. To select different weapons, you must collect fuel without going into activation mode.
 
-**Scoring**
+## Scoring
 
 Destroying complete waves and individual aliens get you points. A bonus life is give at 10,000 points and every 20,000 thereafter.
 

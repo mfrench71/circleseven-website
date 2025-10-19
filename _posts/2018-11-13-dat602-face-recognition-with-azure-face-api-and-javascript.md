@@ -20,7 +20,7 @@ Whilst the scripts functioned in the way I intended, the usability of the Python
 
 To overcome these weaknesses, I decided to first attempt to implement a basic web-based front-end which would present the face detection and face identification functionality of my Python script into a more usable and friendly form.
 
-**Requirements for Web-Based Face Recognition**
+## Requirements for Web-Based Face Recognition
 
 This basic system would need to:
 
@@ -35,7 +35,7 @@ This basic system would need to:
 - Take the personId returned from step 4 and use a GET request to the PersonGroup Persons API to retrieve the name of the identified user from the previously trained PersonGroup
 </ol>
 
-**The HTML Page**
+## The HTML Page
 
 I developed a basic HTML page with sections to display the live camera preview, the captured image, a button to call the Javascript, and the JSON results returned by the various Face API calls. Bootstrap and JQuery were linked via CDNs and local Javascript files for the webcam and the API calls were linked.
 
@@ -97,7 +97,7 @@ This renders as:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_login_html.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/face_login_html.png" alt="" loading="lazy"></a><figcaption>HTML page</figcaption></figure>
 
-**Capturing a Live Image**
+## Capturing a Live Image
 
 <p>I used <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">WebcamJS</a> to provide the live preview and image capture functionality.</p>
 
@@ -200,7 +200,7 @@ The final result looks like:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/matthew_result-1.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/matthew_result-1.png" alt="" loading="lazy"></a></figure>
 
-**Bibliography**
+## Bibliography
 
 <p>Huckaby, J. (no date) *WebcamJS*. Available at: <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md</a> (Accessed: 13 November 2018).</p>
 

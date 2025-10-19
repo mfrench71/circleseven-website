@@ -12,7 +12,7 @@ The relevant services include tone analysis, sentiment analysis, visual recognit
 
 Having never used this functionality, I decided to create some simple tests using Node-RED and the Watson nodes that are available as plug-ins.
 
-**Speech to Text Sentiment Analysis**
+## Speech to Text Sentiment Analysis
 
 My first test was with the speech to text functionality. This was done using Node-RED via IBM Bluemix on my laptop.
 
@@ -36,7 +36,7 @@ The results from different spoken words:
 
 <figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/Screenshot-2018-10-27-at-12.44.13.png" alt="" loading="lazy"></a></figure>
 
-**Tweet Sentiment Analysis**
+## Tweet Sentiment Analysis
 
 The following flow is similar to the speech to text sentiment analysis flow. This time, I used the Twitter input node to monitor the tweets of a specific user (me):
 
@@ -60,7 +60,7 @@ Returns a negative sentiment result.
 
 Returns a positive sentiment result.
 
-**Tone Analysis**
+## Tone Analysis
 
 "The Tone Analyzer service uses linguistic analysis to detect emotional tones, social propensities, and writing styles in written communication."
 
@@ -78,7 +78,7 @@ The results from two very different sentences:
 
 As can be seen, 'anger' and other negative tones score highly for the first sentence, while 'joy' scores highly for the second sentence with the other tones scoring zero.
 
-**GitHub**
+## GitHub
 
 As I have developed these Node-RED flows, I have exported the flows as JSON so that they can be shared and imported by other users.
 

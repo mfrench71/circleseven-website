@@ -40,7 +40,7 @@ If you are feeling a bit more ambitious, you might like to add features to:
 
 - Request the nearest item to your current location (as determined by geolocation)
 
-**The result:**
+## The result:
 
 <div class="gallery">
 
