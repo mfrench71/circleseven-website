@@ -32,7 +32,7 @@ sass:
   style: compressed
 
 # Pagination settings
-paginate: 10
+paginate: 9
 paginate_path: "/page/:num/"
 
 # Include admin folder in build
