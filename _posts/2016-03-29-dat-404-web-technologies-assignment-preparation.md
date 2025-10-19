@@ -19,19 +19,19 @@ My chosen professional practice is the field of visual effects and, to that end,
 
 <p>**Industrial Light &amp; Magic** <a href="http://www.ilm.com">http://www.ilm.com</a></p>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/ilm"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ilm" width="300" height="212" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/ilm"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ilm" width="300" height="212" alt="" loading="lazy"></a></figure>
 
 <p>**Double Negative** <a href="http://www.dneg.com">http://www.dneg.com</a></p>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/dneg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dneg" width="300" height="204" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/dneg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dneg" width="300" height="204" alt="" loading="lazy"></a></figure>
 
 <p>**Weta Digital** <a href="https://www.wetafx.co.nz">https://www.wetafx.co.nz</a></p>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/weta"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/weta" width="300" height="277" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/weta"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/weta" width="300" height="277" alt="" loading="lazy"></a></figure>
 
 <p>**Framestore** <a href="http://www.framestore.com">http://www.framestore.com</a></p>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/framestore"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/framestore" width="300" height="275" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/framestore"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/framestore" width="300" height="275" alt="" loading="lazy"></a></figure>
 
 The above four web design examples all make use of a feature or 'hero' image. As providers of a visual medium, these companies naturally want to showcase their services in a visual and eye-catching way.
 
@@ -43,8 +43,8 @@ The remaining three sites (Double Negative, Weta Digital and Framestore) use sim
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/mockup_01_25508271853_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_01_25508271853_o" width="221" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/mockup_02_26044527901_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_02_26044527901_o" width="221" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/mockup_03_26085912016_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_03_26085912016_o" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/mockup_01_25508271853_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_01_25508271853_o" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/mockup_02_26044527901_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_02_26044527901_o" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/mockup_03_26085912016_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_03_26085912016_o" width="221" height="300" alt="" loading="lazy"></a></figure>
 
 </div>

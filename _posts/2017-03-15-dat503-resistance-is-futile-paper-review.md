@@ -18,8 +18,8 @@ This paper asserts that design-oriented thinking is a collective imagining influ
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/dourish-headshot"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/dourish-headshot" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/dourish-headshot 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/dourish-headshot 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/dourish-headshot 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/genevieve-bell"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/genevieve-bell" width="760" height="1024" alt="" loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/dourish-headshot"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/dourish-headshot" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/dourish-headshot 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/dourish-headshot 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/dourish-headshot 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/genevieve-bell"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/genevieve-bell" width="760" height="1024" alt="" loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
 
 </div>
 
@@ -27,7 +27,7 @@ The authors cite the example of *Star Trek* directly influencing the research an
 
 Furthermore, science fiction is regarded as a context helpfully providing a familiar and recognisable backdrop against which we can understand technological advancements. For example, the Esper machine in Ridley Scott's *Bladerunner* film foreshadows image manipulation and search technology by several decades. However, frustration can arise when our new technology does not live up to the our expectations based upon the imaginings of science fiction writers, artists and filmmakers.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/5624b2201761298dfb59719b5525ebf1-1 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>The Esper machine, from Bladerunner</figcaption></figure>
 
 Science fiction uses "techniques of extrapolation and speculation ... in a narrative form, to construct near- future, far-future, or fantastic worlds in which science, technology, and society intersect" (Thacker, 2001).
 
@@ -44,8 +44,8 @@ The authors chose the following selection of broadcasts because of their interse
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica" width="738" height="1024" alt="" loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1600,q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze" width="628" height="1024" alt="" loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica" width="738" height="1024" alt="" loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze" width="628" height="1024" alt="" loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
 
 </div>
 

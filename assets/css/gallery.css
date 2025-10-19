@@ -201,8 +201,8 @@ body.glightbox-open {
 
 /* Ensure lightbox images fit within viewport */
 .gslide-image img {
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 85vw;
+  max-height: 85vh;
   width: auto;
   height: auto;
   object-fit: contain;
