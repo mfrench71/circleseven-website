@@ -39,7 +39,8 @@ This basic system would need to:
 
 I developed a basic HTML page with sections to display the live camera preview, the captured image, a button to call the Javascript, and the JSON results returned by the various Face API calls. Bootstrap and JQuery were linked via CDNs and local Javascript files for the webcam and the API calls were linked.
 
-<pre class="EnlighterJSRAW" data-enlighter-language="html" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">&lt;!doctype html>
+```html
+&lt;!doctype html>
 &lt;html lang="en">
  &lt;head>
  &lt;!-- Required meta tags -->
@@ -91,7 +92,8 @@ I developed a basic HTML page with sections to display the live camera preview, 
  &lt;script src="webcam.min.js">&lt;/script>
  &lt;script src="javascript.js">&lt;/script>
 &lt;/body>
-&lt;/html></pre>
+&lt;/html>
+```
 
 This renders as:
 
@@ -105,7 +107,8 @@ This renders as:
 
 The code to initialise the camera:
 
-<pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">Webcam.set({
+```js
+Webcam.set({
  width: 320,
  height: 240,
  image_format: 'jpeg',
@@ -114,11 +117,13 @@ The code to initialise the camera:
 Webcam.attach('#my_camera');
 
 var canvas = document.getElementById('viewport'),
- context = canvas.getContext('2d')</pre>
+ context = canvas.getContext('2d')
+```
 
 A button is used to allow the user to take a picture. This is linked to the take_snapshot() function which takes the image data and posts it to the Detect API call. If a face is detected, the results are returned and the HTML page updated accordingly:
 
-<pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function take_snapshot() {
+```js
+function take_snapshot() {
  // take snapshot and get image data
  Webcam.snap(function(data_uri) {
  base_image = new Image();
@@ -151,11 +156,13 @@ A button is used to allow the user to take a picture. This is linked to the take
  });
  }
  });
-};</pre>
+};
+```
 
 After the face detection API call, the identify() function is called to post the faceId returned from the take_snapshot() function to the Identify API endpoint. The results are then used to update the HTML page:
 
-<pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function identify(faceIdGlobal) {
+```js
+function identify(faceIdGlobal) {
  $.post({
  url: "https://westus.api.cognitive.microsoft.com/face/v1.0/identify",
  contentType: "application/json",
@@ -172,11 +179,13 @@ After the face detection API call, the identify() function is called to post the
  .fail(function() {
  alert("error");
  });
- };</pre>
+ };
+```
 
 Finally, the getName() function is called with the personId returned from the identify() function. This retrieves the name of the user identified and updates the HTML page:
 
-<pre class="EnlighterJSRAW" data-enlighter-language="js" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">function getName(personIdGlobal) {
+```js
+function getName(personIdGlobal) {
  var params = {
  'personGroupId': 'users',
  'personId': personIdGlobal
@@ -194,7 +203,8 @@ Finally, the getName() function is called with the personId returned from the id
  .fail(function() {
  alert("error");
  });
- }</pre>
+ }
+```
 
 The final result looks like:
 

@@ -16,7 +16,8 @@ Working through six practical tasks, we became familiar with:
  	- Commenting code
 
 The final Processing code produced was:
-<pre class="EnlighterJSRAW" data-enlighter-language="generic">// Declare variables:
+```generic
+// Declare variables:
 
 String forename;
 char gender;
@@ -59,4 +60,5 @@ println("");
 
 println("ttWeeks,tDaystHourstSeconds");
 println("Since last birthdayt" + (numberOfDays/7) + "t" + numberOfDays + "t" + numberOfHours + "t" + (numberOfMinutes * 60));
-println("Until next birthdayt" + (365-numberOfDays)/7 + "t" + (365-numberOfDays) + "t" + numberOfHoursTo + "t" + (numberOfMinutesTo * 60));</pre>
+println("Until next birthdayt" + (365-numberOfDays)/7 + "t" + (365-numberOfDays) + "t" + numberOfHoursTo + "t" + (numberOfMinutesTo * 60));
+```

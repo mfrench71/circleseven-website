@@ -11,7 +11,9 @@ Following on from my <a href="{{ site.baseurl }}/dat-403-task-week-3-character-a
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/2_tjGgVJs0w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 Time remapping is enabled for the character animation nested composition and a  loop expression is added to loop the animation
-<pre class="EnlighterJSRAW" data-enlighter-language="generic">loopOut(type = "cycle", numKeyframes = 0)</pre>
+```generic
+loopOut(type = "cycle", numKeyframes = 0)
+```
 Solid layers are created for the floor and background and all layers are enabled for 3D. The floor and background layers are then adjusted and positioned in Z space.
 
 A light layer (spot light) is added with 'casts shadows' enabled and the 'Character animation' comp layer &gt; material options &gt; casts shadows is set to 'on'.

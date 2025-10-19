@@ -9,7 +9,8 @@ tags: ["Arduino", "DAT406", "JavaScript"]
 This is the result of a practical task with <a href="http://www.arduino.cc">Arduino</a> that uses a potentiometer to vary the flashing speed of an LED. The code listed in this article takes the analogue input from the potentiometer. This value is then used to vary the time between the LED being on and being off.
 
 Arduino code:
-<pre class="EnlighterJSRAW" data-enlighter-language="generic">int sensorPin = 0;
+```generic
+int sensorPin = 0;
 int ledPin = 13;
 
 void setup() {
@@ -24,7 +25,8 @@ delay(sensorValue);
 digitalWrite(ledPin, LOW);
 delay(sensorValue);
 Serial.println(sensorValue);
-}</pre>
+}
+```
 Result:
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/fOmaUUZdB6U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>

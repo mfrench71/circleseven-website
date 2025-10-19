@@ -18,15 +18,18 @@ As I had some familiarity with scripting in Python from previous assignments, I 
 
 The first step was to ensure that the Pi camera was functioning correctly!
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import picamera camera = picamera.PiCamera()
+```python
+import picamera camera = picamera.PiCamera()
 print('Taking photo')
-camera.capture('test.jpg')</pre>
+camera.capture('test.jpg')
+```
 
 ## Testing Face - Detect
 
 <p>The next step was to test the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236">Face - Detect API</a> call on a test image. The Python script below will take an image from a local path, post it to Azure's /'detect' endpoint and identify if there are any faces in the photo. If there are, the script will draw a blue rectangle around the faces.</p>
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64
+```python
+import urllib, httplib, base64
 import requests
 from PIL import Image, ImageDraw
 import sys
@@ -58,7 +61,8 @@ def recogn():
  img.show() # display outlined image 
  
  
-recogn()</pre>
+recogn()
+```
 
 Here is a sample test result:
 
@@ -70,7 +74,8 @@ Here is a sample test result:
 
 "A person group is the container for the uploaded person data, including face images and face recognition features."
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import requests
+```python
+import requests
 import urllib, httplib, base64
 
 KEY = 'XXXXX'
@@ -85,7 +90,8 @@ conn.request("PUT", "/face/v1.0/persongroups/{personGroupId}?%s" % params, body,
 response = conn.getresponse()
 data = response.read()
 print(data)
-conn.close()</pre>
+conn.close()
+```
 
 ## PersonGroup Person - Create
 
@@ -99,7 +105,8 @@ I wanted to use a variety of images, as, during testing, I noticed that the ligh
 
 <p><a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b">Image requirements for the Face API</a>.</p>
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64, json
+```python
+import urllib, httplib, base64, json
 import sys
 import os
 import time
@@ -142,7 +149,8 @@ def addFaceToPerson(list):
  time.sleep(3)
  conn.close()
 
-addFaceToPerson(addPeople())</pre>
+addFaceToPerson(addPeople())
+```
 
 ## PersonGroup Person - List
 
@@ -150,7 +158,8 @@ addFaceToPerson(addPeople())</pre>
 
 "List all persons’ information in the specified person group, including personId, name, userData and persistedFaceIds of registered person faces."
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import httplib, urllib, base64, json
+```python
+import httplib, urllib, base64, json
 
 headers = {
  # Request headers
@@ -171,11 +180,13 @@ try:
  print (data);
  conn.close()
 except Exception as e:
- print("[Errno {0}] {1}".format(e.errno, e.strerror))</pre>
+ print("[Errno {0}] {1}".format(e.errno, e.strerror))
+```
 
 Here is the ouput
 
-<pre class="EnlighterJSRAW" data-enlighter-language="json" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">[ 
+```json
+[ 
  { 
  "personId":"4b334dda-e191-4557-9596-167ff19b0a28",
  "persistedFaceIds":[ 
@@ -227,13 +238,15 @@ Here is the ouput
  "name":"Cass",
  "userData":null
  }
-]</pre>
+]
+```
 
 ## PersonGroup - Train
 
 <p>The PersonGroup has been populated with people and their faces. The PersonGroup can now be trained to recognise the faces using the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249">PersonGroup - Train API</a> call.</p>
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import urllib, httplib, base64, json
+```python
+import urllib, httplib, base64, json
 
 group_id = 'users'
 KEY = 'XXXXX'
@@ -245,7 +258,8 @@ conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')
 conn.request("POST", "/face/v1.0/persongroups/users/train?%s" % params, "{body}", headers)
 response = conn.getresponse()
 data = json.loads(response.read())
-print(data) # should be empty</pre>
+print(data) # should be empty
+```
 
 ## PersonGroup Identify
 
@@ -253,7 +267,8 @@ print(data) # should be empty</pre>
 
 The code for taking a photo of a person, processing their image and comparing it with the list of known users looks like:
 
-<pre class="EnlighterJSRAW" data-enlighter-language="python" data-enlighter-theme="" data-enlighter-highlight="" data-enlighter-linenumbers="" data-enlighter-lineoffset="" data-enlighter-title="" data-enlighter-group="">import requests
+```python
+import requests
 import paho.mqtt.client as mqttClient
 from operator import itemgetter
 from picamera import PiCamera
@@ -387,7 +402,8 @@ client.username_pw_set(user, password=password) #set username and password
 print('Connecting to MQTT broker')
 client.connect(broker_address, port=port) #connect to broker
 client.publish("DAT602/test", getName(result[0][0]))
-client.disconnect()</pre>
+client.disconnect()
+```
 
 ## Bibliography
 
