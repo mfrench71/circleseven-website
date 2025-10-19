@@ -43,10 +43,6 @@
       // Keyboard navigation
       keyboardNavigation: true,
 
-      // Disable zoom so images always fit viewport
-      zoomable: false,
-      draggable: false,
-
       // Skin
       skin: 'clean',
 

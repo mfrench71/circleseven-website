@@ -17,7 +17,7 @@ Brief: Produce an instructional illustration for a divergent use.
 
 After receiving the assignment, my initial idea was to utilise a set of headphones (the kind used for listening to music) as a compact hanging basket with self-watering arrangement. However, during my 45 minute walk home, I developed a different idea which appealed to me more...
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/03/roadkill_recombinator-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/roadkill_recombinator-1" width="300" height="120" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/roadkill_recombinator-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/roadkill_recombinator-1" width="300" height="120" alt="" loading="lazy"></a></figure>
 
 The *Roadkill Recombinator* made use of an old-style manual mincing machine but in a novel way. Rather than the input being leftover cooked meat, the Recombinator took pre-processed roadkill (in the form of 'mince') and produced, via a selection dial, a range of formed cuts of meat, such as chicken breast, leg of lamb, etc.
 
@@ -27,7 +27,7 @@ Development of this idea progressed slowly and during the process of putting tog
 
 During a period of mental downtime, I was browsing Facebook and happened to see a video clip which inspired me to start brainstorming another alternative idea (this time with my partner). The result of this idea generation can be seen here:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/03/pizza-base-ideas-sketch-2-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/pizza-base-ideas-sketch-2" width="300" height="225" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/pizza-base-ideas-sketch-2-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/pizza-base-ideas-sketch-2" width="300" height="225" alt="" loading="lazy"></a></figure>
 
 ## Innovation and Creativity:
 
@@ -45,7 +45,7 @@ The *Pizza Jockey* takes a standard turntable (record player) and re-purposes it
 
 After discussion of a number of ideas for names and accessories, different models and marketing phrases, etc., the above features were incorporated into an instructional image:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/10/assigment_week_01a-e1443776210378"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/assigment_week_01a-e1443776210378" width="300" height="121" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/assigment_week_01a-e1443776210378"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/assigment_week_01a-e1443776210378" width="300" height="121" alt="" loading="lazy"></a></figure>
 
 *Pizza Jockey* can, potentially, still function as a perfectly good record player and so there are opportunities for a dual-purpose device (albeit with highly divergent uses). This is partly why I felt inclined to retain the RPM speeds on the size selector dial which has no relevance to the pizza base functionality of the technology.
 
