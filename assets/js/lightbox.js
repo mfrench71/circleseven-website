@@ -38,6 +38,8 @@
       closeOnOutsideClick: true,
       keyboardNavigation: true,
       skin: 'clean',
+      width: '95vw',
+      height: '90vh',
 
       onOpen: function() {
         document.body.classList.add('glightbox-open');
