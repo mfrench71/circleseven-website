@@ -13,9 +13,6 @@ lang: en-GB
 timezone: Europe/London
 github_username: mfrench71
 
-# Analytics
-cloudflare_analytics_token: YOUR_CLOUDFLARE_ANALYTICS_TOKEN_HERE
-
 # Build settings
 markdown: kramdown
 theme: minima
