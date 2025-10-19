@@ -13,20 +13,20 @@ code {
 
 /* Code blocks */
 pre {
-  background: #282c34;
+  background: #f6f8fa;
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
   margin: 1.5rem 0;
-  border: 1px solid #3e4451;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d0d7de;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 pre code {
   background: transparent;
   border: none;
   padding: 0;
-  color: #abb2bf;
+  color: #24292f;
   font-size: 0.875rem;
   line-height: 1.6;
   display: block;
@@ -34,8 +34,8 @@ pre code {
 
 /* Highlight.js theme customization */
 .hljs {
-  background: #282c34;
-  color: #abb2bf;
+  background: #f6f8fa;
+  color: #24292f;
   padding: 1rem;
   border-radius: 6px;
 }
@@ -48,8 +48,8 @@ pre code {
   -ms-user-select: none;
   user-select: none;
   text-align: right;
-  color: #5c6370;
-  border-right: 1px solid #3e4451;
+  color: #57606a;
+  border-right: 1px solid #d0d7de;
   vertical-align: top;
   padding-right: 8px;
   margin-right: 8px;
@@ -61,17 +61,17 @@ pre::-webkit-scrollbar {
 }
 
 pre::-webkit-scrollbar-track {
-  background: #21252b;
+  background: #eaeef2;
   border-radius: 4px;
 }
 
 pre::-webkit-scrollbar-thumb {
-  background: #4b5263;
+  background: #d0d7de;
   border-radius: 4px;
 }
 
 pre::-webkit-scrollbar-thumb:hover {
-  background: #5c6370;
+  background: #afb8c1;
 }
 
 /* Language label */
@@ -82,11 +82,11 @@ pre[class*="language-"]::before {
   right: 0;
   padding: 2px 8px;
   font-size: 0.7rem;
-  color: #abb2bf;
-  background: #21252b;
+  color: #57606a;
+  background: #eaeef2;
   border-bottom-left-radius: 4px;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* Code block wrapper for better control */
@@ -149,9 +149,9 @@ h6 code {
   right: 8px;
   padding: 4px 8px;
   font-size: 0.75rem;
-  background: #3e4451;
-  color: #abb2bf;
-  border: 1px solid #4b5263;
+  background: #ffffff;
+  color: #24292f;
+  border: 1px solid #d0d7de;
   border-radius: 4px;
   cursor: pointer;
   opacity: 0;
@@ -163,15 +163,16 @@ h6 code {
 }
 
 .copy-code-button:hover {
-  background: #4b5263;
+  background: #f3f4f6;
+  border-color: #afb8c1;
 }
 
 .copy-code-button:active {
-  background: #5c6370;
+  background: #eaeef2;
 }
 
 .copy-code-button.copied {
-  background: #98c379;
-  color: #282c34;
-  border-color: #98c379;
+  background: #2da44e;
+  color: #ffffff;
+  border-color: #2da44e;
 }
