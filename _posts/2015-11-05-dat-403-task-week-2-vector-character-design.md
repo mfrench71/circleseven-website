@@ -14,7 +14,7 @@ Today we were tasked with hand sketching our own character with the aim of placi
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/IMG_1618-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1618-scaled-1" width="822" height="1024" alt="" loading="lazy"></a><figcaption>Vector character initial sketch</figcaption></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/character-design"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/character-design" width="251" height="300" alt="" loading="lazy"></a><figcaption>Vector character design finished image</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/05/IMG_1618-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1618-scaled-1" width="822" height="1024" alt="" loading="lazy"></a><figcaption>Vector character initial sketch</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/05/character-design"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/character-design" width="251" height="300" alt="" loading="lazy"></a><figcaption>Vector character design finished image</figcaption></figure>
 
 </div>

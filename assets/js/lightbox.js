@@ -56,10 +56,6 @@
       // Descriptions from alt text or figcaption
       descPosition: 'bottom',
 
-      // Set max width and height to ensure images fit
-      width: '90vw',
-      height: '90vh',
-
       // Custom callbacks
       onOpen: function() {
         // Add class to body when lightbox is open

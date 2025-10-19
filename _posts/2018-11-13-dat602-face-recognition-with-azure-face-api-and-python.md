@@ -73,7 +73,7 @@ recogn()
 
 Here is a sample test result:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/face_detect-e1541676689943"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_detect-e1541676689943" width="1024" height="723" alt="" loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/05/face_detect-e1541676689943"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_detect-e1541676689943" width="1024" height="723" alt="" loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
 
 ## PersonGroup - Create
 
@@ -106,7 +106,7 @@ With a PersonGroup initialised, it can be populated with people and faces using 
 
 I created an images directory with sub-directories containing photographs of the people I wanted to use to train the face recognition system. The subdirectories were named according to the person's name:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/faces_photos-e1541679916440"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/faces_photos-e1541679916440" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/faces_photos-e1541679916440 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/faces_photos-e1541679916440 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/faces_photos-e1541679916440 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Directory of faces</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/05/faces_photos-e1541679916440"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/faces_photos-e1541679916440" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/faces_photos-e1541679916440 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/faces_photos-e1541679916440 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/faces_photos-e1541679916440 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Directory of faces</figcaption></figure>
 
 I wanted to use a variety of images, as, during testing, I noticed that the lighting conditions when a photo was taken had a subsequent impact on the reliability of face detection.
 

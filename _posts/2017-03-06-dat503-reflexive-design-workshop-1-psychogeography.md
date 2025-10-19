@@ -84,4 +84,4 @@ Now walk the route:
 
 **04:30 - 04:38** I now felt myself to be on familiar territory with the University campus just across the road. I could see the large screen display from The House building - a building I see almost every day as I walk to university. We had completed our circular route, with just a few diversions from our planned route.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,h_1200,q_auto,f_auto/05/psychogeography"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography" width="864" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/c_fit,w_800,h_800,q_auto,f_auto/05/psychogeography"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/psychogeography" width="864" height="1024" alt="" loading="lazy"></a></figure>
