@@ -82,7 +82,7 @@ The core features of the cylcing jacket were to be:
 
 Wearable technology presents its own challenges when it comes to assembling the end product. Luckily we were able get to grips with some, to us, new materials and technologies, such as:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/flora_logo"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/flora_logo" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/flora_logo 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/flora_logo 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/flora_logo 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Adafruit Flora microcontroller</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/flora_logo-e1488013904135"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/flora_logo-e1488013904135" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/flora_logo-e1488013904135 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/flora_logo-e1488013904135 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/flora_logo-e1488013904135 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Adafruit Flora microcontroller</figcaption></figure>
 
 - Adafruit Flora microcontroller
 
@@ -106,7 +106,7 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 ## Speed Meter
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
 
 - We wanted to add an indication of the cyclist’s speed so that other roads users would be aware of how fast the cyclist was travelling (for overtaking).
 

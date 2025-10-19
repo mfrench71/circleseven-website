@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT406
 - Python
-featured_image: 05/IMG_1696-1
+featured_image: 05/IMG_1696-scaled-1
 ---
 Brief: Your task is to link virtual and physical technology in an artistic, thoughtful, engaging and/or playful way. Create a system where a real object controls something on the web, or virtual data controls a real object. Be imaginative and creative and have fun. You might think of it as real-world data visualisation, or using physical objects to make a comment on virtual processes.
 

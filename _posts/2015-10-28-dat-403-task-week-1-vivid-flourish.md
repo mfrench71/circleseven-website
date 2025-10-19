@@ -7,7 +7,7 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT403
-featured_image: 05/Vivid-Effects1
+featured_image: 05/Vivid-Effects1-e1446049275274
 ---
 'Vivid Flourish' advert: a contemporary art style used in many modern commercial and professional art sectors. This creative photo manipulation project focuses on colour and lighting to bring a model into explosive, stylish life.
 

@@ -13,7 +13,7 @@ tags:
 - Photoshop
 - Unity
 - Web Development
-featured_image: 05/usense-mockup-150
+featured_image: 05/usense-mockup-150-e1540204603760
 ---
 ## The Project Brief
 
