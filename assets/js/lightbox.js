@@ -13,12 +13,10 @@
       return;
     }
 
-    // Add glightbox class to all image links (including Cloudinary URLs without extensions)
-    // Only select links that contain img tags (not iframes or other content)
+    // Add glightbox class to image links, excluding video embeds
     const imageLinks = document.querySelectorAll('figure a');
 
     imageLinks.forEach(link => {
-      // Only add glightbox to links that contain an img tag
       const hasImg = link.querySelector('img');
       const isFigureWithVideo = link.closest('figure').querySelector('iframe, video');
 
@@ -30,57 +28,20 @@
     // Group images by post/gallery for better navigation
     groupGalleryImages();
 
-    // Initialize GLightbox with explicit type definition
-    const lightboxElements = [];
-
-    document.querySelectorAll('.glightbox').forEach(link => {
-      const href = link.getAttribute('href');
-      const img = link.querySelector('img');
-
-      lightboxElements.push({
-        'href': href,
-        'type': 'image',  // Force type to image, not inline/iframe
-        'alt': img ? img.alt : '',
-        'description': link.getAttribute('data-glightbox') || ''
-      });
-    });
-
+    // Initialize GLightbox - use simple selector
     const lightbox = GLightbox({
-      // Use elements array instead of selector to force type
-      elements: lightboxElements,
-
-      // Touch navigation
+      selector: '.glightbox',
       touchNavigation: true,
-
-      // Loop through images
       loop: true,
-
-      // Auto focus
-      autoplayVideos: true,
-
-      // Close on outside click
       closeOnOutsideClick: true,
-
-      // Keyboard navigation
       keyboardNavigation: true,
-
-      // Skin
       skin: 'clean',
 
-      // Slide effect
-      slideEffect: 'slide',
-
-      // Descriptions from alt text or figcaption
-      descPosition: 'bottom',
-
-      // Custom callbacks
       onOpen: function() {
-        // Add class to body when lightbox is open
         document.body.classList.add('glightbox-open');
       },
 
       onClose: function() {
-        // Remove class when lightbox closes
         document.body.classList.remove('glightbox-open');
       }
     });
