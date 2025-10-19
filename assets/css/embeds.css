@@ -3,6 +3,15 @@
    Handles YouTube, Vimeo, SoundCloud, and other embeds
    ============================================ */
 
+/* Ensure embed figures don't get gallery styling */
+.post-content figure:has(.embed-container),
+.page-content figure:has(.embed-container),
+figure:has(.embed-container) {
+  margin: 1.5rem 0 !important;
+  text-align: left !important;
+  max-width: 100% !important;
+}
+
 /* Generic responsive embed container */
 .embed-container,
 .wp-block-embed__wrapper,
@@ -39,9 +48,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   border: 0;
+  max-width: none !important;
 }
 
 /* WordPress Block Editor embed figures */
