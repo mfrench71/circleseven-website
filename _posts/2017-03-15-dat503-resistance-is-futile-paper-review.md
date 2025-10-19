@@ -19,7 +19,7 @@ This paper asserts that design-oriented thinking is a collective imagining influ
 <div class="gallery">
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dourish-headshot"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/dourish-headshot" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/dourish-headshot 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/dourish-headshot 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/dourish-headshot 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Paul Dourish</figcaption></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/genevieve-bell-760x1024" width="760" height="1024" alt="" loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/genevieve-bell.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/genevieve-bell" width="760" height="1024" alt="" loading="lazy"></a><figcaption>Genevieve Bell</figcaption></figure>
 
 </div>
 
@@ -44,8 +44,8 @@ The authors chose the following selection of broadcasts because of their interse
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica-738x1024" width="738" height="1024" alt="" loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze-628x1024" width="628" height="1024" alt="" loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/20090704-1971_StarTrekTOSCommunicatorReplica.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/20090704-1971_StarTrekTOSCommunicatorReplica" width="738" height="1024" alt="" loading="lazy"></a><figcaption>Star Trek Communicator</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/NTT_DoCoMo_FOMA_F880iES_bronze.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/NTT_DoCoMo_FOMA_F880iES_bronze" width="628" height="1024" alt="" loading="lazy"></a><figcaption>Clamshell mobile phone</figcaption></figure>
 
 </div>
 

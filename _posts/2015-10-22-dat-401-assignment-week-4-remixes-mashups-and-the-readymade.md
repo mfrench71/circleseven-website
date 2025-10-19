@@ -29,12 +29,12 @@ I was pleasantly surprised by the interest shown by passers by; eight performanc
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/dsc0073_small_22219352209_o-e1670575983810.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/dsc0073_small_22219352209_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0034_small_22219376919_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0034_small_22219376919_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0076_small_22219348019_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0076_small_22219348019_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0051_small_22218215120_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0051_small_22218215120_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0064_small_22218473658_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0064_small_22218473658_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0032_small_22218229290_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0032_small_22218229290_o-681x1024" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2015/10/dsc0073_small_22219352209_o-e1670575983810.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/dsc0073_small_22219352209_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0034_small_22219376919_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0034_small_22219376919_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0076_small_22219348019_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0076_small_22219348019_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0051_small_22218215120_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0051_small_22218215120_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0064_small_22218473658_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0064_small_22218473658_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc0032_small_22218229290_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0032_small_22218229290_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
 
 </div>
 

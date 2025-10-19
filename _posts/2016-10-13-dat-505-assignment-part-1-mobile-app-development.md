@@ -48,11 +48,11 @@ If you are feeling a bit more ambitious, you might like to add features to:
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-01_30267168656_o-176x300" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-02_30267169016_o-176x300" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-03_30216439431_o-176x300" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-04_29671872384_o-176x300" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-05_30267169786_o-176x300" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-01_30267168656_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-01_30267168656_o" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-02_30267169016_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-02_30267169016_o" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-03_30216439431_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-03_30216439431_o" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-04_29671872384_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-04_29671872384_o" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ratemydryer-05_30267169786_o.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ratemydryer-05_30267169786_o" width="176" height="300" alt="" loading="lazy"></a></figure>
 
 </div>
 

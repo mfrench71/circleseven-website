@@ -45,6 +45,17 @@ class CloudinaryMigrator:
             self.stats['errors'].append(f"Backup failed for {file_path}: {e}")
             return False
 
+    def strip_wordpress_sizes(self, filename):
+        """Remove WordPress size suffixes like -1024x768, -300x200, etc."""
+        # Remove extension first
+        name_no_ext = os.path.splitext(filename)[0]
+
+        # Strip WordPress size patterns: -WIDTHxHEIGHT at end of filename
+        # Examples: -1024x768, -300x200, -150x150
+        name_no_ext = re.sub(r'-\d+x\d+$', '', name_no_ext)
+
+        return name_no_ext
+
     def extract_filename(self, url):
         """Extract filename and path from WordPress URL"""
         # Match: /wp-content/uploads/YYYY/MM/filename or {{ site.baseurl }}/wp-content/uploads/YYYY/MM/filename
@@ -54,16 +65,20 @@ class CloudinaryMigrator:
             month = match.group(2)
             filename = match.group(3)
 
-            # Cloudinary public_id: MM/filename (without extension)
+            # Strip WordPress size suffixes and extension
+            clean_name = self.strip_wordpress_sizes(filename)
+
+            # Cloudinary public_id: MM/filename (without extension or size suffix)
             # Using just month (not year/month) to match your Cloudinary structure
-            public_id = f"{month}/{os.path.splitext(filename)[0]}"
+            public_id = f"{month}/{clean_name}"
             return public_id, filename
 
         # Fallback for URLs without date path
         match = re.search(r'/wp-content/uploads/([^"\s<>]+)', url)
         if match:
             filename = match.group(1)
-            return os.path.splitext(filename)[0], filename
+            clean_name = self.strip_wordpress_sizes(filename)
+            return clean_name, filename
 
         return None, None
 

@@ -46,13 +46,13 @@ Century Gothic was chosen as the typeface and I felt this was both simple and el
 
 ## Literature Design
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_artboard_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/illustrator_artboard_palette-225x300" width="225" height="300" alt="" loading="lazy"></a><figcaption>Illustrator art board palette</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_artboard_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/illustrator_artboard_palette" width="225" height="300" alt="" loading="lazy"></a><figcaption>Illustrator art board palette</figcaption></figure>
 
 The corporate literature items were designed in Adobe Illustrator, making use of separate art boards for each item. I designed a letterhead, a business card (front and reverse) and a sample magazine article.
 
 Layers were used to organise guides, images and text for easy selection and editing. Certain layers were locked and hidden during the design process to prevent them being inadvertently edited whilst also isolating those items being edited.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_layers_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/illustrator_layers_palette-229x300" width="229" height="300" alt="" loading="lazy"></a><figcaption>Illustrator layers palette</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/illustrator_layers_palette.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/illustrator_layers_palette" width="229" height="300" alt="" loading="lazy"></a><figcaption>Illustrator layers palette</figcaption></figure>
 
 For consistency the logo was added to Illustrator's symbol library and reused on all other items. For the letterhead and business card, contact details were added using the same typeface as the logo. Certain text elements were utilised a bold green treatment to maintain the corporate colour scheme.
 
@@ -70,13 +70,13 @@ Corporate assets were modelled in 3D Studio Max and then transferred to Cinema 4
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/business-cards_22520824487_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/business-cards_22520824487_o-300x188" width="300" height="188" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22318031703_o-300x195" width="300" height="195" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22520876288_o-300x197" width="300" height="197" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22520914968_o-300x188" width="300" height="188" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22913182696_o-214x300" width="214" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22939166355_o-213x300" width="213" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/letterhead-finished_22925789972_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/letterhead-finished_22925789972_o-300x188" width="300" height="188" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/magazine-article_22939188495_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/magazine-article_22939188495_o-300x188" width="300" height="188" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/business-cards_22520824487_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/business-cards_22520824487_o" width="300" height="188" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22318031703_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22318031703_o" width="300" height="195" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520876288_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22520876288_o" width="300" height="197" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22520914968_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22520914968_o" width="300" height="188" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22913182696_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22913182696_o" width="214" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/corporate-identity-design_22939166355_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/corporate-identity-design_22939166355_o" width="213" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/letterhead-finished_22925789972_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/letterhead-finished_22925789972_o" width="300" height="188" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/magazine-article_22939188495_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/magazine-article_22939188495_o" width="300" height="188" alt="" loading="lazy"></a></figure>
 
 </div>

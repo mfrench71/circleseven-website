@@ -66,7 +66,7 @@ The core features of the cylcing jacket were to be:
 
 - High visibility mode
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/cycling-jacket-1024x789" width="1024" height="789" alt="" loading="lazy"></a><figcaption>LED layout variations</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycling-jacket.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/cycling-jacket" width="1024" height="789" alt="" loading="lazy"></a><figcaption>LED layout variations</figcaption></figure>
 
 ## Testing
 
@@ -76,7 +76,7 @@ The core features of the cylcing jacket were to be:
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/Q2jtvg6xZWQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/cycle-jacket_bb-1024x782" width="1024" height="782" alt="" loading="lazy"></a><figcaption>Cycling jacket Fritzing diagram</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/cycle-jacket_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/cycle-jacket_bb" width="1024" height="782" alt="" loading="lazy"></a><figcaption>Cycling jacket Fritzing diagram</figcaption></figure>
 
 ## Fabrication of the Cycling Jacket
 
@@ -106,7 +106,7 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 ## Speed Meter
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-scaled-1-1024x768" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1936-copy-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1936-copy-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Prototype Bicycle Speed Meter</figcaption></figure>
 
 - We wanted to add an indication of the cyclist’s speed so that other roads users would be aware of how fast the cyclist was travelling (for overtaking).
 
@@ -120,7 +120,7 @@ Wearable technology presents its own challenges when it comes to assembling the 
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/OXasguabfYE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/speed-meter_bb-925x1024" width="925" height="1024" alt="" loading="lazy"></a><figcaption>Speed Meter Fritzing Diagram</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/speed-meter_bb.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/speed-meter_bb" width="925" height="1024" alt="" loading="lazy"></a><figcaption>Speed Meter Fritzing Diagram</figcaption></figure>
 
 ## GPS Tracker
 
