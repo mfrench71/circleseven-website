@@ -19,7 +19,7 @@ I suggested an idea of, again, visually representing Twitter feeds, this time th
 
 After some discussion, the group decided it would be interesting to compare the occurrence of the popular hashtags used by the 2016 United States presidential candidate front runners (Donald Trump, Hillary Clinton, Ted Cruz and Bernie Sanders). Whilst this method would not be accurate as measure of popularity (tweets could be negative), it would give an indication of the interest shown in each candidate which could then be visually represented by balloons.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Rite-Tag-Donald-Trump.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Rite-Tag-Donald-Trump" width="300" height="266" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Rite-Tag-Donald-Trump"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Rite-Tag-Donald-Trump" width="300" height="266" alt="" loading="lazy"></a></figure>
 
 Screen shot from ritetag.com showing popular Twitter hashtags for Donald Trump
 
@@ -31,7 +31,7 @@ Screen shot from ritetag.com showing popular Twitter hashtags for Donald Trump
 
 - Short lifespan of balloons could be indicative of the transient and fickle nature of politics/celebrity
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/87818129_151022626.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/87818129_151022626" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/87818129_151022626"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/87818129_151022626" width="300" height="169" alt="" loading="lazy"></a></figure>
 
 US presidential election - balloons
 

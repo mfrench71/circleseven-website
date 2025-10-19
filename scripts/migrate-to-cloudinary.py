@@ -185,6 +185,39 @@ class CloudinaryMigrator:
 
         return new_content, modified
 
+    def migrate_baseurl_links(self, content, file_path):
+        """Migrate {{ site.baseurl }}/wp-content/uploads links to Cloudinary"""
+        modified = False
+
+        # Pattern for links with {{ site.baseurl }}/wp-content/uploads
+        pattern = r'<a href="\{\{ site\.baseurl \}\}/wp-content/uploads/([^"]+)">'
+
+        def replace_link(match):
+            nonlocal modified
+            url_path = match.group(1)
+
+            # Extract public_id from the path
+            public_id, filename = self.extract_filename(f'/wp-content/uploads/{url_path}')
+            if not public_id:
+                return match.group(0)
+
+            # Generate Cloudinary URL (full resolution for lightbox)
+            cloudinary_url = self.generate_cloudinary_url(public_id, 'q_auto,f_auto')
+
+            modified = True
+            self.changes_log.append({
+                'file': str(file_path),
+                'old_href': f'{{{{ site.baseurl }}}}/wp-content/uploads/{url_path}',
+                'new_href': cloudinary_url,
+                'filename': filename
+            })
+
+            return f'<a href="{cloudinary_url}">'
+
+        new_content = re.sub(pattern, replace_link, content)
+
+        return new_content, modified
+
     def migrate_file(self, file_path):
         """Migrate a single markdown file"""
         self.stats['files_processed'] += 1
@@ -193,7 +226,7 @@ class CloudinaryMigrator:
             content = f.read()
 
         # Check if file has WordPress URLs
-        if 'circleseven.co.uk/wp-content/uploads' not in content:
+        if 'circleseven.co.uk/wp-content/uploads' not in content and 'site.baseurl }}/wp-content/uploads' not in content:
             return False
 
         # Backup file first
@@ -206,7 +239,10 @@ class CloudinaryMigrator:
         # Migrate standalone images
         content, img_modified = self.migrate_standalone_images(content, file_path)
 
-        modified = fig_modified or img_modified
+        # Migrate {{ site.baseurl }}/wp-content/uploads links
+        content, link_modified = self.migrate_baseurl_links(content, file_path)
+
+        modified = fig_modified or img_modified or link_modified
 
         if modified:
             if not self.dry_run:

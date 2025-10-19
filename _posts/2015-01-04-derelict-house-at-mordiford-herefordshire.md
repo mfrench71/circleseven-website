@@ -13,7 +13,7 @@ A pair of images of a derelict black and white house on the Mordiford Loop walk 
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc_0026_16339765756_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0026_16339765756_o" width="199" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/dsc_0025_16178123268_o-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0025_16178123268_o" width="300" height="214" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0026_16339765756_o-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0026_16339765756_o" width="199" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0025_16178123268_o-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc_0025_16178123268_o" width="300" height="214" alt="" loading="lazy"></a></figure>
 
 </div>

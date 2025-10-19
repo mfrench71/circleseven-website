@@ -19,19 +19,19 @@ My chosen professional practice is the field of visual effects and, to that end,
 
 <p>**Industrial Light &amp; Magic** <a href="http://www.ilm.com">http://www.ilm.com</a></p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ilm.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/ilm-300x212.jpg" width="300" height="212" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/ilm.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ilm" width="300" height="212" alt="" loading="lazy"></a></figure>
 
 <p>**Double Negative** <a href="http://www.dneg.com">http://www.dneg.com</a></p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dneg.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/dneg-300x204.jpg" width="300" height="204" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/dneg.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dneg" width="300" height="204" alt="" loading="lazy"></a></figure>
 
 <p>**Weta Digital** <a href="https://www.wetafx.co.nz">https://www.wetafx.co.nz</a></p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/weta.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/weta-300x277.jpg" width="300" height="277" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/weta.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/weta" width="300" height="277" alt="" loading="lazy"></a></figure>
 
 <p>**Framestore** <a href="http://www.framestore.com">http://www.framestore.com</a></p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/framestore.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/framestore-300x275.jpg" width="300" height="275" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/framestore.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/framestore" width="300" height="275" alt="" loading="lazy"></a></figure>
 
 The above four web design examples all make use of a feature or 'hero' image. As providers of a visual medium, these companies naturally want to showcase their services in a visual and eye-catching way.
 
@@ -43,8 +43,8 @@ The remaining three sites (Double Negative, Weta Digital and Framestore) use sim
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_01_25508271853_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_01_25508271853_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_02_26044527901_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_02_26044527901_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_03_26085912016_o.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/mockup_03_26085912016_o-221x300.jpg" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_01_25508271853_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_01_25508271853_o" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_02_26044527901_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_02_26044527901_o" width="221" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/mockup_03_26085912016_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mockup_03_26085912016_o" width="221" height="300" alt="" loading="lazy"></a></figure>
 
 </div>

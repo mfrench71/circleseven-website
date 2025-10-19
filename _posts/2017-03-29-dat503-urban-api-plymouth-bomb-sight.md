@@ -40,7 +40,7 @@ Conceptual sketches and logo ideas:
 
 <p>We were able to access bomb site location data for Plymouth via the City Council Archives. The '<a href="http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND">Bomb Book</a>' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:</p>
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/Page42.jpeg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Page42-1024x848" width="1024" height="848" alt="" loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Page42"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Page42-1024x848" width="1024" height="848" alt="" loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
 
 A small JavaScript application was developed using the Google Maps API to store the location of each site as latitude and longitude coordinates within a GeoJSON file. We collected data on approximately 2000 bombs.
 
@@ -59,7 +59,7 @@ As we read through the accounts of those who had died during the bombing of Plym
 
 Again, we extracted this data and converted it to a JSON file. We wanted to associate casualty data with bomb location data, potentially linking the recorded place of death to a particular bomb. A second small JavaScript application was developed to leverage the Google Maps Geocoding API to take the street address of casualties and convert them to latitude and longitude coordinates. We collected data on approximately 1000 casualties.
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/casualty_json.jpeg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/casualty_json-1024x319" width="1024" height="319" alt="" loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/casualty_json"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/casualty_json-1024x319" width="1024" height="319" alt="" loading="lazy"></a><figcaption>Sample of casualty JSON data</figcaption></figure>
 
 ## How it Works
 

@@ -14,7 +14,7 @@ Today we were tasked with hand sketching our own character with the aim of placi
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1618-scaled-1.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/IMG_1618-scaled-1-822x1024.jpg" width="822" height="1024" alt="" loading="lazy"></a><figcaption>Vector character initial sketch</figcaption></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/character-design.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2023/05/character-design-251x300.jpg" width="251" height="300" alt="" loading="lazy"></a><figcaption>Vector character design finished image</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/IMG_1618-scaled-1.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_1618-scaled-1" width="822" height="1024" alt="" loading="lazy"></a><figcaption>Vector character initial sketch</figcaption></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/character-design.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/character-design" width="251" height="300" alt="" loading="lazy"></a><figcaption>Vector character design finished image</figcaption></figure>
 
 </div>

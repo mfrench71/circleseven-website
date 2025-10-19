@@ -67,7 +67,7 @@ Type <code>6 LOAD</code> then <code>FINAL</code>.
 
 <div class="gallery">
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2232-e1520612840652-scaled.jpg" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://www.circleseven.co.uk/wp-content/uploads/2022/12/IMG_2233-e1520612866457-225x300.jpg" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2232-e1520612840652-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/12/IMG_2232-e1520612840652-scaled" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/12/IMG_2232-e1520612840652-scaled 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/12/IMG_2232-e1520612840652-scaled 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/12/IMG_2232-e1520612840652-scaled 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="{{ site.baseurl }}/wp-content/uploads/2022/12/IMG_2233-e1520612866457-scaled.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2233-e1520612866457" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>

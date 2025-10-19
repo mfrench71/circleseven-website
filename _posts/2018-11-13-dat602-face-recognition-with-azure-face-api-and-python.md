@@ -73,7 +73,7 @@ recogn()
 
 Here is a sample test result:
 
-<figure><a href="{{ site.baseurl }}/wp-content/uploads/2023/05/face_detect-e1541676689943.png"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_detect-e1541676689943" width="1024" height="723" alt="" loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_detect-e1541676689943"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_detect-e1541676689943" width="1024" height="723" alt="" loading="lazy"></a><figcaption>Face detection result</figcaption></figure>
 
 ## PersonGroup - Create
 
