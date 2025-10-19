@@ -10,7 +10,7 @@ tags:
 - DAT401
 - Photography
 - Web Development
-featured_image: 10/dignitas-scaled-1
+featured_image: 10/dignitas-1
 ---
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 
@@ -64,7 +64,7 @@ We thought that individuals may want to communicate information after (or close 
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-scaled-1" width="300" height="169" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas-1" width="300" height="169" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dignitas_detail" width="297" height="300" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr" width="300" height="245" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr_detail"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/dnr_detail" width="300" height="283" alt="" loading="lazy"></a></figure>

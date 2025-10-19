@@ -7,7 +7,7 @@ categories:
 - Retro Computing
 tags:
 - Photoshop
-featured_image: 03/WhiteLightning-e1670345166147
+featured_image: 03/WhiteLightning
 ---
 This is the third (and final) part in a series of Spectrum White Lightning articles originally written in the late 1980s (when I was a teenager) for inclusion in our ZX Spectrum fanzine, 'Arcade'. Having re-read my scribblings almost 30 years later, I don't pretend to understand any of it. It might be useful. It might not. If you do find it useful or, at least, interesting, please leave a comment below.
 
@@ -33,7 +33,7 @@ ENTER and SPACE for left and right. CAPS SHIFT and Z for up and down. SYMBOL SHI
 
 If you want to use your own keys, then here are the keyboard numbers (what a service!)
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2236-e1520947600686-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2236-e1520947600686" width="300" height="225" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2236"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2236" width="300" height="225" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 ## Notes on conversion:
 
@@ -57,7 +57,7 @@ Matthew F.
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2234-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2234" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2235-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2235" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2234"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2234" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2235"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_2235" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>

@@ -10,7 +10,7 @@ tags:
 - Arduino
 - DAT602
 - Tutorial
-featured_image: 05/houseplants-e1546866966913
+featured_image: 05/houseplants
 ---
 ## Homework
 

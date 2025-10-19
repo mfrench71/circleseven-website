@@ -76,8 +76,8 @@ A visit to the Devon Rural Archive confirmed the lack of archive material relati
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_0131-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_0131-scaled-1" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-scaled-1" width="1024" height="642" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_0131-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_0131-1" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/RADFORD-St.-Kevernes-2-circa-1880s-90s-Wightman-1" width="1024" height="642" alt="" loading="lazy"></a></figure>
 
 </div>
 

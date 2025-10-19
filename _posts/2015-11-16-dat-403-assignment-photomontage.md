@@ -21,8 +21,8 @@ Once I had determined the requirements of a typical movie poster, I produced the
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101-e1445962906164"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101-e1445962906164" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-e1445962964594-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-e1445962964594-scaled-1" width="179" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-1" width="179" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>
 
@@ -44,7 +44,7 @@ Silhouettes of protesters wielding placards were superimposed on these backgroun
 
 The silhouettes were creating using a combination of Photoshop and illustrator. Creative Commons licensed images were sourced from Flickr and individuals were isolated from the background using Photoshop's selection tools. The outlines were then created using both Illustrator's Image Trace functionality and manually tracing the image using the Pen tool.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-scaled-1" width="212" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-1" width="212" height="300" alt="" loading="lazy"></a></figure>
 
 Fictitious movie poster tropes were added to the image, including prominent star reviews, a tag line, cinema release date, a hash tag call to action and credits, including cast, crew, website and industry logos.
 
