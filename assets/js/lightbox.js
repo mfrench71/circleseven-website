@@ -13,8 +13,8 @@
       return;
     }
 
-    // Add glightbox class to all image links
-    const imageLinks = document.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"]');
+    // Add glightbox class to all image links (including Cloudinary URLs without extensions)
+    const imageLinks = document.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
 
     imageLinks.forEach(link => {
       link.classList.add('glightbox');
@@ -86,7 +86,7 @@
     const postContents = document.querySelectorAll('.post-content, .page-content, article');
 
     postContents.forEach((content, index) => {
-      const imageLinks = content.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"]');
+      const imageLinks = content.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]');
 
       // Add gallery attribute to group images
       if (imageLinks.length > 1) {
@@ -119,7 +119,7 @@
           if (node.nodeType === 1) { // Element node
             // Find new image links
             const newImageLinks = node.querySelectorAll ?
-              node.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"]') :
+              node.querySelectorAll('figure a[href*=".jpg"], figure a[href*=".jpeg"], figure a[href*=".png"], figure a[href*=".gif"], figure a[href*=".webp"], figure a[href*="cloudinary.com/"]') :
               [];
 
             if (newImageLinks.length > 0) {
