@@ -69,7 +69,14 @@
   <!-- Highlight.js for syntax highlighting -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
+  <script>
+    // Configure Highlight.js to ignore unescaped HTML warning
+    // Kramdown escapes HTML in code blocks automatically
+    document.addEventListener('DOMContentLoaded', function() {
+      hljs.configure({ ignoreUnescapedHTML: true });
+      hljs.highlightAll();
+    });
+  </script>
 
   <!-- GLightbox JS (load synchronously before our custom script) -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js" crossorigin="anonymous"></script>
