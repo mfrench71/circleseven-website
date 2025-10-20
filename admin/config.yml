@@ -56,7 +56,8 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Categories", name: "categories", widget: "string", required: false}
+      - {label: "Categories", name: "categories", widget: "list", required: false, hint: "Add categories for this post (e.g., Projects, Academic, Tutorial)"}
+      - {label: "Tags", name: "tags", widget: "list", required: false, hint: "Add tags to help organize and find related posts"}
       - {label: "Featured Image", name: "image", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
 
