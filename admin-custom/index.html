@@ -162,6 +162,22 @@
           </div>
         </div>
 
+        <!-- Image Modal -->
+        <div id="image-modal-overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4" style="z-index: 9999;" onclick="closeImageModal()">
+          <div class="relative max-w-6xl max-h-full" onclick="event.stopPropagation()">
+            <button
+              onclick="closeImageModal()"
+              class="absolute -top-10 right-0 text-white hover:text-gray-300 transition"
+              title="Close (Esc)"
+            >
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+            <img id="image-modal-img" src="" alt="Full size preview" class="max-w-full max-h-screen rounded-lg shadow-2xl" />
+          </div>
+        </div>
+
         <!-- Dashboard Section -->
         <div id="section-dashboard" class="section-panel">
           <h2 class="text-xl font-bold text-gray-900 mb-6">Dashboard</h2>
@@ -504,7 +520,15 @@
                       oninput="updateImagePreview()"
                     />
                     <div id="image-preview" class="hidden mt-2">
-                      <img id="image-preview-img" src="" alt="Image preview" class="w-full h-auto rounded-md border border-gray-200" style="max-height: 200px; object-fit: cover;" />
+                      <a href="#" onclick="event.preventDefault(); openImageModal()" class="block relative group">
+                        <img id="image-preview-img" src="" alt="Image preview" class="rounded-md border border-gray-200" style="max-width: 150px; max-height: 100px; object-fit: cover;" />
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center rounded-md">
+                          <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                          </svg>
+                        </div>
+                      </a>
+                      <p class="text-xs text-gray-500 mt-1">Click to view full size</p>
                     </div>
                   </div>
 

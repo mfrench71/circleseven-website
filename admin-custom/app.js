@@ -1159,6 +1159,35 @@ function updateImagePreview() {
   }
 }
 
+// Open image modal
+function openImageModal() {
+  const imageUrl = document.getElementById('post-image').value.trim();
+  const modalOverlay = document.getElementById('image-modal-overlay');
+  const modalImg = document.getElementById('image-modal-img');
+
+  if (imageUrl && isValidUrl(imageUrl)) {
+    modalImg.src = imageUrl;
+    modalOverlay.classList.remove('hidden');
+
+    // Close on Escape key
+    document.addEventListener('keydown', handleImageModalEscape);
+  }
+}
+
+// Close image modal
+function closeImageModal() {
+  const modalOverlay = document.getElementById('image-modal-overlay');
+  modalOverlay.classList.add('hidden');
+  document.removeEventListener('keydown', handleImageModalEscape);
+}
+
+// Handle Escape key for image modal
+function handleImageModalEscape(e) {
+  if (e.key === 'Escape') {
+    closeImageModal();
+  }
+}
+
 // ===== TRASH MANAGEMENT =====
 
 let allTrashedPosts = [];
