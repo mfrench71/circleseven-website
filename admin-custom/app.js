@@ -765,14 +765,9 @@ function renderPostsList() {
     const title = post.frontmatter?.title || post.name;
     const date = formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
-    const tags = post.frontmatter?.tags || [];
 
     const categoriesBadges = Array.isArray(categories)
       ? categories.map(cat => `<span class="badge badge-category">${escapeHtml(cat)}</span>`).join('')
-      : '';
-
-    const tagsBadges = Array.isArray(tags)
-      ? tags.map(tag => `<span class="badge badge-tag">${escapeHtml(tag)}</span>`).join('')
       : '';
 
     return `
@@ -783,7 +778,6 @@ function renderPostsList() {
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
         <td class="px-4 py-3 text-sm">${categoriesBadges || '<span class="text-gray-400">-</span>'}</td>
-        <td class="px-4 py-3 text-sm">${tagsBadges || '<span class="text-gray-400">-</span>'}</td>
         <td class="px-4 py-3 text-right whitespace-nowrap">
           <button
             onclick="event.stopPropagation(); editPost('${escapeHtml(post.name)}')"
