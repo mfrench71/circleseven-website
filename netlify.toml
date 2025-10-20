@@ -13,16 +13,12 @@
   to = "/admin/index.html"
   status = 200
 
-# Relaxed CSP for admin areas (Decap CMS and custom admin)
-[[headers]]
-  for = "/admin/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "no-referrer-when-downgrade"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http: blob:; font-src 'self' data: https: http:; connect-src 'self' https: http: wss:; frame-src 'self' https: http:; frame-ancestors 'self'"
+[[redirects]]
+  from = "/admin-custom/*"
+  to = "/admin-custom/index.html"
+  status = 200
 
+# Relaxed CSP for custom admin (must come before /admin/* to take precedence)
 [[headers]]
   for = "/admin-custom/*"
   [headers.values]
@@ -32,7 +28,17 @@
     Referrer-Policy = "no-referrer-when-downgrade"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http: blob:; font-src 'self' data: https: http:; connect-src 'self' https: http: wss:; frame-src 'self' https: http:; frame-ancestors 'self'"
 
-# Stricter CSP for public site
+# Relaxed CSP for Decap CMS admin
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http: blob:; font-src 'self' data: https: http:; connect-src 'self' https: http: wss:; frame-src 'self' https: http:; frame-ancestors 'self'"
+
+# Stricter CSP for public site (must come last as fallback)
 [[headers]]
   for = "/*"
   [headers.values]
