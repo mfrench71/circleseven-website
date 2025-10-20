@@ -286,3 +286,23 @@ label {
 @media (min-width: 640px) {
   .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
 }
+
+/* Collapsible details/summary */
+details summary {
+  list-style: none;
+  user-select: none;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+  font-size: 0.75rem;
+}
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+.cursor-pointer { cursor: pointer; }

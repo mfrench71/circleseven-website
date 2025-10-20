@@ -222,6 +222,19 @@
         <div id="section-taxonomy" class="section-panel hidden">
           <h2 class="text-xl font-bold text-gray-900 mb-6">Taxonomy Management</h2>
 
+          <!-- Collapsible Help -->
+          <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+              How to use
+            </summary>
+            <div class="px-4 pb-3 pt-2">
+              <ul class="text-sm text-blue-800 space-y-1">
+                <li>• Drag items to reorder • Click edit icon to rename • Click trash to delete</li>
+                <li>• Changes are saved to GitHub and the site rebuilds automatically (1-2 min)</li>
+              </ul>
+            </div>
+          </details>
+
           <!-- Two Column Layout for Categories and Tags -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- Categories Panel -->
@@ -292,7 +305,7 @@
           </div>
 
           <!-- Save Button -->
-          <div class="mb-6 flex justify-center">
+          <div class="flex justify-center">
             <button
               onclick="saveTaxonomy()"
               id="save-btn"
@@ -301,23 +314,23 @@
               Save Changes
             </button>
           </div>
-
-          <!-- Help Text -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 class="font-semibold text-blue-900 mb-2">How to use:</h3>
-            <ul class="text-sm text-blue-800 space-y-1">
-              <li>• Drag items to reorder them</li>
-              <li>• Click the edit icon to rename an item</li>
-              <li>• Click the trash icon to delete an item</li>
-              <li>• Click "Save Changes" - everything syncs automatically!</li>
-            </ul>
-            <p class="text-xs text-blue-700 mt-3">After saving, changes are committed to GitHub and the site rebuilds automatically. Changes appear in 1-2 minutes.</p>
-          </div>
         </div>
 
         <!-- Settings Section -->
         <div id="section-settings" class="section-panel hidden">
           <h2 class="text-xl font-bold text-gray-900 mb-6">Site Settings</h2>
+
+          <!-- Collapsible Help -->
+          <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+              Important
+            </summary>
+            <div class="px-4 pb-3 pt-2">
+              <p class="text-sm text-blue-800">
+                Saving settings updates your _config.yml file and triggers an automatic site rebuild. Changes will be live in approximately 1-2 minutes.
+              </p>
+            </div>
+          </details>
 
           <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <form id="settings-form" onsubmit="saveSettings(event)">
@@ -465,15 +478,6 @@
                 </button>
               </div>
             </form>
-          </div>
-
-          <!-- Help Text -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 class="font-semibold text-blue-900 mb-2">Important:</h3>
-            <p class="text-sm text-blue-800">
-              Saving settings will update your _config.yml file and trigger an automatic site rebuild.
-              Changes will be live in approximately 1-2 minutes after saving.
-            </p>
           </div>
         </div>
       </main>
