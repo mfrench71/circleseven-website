@@ -1,8 +1,11 @@
 source "https://rubygems.org"
 
-# Jekyll - using latest stable version (not constrained by GitHub Pages)
-gem "jekyll", "~> 4.3"
+# Jekyll - using 4.3.x to avoid sass-embedded build issues on Netlify
+gem "jekyll", "~> 4.3.0"
 gem "minima", "~> 2.5"
+
+# Use sassc instead of sass-embedded for better Netlify compatibility
+gem "jekyll-sass-converter", "~> 2.2"
 
 # Jekyll plugins
 group :jekyll_plugins do
