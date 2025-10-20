@@ -14,10 +14,27 @@
 
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <!-- Netlify Deploy Status Badge -->
-  <script async src="https://api.netlify.com/api/v1/badges/96601e8b-600c-4aa5-acd1-e91aa68cafad/deploy-status.js"></script>
+  <style>
+    /* Deploy status badge styling */
+    .deploy-status-badge {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 10000;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
 <body>
+  <!-- Netlify Deploy Status Badge -->
+  <div class="deploy-status-badge">
+    <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener">
+      <img src="https://api.netlify.com/api/v1/badges/96601e8b-600c-4aa5-acd1-e91aa68cafad/deploy-status" alt="Netlify Status" />
+    </a>
+  </div>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
