@@ -9,6 +9,7 @@ This custom admin provides a WordPress-style interface for managing your Jekyll 
 ### Key Features
 
 - ✅ **Post Management** - Create, edit, and delete blog posts with markdown editor
+- ✅ **Media Library** - Browse, upload, search, and manage Cloudinary images
 - ✅ **Taxonomy Management** - Organize categories and tags with drag-and-drop sorting
 - ✅ **Settings Editor** - Modify `_config.yml` through an intuitive interface
 - ✅ **Trash System** - Soft delete with restore capability
@@ -39,8 +40,16 @@ This custom admin provides a WordPress-style interface for managing your Jekyll 
 ### Posts
 - Click **Posts** → **New Post**
 - Fill in title, date, image, categories, tags
+- Use **Browse Library** button to select featured images from Cloudinary
 - Write content in Markdown
 - Click **Save Post**
+
+### Media Library
+- Click **Media Library** → Browse all images from Cloudinary
+- Use search to find images by filename
+- Filter by "All Media", "Images Only", or "Recently Uploaded"
+- Click **Upload Image** to add new files
+- Hover over images for quick actions (Copy URL, View Full Size)
 
 ### Taxonomy
 - Click **Taxonomy** → Add/Edit/Delete categories or tags
