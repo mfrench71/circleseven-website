@@ -8,11 +8,137 @@ let lastSavedState = null; // Store last synced state
 // API endpoints
 const API_BASE = '/.netlify/functions';
 
+// Utility: Debounce function
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Utility: Button loading state
+function setButtonLoading(button, loading, loadingText = 'Loading...') {
+  if (loading) {
+    button.disabled = true;
+    button.dataset.originalText = button.innerHTML;
+    button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
+  } else {
+    button.disabled = false;
+    button.innerHTML = button.dataset.originalText || button.innerHTML;
+  }
+}
+
+// Cached DOM references
+const DOM = {
+  // Populated after DOM is loaded
+  error: null,
+  success: null,
+  loading: null,
+  authGate: null,
+  mainApp: null,
+  // Posts
+  postsListView: null,
+  postsEditorView: null,
+  postsTableBody: null,
+  postsSearch: null,
+  postsSort: null,
+  postsEmpty: null,
+  postsPagination: null,
+  // Post Editor
+  postTitle: null,
+  postDate: null,
+  postImage: null,
+  postContent: null,
+  imagePreview: null,
+  imagePreviewImg: null,
+  // Taxonomy
+  categoriesList: null,
+  tagsList: null,
+  saveBtn: null,
+  // Sections
+  sectionDashboard: null,
+  sectionTaxonomy: null,
+  sectionPosts: null,
+  sectionTrash: null,
+  sectionSettings: null
+};
+
+// Cache DOM elements after page load
+function cacheDOMElements() {
+  DOM.error = document.getElementById('error');
+  DOM.success = document.getElementById('success');
+  DOM.loading = document.getElementById('loading');
+  DOM.authGate = document.getElementById('auth-gate');
+  DOM.mainApp = document.getElementById('main-app');
+
+  // Posts
+  DOM.postsListView = document.getElementById('posts-list-view');
+  DOM.postsEditorView = document.getElementById('posts-editor-view');
+  DOM.postsTableBody = document.getElementById('posts-table-body');
+  DOM.postsSearch = document.getElementById('posts-search');
+  DOM.postsSort = document.getElementById('posts-sort');
+  DOM.postsEmpty = document.getElementById('posts-empty');
+  DOM.postsPagination = document.getElementById('posts-pagination');
+
+  // Post Editor
+  DOM.postTitle = document.getElementById('post-title');
+  DOM.postDate = document.getElementById('post-date');
+  DOM.postImage = document.getElementById('post-image');
+  DOM.postContent = document.getElementById('post-content');
+  DOM.imagePreview = document.getElementById('image-preview');
+  DOM.imagePreviewImg = document.getElementById('image-preview-img');
+
+  // Taxonomy
+  DOM.categoriesList = document.getElementById('categories-list');
+  DOM.tagsList = document.getElementById('tags-list');
+  DOM.saveBtn = document.getElementById('save-btn');
+
+  // Sections
+  DOM.sectionDashboard = document.getElementById('section-dashboard');
+  DOM.sectionTaxonomy = document.getElementById('section-taxonomy');
+  DOM.sectionPosts = document.getElementById('section-posts');
+  DOM.sectionTrash = document.getElementById('section-trash');
+  DOM.sectionSettings = document.getElementById('section-settings');
+}
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
+  cacheDOMElements();
   initAuth();
   handleRouteChange();
+  setupUnsavedChangesWarning();
+  registerServiceWorker();
 });
+
+// Register Service Worker for offline capability
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/admin-custom/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registered:', registration.scope);
+      })
+      .catch(error => {
+        console.log('ServiceWorker registration failed:', error);
+      });
+  }
+}
+
+// Setup unsaved changes warning
+function setupUnsavedChangesWarning() {
+  // Warn before closing/refreshing browser tab
+  window.addEventListener('beforeunload', (e) => {
+    if (postHasUnsavedChanges || settingsHasUnsavedChanges || isDirty) {
+      e.preventDefault();
+      e.returnValue = ''; // Chrome requires returnValue to be set
+      return ''; // For older browsers
+    }
+  });
+}
 
 // Authentication
 function initAuth() {
@@ -38,17 +164,17 @@ function initAuth() {
 }
 
 function showAuthGate() {
-  document.getElementById('auth-gate').classList.remove('hidden');
-  document.getElementById('main-app').classList.add('hidden');
+  DOM.authGate.classList.remove('hidden');
+  DOM.mainApp.classList.add('hidden');
 }
 
 function showMainApp(authenticatedUser) {
   user = authenticatedUser;
-  document.getElementById('auth-gate').classList.add('hidden');
-  document.getElementById('main-app').classList.remove('hidden');
+  DOM.authGate.classList.add('hidden');
+  DOM.mainApp.classList.remove('hidden');
 
   // Hide loading indicator
-  document.getElementById('loading').classList.add('hidden');
+  DOM.loading.classList.add('hidden');
 
   // Handle routing on login
   handleRouteChange();
@@ -170,9 +296,7 @@ function renderCategories() {
       <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
       <td class="px-4 py-3">
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
+          <i class="fas fa-bars text-gray-400 flex-shrink-0"></i>
           <span class="font-medium text-gray-900">${escapeHtml(cat)}</span>
         </div>
       </td>
@@ -183,18 +307,14 @@ function renderCategories() {
           class="text-teal-600 hover:text-teal-700 mr-2"
           title="Edit"
         >
-          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-          </svg>
+          <i class="fas fa-edit"></i>
         </button>
         <button
           onclick="deleteCategory(${index})"
           class="text-gray-500 hover:text-red-600"
           title="Delete"
         >
-          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-          </svg>
+          <i class="fas fa-trash"></i>
         </button>
       </td>
     </tr>
@@ -264,9 +384,7 @@ function renderTags() {
       <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
       <td class="px-4 py-3">
         <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
+          <i class="fas fa-bars text-gray-400 flex-shrink-0"></i>
           <span class="font-medium text-gray-900">${escapeHtml(tag)}</span>
         </div>
       </td>
@@ -277,18 +395,14 @@ function renderTags() {
           class="text-teal-600 hover:text-teal-700 mr-2"
           title="Edit"
         >
-          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-          </svg>
+          <i class="fas fa-edit"></i>
         </button>
         <button
           onclick="deleteTag(${index})"
           class="text-gray-500 hover:text-red-600"
           title="Delete"
         >
-          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-          </svg>
+          <i class="fas fa-trash"></i>
         </button>
       </td>
     </tr>
@@ -416,9 +530,8 @@ async function deleteTag(index) {
 
 // Save taxonomy
 async function saveTaxonomy() {
-  const saveBtn = document.getElementById('save-btn');
-  saveBtn.disabled = true;
-  saveBtn.innerHTML = 'Saving...';
+  const saveBtn = DOM.saveBtn;
+  setButtonLoading(saveBtn, true, 'Saving...');
 
   try {
     const response = await fetch(`${API_BASE}/taxonomy`, {
@@ -445,28 +558,31 @@ async function saveTaxonomy() {
   } catch (error) {
     showError('Failed to save taxonomy: ' + error.message);
   } finally {
-    saveBtn.disabled = false;
-    saveBtn.innerHTML = 'Save Changes';
+    setButtonLoading(saveBtn, false);
   }
 }
 
 // UI helpers
 function showError(message) {
-  const errorEl = document.getElementById('error');
-  errorEl.querySelector('p').textContent = message;
-  errorEl.classList.remove('hidden');
-  setTimeout(() => errorEl.classList.add('hidden'), 5000);
+  DOM.error.querySelector('p').textContent = message;
+  DOM.error.classList.remove('hidden');
+  setTimeout(() => DOM.error.classList.add('hidden'), 5000);
 }
 
-function showSuccess() {
-  const successEl = document.getElementById('success');
-  successEl.classList.remove('hidden');
-  setTimeout(() => successEl.classList.add('hidden'), 5000);
+function showSuccess(message = 'Taxonomy saved successfully!') {
+  const msgEl = DOM.success.querySelector('p');
+  if (msgEl) {
+    msgEl.textContent = message;
+  } else {
+    DOM.success.innerHTML = `<p class="text-green-800">${escapeHtml(message)}</p>`;
+  }
+  DOM.success.classList.remove('hidden');
+  setTimeout(() => DOM.success.classList.add('hidden'), 5000);
 }
 
 function hideMessages() {
-  document.getElementById('error').classList.add('hidden');
-  document.getElementById('success').classList.add('hidden');
+  DOM.error.classList.add('hidden');
+  DOM.success.classList.add('hidden');
 }
 
 function escapeHtml(text) {
@@ -586,7 +702,7 @@ function switchSection(sectionName, updateUrl = true) {
 }
 
 // Handle URL path changes (back/forward/refresh)
-function handleRouteChange() {
+async function handleRouteChange() {
   const path = window.location.pathname;
   const pathParts = path.split('/').filter(p => p);
   const searchParams = new URLSearchParams(window.location.search);
@@ -607,7 +723,7 @@ function handleRouteChange() {
   }
 
   // Switch section without updating URL (to avoid loop)
-  switchSection(section, false);
+  await switchSection(section, false);
 
   // Handle posts section sub-routes
   if (section === 'posts' && pathParts.length >= 3) {
@@ -718,19 +834,6 @@ function updateLastUpdated() {
   }
 }
 
-// Override showSuccess to accept custom messages
-function showSuccess(message = 'Taxonomy saved successfully!') {
-  const successEl = document.getElementById('success');
-  const msgEl = successEl.querySelector('p');
-  if (msgEl) {
-    msgEl.textContent = message;
-  } else {
-    successEl.innerHTML = `<p class="text-green-800">${escapeHtml(message)}</p>`;
-  }
-  successEl.classList.remove('hidden');
-  setTimeout(() => successEl.classList.add('hidden'), 5000);
-}
-
 // ===== POSTS MANAGEMENT =====
 
 let allPosts = [];
@@ -739,6 +842,8 @@ let currentPost = null;
 let currentPage = 1;
 const postsPerPage = 10;
 let markdownEditor = null; // EasyMDE instance
+let postHasUnsavedChanges = false; // Track unsaved changes in post editor
+let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
 
 // Load posts list with metadata in one API call
 async function loadPosts() {
@@ -810,19 +915,42 @@ function renderPostsList() {
     const date = formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
-    // Display categories hierarchically with separators
+    // Display categories hierarchically with collapsible toggle
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
-      categoriesDisplay = categories.map((cat, idx) => {
-        const separator = idx > 0 ? '<span class="text-gray-400 mx-1">›</span>' : '';
-        return `${separator}<span class="badge badge-category">${escapeHtml(cat)}</span>`;
-      }).join('');
+      if (categories.length === 1) {
+        // Single category - no toggle needed
+        categoriesDisplay = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
+      } else {
+        // Multiple categories - show first with toggle, rest collapsible
+        const firstCategory = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
+        const remainingCategories = categories.slice(1).map((cat, idx) => {
+          const separator = '<span class="text-gray-400 mx-1">›</span>';
+          return `${separator}<span class="badge badge-category">${escapeHtml(cat)}</span>`;
+        }).join('');
+
+        const rowId = `cat-row-${rowNumber}`;
+        categoriesDisplay = `
+          <div class="flex items-center gap-1">
+            <button
+              onclick="event.stopPropagation(); toggleCategories('${rowId}')"
+              class="category-toggle flex-shrink-0 text-gray-400 hover:text-gray-600 transition"
+              title="Toggle category hierarchy"
+            >
+              <i class="fas fa-chevron-down chevron-down"></i>
+              <i class="fas fa-chevron-up chevron-up hidden"></i>
+            </button>
+            ${firstCategory}
+            <span class="category-remaining hidden">${remainingCategories}</span>
+          </div>
+        `;
+      }
     } else {
       categoriesDisplay = '<span class="text-gray-400">-</span>';
     }
 
     return `
-      <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPost('${escapeHtml(post.name)}')">
+      <tr class="hover:bg-gray-50 cursor-pointer" data-row-id="cat-row-${rowNumber}" onclick="editPost('${escapeHtml(post.name)}')">
         <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
         <td class="px-4 py-3">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
@@ -884,6 +1012,28 @@ function sortPostsList(posts, sortBy) {
   }
 }
 
+// Toggle category visibility in posts list
+function toggleCategories(rowId) {
+  const row = document.querySelector(`[data-row-id="${rowId}"]`);
+  if (!row) return;
+
+  const toggleBtn = row.querySelector('.category-toggle');
+  const remainingCats = row.querySelector('.category-remaining');
+  const chevronDown = toggleBtn.querySelector('.chevron-down');
+  const chevronUp = toggleBtn.querySelector('.chevron-up');
+
+  // Toggle visibility
+  if (remainingCats.classList.contains('hidden')) {
+    remainingCats.classList.remove('hidden');
+    chevronDown.classList.add('hidden');
+    chevronUp.classList.remove('hidden');
+  } else {
+    remainingCats.classList.add('hidden');
+    chevronDown.classList.remove('hidden');
+    chevronUp.classList.add('hidden');
+  }
+}
+
 // Update pagination UI
 function updatePagination(total, start, end, totalPages) {
   const paginationEl = document.getElementById('posts-pagination');
@@ -925,11 +1075,14 @@ function sortPosts() {
   renderPostsList();
 }
 
-// Filter posts
+// Filter posts (debounced version will be created in init)
 function filterPosts() {
   currentPage = 1; // Reset to first page
   renderPostsList();
 }
+
+// Debounced version for search input
+const debouncedFilterPosts = debounce(filterPosts, 300);
 
 // Format date for display
 function formatDateShort(date) {
@@ -954,7 +1107,22 @@ function initMarkdownEditor() {
       toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'],
       status: ['lines', 'words', 'cursor']
     });
+
+    // Track changes in markdown editor
+    markdownEditor.codemirror.on('change', () => {
+      postHasUnsavedChanges = true;
+    });
   }
+}
+
+// Mark post as having unsaved changes
+function markPostDirty() {
+  postHasUnsavedChanges = true;
+}
+
+// Clear post dirty flag
+function clearPostDirty() {
+  postHasUnsavedChanges = false;
 }
 
 // Edit post
@@ -997,6 +1165,12 @@ async function editPost(filename, updateUrl = true) {
     document.getElementById('posts-editor-view').classList.remove('hidden');
     document.getElementById('post-editor-title').textContent = `Edit: ${filename}`;
     document.getElementById('delete-post-btn').style.display = 'block';
+
+    // Clear dirty flag when loading post
+    clearPostDirty();
+
+    // Add change listeners to form inputs
+    setupPostFormChangeListeners();
   } catch (error) {
     showError('Failed to load post: ' + error.message);
   }
@@ -1033,10 +1207,42 @@ function showNewPostForm(updateUrl = true) {
   document.getElementById('posts-editor-view').classList.remove('hidden');
   document.getElementById('post-editor-title').textContent = 'New Post';
   document.getElementById('delete-post-btn').style.display = 'none';
+
+  // Clear dirty flag for new post
+  clearPostDirty();
+
+  // Add change listeners to form inputs
+  setupPostFormChangeListeners();
+}
+
+// Setup change listeners for post form
+function setupPostFormChangeListeners() {
+  // Only setup once
+  if (window._postFormListenersSetup) return;
+  window._postFormListenersSetup = true;
+
+  const formInputs = [
+    'post-title',
+    'post-date',
+    'post-image'
+  ];
+
+  formInputs.forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('input', markPostDirty);
+    }
+  });
 }
 
 // Show posts list
-function showPostsList() {
+async function showPostsList() {
+  // Check for unsaved changes
+  if (postHasUnsavedChanges) {
+    const confirmed = await showConfirm('You have unsaved changes. Are you sure you want to leave this page?');
+    if (!confirmed) return;
+  }
+
   // Update URL to posts list
   const url = currentPage > 1
     ? `/admin-custom/posts?page=${currentPage}`
@@ -1046,6 +1252,7 @@ function showPostsList() {
   document.getElementById('posts-editor-view').classList.add('hidden');
   document.getElementById('posts-list-view').classList.remove('hidden');
   currentPost = null;
+  clearPostDirty();
 }
 
 // Save post
@@ -1121,6 +1328,9 @@ async function savePost(event) {
 
       showSuccess('Post created successfully!');
     }
+
+    // Clear dirty flag after successful save
+    clearPostDirty();
 
     // Reload posts and go back to list
     await loadPosts();
@@ -1343,6 +1553,9 @@ function addTaxonomyItem(type, value) {
     }
 
     renderSelectedTaxonomy(type);
+
+    // Mark post as dirty when taxonomy changes
+    markPostDirty();
   }
 
   input.value = '';
@@ -1358,6 +1571,9 @@ function removeTaxonomyItem(type, value) {
   }
 
   renderSelectedTaxonomy(type);
+
+  // Mark post as dirty when taxonomy changes
+  markPostDirty();
 }
 
 // Render selected taxonomy items
@@ -1601,8 +1817,8 @@ async function permanentlyDeletePost(filename, sha) {
 
 // Update switchSection to load posts and trash
 const originalSwitchSection = switchSection;
-switchSection = async function(sectionName) {
-  originalSwitchSection(sectionName);
+switchSection = async function(sectionName, updateUrl = true) {
+  originalSwitchSection(sectionName, updateUrl);
 
   if (sectionName === 'posts') {
     // Always show the posts list when switching to Posts section
@@ -1618,6 +1834,6 @@ switchSection = async function(sectionName) {
       await loadPosts();
     }
   } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
-    loadTrash();
+    await loadTrash();
   }
 };

@@ -1,125 +1,79 @@
-# Custom Taxonomy Manager
+# Circle Seven Custom Admin
 
-Modern, custom-built admin interface for managing categories and tags.
+A lightweight, GitHub-powered content management system for Jekyll sites, built specifically for Circle Seven.
 
-## Features
+## 🎯 Overview
 
-- ✨ Clean, modern UI with Tailwind CSS
-- 🔐 Netlify Identity authentication (same as Decap CMS)
-- 🎯 Drag-and-drop reordering
-- ✏️ Inline editing
-- 🗑️ Quick delete with confirmation
-- 📱 Fully responsive design
-- 🚀 No build step required
+This custom admin provides a WordPress-style interface for managing your Jekyll blog without requiring a database. All content is stored in GitHub, ensuring version control and seamless integration with your existing workflow.
 
-## Setup
+### Key Features
 
-### Required: GitHub Token
+- ✅ **Post Management** - Create, edit, and delete blog posts with markdown editor
+- ✅ **Taxonomy Management** - Organize categories and tags with drag-and-drop sorting
+- ✅ **Settings Editor** - Modify `_config.yml` through an intuitive interface
+- ✅ **Trash System** - Soft delete with restore capability
+- ✅ **Image Previews** - Cloudinary integration with thumbnail and full-size modal
+- ✅ **WordPress-style UX** - Autocomplete taxonomy, collapsible categories, unsaved changes protection
+- ✅ **Offline Capable** - Service Worker caching for faster repeat visits
+- ✅ **Mobile Responsive** - Works on all devices
 
-The taxonomy manager needs a GitHub personal access token to commit changes:
+---
 
-1. **Create GitHub Token:**
-   - Go to GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)
-   - Click "Generate new token (classic)"
-   - Give it a name: "Netlify Admin"
-   - Select scope: `repo` (Full control of private repositories)
-   - Click "Generate token" and copy it
+## 🚀 Getting Started
 
-2. **Add to Netlify:**
-   - Go to Netlify dashboard > Your site > Site settings > Environment variables
-   - Click "Add a variable"
-   - Key: `GITHUB_TOKEN`
-   - Value: (paste your GitHub token)
-   - Click "Save"
-   - Redeploy the site for changes to take effect
+### Access the Admin
 
-## Access
+- **Production**: https://circleseven.co.uk/admin-custom/
+- **Local**: http://localhost:8888/admin-custom/ (with Netlify Dev)
 
-Visit: [https://circleseven.co.uk/admin-custom](https://circleseven.co.uk/admin-custom)
+### Authentication
 
-## How It Works
+1. Navigate to `/admin-custom/`
+2. Click "Log In"
+3. Authenticate with Netlify Identity
 
-### Architecture
+---
+
+## 📚 Quick Guide
+
+### Posts
+- Click **Posts** → **New Post**
+- Fill in title, date, image, categories, tags
+- Write content in Markdown
+- Click **Save Post**
+
+### Taxonomy
+- Click **Taxonomy** → Add/Edit/Delete categories or tags
+- Drag to reorder
+- Click **Save Changes**
+
+### Settings
+- Click **Settings** → Modify site configuration
+- Click **Save Settings** (triggers rebuild)
+
+---
+
+## 📁 File Structure
 
 ```
-┌──────────────┐
-│   Browser    │
-│ (admin-custom)│
-└──────┬───────┘
-       │
-       ▼
-┌──────────────────┐
-│ Netlify Identity │ ◄── Authentication
-└──────┬───────────┘
-       │
-       ▼
-┌──────────────────────┐
-│ Netlify Functions    │ ◄── API
-│ /taxonomy (GET/PUT)  │
-└──────┬───────────────┘
-       │
-       ▼
-┌──────────────────────┐
-│ _data/taxonomy.yml   │ ◄── Data storage
-└──────────────────────┘
-       │
-       ▼
-┌──────────────────────┐
-│   Git Commit (Manual)│
-└──────────────────────┘
+/admin-custom/
+├── index.html              # Main interface
+├── app.js                  # Application logic
+├── styles.css              # All styles
+├── sw.js                   # Service Worker
+├── README.md               # This file
+├── OPTIMIZATION-GUIDE.md   # Performance docs
+└── FEATURES-ROADMAP.md     # Future features
 ```
 
-### Files
+---
 
-- `index.html` - Main UI (Tailwind CSS, Sortable.js)
-- `app.js` - Application logic (vanilla JS)
-- `../netlify/functions/taxonomy.js` - API endpoint
+## 🔧 Documentation
 
-## Usage
+- **Main Guide**: This README
+- **Optimizations**: [OPTIMIZATION-GUIDE.md](./OPTIMIZATION-GUIDE.md)
+- **Future Features**: [FEATURES-ROADMAP.md](./FEATURES-ROADMAP.md)
 
-1. **Log in** with Netlify Identity credentials
-2. **Add items** using the input fields and "Add" buttons
-3. **Reorder** by dragging items up/down
-4. **Edit** by clicking the pencil icon
-5. **Delete** by clicking the trash icon
-6. **Save** when done (saves to `_data/taxonomy.yml`)
-7. **Commit** changes using Git
-8. **Sync** to CMS by running: `npm run sync-taxonomy`
+---
 
-## After Saving
-
-The taxonomy manager automatically:
-1. ✅ Commits changes to GitHub (via GitHub API)
-2. ✅ Triggers Netlify rebuild automatically
-
-**Everything is fully automated!** Just click Save and wait 1-2 minutes for changes to go live.
-
-No manual steps required.
-
-## Development
-
-Local testing:
-```bash
-# Install dependencies
-npm install
-
-# Start Jekyll with Netlify Dev (for functions)
-netlify dev
-```
-
-## Rollback
-
-To revert to Decap CMS:
-```bash
-git reset --hard backup-before-custom-admin
-```
-
-## Future Enhancements
-
-Potential additions:
-- Auto-commit functionality
-- Bulk import/export
-- Search/filter
-- Usage statistics (which categories/tags are used most)
-- Direct integration with post editor
-- Automatic sync-taxonomy execution
+**Version**: 1.0.0 | **Status**: Production Ready ✅
