@@ -1369,9 +1369,16 @@ function updateImagePreview() {
   const previewImg = document.getElementById('image-preview-img');
 
   if (imageUrl) {
-    // Show preview immediately if URL looks valid
+    // Construct full Cloudinary URL if it's a partial path
+    let fullImageUrl = imageUrl;
+    if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+      // Assume it's a partial Cloudinary path and construct full URL
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+    }
+
+    // Show preview immediately
     previewDiv.classList.remove('hidden');
-    previewImg.src = imageUrl;
+    previewImg.src = fullImageUrl;
 
     // Hide if image fails to load
     previewImg.onerror = () => {
@@ -1388,8 +1395,14 @@ function openImageModal() {
   const modalOverlay = document.getElementById('image-modal-overlay');
   const modalImg = document.getElementById('image-modal-img');
 
-  if (imageUrl && isValidUrl(imageUrl)) {
-    modalImg.src = imageUrl;
+  if (imageUrl) {
+    // Construct full Cloudinary URL if it's a partial path
+    let fullImageUrl = imageUrl;
+    if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+    }
+
+    modalImg.src = fullImageUrl;
     modalOverlay.classList.remove('hidden');
 
     // Close on Escape key
