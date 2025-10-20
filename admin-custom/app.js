@@ -674,7 +674,7 @@ async function loadPosts() {
   }
 }
 
-// Load metadata for all posts (for sorting/filtering)
+// Load metadata for posts (only loads first page initially)
 async function loadPostsMetadata() {
   allPostsWithMetadata = [];
 
@@ -697,18 +697,20 @@ async function loadPostsMetadata() {
       console.error(`Failed to load ${post.name}:`, error);
     }
   }
-
-  // If there are more posts, load them in background
-  if (allPosts.length > postsPerPage) {
-    loadRemainingPostsMetadata(postsPerPage);
-  }
 }
 
-// Load remaining posts in background
-async function loadRemainingPostsMetadata(startIndex) {
-  const remainingPosts = allPosts.slice(startIndex);
+// Load metadata for a specific page of posts on demand
+async function loadPageMetadata(pageNumber) {
+  const startIndex = (pageNumber - 1) * postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, allPosts.length);
+  const postsToLoad = allPosts.slice(startIndex, endIndex);
 
-  for (const post of remainingPosts) {
+  for (const post of postsToLoad) {
+    // Skip if already loaded
+    if (allPostsWithMetadata.find(p => p.name === post.name)) {
+      continue;
+    }
+
     try {
       const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(post.name)}`);
       if (response.ok) {
@@ -718,11 +720,6 @@ async function loadRemainingPostsMetadata(startIndex) {
           frontmatter: postData.frontmatter,
           date: new Date(postData.frontmatter.date || post.name.substring(0, 10))
         });
-
-        // Re-render if on first page
-        if (currentPage === 1) {
-          renderPostsList();
-        }
       }
     } catch (error) {
       console.error(`Failed to load ${post.name}:`, error);
@@ -863,8 +860,12 @@ function updatePagination(total, start, end, totalPages) {
 }
 
 // Change page
-function changePage(delta) {
+async function changePage(delta) {
   currentPage += delta;
+
+  // Load metadata for the new page if not already loaded
+  await loadPageMetadata(currentPage);
+
   renderPostsList();
   document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
