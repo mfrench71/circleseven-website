@@ -723,9 +723,16 @@ function renderPostsList() {
     const date = formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
-    const categoriesBadges = Array.isArray(categories)
-      ? categories.map(cat => `<span class="badge badge-category">${escapeHtml(cat)}</span>`).join('')
-      : '';
+    // Display categories hierarchically with separators
+    let categoriesDisplay = '';
+    if (Array.isArray(categories) && categories.length > 0) {
+      categoriesDisplay = categories.map((cat, idx) => {
+        const separator = idx > 0 ? '<span class="text-gray-400 mx-1">›</span>' : '';
+        return `${separator}<span class="badge badge-category">${escapeHtml(cat)}</span>`;
+      }).join('');
+    } else {
+      categoriesDisplay = '<span class="text-gray-400">-</span>';
+    }
 
     return `
       <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPost('${escapeHtml(post.name)}')">
@@ -735,7 +742,7 @@ function renderPostsList() {
           <div class="text-xs text-gray-500">${escapeHtml(post.name)}</div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
-        <td class="px-4 py-3 text-sm">${categoriesBadges || '<span class="text-gray-400">-</span>'}</td>
+        <td class="px-4 py-3 text-sm">${categoriesDisplay}</td>
         <td class="px-4 py-3 text-right whitespace-nowrap">
           <button
             onclick="event.stopPropagation(); editPost('${escapeHtml(post.name)}')"
