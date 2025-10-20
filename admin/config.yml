@@ -2,6 +2,11 @@ backend:
   name: git-gateway
   branch: main # Branch to update (main or master)
 
+# Site URLs - Adds "View Site" link in CMS and shows deploy status
+site_url: https://circleseven.co.uk
+display_url: https://circleseven.co.uk
+logo_url: https://circleseven.co.uk/assets/images/favicon.svg
+
 # Uncomment below for local development
 # local_backend: true
 
@@ -27,9 +32,26 @@ media_library:
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
     label: "Blog Posts" # Used in the UI
+    label_singular: "Blog Post"
     folder: "_posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
+    # Collection view options
+    view_filters:
+      - label: "Academic Posts"
+        field: categories
+        pattern: "Academic"
+      - label: "Tutorial Posts"
+        field: categories
+        pattern: "Tutorial"
+    view_groups:
+      - label: "Year"
+        field: date
+        pattern: \d{4}
+      - label: "Category"
+        field: categories
+    sortable_fields: ['title', 'date', 'categories']
+    summary: "{{title}} - {{date | date('YYYY-MM-DD')}} - {{categories}}"
     fields: # The fields for each document
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
@@ -40,9 +62,12 @@ collections:
 
   - name: "pages"
     label: "Pages"
+    label_singular: "Page"
     folder: "_pages"
     create: true
     slug: "{{slug}}"
+    sortable_fields: ['title', 'permalink']
+    summary: "{{title}} ({{permalink}})"
     fields:
       - {label: "Layout", name: "layout", widget: "hidden", default: "page"}
       - {label: "Title", name: "title", widget: "string"}
