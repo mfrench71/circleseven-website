@@ -284,6 +284,8 @@ body {
 .nav-search {
   margin-left: 8px;
   flex-shrink: 0;
+  display: flex;
+  gap: 4px;
 }
 
 .nav-search input {
@@ -306,6 +308,28 @@ body {
 .nav-search input::placeholder {
   color: #999;
   font-size: 13px;
+}
+
+.nav-search button {
+  padding: 7px 10px;
+  background: var(--teal-primary);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-search button:hover {
+  background: var(--teal-hover);
+}
+
+.nav-search button:focus {
+  outline: 2px solid var(--teal-primary);
+  outline-offset: 2px;
 }
 
 /* ============================================

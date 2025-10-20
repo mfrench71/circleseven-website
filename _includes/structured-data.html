@@ -5,28 +5,39 @@
   "@type": "BlogPosting",
   "headline": "{{ page.title | escape }}",
   "datePublished": "{{ page.date | date_to_xmlschema }}",
-  "dateModified": "{{ page.date | date_to_xmlschema }}",
-  {% if page.image %}
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  {% if page.featured_image %}
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/{{ page.featured_image }}",
+    "width": 1200,
+    "height": 630
+  },
+  {% elsif page.image %}
   "image": "{{ page.image | absolute_url }}",
   {% endif %}
   "author": {
     "@type": "Person",
     "name": "{{ site.author | default: 'Matthew French' }}",
-    "url": "{{ site.url }}{{ site.baseurl }}"
+    "url": "{{ site.url }}{{ site.baseurl }}/about/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "{{ site.title }}",
+    "url": "{{ site.url }}{{ site.baseurl }}",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ site.url }}{{ site.baseurl }}/assets/images/logo.png"
+      "url": "{{ site.url }}{{ site.baseurl }}/assets/images/favicon.svg",
+      "width": 512,
+      "height": 512
     }
   },
-  "description": "{{ page.description | default: page.excerpt | strip_html | truncate: 160 | escape }}",
+  "description": "{{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
   },
+  "url": "{{ page.url | absolute_url }}",
   "inLanguage": "{{ site.lang | default: 'en-GB' }}"{% if page.categories %},
   "articleSection": "{{ page.categories | first }}"{% endif %}{% if page.tags %},
   "keywords": "{{ page.tags | join: ', ' }}"{% endif %}{% if page.content %},
