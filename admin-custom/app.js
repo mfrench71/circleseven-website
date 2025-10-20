@@ -4,6 +4,7 @@ let tags = [];
 let user = null;
 let isDirty = false; // Track if there are unsaved changes
 let lastSavedState = null; // Store last synced state
+let cloudinaryWidget = null; // Cloudinary Media Library instance
 
 // API endpoints
 const API_BASE = '/.netlify/functions';
@@ -1623,6 +1624,41 @@ function isValidUrl(string) {
   } catch (_) {
     return false;
   }
+}
+
+// Initialize Cloudinary Media Library widget
+function initCloudinaryWidget() {
+  if (cloudinaryWidget) return cloudinaryWidget;
+
+  cloudinaryWidget = cloudinary.createMediaLibrary({
+    cloud_name: 'circleseven',
+    api_key: '835562345393591',
+    remove_header: false,
+    max_files: 1,
+    inline_container: null,
+    folder: {
+      path: '',
+      resource_type: 'image'
+    }
+  }, {
+    insertHandler: function(data) {
+      const asset = data.assets[0];
+      const imageUrl = asset.secure_url;
+
+      // Update featured image field
+      document.getElementById('post-image').value = imageUrl;
+      updateImagePreview();
+      markPostDirty();
+    }
+  });
+
+  return cloudinaryWidget;
+}
+
+// Show Cloudinary widget for featured image selection
+function selectFeaturedImage() {
+  const widget = initCloudinaryWidget();
+  widget.show();
 }
 
 // Update image preview
