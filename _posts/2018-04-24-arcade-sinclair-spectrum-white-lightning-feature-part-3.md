@@ -55,9 +55,5 @@ Matthew F.
 
 ## The Originals
 
-<div class="gallery">
-
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/IMG_2234"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/IMG_2234" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/IMG_2235"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/IMG_2235" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-
-</div>
