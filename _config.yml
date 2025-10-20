@@ -20,6 +20,7 @@ description: The portfolio and blog of Matthew French, documenting Digital Art
   Plymouth University. Exploring interactive media, physical computing, and
   digital culture.
 url: https://circleseven.co.uk
+related_posts_count: 3
 github_username: mfrench71
 cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
 defaults:
@@ -53,4 +54,3 @@ exclude:
   - docs/
 email: mail@circleseven.co.uk
 baseurl: ""
-related_posts_count: 4
