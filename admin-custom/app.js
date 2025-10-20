@@ -1268,8 +1268,14 @@ const originalSwitchSection = switchSection;
 switchSection = function(sectionName) {
   originalSwitchSection(sectionName);
 
-  if (sectionName === 'posts' && allPosts.length === 0) {
-    loadPosts();
+  if (sectionName === 'posts') {
+    // Always show the posts list when switching to Posts section
+    showPostsList();
+
+    // Load posts if not loaded yet
+    if (allPosts.length === 0) {
+      loadPosts();
+    }
   } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
     loadTrash();
   }
