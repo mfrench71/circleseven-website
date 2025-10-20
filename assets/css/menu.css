@@ -707,8 +707,14 @@ body {
   order: 1;
 }
 
-.mobile-search input {
+.mobile-search form {
+  display: flex;
+  gap: 4px;
   width: 100%;
+}
+
+.mobile-search input {
+  flex: 1;
   padding: 7px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -722,6 +728,29 @@ body {
   outline: none;
   border-color: var(--teal-primary);
   background: white;
+}
+
+.mobile-search button {
+  padding: 7px 10px;
+  background: var(--teal-primary);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobile-search button:hover {
+  background: var(--teal-hover);
+}
+
+.mobile-search button:focus {
+  outline: 2px solid var(--teal-primary);
+  outline-offset: 2px;
 }
 
 /* ============================================
