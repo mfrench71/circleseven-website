@@ -14,6 +14,14 @@ layout: default-sidebar
           <a href="{{ post.url | relative_url }}">
             {% include post-card-image.html post=post %}
           </a>
+          <!-- Edit Button (only visible when logged in) -->
+          <a href="/admin/#/collections/blog/entries/{{ post.path | replace: '_posts/', '' | replace: '.md', '' }}"
+             class="edit-card-link"
+             style="display: none;"
+             title="Edit this post"
+             aria-label="Edit {{ post.title }}">
+            <i class="fas fa-edit" aria-hidden="true"></i>
+          </a>
         </div>
 
         <!-- Card Content -->
