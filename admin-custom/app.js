@@ -717,7 +717,8 @@ function renderPostsList() {
   emptyEl.classList.add('hidden');
 
   // Render table rows
-  tbody.innerHTML = paginatedPosts.map(post => {
+  tbody.innerHTML = paginatedPosts.map((post, index) => {
+    const rowNumber = startIndex + index + 1; // Calculate actual row number
     const title = post.frontmatter?.title || post.name;
     const date = formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
@@ -728,6 +729,7 @@ function renderPostsList() {
 
     return `
       <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPost('${escapeHtml(post.name)}')">
+        <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
         <td class="px-4 py-3">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
           <div class="text-xs text-gray-500">${escapeHtml(post.name)}</div>
