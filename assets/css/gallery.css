@@ -89,22 +89,43 @@
   object-fit: cover !important;
 }
 
-/* Gallery Links */
+/* Gallery Links - Only within gallery containers */
 .gallery a,
-.post-content figure a,
-.page-content figure a {
+.gallery figure a,
+.wp-block-gallery a,
+.wp-block-gallery figure a {
   display: block;
   position: relative;
   text-decoration: none;
   outline: none;
 }
 
+/* Standalone figure links in post content - Keep default link behavior */
+.post-content > figure a,
+.page-content > figure a {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  outline: none;
+}
+
 .gallery a::after,
-.post-content figure a[href*=".jpg"]::after,
-.post-content figure a[href*=".jpeg"]::after,
-.post-content figure a[href*=".png"]::after,
-.post-content figure a[href*=".gif"]::after,
-.post-content figure a[href*=".webp"]::after {
+.gallery figure a[href*=".jpg"]::after,
+.gallery figure a[href*=".jpeg"]::after,
+.gallery figure a[href*=".png"]::after,
+.gallery figure a[href*=".gif"]::after,
+.gallery figure a[href*=".webp"]::after,
+.wp-block-gallery a::after,
+.post-content > figure a[href*=".jpg"]::after,
+.post-content > figure a[href*=".jpeg"]::after,
+.post-content > figure a[href*=".png"]::after,
+.post-content > figure a[href*=".gif"]::after,
+.post-content > figure a[href*=".webp"]::after,
+.page-content > figure a[href*=".jpg"]::after,
+.page-content > figure a[href*=".jpeg"]::after,
+.page-content > figure a[href*=".png"]::after,
+.page-content > figure a[href*=".gif"]::after,
+.page-content > figure a[href*=".webp"]::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -124,8 +145,10 @@
 }
 
 .gallery a:hover::after,
-.post-content figure a:hover::after,
-.page-content figure a:hover::after {
+.gallery figure a:hover::after,
+.wp-block-gallery a:hover::after,
+.post-content > figure a:hover::after,
+.page-content > figure a:hover::after {
   opacity: 1;
 }
 
