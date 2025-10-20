@@ -3,12 +3,13 @@ layout: post
 title: Wheal Betsy engine house, Dartmoor
 date: 2015-04-18 14:38:00 +0000
 categories:
-- Projects
-- Photography
+  - Projects
+  - Photography
 tags:
-- Photography
-featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760720520/2015/04/DSC0174.jpg
+  - Photography
 excerpt: The Wheal Betsy engine house is located just off the A386 Okehampton to Tavistock road, featuring an unusual curved chimney.
+image:
+  - https://res.cloudinary.com/circleseven/image/upload/v1760720520/2015/04/DSC0174.jpg
 ---
 The Wheal Betsy engine house is located just off the A386 Okehampton to Tavistock road. It is easily missed from the road, which rises causeway-like from the surrounding moors.  Whilst the remains of these tin mine workings seem striking, but not uncommon for the area, a closer look will reveal the unusual curvature of the chimney, clearly visible in these images.
 
