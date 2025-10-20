@@ -1635,6 +1635,12 @@ function isValidUrl(string) {
 function initCloudinaryWidget() {
   if (cloudinaryWidget) return cloudinaryWidget;
 
+  // Check if Cloudinary library is loaded
+  if (typeof cloudinary === 'undefined') {
+    console.error('Cloudinary library not loaded yet');
+    return null;
+  }
+
   cloudinaryWidget = cloudinary.createMediaLibrary({
     cloud_name: 'circleseven',
     api_key: '732138267195618',
@@ -1663,7 +1669,11 @@ function initCloudinaryWidget() {
 // Show Cloudinary widget for featured image selection
 function selectFeaturedImage() {
   const widget = initCloudinaryWidget();
-  widget.show();
+  if (widget) {
+    widget.show();
+  } else {
+    showError('Cloudinary library is still loading. Please try again in a moment.');
+  }
 }
 
 // Update image preview
@@ -2055,6 +2065,12 @@ function viewMediaFull(url) {
 
 // Open Cloudinary upload widget
 function openCloudinaryUpload() {
+  // Check if Cloudinary library is loaded
+  if (typeof cloudinary === 'undefined') {
+    showError('Cloudinary library is still loading. Please try again in a moment.');
+    return;
+  }
+
   if (!cloudinaryUploadWidget) {
     cloudinaryUploadWidget = cloudinary.createUploadWidget({
       cloudName: 'circleseven',
