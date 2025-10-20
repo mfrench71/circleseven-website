@@ -1,13 +1,15 @@
 source "https://rubygems.org"
 
-# GitHub Pages gem (includes Jekyll and approved plugins)
-gem "github-pages", group: :jekyll_plugins
+# Jekyll - using latest stable version (not constrained by GitHub Pages)
+gem "jekyll", "~> 4.3"
+gem "minima", "~> 2.5"
 
-# Additional plugins
+# Jekyll plugins
 group :jekyll_plugins do
-  gem "jekyll-feed"
-  gem "jekyll-seo-tag"
-  gem "jekyll-sitemap"
+  gem "jekyll-feed", "~> 0.17"
+  gem "jekyll-seo-tag", "~> 2.8"
+  gem "jekyll-sitemap", "~> 1.4"
+  gem "jekyll-paginate", "~> 1.1"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -23,3 +25,6 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 # Lock `http_parser.rb` gem to `v0.6.x` on JRuby builds since newer versions of the gem
 # do not have a Java counterpart.
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
+
+# Webrick is required for Jekyll 4.x on Ruby 3.x
+gem "webrick", "~> 1.8"
