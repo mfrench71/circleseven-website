@@ -1637,7 +1637,7 @@ function initCloudinaryWidget() {
 
   cloudinaryWidget = cloudinary.createMediaLibrary({
     cloud_name: 'circleseven',
-    api_key: '835562345393591',
+    api_key: '732138267195618',
     remove_header: false,
     max_files: 1,
     inline_container: null,
