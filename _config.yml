@@ -15,22 +15,19 @@ sass:
   style: compressed
 lang: en-GB
 markdown: kramdown
-description: The portfolio and blog of Matthew French, documenting Digital Art
-  and Technology projects, academic work, and creative coding experiments from
-  Plymouth University. Exploring interactive media, physical computing, and
-  digital culture.
+description: The portfolio and blog of Matthew French, documenting Digital Art and Technology projects, academic work, and creative coding experiments from Plymouth University. Exploring interactive media, physical computing, and digital culture.
 url: https://circleseven.co.uk
 related_posts_count: 3
 github_username: mfrench71
 cloudinary_base_url: https://res.cloudinary.com/circleseven/image/upload
 defaults:
   - scope:
-      path: ""
+      path: ''
       type: posts
     values:
       layout: post
   - scope:
-      path: ""
+      path: ''
       type: pages
     values:
       layout: page
@@ -53,4 +50,4 @@ exclude:
   - scripts/
   - docs/
 email: mail@circleseven.co.uk
-baseurl: ""
+baseurl: ''
