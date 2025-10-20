@@ -189,6 +189,18 @@ li { margin: 0; }
 /* Rounded full */
 .rounded-full { border-radius: 9999px; }
 
+/* Modal */
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.bg-gray-900 { background-color: #111827; }
+.bg-opacity-50 { background-color: rgba(17, 24, 39, 0.5); }
+.max-w-md { max-width: 28rem; }
+.mx-4 { margin-left: 1rem; margin-right: 1rem; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+.bg-red-600 { background-color: #dc2626; }
+.bg-red-700 { background-color: #b91c1c; }
+.hover\:bg-red-700:hover { background-color: #b91c1c; }
+
 /* Responsive */
 @media (min-width: 640px) {
   .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }

@@ -66,6 +66,58 @@
           <p class="text-green-800">Taxonomy saved successfully!</p>
         </div>
 
+        <!-- Custom Modal -->
+        <div id="modal-overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
+          <div class="bg-white rounded-lg shadow-lg max-w-md w-full mx-4">
+            <div class="p-6">
+              <h3 id="modal-title" class="text-xl font-semibold mb-4"></h3>
+              <input
+                type="text"
+                id="modal-input"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 mb-4"
+              />
+              <div class="flex gap-2 justify-end">
+                <button
+                  onclick="closeModal(false)"
+                  class="px-4 py-2 text-gray-600 hover:text-gray-900 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onclick="closeModal(true)"
+                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Confirm Dialog -->
+        <div id="confirm-overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center" style="z-index: 9999;">
+          <div class="bg-white rounded-lg shadow-lg max-w-md w-full mx-4">
+            <div class="p-6">
+              <h3 id="confirm-title" class="text-xl font-semibold mb-2">Confirm Delete</h3>
+              <p id="confirm-message" class="text-gray-600 mb-6"></p>
+              <div class="flex gap-2 justify-end">
+                <button
+                  onclick="closeConfirm(false)"
+                  class="px-4 py-2 text-gray-600 hover:text-gray-900 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onclick="closeConfirm(true)"
+                  class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Taxonomy Editor -->
         <div id="taxonomy-editor" class="hidden">
           <!-- Tabs -->

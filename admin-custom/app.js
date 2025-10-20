@@ -198,8 +198,8 @@ function addCategory() {
 }
 
 // Edit category
-function editCategory(index) {
-  const newValue = prompt('Edit category:', categories[index]);
+async function editCategory(index) {
+  const newValue = await showModal('Edit Category', categories[index]);
   if (newValue === null) return;
 
   const trimmed = newValue.trim();
@@ -219,8 +219,9 @@ function editCategory(index) {
 }
 
 // Delete category
-function deleteCategory(index) {
-  if (!confirm(`Delete "${categories[index]}"?`)) return;
+async function deleteCategory(index) {
+  const confirmed = await showConfirm(`Are you sure you want to delete "${categories[index]}"?`);
+  if (!confirmed) return;
   categories.splice(index, 1);
   renderCategories();
   hideMessages();
@@ -245,8 +246,8 @@ function addTag() {
 }
 
 // Edit tag
-function editTag(index) {
-  const newValue = prompt('Edit tag:', tags[index]);
+async function editTag(index) {
+  const newValue = await showModal('Edit Tag', tags[index]);
   if (newValue === null) return;
 
   const trimmed = newValue.trim();
@@ -266,8 +267,9 @@ function editTag(index) {
 }
 
 // Delete tag
-function deleteTag(index) {
-  if (!confirm(`Delete "${tags[index]}"?`)) return;
+async function deleteTag(index) {
+  const confirmed = await showConfirm(`Are you sure you want to delete "${tags[index]}"?`);
+  if (!confirmed) return;
   tags.splice(index, 1);
   renderTags();
   hideMessages();
@@ -325,4 +327,76 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// Custom modal dialog
+let modalResolve;
+
+function showModal(title, defaultValue = '') {
+  return new Promise((resolve) => {
+    modalResolve = resolve;
+    const overlay = document.getElementById('modal-overlay');
+    const titleEl = document.getElementById('modal-title');
+    const input = document.getElementById('modal-input');
+
+    titleEl.textContent = title;
+    input.value = defaultValue;
+    overlay.classList.remove('hidden');
+
+    // Focus input and select text
+    setTimeout(() => {
+      input.focus();
+      input.select();
+    }, 100);
+
+    // Handle Enter key
+    input.onkeypress = (e) => {
+      if (e.key === 'Enter') {
+        closeModal(true);
+      }
+    };
+
+    // Handle Escape key
+    input.onkeydown = (e) => {
+      if (e.key === 'Escape') {
+        closeModal(false);
+      }
+    };
+  });
+}
+
+function closeModal(confirmed) {
+  const overlay = document.getElementById('modal-overlay');
+  const input = document.getElementById('modal-input');
+
+  overlay.classList.add('hidden');
+
+  if (modalResolve) {
+    modalResolve(confirmed ? input.value : null);
+    modalResolve = null;
+  }
+}
+
+// Custom confirm dialog
+let confirmResolve;
+
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    confirmResolve = resolve;
+    const overlay = document.getElementById('confirm-overlay');
+    const messageEl = document.getElementById('confirm-message');
+
+    messageEl.textContent = message;
+    overlay.classList.remove('hidden');
+  });
+}
+
+function closeConfirm(confirmed) {
+  const overlay = document.getElementById('confirm-overlay');
+  overlay.classList.add('hidden');
+
+  if (confirmResolve) {
+    confirmResolve(confirmed);
+    confirmResolve = null;
+  }
 }
