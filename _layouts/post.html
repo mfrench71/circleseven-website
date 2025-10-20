@@ -123,7 +123,7 @@ layout: default
 
           <!-- Excerpt -->
           {%- if post.excerpt -%}
-            <p class="post-card-excerpt">{{ post.excerpt | strip_html }}</p>
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 50 }}</p>
           {%- endif -%}
 
           <!-- Author & Meta -->
