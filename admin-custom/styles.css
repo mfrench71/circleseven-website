@@ -306,3 +306,51 @@ details[open] summary::before {
   transform: rotate(90deg);
 }
 .cursor-pointer { cursor: pointer; }
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: 600;
+}
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.uppercase { text-transform: uppercase; }
+.tracking-wider { letter-spacing: 0.05em; }
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.badge-category {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+.badge-tag {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+/* Min width utility */
+.min-w-64 { min-width: 16rem; }
+
+/* Overflow utilities */
+.overflow-x-auto { overflow-x: auto; }
+.overflow-hidden { overflow: hidden; }
+
+/* Additional width utilities */
+.w-8 { width: 2rem; }
+.h-8 { height: 2rem; }
+
+/* Whitespace utility */
+.whitespace-nowrap { white-space: nowrap; }
+
+/* Flex wrap utility */
+.flex-wrap { flex-wrap: wrap; }

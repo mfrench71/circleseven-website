@@ -611,7 +611,10 @@ function showSuccess(message = 'Taxonomy saved successfully!') {
 // ===== POSTS MANAGEMENT =====
 
 let allPosts = [];
+let allPostsWithMetadata = [];
 let currentPost = null;
+let currentPage = 1;
+const postsPerPage = 25;
 
 // Load posts list
 async function loadPosts() {
@@ -622,6 +625,9 @@ async function loadPosts() {
     const data = await response.json();
     allPosts = data.posts || [];
 
+    // Load metadata for all posts
+    await loadPostsMetadata();
+
     renderPostsList();
     populateTaxonomySelects();
   } catch (error) {
@@ -631,41 +637,222 @@ async function loadPosts() {
   }
 }
 
+// Load metadata for all posts (for sorting/filtering)
+async function loadPostsMetadata() {
+  allPostsWithMetadata = [];
+
+  // Load first few posts to get started quickly
+  const postsToLoad = allPosts.slice(0, Math.min(50, allPosts.length));
+
+  for (const post of postsToLoad) {
+    try {
+      const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(post.name)}`);
+      if (response.ok) {
+        const postData = await response.json();
+        allPostsWithMetadata.push({
+          ...post,
+          frontmatter: postData.frontmatter,
+          date: new Date(postData.frontmatter.date || post.name.substring(0, 10))
+        });
+      }
+    } catch (error) {
+      // Skip posts that fail to load
+      console.error(`Failed to load ${post.name}:`, error);
+    }
+  }
+
+  // If there are more posts, load them in background
+  if (allPosts.length > 50) {
+    loadRemainingPostsMetadata(50);
+  }
+}
+
+// Load remaining posts in background
+async function loadRemainingPostsMetadata(startIndex) {
+  const remainingPosts = allPosts.slice(startIndex);
+
+  for (const post of remainingPosts) {
+    try {
+      const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(post.name)}`);
+      if (response.ok) {
+        const postData = await response.json();
+        allPostsWithMetadata.push({
+          ...post,
+          frontmatter: postData.frontmatter,
+          date: new Date(postData.frontmatter.date || post.name.substring(0, 10))
+        });
+
+        // Re-render if on first page
+        if (currentPage === 1) {
+          renderPostsList();
+        }
+      }
+    } catch (error) {
+      console.error(`Failed to load ${post.name}:`, error);
+    }
+  }
+}
+
 // Render posts list
 function renderPostsList() {
-  const container = document.getElementById('posts-list-container');
+  const tbody = document.getElementById('posts-table-body');
+  const emptyEl = document.getElementById('posts-empty');
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
+  const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
 
-  const filteredPosts = allPosts.filter(post => {
-    return post.name.toLowerCase().includes(search);
+  // Filter posts
+  let filtered = allPostsWithMetadata.filter(post => {
+    const title = post.frontmatter?.title || post.name;
+    return title.toLowerCase().includes(search) || post.name.toLowerCase().includes(search);
   });
 
-  if (filteredPosts.length === 0) {
-    container.innerHTML = '<div class="p-8 text-center text-gray-500">No posts found</div>';
+  // Sort posts
+  filtered = sortPostsList(filtered, sortBy);
+
+  // Pagination
+  const totalPosts = filtered.length;
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, totalPosts);
+  const paginatedPosts = filtered.slice(startIndex, endIndex);
+
+  // Show/hide empty state
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    emptyEl.classList.remove('hidden');
+    document.getElementById('posts-pagination').classList.add('hidden');
     return;
   }
 
-  container.innerHTML = filteredPosts.map(post => `
-    <div
-      class="p-4 hover:bg-gray-50 cursor-pointer transition"
-      onclick="editPost('${escapeHtml(post.name)}')"
-    >
-      <div class="flex justify-between items-center">
-        <div>
-          <h4 class="font-medium text-gray-900">${escapeHtml(post.name)}</h4>
-          <p class="text-sm text-gray-500">${(post.size / 1024).toFixed(1)} KB</p>
-        </div>
-        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </div>
-    </div>
-  `).join('');
+  emptyEl.classList.add('hidden');
+
+  // Render table rows
+  tbody.innerHTML = paginatedPosts.map(post => {
+    const title = post.frontmatter?.title || post.name;
+    const date = formatDateShort(post.date);
+    const categories = post.frontmatter?.categories || [];
+    const tags = post.frontmatter?.tags || [];
+
+    const categoriesBadges = Array.isArray(categories)
+      ? categories.map(cat => `<span class="badge badge-category">${escapeHtml(cat)}</span>`).join('')
+      : '';
+
+    const tagsBadges = Array.isArray(tags)
+      ? tags.map(tag => `<span class="badge badge-tag">${escapeHtml(tag)}</span>`).join('')
+      : '';
+
+    return `
+      <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPost('${escapeHtml(post.name)}')">
+        <td class="px-4 py-3">
+          <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
+          <div class="text-xs text-gray-500">${escapeHtml(post.name)}</div>
+        </td>
+        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
+        <td class="px-4 py-3 text-sm">${categoriesBadges || '<span class="text-gray-400">-</span>'}</td>
+        <td class="px-4 py-3 text-sm">${tagsBadges || '<span class="text-gray-400">-</span>'}</td>
+        <td class="px-4 py-3 text-right whitespace-nowrap">
+          <button
+            onclick="event.stopPropagation(); editPost('${escapeHtml(post.name)}')"
+            class="text-teal-600 hover:text-teal-700 mr-2"
+            title="Edit"
+          >
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </button>
+          <button
+            onclick="event.stopPropagation(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
+            class="text-gray-500 hover:text-red-600"
+            title="Delete"
+          >
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  // Update pagination
+  updatePagination(totalPosts, startIndex + 1, endIndex, totalPages);
+}
+
+// Sort posts list
+function sortPostsList(posts, sortBy) {
+  const sorted = [...posts];
+
+  switch (sortBy) {
+    case 'date-desc':
+      return sorted.sort((a, b) => b.date - a.date);
+    case 'date-asc':
+      return sorted.sort((a, b) => a.date - b.date);
+    case 'title-asc':
+      return sorted.sort((a, b) => {
+        const titleA = (a.frontmatter?.title || a.name).toLowerCase();
+        const titleB = (b.frontmatter?.title || b.name).toLowerCase();
+        return titleA.localeCompare(titleB);
+      });
+    case 'title-desc':
+      return sorted.sort((a, b) => {
+        const titleA = (a.frontmatter?.title || a.name).toLowerCase();
+        const titleB = (b.frontmatter?.title || b.name).toLowerCase();
+        return titleB.localeCompare(titleA);
+      });
+    default:
+      return sorted;
+  }
+}
+
+// Update pagination UI
+function updatePagination(total, start, end, totalPages) {
+  const paginationEl = document.getElementById('posts-pagination');
+  const prevBtn = document.getElementById('posts-prev-btn');
+  const nextBtn = document.getElementById('posts-next-btn');
+
+  if (totalPages <= 1) {
+    paginationEl.classList.add('hidden');
+    return;
+  }
+
+  paginationEl.classList.remove('hidden');
+
+  document.getElementById('posts-range-start').textContent = start;
+  document.getElementById('posts-range-end').textContent = end;
+  document.getElementById('posts-total').textContent = total;
+
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+}
+
+// Change page
+function changePage(delta) {
+  currentPage += delta;
+  renderPostsList();
+  document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Sort posts (triggered by dropdown)
+function sortPosts() {
+  currentPage = 1; // Reset to first page
+  renderPostsList();
 }
 
 // Filter posts
 function filterPosts() {
+  currentPage = 1; // Reset to first page
   renderPostsList();
+}
+
+// Format date for display
+function formatDateShort(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  return d.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
 }
 
 // Edit post
@@ -802,33 +989,72 @@ async function savePost(event) {
   }
 }
 
-// Delete post
+// Delete post (from editor view - move to trash)
 async function deletePost() {
   if (!currentPost) return;
 
-  const confirmed = await showConfirm(`Are you sure you want to delete this post?`);
+  const title = currentPost.frontmatter?.title || currentPost.path;
+  const confirmed = await showConfirm(`Move "${title}" to trash?`);
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`${API_BASE}/posts`, {
-      method: 'DELETE',
+    const filename = currentPost.path.replace('_posts/', '');
+
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        path: currentPost.path.replace('_posts/', ''),
+        filename: filename,
         sha: currentPost.sha
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to delete post');
+      throw new Error(error.message || 'Failed to move post to trash');
     }
 
-    showSuccess('Post deleted successfully!');
+    showSuccess('Post moved to trash successfully!');
     await loadPosts();
     showPostsList();
   } catch (error) {
-    showError('Failed to delete post: ' + error.message);
+    showError('Failed to move post to trash: ' + error.message);
+  }
+}
+
+// Delete post from list view (move to trash)
+async function deletePostFromList(filename, sha) {
+  const post = allPostsWithMetadata.find(p => p.name === filename);
+  const title = post?.frontmatter?.title || filename;
+
+  const confirmed = await showConfirm(`Move "${title}" to trash?`);
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: filename,
+        sha: sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to move post to trash');
+    }
+
+    showSuccess('Post moved to trash successfully!');
+
+    // Remove from local arrays
+    allPosts = allPosts.filter(p => p.name !== filename);
+    allPostsWithMetadata = allPostsWithMetadata.filter(p => p.name !== filename);
+
+    // Re-render the list
+    renderPostsList();
+  } catch (error) {
+    showError('Failed to move post to trash: ' + error.message);
   }
 }
 
@@ -882,12 +1108,142 @@ function getMultiSelectValues(id) {
   return Array.from(select.selectedOptions).map(option => option.value);
 }
 
-// Update switchSection to load posts
+// ===== TRASH MANAGEMENT =====
+
+let allTrashedPosts = [];
+
+// Load trashed posts
+async function loadTrash() {
+  try {
+    const response = await fetch(`${API_BASE}/trash`);
+    if (!response.ok) throw new Error('Failed to load trash');
+
+    const data = await response.json();
+    allTrashedPosts = data.posts || [];
+
+    renderTrashList();
+  } catch (error) {
+    showError('Failed to load trash: ' + error.message);
+  } finally {
+    document.getElementById('trash-loading').classList.add('hidden');
+  }
+}
+
+// Render trash list
+function renderTrashList() {
+  const listEl = document.getElementById('trash-list');
+  const emptyEl = document.getElementById('trash-empty');
+
+  if (allTrashedPosts.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.classList.remove('hidden');
+    return;
+  }
+
+  emptyEl.classList.add('hidden');
+
+  listEl.innerHTML = allTrashedPosts.map(post => `
+    <li class="flex items-center gap-4 p-4 bg-gray-50 rounded-md hover:bg-gray-100 transition">
+      <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+      </svg>
+      <span class="flex-1 font-medium">${escapeHtml(post.name)}</span>
+      <span class="text-xs text-gray-500">${(post.size / 1024).toFixed(1)} KB</span>
+      <button
+        onclick="restorePost('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
+        class="px-3 py-1 text-sm bg-teal-600 text-white rounded hover:bg-teal-700"
+        title="Restore"
+      >
+        Restore
+      </button>
+      <button
+        onclick="permanentlyDeletePost('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
+        class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+        title="Permanently Delete"
+      >
+        Delete Forever
+      </button>
+    </li>
+  `).join('');
+}
+
+// Restore post from trash
+async function restorePost(filename, sha) {
+  const confirmed = await showConfirm(`Restore "${filename}" to posts?`);
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: filename,
+        sha: sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to restore post');
+    }
+
+    showSuccess('Post restored successfully!');
+
+    // Remove from local array
+    allTrashedPosts = allTrashedPosts.filter(p => p.name !== filename);
+
+    // Re-render trash list
+    renderTrashList();
+
+    // Reload posts if on posts section
+    if (allPosts.length > 0) {
+      await loadPosts();
+    }
+  } catch (error) {
+    showError('Failed to restore post: ' + error.message);
+  }
+}
+
+// Permanently delete post
+async function permanentlyDeletePost(filename, sha) {
+  const confirmed = await showConfirm(`Permanently delete "${filename}"? This cannot be undone!`);
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: filename,
+        sha: sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete post');
+    }
+
+    showSuccess('Post permanently deleted');
+
+    // Remove from local array
+    allTrashedPosts = allTrashedPosts.filter(p => p.name !== filename);
+
+    // Re-render trash list
+    renderTrashList();
+  } catch (error) {
+    showError('Failed to delete post: ' + error.message);
+  }
+}
+
+// Update switchSection to load posts and trash
 const originalSwitchSection = switchSection;
 switchSection = function(sectionName) {
   originalSwitchSection(sectionName);
 
   if (sectionName === 'posts' && allPosts.length === 0) {
     loadPosts();
+  } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
+    loadTrash();
   }
 };
