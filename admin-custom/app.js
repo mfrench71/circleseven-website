@@ -161,7 +161,8 @@ function renderCategories() {
         </svg>
       </button>
     </li>
-  `).join('');
+  `;
+  }).join('');
 
   countBadge.textContent = categories.length;
 
@@ -246,7 +247,8 @@ function renderTags() {
         </svg>
       </button>
     </li>
-  `).join('');
+  `;
+  }).join('');
 
   countBadge.textContent = tags.length;
 
