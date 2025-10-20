@@ -59,8 +59,70 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Categories", name: "categories", widget: "list", required: false, hint: "Add categories for this post (e.g., Projects, Academic, Tutorial)"}
-      - {label: "Tags", name: "tags", widget: "list", required: false, hint: "Add tags to help organize and find related posts"}
+      - label: "Categories"
+        name: "categories"
+        widget: "select"
+        multiple: true
+        required: false
+        options:
+          - Projects
+          - Photography
+          - Retro Computing
+          - Motion Graphics
+          - Digital Art and Technology
+          - "DAT401 - Strategies for Digital Art and Technology"
+          - "DAT402 - Digital Culture"
+          - "DAT403 - Digital Media Design"
+          - "DAT404 - Web Technologies"
+          - "DAT405 - Creative Coding"
+          - "DAT406 - Digital Making"
+          - "DAT501 - Strategies for Digital Art and Technology"
+          - "DAT503 - Reflexive Design"
+          - "DAT504 - Advanced Web Technologies"
+          - "DAT505 - Advanced Creative Coding"
+          - "DAT506 - Emerging Technologies"
+          - "DAT601 - Realtime"
+          - "DAT602 - Everyware"
+          - "DAT612 - Final Year Project"
+          - "DAT613 - Dissertation"
+          - "INDE601 - Netscapes"
+      - label: "Tags"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        required: false
+        options:
+          - Photography
+          - Academic
+          - Tutorial
+          - Web Development
+          - JavaScript
+          - Python
+          - Photoshop
+          - Illustrator
+          - After Effects
+          - Blender
+          - Unity
+          - Arduino
+          - Photogrammetry
+          - Video
+          - Sound
+          - DAT401
+          - DAT402
+          - DAT403
+          - DAT404
+          - DAT405
+          - DAT406
+          - DAT501
+          - DAT503
+          - DAT504
+          - DAT505
+          - DAT506
+          - DAT601
+          - DAT602
+          - DAT612
+          - DAT613
+          - INDE601
       - {label: "Featured Image", name: "image", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
 
@@ -90,3 +152,15 @@ collections:
           - {label: "Email", name: "email", widget: "string"}
           - {label: "URL", name: "url", widget: "string"}
           - {label: "Related Posts Count", name: "related_posts_count", widget: "number", default: 4, value_type: "int", min: 1, max: 10, step: 1, hint: "Number of related posts to show at the bottom of each post"}
+      - label: "Taxonomy (Categories & Tags)"
+        name: "taxonomy"
+        file: "_data/taxonomy.yml"
+        fields:
+          - label: "Categories"
+            name: "categories"
+            widget: "list"
+            hint: "Manage the list of categories available when editing posts. After changing this, you'll need to update the categories options in admin/config.yml."
+          - label: "Tags"
+            name: "tags"
+            widget: "list"
+            hint: "Manage the list of tags available when editing posts. After changing this, you'll need to update the tags options in admin/config.yml."
