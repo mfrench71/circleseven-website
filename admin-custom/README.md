@@ -33,6 +33,15 @@ This custom admin provides a WordPress-style interface for managing your Jekyll 
 2. Click "Log In"
 3. Authenticate with Netlify Identity
 
+### Environment Setup
+
+The Media Library requires the following environment variable in Netlify:
+
+1. Go to **Netlify Dashboard** → **Site Settings** → **Environment Variables**
+2. Add `CLOUDINARY_API_SECRET` with your Cloudinary API Secret
+3. Find your API Secret at: https://console.cloudinary.com/settings/api-keys
+4. Trigger a redeploy after adding the variable
+
 ---
 
 ## 📚 Quick Guide
