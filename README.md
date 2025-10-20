@@ -75,14 +75,18 @@ Modern, performant static site built on free, enterprise-grade services:
 
 ✅ Responsive mega menu navigation
 ✅ Full-text search with Lunr.js
-✅ Category-based organization
-✅ Pagination (10 posts per page)
+✅ Category and tag-based organization (21 categories, 31 tags)
+✅ Pagination (10 posts per page on site, configurable in admin)
+✅ Smart related posts algorithm (3-tier relevance matching)
 ✅ Embedded content support (YouTube, Vimeo, SoundCloud, Leaflet maps, Sketchfab)
+✅ Cloudinary image CDN with automatic optimization
 ✅ Featured images with lazy loading
 ✅ Mobile-first responsive design
 ✅ SEO optimized with structured data (JSON-LD)
 ✅ WCAG AA accessibility compliance
-✅ Custom editor components for maps, galleries, videos
+✅ Custom CMS editor components (maps, galleries, videos)
+✅ Checkbox-based taxonomy selection in admin
+✅ Deploy status badge in CMS admin
 
 ## Directory Structure
 
@@ -123,8 +127,19 @@ circleseven-website/
 │   ├── config.yml           # CMS configuration
 │   ├── cms.js               # Custom editor components
 │   └── README.md            # CMS documentation
+├── _data/                   # Site data files
+│   └── taxonomy.yml         # Categories and tags definitions
 ├── docs/                    # Documentation
-│   └── EMAIL_MIGRATION_CLOUDFLARE.md
+│   ├── EMAIL_MIGRATION_CLOUDFLARE.md
+│   ├── CLOUDINARY_MIGRATION.md
+│   └── RELATED_POSTS_IMPROVEMENT.md
+├── scripts/                 # Maintenance and utility scripts
+│   ├── sync-taxonomy.js     # Sync taxonomy to CMS config
+│   ├── add-lazy-loading.py  # Add lazy loading to images
+│   ├── audit-cloudinary-images.py
+│   ├── extract-featured-images.py
+│   ├── generate-favicons.py
+│   └── README.md            # Scripts documentation
 ├── index.html               # Homepage with pagination
 ├── categories.md            # All categories overview
 ├── tags.md                  # Tag cloud page
@@ -357,10 +372,104 @@ WCAG AA compliant features:
 
 **Annual Savings:** ~£60-130
 
+## Configuration
+
+### CMS Settings
+
+Access **Settings** in the Decap CMS admin at `/admin/#/collections/settings` to configure:
+
+#### Site Configuration
+- **Site Title** - Displayed in browser titles and headers
+- **Description** - Used in meta tags and SEO
+- **Email** - Contact email address
+- **URL** - Production site URL (https://circleseven.co.uk)
+- **Related Posts Count** - Number of related posts shown (1-10, default: 4)
+
+#### Taxonomy (Categories & Tags)
+Manage the list of available categories and tags used throughout the site:
+
+1. Go to **Settings** → **Taxonomy (Categories & Tags)**
+2. Add/edit/remove categories and tags using the list interface
+3. After saving, run the sync script to update CMS checkboxes:
+   ```bash
+   npm run sync-taxonomy
+   ```
+4. Commit and push the updated `admin/config.yml`
+
+**Current Taxonomy:**
+- **21 Categories**: Projects, Photography, Retro Computing, Digital Art courses (DAT401-DAT613), INDE601
+- **31 Tags**: Photography, Academic, Tutorial, software tools (Photoshop, Blender, Unity), course tags
+
+### Admin Pagination
+
+Control how many posts appear per page in the CMS admin:
+
+1. Edit `admin/config.yml`
+2. Find the `pagination:` section under `blog` collection
+3. Change `size:` value (recommended: 10-50, current: 20)
+4. Commit and push changes
+
+**Note**: Due to Decap CMS limitations, this cannot be configured through the Settings UI.
+
+### Maintenance Scripts
+
+Located in `scripts/` directory (see `scripts/README.md` for details):
+
+#### sync-taxonomy.js
+Syncs taxonomy changes from CMS to config file.
+
+```bash
+# Install dependencies first
+npm install
+
+# Run sync
+npm run sync-taxonomy
+
+# Or directly
+node scripts/sync-taxonomy.js
+```
+
+**When to use**: After updating categories/tags in CMS Settings
+
+#### Python Scripts
+```bash
+# Add lazy loading to images
+python3 scripts/add-lazy-loading.py
+
+# Audit Cloudinary images
+python3 scripts/audit-cloudinary-images.py
+
+# Extract featured images from posts
+python3 scripts/extract-featured-images.py
+
+# Generate favicon files
+python3 scripts/generate-favicons.py
+```
+
+**Dependencies**:
+```bash
+pip install Pillow cloudinary python-dotenv js-yaml
+```
+
+### Environment Variables
+
+For Cloudinary scripts, create `.env` in project root:
+
+```env
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+⚠️ **Never commit `.env` files to version control**
+
 ## Documentation
 
 - `admin/README.md` - Decap CMS setup and usage
 - `docs/EMAIL_MIGRATION_CLOUDFLARE.md` - Email configuration guide
+- `docs/CLOUDINARY_MIGRATION.md` - Cloudinary migration details
+- `docs/RELATED_POSTS_IMPROVEMENT.md` - Related posts algorithm
+- `scripts/README.md` - Maintenance scripts documentation
 
 ## Contributing
 

@@ -1,0 +1,17 @@
+{
+  "name": "circleseven-website",
+  "version": "1.0.0",
+  "description": "Circle Seven - Portfolio and blog of Matthew French",
+  "scripts": {
+    "sync-taxonomy": "node scripts/sync-taxonomy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mfrench71/circleseven-website.git"
+  },
+  "author": "Matthew French",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

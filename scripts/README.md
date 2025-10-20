@@ -29,6 +29,17 @@ Utility scripts for maintaining the Circle Seven website.
 **Dependencies:** Requires PIL/Pillow (`pip install Pillow`)
 **Status:** ✅ Active utility script
 
+### `sync-taxonomy.js`
+**Purpose:** Syncs categories and tags from `_data/taxonomy.yml` to CMS config checkboxes
+**Usage:** `node scripts/sync-taxonomy.js` or `npm run sync-taxonomy`
+**When to use:** After updating taxonomy in CMS Settings > Taxonomy (Categories & Tags)
+**What it does:**
+- Reads categories and tags from `_data/taxonomy.yml`
+- Updates checkbox options in `admin/config.yml`
+- Preserves YAML formatting and handles special characters
+**Note:** After running, commit the updated `admin/config.yml` file
+**Status:** ✅ Active maintenance script
+
 ## Migration Scripts (Deleted)
 
 The following scripts were used during the WordPress → Jekyll migration and have been removed as they are no longer needed:
