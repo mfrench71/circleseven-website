@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://mfrench71.github.io/circleseven-website/sitemap.xml
+Sitemap: https://circleseven.co.uk/sitemap.xml
 
 # Disallow admin and config
 Disallow: /admin/
