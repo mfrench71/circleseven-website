@@ -12,7 +12,17 @@
   to = "/admin/index.html"
   status = 200
 
-# Handle Jekyll's baseurl for Netlify deployment
+# Relaxed CSP for admin area to allow Decap CMS and Cloudinary widget
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http: blob:; font-src 'self' data: https: http:; connect-src 'self' https: http: wss:; frame-src 'self' https: http:; frame-ancestors 'self'"
+
+# Stricter CSP for public site
 [[headers]]
   for = "/*"
   [headers.values]
