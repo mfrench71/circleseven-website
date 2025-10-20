@@ -734,21 +734,20 @@ function renderPostsList() {
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
 
-  // Filter posts
-  let filtered = allPostsWithMetadata.filter(post => {
-    const title = post.frontmatter?.title || post.name;
-    return title.toLowerCase().includes(search) || post.name.toLowerCase().includes(search);
+  // Filter and sort based on ALL posts (not just loaded metadata)
+  let filtered = allPosts.filter(post => {
+    return post.name.toLowerCase().includes(search);
   });
 
-  // Sort posts
-  filtered = sortPostsList(filtered, sortBy);
+  // Sort by filename/date for now (we'll enhance after metadata loads)
+  filtered.sort((a, b) => b.name.localeCompare(a.name));
 
-  // Pagination
+  // Pagination based on ALL filtered posts
   const totalPosts = filtered.length;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = Math.min(startIndex + postsPerPage, totalPosts);
-  const paginatedPosts = filtered.slice(startIndex, endIndex);
+  const currentPagePosts = filtered.slice(startIndex, endIndex);
 
   // Show/hide empty state
   if (filtered.length === 0) {
@@ -760,11 +759,12 @@ function renderPostsList() {
 
   emptyEl.classList.add('hidden');
 
-  // Render table rows
-  tbody.innerHTML = paginatedPosts.map(post => {
-    const title = post.frontmatter?.title || post.name;
-    const date = formatDateShort(post.date);
-    const categories = post.frontmatter?.categories || [];
+  // Render table rows - get metadata if available, otherwise show filename
+  tbody.innerHTML = currentPagePosts.map(post => {
+    const metadata = allPostsWithMetadata.find(p => p.name === post.name);
+    const title = metadata?.frontmatter?.title || post.name;
+    const date = metadata ? formatDateShort(metadata.date) : post.name.substring(0, 10);
+    const categories = metadata?.frontmatter?.categories || [];
 
     const categoriesBadges = Array.isArray(categories)
       ? categories.map(cat => `<span class="badge badge-category">${escapeHtml(cat)}</span>`).join('')
