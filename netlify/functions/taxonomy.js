@@ -1,12 +1,44 @@
-const fs = require('fs');
-const path = require('path');
+const https = require('https');
 const yaml = require('js-yaml');
-const { promisify } = require('util');
 
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
+// GitHub API configuration
+const GITHUB_OWNER = 'mfrench71';
+const GITHUB_REPO = 'circleseven-website';
+const GITHUB_BRANCH = 'main';
+const FILE_PATH = '_data/taxonomy.yml';
 
-const TAXONOMY_FILE = path.join(process.cwd(), '_data', 'taxonomy.yml');
+// Helper to make GitHub API requests
+function githubRequest(path, options = {}) {
+  return new Promise((resolve, reject) => {
+    const req = https.request({
+      hostname: 'api.github.com',
+      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
+      method: options.method || 'GET',
+      headers: {
+        'User-Agent': 'Netlify-Function',
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+        ...options.headers
+      }
+    }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(JSON.parse(data));
+        } else {
+          reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
+        }
+      });
+    });
+
+    req.on('error', reject);
+    if (options.body) {
+      req.write(JSON.stringify(options.body));
+    }
+    req.end();
+  });
+}
 
 exports.handler = async (event, context) => {
   // CORS headers
@@ -23,9 +55,10 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // GET - Read taxonomy
+    // GET - Read taxonomy from GitHub
     if (event.httpMethod === 'GET') {
-      const content = await readFile(TAXONOMY_FILE, 'utf8');
+      const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
+      const content = Buffer.from(fileData.content, 'base64').toString('utf8');
       const taxonomy = yaml.load(content);
 
       // Extract strings from objects
@@ -37,14 +70,26 @@ exports.handler = async (event, context) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          categories: extractStrings(taxonomy.categories),
-          tags: extractStrings(taxonomy.tags)
+          categories: extractStrings(taxonomy.categories || []),
+          tags: extractStrings(taxonomy.tags || [])
         })
       };
     }
 
-    // PUT - Update taxonomy
+    // PUT - Update taxonomy via GitHub API
     if (event.httpMethod === 'PUT') {
+      // Check for GitHub token
+      if (!process.env.GITHUB_TOKEN) {
+        return {
+          statusCode: 503,
+          headers,
+          body: JSON.stringify({
+            error: 'GitHub integration not configured',
+            message: 'GITHUB_TOKEN environment variable is missing'
+          })
+        };
+      }
+
       const { categories, tags } = JSON.parse(event.body);
 
       // Validate input
@@ -56,31 +101,38 @@ exports.handler = async (event, context) => {
         };
       }
 
-      // Convert to object format
-      const taxonomy = {
-        categories: categories.map(cat => ({ item: cat })),
-        tags: tags.map(tag => ({ item: tag }))
-      };
+      // Get current file to get its SHA
+      const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
 
       // Create YAML with comments
       const yamlContent = `# Site Taxonomy - Manage categories and tags used across the site
 # Edit these lists in CMS Settings > Taxonomy (Categories & Tags)
 
 categories:
-${taxonomy.categories.map(c => `  - item: ${c.item}`).join('\n')}
+${categories.map(c => `  - item: ${c}`).join('\n')}
 
 tags:
-${taxonomy.tags.map(t => `  - item: ${t.item}`).join('\n')}
+${tags.map(t => `  - item: ${t}`).join('\n')}
 `;
 
-      await writeFile(TAXONOMY_FILE, yamlContent, 'utf8');
+      // Update file via GitHub API
+      await githubRequest(`/contents/${FILE_PATH}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: {
+          message: 'Update taxonomy from custom admin',
+          content: Buffer.from(yamlContent).toString('base64'),
+          sha: currentFile.sha,
+          branch: GITHUB_BRANCH
+        }
+      });
 
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Taxonomy updated successfully'
+          message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.'
         })
       };
     }
@@ -98,7 +150,8 @@ ${taxonomy.tags.map(t => `  - item: ${t.item}`).join('\n')}
       headers,
       body: JSON.stringify({
         error: 'Internal server error',
-        message: error.message
+        message: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       })
     };
   }
