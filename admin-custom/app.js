@@ -2,6 +2,8 @@
 let categories = [];
 let tags = [];
 let user = null;
+let isDirty = false; // Track if there are unsaved changes
+let lastSavedState = null; // Store last synced state
 
 // API endpoints
 const API_BASE = '/.netlify/functions';
@@ -56,8 +58,13 @@ async function loadTaxonomy() {
     categories = data.categories || [];
     tags = data.tags || [];
 
+    // Store initial state as "saved"
+    lastSavedState = JSON.stringify({ categories, tags });
+    isDirty = false;
+
     renderCategories();
     renderTags();
+    updateSaveButton();
 
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('taxonomy-editor').classList.remove('hidden');
@@ -87,17 +94,54 @@ function switchTab(tabName) {
   document.getElementById(`panel-${tabName}`).classList.remove('hidden');
 }
 
+// Check if item has been modified
+function isItemDirty(type, index) {
+  if (!lastSavedState) return false;
+  const saved = JSON.parse(lastSavedState);
+  const current = type === 'category' ? categories : tags;
+  const savedList = type === 'category' ? saved.categories : saved.tags;
+
+  // Check if item exists in saved state and matches
+  return current[index] !== savedList[index];
+}
+
+// Mark changes as dirty
+function markDirty() {
+  isDirty = true;
+  updateSaveButton();
+}
+
+// Update save button state
+function updateSaveButton() {
+  const saveBtn = document.getElementById('save-btn');
+  const currentState = JSON.stringify({ categories, tags });
+  const hasChanges = currentState !== lastSavedState;
+
+  if (hasChanges) {
+    saveBtn.textContent = 'Save Changes';
+    saveBtn.classList.remove('opacity-50');
+    saveBtn.disabled = false;
+  } else {
+    saveBtn.textContent = 'All Saved ✓';
+    saveBtn.classList.add('opacity-50');
+    saveBtn.disabled = true;
+  }
+}
+
 // Render categories
 function renderCategories() {
   const list = document.getElementById('categories-list');
   const countBadge = document.getElementById('categories-count-badge');
 
-  list.innerHTML = categories.map((cat, index) => `
+  list.innerHTML = categories.map((cat, index) => {
+    const statusIcon = getStatusIcon('category', index);
+    return `
     <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
       <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
       <span class="flex-1 font-medium">${escapeHtml(cat)}</span>
+      ${statusIcon}
       <button
         onclick="editCategory(${index})"
         class="p-1 text-gray-500 hover:text-teal-600 transition"
@@ -129,8 +173,44 @@ function renderCategories() {
     onEnd: (evt) => {
       const item = categories.splice(evt.oldIndex, 1)[0];
       categories.splice(evt.newIndex, 0, item);
+      markDirty();
+      renderCategories();
     }
   });
+}
+
+// Get status icon for item
+function getStatusIcon(type, index) {
+  if (!lastSavedState) return '';
+
+  const saved = JSON.parse(lastSavedState);
+  const current = type === 'category' ? categories : tags;
+  const savedList = type === 'category' ? saved.categories : saved.tags;
+
+  // New item (not in saved state)
+  if (index >= savedList.length) {
+    return `<span class="text-xs text-yellow-600 flex items-center gap-1" title="Pending save">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <circle cx="10" cy="10" r="4"/>
+      </svg>
+    </span>`;
+  }
+
+  // Modified item
+  if (current[index] !== savedList[index]) {
+    return `<span class="text-xs text-yellow-600 flex items-center gap-1" title="Pending save">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <circle cx="10" cy="10" r="4"/>
+      </svg>
+    </span>`;
+  }
+
+  // Saved item
+  return `<span class="text-xs text-green-600 flex items-center gap-1" title="Saved">
+    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+    </svg>
+  </span>`;
 }
 
 // Render tags
@@ -138,12 +218,15 @@ function renderTags() {
   const list = document.getElementById('tags-list');
   const countBadge = document.getElementById('tags-count-badge');
 
-  list.innerHTML = tags.map((tag, index) => `
+  list.innerHTML = tags.map((tag, index) => {
+    const statusIcon = getStatusIcon('tag', index);
+    return `
     <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
       <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
       <span class="flex-1 font-medium">${escapeHtml(tag)}</span>
+      ${statusIcon}
       <button
         onclick="editTag(${index})"
         class="p-1 text-gray-500 hover:text-teal-600 transition"
@@ -175,6 +258,8 @@ function renderTags() {
     onEnd: (evt) => {
       const item = tags.splice(evt.oldIndex, 1)[0];
       tags.splice(evt.newIndex, 0, item);
+      markDirty();
+      renderTags();
     }
   });
 }
@@ -193,6 +278,7 @@ function addCategory() {
 
   categories.push(value);
   input.value = '';
+  markDirty();
   renderCategories();
   hideMessages();
 }
@@ -214,6 +300,7 @@ async function editCategory(index) {
   }
 
   categories[index] = trimmed;
+  markDirty();
   renderCategories();
   hideMessages();
 }
@@ -223,6 +310,7 @@ async function deleteCategory(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${categories[index]}"?`);
   if (!confirmed) return;
   categories.splice(index, 1);
+  markDirty();
   renderCategories();
   hideMessages();
 }
@@ -241,6 +329,7 @@ function addTag() {
 
   tags.push(value);
   input.value = '';
+  markDirty();
   renderTags();
   hideMessages();
 }
@@ -262,6 +351,7 @@ async function editTag(index) {
   }
 
   tags[index] = trimmed;
+  markDirty();
   renderTags();
   hideMessages();
 }
@@ -271,6 +361,7 @@ async function deleteTag(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${tags[index]}"?`);
   if (!confirmed) return;
   tags.splice(index, 1);
+  markDirty();
   renderTags();
   hideMessages();
 }
@@ -295,7 +386,14 @@ async function saveTaxonomy() {
       throw new Error(error.message || 'Failed to save');
     }
 
+    // Update saved state
+    lastSavedState = JSON.stringify({ categories, tags });
+    isDirty = false;
+
     showSuccess();
+    renderCategories();
+    renderTags();
+    updateSaveButton();
   } catch (error) {
     showError('Failed to save taxonomy: ' + error.message);
   } finally {
