@@ -679,6 +679,7 @@ async function editPost(filename) {
     // Populate form
     document.getElementById('post-title').value = currentPost.frontmatter.title || '';
     document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
+    document.getElementById('post-image').value = currentPost.frontmatter.image || '';
     document.getElementById('post-content').value = currentPost.body || '';
 
     // Set categories and tags
@@ -702,6 +703,7 @@ function showNewPostForm() {
   // Clear form
   document.getElementById('post-title').value = '';
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
+  document.getElementById('post-image').value = '';
   document.getElementById('post-content').value = '';
   setMultiSelect('post-categories', []);
   setMultiSelect('post-tags', []);
@@ -731,16 +733,22 @@ async function savePost(event) {
   try {
     const title = document.getElementById('post-title').value;
     const date = document.getElementById('post-date').value;
+    const image = document.getElementById('post-image').value;
     const content = document.getElementById('post-content').value;
     const selectedCategories = getMultiSelectValues('post-categories');
     const selectedTags = getMultiSelectValues('post-tags');
 
     const frontmatter = {
+      layout: 'post',
       title,
       date: new Date(date).toISOString(),
       categories: selectedCategories,
       tags: selectedTags
     };
+
+    if (image) {
+      frontmatter.image = image;
+    }
 
     if (currentPost) {
       // Update existing post
