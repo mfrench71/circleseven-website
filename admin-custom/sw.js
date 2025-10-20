@@ -1,7 +1,7 @@
 // Service Worker for Circle Seven Admin
 // Provides offline capability and faster repeat visits
 
-const CACHE_NAME = 'circle-seven-admin-v2';
+const CACHE_NAME = 'circle-seven-admin-v3';
 
 // Only cache same-origin resources during install
 const urlsToCache = [
