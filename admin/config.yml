@@ -13,9 +13,11 @@ public_folder: "/assets/images/uploads" # The src attribute for uploaded media w
 # then uncomment the lines below and fill in your credentials
 media_library:
   name: cloudinary
+  output_filename_only: false
   config:
     cloud_name: circleseven
     api_key: 732138267195618
+    multiple: true
 
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
