@@ -53,41 +53,46 @@
         <!-- Main Navigation -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav class="flex border-b border-gray-200">
-            <button
-              onclick="switchSection('dashboard')"
+            <a
+              href="/admin-custom/"
+              onclick="event.preventDefault(); switchSection('dashboard')"
               id="nav-dashboard"
-              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-teal-600 text-teal-600"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-teal-600 text-teal-600 no-underline"
             >
               Dashboard
-            </button>
-            <button
-              onclick="switchSection('taxonomy')"
+            </a>
+            <a
+              href="/admin-custom/taxonomy"
+              onclick="event.preventDefault(); switchSection('taxonomy')"
               id="nav-taxonomy"
-              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
               Taxonomy
-            </button>
-            <button
-              onclick="switchSection('posts')"
+            </a>
+            <a
+              href="/admin-custom/posts"
+              onclick="event.preventDefault(); switchSection('posts')"
               id="nav-posts"
-              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
               Posts
-            </button>
-            <button
-              onclick="switchSection('trash')"
+            </a>
+            <a
+              href="/admin-custom/trash"
+              onclick="event.preventDefault(); switchSection('trash')"
               id="nav-trash"
-              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
               Trash
-            </button>
-            <button
-              onclick="switchSection('settings')"
+            </a>
+            <a
+              href="/admin-custom/settings"
+              onclick="event.preventDefault(); switchSection('settings')"
               id="nav-settings"
-              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
               Settings
-            </button>
+            </a>
           </nav>
         </div>
       </header>
@@ -199,33 +204,36 @@
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div class="space-y-2">
-                <button
-                  onclick="switchSection('posts')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                <a
+                  href="/admin-custom/posts"
+                  onclick="event.preventDefault(); switchSection('posts')"
+                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
                 >
                   <span class="font-medium">Manage Posts</span>
                   <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                   </svg>
-                </button>
-                <button
-                  onclick="switchSection('taxonomy')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                </a>
+                <a
+                  href="/admin-custom/taxonomy"
+                  onclick="event.preventDefault(); switchSection('taxonomy')"
+                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
                 >
                   <span class="font-medium">Manage Taxonomy</span>
                   <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                   </svg>
-                </button>
-                <button
-                  onclick="switchSection('settings')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                </a>
+                <a
+                  href="/admin-custom/settings"
+                  onclick="event.preventDefault(); switchSection('settings')"
+                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
                 >
                   <span class="font-medium">Site Settings</span>
                   <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                   </svg>
-                </button>
+                </a>
               </div>
             </div>
 

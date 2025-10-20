@@ -11,7 +11,7 @@ const API_BASE = '/.netlify/functions';
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   initAuth();
-  handleHashChange();
+  handleRouteChange();
 });
 
 // Authentication
@@ -50,8 +50,8 @@ function showMainApp(authenticatedUser) {
   // Hide loading indicator
   document.getElementById('loading').classList.add('hidden');
 
-  // Handle hash-based routing on login
-  handleHashChange();
+  // Handle routing on login
+  handleRouteChange();
 
   // Load last updated time
   updateLastUpdated();
@@ -525,10 +525,11 @@ function closeConfirm(confirmed) {
 }
 
 // Section switching (Dashboard, Taxonomy, Settings)
-function switchSection(sectionName, updateHash = true) {
-  // Update URL hash if requested
-  if (updateHash) {
-    window.location.hash = sectionName;
+function switchSection(sectionName, updateUrl = true) {
+  // Update URL using History API if requested
+  if (updateUrl) {
+    const newPath = sectionName === 'dashboard' ? '/admin-custom/' : `/admin-custom/${sectionName}`;
+    window.history.pushState({ section: sectionName }, '', newPath);
   }
 
   // Update navigation buttons
@@ -561,22 +562,34 @@ function switchSection(sectionName, updateHash = true) {
   }
 }
 
-// Handle hash changes (back/forward/refresh)
-function handleHashChange() {
-  let hash = window.location.hash.replace('#', '');
+// Handle URL path changes (back/forward/refresh)
+function handleRouteChange() {
+  const path = window.location.pathname;
+  const pathParts = path.split('/').filter(p => p);
 
-  // Default to dashboard if no hash or invalid hash
-  const validSections = ['dashboard', 'taxonomy', 'posts', 'trash', 'settings'];
-  if (!hash || !validSections.includes(hash)) {
-    hash = 'dashboard';
+  // Get the section from the URL path
+  // /admin-custom/ -> dashboard
+  // /admin-custom/posts -> posts
+  // /admin-custom/taxonomy -> taxonomy
+  let section = 'dashboard';
+
+  if (pathParts.length >= 2 && pathParts[0] === 'admin-custom') {
+    const requestedSection = pathParts[1];
+    const validSections = ['dashboard', 'taxonomy', 'posts', 'trash', 'settings'];
+    if (validSections.includes(requestedSection)) {
+      section = requestedSection;
+    }
   }
 
-  // Switch section without updating hash (to avoid loop)
-  switchSection(hash, false);
+  // Switch section without updating URL (to avoid loop)
+  switchSection(section, false);
 }
 
-// Initialize hash-based routing
-window.addEventListener('hashchange', handleHashChange);
+// Initialize routing with History API
+window.addEventListener('popstate', (e) => {
+  // Handle browser back/forward buttons
+  handleRouteChange();
+});
 
 // Load settings from API
 async function loadSettings() {
