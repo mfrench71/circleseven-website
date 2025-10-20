@@ -902,7 +902,10 @@ async function editPost(filename) {
     // Populate form
     document.getElementById('post-title').value = currentPost.frontmatter.title || '';
     document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
-    document.getElementById('post-image').value = currentPost.frontmatter.image || '';
+
+    // Support both 'image' and 'featured_image' fields
+    const imageUrl = currentPost.frontmatter.image || currentPost.frontmatter.featured_image || '';
+    document.getElementById('post-image').value = imageUrl;
 
     // Update image preview
     updateImagePreview();
@@ -987,7 +990,12 @@ async function savePost(event) {
     };
 
     if (image) {
-      frontmatter.image = image;
+      // Preserve the original image field name when editing
+      if (currentPost && currentPost.frontmatter.featured_image) {
+        frontmatter.featured_image = image;
+      } else {
+        frontmatter.image = image;
+      }
     }
 
     if (currentPost) {
