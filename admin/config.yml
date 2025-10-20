@@ -152,7 +152,29 @@ collections:
       - label: "Taxonomy (Categories & Tags)"
         name: "taxonomy"
         file: "_data/taxonomy.yml"
-        description: "After saving, run: npm run sync-taxonomy"
+        description: "Manage site-wide categories and tags. After saving changes, run 'npm run sync-taxonomy' in terminal to update CMS checkboxes."
         fields:
-          - {label: "Categories", name: "categories", widget: "list", hint: "One per line. Used for major post themes."}
-          - {label: "Tags", name: "tags", widget: "list", hint: "One per line. Used for detailed content classification."}
+          - label: "Categories"
+            name: "categories"
+            widget: "list"
+            label_singular: "Category"
+            collapsed: false
+            minimize_collapsed: false
+            summary: "{{fields.item}}"
+            hint: "Major post themes (Projects, Academic courses, etc.)"
+            field:
+              label: "Category Name"
+              name: "item"
+              widget: "string"
+          - label: "Tags"
+            name: "tags"
+            widget: "list"
+            label_singular: "Tag"
+            collapsed: false
+            minimize_collapsed: false
+            summary: "{{fields.item}}"
+            hint: "Detailed content classification (Tools, technologies, topics)"
+            field:
+              label: "Tag Name"
+              name: "item"
+              widget: "string"

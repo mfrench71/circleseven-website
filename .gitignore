@@ -7,6 +7,10 @@ vendor
 Gemfile.lock
 .DS_Store
 
+# Node.js
+node_modules/
+package-lock.json
+
 # WordPress export and conversion scripts
 *.xml
 wp_convert.py

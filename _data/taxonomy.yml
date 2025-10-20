@@ -1,58 +1,58 @@
 # Site Taxonomy - Manage categories and tags used across the site
-# Edit these lists in CMS Settings > Taxonomy
+# Edit these lists in CMS Settings > Taxonomy (Categories & Tags)
 
 categories:
-  - Projects
-  - Photography
-  - Retro Computing
-  - Motion Graphics
-  - Digital Art and Technology
-  - DAT401 - Strategies for Digital Art and Technology
-  - DAT402 - Digital Culture
-  - DAT403 - Digital Media Design
-  - DAT404 - Web Technologies
-  - DAT405 - Creative Coding
-  - DAT406 - Digital Making
-  - DAT501 - Strategies for Digital Art and Technology
-  - DAT503 - Reflexive Design
-  - DAT504 - Advanced Web Technologies
-  - DAT505 - Advanced Creative Coding
-  - DAT506 - Emerging Technologies
-  - DAT601 - Realtime
-  - DAT602 - Everyware
-  - DAT612 - Final Year Project
-  - DAT613 - Dissertation
-  - INDE601 - Netscapes
+  - item: Projects
+  - item: Photography
+  - item: Retro Computing
+  - item: Motion Graphics
+  - item: Digital Art and Technology
+  - item: DAT401 - Strategies for Digital Art and Technology
+  - item: DAT402 - Digital Culture
+  - item: DAT403 - Digital Media Design
+  - item: DAT404 - Web Technologies
+  - item: DAT405 - Creative Coding
+  - item: DAT406 - Digital Making
+  - item: DAT501 - Strategies for Digital Art and Technology
+  - item: DAT503 - Reflexive Design
+  - item: DAT504 - Advanced Web Technologies
+  - item: DAT505 - Advanced Creative Coding
+  - item: DAT506 - Emerging Technologies
+  - item: DAT601 - Realtime
+  - item: DAT602 - Everyware
+  - item: DAT612 - Final Year Project
+  - item: DAT613 - Dissertation
+  - item: INDE601 - Netscapes
 
 tags:
-  - Photography
-  - Academic
-  - Tutorial
-  - Web Development
-  - JavaScript
-  - Python
-  - Photoshop
-  - Illustrator
-  - After Effects
-  - Blender
-  - Unity
-  - Arduino
-  - Photogrammetry
-  - Video
-  - Sound
-  - DAT401
-  - DAT402
-  - DAT403
-  - DAT404
-  - DAT405
-  - DAT406
-  - DAT501
-  - DAT503
-  - DAT504
-  - DAT505
-  - DAT506
-  - DAT601
-  - DAT602
-  - DAT612
-  - DAT613
-  - INDE601
+  - item: Photography
+  - item: Academic
+  - item: Tutorial
+  - item: Web Development
+  - item: JavaScript
+  - item: Python
+  - item: Photoshop
+  - item: Illustrator
+  - item: After Effects
+  - item: Blender
+  - item: Unity
+  - item: Arduino
+  - item: Photogrammetry
+  - item: Video
+  - item: Sound
+  - item: DAT401
+  - item: DAT402
+  - item: DAT403
+  - item: DAT404
+  - item: DAT405
+  - item: DAT406
+  - item: DAT501
+  - item: DAT503
+  - item: DAT504
+  - item: DAT505
+  - item: DAT506
+  - item: DAT601
+  - item: DAT602
+  - item: DAT612
+  - item: DAT613
+  - item: INDE601

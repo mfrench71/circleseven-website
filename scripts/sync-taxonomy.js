@@ -30,8 +30,16 @@ try {
     process.exit(1);
   }
 
-  console.log(`   Found ${taxonomy.categories.length} categories`);
-  console.log(`   Found ${taxonomy.tags.length} tags\n`);
+  // Extract strings from taxonomy (handles both simple strings and {item: "string"} format)
+  const extractStrings = (arr) => arr.map(item =>
+    typeof item === 'string' ? item : (item.item || item)
+  );
+
+  const categories = extractStrings(taxonomy.categories);
+  const tags = extractStrings(taxonomy.tags);
+
+  console.log(`   Found ${categories.length} categories`);
+  console.log(`   Found ${tags.length} tags\n`);
 
   // Read config file
   console.log(`📖 Reading ${CONFIG_FILE}...`);
@@ -51,7 +59,7 @@ try {
   // Replace categories options
   console.log('✏️  Updating categories options...');
   const categoriesPattern = /(- label: "Categories"\s+name: "categories"\s+widget: "select"\s+multiple: true\s+required: false\s+options:\s*\n)((?:\s+- [^\n]+\n)+)/;
-  const categoriesOptions = formatOptions(taxonomy.categories);
+  const categoriesOptions = formatOptions(categories);
   const updatedConfig1 = configContent.replace(
     categoriesPattern,
     `$1${categoriesOptions}\n`
@@ -65,7 +73,7 @@ try {
   // Replace tags options
   console.log('✏️  Updating tags options...');
   const tagsPattern = /(- label: "Tags"\s+name: "tags"\s+widget: "select"\s+multiple: true\s+required: false\s+options:\s*\n)((?:\s+- [^\n]+\n)+)/;
-  const tagsOptions = formatOptions(taxonomy.tags);
+  const tagsOptions = formatOptions(tags);
   const updatedConfig2 = updatedConfig1.replace(
     tagsPattern,
     `$1${tagsOptions}\n`
@@ -82,8 +90,8 @@ try {
 
   console.log('✅ Taxonomy synced successfully!\n');
   console.log('Summary:');
-  console.log(`   Categories: ${taxonomy.categories.length} items`);
-  console.log(`   Tags: ${taxonomy.tags.length} items\n`);
+  console.log(`   Categories: ${categories.length} items`);
+  console.log(`   Tags: ${tags.length} items\n`);
   console.log('💡 Don\'t forget to commit the changes to admin/config.yml');
 
 } catch (error) {
