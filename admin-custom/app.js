@@ -607,3 +607,279 @@ function showSuccess(message = 'Taxonomy saved successfully!') {
   successEl.classList.remove('hidden');
   setTimeout(() => successEl.classList.add('hidden'), 5000);
 }
+
+// ===== POSTS MANAGEMENT =====
+
+let allPosts = [];
+let currentPost = null;
+
+// Load posts list
+async function loadPosts() {
+  try {
+    const response = await fetch(`${API_BASE}/posts`);
+    if (!response.ok) throw new Error('Failed to load posts');
+
+    const data = await response.json();
+    allPosts = data.posts || [];
+
+    renderPostsList();
+    populateTaxonomySelects();
+  } catch (error) {
+    showError('Failed to load posts: ' + error.message);
+  } finally {
+    document.getElementById('posts-loading').classList.add('hidden');
+  }
+}
+
+// Render posts list
+function renderPostsList() {
+  const container = document.getElementById('posts-list-container');
+  const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
+
+  const filteredPosts = allPosts.filter(post => {
+    return post.name.toLowerCase().includes(search);
+  });
+
+  if (filteredPosts.length === 0) {
+    container.innerHTML = '<div class="p-8 text-center text-gray-500">No posts found</div>';
+    return;
+  }
+
+  container.innerHTML = filteredPosts.map(post => `
+    <div
+      class="p-4 hover:bg-gray-50 cursor-pointer transition"
+      onclick="editPost('${escapeHtml(post.name)}')"
+    >
+      <div class="flex justify-between items-center">
+        <div>
+          <h4 class="font-medium text-gray-900">${escapeHtml(post.name)}</h4>
+          <p class="text-sm text-gray-500">${(post.size / 1024).toFixed(1)} KB</p>
+        </div>
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Filter posts
+function filterPosts() {
+  renderPostsList();
+}
+
+// Edit post
+async function editPost(filename) {
+  try {
+    const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(filename)}`);
+    if (!response.ok) throw new Error('Failed to load post');
+
+    currentPost = await response.json();
+
+    // Populate form
+    document.getElementById('post-title').value = currentPost.frontmatter.title || '';
+    document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
+    document.getElementById('post-content').value = currentPost.body || '';
+
+    // Set categories and tags
+    setMultiSelect('post-categories', currentPost.frontmatter.categories || []);
+    setMultiSelect('post-tags', currentPost.frontmatter.tags || []);
+
+    // Show editor
+    document.getElementById('posts-list-view').classList.add('hidden');
+    document.getElementById('posts-editor-view').classList.remove('hidden');
+    document.getElementById('post-editor-title').textContent = `Edit: ${filename}`;
+    document.getElementById('delete-post-btn').style.display = 'block';
+  } catch (error) {
+    showError('Failed to load post: ' + error.message);
+  }
+}
+
+// Show new post form
+function showNewPostForm() {
+  currentPost = null;
+
+  // Clear form
+  document.getElementById('post-title').value = '';
+  document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
+  document.getElementById('post-content').value = '';
+  setMultiSelect('post-categories', []);
+  setMultiSelect('post-tags', []);
+
+  // Show editor
+  document.getElementById('posts-list-view').classList.add('hidden');
+  document.getElementById('posts-editor-view').classList.remove('hidden');
+  document.getElementById('post-editor-title').textContent = 'New Post';
+  document.getElementById('delete-post-btn').style.display = 'none';
+}
+
+// Show posts list
+function showPostsList() {
+  document.getElementById('posts-editor-view').classList.add('hidden');
+  document.getElementById('posts-list-view').classList.remove('hidden');
+  currentPost = null;
+}
+
+// Save post
+async function savePost(event) {
+  event.preventDefault();
+
+  const saveBtn = document.getElementById('save-post-btn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = 'Saving...';
+
+  try {
+    const title = document.getElementById('post-title').value;
+    const date = document.getElementById('post-date').value;
+    const content = document.getElementById('post-content').value;
+    const selectedCategories = getMultiSelectValues('post-categories');
+    const selectedTags = getMultiSelectValues('post-tags');
+
+    const frontmatter = {
+      title,
+      date: new Date(date).toISOString(),
+      categories: selectedCategories,
+      tags: selectedTags
+    };
+
+    if (currentPost) {
+      // Update existing post
+      const response = await fetch(`${API_BASE}/posts`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: currentPost.path.replace('_posts/', ''),
+          frontmatter,
+          body: content,
+          sha: currentPost.sha
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to save post');
+      }
+
+      showSuccess('Post updated successfully!');
+    } else {
+      // Create new post
+      const filename = generateFilename(title, date);
+
+      const response = await fetch(`${API_BASE}/posts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename,
+          frontmatter,
+          body: content
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to create post');
+      }
+
+      showSuccess('Post created successfully!');
+    }
+
+    // Reload posts and go back to list
+    await loadPosts();
+    showPostsList();
+  } catch (error) {
+    showError('Failed to save post: ' + error.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = 'Save Post';
+  }
+}
+
+// Delete post
+async function deletePost() {
+  if (!currentPost) return;
+
+  const confirmed = await showConfirm(`Are you sure you want to delete this post?`);
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/posts`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: currentPost.path.replace('_posts/', ''),
+        sha: currentPost.sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete post');
+    }
+
+    showSuccess('Post deleted successfully!');
+    await loadPosts();
+    showPostsList();
+  } catch (error) {
+    showError('Failed to delete post: ' + error.message);
+  }
+}
+
+// Helper: Generate filename for new post
+function generateFilename(title, date) {
+  const dateObj = new Date(date);
+  const dateStr = dateObj.toISOString().split('T')[0];
+  const slug = title.toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return `${dateStr}-${slug}.md`;
+}
+
+// Helper: Format date for datetime-local input
+function formatDateForInput(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+// Helper: Populate taxonomy selects
+function populateTaxonomySelects() {
+  const categoriesSelect = document.getElementById('post-categories');
+  const tagsSelect = document.getElementById('post-tags');
+
+  categoriesSelect.innerHTML = categories.map(cat =>
+    `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`
+  ).join('');
+
+  tagsSelect.innerHTML = tags.map(tag =>
+    `<option value="${escapeHtml(tag)}">${escapeHtml(tag)}</option>`
+  ).join('');
+}
+
+// Helper: Set multi-select values
+function setMultiSelect(id, values) {
+  const select = document.getElementById(id);
+  Array.from(select.options).forEach(option => {
+    option.selected = values.includes(option.value);
+  });
+}
+
+// Helper: Get multi-select values
+function getMultiSelectValues(id) {
+  const select = document.getElementById(id);
+  return Array.from(select.selectedOptions).map(option => option.value);
+}
+
+// Update switchSection to load posts
+const originalSwitchSection = switchSection;
+switchSection = function(sectionName) {
+  originalSwitchSection(sectionName);
+
+  if (sectionName === 'posts' && allPosts.length === 0) {
+    loadPosts();
+  }
+};

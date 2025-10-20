@@ -64,6 +64,13 @@
               Taxonomy
             </button>
             <button
+              onclick="switchSection('posts')"
+              id="nav-posts"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            >
+              Posts
+            </button>
+            <button
               onclick="switchSection('settings')"
               id="nav-settings"
               class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -205,8 +212,8 @@
                 </div>
                 <div class="flex justify-between items-center">
                   <span class="text-gray-600">Build Status:</span>
-                  <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener">
-                    <img src="https://api.netlify.com/api/v1/badges/dc8f55c7-6f8a-4c8f-9e5a-8b0e7d4a3c2f/deploy-status" alt="Netlify Deploy Status" class="inline-block" />
+                  <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener" class="text-teal-600 hover:text-teal-700 text-sm">
+                    View Deploys →
                   </a>
                 </div>
                 <div class="flex justify-between">
@@ -317,6 +324,159 @@
             >
               Save Changes
             </button>
+          </div>
+        </div>
+
+        <!-- Posts Section -->
+        <div id="section-posts" class="section-panel hidden">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Posts</h2>
+
+          <!-- Collapsible Help -->
+          <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+              How to use
+            </summary>
+            <div class="px-4 pb-3 pt-2">
+              <p class="text-sm text-blue-800">
+                Click on any post to edit its frontmatter and content. Changes are saved to GitHub and trigger a site rebuild.
+              </p>
+            </div>
+          </details>
+
+          <!-- Posts List View -->
+          <div id="posts-list-view">
+            <!-- Search and Filter -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="posts-search"
+                  placeholder="Search posts..."
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  oninput="filterPosts()"
+                />
+                <button
+                  onclick="showNewPostForm()"
+                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  New Post
+                </button>
+              </div>
+            </div>
+
+            <!-- Posts List -->
+            <div class="bg-white rounded-lg shadow-sm">
+              <div id="posts-list-container" class="divide-y divide-gray-200">
+                <!-- Posts will be inserted here -->
+              </div>
+              <div id="posts-loading" class="p-8 text-center text-gray-500">
+                Loading posts...
+              </div>
+            </div>
+          </div>
+
+          <!-- Post Editor View -->
+          <div id="posts-editor-view" class="hidden">
+            <button
+              onclick="showPostsList()"
+              class="mb-4 text-teal-600 hover:text-teal-700 flex items-center gap-2"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+              Back to Posts
+            </button>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h3 class="text-lg font-semibold mb-4" id="post-editor-title">Edit Post</h3>
+
+              <form id="post-editor-form" onsubmit="savePost(event)">
+                <!-- Frontmatter Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <input
+                      type="text"
+                      id="post-title"
+                      name="title"
+                      required
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                    <input
+                      type="datetime-local"
+                      id="post-date"
+                      name="date"
+                      required
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                    <select
+                      id="post-categories"
+                      name="categories"
+                      multiple
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      style="height: 80px;"
+                    >
+                      <!-- Will be populated from taxonomy -->
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+                    <select
+                      id="post-tags"
+                      name="tags"
+                      multiple
+                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                      style="height: 80px;"
+                    >
+                      <!-- Will be populated from taxonomy -->
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Markdown Content -->
+                <div class="mb-6">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Content (Markdown)</label>
+                  <textarea
+                    id="post-content"
+                    name="content"
+                    rows="20"
+                    required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 font-mono text-sm"
+                  ></textarea>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex justify-between items-center">
+                  <button
+                    type="button"
+                    onclick="deletePost()"
+                    class="text-red-600 hover:text-red-700 px-4 py-2"
+                    id="delete-post-btn"
+                  >
+                    Delete Post
+                  </button>
+                  <button
+                    type="submit"
+                    class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+                    id="save-post-btn"
+                  >
+                    Save Post
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
 
