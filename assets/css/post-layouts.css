@@ -447,17 +447,6 @@ div.category-section h2 {
   margin-bottom: 32px;
   color: #20b2aa;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.related-posts h2::before {
-  content: '\f0c1';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  font-size: 20px;
-  color: #20b2aa;
 }
 
 /* Mobile Adjustments for Related Posts */
