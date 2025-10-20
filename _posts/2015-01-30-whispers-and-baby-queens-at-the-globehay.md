@@ -7,7 +7,7 @@ categories:
 - Photography
 tags:
 - Photography
-featured_image: dsc0039_15790273984_o-scaled
+featured_image: dsc0039_15790273984_o
 ---
 <p>The <a href="http://www.globeathay.org/">Globe@Hay</a> very kindly allowed me to photograph acoustic duo <a href="https://www.facebook.com/pages/Whispers/1452365364976478">*Whispers*</a> and *<a href="https://www.facebook.com/pages/Baby-Queens/523170581048847">Baby Queens</a>*. Here's a selection of images from the night... </p>
 
@@ -15,7 +15,7 @@ featured_image: dsc0039_15790273984_o-scaled
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0004_16411702685_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0004_16411702685_o" width="1024" height="712" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0007_16411776971_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0007_16411776971_o" width="1024" height="681" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0039_15790273984_o-scaled"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/dsc0039_15790273984_o-scaled" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/dsc0039_15790273984_o-scaled 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/dsc0039_15790273984_o-scaled 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/dsc0039_15790273984_o-scaled 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0039_15790273984_o"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/dsc0039_15790273984_o" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/dsc0039_15790273984_o 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/dsc0039_15790273984_o 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/dsc0039_15790273984_o 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0022_16410883251_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0022_16410883251_o" width="1024" height="919" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0059_15790553784_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0059_15790553784_o" width="1024" height="759" alt="" loading="lazy"></a></figure>
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/dsc0054_15792248973_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2022/12/dsc0054_15792248973_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
