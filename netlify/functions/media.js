@@ -5,6 +5,11 @@ const CLOUDINARY_CLOUD_NAME = 'circleseven';
 const CLOUDINARY_API_KEY = '835562345393591';
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
+// Check for required environment variables
+if (!CLOUDINARY_API_SECRET) {
+  console.error('CLOUDINARY_API_SECRET environment variable is not set');
+}
+
 /**
  * Netlify Function: Media Library
  * Fetches media resources from Cloudinary
@@ -33,6 +38,18 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Check if API secret is configured
+    if (!CLOUDINARY_API_SECRET) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          error: 'Configuration error',
+          message: 'CLOUDINARY_API_SECRET environment variable is not set. Please add it to Netlify environment variables.'
+        })
+      };
+    }
+
     // Fetch resources from Cloudinary Admin API
     const resources = await fetchCloudinaryResources();
 
@@ -51,7 +68,8 @@ exports.handler = async (event, context) => {
       headers,
       body: JSON.stringify({
         error: 'Failed to fetch media',
-        message: error.message
+        message: error.message,
+        details: error.stack
       })
     };
   }
