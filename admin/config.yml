@@ -152,27 +152,7 @@ collections:
       - label: "Taxonomy (Categories & Tags)"
         name: "taxonomy"
         file: "_data/taxonomy.yml"
-        description: "Manage categories and tags used throughout the site. After saving changes here, run 'npm run sync-taxonomy' to update the post editor checkboxes."
+        description: "After saving, run: npm run sync-taxonomy"
         fields:
-          - label: "Categories"
-            name: "categories"
-            widget: "list"
-            allow_add: true
-            collapsed: false
-            summary: "{{fields.item}}"
-            field:
-              label: "Category Name"
-              name: "item"
-              widget: "string"
-            hint: "Add, edit, or remove categories. Click '+ Add Category' to create new ones. Categories help organize posts into major themes (e.g., Projects, Photography, Academic)."
-          - label: "Tags"
-            name: "tags"
-            widget: "list"
-            allow_add: true
-            collapsed: false
-            summary: "{{fields.item}}"
-            field:
-              label: "Tag Name"
-              name: "item"
-              widget: "string"
-            hint: "Add, edit, or remove tags. Click '+ Add Tag' to create new ones. Tags provide granular content classification (e.g., Python, Photoshop, Tutorial)."
+          - {label: "Categories", name: "categories", widget: "list", hint: "One per line. Used for major post themes."}
+          - {label: "Tags", name: "tags", widget: "list", hint: "One per line. Used for detailed content classification."}
