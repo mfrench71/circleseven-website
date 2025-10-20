@@ -12,6 +12,27 @@ Modern, custom-built admin interface for managing categories and tags.
 - 📱 Fully responsive design
 - 🚀 No build step required
 
+## Setup
+
+### Required: GitHub Token
+
+The taxonomy manager needs a GitHub personal access token to commit changes:
+
+1. **Create GitHub Token:**
+   - Go to GitHub Settings > Developer settings > Personal access tokens > Tokens (classic)
+   - Click "Generate new token (classic)"
+   - Give it a name: "Netlify Admin"
+   - Select scope: `repo` (Full control of private repositories)
+   - Click "Generate token" and copy it
+
+2. **Add to Netlify:**
+   - Go to Netlify dashboard > Your site > Site settings > Environment variables
+   - Click "Add a variable"
+   - Key: `GITHUB_TOKEN`
+   - Value: (paste your GitHub token)
+   - Click "Save"
+   - Redeploy the site for changes to take effect
+
 ## Access
 
 Visit: [https://circleseven.co.uk/admin-custom](https://circleseven.co.uk/admin-custom)
@@ -67,15 +88,19 @@ Visit: [https://circleseven.co.uk/admin-custom](https://circleseven.co.uk/admin-
 
 ## After Saving
 
-The taxonomy manager updates the YAML file but doesn't automatically commit to Git. You'll need to:
+The taxonomy manager automatically:
+1. ✅ Commits changes to GitHub (via GitHub API)
+2. ✅ Triggers Netlify rebuild automatically
+
+You still need to run `npm run sync-taxonomy` locally to update CMS checkboxes:
 
 ```bash
-# 1. Sync to CMS config (updates admin/config.yml checkboxes)
+# Sync to CMS config (updates admin/config.yml checkboxes)
 npm run sync-taxonomy
 
-# 2. Commit changes
-git add _data/taxonomy.yml admin/config.yml
-git commit -m "Update taxonomy"
+# Commit the updated config
+git add admin/config.yml
+git commit -m "Sync taxonomy to CMS"
 git push
 ```
 
