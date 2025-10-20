@@ -300,7 +300,7 @@
   color: #e65100;
 }
 
-/* Featured Post - Removed to match standard cards
+/* Featured Post (spans 2 columns) */
 .post-card.featured {
   grid-column: span 2;
 }
@@ -313,7 +313,6 @@
   font-size: 16px;
   -webkit-line-clamp: 4;
 }
-*/
 
 /* Legacy Post List Support (for non-grid views) */
 .post-list .post-item {
@@ -329,9 +328,9 @@
     margin-right: 0;
   }
 
-  /* .post-card.featured {
+  .post-card.featured {
     grid-column: span 2;
-  } */
+  }
 
   .home .page-heading {
     padding-left: 0;
@@ -347,9 +346,9 @@
     margin-right: 0;
   }
 
-  /* .post-card.featured {
+  .post-card.featured {
     grid-column: span 2;
-  } */
+  }
 
   .post-card-content {
     padding: 18px;
@@ -383,9 +382,9 @@
     margin-right: 0;
   }
 
-  /* .post-card.featured {
+  .post-card.featured {
     grid-column: span 1;
-  } */
+  }
 
   .post-card-content {
     padding: 20px;
@@ -395,9 +394,9 @@
     font-size: 18px;
   }
 
-  /* .post-card.featured .post-card-title {
+  .post-card.featured .post-card-title {
     font-size: 20px;
-  } */
+  }
 
   .post-card-excerpt {
     font-size: 14px;
