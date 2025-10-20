@@ -45,7 +45,15 @@ function showMainApp(authenticatedUser) {
   user = authenticatedUser;
   document.getElementById('auth-gate').classList.add('hidden');
   document.getElementById('main-app').classList.remove('hidden');
-  loadTaxonomy();
+
+  // Hide loading indicator
+  document.getElementById('loading').classList.add('hidden');
+
+  // Show dashboard by default
+  switchSection('dashboard');
+
+  // Load last updated time
+  updateLastUpdated();
 }
 
 // Load taxonomy from API
@@ -65,12 +73,8 @@ async function loadTaxonomy() {
     renderCategories();
     renderTags();
     updateSaveButton();
-
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('taxonomy-editor').classList.remove('hidden');
   } catch (error) {
     showError('Failed to load taxonomy: ' + error.message);
-    document.getElementById('loading').classList.add('hidden');
   }
 }
 
@@ -499,4 +503,125 @@ function closeConfirm(confirmed) {
     confirmResolve(confirmed);
     confirmResolve = null;
   }
+}
+
+// Section switching (Dashboard, Taxonomy, Settings)
+function switchSection(sectionName) {
+  // Update navigation buttons
+  document.querySelectorAll('.nav-button').forEach(btn => {
+    btn.classList.remove('border-teal-600', 'text-teal-600');
+    btn.classList.add('border-transparent', 'text-gray-500');
+  });
+
+  const activeNav = document.getElementById(`nav-${sectionName}`);
+  activeNav.classList.add('border-teal-600', 'text-teal-600');
+  activeNav.classList.remove('border-transparent', 'text-gray-500');
+
+  // Update section panels
+  document.querySelectorAll('.section-panel').forEach(panel => {
+    panel.classList.add('hidden');
+  });
+
+  document.getElementById(`section-${sectionName}`).classList.remove('hidden');
+
+  // Load data for the section if needed
+  if (sectionName === 'taxonomy' && categories.length === 0) {
+    loadTaxonomy();
+  } else if (sectionName === 'settings') {
+    loadSettings();
+  }
+}
+
+// Load settings from API
+async function loadSettings() {
+  try {
+    const response = await fetch(`${API_BASE}/settings`);
+    if (!response.ok) throw new Error('Failed to load settings');
+
+    const settings = await response.json();
+
+    // Populate form fields
+    Object.keys(settings).forEach(key => {
+      const input = document.getElementById(`setting-${key}`);
+      if (input) {
+        input.value = settings[key] || '';
+      }
+    });
+  } catch (error) {
+    showError('Failed to load settings: ' + error.message);
+  }
+}
+
+// Save settings
+async function saveSettings(event) {
+  event.preventDefault();
+
+  const saveBtn = document.getElementById('settings-save-btn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = 'Saving...';
+
+  try {
+    const form = document.getElementById('settings-form');
+    const formData = new FormData(form);
+    const settings = {};
+
+    formData.forEach((value, key) => {
+      // Convert number fields
+      if (['paginate', 'related_posts_count'].includes(key)) {
+        settings[key] = parseInt(value, 10);
+      } else {
+        settings[key] = value;
+      }
+    });
+
+    const response = await fetch(`${API_BASE}/settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(settings)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to save settings');
+    }
+
+    const result = await response.json();
+    showSuccess(result.message || 'Settings saved successfully!');
+  } catch (error) {
+    showError('Failed to save settings: ' + error.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = 'Save Settings';
+  }
+}
+
+// Update last updated time on dashboard
+function updateLastUpdated() {
+  const now = new Date();
+  const timeStr = now.toLocaleString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  const el = document.getElementById('last-updated');
+  if (el) {
+    el.textContent = timeStr;
+  }
+}
+
+// Override showSuccess to accept custom messages
+function showSuccess(message = 'Taxonomy saved successfully!') {
+  const successEl = document.getElementById('success');
+  const msgEl = successEl.querySelector('p');
+  if (msgEl) {
+    msgEl.textContent = message;
+  } else {
+    successEl.innerHTML = `<p class="text-green-800">${escapeHtml(message)}</p>`;
+  }
+  successEl.classList.remove('hidden');
+  setTimeout(() => successEl.classList.add('hidden'), 5000);
 }

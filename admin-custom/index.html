@@ -35,8 +35,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div class="flex justify-between items-center">
             <div>
-              <h1 class="text-2xl font-bold text-gray-900">Taxonomy Manager</h1>
-              <p class="text-sm text-gray-500">Manage categories and tags for Circle Seven</p>
+              <h1 class="text-2xl font-bold text-gray-900">Circle Seven Admin</h1>
+              <p class="text-sm text-gray-500">Content management dashboard</p>
             </div>
             <div class="flex items-center gap-4">
               <a href="/" class="text-teal-600 hover:text-teal-700">View Site</a>
@@ -45,6 +45,32 @@
               </button>
             </div>
           </div>
+        </div>
+        <!-- Main Navigation -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav class="flex border-b border-gray-200">
+            <button
+              onclick="switchSection('dashboard')"
+              id="nav-dashboard"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-teal-600 text-teal-600"
+            >
+              Dashboard
+            </button>
+            <button
+              onclick="switchSection('taxonomy')"
+              id="nav-taxonomy"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            >
+              Taxonomy
+            </button>
+            <button
+              onclick="switchSection('settings')"
+              id="nav-settings"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            >
+              Settings
+            </button>
+          </nav>
         </div>
       </header>
 
@@ -63,7 +89,7 @@
 
         <!-- Success State -->
         <div id="success" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-          <p class="text-green-800">Taxonomy saved successfully!</p>
+          <p class="text-green-800"></p>
         </div>
 
         <!-- Custom Modal -->
@@ -118,8 +144,82 @@
           </div>
         </div>
 
-        <!-- Taxonomy Editor -->
-        <div id="taxonomy-editor" class="hidden">
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="section-panel">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Dashboard</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Quick Links Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h3 class="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+              <div class="space-y-2">
+                <button
+                  onclick="switchSection('taxonomy')"
+                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                >
+                  <span class="font-medium">Manage Taxonomy</span>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+                <button
+                  onclick="switchSection('settings')"
+                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                >
+                  <span class="font-medium">Site Settings</span>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+                <a
+                  href="/admin"
+                  class="w-full block text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between"
+                >
+                  <span class="font-medium">Decap CMS (Posts)</span>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Site Info Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+              <h3 class="font-semibold text-gray-900 mb-4">Site Information</h3>
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Site URL:</span>
+                  <a href="/" class="text-teal-600 hover:text-teal-700">circleseven.co.uk</a>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Build Status:</span>
+                  <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener" class="text-teal-600 hover:text-teal-700">
+                    View Deploys
+                  </a>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Last Updated:</span>
+                  <span id="last-updated" class="text-gray-900">Loading...</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Environment:</span>
+                  <span class="text-gray-900">Production</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h3 class="font-semibold text-blue-900 mb-2">Welcome to Circle Seven Admin</h3>
+            <p class="text-sm text-blue-800">
+              This custom admin interface provides quick access to manage your site's taxonomy and settings.
+              For full content management (posts, pages, etc.), use the Decap CMS link above.
+            </p>
+          </div>
+        </div>
+
+        <!-- Taxonomy Section -->
+        <div id="section-taxonomy" class="section-panel hidden">
           <!-- Tabs -->
           <div class="bg-white rounded-lg shadow-sm mb-6">
             <div class="border-b border-gray-200">
@@ -225,6 +325,168 @@
               <li>• Click "Save Changes" - everything syncs automatically!</li>
             </ul>
             <p class="text-xs text-blue-700 mt-3">After saving, changes are committed to GitHub and the site rebuilds automatically. Changes appear in 1-2 minutes.</p>
+          </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="section-settings" class="section-panel hidden">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Site Settings</h2>
+
+          <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <form id="settings-form" onsubmit="saveSettings(event)">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Site Title -->
+                <div>
+                  <label for="setting-title" class="block text-sm font-medium text-gray-700 mb-2">
+                    Site Title
+                  </label>
+                  <input
+                    type="text"
+                    id="setting-title"
+                    name="title"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Author Name -->
+                <div>
+                  <label for="setting-author" class="block text-sm font-medium text-gray-700 mb-2">
+                    Author Name
+                  </label>
+                  <input
+                    type="text"
+                    id="setting-author"
+                    name="author"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <label for="setting-email" class="block text-sm font-medium text-gray-700 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="setting-email"
+                    name="email"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- GitHub Username -->
+                <div>
+                  <label for="setting-github_username" class="block text-sm font-medium text-gray-700 mb-2">
+                    GitHub Username
+                  </label>
+                  <input
+                    type="text"
+                    id="setting-github_username"
+                    name="github_username"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+
+                <!-- Posts per Page -->
+                <div>
+                  <label for="setting-paginate" class="block text-sm font-medium text-gray-700 mb-2">
+                    Posts per Page
+                  </label>
+                  <input
+                    type="number"
+                    id="setting-paginate"
+                    name="paginate"
+                    min="1"
+                    max="100"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Related Posts Count -->
+                <div>
+                  <label for="setting-related_posts_count" class="block text-sm font-medium text-gray-700 mb-2">
+                    Related Posts Count
+                  </label>
+                  <input
+                    type="number"
+                    id="setting-related_posts_count"
+                    name="related_posts_count"
+                    min="0"
+                    max="10"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Timezone -->
+                <div>
+                  <label for="setting-timezone" class="block text-sm font-medium text-gray-700 mb-2">
+                    Timezone
+                  </label>
+                  <input
+                    type="text"
+                    id="setting-timezone"
+                    name="timezone"
+                    placeholder="Europe/London"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Language -->
+                <div>
+                  <label for="setting-lang" class="block text-sm font-medium text-gray-700 mb-2">
+                    Language Code
+                  </label>
+                  <input
+                    type="text"
+                    id="setting-lang"
+                    name="lang"
+                    placeholder="en-GB"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  />
+                </div>
+
+                <!-- Site Description (full width) -->
+                <div class="md:col-span-2">
+                  <label for="setting-description" class="block text-sm font-medium text-gray-700 mb-2">
+                    Site Description
+                  </label>
+                  <textarea
+                    id="setting-description"
+                    name="description"
+                    rows="3"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Save Button -->
+              <div class="mt-6 flex justify-end">
+                <button
+                  type="submit"
+                  id="settings-save-btn"
+                  class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+                >
+                  Save Settings
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Help Text -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h3 class="font-semibold text-blue-900 mb-2">Important:</h3>
+            <p class="text-sm text-blue-800">
+              Saving settings will update your _config.yml file and trigger an automatic site rebuild.
+              Changes will be live in approximately 1-2 minutes after saving.
+            </p>
           </div>
         </div>
       </main>
