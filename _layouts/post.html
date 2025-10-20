@@ -103,7 +103,7 @@ layout: default
         <div class="post-image-small">
           <a href="{{ post.url | relative_url }}">
             {%- if post.featured_image -%}
-              <img src="https://res.cloudinary.com/circleseven/image/upload/c_fill,w_500,h_400,g_auto,q_auto,f_auto/{{ post.featured_image }}" alt="{{ post.title | escape }}" loading="lazy">
+              <img src="https://res.cloudinary.com/circleseven/image/upload/c_fill,w_100,h_100,g_auto,q_auto,f_auto/{{ post.featured_image }}" alt="{{ post.title | escape }}" loading="lazy">
             {%- elsif post.image -%}
               <img src="{{ post.image }}" alt="{{ post.title | escape }}" loading="lazy">
             {%- endif -%}
