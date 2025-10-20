@@ -1,17 +1,14 @@
 // Service Worker for Circle Seven Admin
 // Provides offline capability and faster repeat visits
 
-const CACHE_NAME = 'circle-seven-admin-v1';
+const CACHE_NAME = 'circle-seven-admin-v2';
+
+// Only cache same-origin resources during install
 const urlsToCache = [
   '/admin-custom/',
   '/admin-custom/index.html',
   '/admin-custom/app.js',
-  '/admin-custom/styles.css',
-  'https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js',
-  'https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css',
-  'https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
-  'https://identity.netlify.com/v1/netlify-identity-widget.js'
+  '/admin-custom/styles.css'
 ];
 
 // Install event - cache resources
@@ -20,7 +17,11 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache');
+        // Cache same-origin resources only
         return cache.addAll(urlsToCache);
+      })
+      .catch(err => {
+        console.error('Cache installation failed:', err);
       })
   );
   // Activate immediately

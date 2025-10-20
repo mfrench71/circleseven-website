@@ -5,6 +5,10 @@ let user = null;
 let isDirty = false; // Track if there are unsaved changes
 let lastSavedState = null; // Store last synced state
 let cloudinaryWidget = null; // Cloudinary Media Library instance
+let cloudinaryUploadWidget = null; // Cloudinary Upload Widget instance
+let allMedia = []; // All media files from Cloudinary
+let currentMediaPage = 1;
+const mediaPerPage = 20;
 
 // API endpoints
 const API_BASE = '/.netlify/functions';
@@ -103,6 +107,7 @@ function cacheDOMElements() {
   DOM.sectionDashboard = document.getElementById('section-dashboard');
   DOM.sectionTaxonomy = document.getElementById('section-taxonomy');
   DOM.sectionPosts = document.getElementById('section-posts');
+  DOM.sectionMedia = document.getElementById('section-media');
   DOM.sectionTrash = document.getElementById('section-trash');
   DOM.sectionSettings = document.getElementById('section-settings');
 }
@@ -717,7 +722,7 @@ async function handleRouteChange() {
 
   if (pathParts.length >= 2 && pathParts[0] === 'admin-custom') {
     const requestedSection = pathParts[1];
-    const validSections = ['dashboard', 'taxonomy', 'posts', 'trash', 'settings'];
+    const validSections = ['dashboard', 'taxonomy', 'posts', 'media', 'trash', 'settings'];
     if (validSections.includes(requestedSection)) {
       section = requestedSection;
     }
@@ -1871,5 +1876,206 @@ switchSection = async function(sectionName, updateUrl = true) {
     }
   } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
     await loadTrash();
+  } else if (sectionName === 'media' && allMedia.length === 0) {
+    await loadMedia();
   }
 };
+
+// ===== MEDIA LIBRARY MANAGEMENT =====
+
+// Load media from Cloudinary
+async function loadMedia() {
+  try {
+    const response = await fetch(`${API_BASE}/media`);
+    if (!response.ok) throw new Error('Failed to load media');
+
+    const data = await response.json();
+    allMedia = data.resources || [];
+
+    renderMediaGrid();
+  } catch (error) {
+    showError('Failed to load media: ' + error.message);
+  } finally {
+    document.getElementById('media-loading').classList.add('hidden');
+  }
+}
+
+// Render media grid
+function renderMediaGrid() {
+  const grid = document.getElementById('media-grid');
+  const emptyEl = document.getElementById('media-empty');
+  const loadingEl = document.getElementById('media-loading');
+  const search = document.getElementById('media-search')?.value.toLowerCase() || '';
+  const filter = document.getElementById('media-filter')?.value || 'all';
+
+  loadingEl.classList.add('hidden');
+
+  // Filter media
+  let filtered = allMedia.filter(media => {
+    const matchesSearch = !search || media.public_id.toLowerCase().includes(search);
+    const matchesFilter = filter === 'all' ||
+      (filter === 'images' && media.resource_type === 'image') ||
+      (filter === 'recent' && isRecentUpload(media.created_at));
+    return matchesSearch && matchesFilter;
+  });
+
+  // Sort by most recent first
+  filtered = filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  // Pagination
+  const totalMedia = filtered.length;
+  const totalPages = Math.ceil(totalMedia / mediaPerPage);
+  const startIndex = (currentMediaPage - 1) * mediaPerPage;
+  const endIndex = Math.min(startIndex + mediaPerPage, totalMedia);
+  const paginatedMedia = filtered.slice(startIndex, endIndex);
+
+  // Show/hide empty state
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    emptyEl.classList.remove('hidden');
+    document.getElementById('media-pagination').classList.add('hidden');
+    return;
+  }
+
+  emptyEl.classList.add('hidden');
+
+  // Render media grid
+  grid.innerHTML = paginatedMedia.map(media => {
+    const thumbnailUrl = media.secure_url.replace('/upload/', '/upload/w_300,h_300,c_fill/');
+    const filename = media.public_id.split('/').pop();
+    const sizeKB = (media.bytes / 1024).toFixed(1);
+
+    return `
+      <div class="media-item group relative bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:border-teal-500 transition cursor-pointer">
+        <div class="aspect-square relative">
+          <img
+            src="${thumbnailUrl}"
+            alt="${escapeHtml(filename)}"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition flex items-center justify-center">
+            <div class="opacity-0 group-hover:opacity-100 transition flex gap-2">
+              <button
+                onclick="event.stopPropagation(); copyMediaUrl('${escapeHtml(media.secure_url)}')"
+                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
+                title="Copy URL"
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+              <button
+                onclick="event.stopPropagation(); viewMediaFull('${escapeHtml(media.secure_url)}')"
+                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
+                title="View Full Size"
+              >
+                <i class="fas fa-search-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="p-2">
+          <p class="text-xs font-medium text-gray-900 truncate" title="${escapeHtml(filename)}">
+            ${escapeHtml(filename)}
+          </p>
+          <p class="text-xs text-gray-500">
+            ${media.width} × ${media.height} • ${sizeKB} KB
+          </p>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Update pagination
+  updateMediaPagination(totalPages);
+}
+
+// Check if media was uploaded recently (within 7 days)
+function isRecentUpload(createdAt) {
+  const uploadDate = new Date(createdAt);
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  return uploadDate > weekAgo;
+}
+
+// Update media pagination
+function updateMediaPagination(totalPages) {
+  const paginationEl = document.getElementById('media-pagination');
+  const prevBtn = document.getElementById('media-prev-btn');
+  const nextBtn = document.getElementById('media-next-btn');
+  const pageInfo = document.getElementById('media-page-info');
+
+  if (totalPages <= 1) {
+    paginationEl.classList.add('hidden');
+    return;
+  }
+
+  paginationEl.classList.remove('hidden');
+  pageInfo.textContent = `Page ${currentMediaPage} of ${totalPages}`;
+  prevBtn.disabled = currentMediaPage === 1;
+  nextBtn.disabled = currentMediaPage === totalPages;
+}
+
+// Change media page
+function changeMediaPage(delta) {
+  currentMediaPage += delta;
+  renderMediaGrid();
+  document.getElementById('section-media').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Filter media (triggered by dropdown)
+function filterMedia() {
+  currentMediaPage = 1;
+  renderMediaGrid();
+}
+
+// Debounced version for search input
+const debouncedFilterMedia = debounce(filterMedia, 300);
+
+// Copy media URL to clipboard
+async function copyMediaUrl(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+    showSuccess('Image URL copied to clipboard!');
+  } catch (error) {
+    showError('Failed to copy URL: ' + error.message);
+  }
+}
+
+// View media full size
+function viewMediaFull(url) {
+  const modalOverlay = document.getElementById('image-modal-overlay');
+  const modalImg = document.getElementById('image-modal-img');
+
+  modalImg.src = url;
+  modalOverlay.classList.remove('hidden');
+
+  // Close on Escape key
+  document.addEventListener('keydown', handleImageModalEscape);
+}
+
+// Open Cloudinary upload widget
+function openCloudinaryUpload() {
+  if (!cloudinaryUploadWidget) {
+    cloudinaryUploadWidget = cloudinary.createUploadWidget({
+      cloudName: 'circleseven',
+      uploadPreset: 'ml_default', // You'll need to create an unsigned upload preset in Cloudinary
+      sources: ['local', 'url', 'camera'],
+      multiple: true,
+      maxFiles: 10,
+      folder: '',
+      resourceType: 'image',
+      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']
+    }, (error, result) => {
+      if (!error && result && result.event === 'success') {
+        showSuccess('Image uploaded successfully!');
+        // Reload media library
+        loadMedia();
+      }
+      if (error) {
+        showError('Upload failed: ' + error.message);
+      }
+    });
+  }
+
+  cloudinaryUploadWidget.open();
+}

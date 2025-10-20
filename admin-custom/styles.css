@@ -728,3 +728,91 @@ th {
 a.no-underline:hover {
   text-decoration: none;
 }
+
+/* ============================================
+   MEDIA LIBRARY GRID
+   ============================================ */
+
+.media-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.media-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.object-center {
+  object-position: center;
+}
+
+/* Responsive grid for media */
+@media (min-width: 640px) {
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+/* Truncate text */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Group hover states */
+.group:hover .group-hover\:bg-opacity-40 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+.bg-opacity-0 {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Absolute positioning */
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+/* Additional bg colors */
+.bg-blue-600 { background-color: #2563eb; }
+.bg-blue-700 { background-color: var(--color-blue-700); }
+.hover\:bg-blue-700:hover { background-color: var(--color-blue-700); }
+.hover\:bg-gray-50:hover { background-color: var(--color-gray-50); }
+
+/* More disabled states */
+.disabled\:opacity-50:disabled { opacity: 0.5; }
+.disabled\:cursor-not-allowed:disabled { cursor: not-allowed; }
+
+/* Black background */
+.bg-black { background-color: #000; }
+
+/* Loading lazy */
+img[loading="lazy"] {
+  transition: opacity 0.3s ease;
+}
+
+/* Additional text colors */
+.text-gray-300 { color: #d1d5db; }

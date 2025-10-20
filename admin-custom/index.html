@@ -15,6 +15,9 @@
   <!-- Cloudinary Media Library Widget -->
   <script src="https://media-library.cloudinary.com/global/all.js"></script>
 
+  <!-- Cloudinary Upload Widget -->
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
   <!-- Sortable.js for drag and drop -->
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
@@ -82,6 +85,14 @@
               class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
               Posts
+            </a>
+            <a
+              href="/admin-custom/media"
+              onclick="event.preventDefault(); switchSection('media')"
+              id="nav-media"
+              class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
+            >
+              Media Library
             </a>
             <a
               href="/admin-custom/trash"
@@ -622,6 +633,91 @@
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Media Library Section -->
+        <div id="section-media" class="section-panel hidden">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Media Library</h2>
+
+          <!-- Collapsible Help -->
+          <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+              How to use
+            </summary>
+            <div class="px-4 pb-3 pt-2">
+              <p class="text-sm text-blue-800">
+                Browse and manage images from your Cloudinary media library. Upload new images, search, and organize your media files. Click on any image to copy its URL or use it in a post.
+              </p>
+            </div>
+          </details>
+
+          <!-- Media Controls -->
+          <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex flex-wrap gap-3">
+              <input
+                type="text"
+                id="media-search"
+                placeholder="Search media..."
+                class="flex-1 min-w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                oninput="debouncedFilterMedia()"
+              />
+              <select
+                id="media-filter"
+                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                onchange="filterMedia()"
+              >
+                <option value="all">All Media</option>
+                <option value="images">Images Only</option>
+                <option value="recent">Recently Uploaded</option>
+              </select>
+              <button
+                onclick="openCloudinaryUpload()"
+                class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+              >
+                <i class="fas fa-upload"></i>
+                Upload Image
+              </button>
+            </div>
+          </div>
+
+          <!-- Media Grid -->
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <div id="media-loading" class="p-8 text-center text-gray-500">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mb-2"></div>
+              <p>Loading media library...</p>
+            </div>
+            <div id="media-empty" class="hidden p-8 text-center text-gray-500">
+              <i class="fas fa-image fa-4x mx-auto mb-4 text-gray-300"></i>
+              <p class="text-lg font-medium">No media found</p>
+              <p class="text-sm mt-2">Upload your first image to get started</p>
+            </div>
+            <div id="media-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <!-- Media items will be inserted here -->
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div id="media-pagination" class="hidden mt-6 flex justify-center">
+            <div class="flex gap-2">
+              <button
+                id="media-prev-btn"
+                onclick="changeMediaPage(-1)"
+                class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+              >
+                Previous
+              </button>
+              <span id="media-page-info" class="px-4 py-2 text-gray-600">Page 1</span>
+              <button
+                id="media-next-btn"
+                onclick="changeMediaPage(1)"
+                class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
