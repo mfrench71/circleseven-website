@@ -36,9 +36,6 @@ collections:
     folder: "_posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
-    # Pagination - Show 20 posts per page in admin
-    pagination:
-      size: 20
     # Collection view options
     view_filters:
       - label: "Academic Posts"
@@ -54,7 +51,7 @@ collections:
       - label: "Category"
         field: categories
     sortable_fields: ['title', 'date', 'categories']
-    summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
+    summary: "{{title}}"
     fields: # The fields for each document
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
@@ -155,12 +152,27 @@ collections:
       - label: "Taxonomy (Categories & Tags)"
         name: "taxonomy"
         file: "_data/taxonomy.yml"
+        description: "Manage categories and tags used throughout the site. After saving changes here, run 'npm run sync-taxonomy' to update the post editor checkboxes."
         fields:
           - label: "Categories"
             name: "categories"
             widget: "list"
-            hint: "Manage the list of categories available when editing posts. After changing this, you'll need to update the categories options in admin/config.yml."
+            allow_add: true
+            collapsed: false
+            summary: "{{fields.item}}"
+            field:
+              label: "Category Name"
+              name: "item"
+              widget: "string"
+            hint: "Add, edit, or remove categories. Click '+ Add Category' to create new ones. Categories help organize posts into major themes (e.g., Projects, Photography, Academic)."
           - label: "Tags"
             name: "tags"
             widget: "list"
-            hint: "Manage the list of tags available when editing posts. After changing this, you'll need to update the tags options in admin/config.yml."
+            allow_add: true
+            collapsed: false
+            summary: "{{fields.item}}"
+            field:
+              label: "Tag Name"
+              name: "item"
+              widget: "string"
+            hint: "Add, edit, or remove tags. Click '+ Add Tag' to create new ones. Tags provide granular content classification (e.g., Python, Photoshop, Tutorial)."
