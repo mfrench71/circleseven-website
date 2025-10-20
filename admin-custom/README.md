@@ -90,19 +90,16 @@ Visit: [https://circleseven.co.uk/admin-custom](https://circleseven.co.uk/admin-
 
 The taxonomy manager automatically:
 1. ✅ Commits changes to GitHub (via GitHub API)
-2. ✅ Triggers Netlify rebuild automatically
+2. ✅ GitHub Action runs sync script automatically
+3. ✅ Commits updated CMS config automatically
+4. ✅ Triggers Netlify rebuild automatically
 
-You still need to run `npm run sync-taxonomy` locally to update CMS checkboxes:
+**Everything is fully automated!** Just click Save and wait 1-2 minutes for:
+- Custom admin commits taxonomy changes
+- GitHub Action syncs to CMS config
+- Netlify rebuilds the site
 
-```bash
-# Sync to CMS config (updates admin/config.yml checkboxes)
-npm run sync-taxonomy
-
-# Commit the updated config
-git add admin/config.yml
-git commit -m "Sync taxonomy to CMS"
-git push
-```
+No manual steps required.
 
 ## Development
 

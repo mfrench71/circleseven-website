@@ -1,0 +1,51 @@
+name: Sync Taxonomy to CMS Config
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '_data/taxonomy.yml'
+
+jobs:
+  sync-taxonomy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run sync script
+        run: npm run sync-taxonomy
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet admin/config.yml; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add admin/config.yml
+          git commit -m "Auto-sync taxonomy to CMS config
+
+          Updated admin/config.yml with latest categories and tags from _data/taxonomy.yml
+
+          🤖 Automated by GitHub Actions"
+          git push
