@@ -113,6 +113,13 @@ function switchTaxonomyTab(tabName) {
   });
 
   document.getElementById(`taxonomy-${tabName}-tab`).classList.remove('hidden');
+
+  // Update add item inputs
+  document.querySelectorAll('.taxonomy-add-item').forEach(input => {
+    input.classList.add('hidden');
+  });
+
+  document.getElementById(`taxonomy-add-${tabName === 'categories' ? 'category' : 'tag'}`).classList.remove('hidden');
 }
 
 // Tab switching - no longer needed with side-by-side layout
@@ -153,47 +160,55 @@ function updateSaveButton() {
 
 // Render categories
 function renderCategories() {
-  const list = document.getElementById('categories-list');
+  const tbody = document.getElementById('categories-list');
   const countBadge = document.getElementById('categories-count-badge');
 
-  list.innerHTML = categories.map((cat, index) => {
+  tbody.innerHTML = categories.map((cat, index) => {
     const statusIcon = getStatusIcon('category', index);
     return `
-    <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
-      <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-      <span class="flex-1 font-medium">${escapeHtml(cat)}</span>
-      ${statusIcon}
-      <button
-        onclick="editCategory(${index})"
-        class="p-1 text-gray-500 hover:text-teal-600 transition"
-        title="Edit"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-        </svg>
-      </button>
-      <button
-        onclick="deleteCategory(${index})"
-        class="p-1 text-gray-500 hover:text-red-600 transition"
-        title="Delete"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-        </svg>
-      </button>
-    </li>
+    <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
+      <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
+      <td class="px-4 py-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <span class="font-medium text-gray-900">${escapeHtml(cat)}</span>
+        </div>
+      </td>
+      <td class="px-4 py-3 text-center">${statusIcon}</td>
+      <td class="px-4 py-3 text-right whitespace-nowrap">
+        <button
+          onclick="editCategory(${index})"
+          class="text-teal-600 hover:text-teal-700 mr-2"
+          title="Edit"
+        >
+          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+        </button>
+        <button
+          onclick="deleteCategory(${index})"
+          class="text-gray-500 hover:text-red-600"
+          title="Delete"
+        >
+          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+      </td>
+    </tr>
   `;
   }).join('');
 
   countBadge.textContent = categories.length;
 
   // Initialize sortable
-  new Sortable(list, {
+  new Sortable(tbody, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     dragClass: 'sortable-drag',
+    handle: 'tr',
     onEnd: (evt) => {
       const item = categories.splice(evt.oldIndex, 1)[0];
       categories.splice(evt.newIndex, 0, item);
@@ -239,47 +254,55 @@ function getStatusIcon(type, index) {
 
 // Render tags
 function renderTags() {
-  const list = document.getElementById('tags-list');
+  const tbody = document.getElementById('tags-list');
   const countBadge = document.getElementById('tags-count-badge');
 
-  list.innerHTML = tags.map((tag, index) => {
+  tbody.innerHTML = tags.map((tag, index) => {
     const statusIcon = getStatusIcon('tag', index);
     return `
-    <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
-      <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-      <span class="flex-1 font-medium">${escapeHtml(tag)}</span>
-      ${statusIcon}
-      <button
-        onclick="editTag(${index})"
-        class="p-1 text-gray-500 hover:text-teal-600 transition"
-        title="Edit"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-        </svg>
-      </button>
-      <button
-        onclick="deleteTag(${index})"
-        class="p-1 text-gray-500 hover:text-red-600 transition"
-        title="Delete"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-        </svg>
-      </button>
-    </li>
+    <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
+      <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
+      <td class="px-4 py-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <span class="font-medium text-gray-900">${escapeHtml(tag)}</span>
+        </div>
+      </td>
+      <td class="px-4 py-3 text-center">${statusIcon}</td>
+      <td class="px-4 py-3 text-right whitespace-nowrap">
+        <button
+          onclick="editTag(${index})"
+          class="text-teal-600 hover:text-teal-700 mr-2"
+          title="Edit"
+        >
+          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+        </button>
+        <button
+          onclick="deleteTag(${index})"
+          class="text-gray-500 hover:text-red-600"
+          title="Delete"
+        >
+          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+      </td>
+    </tr>
   `;
   }).join('');
 
   countBadge.textContent = tags.length;
 
   // Initialize sortable
-  new Sortable(list, {
+  new Sortable(tbody, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     dragClass: 'sortable-drag',
+    handle: 'tr',
     onEnd: (evt) => {
       const item = tags.splice(evt.oldIndex, 1)[0];
       tags.splice(evt.newIndex, 0, item);
