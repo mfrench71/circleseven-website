@@ -18,6 +18,10 @@ media_library:
     cloud_name: circleseven
     api_key: 732138267195618
     multiple: true
+    insert_transformation: true
+    default_transformations:
+      - - fetch_format: auto
+          quality: auto
 
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
