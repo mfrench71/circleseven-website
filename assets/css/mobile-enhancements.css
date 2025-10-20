@@ -245,9 +245,9 @@ img {
     margin-right: 24px;
   }
 
-  .post-card.featured {
+  /* .post-card.featured {
     grid-column: span 2;
-  }
+  } */
 
   .wrapper {
     padding-left: 24px;
