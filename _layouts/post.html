@@ -96,34 +96,58 @@ layout: default
   {%- if related_posts.size > 0 -%}
   <aside class="related-posts">
     <h2>Related Posts</h2>
-    <ul class="post-list">
+    <div class="post-grid">
       {%- for post in related_posts limit:3 -%}
-      <li class="post-item-compact">
-        {%- if post.featured_image or post.image -%}
-        <div class="post-image-small">
+      <article class="post-card">
+        <!-- Card Image -->
+        <div class="post-card-image">
           <a href="{{ post.url | relative_url }}">
-            {%- if post.featured_image -%}
-              <img src="https://res.cloudinary.com/circleseven/image/upload/c_fill,w_100,h_100,g_auto,q_auto,f_auto/{{ post.featured_image }}" alt="{{ post.title | escape }}" loading="lazy">
-            {%- elsif post.image -%}
-              <img src="{{ post.image }}" alt="{{ post.title | escape }}" loading="lazy">
-            {%- endif -%}
+            {%- include post-card-image.html post=post -%}
           </a>
         </div>
-        {%- endif -%}
-        <div class="post-info">
-          <a href="{{ post.url | relative_url }}" class="post-title-link">{{ post.title | escape }}</a>
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-          {%- if post.tags.size > 0 -%}
-          <div class="post-tags-small" style="margin-top: 4px; font-size: 0.85em; color: #666;">
-            {%- for tag in post.tags limit:2 -%}
-              <span style="background: #e8f4f8; padding: 2px 8px; border-radius: 3px; margin-right: 4px; font-size: 0.9em;">{{ tag }}</span>
-            {%- endfor -%}
-          </div>
+
+        <!-- Card Content -->
+        <div class="post-card-content">
+          <!-- Category Badge -->
+          {%- if post.categories.size > 0 -%}
+            {%- assign display_category = post.categories | last -%}
+            <a href="{{ site.baseurl }}/category/{{ display_category | slugify }}/" class="category-badge badge-{{ display_category | slugify }}">
+              {{ display_category }}
+            </a>
           {%- endif -%}
+
+          <!-- Title -->
+          <h2 class="post-card-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+
+          <!-- Excerpt -->
+          {%- if post.excerpt -%}
+            <p class="post-card-excerpt">{{ post.excerpt | strip_html }}</p>
+          {%- endif -%}
+
+          <!-- Author & Meta -->
+          <div class="post-card-meta">
+            <img src="{%- include gravatar-url.html email=site.email size=64 -%}"
+                 alt="{{ site.author | escape }}"
+                 class="post-author-avatar"
+                 loading="lazy"
+                 onerror="this.src='{{ '/assets/images/default-avatar.svg' | relative_url }}'">
+            <div class="post-meta-info">
+              <span class="post-author-name">{{ site.author | escape }}</span>
+              <span class="post-date-reading">
+                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                {{ post.date | date: "%b %-d, %Y" }}
+                {%- if post.content -%}
+                  · {%- include reading-time.html -%}
+                {%- endif -%}
+              </span>
+            </div>
+          </div>
         </div>
-      </li>
+      </article>
       {%- endfor -%}
-    </ul>
+    </div>
   </aside>
   {%- endif -%}
 
