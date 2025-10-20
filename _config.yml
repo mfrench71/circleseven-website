@@ -53,3 +53,4 @@ exclude:
   - docs/
 email: mail@circleseven.co.uk
 baseurl: ""
+related_posts_count: 4

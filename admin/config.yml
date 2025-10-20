@@ -85,3 +85,4 @@ collections:
           - {label: "Description", name: "description", widget: "text"}
           - {label: "Email", name: "email", widget: "string"}
           - {label: "URL", name: "url", widget: "string"}
+          - {label: "Related Posts Count", name: "related_posts_count", widget: "number", default: 4, value_type: "int", min: 1, max: 10, step: 1, hint: "Number of related posts to show at the bottom of each post"}
