@@ -589,11 +589,13 @@ function switchSection(sectionName, updateUrl = true) {
 function handleRouteChange() {
   const path = window.location.pathname;
   const pathParts = path.split('/').filter(p => p);
+  const searchParams = new URLSearchParams(window.location.search);
 
   // Get the section from the URL path
   // /admin-custom/ -> dashboard
   // /admin-custom/posts -> posts
-  // /admin-custom/taxonomy -> taxonomy
+  // /admin-custom/posts/edit/filename -> posts (with editor open)
+  // /admin-custom/posts?page=2 -> posts (with pagination)
   let section = 'dashboard';
 
   if (pathParts.length >= 2 && pathParts[0] === 'admin-custom') {
@@ -606,6 +608,27 @@ function handleRouteChange() {
 
   // Switch section without updating URL (to avoid loop)
   switchSection(section, false);
+
+  // Handle posts section sub-routes
+  if (section === 'posts' && pathParts.length >= 3) {
+    if (pathParts[2] === 'new') {
+      // /admin-custom/posts/new
+      showNewPostForm(false); // Don't update URL, we're already there
+    } else if (pathParts[2] === 'edit' && pathParts.length >= 4) {
+      // /admin-custom/posts/edit/filename
+      const filename = decodeURIComponent(pathParts.slice(3).join('/'));
+      if (filename) {
+        editPost(filename, false); // Don't update URL, we're already there
+      }
+    }
+  } else if (section === 'posts' && searchParams.has('page')) {
+    // /admin-custom/posts?page=2
+    const page = parseInt(searchParams.get('page'), 10);
+    if (page > 0) {
+      currentPage = page;
+      renderPostsList();
+    }
+  }
 }
 
 // Initialize routing with History API
@@ -885,6 +908,13 @@ function updatePagination(total, start, end, totalPages) {
 // Change page
 function changePage(delta) {
   currentPage += delta;
+
+  // Update URL with new page number
+  const url = currentPage > 1
+    ? `/admin-custom/posts?page=${currentPage}`
+    : '/admin-custom/posts';
+  window.history.pushState({ section: 'posts', page: currentPage }, '', url);
+
   renderPostsList();
   document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -928,12 +958,18 @@ function initMarkdownEditor() {
 }
 
 // Edit post
-async function editPost(filename) {
+async function editPost(filename, updateUrl = true) {
   try {
     const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(filename)}`);
     if (!response.ok) throw new Error('Failed to load post');
 
     currentPost = await response.json();
+
+    // Update URL to reflect editing state (unless called from handleRouteChange)
+    if (updateUrl) {
+      const editUrl = `/admin-custom/posts/edit/${encodeURIComponent(filename)}`;
+      window.history.pushState({ section: 'posts', editing: filename }, '', editUrl);
+    }
 
     // Populate form
     document.getElementById('post-title').value = currentPost.frontmatter.title || '';
@@ -967,8 +1003,13 @@ async function editPost(filename) {
 }
 
 // Show new post form
-function showNewPostForm() {
+function showNewPostForm(updateUrl = true) {
   currentPost = null;
+
+  // Update URL (unless called from handleRouteChange)
+  if (updateUrl) {
+    window.history.pushState({ section: 'posts', editing: 'new' }, '', '/admin-custom/posts/new');
+  }
 
   // Clear form
   document.getElementById('post-title').value = '';
@@ -996,6 +1037,12 @@ function showNewPostForm() {
 
 // Show posts list
 function showPostsList() {
+  // Update URL to posts list
+  const url = currentPage > 1
+    ? `/admin-custom/posts?page=${currentPage}`
+    : '/admin-custom/posts';
+  window.history.pushState({ section: 'posts', page: currentPage }, '', url);
+
   document.getElementById('posts-editor-view').classList.add('hidden');
   document.getElementById('posts-list-view').classList.remove('hidden');
   currentPost = null;
