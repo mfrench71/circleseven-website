@@ -257,15 +257,32 @@
             </div>
           </details>
 
-          <!-- Two Column Layout for Categories and Tags -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Categories Panel -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <!-- Tabs -->
+          <div class="mb-6">
+            <div class="flex gap-1 border-b border-gray-200">
+              <button
+                onclick="switchTaxonomyTab('categories')"
+                id="tab-categories"
+                class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-teal-600 text-teal-600"
+              >
                 Categories
-                <span id="categories-count-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">0</span>
-              </h3>
+                <span id="categories-count-badge" class="ml-2 bg-teal-100 text-teal-600 px-2 py-0.5 rounded-full text-xs">0</span>
+              </button>
+              <button
+                onclick="switchTaxonomyTab('tags')"
+                id="tab-tags"
+                class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700"
+              >
+                Tags
+                <span id="tags-count-badge" class="ml-2 bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">0</span>
+              </button>
+            </div>
+          </div>
 
+          <!-- Tab Content -->
+          <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <!-- Categories Tab -->
+            <div id="taxonomy-categories-tab" class="taxonomy-tab">
               <div class="mb-4">
                 <div class="flex gap-2">
                   <input
@@ -292,13 +309,8 @@
               </ul>
             </div>
 
-            <!-- Tags Panel -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Tags
-                <span id="tags-count-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">0</span>
-              </h3>
-
+            <!-- Tags Tab -->
+            <div id="taxonomy-tags-tab" class="taxonomy-tab hidden">
               <div class="mb-4">
                 <div class="flex gap-2">
                   <input

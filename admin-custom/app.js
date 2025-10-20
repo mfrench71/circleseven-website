@@ -78,6 +78,42 @@ async function loadTaxonomy() {
   }
 }
 
+// Switch taxonomy tabs
+function switchTaxonomyTab(tabName) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-button').forEach(btn => {
+    btn.classList.remove('border-teal-600', 'text-teal-600');
+    btn.classList.add('border-transparent', 'text-gray-500');
+  });
+
+  const activeTab = document.getElementById(`tab-${tabName}`);
+  activeTab.classList.add('border-teal-600', 'text-teal-600');
+  activeTab.classList.remove('border-transparent', 'text-gray-500');
+
+  // Update badge colors
+  const categoriesBadge = document.getElementById('categories-count-badge');
+  const tagsBadge = document.getElementById('tags-count-badge');
+
+  if (tabName === 'categories') {
+    categoriesBadge.classList.remove('bg-gray-100', 'text-gray-600');
+    categoriesBadge.classList.add('bg-teal-100', 'text-teal-600');
+    tagsBadge.classList.remove('bg-teal-100', 'text-teal-600');
+    tagsBadge.classList.add('bg-gray-100', 'text-gray-600');
+  } else {
+    tagsBadge.classList.remove('bg-gray-100', 'text-gray-600');
+    tagsBadge.classList.add('bg-teal-100', 'text-teal-600');
+    categoriesBadge.classList.remove('bg-teal-100', 'text-teal-600');
+    categoriesBadge.classList.add('bg-gray-100', 'text-gray-600');
+  }
+
+  // Update tab content
+  document.querySelectorAll('.taxonomy-tab').forEach(content => {
+    content.classList.add('hidden');
+  });
+
+  document.getElementById(`taxonomy-${tabName}-tab`).classList.remove('hidden');
+}
+
 // Tab switching - no longer needed with side-by-side layout
 
 // Check if item has been modified
