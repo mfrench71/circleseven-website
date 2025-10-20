@@ -139,6 +139,7 @@ exports.handler = async (event, context) => {
     // GET - List all posts or get single post
     if (event.httpMethod === 'GET') {
       const pathParam = event.queryStringParameters?.path;
+      const withMetadata = event.queryStringParameters?.metadata === 'true';
 
       if (pathParam) {
         // Get single post
@@ -161,7 +162,7 @@ exports.handler = async (event, context) => {
         const files = await githubRequest(`/contents/${POSTS_DIR}?ref=${GITHUB_BRANCH}`);
 
         // Filter to only .md files
-        const posts = files
+        let posts = files
           .filter(file => file.name.endsWith('.md'))
           .map(file => ({
             name: file.name,
@@ -169,6 +170,30 @@ exports.handler = async (event, context) => {
             sha: file.sha,
             size: file.size
           }));
+
+        // If metadata requested, fetch frontmatter for each post (no body to save bandwidth)
+        if (withMetadata) {
+          const postsWithMetadata = await Promise.all(
+            posts.map(async (post) => {
+              try {
+                const fileData = await githubRequest(`/contents/${POSTS_DIR}/${post.name}?ref=${GITHUB_BRANCH}`);
+                const content = Buffer.from(fileData.content, 'base64').toString('utf8');
+                const { frontmatter } = parseFrontmatter(content);
+
+                return {
+                  ...post,
+                  frontmatter
+                };
+              } catch (error) {
+                console.error(`Failed to load metadata for ${post.name}:`, error);
+                // Return post without metadata if it fails
+                return post;
+              }
+            })
+          );
+
+          posts = postsWithMetadata;
+        }
 
         return {
           statusCode: 200,

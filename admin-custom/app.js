@@ -653,17 +653,24 @@ let currentPage = 1;
 const postsPerPage = 10;
 let markdownEditor = null; // EasyMDE instance
 
-// Load posts list
+// Load posts list with metadata in one API call
 async function loadPosts() {
   try {
-    const response = await fetch(`${API_BASE}/posts`);
+    // Fetch all posts with metadata in a single call using Promise.all on the server
+    const response = await fetch(`${API_BASE}/posts?metadata=true`);
     if (!response.ok) throw new Error('Failed to load posts');
 
     const data = await response.json();
     allPosts = data.posts || [];
 
-    // Load metadata for all posts
-    await loadPostsMetadata();
+    // Process all posts with metadata into allPostsWithMetadata
+    allPostsWithMetadata = allPosts.map(post => ({
+      ...post,
+      frontmatter: post.frontmatter || {},
+      date: post.frontmatter?.date
+        ? new Date(post.frontmatter.date)
+        : new Date(post.name.substring(0, 10))
+    }));
 
     renderPostsList();
     populateTaxonomySelects();
@@ -674,59 +681,6 @@ async function loadPosts() {
   }
 }
 
-// Load metadata for posts (only loads first page initially)
-async function loadPostsMetadata() {
-  allPostsWithMetadata = [];
-
-  // Only load the first page worth of posts for immediate display
-  const postsToLoad = allPosts.slice(0, Math.min(postsPerPage, allPosts.length));
-
-  for (const post of postsToLoad) {
-    try {
-      const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(post.name)}`);
-      if (response.ok) {
-        const postData = await response.json();
-        allPostsWithMetadata.push({
-          ...post,
-          frontmatter: postData.frontmatter,
-          date: new Date(postData.frontmatter.date || post.name.substring(0, 10))
-        });
-      }
-    } catch (error) {
-      // Skip posts that fail to load
-      console.error(`Failed to load ${post.name}:`, error);
-    }
-  }
-}
-
-// Load metadata for a specific page of posts on demand
-async function loadPageMetadata(pageNumber) {
-  const startIndex = (pageNumber - 1) * postsPerPage;
-  const endIndex = Math.min(startIndex + postsPerPage, allPosts.length);
-  const postsToLoad = allPosts.slice(startIndex, endIndex);
-
-  for (const post of postsToLoad) {
-    // Skip if already loaded
-    if (allPostsWithMetadata.find(p => p.name === post.name)) {
-      continue;
-    }
-
-    try {
-      const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(post.name)}`);
-      if (response.ok) {
-        const postData = await response.json();
-        allPostsWithMetadata.push({
-          ...post,
-          frontmatter: postData.frontmatter,
-          date: new Date(postData.frontmatter.date || post.name.substring(0, 10))
-        });
-      }
-    } catch (error) {
-      console.error(`Failed to load ${post.name}:`, error);
-    }
-  }
-}
-
 // Render posts list
 function renderPostsList() {
   const tbody = document.getElementById('posts-table-body');
@@ -734,20 +688,23 @@ function renderPostsList() {
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
 
-  // Filter and sort based on ALL posts (not just loaded metadata)
-  let filtered = allPosts.filter(post => {
-    return post.name.toLowerCase().includes(search);
+  // Filter posts by search term (search in title and filename)
+  let filtered = allPostsWithMetadata.filter(post => {
+    const title = (post.frontmatter?.title || '').toLowerCase();
+    const filename = post.name.toLowerCase();
+    const searchTerm = search.toLowerCase();
+    return title.includes(searchTerm) || filename.includes(searchTerm);
   });
 
-  // Sort by filename/date for now (we'll enhance after metadata loads)
-  filtered.sort((a, b) => b.name.localeCompare(a.name));
+  // Sort posts
+  filtered = sortPostsList(filtered, sortBy);
 
-  // Pagination based on ALL filtered posts
+  // Pagination
   const totalPosts = filtered.length;
   const totalPages = Math.ceil(totalPosts / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = Math.min(startIndex + postsPerPage, totalPosts);
-  const currentPagePosts = filtered.slice(startIndex, endIndex);
+  const paginatedPosts = filtered.slice(startIndex, endIndex);
 
   // Show/hide empty state
   if (filtered.length === 0) {
@@ -759,12 +716,11 @@ function renderPostsList() {
 
   emptyEl.classList.add('hidden');
 
-  // Render table rows - get metadata if available, otherwise show filename
-  tbody.innerHTML = currentPagePosts.map(post => {
-    const metadata = allPostsWithMetadata.find(p => p.name === post.name);
-    const title = metadata?.frontmatter?.title || post.name;
-    const date = metadata ? formatDateShort(metadata.date) : post.name.substring(0, 10);
-    const categories = metadata?.frontmatter?.categories || [];
+  // Render table rows
+  tbody.innerHTML = paginatedPosts.map(post => {
+    const title = post.frontmatter?.title || post.name;
+    const date = formatDateShort(post.date);
+    const categories = post.frontmatter?.categories || [];
 
     const categoriesBadges = Array.isArray(categories)
       ? categories.map(cat => `<span class="badge badge-category">${escapeHtml(cat)}</span>`).join('')
@@ -854,12 +810,8 @@ function updatePagination(total, start, end, totalPages) {
 }
 
 // Change page
-async function changePage(delta) {
+function changePage(delta) {
   currentPage += delta;
-
-  // Load metadata for the new page if not already loaded
-  await loadPageMetadata(currentPage);
-
   renderPostsList();
   document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
