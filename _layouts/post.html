@@ -99,10 +99,14 @@ layout: default
     <ul class="post-list">
       {%- for post in related_posts limit:3 -%}
       <li class="post-item-compact">
-        {%- if post.image -%}
+        {%- if post.featured_image or post.image -%}
         <div class="post-image-small">
           <a href="{{ post.url | relative_url }}">
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+            {%- if post.featured_image -%}
+              <img src="https://res.cloudinary.com/circleseven/image/upload/c_fill,w_100,h_100,g_auto,q_auto,f_auto/{{ post.featured_image }}" alt="{{ post.title | escape }}" loading="lazy">
+            {%- elsif post.image -%}
+              <img src="{{ post.image }}" alt="{{ post.title | escape }}" loading="lazy">
+            {%- endif -%}
           </a>
         </div>
         {%- endif -%}
