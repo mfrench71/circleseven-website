@@ -25,7 +25,8 @@ a, button {
 p a,
 .post-excerpt,
 .pagination-pages a,
-.pagination-pages span {
+.pagination-pages span,
+figure a {
   min-height: unset;
   min-width: unset;
   display: inline;
