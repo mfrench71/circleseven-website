@@ -1102,32 +1102,60 @@ function formatDateForInput(dateStr) {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-// Helper: Populate taxonomy selects
+// Helper: Populate taxonomy selects (now with checkboxes)
 function populateTaxonomySelects() {
-  const categoriesSelect = document.getElementById('post-categories');
-  const tagsSelect = document.getElementById('post-tags');
+  const categoriesContainer = document.getElementById('post-categories');
+  const tagsContainer = document.getElementById('post-tags');
 
-  categoriesSelect.innerHTML = categories.map(cat =>
-    `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`
-  ).join('');
+  if (categories.length === 0) {
+    categoriesContainer.innerHTML = '<p class="text-sm text-gray-500">No categories available</p>';
+  } else {
+    categoriesContainer.innerHTML = categories.map(cat =>
+      `<label class="flex items-center gap-2 py-1 hover:bg-gray-50 cursor-pointer rounded px-1">
+        <input
+          type="checkbox"
+          value="${escapeHtml(cat)}"
+          class="category-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+        />
+        <span class="text-sm">${escapeHtml(cat)}</span>
+      </label>`
+    ).join('');
+  }
 
-  tagsSelect.innerHTML = tags.map(tag =>
-    `<option value="${escapeHtml(tag)}">${escapeHtml(tag)}</option>`
-  ).join('');
+  if (tags.length === 0) {
+    tagsContainer.innerHTML = '<p class="text-sm text-gray-500">No tags available</p>';
+  } else {
+    tagsContainer.innerHTML = tags.map(tag =>
+      `<label class="flex items-center gap-2 py-1 hover:bg-gray-50 cursor-pointer rounded px-1">
+        <input
+          type="checkbox"
+          value="${escapeHtml(tag)}"
+          class="tag-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+        />
+        <span class="text-sm">${escapeHtml(tag)}</span>
+      </label>`
+    ).join('');
+  }
 }
 
-// Helper: Set multi-select values
+// Helper: Set checkbox values
 function setMultiSelect(id, values) {
-  const select = document.getElementById(id);
-  Array.from(select.options).forEach(option => {
-    option.selected = values.includes(option.value);
+  const container = document.getElementById(id);
+  const checkboxClass = id === 'post-categories' ? 'category-checkbox' : 'tag-checkbox';
+  const checkboxes = container.querySelectorAll(`.${checkboxClass}`);
+
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = values.includes(checkbox.value);
   });
 }
 
-// Helper: Get multi-select values
+// Helper: Get checkbox values
 function getMultiSelectValues(id) {
-  const select = document.getElementById(id);
-  return Array.from(select.selectedOptions).map(option => option.value);
+  const container = document.getElementById(id);
+  const checkboxClass = id === 'post-categories' ? 'category-checkbox' : 'tag-checkbox';
+  const checkboxes = container.querySelectorAll(`.${checkboxClass}:checked`);
+
+  return Array.from(checkboxes).map(checkbox => checkbox.value);
 }
 
 // Helper: URL validation
@@ -1318,16 +1346,21 @@ async function permanentlyDeletePost(filename, sha) {
 
 // Update switchSection to load posts and trash
 const originalSwitchSection = switchSection;
-switchSection = function(sectionName) {
+switchSection = async function(sectionName) {
   originalSwitchSection(sectionName);
 
   if (sectionName === 'posts') {
     // Always show the posts list when switching to Posts section
     showPostsList();
 
+    // Load taxonomy first if not loaded (needed for category/tag selects)
+    if (categories.length === 0) {
+      await loadTaxonomy();
+    }
+
     // Load posts if not loaded yet
     if (allPosts.length === 0) {
-      loadPosts();
+      await loadPosts();
     }
   } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
     loadTrash();
