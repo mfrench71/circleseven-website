@@ -78,25 +78,7 @@ async function loadTaxonomy() {
   }
 }
 
-// Tab switching
-function switchTab(tabName) {
-  // Update tab buttons
-  document.querySelectorAll('.tab-button').forEach(btn => {
-    btn.classList.remove('active', 'border-teal-600', 'text-teal-600');
-    btn.classList.add('border-transparent', 'text-gray-500');
-  });
-
-  const activeTab = document.getElementById(`tab-${tabName}`);
-  activeTab.classList.add('active', 'border-teal-600', 'text-teal-600');
-  activeTab.classList.remove('border-transparent', 'text-gray-500');
-
-  // Update panels
-  document.querySelectorAll('.tab-panel').forEach(panel => {
-    panel.classList.add('hidden');
-  });
-
-  document.getElementById(`panel-${tabName}`).classList.remove('hidden');
-}
+// Tab switching - no longer needed with side-by-side layout
 
 // Check if item has been modified
 function isItemDirty(type, index) {
