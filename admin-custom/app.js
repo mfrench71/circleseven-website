@@ -1324,13 +1324,14 @@ function updateImagePreview() {
   const previewDiv = document.getElementById('image-preview');
   const previewImg = document.getElementById('image-preview-img');
 
-  if (imageUrl && isValidUrl(imageUrl)) {
+  if (imageUrl) {
+    // Show preview immediately if URL looks valid
+    previewDiv.classList.remove('hidden');
     previewImg.src = imageUrl;
+
+    // Hide if image fails to load
     previewImg.onerror = () => {
       previewDiv.classList.add('hidden');
-    };
-    previewImg.onload = () => {
-      previewDiv.classList.remove('hidden');
     };
   } else {
     previewDiv.classList.add('hidden');
