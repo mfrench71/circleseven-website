@@ -65,7 +65,6 @@
   function processLeafletMaps() {
     // Check if Leaflet is loaded
     if (typeof L === 'undefined') {
-      console.warn('Leaflet.js not loaded, skipping map processing');
       return;
     }
 
@@ -117,7 +116,6 @@
       }, 100);
 
     } catch (error) {
-      console.error('Error initializing Leaflet map:', error);
       mapElement.innerHTML = '<div class="wordpress-embed-placeholder">Map could not be loaded</div>';
     }
   }

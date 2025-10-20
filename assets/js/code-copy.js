@@ -45,7 +45,6 @@
             copyButton.classList.remove('copied');
           }, 2000);
         }).catch(function(err) {
-          console.error('Failed to copy code:', err);
           copyButton.textContent = 'Error';
 
           setTimeout(function() {

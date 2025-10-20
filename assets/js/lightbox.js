@@ -9,7 +9,6 @@
   // Wait for DOM and GLightbox to be ready
   function initLightbox() {
     if (typeof GLightbox === 'undefined') {
-      console.warn('GLightbox library not loaded');
       return;
     }
 
