@@ -1,25 +1,6 @@
 // Custom CMS configuration with editor components and preview templates
 
 // ========================================
-// CLOUDINARY MEDIA LIBRARY INITIALIZATION
-// ========================================
-
-// Initialize Cloudinary Media Library with proper settings
-CMS.registerMediaLibrary({
-  name: 'cloudinary',
-  config: {
-    cloud_name: 'circleseven',
-    api_key: '732138267195618',
-    multiple: true,
-    max_files: 1000,
-    insert_transformation: true,
-    default_transformations: [
-      [{fetch_format: 'auto', quality: 'auto'}]
-    ]
-  }
-});
-
-// ========================================
 // EDITOR COMPONENTS
 // ========================================
 
