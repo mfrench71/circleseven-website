@@ -21,6 +21,22 @@
   <!-- Custom CMS components and preview templates -->
   <script src="cms.js"></script>
 
+  <!-- Fix Cloudinary widget race condition -->
+  <script>
+    // Force repaint to fix Cloudinary widget timing issue
+    // Images were only showing when dev tools were open due to race condition
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if (window.cloudinary && window.cloudinary.openMediaLibrary) {
+          // Trigger a repaint
+          document.body.style.display = 'none';
+          document.body.offsetHeight; // Force reflow
+          document.body.style.display = '';
+        }
+      }, 100);
+    });
+  </script>
+
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
