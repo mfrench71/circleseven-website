@@ -11,6 +11,7 @@ const API_BASE = '/.netlify/functions';
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   initAuth();
+  handleHashChange();
 });
 
 // Authentication
@@ -49,8 +50,8 @@ function showMainApp(authenticatedUser) {
   // Hide loading indicator
   document.getElementById('loading').classList.add('hidden');
 
-  // Show dashboard by default
-  switchSection('dashboard');
+  // Handle hash-based routing on login
+  handleHashChange();
 
   // Load last updated time
   updateLastUpdated();
@@ -524,7 +525,12 @@ function closeConfirm(confirmed) {
 }
 
 // Section switching (Dashboard, Taxonomy, Settings)
-function switchSection(sectionName) {
+function switchSection(sectionName, updateHash = true) {
+  // Update URL hash if requested
+  if (updateHash) {
+    window.location.hash = sectionName;
+  }
+
   // Update navigation buttons
   document.querySelectorAll('.nav-button').forEach(btn => {
     btn.classList.remove('border-teal-600', 'text-teal-600');
@@ -532,15 +538,20 @@ function switchSection(sectionName) {
   });
 
   const activeNav = document.getElementById(`nav-${sectionName}`);
-  activeNav.classList.add('border-teal-600', 'text-teal-600');
-  activeNav.classList.remove('border-transparent', 'text-gray-500');
+  if (activeNav) {
+    activeNav.classList.add('border-teal-600', 'text-teal-600');
+    activeNav.classList.remove('border-transparent', 'text-gray-500');
+  }
 
   // Update section panels
   document.querySelectorAll('.section-panel').forEach(panel => {
     panel.classList.add('hidden');
   });
 
-  document.getElementById(`section-${sectionName}`).classList.remove('hidden');
+  const sectionEl = document.getElementById(`section-${sectionName}`);
+  if (sectionEl) {
+    sectionEl.classList.remove('hidden');
+  }
 
   // Load data for the section if needed
   if (sectionName === 'taxonomy' && categories.length === 0) {
@@ -549,6 +560,23 @@ function switchSection(sectionName) {
     loadSettings();
   }
 }
+
+// Handle hash changes (back/forward/refresh)
+function handleHashChange() {
+  let hash = window.location.hash.replace('#', '');
+
+  // Default to dashboard if no hash or invalid hash
+  const validSections = ['dashboard', 'taxonomy', 'posts', 'trash', 'settings'];
+  if (!hash || !validSections.includes(hash)) {
+    hash = 'dashboard';
+  }
+
+  // Switch section without updating hash (to avoid loop)
+  switchSection(hash, false);
+}
+
+// Initialize hash-based routing
+window.addEventListener('hashchange', handleHashChange);
 
 // Load settings from API
 async function loadSettings() {
