@@ -615,6 +615,7 @@ let allPostsWithMetadata = [];
 let currentPost = null;
 let currentPage = 1;
 const postsPerPage = 25;
+let markdownEditor = null; // EasyMDE instance
 
 // Load posts list
 async function loadPosts() {
@@ -641,8 +642,8 @@ async function loadPosts() {
 async function loadPostsMetadata() {
   allPostsWithMetadata = [];
 
-  // Load first few posts to get started quickly
-  const postsToLoad = allPosts.slice(0, Math.min(50, allPosts.length));
+  // Only load the first page worth of posts for immediate display
+  const postsToLoad = allPosts.slice(0, Math.min(postsPerPage, allPosts.length));
 
   for (const post of postsToLoad) {
     try {
@@ -662,8 +663,8 @@ async function loadPostsMetadata() {
   }
 
   // If there are more posts, load them in background
-  if (allPosts.length > 50) {
-    loadRemainingPostsMetadata(50);
+  if (allPosts.length > postsPerPage) {
+    loadRemainingPostsMetadata(postsPerPage);
   }
 }
 
@@ -855,6 +856,21 @@ function formatDateShort(date) {
   });
 }
 
+// Initialize markdown editor
+function initMarkdownEditor() {
+  if (!markdownEditor) {
+    markdownEditor = new EasyMDE({
+      element: document.getElementById('post-content'),
+      spellChecker: false,
+      autosave: {
+        enabled: false
+      },
+      toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'],
+      status: ['lines', 'words', 'cursor']
+    });
+  }
+}
+
 // Edit post
 async function editPost(filename) {
   try {
@@ -867,7 +883,12 @@ async function editPost(filename) {
     document.getElementById('post-title').value = currentPost.frontmatter.title || '';
     document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
     document.getElementById('post-image').value = currentPost.frontmatter.image || '';
-    document.getElementById('post-content').value = currentPost.body || '';
+
+    // Initialize markdown editor if needed
+    if (!markdownEditor) {
+      initMarkdownEditor();
+    }
+    markdownEditor.value(currentPost.body || '');
 
     // Set categories and tags
     setMultiSelect('post-categories', currentPost.frontmatter.categories || []);
@@ -891,7 +912,13 @@ function showNewPostForm() {
   document.getElementById('post-title').value = '';
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
   document.getElementById('post-image').value = '';
-  document.getElementById('post-content').value = '';
+
+  // Initialize markdown editor if needed
+  if (!markdownEditor) {
+    initMarkdownEditor();
+  }
+  markdownEditor.value('');
+
   setMultiSelect('post-categories', []);
   setMultiSelect('post-tags', []);
 
@@ -921,7 +948,7 @@ async function savePost(event) {
     const title = document.getElementById('post-title').value;
     const date = document.getElementById('post-date').value;
     const image = document.getElementById('post-image').value;
-    const content = document.getElementById('post-content').value;
+    const content = markdownEditor ? markdownEditor.value() : document.getElementById('post-content').value;
     const selectedCategories = getMultiSelectValues('post-categories');
     const selectedTags = getMultiSelectValues('post-tags');
 
