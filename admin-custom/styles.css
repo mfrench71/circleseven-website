@@ -220,10 +220,7 @@ li { margin: 0; }
 .border-transparent { border-color: transparent; }
 .border-b-transparent { border-bottom-color: transparent; }
 
-/* Section panels */
-.section-panel {
-  display: block;
-}
+/* Section panels - no styles needed, controlled by .hidden class */
 
 /* Form elements */
 input[type="text"],
