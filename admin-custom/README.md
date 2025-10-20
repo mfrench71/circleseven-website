@@ -90,14 +90,9 @@ Visit: [https://circleseven.co.uk/admin-custom](https://circleseven.co.uk/admin-
 
 The taxonomy manager automatically:
 1. ✅ Commits changes to GitHub (via GitHub API)
-2. ✅ GitHub Action runs sync script automatically
-3. ✅ Commits updated CMS config automatically
-4. ✅ Triggers Netlify rebuild automatically
+2. ✅ Triggers Netlify rebuild automatically
 
-**Everything is fully automated!** Just click Save and wait 1-2 minutes for:
-- Custom admin commits taxonomy changes
-- GitHub Action syncs to CMS config
-- Netlify rebuilds the site
+**Everything is fully automated!** Just click Save and wait 1-2 minutes for changes to go live.
 
 No manual steps required.
 

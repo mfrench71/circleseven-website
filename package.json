@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Circle Seven - Portfolio and blog of Matthew French",
   "scripts": {
-    "sync-taxonomy": "node scripts/sync-taxonomy.js",
     "dev": "bundle exec jekyll serve",
     "build": "bundle exec jekyll build"
   },
