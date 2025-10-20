@@ -68,72 +68,88 @@
 
         <!-- Taxonomy Editor -->
         <div id="taxonomy-editor" class="hidden">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Categories -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-              <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold">Categories</h2>
-                <span id="categories-count" class="text-sm text-gray-500">0 items</span>
-              </div>
+          <!-- Tabs -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div class="border-b border-gray-200">
+              <nav class="flex">
+                <button
+                  onclick="switchTab('categories')"
+                  id="tab-categories"
+                  class="tab-button active px-6 py-3 text-sm font-medium border-b-2 border-teal-600 text-teal-600"
+                >
+                  <span class="flex items-center gap-2">
+                    Categories
+                    <span id="categories-count-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">0</span>
+                  </span>
+                </button>
+                <button
+                  onclick="switchTab('tags')"
+                  id="tab-tags"
+                  class="tab-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                >
+                  <span class="flex items-center gap-2">
+                    Tags
+                    <span id="tags-count-badge" class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">0</span>
+                  </span>
+                </button>
+              </nav>
+            </div>
+          </div>
 
-              <div class="mb-4">
-                <div class="flex gap-2">
-                  <input
-                    type="text"
-                    id="new-category"
-                    placeholder="Add new category..."
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                    onkeypress="if(event.key==='Enter') addCategory()"
-                  />
-                  <button
-                    onclick="addCategory()"
-                    class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Add
-                  </button>
-                </div>
+          <!-- Categories Panel -->
+          <div id="panel-categories" class="tab-panel bg-white rounded-lg shadow-sm p-6">
+            <div class="mb-4">
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="new-category"
+                  placeholder="Add new category..."
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  onkeypress="if(event.key==='Enter') addCategory()"
+                />
+                <button
+                  onclick="addCategory()"
+                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  Add
+                </button>
               </div>
-
-              <ul id="categories-list" class="space-y-2">
-                <!-- Categories will be inserted here -->
-              </ul>
             </div>
 
-            <!-- Tags -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-              <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold">Tags</h2>
-                <span id="tags-count" class="text-sm text-gray-500">0 items</span>
-              </div>
+            <ul id="categories-list" class="space-y-2">
+              <!-- Categories will be inserted here -->
+            </ul>
+          </div>
 
-              <div class="mb-4">
-                <div class="flex gap-2">
-                  <input
-                    type="text"
-                    id="new-tag"
-                    placeholder="Add new tag..."
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                    onkeypress="if(event.key==='Enter') addTag()"
-                  />
-                  <button
-                    onclick="addTag()"
-                    class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
-                  >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Add
-                  </button>
-                </div>
+          <!-- Tags Panel -->
+          <div id="panel-tags" class="tab-panel hidden bg-white rounded-lg shadow-sm p-6">
+            <div class="mb-4">
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="new-tag"
+                  placeholder="Add new tag..."
+                  class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  onkeypress="if(event.key==='Enter') addTag()"
+                />
+                <button
+                  onclick="addTag()"
+                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  Add
+                </button>
               </div>
-
-              <ul id="tags-list" class="space-y-2">
-                <!-- Tags will be inserted here -->
-              </ul>
             </div>
+
+            <ul id="tags-list" class="space-y-2">
+              <!-- Tags will be inserted here -->
+            </ul>
           </div>
 
           <!-- Save Button -->

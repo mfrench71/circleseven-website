@@ -167,6 +167,28 @@ li { margin: 0; }
   cursor: grabbing !important;
 }
 
+/* Tabs */
+.tab-button {
+  transition: all 150ms;
+}
+.tab-button:hover {
+  border-color: #9ca3af;
+}
+.tab-button.active {
+  border-color: #0d9488;
+  color: #0d9488;
+}
+
+/* Border colors */
+.border-gray-200 { border-color: #e5e7eb; }
+.hover\:border-gray-300:hover { border-color: #d1d5db; }
+
+/* Text extra small */
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+
+/* Rounded full */
+.rounded-full { border-radius: 9999px; }
+
 /* Responsive */
 @media (min-width: 640px) {
   .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }

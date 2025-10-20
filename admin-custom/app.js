@@ -67,10 +67,30 @@ async function loadTaxonomy() {
   }
 }
 
+// Tab switching
+function switchTab(tabName) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-button').forEach(btn => {
+    btn.classList.remove('active', 'border-teal-600', 'text-teal-600');
+    btn.classList.add('border-transparent', 'text-gray-500');
+  });
+
+  const activeTab = document.getElementById(`tab-${tabName}`);
+  activeTab.classList.add('active', 'border-teal-600', 'text-teal-600');
+  activeTab.classList.remove('border-transparent', 'text-gray-500');
+
+  // Update panels
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.add('hidden');
+  });
+
+  document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+}
+
 // Render categories
 function renderCategories() {
   const list = document.getElementById('categories-list');
-  const count = document.getElementById('categories-count');
+  const countBadge = document.getElementById('categories-count-badge');
 
   list.innerHTML = categories.map((cat, index) => `
     <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
@@ -99,7 +119,7 @@ function renderCategories() {
     </li>
   `).join('');
 
-  count.textContent = `${categories.length} items`;
+  countBadge.textContent = categories.length;
 
   // Initialize sortable
   new Sortable(list, {
@@ -116,7 +136,7 @@ function renderCategories() {
 // Render tags
 function renderTags() {
   const list = document.getElementById('tags-list');
-  const count = document.getElementById('tags-count');
+  const countBadge = document.getElementById('tags-count-badge');
 
   list.innerHTML = tags.map((tag, index) => `
     <li class="flex items-center gap-2 p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition cursor-move" data-index="${index}">
@@ -145,7 +165,7 @@ function renderTags() {
     </li>
   `).join('');
 
-  count.textContent = `${tags.length} items`;
+  countBadge.textContent = tags.length;
 
   // Initialize sortable
   new Sortable(list, {
