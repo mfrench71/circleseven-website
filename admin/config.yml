@@ -51,7 +51,7 @@ collections:
       - label: "Category"
         field: categories
     sortable_fields: ['title', 'date', 'categories']
-    summary: "{{title}} - {{date | date('YYYY-MM-DD')}} - {{categories}}"
+    summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
     fields: # The fields for each document
       - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
       - {label: "Title", name: "title", widget: "string"}
