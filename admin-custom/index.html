@@ -534,15 +534,31 @@
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
-                    <div id="post-categories" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white max-h-32 overflow-y-auto">
-                      <!-- Will be populated with checkboxes from taxonomy -->
+                    <div class="taxonomy-input-wrapper">
+                      <div id="categories-selected" class="taxonomy-selected-tags"></div>
+                      <input
+                        type="text"
+                        id="categories-input"
+                        placeholder="Type to search categories..."
+                        class="taxonomy-input w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        autocomplete="off"
+                      />
+                      <div id="categories-suggestions" class="taxonomy-suggestions hidden"></div>
                     </div>
                   </div>
 
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Tags</label>
-                    <div id="post-tags" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white max-h-32 overflow-y-auto">
-                      <!-- Will be populated with checkboxes from taxonomy -->
+                    <div class="taxonomy-input-wrapper">
+                      <div id="tags-selected" class="taxonomy-selected-tags"></div>
+                      <input
+                        type="text"
+                        id="tags-input"
+                        placeholder="Type to search tags..."
+                        class="taxonomy-input w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        autocomplete="off"
+                      />
+                      <div id="tags-suggestions" class="taxonomy-suggestions hidden"></div>
                     </div>
                   </div>
                 </div>

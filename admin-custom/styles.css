@@ -356,6 +356,105 @@ th {
 .flex-wrap { flex-wrap: wrap; }
 
 /* ============================================
+   WORDPRESS-STYLE TAXONOMY INPUT
+   Tag-based autocomplete interface
+   ============================================ */
+
+.taxonomy-input-wrapper {
+  position: relative;
+}
+
+.taxonomy-selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  min-height: 0;
+}
+
+.taxonomy-selected-tags:empty {
+  display: none;
+}
+
+.taxonomy-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background-color 0.15s;
+}
+
+.taxonomy-tag:hover {
+  background-color: #d1d5db;
+}
+
+.taxonomy-tag-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #9ca3af;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  line-height: 1;
+  padding: 0;
+  border: none;
+}
+
+.taxonomy-tag-remove:hover {
+  background-color: #dc2626;
+}
+
+.taxonomy-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin-top: -1px;
+}
+
+.taxonomy-suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.15s;
+}
+
+.taxonomy-suggestion-item:hover {
+  background-color: #f3f4f6;
+}
+
+.taxonomy-suggestion-item.active {
+  background-color: #0d9488;
+  color: white;
+}
+
+.taxonomy-suggestion-empty {
+  padding: 8px 12px;
+  color: #9ca3af;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* ============================================
    EASYMDE PREVIEW STYLES
    Matches frontend post content styling
    ============================================ */

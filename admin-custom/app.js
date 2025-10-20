@@ -936,6 +936,9 @@ function showNewPostForm() {
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
   document.getElementById('post-image').value = '';
 
+  // Clear image preview
+  document.getElementById('image-preview').classList.add('hidden');
+
   // Initialize markdown editor if needed
   if (!markdownEditor) {
     initMarkdownEditor();
@@ -1130,60 +1133,179 @@ function formatDateForInput(dateStr) {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
-// Helper: Populate taxonomy selects (now with checkboxes)
+// Helper: Populate taxonomy selects (WordPress-style autocomplete)
 function populateTaxonomySelects() {
-  const categoriesContainer = document.getElementById('post-categories');
-  const tagsContainer = document.getElementById('post-tags');
+  // Initialize autocomplete for categories
+  initTaxonomyAutocomplete('categories', categories);
 
-  if (categories.length === 0) {
-    categoriesContainer.innerHTML = '<p class="text-sm text-gray-500">No categories available</p>';
-  } else {
-    categoriesContainer.innerHTML = categories.map(cat =>
-      `<label class="flex items-center gap-2 py-1 hover:bg-gray-50 cursor-pointer rounded px-1">
-        <input
-          type="checkbox"
-          value="${escapeHtml(cat)}"
-          class="category-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-        />
-        <span class="text-sm">${escapeHtml(cat)}</span>
-      </label>`
-    ).join('');
-  }
-
-  if (tags.length === 0) {
-    tagsContainer.innerHTML = '<p class="text-sm text-gray-500">No tags available</p>';
-  } else {
-    tagsContainer.innerHTML = tags.map(tag =>
-      `<label class="flex items-center gap-2 py-1 hover:bg-gray-50 cursor-pointer rounded px-1">
-        <input
-          type="checkbox"
-          value="${escapeHtml(tag)}"
-          class="tag-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-        />
-        <span class="text-sm">${escapeHtml(tag)}</span>
-      </label>`
-    ).join('');
-  }
+  // Initialize autocomplete for tags
+  initTaxonomyAutocomplete('tags', tags);
 }
 
-// Helper: Set checkbox values
-function setMultiSelect(id, values) {
-  const container = document.getElementById(id);
-  const checkboxClass = id === 'post-categories' ? 'category-checkbox' : 'tag-checkbox';
-  const checkboxes = container.querySelectorAll(`.${checkboxClass}`);
+// Selected taxonomy items state
+let selectedCategories = [];
+let selectedTags = [];
 
-  checkboxes.forEach(checkbox => {
-    checkbox.checked = values.includes(checkbox.value);
+// Initialize WordPress-style taxonomy autocomplete
+function initTaxonomyAutocomplete(type, availableItems) {
+  const input = document.getElementById(`${type}-input`);
+  const suggestionsDiv = document.getElementById(`${type}-suggestions`);
+  const selectedDiv = document.getElementById(`${type}-selected`);
+
+  let selectedItems = type === 'categories' ? selectedCategories : selectedTags;
+  let activeIndex = -1;
+
+  // Handle input changes
+  input.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      suggestionsDiv.classList.add('hidden');
+      return;
+    }
+
+    // Filter items that match search and aren't already selected
+    const matches = availableItems.filter(item =>
+      item.toLowerCase().includes(searchTerm) &&
+      !selectedItems.includes(item)
+    );
+
+    if (matches.length === 0) {
+      suggestionsDiv.innerHTML = '<div class="taxonomy-suggestion-empty">No matches found</div>';
+      suggestionsDiv.classList.remove('hidden');
+    } else {
+      suggestionsDiv.innerHTML = matches.map((item, index) =>
+        `<div class="taxonomy-suggestion-item" data-value="${escapeHtml(item)}" data-index="${index}">
+          ${escapeHtml(item)}
+        </div>`
+      ).join('');
+      suggestionsDiv.classList.remove('hidden');
+      activeIndex = -1;
+    }
+  });
+
+  // Handle keyboard navigation
+  input.addEventListener('keydown', (e) => {
+    const items = suggestionsDiv.querySelectorAll('.taxonomy-suggestion-item');
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+      updateActiveItem(items);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, -1);
+      updateActiveItem(items);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && items[activeIndex]) {
+        addTaxonomyItem(type, items[activeIndex].dataset.value);
+      }
+    } else if (e.key === 'Escape') {
+      suggestionsDiv.classList.add('hidden');
+    }
+  });
+
+  function updateActiveItem(items) {
+    items.forEach((item, index) => {
+      if (index === activeIndex) {
+        item.classList.add('active');
+        item.scrollIntoView({ block: 'nearest' });
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  // Handle suggestion clicks
+  suggestionsDiv.addEventListener('click', (e) => {
+    const item = e.target.closest('.taxonomy-suggestion-item');
+    if (item) {
+      addTaxonomyItem(type, item.dataset.value);
+    }
+  });
+
+  // Close suggestions when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest(`#${type}-input`) && !e.target.closest(`#${type}-suggestions`)) {
+      suggestionsDiv.classList.add('hidden');
+    }
   });
 }
 
-// Helper: Get checkbox values
-function getMultiSelectValues(id) {
-  const container = document.getElementById(id);
-  const checkboxClass = id === 'post-categories' ? 'category-checkbox' : 'tag-checkbox';
-  const checkboxes = container.querySelectorAll(`.${checkboxClass}:checked`);
+// Add taxonomy item (category or tag)
+function addTaxonomyItem(type, value) {
+  const selectedDiv = document.getElementById(`${type}-selected`);
+  const input = document.getElementById(`${type}-input`);
+  const suggestionsDiv = document.getElementById(`${type}-suggestions`);
 
-  return Array.from(checkboxes).map(checkbox => checkbox.value);
+  let selectedItems = type === 'categories' ? selectedCategories : selectedTags;
+
+  if (!selectedItems.includes(value)) {
+    selectedItems.push(value);
+
+    // Update the state
+    if (type === 'categories') {
+      selectedCategories = selectedItems;
+    } else {
+      selectedTags = selectedItems;
+    }
+
+    renderSelectedTaxonomy(type);
+  }
+
+  input.value = '';
+  suggestionsDiv.classList.add('hidden');
+}
+
+// Remove taxonomy item
+function removeTaxonomyItem(type, value) {
+  if (type === 'categories') {
+    selectedCategories = selectedCategories.filter(item => item !== value);
+  } else {
+    selectedTags = selectedTags.filter(item => item !== value);
+  }
+
+  renderSelectedTaxonomy(type);
+}
+
+// Render selected taxonomy items
+function renderSelectedTaxonomy(type) {
+  const selectedDiv = document.getElementById(`${type}-selected`);
+  const selectedItems = type === 'categories' ? selectedCategories : selectedTags;
+
+  selectedDiv.innerHTML = selectedItems.map(item => `
+    <div class="taxonomy-tag">
+      <span>${escapeHtml(item)}</span>
+      <button
+        type="button"
+        class="taxonomy-tag-remove"
+        onclick="removeTaxonomyItem('${type}', '${escapeHtml(item).replace(/'/g, "\\'")}')"
+        title="Remove ${escapeHtml(item)}"
+      >
+        ×
+      </button>
+    </div>
+  `).join('');
+}
+
+// Helper: Set taxonomy values (for loading existing post)
+function setMultiSelect(id, values) {
+  const type = id === 'post-categories' ? 'categories' : 'tags';
+
+  if (type === 'categories') {
+    selectedCategories = values || [];
+  } else {
+    selectedTags = values || [];
+  }
+
+  renderSelectedTaxonomy(type);
+}
+
+// Helper: Get taxonomy values (for saving post)
+function getMultiSelectValues(id) {
+  const type = id === 'post-categories' ? 'categories' : 'tags';
+  return type === 'categories' ? selectedCategories : selectedTags;
 }
 
 // Helper: URL validation
