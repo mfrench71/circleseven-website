@@ -650,7 +650,7 @@ let allPosts = [];
 let allPostsWithMetadata = [];
 let currentPost = null;
 let currentPage = 1;
-const postsPerPage = 25;
+const postsPerPage = 10;
 let markdownEditor = null; // EasyMDE instance
 
 // Load posts list
@@ -915,6 +915,9 @@ async function editPost(filename) {
     document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
     document.getElementById('post-image').value = currentPost.frontmatter.image || '';
 
+    // Update image preview
+    updateImagePreview();
+
     // Initialize markdown editor if needed
     if (!markdownEditor) {
       initMarkdownEditor();
@@ -1164,6 +1167,35 @@ function setMultiSelect(id, values) {
 function getMultiSelectValues(id) {
   const select = document.getElementById(id);
   return Array.from(select.selectedOptions).map(option => option.value);
+}
+
+// Helper: URL validation
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+// Update image preview
+function updateImagePreview() {
+  const imageUrl = document.getElementById('post-image').value.trim();
+  const previewDiv = document.getElementById('image-preview');
+  const previewImg = document.getElementById('image-preview-img');
+
+  if (imageUrl && isValidUrl(imageUrl)) {
+    previewImg.src = imageUrl;
+    previewImg.onerror = () => {
+      previewDiv.classList.add('hidden');
+    };
+    previewImg.onload = () => {
+      previewDiv.classList.remove('hidden');
+    };
+  } else {
+    previewDiv.classList.add('hidden');
+  }
 }
 
 // ===== TRASH MANAGEMENT =====
