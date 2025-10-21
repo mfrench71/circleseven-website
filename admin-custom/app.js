@@ -2529,12 +2529,44 @@ function clearPageDirty() {
   pageHasUnsavedChanges = false;
 }
 
+// Slugify text for permalinks (convert "About Us" to "/about-us/")
+function slugifyPermalink(text) {
+  return '/' + text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-')      // Replace spaces with hyphens
+    .replace(/-+/g, '-')       // Replace multiple hyphens with single
+    .replace(/^-|-$/g, '')     // Remove leading/trailing hyphens
+    + '/';
+}
+
+// Track if permalink was manually edited
+let permalinkManuallyEdited = false;
+
+// Auto-populate permalink from title
+function autoPopulatePermalink() {
+  const titleInput = document.getElementById('page-title');
+  const permalinkInput = document.getElementById('page-permalink');
+
+  if (!titleInput || !permalinkInput) return;
+
+  // Only auto-populate if:
+  // 1. Permalink is empty, OR
+  // 2. Permalink hasn't been manually edited
+  if (permalinkInput.value === '' || !permalinkManuallyEdited) {
+    const slugified = slugifyPermalink(titleInput.value);
+    permalinkInput.value = slugified;
+  }
+}
+
 // Edit page
 async function editPage(filename, updateUrl = true) {
   try {
     // Clear any existing page data first to prevent stale state
     currentPage_pages = null;
     clearPageDirty();
+    permalinkManuallyEdited = false; // Reset flag when loading existing page
 
     const response = await fetch(`${API_BASE}/pages?path=${encodeURIComponent(filename)}`);
     if (!response.ok) throw new Error('Failed to load page');
@@ -2578,6 +2610,7 @@ async function editPage(filename, updateUrl = true) {
 // Show new page form
 function showNewPageForm(updateUrl = true) {
   currentPage_pages = null;
+  permalinkManuallyEdited = false; // Reset flag for new page
 
   // Update URL
   if (updateUrl) {
@@ -2618,15 +2651,31 @@ function setupPageFormChangeListeners() {
   const formInputs = [
     'page-title',
     'page-permalink',
-    'page-layout'
+    'page-layout',
+    'page-protected'
   ];
 
   formInputs.forEach(id => {
     const input = document.getElementById(id);
     if (input) {
       input.addEventListener('input', markPageDirty);
+      input.addEventListener('change', markPageDirty);
     }
   });
+
+  // Auto-populate permalink from title
+  const titleInput = document.getElementById('page-title');
+  if (titleInput) {
+    titleInput.addEventListener('input', autoPopulatePermalink);
+  }
+
+  // Track manual edits to permalink
+  const permalinkInput = document.getElementById('page-permalink');
+  if (permalinkInput) {
+    permalinkInput.addEventListener('input', () => {
+      permalinkManuallyEdited = true;
+    });
+  }
 }
 
 // Show pages list
