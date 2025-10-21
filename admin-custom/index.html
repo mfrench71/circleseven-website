@@ -51,9 +51,13 @@
               <h1 class="text-2xl font-bold text-gray-900">Circle Seven Admin</h1>
               <p class="text-sm text-gray-500">Content management dashboard</p>
             </div>
-            <div class="flex items-center gap-4">
-              <a href="/" class="text-teal-600 hover:text-teal-700">View Site</a>
-              <button onclick="netlifyIdentity.logout()" class="text-gray-600 hover:text-gray-900">
+            <div class="flex items-center gap-3">
+              <a href="/" class="px-3 py-1.5 text-sm font-medium text-teal-600 hover:text-teal-700 hover:bg-teal-50 rounded-md transition no-underline flex items-center gap-1.5" target="_blank" rel="noopener" title="View public site">
+                <i class="fas fa-external-link-alt text-xs"></i>
+                View Site
+              </a>
+              <button onclick="netlifyIdentity.logout()" class="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition flex items-center gap-1.5" title="Log out of admin">
+                <i class="fas fa-sign-out-alt"></i>
                 Log Out
               </button>
             </div>
