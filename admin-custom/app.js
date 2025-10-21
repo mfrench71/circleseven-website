@@ -2835,7 +2835,13 @@ switchSection = async function(sectionName, updateUrl = true) {
   }
 };
 
-// ===== MEDIA LIBRARY MANAGEMENT =====
+// ===== MEDIA LIBRARY MANAGEMENT - Now using ES6 module (js/modules/media.js) =====
+// Functions: loadMedia(), renderMediaGrid(), updateMediaPagination(), changeMediaPage(),
+//            filterMedia(), debouncedFilterMedia, copyMediaUrl(), viewMediaFull(), openCloudinaryUpload()
+// Helper: isRecentUpload()
+// State variables kept here: allMedia, currentMediaPage, mediaPerPage, cloudinaryUploadWidget
+// The module is imported and exposed to window in index.html
+/*
 
 // Load media from Cloudinary
 /**
@@ -3102,6 +3108,7 @@ function openCloudinaryUpload() {
 
   cloudinaryUploadWidget.open();
 }
+*/
 
 // ===== PAGES MANAGEMENT =====
 
@@ -3954,10 +3961,12 @@ function updateDeploymentBanner() {
  * Shows deployment completion message
  *
  * Displays success or failure message in the banner.
+ * Automatically reloads posts/pages lists if deployments affected them.
  *
  * @param {boolean} [success=true] - Whether deployment succeeded
+ * @param {Array<Object>} [completedDeployments=[]] - Array of completed deployment objects
  */
-function showDeploymentCompletion(success = true) {
+function showDeploymentCompletion(success = true, completedDeployments = []) {
   const header = document.getElementById('deployment-status-header');
   const messageEl = document.getElementById('deployment-status-message');
   const timeEl = document.getElementById('deployment-status-time');
@@ -3987,6 +3996,37 @@ function showDeploymentCompletion(success = true) {
   // Hide time
   if (timeEl) {
     timeEl.style.display = 'none';
+  }
+
+  // Auto-reload affected lists when deployment succeeds
+  if (success && completedDeployments.length > 0) {
+    const hasPostChanges = completedDeployments.some(d =>
+      d.action && d.action.toLowerCase().includes('post')
+    );
+    const hasPageChanges = completedDeployments.some(d =>
+      d.action && d.action.toLowerCase().includes('page')
+    );
+
+    // Reload posts list if any post-related deployments completed
+    if (hasPostChanges && typeof loadPosts === 'function') {
+      console.log('Auto-reloading posts list after deployment completion');
+      loadPosts();
+    }
+
+    // Reload pages list if any page-related deployments completed
+    if (hasPageChanges && typeof loadPages === 'function') {
+      console.log('Auto-reloading pages list after deployment completion');
+      loadPages();
+    }
+
+    // Reload trash list if restore/delete operations completed
+    const hasTrashChanges = completedDeployments.some(d =>
+      d.action && (d.action.toLowerCase().includes('restore') || d.action.toLowerCase().includes('delete'))
+    );
+    if (hasTrashChanges && typeof window.loadTrash === 'function') {
+      console.log('Auto-reloading trash list after deployment completion');
+      window.loadTrash();
+    }
   }
 
   // Auto-hide after 5 seconds for success, 8 seconds for failure
@@ -4415,7 +4455,7 @@ function startDeploymentPolling() {
           activeDeployments.splice(i, 1);
 
           if (activeDeployments.length === 0) {
-            showDeploymentCompletion(true);
+            showDeploymentCompletion(true, [deployment]);
           }
           continue;
         }
@@ -4442,7 +4482,7 @@ function startDeploymentPolling() {
 
             // Only update banner when ALL deployments are complete
             if (activeDeployments.length === 0) {
-              showDeploymentCompletion(true);
+              showDeploymentCompletion(true, [deployment]);
             }
           } else if (data.status === 'failed') {
             // Deployment failed
@@ -4451,7 +4491,7 @@ function startDeploymentPolling() {
             updateDashboardDeployments();
 
             if (activeDeployments.length === 0) {
-              showDeploymentCompletion(false);
+              showDeploymentCompletion(false, [deployment]);
             }
           } else if (data.status === 'cancelled' || data.status === 'skipped') {
             // Deployment cancelled or skipped (superseded by newer commit)
