@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   registerServiceWorker();
 
   // Restore any persistent deployment toasts from previous session
-  restorePersistentToasts();
+  restorePersistentToasts().catch(err => console.error('Failed to restore persistent toasts:', err));
 
   // Start background polling for deployment history (refreshes every 60s)
   // This captures code pushes and other deployments not triggered via admin
@@ -3170,34 +3170,55 @@ window.closeToast = function(toastId) {
 }
 
 // Restore persistent toasts on page load
-function restorePersistentToasts() {
+async function restorePersistentToasts() {
   const persistentToasts = loadPersistentToasts();
 
-  // Check if any persistent toasts have completed deployments and should be removed
-  const activeDeploymentsFromHistory = loadDeploymentHistory();
+  if (persistentToasts.length === 0) return;
+
+  // Fetch current deployment status from GitHub Actions
+  const githubDeployments = await fetchRecentDeploymentsFromGitHub();
   const toastsToKeep = [];
 
   for (const toastData of persistentToasts) {
-    // Check if this deployment has completed
-    const deployment = activeDeploymentsFromHistory.find(d => d.commitSha === toastData.commitSha);
+    // Find the current status of this deployment
+    const deployment = githubDeployments.find(d => d.commitSha === toastData.commitSha);
 
-    // Only restore if deployment is still in progress or recently completed
     if (deployment) {
-      const completedTime = new Date(deployment.completedAt || deployment.startedAt);
+      const status = deployment.status;
       const now = new Date();
-      const minutesSinceCompletion = (now - completedTime) / 1000 / 60;
+      const createdAt = new Date(toastData.createdAt);
+      const minutesSinceCreation = (now - createdAt) / 1000 / 60;
 
-      // If deployment completed less than 1 minute ago, keep success/error toast visible
-      // If deployment is still in progress (pending/queued/in_progress), keep toast
-      if (deployment.status === 'pending' || deployment.status === 'queued' || deployment.status === 'in_progress' || minutesSinceCompletion < 1) {
-        // Recreate the toast
-        showToast(toastData.message, toastData.type, 0, true, toastData.commitSha);
-        toastsToKeep.push(toastData);
+      // Don't restore toasts older than 15 minutes
+      if (minutesSinceCreation > 15) {
+        continue;
       }
+
+      // Restore based on current deployment status
+      if (status === 'pending' || status === 'queued' || status === 'in_progress') {
+        // Still in progress - restore the in-progress toast
+        showToast(toastData.message, 'info', 0, false, toastData.commitSha); // Don't re-save to localStorage
+        toastsToKeep.push(toastData);
+      } else if (status === 'completed' && toastData.type === 'success') {
+        // Completed - show success toast briefly if it's recent
+        if (minutesSinceCreation < 2) {
+          showToast('Changes published successfully! Site is now live.', 'success', 10000, false, toastData.commitSha);
+        }
+        // Don't keep in persistent storage
+      } else if (status === 'failed' && toastData.type === 'error') {
+        // Failed - show error toast briefly if it's recent
+        if (minutesSinceCreation < 2) {
+          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 10000, false, toastData.commitSha);
+        }
+        // Don't keep in persistent storage
+      }
+    } else {
+      // Deployment not found - might be too old, don't restore
+      console.log('Deployment not found for toast:', toastData.commitSha);
     }
   }
 
-  // Update localStorage with only the toasts we kept
+  // Update localStorage with only the toasts we kept (in-progress ones)
   savePersistentToasts(toastsToKeep);
 }
 
@@ -3259,19 +3280,16 @@ async function checkForNewGeneralDeployments() {
       if (existingToast) {
         // Update existing persistent toast if status changed to completed/failed
         if ((status === 'completed' || status === 'failed') && existingToast.type === 'info') {
-          // Close the old in-progress toast
-          const oldToastElement = document.querySelector(`[id^="toast-"]`);
-          if (oldToastElement) {
-            closeToast(oldToastElement.id);
-          }
+          // Close the old in-progress toast using the stored ID
+          closeToast(existingToast.id);
 
-          // Show completion toast
+          // Show completion toast (NOT persistent since it auto-dismisses)
           const message = status === 'completed'
             ? 'Changes published successfully! Site is now live.'
             : 'Deployment failed. Please check GitHub Actions for details.';
           const type = status === 'completed' ? 'success' : 'error';
 
-          showToast(message, type, 15000, true, commitSha);
+          showToast(message, type, 15000, false, null); // Not persistent
         }
       } else if (!notifiedDeployments.has(commitSha)) {
         // New deployment - show toast based on status
@@ -3280,12 +3298,12 @@ async function checkForNewGeneralDeployments() {
           showToast(`Deploying changes: ${deployment.action}`, 'info', 0, true, commitSha);
           notifiedDeployments.add(commitSha);
         } else if (status === 'completed') {
-          // Deployment already completed - show success toast
-          showToast('Changes published successfully! Site is now live.', 'success', 15000, true, commitSha);
+          // Deployment already completed - show success toast (not persistent)
+          showToast('Changes published successfully! Site is now live.', 'success', 15000, false, null);
           notifiedDeployments.add(commitSha);
         } else if (status === 'failed') {
-          // Deployment failed
-          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, true, commitSha);
+          // Deployment failed - show error toast (not persistent)
+          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, false, null);
           notifiedDeployments.add(commitSha);
         }
       }
