@@ -408,24 +408,29 @@ function renderTags() {
 
 // Add category
 async function showAddCategoryModal() {
-  const newValue = await showModal('Add Category', '');
-  if (newValue === null) return;
+  try {
+    const newValue = await showModal('Add Category', '');
+    if (newValue === null) return;
 
-  const trimmed = newValue.trim();
-  if (!trimmed) {
-    showError('Category name cannot be empty');
-    return;
+    const trimmed = newValue.trim();
+    if (!trimmed) {
+      showError('Category name cannot be empty');
+      return;
+    }
+
+    if (categories.includes(trimmed)) {
+      showError('Category already exists');
+      return;
+    }
+
+    categories.push(trimmed);
+    markDirty();
+    renderCategories();
+    hideMessages();
+  } catch (error) {
+    console.error('Error adding category:', error);
+    showError('Failed to add category');
   }
-
-  if (categories.includes(trimmed)) {
-    showError('Category already exists');
-    return;
-  }
-
-  categories.push(trimmed);
-  markDirty();
-  renderCategories();
-  hideMessages();
 }
 
 // Legacy function for backwards compatibility
@@ -467,24 +472,29 @@ async function deleteCategory(index) {
 
 // Add tag
 async function showAddTagModal() {
-  const newValue = await showModal('Add Tag', '');
-  if (newValue === null) return;
+  try {
+    const newValue = await showModal('Add Tag', '');
+    if (newValue === null) return;
 
-  const trimmed = newValue.trim();
-  if (!trimmed) {
-    showError('Tag name cannot be empty');
-    return;
+    const trimmed = newValue.trim();
+    if (!trimmed) {
+      showError('Tag name cannot be empty');
+      return;
+    }
+
+    if (tags.includes(trimmed)) {
+      showError('Tag already exists');
+      return;
+    }
+
+    tags.push(trimmed);
+    markDirty();
+    renderTags();
+    hideMessages();
+  } catch (error) {
+    console.error('Error adding tag:', error);
+    showError('Failed to add tag');
   }
-
-  if (tags.includes(trimmed)) {
-    showError('Tag already exists');
-    return;
-  }
-
-  tags.push(trimmed);
-  markDirty();
-  renderTags();
-  hideMessages();
 }
 
 // Legacy function for backwards compatibility
