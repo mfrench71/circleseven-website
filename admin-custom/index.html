@@ -333,8 +333,9 @@
             </summary>
             <div class="px-4 pb-3 pt-2">
               <ul class="text-sm text-blue-800 space-y-1">
-                <li>• Drag items to reorder • Click edit icon to rename • Click trash to delete</li>
-                <li>• Changes are saved to GitHub and the site rebuilds automatically (1-2 min)</li>
+                <li>• Click "+ Add" to create new items • Click edit icon to rename • Click trash to delete</li>
+                <li>• Changes auto-save to GitHub and trigger deployment (1-2 min build time)</li>
+                <li>• Watch the deployment banner at the top for progress</li>
               </ul>
             </div>
           </details>
@@ -424,8 +425,8 @@
             </div>
           </div>
 
-          <!-- Save Button -->
-          <div class="flex justify-center">
+          <!-- Save Button (hidden with auto-save enabled, kept for manual saves if needed) -->
+          <div class="flex justify-center hidden">
             <button
               onclick="saveTaxonomy()"
               id="save-btn"
@@ -1123,6 +1124,6 @@
     </div>
   </div>
 
-  <script src="/admin-custom/app.js?v=5"></script>
+  <script src="/admin-custom/app.js?v=6"></script>
 </body>
 </html>

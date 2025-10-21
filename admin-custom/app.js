@@ -424,9 +424,11 @@ async function showAddCategoryModal() {
     }
 
     categories.push(trimmed);
-    markDirty();
     renderCategories();
     hideMessages();
+
+    // Auto-save after adding
+    await saveTaxonomy();
   } catch (error) {
     console.error('Error adding category:', error);
     showError('Failed to add category');
@@ -455,9 +457,11 @@ async function editCategory(index) {
   }
 
   categories[index] = trimmed;
-  markDirty();
   renderCategories();
   hideMessages();
+
+  // Auto-save after editing
+  await saveTaxonomy();
 }
 
 // Delete category
@@ -465,9 +469,11 @@ async function deleteCategory(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${categories[index]}"?`);
   if (!confirmed) return;
   categories.splice(index, 1);
-  markDirty();
   renderCategories();
   hideMessages();
+
+  // Auto-save after deleting
+  await saveTaxonomy();
 }
 
 // Add tag
@@ -488,9 +494,11 @@ async function showAddTagModal() {
     }
 
     tags.push(trimmed);
-    markDirty();
     renderTags();
     hideMessages();
+
+    // Auto-save after adding
+    await saveTaxonomy();
   } catch (error) {
     console.error('Error adding tag:', error);
     showError('Failed to add tag');
@@ -519,9 +527,11 @@ async function editTag(index) {
   }
 
   tags[index] = trimmed;
-  markDirty();
   renderTags();
   hideMessages();
+
+  // Auto-save after editing
+  await saveTaxonomy();
 }
 
 // Delete tag
@@ -529,9 +539,11 @@ async function deleteTag(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${tags[index]}"?`);
   if (!confirmed) return;
   tags.splice(index, 1);
-  markDirty();
   renderTags();
   hideMessages();
+
+  // Auto-save after deleting
+  await saveTaxonomy();
 }
 
 // Save taxonomy
