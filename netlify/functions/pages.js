@@ -1,3 +1,18 @@
+/**
+ * Pages Management Netlify Function
+ *
+ * Provides CRUD operations for Jekyll page files stored in the _pages directory.
+ * Integrates with GitHub API to manage page markdown files with frontmatter.
+ *
+ * Supported operations:
+ * - GET: List all pages or retrieve a single page with frontmatter and body
+ * - POST: Create a new page
+ * - PUT: Update an existing page
+ * - DELETE: Remove a page
+ *
+ * @module netlify/functions/pages
+ */
+
 const https = require('https');
 
 // GitHub API configuration
@@ -6,7 +21,17 @@ const GITHUB_REPO = 'circleseven-website';
 const GITHUB_BRANCH = 'main';
 const PAGES_DIR = '_pages';
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @param {Object} [options.body] - Request body (will be JSON stringified)
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -39,7 +64,27 @@ function githubRequest(path, options = {}) {
   });
 }
 
-// Parse frontmatter from markdown content
+/**
+ * Parses YAML frontmatter from markdown content
+ *
+ * Extracts frontmatter (YAML metadata) from Jekyll/markdown files and parses
+ * common field types including strings, booleans, arrays, and nested values.
+ *
+ * @param {string} content - Raw markdown content with frontmatter
+ * @returns {Object} Parsed result
+ * @returns {Object} .frontmatter - Parsed frontmatter object
+ * @returns {string} .body - Markdown body content (without frontmatter)
+ *
+ * @example
+ * const { frontmatter, body } = parseFrontmatter(`---
+ * title: About Us
+ * layout: page
+ * protected: true
+ * ---
+ * Page content here`);
+ * // frontmatter = { title: 'About Us', layout: 'page', protected: true }
+ * // body = 'Page content here'
+ */
 function parseFrontmatter(content) {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
@@ -101,7 +146,32 @@ function parseFrontmatter(content) {
   return { frontmatter, body: body.trim() };
 }
 
-// Build frontmatter string from object
+/**
+ * Builds YAML frontmatter string from object
+ *
+ * Converts a JavaScript object into properly formatted YAML frontmatter
+ * suitable for Jekyll markdown files. Handles strings, booleans, and arrays.
+ *
+ * @param {Object} frontmatter - Frontmatter object to convert
+ * @returns {string} YAML frontmatter string with delimiters (---\n...\n---\n)
+ *
+ * @example
+ * const yaml = buildFrontmatter({
+ *   title: 'About',
+ *   layout: 'page',
+ *   protected: true,
+ *   tags: ['news', 'featured']
+ * });
+ * // Returns:
+ * // ---
+ * // title: About
+ * // layout: page
+ * // protected: true
+ * // tags:
+ * //   - news
+ * //   - featured
+ * // ---
+ */
 function buildFrontmatter(frontmatter) {
   let yaml = '---\n';
 
@@ -127,6 +197,38 @@ function buildFrontmatter(frontmatter) {
   return yaml;
 }
 
+/**
+ * Netlify Function Handler - Pages Management
+ *
+ * Main entry point for the pages management function. Handles all CRUD operations
+ * for Jekyll page files via REST API.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
+ * @param {string} event.body - Request body (JSON string)
+ * @param {Object} event.queryStringParameters - URL query parameters
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET all pages
+ * // GET /.netlify/functions/pages
+ *
+ * // GET single page
+ * // GET /.netlify/functions/pages?path=about.md
+ *
+ * // CREATE page
+ * // POST /.netlify/functions/pages
+ * // Body: { filename: 'contact.md', frontmatter: {...}, body: '...' }
+ *
+ * // UPDATE page
+ * // PUT /.netlify/functions/pages
+ * // Body: { path: 'about.md', frontmatter: {...}, body: '...', sha: '...' }
+ *
+ * // DELETE page
+ * // DELETE /.netlify/functions/pages
+ * // Body: { path: 'about.md', sha: '...' }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
@@ -136,7 +238,7 @@ exports.handler = async (event, context) => {
     'Content-Type': 'application/json'
   };
 
-  // Handle preflight
+  // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
   }
@@ -148,7 +250,7 @@ exports.handler = async (event, context) => {
       const withMetadata = event.queryStringParameters?.metadata === 'true';
 
       if (pathParam) {
-        // Get single page
+        // Get single page with frontmatter and body
         const fileData = await githubRequest(`/contents/${PAGES_DIR}/${pathParam}?ref=${GITHUB_BRANCH}`);
         const content = Buffer.from(fileData.content, 'base64').toString('utf8');
         const { frontmatter, body } = parseFrontmatter(content);
@@ -360,6 +462,7 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Method not allowed
     return {
       statusCode: 405,
       headers,
