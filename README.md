@@ -31,6 +31,7 @@ Modern, performant static site built on free, enterprise-grade services:
 | **[Cloudinary](https://cloudinary.com)** | Image CDN & Optimization | Free (25GB storage) |
 | **[GitHub](https://github.com)** | Source Control & CI/CD | Free |
 | **[Decap CMS](https://decapcms.org)** | Content Management | Free |
+| **Custom Admin** | Advanced CMS (Jekyll-native) | Free |
 
 ### Architecture Flow
 
@@ -67,7 +68,7 @@ Modern, performant static site built on free, enterprise-grade services:
 - **DNS:** Cloudflare (circleseven.co.uk)
 - **Email:** Cloudflare Email Routing → Gmail
 - **Images:** Cloudinary CDN with automatic optimization
-- **CMS:** Decap CMS for visual content editing
+- **CMS:** Decap CMS + Custom Admin (GitHub-powered)
 - **Theme:** Minima (heavily customized)
 - **Content:** 79 blog posts across 22 categories
 
@@ -127,6 +128,21 @@ circleseven-website/
 │   ├── config.yml           # CMS configuration
 │   ├── cms.js               # Custom editor components
 │   └── README.md            # CMS documentation
+├── admin-custom/            # Custom Admin CMS (GitHub-powered)
+│   ├── index.html           # Admin interface
+│   ├── app.js               # Application logic (with JSDoc)
+│   ├── styles.css           # WordPress-style UI
+│   ├── sw.js                # Service Worker for offline capability
+│   └── README.md            # Custom Admin documentation
+├── netlify/functions/       # Serverless API endpoints
+│   ├── taxonomy.js          # Categories and tags CRUD
+│   ├── posts.js             # Blog posts management
+│   ├── pages.js             # Static pages management
+│   ├── settings.js          # _config.yml editor
+│   ├── media.js             # Cloudinary media library
+│   ├── trash.js             # Soft delete/restore system
+│   ├── deployment-status.js # GitHub Actions monitoring
+│   └── deployment-history.js# Deployment history tracking
 ├── _data/                   # Site data files
 │   └── taxonomy.yml         # Categories and tags definitions
 ├── docs/                    # Documentation
@@ -199,18 +215,96 @@ bundle exec jekyll clean
 
 ## Content Management
 
-### Using Decap CMS (Recommended)
+The site offers two CMS options:
 
-1. Visit [https://circleseven.co.uk/admin/](https://circleseven.co.uk/admin/)
-2. Authenticate with Netlify Identity
-3. Create/edit posts visually with rich editor
-4. Use custom components:
+### Custom Admin (Recommended) ⭐
+
+A GitHub-powered, WordPress-style CMS built specifically for Jekyll with advanced features:
+
+**Access:** [https://circleseven.co.uk/admin-custom/](https://circleseven.co.uk/admin-custom/)
+
+#### Features
+
+- **Dashboard** - Quick actions, site stats, and recent deployment history
+- **Posts Management** - Create, edit, delete with markdown editor and real-time preview
+- **Pages Management** - Manage static pages with protected page support
+- **Media Library** - Browse, upload, search Cloudinary images with pagination
+- **Taxonomy Manager** - Drag-and-drop reordering of categories and tags
+- **Settings Editor** - Modify `_config.yml` through intuitive interface
+- **Trash System** - Soft delete with restore capability for posts and pages
+- **Deployment Tracking** - Real-time GitHub Actions workflow monitoring
+- **WordPress-style UX** - Autocomplete taxonomy, collapsible categories, hover actions
+- **Offline Capable** - Service Worker caching for faster repeat visits
+- **Mobile Responsive** - Works on all devices
+
+#### Quick Start
+
+1. Navigate to `/admin-custom/`
+2. Click "Log In" and authenticate with Netlify Identity
+3. Select a section from the navigation:
+   - **Dashboard** - Overview and quick actions
+   - **Taxonomy** - Manage categories and tags
+   - **Posts** - Create and edit blog posts
+   - **Pages** - Manage static pages
+   - **Media Library** - Browse and upload images
+   - **Trash** - Restore deleted items
+   - **Settings** - Edit site configuration
+
+#### Creating Posts
+
+1. Click **Posts** → **New Post**
+2. Fill in title, date, image URL, categories, tags
+3. Use **Browse Library** to select featured images from Cloudinary
+4. Write content in Markdown (EasyMDE editor with toolbar)
+5. Click **Save Post** (auto-commits to GitHub and triggers deployment)
+
+#### Managing Media
+
+1. Click **Media Library** to browse all Cloudinary images
+2. Use search to find images by filename
+3. Filter by "All Media", "Images Only", or "Recently Uploaded"
+4. Click **Upload Image** to add new files via Cloudinary widget
+5. Hover over images for quick actions:
+   - **Copy URL** - Copy image URL to clipboard
+   - **View Full Size** - Open modal with full resolution
+
+#### Environment Setup
+
+The Media Library requires this environment variable in Netlify:
+
+1. Go to **Netlify Dashboard** → **Site Settings** → **Environment Variables**
+2. Add `CLOUDINARY_API_SECRET` with your Cloudinary API Secret
+3. Also add `GITHUB_TOKEN` for deployment tracking
+4. Trigger a redeploy after adding variables
+
+#### Architecture
+
+- **Frontend:** Single Page App with hash-based routing
+- **Backend:** Netlify Functions (serverless API)
+- **Storage:** GitHub (all content in version control)
+- **Images:** Cloudinary (CDN with automatic optimization)
+- **Auth:** Netlify Identity (secure, managed authentication)
+- **Deployment:** GitHub Actions (automatic on commit)
+
+See `admin-custom/README.md` for detailed documentation.
+
+---
+
+### Decap CMS (Alternative)
+
+Original CMS interface with visual editing:
+
+**Access:** [https://circleseven.co.uk/admin/](https://circleseven.co.uk/admin/)
+
+1. Authenticate with Netlify Identity
+2. Create/edit posts visually with rich editor
+3. Use custom components:
    - 📍 **Leaflet Map** - Insert interactive maps
    - 🖼️ **Image Gallery** - Create lightbox galleries
    - 🎬 **Vimeo/YouTube** - Embed videos
-5. Publish changes (auto-deploys to Netlify)
+4. Publish changes (auto-deploys to Netlify)
 
-### Custom Editor Components
+#### Custom Editor Components
 
 The CMS includes specialized components for rich content:
 
@@ -218,6 +312,8 @@ The CMS includes specialized components for rich content:
 - **Galleries:** Multi-image galleries with alt text and dimensions
 - **Video Embeds:** Vimeo and YouTube with responsive containers
 - **Preview Templates:** Live preview styled to match production site
+
+---
 
 ### Manual Markdown Editing
 
@@ -465,11 +561,21 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ## Documentation
 
+### CMS Documentation
+- `admin-custom/README.md` - **Custom Admin** setup and usage guide
 - `admin/README.md` - Decap CMS setup and usage
+
+### Technical Documentation
 - `docs/EMAIL_MIGRATION_CLOUDFLARE.md` - Email configuration guide
 - `docs/CLOUDINARY_MIGRATION.md` - Cloudinary migration details
 - `docs/RELATED_POSTS_IMPROVEMENT.md` - Related posts algorithm
 - `scripts/README.md` - Maintenance scripts documentation
+
+### API Documentation
+All Netlify Functions and frontend JavaScript files include comprehensive JSDoc documentation:
+- `netlify/functions/*.js` - Serverless API endpoints with full JSDoc annotations
+- `assets/js/*.js` - Frontend JavaScript with JSDoc documentation
+- `admin-custom/app.js` - 4,500+ lines fully documented (123 functions)
 
 ## Contributing
 
