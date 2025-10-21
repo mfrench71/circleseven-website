@@ -211,14 +211,14 @@ exports.handler = async (event, context) => {
         branch: GITHUB_BRANCH
       };
 
-      await githubRequest(`/contents/${TRASH_DIR}/${finalFilename}`, {
+      const trashResponse = await githubRequest(`/contents/${TRASH_DIR}/${finalFilename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: trashBody
       });
 
       // Delete from source folder using the current SHA from GitHub
-      const deleteResponse = await githubRequest(`/contents/${sourceDir}/${filename}`, {
+      await githubRequest(`/contents/${sourceDir}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -234,7 +234,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: true,
           message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to trash successfully`,
-          commitSha: deleteResponse.commit?.sha
+          commitSha: trashResponse.commit?.sha
         })
       };
     }
