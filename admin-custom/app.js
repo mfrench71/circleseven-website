@@ -2459,6 +2459,12 @@ function renderPagesList() {
            </svg>
          </button>`;
 
+    // Get date from frontmatter or file metadata
+    const datePublished = page.frontmatter?.date || '-';
+    const formattedDate = datePublished !== '-'
+      ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : '-';
+
     return `
       <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPage('${escapeHtml(page.name)}')">
         <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
@@ -2467,6 +2473,7 @@ function renderPagesList() {
           <div class="text-xs text-gray-500">${escapeHtml(page.name)}</div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">${formattedDate}</td>
         <td class="px-4 py-3 text-right whitespace-nowrap">
           <button
             onclick="event.stopPropagation(); editPage('${escapeHtml(page.name)}')"
