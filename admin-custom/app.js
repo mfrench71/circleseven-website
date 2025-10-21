@@ -2577,8 +2577,12 @@ function generatePageFilename(title) {
 
 // Track deployment and start polling
 function trackDeployment(commitSha, action) {
-  if (!commitSha) return;
+  if (!commitSha) {
+    console.log('trackDeployment called with no commitSha');
+    return;
+  }
 
+  console.log('Tracking deployment:', { commitSha, action });
   activeDeployments.push({
     commitSha,
     action,
@@ -2675,9 +2679,11 @@ function startDeploymentPolling() {
         if (!response.ok) continue;
 
         const data = await response.json();
+        console.log('Deployment status response for', deployment.commitSha, ':', data);
 
         if (data.status === 'completed') {
           // Deployment successful
+          console.log('Deployment completed successfully for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showSuccess('Changes published successfully! Site is now live.');
 
@@ -2686,6 +2692,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'failed') {
           // Deployment failed
+          console.log('Deployment failed for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showError('Deployment failed. Please check GitHub Actions for details.');
 
@@ -2694,6 +2701,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
+          console.log('Deployment cancelled for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showError('Deployment was cancelled. Changes may not be live.');
 
