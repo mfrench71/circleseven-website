@@ -1,3 +1,18 @@
+/**
+ * Posts Management Netlify Function
+ *
+ * Provides CRUD operations for Jekyll post files stored in the _posts directory.
+ * Integrates with GitHub API to manage blog post markdown files with frontmatter.
+ *
+ * Supported operations:
+ * - GET: List all posts or retrieve a single post with frontmatter and body
+ * - POST: Create a new post
+ * - PUT: Update an existing post
+ * - DELETE: Remove a post
+ *
+ * @module netlify/functions/posts
+ */
+
 const https = require('https');
 
 // GitHub API configuration
@@ -6,7 +21,17 @@ const GITHUB_REPO = 'circleseven-website';
 const GITHUB_BRANCH = 'main';
 const POSTS_DIR = '_posts';
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @param {Object} [options.body] - Request body (will be JSON stringified)
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -39,7 +64,26 @@ function githubRequest(path, options = {}) {
   });
 }
 
-// Parse frontmatter from markdown content
+/**
+ * Parses YAML frontmatter from markdown content
+ *
+ * Extracts frontmatter (YAML metadata) from Jekyll/markdown files and parses
+ * common field types including strings, arrays, and nested values.
+ *
+ * @param {string} content - Raw markdown content with frontmatter
+ * @returns {Object} Parsed result
+ * @returns {Object} .frontmatter - Parsed frontmatter object
+ * @returns {string} .body - Markdown body content (without frontmatter)
+ *
+ * @example
+ * const { frontmatter, body } = parseFrontmatter(`---
+ * title: My First Post
+ * categories: [Tech, JavaScript]
+ * ---
+ * Post content here`);
+ * // frontmatter = { title: 'My First Post', categories: ['Tech', 'JavaScript'] }
+ * // body = 'Post content here'
+ */
 function parseFrontmatter(content) {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
@@ -98,7 +142,33 @@ function parseFrontmatter(content) {
   return { frontmatter, body: body.trim() };
 }
 
-// Build frontmatter string from object
+/**
+ * Builds YAML frontmatter string from object
+ *
+ * Converts a JavaScript object into properly formatted YAML frontmatter
+ * suitable for Jekyll markdown files. Handles strings and arrays.
+ *
+ * @param {Object} frontmatter - Frontmatter object to convert
+ * @returns {string} YAML frontmatter string with delimiters (---\n...\n---\n)
+ *
+ * @example
+ * const yaml = buildFrontmatter({
+ *   title: 'My Post',
+ *   date: '2025-10-21',
+ *   categories: ['Tech', 'JavaScript'],
+ *   tags: ['coding']
+ * });
+ * // Returns:
+ * // ---
+ * // title: My Post
+ * // date: 2025-10-21
+ * // categories:
+ * //   - Tech
+ * //   - JavaScript
+ * // tags:
+ * //   - coding
+ * // ---
+ */
 function buildFrontmatter(frontmatter) {
   let yaml = '---\n';
 
@@ -121,6 +191,41 @@ function buildFrontmatter(frontmatter) {
   return yaml;
 }
 
+/**
+ * Netlify Function Handler - Posts Management
+ *
+ * Main entry point for the posts management function. Handles all CRUD operations
+ * for Jekyll post files via REST API.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
+ * @param {string} event.body - Request body (JSON string)
+ * @param {Object} event.queryStringParameters - URL query parameters
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET all posts
+ * // GET /.netlify/functions/posts
+ *
+ * // GET all posts with frontmatter metadata
+ * // GET /.netlify/functions/posts?metadata=true
+ *
+ * // GET single post
+ * // GET /.netlify/functions/posts?path=2025-10-21-my-post.md
+ *
+ * // CREATE post
+ * // POST /.netlify/functions/posts
+ * // Body: { filename: '2025-10-21-new-post.md', frontmatter: {...}, body: '...' }
+ *
+ * // UPDATE post
+ * // PUT /.netlify/functions/posts
+ * // Body: { path: '2025-10-21-my-post.md', frontmatter: {...}, body: '...', sha: '...' }
+ *
+ * // DELETE post
+ * // DELETE /.netlify/functions/posts
+ * // Body: { path: '2025-10-21-my-post.md', sha: '...' }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
