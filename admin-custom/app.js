@@ -3021,10 +3021,11 @@ function showDeploymentCompletion(success = true) {
     timeEl.style.display = 'none';
   }
 
-  // Auto-hide after 3 seconds
+  // Auto-hide after 5 seconds for success, 8 seconds for failure
+  const hideDelay = success ? 5000 : 8000;
   setTimeout(() => {
     hideDeploymentBanner();
-  }, 3000);
+  }, hideDelay);
 }
 
 // Hide deployment status banner
@@ -3409,10 +3410,9 @@ function startDeploymentPolling() {
         const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
         if (elapsed > DEPLOYMENT_TIMEOUT) {
           activeDeployments.splice(i, 1);
-          showSuccess('Deployment timeout reached. Changes should be live now.');
 
           if (activeDeployments.length === 0) {
-            hideDeploymentBanner();
+            showDeploymentCompletion(true);
           }
           continue;
         }
@@ -3437,9 +3437,8 @@ function startDeploymentPolling() {
             activeDeployments.splice(i, 1);
             updateDashboardDeployments();
 
-            // Only show success message when ALL deployments are complete
+            // Only update banner when ALL deployments are complete
             if (activeDeployments.length === 0) {
-              showSuccess('Changes published successfully! Site is now live.');
               showDeploymentCompletion(true);
             }
           } else if (data.status === 'failed') {
@@ -3447,8 +3446,6 @@ function startDeploymentPolling() {
             addToDeploymentHistory(deployment);
             activeDeployments.splice(i, 1);
             updateDashboardDeployments();
-
-            showError('Deployment failed. Please check GitHub Actions for details.');
 
             if (activeDeployments.length === 0) {
               showDeploymentCompletion(false);
