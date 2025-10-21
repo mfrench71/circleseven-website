@@ -557,6 +557,11 @@ async function saveTaxonomy() {
       throw new Error(error.message || 'Failed to save');
     }
 
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, 'Update taxonomy', 'taxonomy.yml');
+    }
+
     // Update saved state
     lastSavedState = JSON.stringify({ categories, tags });
     isDirty = false;
@@ -862,6 +867,10 @@ async function saveSettings(event) {
     }
 
     const result = await response.json();
+    if (result.commitSha) {
+      trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
+    }
+
     showSuccess(result.message || 'Settings saved successfully!');
   } catch (error) {
     showError('Failed to save settings: ' + error.message);
@@ -1363,6 +1372,11 @@ async function savePost(event) {
         throw new Error(error.message || 'Failed to save post');
       }
 
+      const data = await response.json();
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Update post: ${title}`, currentPost.path.replace('_posts/', ''));
+      }
+
       showSuccess('Post updated successfully!');
     } else {
       // Create new post
@@ -1381,6 +1395,11 @@ async function savePost(event) {
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to create post');
+      }
+
+      const data = await response.json();
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Create post: ${title}`, filename);
       }
 
       showSuccess('Post created successfully!');
@@ -1423,6 +1442,11 @@ async function deletePost() {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Failed to move post to trash');
+    }
+
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move post to trash: ${title}`, filename);
     }
 
     showSuccess('Post moved to trash successfully!');
@@ -2458,6 +2482,11 @@ async function savePage(event) {
         throw new Error(error.message || 'Failed to save page');
       }
 
+      const data = await response.json();
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Update page: ${title}`, currentPage_pages.path.replace('_pages/', ''));
+      }
+
       showSuccess('Page updated successfully!');
     } else {
       // Create new page
@@ -2476,6 +2505,11 @@ async function savePage(event) {
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || 'Failed to create page');
+      }
+
+      const data = await response.json();
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Create page: ${title}`, filename);
       }
 
       showSuccess('Page created successfully!');
@@ -2521,6 +2555,11 @@ async function deletePage() {
       throw new Error(error.message || 'Failed to move page to trash');
     }
 
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
+    }
+
     showSuccess('Page moved to trash successfully!');
     await loadPages();
     showPagesList();
@@ -2551,6 +2590,11 @@ async function deletePageFromList(filename, sha) {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || 'Failed to move page to trash');
+    }
+
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
     }
 
     showSuccess('Page moved to trash successfully!');
