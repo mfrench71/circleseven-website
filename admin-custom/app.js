@@ -536,10 +536,12 @@ async function deleteTag(index) {
 
 // Save taxonomy
 async function saveTaxonomy() {
+  console.log('saveTaxonomy() called - starting save process');
   const saveBtn = DOM.saveBtn;
   setButtonLoading(saveBtn, true, 'Saving...');
 
   try {
+    console.log('Sending taxonomy to API:', { categories: categories.length, tags: tags.length });
     const response = await fetch(`${API_BASE}/taxonomy`, {
       method: 'PUT',
       headers: {
@@ -547,6 +549,7 @@ async function saveTaxonomy() {
       },
       body: JSON.stringify({ categories, tags })
     });
+    console.log('API response status:', response.status, response.statusText);
 
     if (!response.ok) {
       const error = await response.json();
