@@ -2727,26 +2727,20 @@ function trackDeployment(commitSha, action, itemId = null) {
   updateDashboardDeployments();
 }
 
-// Show deployment status header
+// Show deployment status banner
 function showDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
-  const mainHeader = document.getElementById('main-header');
 
   if (header) {
     header.classList.remove('hidden');
-    // Add margin to main header so content doesn't hide behind fixed header
-    if (mainHeader) {
-      mainHeader.style.marginTop = '60px';
-    }
     updateDeploymentBanner();
   }
 }
 
-// Update deployment status header message
+// Update deployment status banner message
 function updateDeploymentBanner() {
   const messageEl = document.getElementById('deployment-status-message');
   const timeEl = document.getElementById('deployment-status-time');
-  const spinner = document.getElementById('deployment-status-spinner');
 
   if (activeDeployments.length === 0) return;
 
@@ -2768,24 +2762,14 @@ function updateDeploymentBanner() {
   if (timeEl) {
     timeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
   }
-
-  // Ensure spinner is visible
-  if (spinner) {
-    spinner.classList.remove('hidden');
-  }
 }
 
-// Hide deployment status header
+// Hide deployment status banner
 function hideDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
-  const mainHeader = document.getElementById('main-header');
 
   if (header) {
     header.classList.add('hidden');
-    // Remove margin from main header
-    if (mainHeader) {
-      mainHeader.style.marginTop = '0';
-    }
   }
 }
 

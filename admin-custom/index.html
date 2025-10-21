@@ -43,36 +43,22 @@
 
     <!-- Main App (hidden until authenticated) -->
     <div id="main-app" class="hidden">
-      <!-- Deployment Status Header (fixed) -->
-      <div id="deployment-status-header" class="hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg animate-gradient-pulse">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="48" fill="white" opacity="0.95"/>
-                <circle cx="50" cy="50" r="44" fill="currentColor"/>
-                <g transform="translate(33, 28)">
-                  <rect x="0" y="0" width="34" height="9" fill="white" opacity="0.95"/>
-                  <path d="M 24,9 L 11,46 L 20,46 L 34,9 Z" fill="white" opacity="0.95"/>
-                </g>
-              </svg>
-              <div>
-                <div class="font-semibold">Circle Seven</div>
-                <div id="deployment-status-message" class="text-sm opacity-90">Deploying changes...</div>
+      <!-- Header -->
+      <header id="main-header" class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <!-- Deployment Status Banner (shown when deploying) -->
+        <div id="deployment-status-header" class="hidden bg-gradient-to-r from-teal-500 to-teal-600 text-white animate-gradient-pulse">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span id="deployment-status-message" class="font-medium">Publishing changes...</span>
               </div>
-            </div>
-            <div class="flex items-center gap-3">
-              <div id="deployment-status-spinner" class="animate-spin">
-                <i class="fas fa-spinner"></i>
-              </div>
-              <div id="deployment-status-time" class="text-sm font-mono opacity-75">0:00</div>
+              <div id="deployment-status-time" class="font-mono opacity-90">0:00</div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Header -->
-      <header id="main-header" class="bg-white shadow-sm">
+        <!-- Main Header Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -165,7 +151,7 @@
       </header>
 
       <!-- Main Content -->
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-header">
         <!-- Loading State -->
         <div id="loading" class="text-center py-12">
           <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
@@ -327,7 +313,7 @@
           <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-6 mb-8">
             <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <i class="fas fa-rocket text-teal-600"></i>
-              Active Deployments
+              Deployments
             </h3>
             <div class="card-content">
               <div class="text-center py-8 text-gray-500">
