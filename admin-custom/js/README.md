@@ -450,17 +450,119 @@ window.renderCategories = renderCategories;
 // ... etc
 ```
 
+## Phase 6: Posts Module ✅ Complete
+
+### modules/posts.js
+
+Complete posts management with CRUD operations, taxonomy integration, and markdown editing.
+
+**Exports:** 36 functions including:
+- `loadPosts()` - Load posts from backend with metadata
+- `renderPostsList()` - Render paginated posts table
+- `editPost()` - Load post into editor form
+- `savePost()` - Save post changes with deployment tracking
+- `deletePost()` - Soft delete (move to trash)
+- `initMarkdownEditor()` - Initialize EasyMDE for content editing
+- `populateTaxonomySelects()` - Populate category/tag selectors
+- `initCloudinaryWidget()` - Initialize featured image selector
+- Plus pagination, filtering, sorting, and UI helpers
+
+**Features:**
+- Full CRUD operations for Jekyll posts
+- Markdown editing with EasyMDE
+- Taxonomy (categories/tags) integration with autocomplete
+- Featured image selection via Cloudinary
+- Search and filter with debounce
+- Pagination (20 posts per page)
+- Sort by date or title
+- Deployment tracking for all operations
+- Unsaved changes detection
+
+**Dependencies:**
+- `core/utils.js` - Utilities (escapeHtml, debounce, etc.)
+- `ui/notifications.js` - Success/error messages
+- Global state: allPosts, currentPost, markdownEditor, selectedCategories, selectedTags
+- External: EasyMDE, Cloudinary Widget
+
+## Phase 7: Pages Module ✅ Complete
+
+### modules/pages.js
+
+Pages management with auto-permalink generation and protected page support.
+
+**Exports:** 18 functions including:
+- `loadPages()` - Load pages from backend
+- `renderPagesList()` - Render pages table with protected indicators
+- `editPage()` - Load page into editor form
+- `savePage()` - Save page changes with deployment tracking
+- `deletePage()` - Soft delete (protected pages cannot be deleted)
+- `initPageMarkdownEditor()` - Initialize EasyMDE for content editing
+- `slugifyPermalink()` - Convert title to URL-safe permalink
+- `autoPopulatePermalink()` - Auto-generate permalink from title
+- Plus filtering and UI helpers
+
+**Features:**
+- Full CRUD operations for Jekyll pages
+- Auto-generated permalinks from titles
+- Protected pages (cannot be deleted)
+- Markdown editing with separate EasyMDE instance
+- Search and filter
+- Manual permalink override tracking
+- Deployment tracking for all operations
+- Unsaved changes detection
+
+**Dependencies:**
+- `core/utils.js` - Utilities (escapeHtml, debounce, etc.)
+- `ui/notifications.js` - Success/error messages
+- Global state: allPages, currentPage_pages, pageMarkdownEditor, permalinkManuallyEdited
+- External: EasyMDE
+
+## Phase 8: Deployments Module ✅ Complete
+
+### modules/deployments.js
+
+GitHub Actions deployment tracking and status monitoring.
+
+**Exports:** 16 functions including:
+- `trackDeployment(commitSha, action, itemId)` - Track new deployment
+- `restoreActiveDeployments()` - Restore in-progress deployments on page load
+- `updateDashboardDeployments()` - Render dashboard deployment widget
+- `startDeploymentPolling()` - Poll GitHub Actions for status updates
+- `showDeploymentBanner()` - Display live deployment status banner
+- `getDeploymentHistory()` - Merge localStorage + GitHub API data
+- Plus history management and UI helpers
+
+**Features:**
+- Real-time deployment status tracking
+- GitHub Actions API integration
+- Live deployment banner with elapsed time
+- Deployment history with localStorage caching
+- Dashboard widget with recent deployments
+- Collapsible skipped/cancelled deployments
+- Auto-reload affected content on completion
+- Relative time formatting ("2m ago", "3h ago")
+
+**Dependencies:**
+- `core/utils.js` - Uses escapeHtml()
+- Global constants: API_BASE, DEPLOYMENT_STATUS_POLL_INTERVAL, etc.
+- Global state: activeDeployments, deploymentPollInterval, historyPollInterval
+- Calls loadPosts(), loadPages(), loadTrash() on completion
+
 ## Status
 
 - **Phase 1**: ✅ Complete (Core utilities and UI notifications)
-- **Phase 2**: ✅ Complete (Trash module extraction - 4 functions)
-- **Phase 3**: ✅ Complete (Settings module extraction - 2 functions)
-- **Phase 4**: ✅ Complete (Media module extraction - 8 functions)
-- **Phase 5**: ✅ Complete (Taxonomy module extraction - 13 functions)
-- **Phase 6**: 📋 Planned (Remaining modules: Posts, Pages, Deployments)
-- **Phase 7**: 💡 Future (Optimization)
+- **Phase 2**: ✅ Complete (Trash module - 4 functions)
+- **Phase 3**: ✅ Complete (Settings module - 2 functions)
+- **Phase 4**: ✅ Complete (Media module - 9 functions)
+- **Phase 5**: ✅ Complete (Taxonomy module - 13 functions)
+- **Phase 6**: ✅ Complete (Posts module - 36 functions)
+- **Phase 7**: ✅ Complete (Pages module - 18 functions)
+- **Phase 8**: ✅ Complete (Deployments module - 16 functions)
+- **Phase 9**: 💡 Future (Optimization - TypeScript, lazy loading, code splitting)
+
+**Total:** 98 functions extracted into 8 ES6 modules
 
 ---
 
-**Version:** 5.0.0 (Phase 5)
+**Version:** 8.0.0 (All modules extracted)
 **Last Updated:** October 2025
