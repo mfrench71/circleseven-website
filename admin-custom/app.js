@@ -2665,17 +2665,27 @@ async function getDeploymentHistory() {
   const localHistory = loadDeploymentHistory();
   const githubHistory = await fetchRecentDeploymentsFromGitHub();
 
-  // Merge and deduplicate by commitSha
-  const merged = [...localHistory];
-  const existingShas = new Set(localHistory.map(d => d.commitSha));
+  // Create a map of GitHub deployments by commitSha for quick lookup
+  const githubMap = new Map(githubHistory.map(d => [d.commitSha, d]));
 
-  githubHistory.forEach(deployment => {
-    if (!existingShas.has(deployment.commitSha)) {
-      merged.push(deployment);
+  // Merge: prioritize GitHub status over localStorage (GitHub is source of truth)
+  const merged = localHistory.map(localDep => {
+    const githubDep = githubMap.get(localDep.commitSha);
+    if (githubDep) {
+      // GitHub has this deployment - use GitHub's status (more current)
+      githubMap.delete(localDep.commitSha); // Remove from map so we don't add it again
+      return githubDep;
     }
+    // No GitHub record - keep local (might be old/archived)
+    return localDep;
   });
 
-  // Sort by completedAt (most recent first)
+  // Add any remaining GitHub deployments that weren't in localStorage
+  githubMap.forEach(deployment => {
+    merged.push(deployment);
+  });
+
+  // Sort by completedAt/startedAt (most recent first)
   merged.sort((a, b) => new Date(b.completedAt || b.startedAt) - new Date(a.completedAt || a.startedAt));
 
   return merged;
@@ -2838,10 +2848,20 @@ async function updateDashboardDeployments() {
 
   console.log('Deployment history:', { total: history.length, showing: recentHistory.length });
 
+  // Get commit SHAs of active deployments to avoid duplicates
+  const activeShas = new Set(activeDeployments.map(d => d.commitSha));
+
   // Combine active and history for table display
+  // Show: active deployments + all non-skipped/cancelled from history (excluding duplicates)
   const mainDeployments = [
     ...activeDeployments.map(d => ({ ...d, isActive: true })),
-    ...recentHistory.filter(d => d.status === 'completed' || d.status === 'failed').map(d => ({ ...d, isActive: false }))
+    ...recentHistory
+      .filter(d =>
+        !activeShas.has(d.commitSha) && // Not already in active deployments
+        d.status !== 'skipped' &&
+        d.status !== 'cancelled'
+      )
+      .map(d => ({ ...d, isActive: false }))
   ];
 
   // Separate skipped/cancelled for collapsible section
@@ -2921,29 +2941,50 @@ async function updateDashboardDeployments() {
         </tr>
       `;
     } else {
-      // Historical deployments
-      rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      // Historical deployments (from GitHub)
+      let animationClass = '';
 
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
+        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else if (deployment.status === 'failed') {
         statusIcon = 'fa-times-circle';
         statusColor = 'text-red-600';
         statusText = 'Failed';
+        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      } else if (deployment.status === 'in_progress') {
+        statusIcon = 'fa-spinner fa-spin';
+        statusColor = 'text-blue-600';
+        statusText = 'Deploying';
+        rowBg = 'bg-blue-50';
+        animationClass = 'animate-pulse';
+      } else if (deployment.status === 'queued') {
+        statusIcon = 'fa-clock';
+        statusColor = 'text-yellow-600';
+        statusText = 'Queued';
+        rowBg = 'bg-yellow-50';
+      } else if (deployment.status === 'pending') {
+        statusIcon = 'fa-hourglass-half';
+        statusColor = 'text-gray-600';
+        statusText = 'Pending';
+        rowBg = 'bg-gray-100';
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
         statusColor = 'text-yellow-600';
         statusText = 'Cancelled';
+        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else if (deployment.status === 'skipped') {
         statusIcon = 'fa-forward';
         statusColor = 'text-blue-600';
         statusText = 'Skipped';
+        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else {
         statusIcon = 'fa-circle';
         statusColor = 'text-gray-600';
         statusText = deployment.status;
+        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       }
 
       // Format relative time
@@ -2959,7 +3000,7 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} hover:bg-gray-100">
+        <tr class="${rowBg} ${animationClass} hover:bg-gray-100">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
