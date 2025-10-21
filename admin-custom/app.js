@@ -2837,11 +2837,16 @@ function generatePageFilename(title) {
   return `${slug}.md`;
 }
 
-// ===== DEPLOYMENT STATUS TRACKING =====
-
-const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
-
-// Track deployments for history
+// ===== DEPLOYMENT STATUS TRACKING - Now using ES6 module (js/modules/deployments.js) =====
+// Functions: loadDeploymentHistory(), fetchRecentDeploymentsFromGitHub(), getDeploymentHistory(),
+//            saveDeploymentHistory(history), addToDeploymentHistory(deployment), restoreActiveDeployments(),
+//            trackDeployment(commitSha, action, itemId = null), showDeploymentBanner(), updateDeploymentBanner(),
+//            showDeploymentCompletion(success = true, completedDeployments = []), hideDeploymentBanner(),
+//            updateDashboardDeployments(), getRelativeTime(date), startDeploymentHistoryPolling(),
+//            stopDeploymentHistoryPolling(), startDeploymentPolling()
+// State variables kept here: activeDeployments, deploymentPollInterval, historyPollInterval
+// Constants kept here: DEPLOYMENT_STATUS_POLL_INTERVAL, DEPLOYMENT_HISTORY_POLL_INTERVAL, DEPLOYMENT_TIMEOUT
+// The module is imported and exposed to window in index.html
 
 // Load deployment history from localStorage
 /**

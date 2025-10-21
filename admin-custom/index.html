@@ -1256,6 +1256,24 @@
       deletePageFromList,
       generatePageFilename
     } from '/admin-custom/js/modules/pages.js';
+    import {
+      loadDeploymentHistory,
+      fetchRecentDeploymentsFromGitHub,
+      getDeploymentHistory,
+      saveDeploymentHistory,
+      addToDeploymentHistory,
+      restoreActiveDeployments,
+      trackDeployment,
+      showDeploymentBanner,
+      updateDeploymentBanner,
+      showDeploymentCompletion,
+      hideDeploymentBanner,
+      updateDashboardDeployments,
+      getRelativeTime,
+      startDeploymentHistoryPolling,
+      stopDeploymentHistoryPolling,
+      startDeploymentPolling
+    } from '/admin-custom/js/modules/deployments.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -1346,6 +1364,22 @@
     window.deletePage = deletePage;
     window.deletePageFromList = deletePageFromList;
     window.generatePageFilename = generatePageFilename;
+    window.loadDeploymentHistory = loadDeploymentHistory;
+    window.fetchRecentDeploymentsFromGitHub = fetchRecentDeploymentsFromGitHub;
+    window.getDeploymentHistory = getDeploymentHistory;
+    window.saveDeploymentHistory = saveDeploymentHistory;
+    window.addToDeploymentHistory = addToDeploymentHistory;
+    window.restoreActiveDeployments = restoreActiveDeployments;
+    window.trackDeployment = trackDeployment;
+    window.showDeploymentBanner = showDeploymentBanner;
+    window.updateDeploymentBanner = updateDeploymentBanner;
+    window.showDeploymentCompletion = showDeploymentCompletion;
+    window.hideDeploymentBanner = hideDeploymentBanner;
+    window.updateDashboardDeployments = updateDashboardDeployments;
+    window.getRelativeTime = getRelativeTime;
+    window.startDeploymentHistoryPolling = startDeploymentHistoryPolling;
+    window.stopDeploymentHistoryPolling = stopDeploymentHistoryPolling;
+    window.startDeploymentPolling = startDeploymentPolling;
   </script>
 </body>
 </html>
