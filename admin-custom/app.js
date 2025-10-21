@@ -3046,7 +3046,7 @@ function initToastContainer() {
   if (!toastContainer) {
     toastContainer = document.createElement('div');
     toastContainer.id = 'toast-container';
-    toastContainer.className = 'fixed bottom-4 right-4 z-[9999] flex flex-col-reverse gap-2 max-w-sm';
+    toastContainer.className = 'fixed top-4 right-4 z-[9999] flex flex-col gap-2 max-w-sm';
     toastContainer.style.cssText = 'pointer-events: none;';
     document.body.appendChild(toastContainer);
   }
