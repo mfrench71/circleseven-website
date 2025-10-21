@@ -937,29 +937,15 @@ async function saveTaxonomy() {
     setButtonLoading(saveBtn, false);
   }
 }
-*/
 
-// UI helpers
-/**
- * Displays an error message to the user
- *
- * Shows the error message in the DOM error element and automatically hides it after 5 seconds.
- *
- * @param {string} message - Error message to display
- */
+// UI helpers showError(), showSuccess(), hideMessages() - Now using ES6 module (js/ui/notifications.js)
+// These functions are imported and exposed to window in index.html
 function showError(message) {
   DOM.error.querySelector('p').textContent = message;
   DOM.error.classList.remove('hidden');
   setTimeout(() => DOM.error.classList.add('hidden'), 5000);
 }
 
-/**
- * Displays a success message to the user
- *
- * Shows the success message in the DOM success element and automatically hides it after 5 seconds.
- *
- * @param {string} [message="Taxonomy saved successfully!"] - Success message to display
- */
 function showSuccess(message = 'Taxonomy saved successfully!') {
   const msgEl = DOM.success.querySelector('p');
   if (msgEl) {
@@ -971,15 +957,11 @@ function showSuccess(message = 'Taxonomy saved successfully!') {
   setTimeout(() => DOM.success.classList.add('hidden'), 5000);
 }
 
-/**
- * Hides all error and success messages
- *
- * Immediately hides both error and success message elements.
- */
 function hideMessages() {
   DOM.error.classList.add('hidden');
   DOM.success.classList.add('hidden');
 }
+*/
 
 /**
  * Escapes HTML special characters to prevent XSS attacks
