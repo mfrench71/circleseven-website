@@ -11,7 +11,9 @@ const TRASH_DIR = '_trash';
 // Helper to make GitHub API requests
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
-    const req = https.request({
+    const bodyString = options.body ? JSON.stringify(options.body) : '';
+
+    const reqOptions = {
       hostname: 'api.github.com',
       path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
       method: options.method || 'GET',
@@ -21,7 +23,14 @@ function githubRequest(path, options = {}) {
         'Authorization': `token ${process.env.GITHUB_TOKEN}`,
         ...options.headers
       }
-    }, (res) => {
+    };
+
+    // Add Content-Length header if there's a body
+    if (bodyString) {
+      reqOptions.headers['Content-Length'] = Buffer.byteLength(bodyString);
+    }
+
+    const req = https.request(reqOptions, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -34,8 +43,8 @@ function githubRequest(path, options = {}) {
     });
 
     req.on('error', reject);
-    if (options.body) {
-      req.write(JSON.stringify(options.body));
+    if (bodyString) {
+      req.write(bodyString);
     }
     req.end();
   });
