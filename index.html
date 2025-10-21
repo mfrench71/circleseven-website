@@ -15,7 +15,7 @@ layout: default-sidebar
             {% include post-card-image.html post=post %}
           </a>
           <!-- Edit Button (only visible when logged in) -->
-          <a href="/admin/#/collections/blog/entries/{{ post.path | replace: '_posts/', '' | replace: '.md', '' }}"
+          <a href="/admin-custom/posts/edit/{{ post.path | replace: '_posts/', '' }}"
              class="edit-card-link"
              style="display: none;"
              title="Edit this post"
