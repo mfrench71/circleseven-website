@@ -3453,24 +3453,14 @@ function startDeploymentPolling() {
             if (activeDeployments.length === 0) {
               showDeploymentCompletion(false);
             }
-          } else if (data.status === 'cancelled') {
-            // Deployment cancelled
+          } else if (data.status === 'cancelled' || data.status === 'skipped') {
+            // Deployment cancelled or skipped (superseded by newer commit)
             addToDeploymentHistory(deployment);
             activeDeployments.splice(i, 1);
             updateDashboardDeployments();
 
-            showError('Deployment was cancelled. Changes may not be live.');
-
-            if (activeDeployments.length === 0) {
-              showDeploymentCompletion(false);
-            }
-          } else if (data.status === 'skipped') {
-            // Deployment skipped (superseded by newer commit)
-            addToDeploymentHistory(deployment);
-            activeDeployments.splice(i, 1);
-            updateDashboardDeployments();
-
-            // Don't show message for skipped (it's normal when multiple changes are queued)
+            // Don't show error for cancelled/skipped - this is normal when multiple changes are queued
+            // The newer deployment will include all changes from this one
             if (activeDeployments.length === 0) {
               hideDeploymentBanner();
             }
