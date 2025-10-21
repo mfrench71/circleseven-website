@@ -554,8 +554,13 @@ async function saveTaxonomy() {
     }
 
     const data = await response.json();
+    console.log('Taxonomy save response:', data);
+
     if (data.commitSha) {
+      console.log('Starting deployment tracking for taxonomy save');
       trackDeployment(data.commitSha, 'Update taxonomy', 'taxonomy.yml');
+    } else {
+      console.warn('No commitSha in response - deployment tracking skipped');
     }
 
     // Update saved state
