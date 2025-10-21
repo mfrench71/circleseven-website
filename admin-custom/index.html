@@ -1198,6 +1198,44 @@
       deleteTag,
       saveTaxonomy
     } from '/admin-custom/js/modules/taxonomy.js';
+    import {
+      loadPosts,
+      renderPostsList,
+      sortPostsList,
+      toggleCategories,
+      updatePagination,
+      changePage,
+      sortPosts,
+      filterPosts,
+      debouncedFilterPosts,
+      formatDateShort,
+      initMarkdownEditor,
+      cleanupMarkdownEditor,
+      markPostDirty,
+      clearPostDirty,
+      editPost,
+      showNewPostForm,
+      setupPostFormChangeListeners,
+      showPostsList,
+      savePost,
+      deletePost,
+      deletePostFromList,
+      generateFilename,
+      formatDateForInput,
+      populateTaxonomySelects,
+      initTaxonomyAutocomplete,
+      addTaxonomyItem,
+      removeTaxonomyItem,
+      renderSelectedTaxonomy,
+      setMultiSelect,
+      getMultiSelectValues,
+      initCloudinaryWidget,
+      selectFeaturedImage,
+      updateImagePreview,
+      openImageModal,
+      closeImageModal,
+      handleImageModalEscape
+    } from '/admin-custom/js/modules/posts.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -1234,6 +1272,42 @@
     window.editTag = editTag;
     window.deleteTag = deleteTag;
     window.saveTaxonomy = saveTaxonomy;
+    window.loadPosts = loadPosts;
+    window.renderPostsList = renderPostsList;
+    window.sortPostsList = sortPostsList;
+    window.toggleCategories = toggleCategories;
+    window.updatePagination = updatePagination;
+    window.changePage = changePage;
+    window.sortPosts = sortPosts;
+    window.filterPosts = filterPosts;
+    window.debouncedFilterPosts = debouncedFilterPosts;
+    window.formatDateShort = formatDateShort;
+    window.initMarkdownEditor = initMarkdownEditor;
+    window.cleanupMarkdownEditor = cleanupMarkdownEditor;
+    window.markPostDirty = markPostDirty;
+    window.clearPostDirty = clearPostDirty;
+    window.editPost = editPost;
+    window.showNewPostForm = showNewPostForm;
+    window.setupPostFormChangeListeners = setupPostFormChangeListeners;
+    window.showPostsList = showPostsList;
+    window.savePost = savePost;
+    window.deletePost = deletePost;
+    window.deletePostFromList = deletePostFromList;
+    window.generateFilename = generateFilename;
+    window.formatDateForInput = formatDateForInput;
+    window.populateTaxonomySelects = populateTaxonomySelects;
+    window.initTaxonomyAutocomplete = initTaxonomyAutocomplete;
+    window.addTaxonomyItem = addTaxonomyItem;
+    window.removeTaxonomyItem = removeTaxonomyItem;
+    window.renderSelectedTaxonomy = renderSelectedTaxonomy;
+    window.setMultiSelect = setMultiSelect;
+    window.getMultiSelectValues = getMultiSelectValues;
+    window.initCloudinaryWidget = initCloudinaryWidget;
+    window.selectFeaturedImage = selectFeaturedImage;
+    window.updateImagePreview = updateImagePreview;
+    window.openImageModal = openImageModal;
+    window.closeImageModal = closeImageModal;
+    window.handleImageModalEscape = handleImageModalEscape;
   </script>
 </body>
 </html>

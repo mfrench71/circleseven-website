@@ -793,7 +793,18 @@ async function updateLastUpdated() {
   }
 }
 
-// ===== POSTS MANAGEMENT =====
+// ===== POSTS MANAGEMENT - Now using ES6 module (js/modules/posts.js) =====
+// Functions: loadPosts(), renderPostsList(), sortPostsList(), toggleCategories(), updatePagination(),
+//            changePage(), sortPosts(), filterPosts(), debouncedFilterPosts, formatDateShort(),
+//            initMarkdownEditor(), cleanupMarkdownEditor(), markPostDirty(), clearPostDirty(),
+//            editPost(), showNewPostForm(), setupPostFormChangeListeners(), showPostsList(), savePost(),
+//            deletePost(), deletePostFromList(), generateFilename(), formatDateForInput(),
+//            populateTaxonomySelects(), initTaxonomyAutocomplete(), addTaxonomyItem(), removeTaxonomyItem(),
+//            renderSelectedTaxonomy(), setMultiSelect(), getMultiSelectValues(), initCloudinaryWidget(),
+//            selectFeaturedImage(), updateImagePreview(), openImageModal(), closeImageModal(), handleImageModalEscape()
+// State variables kept here: allPosts, allPostsWithMetadata, currentPost, currentPage, postsPerPage,
+//                            markdownEditor, postHasUnsavedChanges, selectedCategories, selectedTags
+// The module is imported and exposed to window in index.html
 
 let allPosts = [];
 let allPostsWithMetadata = [];
