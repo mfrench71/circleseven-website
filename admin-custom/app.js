@@ -2148,7 +2148,11 @@ switchSection = async function(sectionName, updateUrl = true) {
     await updateDashboardDeployments();
   } else if (sectionName === 'posts') {
     // Always show the posts list when switching to Posts section
-    showPostsList();
+    // Show list view, hide editor view
+    document.getElementById('posts-list-view').classList.remove('hidden');
+    document.getElementById('posts-editor-view').classList.add('hidden');
+    currentPost = null;
+    clearPostDirty();
 
     // Load taxonomy first if not loaded (needed for category/tag selects)
     if (categories.length === 0) {
@@ -2159,8 +2163,18 @@ switchSection = async function(sectionName, updateUrl = true) {
     if (allPosts.length === 0) {
       await loadPosts();
     }
-  } else if (sectionName === 'pages' && allPages.length === 0) {
-    await loadPages();
+  } else if (sectionName === 'pages') {
+    // Always show the pages list when switching to Pages section
+    // Show list view, hide editor view
+    document.getElementById('pages-list-view').classList.remove('hidden');
+    document.getElementById('pages-editor-view').classList.add('hidden');
+    currentPage_pages = null;
+    clearPageDirty();
+
+    // Load pages if not loaded yet
+    if (allPages.length === 0) {
+      await loadPages();
+    }
   } else if (sectionName === 'trash' && allTrashedItems.length === 0) {
     await loadTrash();
   } else if (sectionName === 'media' && allMedia.length === 0) {
