@@ -648,13 +648,24 @@ function closeModal(confirmed) {
 // Custom confirm dialog
 let confirmResolve;
 
-function showConfirm(message) {
+function showConfirm(message, options = {}) {
   return new Promise((resolve) => {
     confirmResolve = resolve;
     const overlay = document.getElementById('confirm-overlay');
+    const titleEl = document.getElementById('confirm-title');
     const messageEl = document.getElementById('confirm-message');
+    const buttonEl = document.getElementById('confirm-button');
 
+    // Set title (default to "Confirm Delete")
+    titleEl.textContent = options.title || 'Confirm Delete';
+
+    // Set message
     messageEl.textContent = message;
+
+    // Set button text and color (default to red Delete button)
+    buttonEl.textContent = options.buttonText || 'Delete';
+    buttonEl.className = options.buttonClass || 'bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700';
+
     overlay.classList.remove('hidden');
   });
 }
@@ -1800,12 +1811,28 @@ function renderTrashList() {
     const typeLabel = item.type === 'page' ? 'Page' : 'Post';
     const typeBadgeColor = item.type === 'page' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
 
+    // Format trashed_at timestamp
+    let trashedAtDisplay = '';
+    if (item.trashed_at) {
+      const trashedDate = new Date(item.trashed_at);
+      trashedAtDisplay = trashedDate.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
     return `
     <li class="flex items-center gap-4 p-4 bg-gray-50 rounded-md hover:bg-gray-100 transition">
       <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
       </svg>
-      <span class="flex-1 font-medium">${escapeHtml(item.name)}</span>
+      <div class="flex-1">
+        <div class="font-medium">${escapeHtml(item.name)}</div>
+        ${trashedAtDisplay ? `<div class="text-xs text-gray-500">Trashed: ${trashedAtDisplay}</div>` : ''}
+      </div>
       <span class="px-2 py-0.5 text-xs font-medium rounded ${typeBadgeColor}">${typeLabel}</span>
       <span class="text-xs text-gray-500">${(item.size / 1024).toFixed(1)} KB</span>
       <button
@@ -1831,7 +1858,11 @@ function renderTrashList() {
 async function restoreItem(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const destination = type === 'page' ? 'pages' : 'posts';
-  const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`);
+  const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`, {
+    title: 'Confirm Restore',
+    buttonText: 'Restore',
+    buttonClass: 'bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700'
+  });
   if (!confirmed) return;
 
   try {

@@ -71,19 +71,40 @@ exports.handler = async (event, context) => {
         const files = await githubRequest(`/contents/${TRASH_DIR}?ref=${GITHUB_BRANCH}`);
 
         // Filter to only .md files and categorize by type
-        const trashedItems = files
+        // Fetch content for each file to get trashed_at timestamp
+        const trashedItemsPromises = files
           .filter(file => file.name.endsWith('.md'))
-          .map(file => {
+          .map(async file => {
             // Determine type: posts start with date pattern (YYYY-MM-DD), pages don't
             const isPost = /^\d{4}-\d{2}-\d{2}-/.test(file.name);
+
+            // Fetch file content to extract trashed_at timestamp
+            let trashedAt = null;
+            try {
+              const fileData = await githubRequest(`/contents/${TRASH_DIR}/${file.name}?ref=${GITHUB_BRANCH}`);
+              const content = Buffer.from(fileData.content, 'base64').toString('utf8');
+              const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+              if (frontmatterMatch) {
+                const trashedAtMatch = frontmatterMatch[1].match(/trashed_at:\s*(.+)/);
+                if (trashedAtMatch) {
+                  trashedAt = trashedAtMatch[1].trim();
+                }
+              }
+            } catch (error) {
+              console.error(`Failed to extract trashed_at for ${file.name}:`, error);
+            }
+
             return {
               name: file.name,
               path: file.path,
               sha: file.sha,
               size: file.size,
-              type: isPost ? 'post' : 'page'
+              type: isPost ? 'post' : 'page',
+              trashed_at: trashedAt
             };
           });
+
+        const trashedItems = await Promise.all(trashedItemsPromises);
 
         return {
           statusCode: 200,
@@ -135,30 +156,62 @@ exports.handler = async (event, context) => {
 
       // Get current item content
       const itemData = await githubRequest(`/contents/${sourceDir}/${filename}?ref=${GITHUB_BRANCH}`);
-      const content = itemData.content;
+      const contentBase64 = itemData.content;
       const currentSha = itemData.sha; // Use the current SHA from GitHub, not the one passed in
+
+      // Decode content to add trashed_at timestamp to frontmatter
+      const content = Buffer.from(contentBase64, 'base64').toString('utf8');
+      const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+      const match = content.match(frontmatterRegex);
+
+      let modifiedContent;
+      if (match) {
+        const frontmatter = match[1];
+        const body = match[2];
+        const trashedAt = new Date().toISOString();
+        // Add trashed_at to frontmatter
+        const modifiedFrontmatter = `${frontmatter}\ntrashed_at: ${trashedAt}`;
+        modifiedContent = `---\n${modifiedFrontmatter}\n---\n${body}`;
+      } else {
+        // No frontmatter found, use original content
+        modifiedContent = content;
+      }
+
+      // Re-encode modified content
+      const modifiedContentBase64 = Buffer.from(modifiedContent).toString('base64');
 
       // Check if file already exists in trash
       let existingTrashFile = null;
+      let finalFilename = filename;
+
       try {
         existingTrashFile = await githubRequest(`/contents/${TRASH_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
       } catch (error) {
         // File doesn't exist in trash, which is fine
       }
 
-      // Create or update the item in _trash folder
+      // If file exists in trash, rename with timestamp to avoid overwriting
+      if (existingTrashFile) {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5); // Format: 2025-01-21T14-30-52
+        const nameParts = filename.match(/^(.+)(\.[^.]+)$/); // Split name and extension
+
+        if (nameParts) {
+          // Has extension: file.md -> file-2025-01-21T14-30-52.md
+          finalFilename = `${nameParts[1]}-${timestamp}${nameParts[2]}`;
+        } else {
+          // No extension: file -> file-2025-01-21T14-30-52
+          finalFilename = `${filename}-${timestamp}`;
+        }
+      }
+
+      // Create the item in _trash folder (with original or renamed filename)
       const trashBody = {
-        message: `Move ${itemType} to trash: ${filename}`,
-        content: content,
+        message: `Move ${itemType} to trash: ${finalFilename}`,
+        content: modifiedContentBase64,
         branch: GITHUB_BRANCH
       };
 
-      // If file exists in trash, include its SHA for update
-      if (existingTrashFile) {
-        trashBody.sha = existingTrashFile.sha;
-      }
-
-      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      await githubRequest(`/contents/${TRASH_DIR}/${finalFilename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: trashBody
@@ -223,9 +276,54 @@ exports.handler = async (event, context) => {
         itemType = isPost ? 'post' : 'page';
       }
 
+      // Check if file already exists in destination
+      let existingFile = null;
+      try {
+        existingFile = await githubRequest(`/contents/${destDir}/${filename}?ref=${GITHUB_BRANCH}`);
+      } catch (error) {
+        // File doesn't exist, which is what we want
+        if (!error.message.includes('404')) {
+          throw error; // Re-throw if it's not a 404
+        }
+      }
+
+      if (existingFile) {
+        return {
+          statusCode: 409,
+          headers,
+          body: JSON.stringify({
+            error: 'File already exists',
+            message: `Cannot restore "${filename}" because a file with that name already exists in ${destDir}. Please delete or rename the existing file first.`
+          })
+        };
+      }
+
       // Get trashed item content
       const trashedData = await githubRequest(`/contents/${TRASH_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
-      const content = trashedData.content;
+      const contentBase64 = trashedData.content;
+
+      // Decode content to remove trashed_at timestamp from frontmatter
+      const content = Buffer.from(contentBase64, 'base64').toString('utf8');
+      const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+      const match = content.match(frontmatterRegex);
+
+      let restoredContent;
+      if (match) {
+        const frontmatter = match[1];
+        const body = match[2];
+        // Remove trashed_at line from frontmatter
+        const cleanedFrontmatter = frontmatter
+          .split('\n')
+          .filter(line => !line.match(/^\s*trashed_at:\s*.+/))
+          .join('\n');
+        restoredContent = `---\n${cleanedFrontmatter}\n---\n${body}`;
+      } else {
+        // No frontmatter found, use original content
+        restoredContent = content;
+      }
+
+      // Re-encode cleaned content
+      const restoredContentBase64 = Buffer.from(restoredContent).toString('base64');
 
       // Restore to appropriate folder
       await githubRequest(`/contents/${destDir}/${filename}`, {
@@ -233,7 +331,7 @@ exports.handler = async (event, context) => {
         headers: { 'Content-Type': 'application/json' },
         body: {
           message: `Restore ${itemType} from trash: ${filename}`,
-          content: content,
+          content: restoredContentBase64,
           branch: GITHUB_BRANCH
         }
       });
