@@ -1148,7 +1148,6 @@ function renderPostsList() {
         <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
         <td class="px-4 py-3">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
-          <div class="text-xs text-gray-500">${escapeHtml(post.name)}</div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
         <td class="px-4 py-3 text-sm">${categoriesDisplay}</td>
@@ -2480,7 +2479,6 @@ function renderPagesList() {
         <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
         <td class="px-4 py-3">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
-          <div class="text-xs text-gray-500">${escapeHtml(page.name)}</div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
         <td class="px-4 py-3 text-sm text-gray-600">${formattedDate}</td>
