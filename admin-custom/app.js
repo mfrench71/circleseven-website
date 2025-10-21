@@ -1360,7 +1360,12 @@ async function editPost(filename, updateUrl = true) {
     if (!markdownEditor) {
       initMarkdownEditor();
     }
-    markdownEditor.value(currentPost.body || '');
+    // Ensure editor content is set (use setTimeout to ensure EasyMDE is ready)
+    setTimeout(() => {
+      if (markdownEditor) {
+        markdownEditor.value(currentPost.body || '');
+      }
+    }, 0);
 
     // Set categories and tags
     setMultiSelect('post-categories', currentPost.frontmatter.categories || []);
@@ -1399,11 +1404,16 @@ function showNewPostForm(updateUrl = true) {
   // Clear image preview
   document.getElementById('image-preview').classList.add('hidden');
 
-  // Initialize markdown editor if needed
+  // Initialize markdown editor if needed and clear content
   if (!markdownEditor) {
     initMarkdownEditor();
   }
-  markdownEditor.value('');
+  // Ensure editor is cleared (use setTimeout to ensure EasyMDE is ready)
+  setTimeout(() => {
+    if (markdownEditor) {
+      markdownEditor.value('');
+    }
+  }, 0);
 
   setMultiSelect('post-categories', []);
   setMultiSelect('post-tags', []);
@@ -2596,7 +2606,12 @@ async function editPage(filename, updateUrl = true) {
     if (!pageMarkdownEditor) {
       initPageMarkdownEditor();
     }
-    pageMarkdownEditor.value(currentPage_pages.body || '');
+    // Ensure editor content is set (use setTimeout to ensure EasyMDE is ready)
+    setTimeout(() => {
+      if (pageMarkdownEditor) {
+        pageMarkdownEditor.value(currentPage_pages.body || '');
+      }
+    }, 0);
 
     // Show editor
     document.getElementById('pages-list-view').classList.add('hidden');
