@@ -437,14 +437,24 @@
           <div id="posts-list-view">
             <!-- Search, Sort and Actions -->
             <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-              <div class="flex flex-wrap gap-3 items-center">
+              <div class="flex gap-3 items-center mb-3">
                 <input
                   type="text"
                   id="posts-search"
                   placeholder="Search posts..."
-                  class="flex-1 min-w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   oninput="debouncedFilterPosts()"
                 />
+                <button
+                  onclick="showNewPostForm()"
+                  class="btn-primary btn-with-icon flex-shrink-0"
+                  title="Create new post"
+                >
+                  <i class="fas fa-plus"></i>
+                  Add Post
+                </button>
+              </div>
+              <div>
                 <select
                   id="posts-sort"
                   class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
@@ -455,14 +465,6 @@
                   <option value="title-asc">Title A-Z</option>
                   <option value="title-desc">Title Z-A</option>
                 </select>
-                <button
-                  onclick="showNewPostForm()"
-                  class="btn-primary btn-with-icon"
-                  title="Create new post"
-                >
-                  <i class="fas fa-plus"></i>
-                  Add Post
-                </button>
               </div>
             </div>
 
