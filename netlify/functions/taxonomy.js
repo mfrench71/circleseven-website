@@ -1,3 +1,22 @@
+/**
+ * Taxonomy Management Netlify Function
+ *
+ * Manages site-wide taxonomy (categories and tags) stored in _data/taxonomy.yml.
+ * Provides read and update operations via GitHub API integration.
+ *
+ * The taxonomy file uses YAML format with structured lists:
+ * categories:
+ *   - item: Category Name
+ * tags:
+ *   - item: Tag Name
+ *
+ * Supported operations:
+ * - GET: Retrieve current categories and tags
+ * - PUT: Update taxonomy with new categories and tags lists
+ *
+ * @module netlify/functions/taxonomy
+ */
+
 const https = require('https');
 const yaml = require('js-yaml');
 
@@ -7,7 +26,17 @@ const GITHUB_REPO = 'circleseven-website';
 const GITHUB_BRANCH = 'main';
 const FILE_PATH = '_data/taxonomy.yml';
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @param {Object} [options.body] - Request body (will be JSON stringified)
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -40,6 +69,32 @@ function githubRequest(path, options = {}) {
   });
 }
 
+/**
+ * Netlify Function Handler - Taxonomy Management
+ *
+ * Main entry point for taxonomy management. Handles reading and updating
+ * the site's categories and tags taxonomy via REST API.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, PUT, OPTIONS)
+ * @param {string} event.body - Request body (JSON string for PUT)
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET taxonomy
+ * // GET /.netlify/functions/taxonomy
+ * // Returns: { categories: ["Tech", "Life"], tags: ["JavaScript", "Travel"] }
+ *
+ * @example
+ * // UPDATE taxonomy
+ * // PUT /.netlify/functions/taxonomy
+ * // Body: {
+ * //   categories: ["Tech", "Life", "Photography"],
+ * //   tags: ["JavaScript", "Travel", "Coding"]
+ * // }
+ * // Returns: { success: true, message: "...", commitSha: "..." }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
