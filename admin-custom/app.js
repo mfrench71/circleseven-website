@@ -1376,20 +1376,38 @@ async function saveSettings(event) {
 /**
  * Updates the last updated timestamp on the dashboard
  *
- * Formats the current date/time and displays it in the dashboard.
+ * Fetches the most recent successful deployment from GitHub Actions
+ * and displays when the site was last built and deployed.
+ * Falls back to showing "Unknown" if the fetch fails.
  */
-function updateLastUpdated() {
-  const now = new Date();
-  const timeStr = now.toLocaleString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+async function updateLastUpdated() {
   const el = document.getElementById('last-updated');
-  if (el) {
-    el.textContent = timeStr;
+  if (!el) return;
+
+  try {
+    // Fetch deployment history to get the most recent successful deployment
+    const history = await getDeploymentHistory();
+
+    // Find the most recent successful deployment
+    const lastDeployment = history.find(d => d.status === 'completed');
+
+    if (lastDeployment && lastDeployment.completedAt) {
+      const deployTime = new Date(lastDeployment.completedAt);
+      const timeStr = deployTime.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      el.textContent = timeStr;
+    } else {
+      // No deployment found, show fallback
+      el.textContent = 'Unknown';
+    }
+  } catch (error) {
+    console.error('Failed to fetch last updated time:', error);
+    el.textContent = 'Unknown';
   }
 }
 
