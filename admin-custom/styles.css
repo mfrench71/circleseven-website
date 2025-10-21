@@ -1052,17 +1052,20 @@ button:disabled, .btn:disabled {
    ============================================ */
 .row-with-actions {
   position: relative;
+  min-height: 3.25rem; /* Reserve space for title + row actions to prevent shifting */
 }
 
 .row-actions {
-  display: none;
+  visibility: hidden;
+  display: flex;
   font-size: 0.8125rem;
   margin-top: 0.25rem;
   gap: 0.25rem;
+  height: 1.25rem; /* Fixed height for consistent layout */
 }
 
 .row-with-actions:hover .row-actions {
-  display: flex;
+  visibility: visible;
 }
 
 .row-actions a {
