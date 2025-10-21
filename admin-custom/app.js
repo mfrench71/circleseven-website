@@ -2630,11 +2630,16 @@ function showNewPageForm(updateUrl = true) {
   document.getElementById('page-layout').value = 'page';
   document.getElementById('page-protected').checked = false;
 
-  // Initialize markdown editor if needed
+  // Initialize markdown editor if needed and clear content
   if (!pageMarkdownEditor) {
     initPageMarkdownEditor();
   }
-  pageMarkdownEditor.value('');
+  // Ensure editor is cleared (use setTimeout to ensure EasyMDE is ready)
+  setTimeout(() => {
+    if (pageMarkdownEditor) {
+      pageMarkdownEditor.value('');
+    }
+  }, 0);
 
   // Show editor
   document.getElementById('pages-list-view').classList.add('hidden');
