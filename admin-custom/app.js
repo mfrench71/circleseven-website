@@ -2602,6 +2602,10 @@ async function editPage(filename, updateUrl = true) {
     document.getElementById('page-layout').value = currentPage_pages.frontmatter.layout || 'page';
     document.getElementById('page-protected').checked = currentPage_pages.frontmatter.protected === true;
 
+    // Set date field - use existing date or default to current date/time
+    const dateValue = currentPage_pages.frontmatter.date || new Date().toISOString();
+    document.getElementById('page-date').value = formatDateForInput(dateValue);
+
     // Initialize markdown editor if needed
     if (!pageMarkdownEditor) {
       initPageMarkdownEditor();
@@ -2645,6 +2649,9 @@ function showNewPageForm(updateUrl = true) {
   document.getElementById('page-layout').value = 'page';
   document.getElementById('page-protected').checked = false;
 
+  // Set current date/time as default for new pages
+  document.getElementById('page-date').value = formatDateForInput(new Date().toISOString());
+
   // Initialize markdown editor if needed and clear content
   if (!pageMarkdownEditor) {
     initPageMarkdownEditor();
@@ -2678,6 +2685,7 @@ function setupPageFormChangeListeners() {
   const formInputs = [
     'page-title',
     'page-permalink',
+    'page-date',
     'page-layout',
     'page-protected'
   ];
@@ -2730,6 +2738,7 @@ async function savePage(event) {
     const permalink = document.getElementById('page-permalink').value;
     const layout = document.getElementById('page-layout').value;
     const protected = document.getElementById('page-protected').checked;
+    const date = document.getElementById('page-date').value;
     const content = pageMarkdownEditor ? pageMarkdownEditor.value() : document.getElementById('page-content').value;
 
     const frontmatter = {
@@ -2737,6 +2746,11 @@ async function savePage(event) {
       title,
       permalink
     };
+
+    // Add date if provided
+    if (date) {
+      frontmatter.date = date;
+    }
 
     // Only add protected field if it's true
     if (protected) {
