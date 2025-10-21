@@ -2640,12 +2640,15 @@ function loadDeploymentHistory() {
 async function fetchRecentDeploymentsFromGitHub() {
   try {
     const response = await fetch(`${API_BASE}/deployment-history`);
-    if (!response.ok) return [];
+    if (!response.ok) {
+      console.warn('Deployment history endpoint not available yet:', response.status);
+      return [];
+    }
 
     const data = await response.json();
     return data.deployments || [];
   } catch (error) {
-    console.error('Failed to fetch deployment history from GitHub:', error);
+    console.warn('Failed to fetch deployment history from GitHub (will retry):', error.message);
     return [];
   }
 }
@@ -2825,6 +2828,8 @@ async function updateDashboardDeployments() {
   // Show recent deployment history
   const history = await getDeploymentHistory();
   const recentHistory = history.slice(0, 10); // Show last 10
+
+  console.log('Deployment history:', { total: history.length, showing: recentHistory.length });
 
   if (recentHistory.length > 0) {
     if (activeDeployments.length > 0) {
