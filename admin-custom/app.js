@@ -3242,33 +3242,51 @@ function showToastInfo(message) {
 async function checkForNewGeneralDeployments() {
   try {
     const githubDeployments = await fetchRecentDeploymentsFromGitHub();
+    const persistentToasts = loadPersistentToasts();
 
-    // Check the most recent deployment
-    if (githubDeployments.length > 0) {
-      const latestDeployment = githubDeployments[0];
+    // Check all recent deployments for status changes
+    for (const deployment of githubDeployments) {
+      const commitSha = deployment.commitSha;
+      const status = deployment.status;
 
-      // If this is a new deployment we haven't notified about
-      if (!notifiedDeployments.has(latestDeployment.commitSha)) {
-        // Check if this is a general deployment (not from our active deployments tracking)
-        const isTrackedDeployment = activeDeployments.some(d => d.commitSha === latestDeployment.commitSha);
+      // Check if this is a general deployment (not from our active deployments tracking)
+      const isTrackedDeployment = activeDeployments.some(d => d.commitSha === commitSha);
+      if (isTrackedDeployment) continue; // Skip admin-triggered deployments
 
-        if (!isTrackedDeployment) {
-          // This is a general deployment (code push) - show persistent toast
-          const status = latestDeployment.status;
+      // Check if we have a persistent toast for this deployment
+      const existingToast = persistentToasts.find(t => t.commitSha === commitSha);
 
-          if (status === 'pending' || status === 'queued' || status === 'in_progress') {
-            // Deployment starting - show persistent in-progress toast
-            showToast(`Deploying changes: ${latestDeployment.action}`, 'info', 0, true, latestDeployment.commitSha);
-            notifiedDeployments.add(latestDeployment.commitSha);
-          } else if (status === 'completed') {
-            // Deployment completed - show success toast
-            showToast('Changes published successfully! Site is now live.', 'success', 15000, true, latestDeployment.commitSha);
-            notifiedDeployments.add(latestDeployment.commitSha);
-          } else if (status === 'failed') {
-            // Deployment failed
-            showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, true, latestDeployment.commitSha);
-            notifiedDeployments.add(latestDeployment.commitSha);
+      if (existingToast) {
+        // Update existing persistent toast if status changed to completed/failed
+        if ((status === 'completed' || status === 'failed') && existingToast.type === 'info') {
+          // Close the old in-progress toast
+          const oldToastElement = document.querySelector(`[id^="toast-"]`);
+          if (oldToastElement) {
+            closeToast(oldToastElement.id);
           }
+
+          // Show completion toast
+          const message = status === 'completed'
+            ? 'Changes published successfully! Site is now live.'
+            : 'Deployment failed. Please check GitHub Actions for details.';
+          const type = status === 'completed' ? 'success' : 'error';
+
+          showToast(message, type, 15000, true, commitSha);
+        }
+      } else if (!notifiedDeployments.has(commitSha)) {
+        // New deployment - show toast based on status
+        if (status === 'pending' || status === 'queued' || status === 'in_progress') {
+          // Deployment starting - show persistent in-progress toast
+          showToast(`Deploying changes: ${deployment.action}`, 'info', 0, true, commitSha);
+          notifiedDeployments.add(commitSha);
+        } else if (status === 'completed') {
+          // Deployment already completed - show success toast
+          showToast('Changes published successfully! Site is now live.', 'success', 15000, true, commitSha);
+          notifiedDeployments.add(commitSha);
+        } else if (status === 'failed') {
+          // Deployment failed
+          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, true, commitSha);
+          notifiedDeployments.add(commitSha);
         }
       }
     }
