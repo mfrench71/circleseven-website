@@ -177,6 +177,69 @@ window.loadSettings = loadSettings;
 window.saveSettings = saveSettings;
 ```
 
+## Phase 4: Media Module ✅ Complete
+
+### modules/media.js
+
+Cloudinary media library management with browsing, uploading, and pagination.
+
+**Exports:**
+- `loadMedia()` - Load media files from Cloudinary API
+- `renderMediaGrid()` - Render paginated grid with thumbnails and actions
+- `updateMediaPagination(totalPages)` - Update pagination UI controls
+- `changeMediaPage(delta)` - Change current page (+1 for next, -1 for previous)
+- `filterMedia()` - Filter media by search term, reset to page 1
+- `debouncedFilterMedia` - Debounced version of filterMedia for search input
+- `copyMediaUrl(url)` - Copy media URL to clipboard
+- `viewMediaFull(url)` - Open media in full-size modal
+- `openCloudinaryUpload()` - Open Cloudinary upload widget
+
+**Features:**
+- Fetches media from Cloudinary via `/media` API endpoint
+- Paginated grid view with 20 items per page
+- Search by filename and filter (all/images/recent)
+- Thumbnail generation with Cloudinary transformations
+- Click to copy URL or view full size
+- Upload new images via Cloudinary widget
+- Automatic reload after successful upload
+- Recent uploads filter (last 7 days)
+
+**Dependencies:**
+- `core/utils.js` - Uses `escapeHtml()` and `debounce()`
+- `ui/notifications.js` - Uses `showError()` and `showSuccess()`
+- Global `API_BASE` constant
+- Global state: `allMedia`, `currentMediaPage`, `mediaPerPage`, `cloudinaryUploadWidget`
+- Global `handleImageModalEscape()` function (shared with other features)
+- External: Cloudinary Upload Widget library (loaded in index.html)
+
+**Usage:**
+```javascript
+import {
+  loadMedia,
+  renderMediaGrid,
+  filterMedia,
+  copyMediaUrl
+} from './modules/media.js';
+
+// Load media library
+await loadMedia();
+
+// Filter media
+document.getElementById('media-search').addEventListener('input', debouncedFilterMedia);
+
+// Copy URL
+await copyMediaUrl('https://res.cloudinary.com/.../image.jpg');
+```
+
+**Integration:**
+The Media module is loaded in `index.html` and all functions are exposed to `window` for onclick handlers:
+```javascript
+window.loadMedia = loadMedia;
+window.renderMediaGrid = renderMediaGrid;
+window.copyMediaUrl = copyMediaUrl;
+// ... etc
+```
+
 ## Testing
 
 Open `test.html` in a browser to verify all modules work correctly:
@@ -227,12 +290,20 @@ ES6 modules require modern browsers:
 - ✅ Integrated with index.html module script
 - ✅ Commented out old implementations in app.js
 
-### Phase 4: Remaining Modules (Planned)
-- Extract remaining modules (Taxonomy, Posts, Pages, Media, Deployments)
-- Continue with largest-to-smallest or most-isolated-first strategy
+### Phase 4: Media Module ✅ Complete
+- ✅ Extracted Media module (8 functions + 1 helper)
+- ✅ Handled Cloudinary integration and external library
+- ✅ Tested module syntax validation
+- ✅ Integrated with index.html module script
+- ✅ Commented out old implementations in app.js
+- ✅ Maintained shared state via window object
+
+### Phase 5: Remaining Modules (Planned)
+- Extract remaining modules (Taxonomy, Posts, Pages, Deployments)
+- Continue with smallest-first or most-isolated-first strategy
 - Eventually remove old `app.js` when all modules extracted
 
-### Phase 4: Optimization (Future)
+### Phase 6: Optimization (Future)
 - Add lazy loading
 - Code splitting by route
 - Consider TypeScript migration
@@ -334,12 +405,13 @@ When adding new modules:
 ## Status
 
 - **Phase 1**: ✅ Complete (Core utilities and UI notifications)
-- **Phase 2**: ✅ Complete (Trash module extraction)
-- **Phase 3**: ✅ Complete (Settings module extraction)
-- **Phase 4**: 📋 Planned (Remaining modules)
-- **Phase 5**: 💡 Future (Optimization)
+- **Phase 2**: ✅ Complete (Trash module extraction - 4 functions)
+- **Phase 3**: ✅ Complete (Settings module extraction - 2 functions)
+- **Phase 4**: ✅ Complete (Media module extraction - 8 functions)
+- **Phase 5**: 📋 Planned (Remaining modules: Taxonomy, Posts, Pages, Deployments)
+- **Phase 6**: 💡 Future (Optimization)
 
 ---
 
-**Version:** 3.0.0 (Phase 3)
+**Version:** 4.0.0 (Phase 4)
 **Last Updated:** October 2025

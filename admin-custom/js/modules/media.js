@@ -1,0 +1,372 @@
+/**
+ * Media Module
+ *
+ * Manages Cloudinary media library with browsing, uploading, and pagination.
+ * Provides media grid rendering, URL copying, and full-size preview functionality.
+ *
+ * Features:
+ * - Load and display media files from Cloudinary
+ * - Paginated grid view with thumbnails
+ * - Search and filter media (all, images only, recent uploads)
+ * - Copy media URLs to clipboard
+ * - View full-size images in modal
+ * - Upload new images via Cloudinary widget
+ * - Automatic reload after upload
+ *
+ * Dependencies:
+ * - core/utils.js for escapeHtml() and debounce()
+ * - ui/notifications.js for showError() and showSuccess()
+ * - Global API_BASE constant
+ * - Global state: allMedia, currentMediaPage, mediaPerPage, cloudinaryUploadWidget
+ * - Global handleImageModalEscape() function (shared with other modules)
+ * - External: Cloudinary Upload Widget library
+ *
+ * @module modules/media
+ */
+
+import { escapeHtml, debounce } from '../core/utils.js';
+import { showError, showSuccess } from '../ui/notifications.js';
+
+/**
+ * Access global media state from app.js
+ * These are shared between the module and app.js for state management
+ */
+
+/**
+ * Loads media files from Cloudinary
+ *
+ * Fetches all media resources from Cloudinary API and renders the media grid.
+ * Hides loading indicator when complete.
+ *
+ * @throws {Error} If media load fails
+ *
+ * @example
+ * import { loadMedia } from './modules/media.js';
+ * await loadMedia();
+ */
+export async function loadMedia() {
+  try {
+    const response = await fetch(`${window.API_BASE}/media`);
+    if (!response.ok) throw new Error('Failed to load media');
+
+    const data = await response.json();
+    window.allMedia = data.resources || [];
+
+    renderMediaGrid();
+  } catch (error) {
+    showError('Failed to load media: ' + error.message);
+  } finally {
+    const loadingEl = document.getElementById('media-loading');
+    if (loadingEl) {
+      loadingEl.classList.add('hidden');
+    }
+  }
+}
+
+/**
+ * Checks if a media file was recently uploaded
+ *
+ * Determines if a file was uploaded within the last 7 days.
+ *
+ * @param {string} createdAt - ISO date string of file creation
+ *
+ * @returns {boolean} True if uploaded within last 7 days
+ *
+ * @private
+ */
+function isRecentUpload(createdAt) {
+  const uploadDate = new Date(createdAt);
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  return uploadDate > weekAgo;
+}
+
+/**
+ * Renders the media library grid
+ *
+ * Displays media files in a paginated grid with thumbnails, filenames, and action buttons.
+ * Applies search and filter criteria, handles pagination, and shows empty state when needed.
+ *
+ * @example
+ * import { renderMediaGrid } from './modules/media.js';
+ * renderMediaGrid();
+ */
+export function renderMediaGrid() {
+  const grid = document.getElementById('media-grid');
+  const emptyEl = document.getElementById('media-empty');
+  const loadingEl = document.getElementById('media-loading');
+  const search = document.getElementById('media-search')?.value.toLowerCase() || '';
+  const filter = document.getElementById('media-filter')?.value || 'all';
+
+  if (loadingEl) {
+    loadingEl.classList.add('hidden');
+  }
+
+  const allMedia = window.allMedia || [];
+  const mediaPerPage = window.mediaPerPage || 20;
+  const currentMediaPage = window.currentMediaPage || 1;
+
+  // Filter media
+  let filtered = allMedia.filter(media => {
+    const matchesSearch = !search || media.public_id.toLowerCase().includes(search);
+    const matchesFilter = filter === 'all' ||
+      (filter === 'images' && media.resource_type === 'image') ||
+      (filter === 'recent' && isRecentUpload(media.created_at));
+    return matchesSearch && matchesFilter;
+  });
+
+  // Sort by most recent first
+  filtered = filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  // Pagination
+  const totalMedia = filtered.length;
+  const totalPages = Math.ceil(totalMedia / mediaPerPage);
+  const startIndex = (currentMediaPage - 1) * mediaPerPage;
+  const endIndex = Math.min(startIndex + mediaPerPage, totalMedia);
+  const paginatedMedia = filtered.slice(startIndex, endIndex);
+
+  // Show/hide empty state
+  if (filtered.length === 0) {
+    if (grid) grid.innerHTML = '';
+    if (emptyEl) emptyEl.classList.remove('hidden');
+    const paginationEl = document.getElementById('media-pagination');
+    if (paginationEl) paginationEl.classList.add('hidden');
+    return;
+  }
+
+  if (emptyEl) {
+    emptyEl.classList.add('hidden');
+  }
+
+  // Render media grid
+  if (grid) {
+    grid.innerHTML = paginatedMedia.map(media => {
+      const thumbnailUrl = media.secure_url.replace('/upload/', '/upload/w_300,h_300,c_fill/');
+      const filename = media.public_id.split('/').pop();
+      const sizeKB = (media.bytes / 1024).toFixed(1);
+
+      return `
+      <div class="media-item group relative bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:border-teal-500 transition cursor-pointer">
+        <div class="aspect-square relative">
+          <img
+            src="${thumbnailUrl}"
+            alt="${escapeHtml(filename)}"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition flex items-center justify-center">
+            <div class="opacity-0 group-hover:opacity-100 transition flex gap-2">
+              <button
+                onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}')"
+                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
+                title="Copy URL"
+              >
+                <i class="fas fa-copy"></i>
+              </button>
+              <button
+                onclick="event.stopPropagation(); window.viewMediaFull('${escapeHtml(media.secure_url)}')"
+                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
+                title="View Full Size"
+              >
+                <i class="fas fa-search-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="p-2">
+          <p class="text-xs font-medium text-gray-900 truncate" title="${escapeHtml(filename)}">
+            ${escapeHtml(filename)}
+          </p>
+          <p class="text-xs text-gray-500">
+            ${media.width} × ${media.height} • ${sizeKB} KB
+          </p>
+        </div>
+      </div>
+    `;
+    }).join('');
+  }
+
+  // Update pagination
+  updateMediaPagination(totalPages);
+}
+
+/**
+ * Updates media pagination UI
+ *
+ * Updates page number display and enables/disables prev/next buttons.
+ * Hides pagination if only one page exists.
+ *
+ * @param {number} totalPages - Total number of pages
+ *
+ * @example
+ * import { updateMediaPagination } from './modules/media.js';
+ * updateMediaPagination(5);
+ */
+export function updateMediaPagination(totalPages) {
+  const paginationEl = document.getElementById('media-pagination');
+  const prevBtn = document.getElementById('media-prev-btn');
+  const nextBtn = document.getElementById('media-next-btn');
+  const currentPageEl = document.getElementById('media-current-page');
+  const totalPagesEl = document.getElementById('media-total-pages');
+
+  if (!paginationEl) return;
+
+  if (totalPages <= 1) {
+    paginationEl.classList.add('hidden');
+    return;
+  }
+
+  const currentMediaPage = window.currentMediaPage || 1;
+
+  paginationEl.classList.remove('hidden');
+  if (currentPageEl) currentPageEl.textContent = currentMediaPage;
+  if (totalPagesEl) totalPagesEl.textContent = totalPages;
+  if (prevBtn) prevBtn.disabled = currentMediaPage === 1;
+  if (nextBtn) nextBtn.disabled = currentMediaPage === totalPages;
+}
+
+/**
+ * Changes the current page in media pagination
+ *
+ * Updates page number and re-renders the media grid.
+ * Scrolls to top of media section for better UX.
+ *
+ * @param {number} delta - Page change delta (+1 for next, -1 for previous)
+ *
+ * @example
+ * import { changeMediaPage } from './modules/media.js';
+ * changeMediaPage(1); // Next page
+ * changeMediaPage(-1); // Previous page
+ */
+export function changeMediaPage(delta) {
+  window.currentMediaPage = (window.currentMediaPage || 1) + delta;
+  renderMediaGrid();
+
+  const section = document.getElementById('section-media');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/**
+ * Filters media by search term
+ *
+ * Resets to first page and re-renders media grid with search filter applied.
+ * Triggered by search input or filter dropdown changes.
+ *
+ * @example
+ * import { filterMedia } from './modules/media.js';
+ * filterMedia();
+ */
+export function filterMedia() {
+  window.currentMediaPage = 1;
+  renderMediaGrid();
+}
+
+/**
+ * Debounced version of filterMedia for search input
+ *
+ * Debounces the filterMedia function with 300ms delay to avoid excessive re-renders
+ * while user is typing in the search box.
+ *
+ * @example
+ * import { debouncedFilterMedia } from './modules/media.js';
+ * document.getElementById('media-search').addEventListener('input', debouncedFilterMedia);
+ */
+export const debouncedFilterMedia = debounce(filterMedia, 300);
+
+/**
+ * Copies a media URL to clipboard
+ *
+ * Uses the Clipboard API to copy the URL and shows a success message.
+ *
+ * @param {string} url - URL to copy to clipboard
+ *
+ * @returns {Promise<void>}
+ *
+ * @example
+ * import { copyMediaUrl } from './modules/media.js';
+ * await copyMediaUrl('https://res.cloudinary.com/.../image.jpg');
+ */
+export async function copyMediaUrl(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+    showSuccess('Image URL copied to clipboard!');
+  } catch (error) {
+    showError('Failed to copy URL: ' + error.message);
+  }
+}
+
+/**
+ * Opens media file in full-size modal
+ *
+ * Displays the full-size media file in an image modal overlay.
+ * Attaches keyboard escape handler for closing the modal.
+ *
+ * @param {string} url - URL of media file
+ *
+ * @example
+ * import { viewMediaFull } from './modules/media.js';
+ * viewMediaFull('https://res.cloudinary.com/.../image.jpg');
+ */
+export function viewMediaFull(url) {
+  const modalOverlay = document.getElementById('image-modal-overlay');
+  const modalImg = document.getElementById('image-modal-img');
+
+  if (modalImg) {
+    modalImg.src = url;
+  }
+
+  if (modalOverlay) {
+    modalOverlay.classList.remove('hidden');
+  }
+
+  // Close on Escape key (uses shared handler from app.js)
+  if (window.handleImageModalEscape) {
+    document.addEventListener('keydown', window.handleImageModalEscape);
+  }
+}
+
+/**
+ * Opens the Cloudinary upload widget
+ *
+ * Shows the Cloudinary upload widget for uploading new media files.
+ * Refreshes the media grid after successful upload.
+ * Creates the widget instance on first use.
+ *
+ * @example
+ * import { openCloudinaryUpload } from './modules/media.js';
+ * openCloudinaryUpload();
+ */
+export function openCloudinaryUpload() {
+  // Check if Cloudinary library is loaded
+  if (typeof cloudinary === 'undefined') {
+    showError('Cloudinary library is still loading. Please try again in a moment.');
+    return;
+  }
+
+  // Create widget if not already created
+  if (!window.cloudinaryUploadWidget) {
+    window.cloudinaryUploadWidget = cloudinary.createUploadWidget({
+      cloudName: 'circleseven',
+      uploadPreset: 'ml_default',
+      sources: ['local', 'url', 'camera'],
+      multiple: true,
+      maxFiles: 10,
+      folder: '',
+      resourceType: 'image',
+      clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']
+    }, (error, result) => {
+      if (!error && result && result.event === 'success') {
+        showSuccess('Image uploaded successfully!');
+        // Reload media library
+        loadMedia();
+      }
+      if (error) {
+        showError('Upload failed: ' + error.message);
+      }
+    });
+  }
+
+  window.cloudinaryUploadWidget.open();
+}
