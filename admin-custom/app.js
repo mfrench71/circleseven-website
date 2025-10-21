@@ -3216,6 +3216,33 @@ function startDeploymentHistoryPolling() {
   historyPollInterval = setInterval(async () => {
     console.log('Background polling: Refreshing deployment history...');
 
+    // Check for new in-progress deployments from GitHub and add to tracking
+    try {
+      const githubDeployments = await fetchRecentDeploymentsFromGitHub();
+      const inProgressDeployments = githubDeployments.filter(d =>
+        d.status === 'pending' || d.status === 'queued' || d.status === 'in_progress'
+      );
+
+      // Add any new deployments that aren't already being tracked
+      inProgressDeployments.forEach(githubDep => {
+        const alreadyTracking = activeDeployments.some(d => d.commitSha === githubDep.commitSha);
+        if (!alreadyTracking) {
+          console.log(`Detected new external deployment: ${githubDep.commitSha.substring(0, 7)} - ${githubDep.action}`);
+          activeDeployments.push({
+            commitSha: githubDep.commitSha,
+            action: githubDep.action,
+            itemId: null,
+            startedAt: new Date(githubDep.startedAt),
+            status: githubDep.status
+          });
+          showDeploymentBanner();
+          startDeploymentPolling();
+        }
+      });
+    } catch (error) {
+      console.error('Failed to check for new deployments:', error);
+    }
+
     // Update dashboard deployments (fetches from GitHub via getDeploymentHistory)
     const dashboardCard = document.getElementById('deployments-card');
     if (dashboardCard) {
