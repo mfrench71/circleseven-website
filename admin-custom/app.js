@@ -184,13 +184,13 @@ function initAuth() {
 }
 
 function showAuthGate() {
-  DOM.authGate.classList.remove('hidden');
+  DOM.authGate.classList.add('show-auth');
   DOM.mainApp.classList.add('hidden');
 }
 
 function showMainApp(authenticatedUser) {
   user = authenticatedUser;
-  DOM.authGate.classList.add('hidden');
+  DOM.authGate.classList.remove('show-auth');
   DOM.mainApp.classList.remove('hidden');
 
   // Hide loading indicator

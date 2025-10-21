@@ -1033,3 +1033,15 @@ button:disabled, .btn:disabled {
 .pt-header {
   padding-top: 200px; /* Approximate height of header + deployment banner */
 }
+
+/* ============================================
+   AUTH GATE - PREVENT FLASH OF CONTENT
+   Hide auth gate initially to prevent flash during Netlify Identity init
+   ============================================ */
+#auth-gate {
+  display: none !important;
+}
+
+#auth-gate.show-auth {
+  display: flex !important;
+}
