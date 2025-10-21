@@ -124,9 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
   setupUnsavedChangesWarning();
   registerServiceWorker();
 
-  // Deployment status is now handled by the banner in the header
+  // Restore any in-progress deployments from GitHub on page load
+  restoreActiveDeployments();
 
-  // Start background polling for deployment history (refreshes every 60s)
+  // Start background polling for deployment history (refreshes every 10s)
   // This captures code pushes and other deployments not triggered via admin
   startDeploymentHistoryPolling();
 });
@@ -2719,6 +2720,41 @@ function addToDeploymentHistory(deployment) {
   });
   saveDeploymentHistory(history);
   updateDashboardDeployments(); // Refresh display
+}
+
+// Restore active deployments from GitHub on page load
+async function restoreActiveDeployments() {
+  try {
+    const githubDeployments = await fetchRecentDeploymentsFromGitHub();
+
+    // Find any in-progress deployments
+    const inProgressDeployments = githubDeployments.filter(d =>
+      d.status === 'pending' || d.status === 'queued' || d.status === 'in_progress'
+    );
+
+    if (inProgressDeployments.length > 0) {
+      console.log(`Restored ${inProgressDeployments.length} in-progress deployment(s) from GitHub`);
+
+      // Add them to activeDeployments (converting GitHub format to our format)
+      inProgressDeployments.forEach(deployment => {
+        activeDeployments.push({
+          commitSha: deployment.commitSha,
+          action: deployment.action,
+          itemId: deployment.itemId || null,
+          startedAt: new Date(deployment.startedAt),
+          status: deployment.status
+        });
+      });
+
+      // Show banner and start polling if we have active deployments
+      if (activeDeployments.length > 0) {
+        showDeploymentBanner();
+        startDeploymentPolling();
+      }
+    }
+  } catch (error) {
+    console.error('Failed to restore active deployments:', error);
+  }
 }
 
 // Track deployment and start polling
