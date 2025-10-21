@@ -1,16 +1,17 @@
 ---
 layout: post
 title: DAT 401 - Assignment - Week 4 - Remixes Mashups and the Readymade
-date: 2015-10-22 08:40:00 +0000
+date: 2015-10-22T08:40:00.000Z
 categories:
-- DAT401 - Strategies for Digital Art and Technology
-- Digital Art and Technology
+  - DAT401 - Strategies for Digital Art and Technology
+  - Digital Art and Technology
 tags:
-- Academic
-- DAT401
-- Photoshop
-featured_image: 10/dsc0073_small_22219352209_o-e1670575983810
+  - Academic
+  - DAT401
+  - Photoshop
+featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760881627/12/dsc0073_small_22219352209_o.jpg
 ---
+
 Brief: Working individually or in your groups, produce an intervention/remix/readymade action that will be documented as a short film.
 
 Your intervention can be street-based, in a public place, or part of your home or univeristy life. It can also take place online, e.g. an adbust, mashup or remix.
