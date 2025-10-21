@@ -73,11 +73,17 @@ showSuccess('Post saved successfully!');
 showError('Failed to save post');
 ```
 
-## Phase 2: First Feature Module ✅ Complete
+## Phase 2: Trash Module ✅ Complete
 
 ### modules/trash.js
 
 Trash management functionality for soft-deleted posts and pages.
+
+## Phase 3: Settings Module ✅ Complete
+
+### modules/settings.js
+
+Site configuration settings management from _config.yml.
 
 **Exports:**
 - `loadTrash()` - Load all trashed items from backend
@@ -127,6 +133,50 @@ window.restoreItem = restoreItem;
 window.permanentlyDeleteItem = permanentlyDeleteItem;
 ```
 
+## Phase 3: Settings Module ✅ Complete
+
+### modules/settings.js
+
+Site configuration settings management from _config.yml.
+
+**Exports:**
+- `loadSettings()` - Load site settings from backend and populate form fields
+- `saveSettings(event)` - Save settings with type conversion and deployment tracking
+
+**Features:**
+- Loads settings from `/settings` API endpoint
+- Populates form inputs with matching IDs (format: `setting-{key}`)
+- Converts number fields appropriately (paginate, related_posts_count)
+- Tracks deployments when settings are saved
+- Updates button states during save operation (Saving.../Save Settings)
+- Handles form submission with loading states
+
+**Dependencies:**
+- `ui/notifications.js` - Uses `showError()` and `showSuccess()`
+- Global `API_BASE` constant
+- Global `trackDeployment()` function for deployment monitoring
+
+**Usage:**
+```javascript
+import {
+  loadSettings,
+  saveSettings
+} from './modules/settings.js';
+
+// Load settings on section switch
+await loadSettings();
+
+// Attach save handler to form
+document.getElementById('settings-form').addEventListener('submit', saveSettings);
+```
+
+**Integration:**
+The Settings module is loaded in `index.html` and functions are exposed to `window`:
+```javascript
+window.loadSettings = loadSettings;
+window.saveSettings = saveSettings;
+```
+
 ## Testing
 
 Open `test.html` in a browser to verify all modules work correctly:
@@ -171,10 +221,16 @@ ES6 modules require modern browsers:
 - ✅ Integrated with existing app via index.html module script
 - ✅ Commented out old implementations in app.js
 
-### Phase 3: Remaining Modules (Planned)
-- Extract all remaining modules
-- Update `index.html` to use module system
-- Remove old `app.js`
+### Phase 3: Settings Module ✅ Complete
+- ✅ Extracted Settings module (2 functions)
+- ✅ Tested module syntax validation
+- ✅ Integrated with index.html module script
+- ✅ Commented out old implementations in app.js
+
+### Phase 4: Remaining Modules (Planned)
+- Extract remaining modules (Taxonomy, Posts, Pages, Media, Deployments)
+- Continue with largest-to-smallest or most-isolated-first strategy
+- Eventually remove old `app.js` when all modules extracted
 
 ### Phase 4: Optimization (Future)
 - Add lazy loading
@@ -279,10 +335,11 @@ When adding new modules:
 
 - **Phase 1**: ✅ Complete (Core utilities and UI notifications)
 - **Phase 2**: ✅ Complete (Trash module extraction)
-- **Phase 3**: 📋 Planned (Remaining modules)
-- **Phase 4**: 💡 Future (Optimization)
+- **Phase 3**: ✅ Complete (Settings module extraction)
+- **Phase 4**: 📋 Planned (Remaining modules)
+- **Phase 5**: 💡 Future (Optimization)
 
 ---
 
-**Version:** 2.0.0 (Phase 2)
+**Version:** 3.0.0 (Phase 3)
 **Last Updated:** October 2025

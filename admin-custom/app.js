@@ -1296,6 +1296,10 @@ window.addEventListener('popstate', (e) => {
  *
  * @throws {Error} If settings load fails
  */
+// ===== SETTINGS - Now using ES6 module (js/modules/settings.js) =====
+// Functions: loadSettings(), saveSettings()
+// The module is imported and exposed to window in index.html
+/*
 async function loadSettings() {
   try {
     const response = await fetch(`${API_BASE}/settings`);
@@ -1325,6 +1329,7 @@ async function loadSettings() {
  *
  * @throws {Error} If settings save fails
  */
+/*
 async function saveSettings(event) {
   event.preventDefault();
 
@@ -1372,6 +1377,7 @@ async function saveSettings(event) {
     saveBtn.innerHTML = 'Save Settings';
   }
 }
+*/
 
 // Update last updated time on dashboard
 /**

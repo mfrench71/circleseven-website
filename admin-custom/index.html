@@ -1168,6 +1168,10 @@
       restoreItem,
       permanentlyDeleteItem
     } from '/admin-custom/js/modules/trash.js';
+    import {
+      loadSettings,
+      saveSettings
+    } from '/admin-custom/js/modules/settings.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -1180,6 +1184,8 @@
     window.loadTrash = loadTrash;
     window.restoreItem = restoreItem;
     window.permanentlyDeleteItem = permanentlyDeleteItem;
+    window.loadSettings = loadSettings;
+    window.saveSettings = saveSettings;
   </script>
 </body>
 </html>
