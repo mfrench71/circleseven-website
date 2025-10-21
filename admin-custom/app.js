@@ -3094,8 +3094,8 @@ function showToast(message, type = 'info', duration = 5000) {
   return toastId;
 }
 
-// Close specific toast
-function closeToast(toastId) {
+// Close specific toast (exposed globally for onclick handler)
+window.closeToast = function(toastId) {
   const toast = document.getElementById(toastId);
   if (toast) {
     toast.classList.add('translate-x-full', 'opacity-0');
