@@ -2777,10 +2777,15 @@ function trackDeployment(commitSha, action, itemId = null) {
 // Show deployment status banner
 function showDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
+  console.log('showDeploymentBanner() called, header element:', header ? 'found' : 'NOT FOUND');
 
   if (header) {
+    console.log('Removing hidden class from banner');
     header.classList.remove('hidden');
+    console.log('Banner classes after remove:', header.className);
     updateDeploymentBanner();
+  } else {
+    console.error('deployment-status-header element not found in DOM!');
   }
 }
 
