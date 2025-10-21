@@ -1861,7 +1861,7 @@ async function restoreItem(filename, sha, type) {
   const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`, {
     title: 'Confirm Restore',
     buttonText: 'Restore',
-    buttonClass: 'bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700'
+    buttonClass: 'bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700'
   });
   if (!confirmed) return;
 
