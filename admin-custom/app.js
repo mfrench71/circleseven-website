@@ -1515,6 +1515,11 @@ async function deletePostFromList(filename, sha) {
       throw new Error(error.message || 'Failed to move post to trash');
     }
 
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move post to trash: ${title}`, filename);
+    }
+
     showSuccess('Post moved to trash successfully!');
 
     // Remove from local arrays
@@ -1911,7 +1916,7 @@ function renderTrashList() {
       <span class="px-2 py-0.5 text-xs font-medium rounded ${typeBadgeColor}">${typeLabel}</span>
       <span class="text-xs text-gray-500">${(item.size / 1024).toFixed(1)} KB</span>
       <button
-        onclick="restoreItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
+        onclick="restoreItemWithTracking('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
         class="btn-primary-sm"
         title="Restore item from trash"
       >
@@ -1995,6 +2000,11 @@ async function permanentlyDeleteItem(filename, sha, type) {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.message || `Failed to delete ${itemType}`);
+    }
+
+    const data = await response.json();
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Permanently delete ${itemType}: ${filename}`);
     }
 
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
