@@ -10,6 +10,10 @@ let allMedia = []; // All media files from Cloudinary
 let currentMediaPage = 1;
 const mediaPerPage = 20;
 
+// Deployment tracking state
+let activeDeployments = []; // Array of { commitSha, action, startedAt }
+let deploymentPollInterval = null;
+
 // API endpoints
 const API_BASE = '/.netlify/functions';
 
@@ -693,6 +697,18 @@ function switchSection(sectionName, updateUrl = true) {
     const newPath = sectionName === 'dashboard' ? '/admin-custom/' : `/admin-custom/${sectionName}`;
     window.history.pushState({ section: sectionName }, '', newPath);
   }
+
+  // Update page title based on section
+  const titleMap = {
+    dashboard: 'Dashboard',
+    taxonomy: 'Taxonomy',
+    posts: 'Posts',
+    pages: 'Pages',
+    media: 'Media Library',
+    trash: 'Trash',
+    settings: 'Settings'
+  };
+  document.title = `${titleMap[sectionName] || 'Admin'} - Circle Seven`;
 
   // Update navigation buttons
   document.querySelectorAll('.nav-button').forEach(btn => {
@@ -2556,3 +2572,174 @@ function generatePageFilename(title) {
     .replace(/^-+|-+$/g, '');
   return `${slug}.md`;
 }
+
+// ===== DEPLOYMENT STATUS TRACKING =====
+
+// Track deployment and start polling
+function trackDeployment(commitSha, action) {
+  if (!commitSha) return;
+
+  activeDeployments.push({
+    commitSha,
+    action,
+    startedAt: new Date()
+  });
+
+  showDeploymentBanner();
+  startDeploymentPolling();
+}
+
+// Show deployment status banner
+function showDeploymentBanner() {
+  let banner = document.getElementById('deployment-banner');
+
+  if (!banner) {
+    // Create banner if it doesn't exist
+    banner = document.createElement('div');
+    banner.id = 'deployment-banner';
+    banner.className = 'fixed top-0 left-0 right-0 bg-blue-600 text-white px-4 py-3 shadow-md z-50 flex items-center justify-center gap-2';
+    banner.innerHTML = `
+      <i class="fas fa-spinner fa-spin"></i>
+      <span id="deployment-message">Publishing changes to GitHub Pages...</span>
+      <span id="deployment-time" class="text-xs opacity-80"></span>
+    `;
+    document.body.prepend(banner);
+  }
+
+  banner.classList.remove('hidden');
+  updateDeploymentBanner();
+}
+
+// Update deployment banner message
+function updateDeploymentBanner() {
+  const messageEl = document.getElementById('deployment-message');
+  const timeEl = document.getElementById('deployment-time');
+
+  if (activeDeployments.length === 0) return;
+
+  const oldest = activeDeployments[0];
+  const elapsed = Math.floor((new Date() - oldest.startedAt) / 1000);
+  const minutes = Math.floor(elapsed / 60);
+  const seconds = elapsed % 60;
+
+  if (messageEl) {
+    messageEl.textContent = `Publishing changes to GitHub Pages...`;
+  }
+
+  if (timeEl) {
+    timeEl.textContent = `(${minutes}:${seconds.toString().padStart(2, '0')})`;
+  }
+}
+
+// Hide deployment banner
+function hideDeploymentBanner() {
+  const banner = document.getElementById('deployment-banner');
+  if (banner) {
+    banner.classList.add('hidden');
+  }
+}
+
+// Start polling deployment status
+function startDeploymentPolling() {
+  if (deploymentPollInterval) return; // Already polling
+
+  deploymentPollInterval = setInterval(async () => {
+    if (activeDeployments.length === 0) {
+      clearInterval(deploymentPollInterval);
+      deploymentPollInterval = null;
+      hideDeploymentBanner();
+      return;
+    }
+
+    // Update time display
+    updateDeploymentBanner();
+
+    // Check status of each deployment
+    for (let i = activeDeployments.length - 1; i >= 0; i--) {
+      const deployment = activeDeployments[i];
+
+      try {
+        const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
+        if (!response.ok) continue;
+
+        const data = await response.json();
+
+        if (data.status === 'completed') {
+          // Deployment successful
+          activeDeployments.splice(i, 1);
+          showSuccess('Changes published successfully! Site is now live.');
+
+          if (activeDeployments.length === 0) {
+            hideDeploymentBanner();
+          }
+        } else if (data.status === 'failed') {
+          // Deployment failed
+          activeDeployments.splice(i, 1);
+          showError('Deployment failed. Please check GitHub Actions for details.');
+
+          if (activeDeployments.length === 0) {
+            hideDeploymentBanner();
+          }
+        }
+      } catch (error) {
+        console.error('Failed to check deployment status:', error);
+      }
+    }
+  }, 5000); // Poll every 5 seconds
+}
+
+// Modified restore item function to track deployment
+async function restoreItemWithTracking(filename, sha, type) {
+  const itemType = type === 'page' ? 'page' : 'post';
+  const destination = type === 'page' ? 'pages' : 'posts';
+  const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`, {
+    title: 'Confirm Restore',
+    buttonText: 'Restore',
+    buttonClass: 'btn-primary'
+  });
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        filename: filename,
+        sha: sha,
+        type: type
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || `Failed to restore ${itemType}`);
+    }
+
+    const result = await response.json();
+
+    // Track deployment if commitSha is returned
+    if (result.commitSha) {
+      trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
+    }
+
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+
+    // Remove from local array
+    allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
+
+    // Re-render trash list
+    renderTrashList();
+
+    // Reload posts or pages if applicable
+    if (type === 'post' && allPosts.length > 0) {
+      await loadPosts();
+    } else if (type === 'page' && allPages.length > 0) {
+      await loadPages();
+    }
+  } catch (error) {
+    showError(`Failed to restore ${itemType}: ` + error.message);
+  }
+}
+
+// Override the original restoreItem function
+restoreItem = restoreItemWithTracking;

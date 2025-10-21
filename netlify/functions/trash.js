@@ -218,7 +218,7 @@ exports.handler = async (event, context) => {
       });
 
       // Delete from source folder using the current SHA from GitHub
-      await githubRequest(`/contents/${sourceDir}/${filename}`, {
+      const deleteResponse = await githubRequest(`/contents/${sourceDir}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -233,7 +233,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to trash successfully`
+          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to trash successfully`,
+          commitSha: deleteResponse.commit?.sha
         })
       };
     }
@@ -337,7 +338,7 @@ exports.handler = async (event, context) => {
       });
 
       // Delete from _trash folder
-      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      const deleteResponse = await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -352,7 +353,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully`
+          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully`,
+          commitSha: deleteResponse.commit?.sha
         })
       };
     }
@@ -386,7 +388,7 @@ exports.handler = async (event, context) => {
       const itemType = type === 'page' ? 'page' : 'post';
 
       // Permanently delete from _trash folder
-      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      const deleteResponse = await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -401,7 +403,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`
+          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`,
+          commitSha: deleteResponse.commit?.sha
         })
       };
     }
