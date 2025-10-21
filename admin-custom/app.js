@@ -3241,20 +3241,21 @@ function startDeploymentPolling() {
           // Deployment successful
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-
-          showSuccess('Changes published successfully! Site is now live.');
           updateDashboardDeployments();
 
+          // Only show success message when ALL deployments are complete
           if (activeDeployments.length === 0) {
+            showSuccess('Changes published successfully! Site is now live.');
             showDeploymentCompletion(true); // Show success state before hiding
           }
         } else if (data.status === 'failed') {
           // Deployment failed
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-
-          showError('Deployment failed. Please check GitHub Actions for details.');
           updateDashboardDeployments();
+
+          // Show error immediately for failures (user needs to know)
+          showError('Deployment failed. Please check GitHub Actions for details.');
 
           if (activeDeployments.length === 0) {
             showDeploymentCompletion(false); // Show error state before hiding
@@ -3263,9 +3264,10 @@ function startDeploymentPolling() {
           // Deployment cancelled
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-
-          showError('Deployment was cancelled. Changes may not be live.');
           updateDashboardDeployments();
+
+          // Show error immediately for cancellations
+          showError('Deployment was cancelled. Changes may not be live.');
 
           if (activeDeployments.length === 0) {
             showDeploymentCompletion(false); // Show error state before hiding
@@ -3274,10 +3276,9 @@ function startDeploymentPolling() {
           // Deployment skipped (superseded by newer commit)
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-
-          showSuccess('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
           updateDashboardDeployments();
 
+          // Don't show message for skipped (it's normal when multiple changes are queued)
           if (activeDeployments.length === 0) {
             hideDeploymentBanner(); // Just hide for skipped
           }
