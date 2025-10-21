@@ -22,7 +22,7 @@ admin-custom/js/
 └── README.md           # This file
 ```
 
-## Phase 1: Core Utilities (✅ Complete)
+## Phase 1: Core Utilities ✅ Complete
 
 ### core/utils.js
 
@@ -73,6 +73,60 @@ showSuccess('Post saved successfully!');
 showError('Failed to save post');
 ```
 
+## Phase 2: First Feature Module ✅ Complete
+
+### modules/trash.js
+
+Trash management functionality for soft-deleted posts and pages.
+
+**Exports:**
+- `loadTrash()` - Load all trashed items from backend
+- `restoreItem(filename, sha, type)` - Restore item from trash with deployment tracking
+- `permanentlyDeleteItem(filename, sha, type)` - Permanently delete item (cannot be undone)
+- `getTrashedItems()` - Get current trashed items array (read-only access)
+
+**Features:**
+- Fetches trashed items from `/trash` API endpoint
+- Renders trash list with restore and delete actions
+- Tracks deployments when restoring or permanently deleting items
+- Automatically reloads posts or pages list after restore
+- Formats timestamps in GB locale
+- Type badges (Post/Page) with color coding
+
+**Dependencies:**
+- `core/utils.js` - Uses `escapeHtml()` for XSS prevention
+- `ui/notifications.js` - Uses `showError()` and `showSuccess()`
+- Global `API_BASE` constant
+- Global `showConfirm()` function for confirmation dialogs
+- Global `trackDeployment()` function for deployment monitoring
+- Global `loadPosts()` and `loadPages()` functions for refreshing lists
+
+**Usage:**
+```javascript
+import {
+  loadTrash,
+  restoreItem,
+  permanentlyDeleteItem
+} from './modules/trash.js';
+
+// Load trash items
+await loadTrash();
+
+// Restore an item
+await restoreItem('my-post.md', 'abc123sha', 'post');
+
+// Permanently delete an item
+await permanentlyDeleteItem('old-post.md', 'def456sha', 'post');
+```
+
+**Integration:**
+The Trash module is loaded in `index.html` and functions are exposed to `window` for onclick handlers:
+```javascript
+window.loadTrash = loadTrash;
+window.restoreItem = restoreItem;
+window.permanentlyDeleteItem = permanentlyDeleteItem;
+```
+
 ## Testing
 
 Open `test.html` in a browser to verify all modules work correctly:
@@ -111,10 +165,11 @@ ES6 modules require modern browsers:
 - Create test suite
 - Keep `app.js` intact as backup
 
-### Phase 2: First Module (Planned)
-- Extract smallest module (Trash or Media)
-- Test in isolation
-- Verify integration
+### Phase 2: First Module ✅ Complete
+- ✅ Extracted Trash module (smallest module)
+- ✅ Tested module syntax validation
+- ✅ Integrated with existing app via index.html module script
+- ✅ Commented out old implementations in app.js
 
 ### Phase 3: Remaining Modules (Planned)
 - Extract all remaining modules
@@ -222,12 +277,12 @@ When adding new modules:
 
 ## Status
 
-- **Phase 1**: ✅ Complete
-- **Phase 2**: 🚧 Planned
-- **Phase 3**: 📋 Future
-- **Phase 4**: 💡 Ideas
+- **Phase 1**: ✅ Complete (Core utilities and UI notifications)
+- **Phase 2**: ✅ Complete (Trash module extraction)
+- **Phase 3**: 📋 Planned (Remaining modules)
+- **Phase 4**: 💡 Future (Optimization)
 
 ---
 
-**Version:** 1.0.0 (Phase 1)
+**Version:** 2.0.0 (Phase 2)
 **Last Updated:** October 2025

@@ -1158,5 +1158,20 @@
   </div>
 
   <script src="/admin-custom/app.js?v=7"></script>
+
+  <!-- ES6 Modules Integration -->
+  <script type="module">
+    // Import modules
+    import {
+      loadTrash,
+      restoreItem,
+      permanentlyDeleteItem
+    } from '/admin-custom/js/modules/trash.js';
+
+    // Expose to window for onclick handlers and app.js
+    window.loadTrash = loadTrash;
+    window.restoreItem = restoreItem;
+    window.permanentlyDeleteItem = permanentlyDeleteItem;
+  </script>
 </body>
 </html>

@@ -2612,17 +2612,14 @@ function handleImageModalEscape(e) {
 }
 
 // ===== TRASH MANAGEMENT =====
+// NOTE: Trash functionality has been moved to ES6 module: /admin-custom/js/modules/trash.js
+// The functions below are commented out and replaced by the module implementation.
+// See index.html for module loading.
 
+/*
 let allTrashedItems = [];
 
 // Load trashed items (posts and pages)
-/**
- * Loads deleted items from the trash
- *
- * Fetches trashed posts and pages from the backend and renders the trash list.
- *
- * @throws {Error} If trash load fails
- */
 async function loadTrash() {
   try {
     const response = await fetch(`${API_BASE}/trash`);
@@ -2640,11 +2637,6 @@ async function loadTrash() {
 }
 
 // Render trash list
-/**
- * Renders the trash list with restore and permanent delete actions
- *
- * Displays all trashed items with their type, date, and action buttons.
- */
 function renderTrashList() {
   const listEl = document.getElementById('trash-list');
   const emptyEl = document.getElementById('trash-empty');
@@ -2705,17 +2697,6 @@ function renderTrashList() {
 }
 
 // Restore item from trash (post or page)
-/**
- * Restores a deleted item from trash
- *
- * Shows confirmation dialog, sends restore request to backend, tracks deployment, and refreshes the trash list.
- *
- * @param {string} filename - Name of the file to restore
- * @param {string} sha - Git SHA of the deleted file
- * @param {string} type - Type of item ("post" or "page")
- *
- * @throws {Error} If restore fails
- */
 async function restoreItem(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const destination = type === 'page' ? 'pages' : 'posts';
@@ -2762,17 +2743,6 @@ async function restoreItem(filename, sha, type) {
 }
 
 // Permanently delete item (post or page)
-/**
- * Permanently deletes an item from trash
- *
- * Shows confirmation warning, sends permanent delete request to backend, and refreshes the trash list.
- *
- * @param {string} filename - Name of the file to delete
- * @param {string} sha - Git SHA of the file
- * @param {string} type - Type of item ("post" or "page")
- *
- * @throws {Error} If permanent deletion fails
- */
 async function permanentlyDeleteItem(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const confirmed = await showConfirm(`Permanently delete "${filename}"? This cannot be undone!`);
@@ -2810,6 +2780,7 @@ async function permanentlyDeleteItem(filename, sha, type) {
     showError(`Failed to delete ${itemType}: ` + error.message);
   }
 }
+*/
 
 // Update switchSection to load posts and trash
 const originalSwitchSection = switchSection;
@@ -4497,18 +4468,11 @@ function startDeploymentPolling() {
   }, DEPLOYMENT_STATUS_POLL_INTERVAL);
 }
 
+// NOTE: restoreItemWithTracking has been moved to ES6 module
+// See /admin-custom/js/modules/trash.js and index.html for module loading
+
+/*
 // Modified restore item function to track deployment
-/**
- * Restores an item with deployment tracking
- *
- * Internal function that handles restore logic with deployment monitoring.
- *
- * @param {string} filename - Name of the file to restore
- * @param {string} sha - Git SHA of the file
- * @param {string} type - Type of item ("post" or "page")
- *
- * @returns {Promise<void>}
- */
 async function restoreItemWithTracking(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const destination = type === 'page' ? 'pages' : 'posts';
@@ -4563,3 +4527,4 @@ async function restoreItemWithTracking(filename, sha, type) {
 
 // Override the original restoreItem function
 restoreItem = restoreItemWithTracking;
+*/
