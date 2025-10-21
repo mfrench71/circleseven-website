@@ -30,6 +30,69 @@
 import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 
+// Cache configuration
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+const POSTS_CACHE_KEY = 'admin_posts_cache';
+
+/**
+ * Gets cached data if still valid
+ *
+ * @param {string} key - Cache key
+ * @returns {Object|null} Cached data or null if expired/missing
+ */
+function getCache(key) {
+  try {
+    const cached = localStorage.getItem(key);
+    if (!cached) return null;
+
+    const { data, timestamp } = JSON.parse(cached);
+    const now = Date.now();
+
+    if (now - timestamp > CACHE_TTL) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.warn('Cache read error:', error);
+    return null;
+  }
+}
+
+/**
+ * Sets cache data with timestamp
+ *
+ * @param {string} key - Cache key
+ * @param {*} data - Data to cache
+ */
+function setCache(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch (error) {
+    console.warn('Cache write error:', error);
+  }
+}
+
+/**
+ * Clears cache for a specific key or all caches
+ *
+ * @param {string} [key] - Specific cache key to clear, or clears all if omitted
+ */
+export function clearCache(key) {
+  if (key) {
+    localStorage.removeItem(key);
+  } else {
+    // Clear all admin caches
+    localStorage.removeItem(POSTS_CACHE_KEY);
+    localStorage.removeItem('admin_pages_cache');
+    localStorage.removeItem('admin_taxonomy_cache');
+  }
+}
+
 /**
  * Loads posts from the backend with metadata
  *
@@ -44,12 +107,37 @@ import { showError, showSuccess } from '../ui/notifications.js';
  */
 export async function loadPosts() {
   try {
-    // Fetch all posts with metadata in a single call using Promise.all on the server
+    // Try to load from cache first
+    const cachedPosts = getCache(POSTS_CACHE_KEY);
+    if (cachedPosts) {
+      console.log('Loading posts from cache');
+      window.allPosts = cachedPosts;
+
+      // Process all posts with metadata into allPostsWithMetadata
+      window.allPostsWithMetadata = window.allPosts.map(post => ({
+        ...post,
+        frontmatter: post.frontmatter || {},
+        date: post.frontmatter?.date
+          ? new Date(post.frontmatter.date)
+          : new Date(post.name.substring(0, 10))
+      }));
+
+      renderPostsList();
+      populateTaxonomySelects();
+      document.getElementById('posts-loading').classList.add('hidden');
+      return;
+    }
+
+    // Cache miss - fetch from API
+    console.log('Loading posts from API');
     const response = await fetch(`${window.API_BASE}/posts?metadata=true`);
     if (!response.ok) throw new Error('Failed to load posts');
 
     const data = await response.json();
     window.allPosts = data.posts || [];
+
+    // Cache the results
+    setCache(POSTS_CACHE_KEY, window.allPosts);
 
     // Process all posts with metadata into allPostsWithMetadata
     window.allPostsWithMetadata = window.allPosts.map(post => ({
@@ -720,6 +808,9 @@ export async function savePost(event) {
     // Clear dirty flag after successful save
     clearPostDirty();
 
+    // Clear posts cache to force fresh data on next load
+    clearCache(POSTS_CACHE_KEY);
+
     // Reload posts and go back to list
     await loadPosts();
     showPostsList();
@@ -772,6 +863,10 @@ export async function deletePost() {
     }
 
     showSuccess('Post moved to trash successfully!');
+
+    // Clear posts cache
+    clearCache(POSTS_CACHE_KEY);
+
     await loadPosts();
     showPostsList();
   } catch (error) {
@@ -821,6 +916,9 @@ export async function deletePostFromList(filename, sha) {
     }
 
     showSuccess('Post moved to trash successfully!');
+
+    // Clear posts cache
+    clearCache(POSTS_CACHE_KEY);
 
     // Remove from local arrays
     window.allPosts = window.allPosts.filter(p => p.name !== filename);

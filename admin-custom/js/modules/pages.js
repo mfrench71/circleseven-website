@@ -29,6 +29,54 @@
 import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 
+// Cache configuration
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+const PAGES_CACHE_KEY = 'admin_pages_cache';
+
+/**
+ * Gets cached data if still valid
+ */
+function getCache(key) {
+  try {
+    const cached = localStorage.getItem(key);
+    if (!cached) return null;
+
+    const { data, timestamp } = JSON.parse(cached);
+    const now = Date.now();
+
+    if (now - timestamp > CACHE_TTL) {
+      localStorage.removeItem(key);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.warn('Cache read error:', error);
+    return null;
+  }
+}
+
+/**
+ * Sets cache data with timestamp
+ */
+function setCache(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch (error) {
+    console.warn('Cache write error:', error);
+  }
+}
+
+/**
+ * Clears pages cache
+ */
+export function clearPagesCache() {
+  localStorage.removeItem(PAGES_CACHE_KEY);
+}
+
 /**
  * Access global pages state from app.js
  * These are shared between the module and app.js for state management
@@ -48,11 +96,26 @@ import { showError, showSuccess } from '../ui/notifications.js';
  */
 export async function loadPages() {
   try {
+    // Try to load from cache first
+    const cachedPages = getCache(PAGES_CACHE_KEY);
+    if (cachedPages) {
+      console.log('Loading pages from cache');
+      window.allPages = cachedPages;
+      renderPagesList();
+      document.getElementById('pages-loading').classList.add('hidden');
+      return;
+    }
+
+    // Cache miss - fetch from API
+    console.log('Loading pages from API');
     const response = await fetch(`${window.API_BASE}/pages?metadata=true`);
     if (!response.ok) throw new Error('Failed to load pages');
 
     const data = await response.json();
     window.allPages = data.pages || [];
+
+    // Cache the results
+    setCache(PAGES_CACHE_KEY, window.allPages);
 
     renderPagesList();
   } catch (error) {
@@ -563,6 +626,9 @@ export async function savePage(event) {
     // Clear dirty flag after successful save
     clearPageDirty();
 
+    // Clear pages cache to force fresh data on next load
+    clearPagesCache();
+
     // Reload pages and go back to list
     await loadPages();
     showPagesList();
@@ -616,6 +682,10 @@ export async function deletePage() {
     }
 
     showSuccess('Page moved to trash successfully!');
+
+    // Clear pages cache
+    clearPagesCache();
+
     await loadPages();
     showPagesList();
   } catch (error) {
@@ -667,6 +737,9 @@ export async function deletePageFromList(filename, sha) {
     }
 
     showSuccess('Page moved to trash successfully!');
+
+    // Clear pages cache
+    clearPagesCache();
 
     // Remove from local array
     window.allPages = allPages.filter(p => p.name !== filename);
