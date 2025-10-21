@@ -1,4 +1,18 @@
-// Back to Top Button Functionality
+/**
+ * Back to Top Button
+ *
+ * Creates and manages a floating "back to top" button that appears when scrolling down.
+ * Provides smooth scroll-to-top functionality with visibility toggling based on scroll position.
+ *
+ * Features:
+ * - Dynamically creates and injects button into DOM
+ * - Shows button after scrolling 300px down
+ * - Smooth scroll animation when clicked
+ * - Accessible with ARIA labels
+ * - SVG arrow icon
+ *
+ * @module assets/js/back-to-top
+ */
 
 (function() {
   'use strict';
@@ -12,7 +26,12 @@
 
   document.body.appendChild(backToTopButton);
 
-  // Show/hide button based on scroll position
+  /**
+   * Shows or hides the back-to-top button based on scroll position
+   *
+   * Button becomes visible when user scrolls more than 300px down from the top.
+   * Uses CSS class 'visible' to trigger fade-in/fade-out transition.
+   */
   function toggleBackToTop() {
     if (window.pageYOffset > 300) {
       backToTopButton.classList.add('visible');
@@ -21,7 +40,13 @@
     }
   }
 
-  // Scroll to top with smooth animation
+  /**
+   * Smoothly scrolls the page to the top
+   *
+   * Uses native smooth scroll behavior for better performance and accessibility.
+   *
+   * @param {Event} e - Click event
+   */
   function scrollToTop(e) {
     e.preventDefault();
     window.scrollTo({
