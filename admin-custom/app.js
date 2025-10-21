@@ -2551,6 +2551,7 @@ async function editPage(filename, updateUrl = true) {
     document.getElementById('page-title').value = currentPage_pages.frontmatter.title || '';
     document.getElementById('page-permalink').value = currentPage_pages.frontmatter.permalink || '';
     document.getElementById('page-layout').value = currentPage_pages.frontmatter.layout || 'page';
+    document.getElementById('page-protected').checked = currentPage_pages.frontmatter.protected === true;
 
     // Initialize markdown editor if needed
     if (!pageMarkdownEditor) {
@@ -2587,6 +2588,7 @@ function showNewPageForm(updateUrl = true) {
   document.getElementById('page-title').value = '';
   document.getElementById('page-permalink').value = '';
   document.getElementById('page-layout').value = 'page';
+  document.getElementById('page-protected').checked = false;
 
   // Initialize markdown editor if needed
   if (!pageMarkdownEditor) {
@@ -2651,6 +2653,7 @@ async function savePage(event) {
     const title = document.getElementById('page-title').value;
     const permalink = document.getElementById('page-permalink').value;
     const layout = document.getElementById('page-layout').value;
+    const protected = document.getElementById('page-protected').checked;
     const content = pageMarkdownEditor ? pageMarkdownEditor.value() : document.getElementById('page-content').value;
 
     const frontmatter = {
@@ -2658,6 +2661,11 @@ async function savePage(event) {
       title,
       permalink
     };
+
+    // Only add protected field if it's true
+    if (protected) {
+      frontmatter.protected = true;
+    }
 
     if (currentPage_pages) {
       // Update existing page

@@ -797,6 +797,22 @@
                       <option value="default">Default</option>
                     </select>
                   </div>
+
+                  <div class="md:col-span-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        id="page-protected"
+                        name="protected"
+                        class="w-4 h-4 text-teal-600 border-gray-300 rounded focus:ring-2 focus:ring-teal-500"
+                      />
+                      <span class="text-sm font-medium text-gray-700">
+                        <i class="fas fa-lock text-gray-500"></i>
+                        Protected Page (prevents deletion)
+                      </span>
+                    </label>
+                    <p class="text-xs text-gray-500 mt-1 ml-6">Protected pages cannot be deleted from the pages list</p>
+                  </div>
                 </div>
 
                 <!-- Markdown Content -->

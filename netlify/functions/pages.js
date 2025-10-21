@@ -79,8 +79,11 @@ function parseFrontmatter(content) {
           .map(v => v.trim().replace(/^["']|["']$/g, ''));
         currentKey = null;
       } else if (value) {
-        // Single line value
-        currentValue.push(value.replace(/^["']|["']$/g, ''));
+        // Single line value - handle booleans
+        let parsedValue = value.replace(/^["']|["']$/g, '');
+        if (parsedValue === 'true') parsedValue = true;
+        else if (parsedValue === 'false') parsedValue = false;
+        currentValue.push(parsedValue);
       }
     } else if (currentKey && line.trim().startsWith('-')) {
       // Array item
@@ -112,6 +115,9 @@ function buildFrontmatter(frontmatter) {
           yaml += `  - ${item}\n`;
         });
       }
+    } else if (typeof value === 'boolean') {
+      // Output booleans without quotes
+      yaml += `${key}: ${value}\n`;
     } else {
       yaml += `${key}: ${value}\n`;
     }
