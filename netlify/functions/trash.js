@@ -127,6 +127,7 @@ exports.handler = async (event, context) => {
       // Get current item content
       const itemData = await githubRequest(`/contents/${sourceDir}/${filename}?ref=${GITHUB_BRANCH}`);
       const content = itemData.content;
+      const currentSha = itemData.sha; // Use the current SHA from GitHub, not the one passed in
 
       // Check if file already exists in trash
       let existingTrashFile = null;
@@ -154,13 +155,13 @@ exports.handler = async (event, context) => {
         body: trashBody
       });
 
-      // Delete from source folder
+      // Delete from source folder using the current SHA from GitHub
       await githubRequest(`/contents/${sourceDir}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
           message: `Remove from ${sourceDir} (moved to trash): ${filename}`,
-          sha: sha,
+          sha: currentSha, // Use the SHA we just fetched, not the stale one from the client
           branch: GITHUB_BRANCH
         }
       });
