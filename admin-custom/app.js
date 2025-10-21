@@ -63,6 +63,7 @@ let taxonomyAutocompleteCleanup = { categories: null, tags: null };
 
 // API endpoints
 const API_BASE = '/.netlify/functions';
+window.API_BASE = API_BASE; // Expose for ES6 modules
 
 // Constants
 const DEPLOYMENT_STATUS_POLL_INTERVAL = 5000; // 5 seconds
