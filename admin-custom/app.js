@@ -3140,14 +3140,12 @@ function startDeploymentHistoryPolling() {
   historyPollInterval = setInterval(async () => {
     console.log('Background polling: Refreshing deployment history...');
 
-    // Check for new general deployments from GitHub Actions
-    await checkForNewGeneralDeployments();
-
+    // Update dashboard deployments (fetches from GitHub via getDeploymentHistory)
     const dashboardCard = document.getElementById('deployments-card');
     if (dashboardCard) {
       await updateDashboardDeployments();
     }
-  }, 30000); // 30 seconds (reduced from 60)
+  }, 30000); // 30 seconds
 }
 
 // Stop background history polling
