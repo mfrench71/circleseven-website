@@ -3096,6 +3096,8 @@ function initToastContainer() {
 // persistent: if true, toast persists across page refreshes (for deployments)
 // commitSha: optional, links persistent toast to a specific deployment
 function showToast(message, type = 'info', duration = 5000, persistent = false, commitSha = null) {
+  console.log('showToast called:', { message, type, duration, persistent, commitSha });
+
   const container = initToastContainer();
   const toastId = `toast-${toastIdCounter++}`;
 
