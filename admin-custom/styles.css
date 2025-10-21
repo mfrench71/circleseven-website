@@ -846,6 +846,7 @@ button, .btn {
   color: var(--color-white);
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
+  font-weight: 600;
   transition: all 150ms;
 }
 .btn-primary:hover:not(:disabled) {
@@ -859,6 +860,7 @@ button, .btn {
   font-size: 0.875rem;
   line-height: 1.25rem;
   border-radius: 0.375rem;
+  font-weight: 600;
   transition: all 150ms;
 }
 .btn-primary-sm:hover:not(:disabled) {
@@ -884,6 +886,7 @@ button, .btn {
   color: var(--color-white);
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
+  font-weight: 600;
   transition: all 150ms;
 }
 .btn-danger:hover:not(:disabled) {
@@ -897,6 +900,7 @@ button, .btn {
   font-size: 0.875rem;
   line-height: 1.25rem;
   border-radius: 0.375rem;
+  font-weight: 600;
   transition: all 150ms;
 }
 .btn-danger-sm:hover:not(:disabled) {
