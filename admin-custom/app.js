@@ -3163,6 +3163,8 @@ window.closeToast = function(toastId) {
 
 // Restore persistent toasts on page load
 async function restorePersistentToasts() {
+  if (!USE_TOAST_NOTIFICATIONS) return; // Feature disabled
+
   const persistentToasts = loadPersistentToasts();
 
   if (persistentToasts.length === 0) return;
@@ -3253,6 +3255,8 @@ function showToastInfo(message) {
 
 // Check for new general deployments (code pushes) and show persistent toasts
 async function checkForNewGeneralDeployments() {
+  if (!USE_TOAST_NOTIFICATIONS) return; // Feature disabled
+
   try {
     const githubDeployments = await fetchRecentDeploymentsFromGitHub();
     const persistentToasts = loadPersistentToasts();
@@ -3363,7 +3367,7 @@ function startDeploymentPolling() {
       const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
       if (elapsed > 600) {
         activeDeployments.splice(i, 1);
-        showToast('Deployment timeout reached. Changes should be live now.', 'info', 15000);
+        showToastInfo('Deployment timeout reached. Changes should be live now.');
 
         if (activeDeployments.length === 0) {
           hideDeploymentBanner();
@@ -3387,9 +3391,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          // General deployments (no itemId) get persistent toast, admin changes get normal toast
-          const isGeneralDeployment = !deployment.itemId;
-          showToast('Changes published successfully! Site is now live.', 'success', 15000, isGeneralDeployment, deployment.commitSha);
+          showToastSuccess('Changes published successfully! Site is now live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3400,8 +3402,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          const isGeneralDeployment = !deployment.itemId;
-          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, isGeneralDeployment, deployment.commitSha);
+          showToastError('Deployment failed. Please check GitHub Actions for details.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3412,8 +3413,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          const isGeneralDeployment = !deployment.itemId;
-          showToast('Deployment was cancelled. Changes may not be live.', 'warning', 15000, isGeneralDeployment, deployment.commitSha);
+          showToastWarning('Deployment was cancelled. Changes may not be live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3424,8 +3424,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          const isGeneralDeployment = !deployment.itemId;
-          showToast('Deployment skipped - superseded by a newer change. Latest changes will deploy.', 'info', 15000, isGeneralDeployment, deployment.commitSha);
+          showToastInfo('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
