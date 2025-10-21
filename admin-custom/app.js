@@ -1144,33 +1144,18 @@ function renderPostsList() {
     }
 
     return `
-      <tr class="hover:bg-gray-50 cursor-pointer" data-row-id="cat-row-${rowNumber}" onclick="editPost('${escapeHtml(post.name)}')">
+      <tr class="hover:bg-gray-50" data-row-id="cat-row-${rowNumber}">
         <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
-        <td class="px-4 py-3">
+        <td class="px-4 py-3 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
+          <div class="row-actions">
+            <span><a href="#" onclick="event.preventDefault(); editPost('${escapeHtml(post.name)}')">Edit</a></span> |
+            <span><a href="#" onclick="event.preventDefault(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Trash</a></span> |
+            <span><a href="${escapeHtml(post.url)}" target="_blank" rel="noopener">View</a></span>
+          </div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
         <td class="px-4 py-3 text-sm">${categoriesDisplay}</td>
-        <td class="px-4 py-3 text-right whitespace-nowrap">
-          <button
-            onclick="event.stopPropagation(); editPost('${escapeHtml(post.name)}')"
-            class="btn-icon-edit"
-            title="Edit post"
-          >
-            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-            </svg>
-          </button>
-          <button
-            onclick="event.stopPropagation(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
-            class="btn-icon-delete"
-            title="Move post to trash"
-          >
-            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-          </button>
-        </td>
       </tr>
     `;
   }).join('');
@@ -2447,26 +2432,10 @@ function renderPagesList() {
     const permalink = page.frontmatter?.permalink || '-';
     const isProtected = page.frontmatter?.protected === true;
 
-    // Protected pages show a lock icon instead of delete button
-    const deleteButton = isProtected
-      ? `<button
-           class="btn-icon-delete opacity-50 cursor-not-allowed"
-           disabled
-           title="This page is protected and cannot be deleted"
-         >
-           <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-           </svg>
-         </button>`
-      : `<button
-           onclick="event.stopPropagation(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')"
-           class="btn-icon-delete"
-           title="Move page to trash"
-         >
-           <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-           </svg>
-         </button>`;
+    // Protected pages don't show delete link
+    const deleteLink = isProtected
+      ? ''
+      : ` | <span><a href="#" onclick="event.preventDefault(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')" class="text-red-600 hover:text-red-700">Trash</a></span>`;
 
     // Get date from frontmatter or file metadata
     const datePublished = page.frontmatter?.date || '-';
@@ -2475,25 +2444,17 @@ function renderPagesList() {
       : '-';
 
     return `
-      <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPage('${escapeHtml(page.name)}')">
+      <tr class="hover:bg-gray-50">
         <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
-        <td class="px-4 py-3">
+        <td class="px-4 py-3 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
+          <div class="row-actions">
+            <span><a href="#" onclick="event.preventDefault(); editPage('${escapeHtml(page.name)}')">Edit</a></span>${deleteLink} |
+            <span><a href="${escapeHtml(permalink)}" target="_blank" rel="noopener">View</a></span>
+          </div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
         <td class="px-4 py-3 text-sm text-gray-600">${formattedDate}</td>
-        <td class="px-4 py-3 text-right whitespace-nowrap">
-          <button
-            onclick="event.stopPropagation(); editPage('${escapeHtml(page.name)}')"
-            class="btn-icon-edit"
-            title="Edit page"
-          >
-            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-            </svg>
-          </button>
-          ${deleteButton}
-        </td>
       </tr>
     `;
   }).join('');
