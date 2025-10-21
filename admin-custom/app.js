@@ -938,7 +938,7 @@ function renderPostsList() {
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); editPost('${escapeHtml(post.name)}')">Edit</a></span> |
-            <span><a href="#" onclick="event.preventDefault(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Trash</a></span> |
+            <span><a href="#" onclick="event.preventDefault(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Bin</a></span> |
             <span><a href="${escapeHtml(post.url)}" target="_blank" rel="noopener">View</a></span>
           </div>
         </td>
@@ -2295,7 +2295,7 @@ function renderPagesList() {
     // Protected pages don't show delete link
     const deleteLink = isProtected
       ? ''
-      : ` | <span><a href="#" onclick="event.preventDefault(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')" class="text-red-600 hover:text-red-700">Trash</a></span>`;
+      : ` | <span><a href="#" onclick="event.preventDefault(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')" class="text-red-600 hover:text-red-700">Bin</a></span>`;
 
     // Get date from frontmatter or file metadata
     const datePublished = page.frontmatter?.date || '-';

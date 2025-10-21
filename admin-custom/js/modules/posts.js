@@ -160,7 +160,7 @@ export function renderPostsList() {
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); window.editPost('${escapeHtml(post.name)}')">Edit</a></span> |
-            <span><a href="#" onclick="event.preventDefault(); window.deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Trash</a></span> |
+            <span><a href="#" onclick="event.preventDefault(); window.deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Bin</a></span> |
             <span><a href="${escapeHtml(post.url)}" target="_blank" rel="noopener">View</a></span>
           </div>
         </td>
