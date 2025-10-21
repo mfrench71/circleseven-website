@@ -327,7 +327,7 @@ exports.handler = async (event, context) => {
       const restoredContentBase64 = Buffer.from(restoredContent).toString('base64');
 
       // Restore to appropriate folder
-      await githubRequest(`/contents/${destDir}/${filename}`, {
+      const restoreResponse = await githubRequest(`/contents/${destDir}/${filename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -338,7 +338,7 @@ exports.handler = async (event, context) => {
       });
 
       // Delete from _trash folder
-      const deleteResponse = await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -354,7 +354,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: true,
           message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully`,
-          commitSha: deleteResponse.commit?.sha
+          commitSha: restoreResponse.commit?.sha
         })
       };
     }
