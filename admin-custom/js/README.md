@@ -402,16 +402,65 @@ When adding new modules:
 4. Add tests to `test.html`
 5. Update this README
 
+## Phase 5: Taxonomy Module ✅ Complete
+
+### modules/taxonomy.js
+
+Category and tag taxonomy management with drag-and-drop reordering.
+
+**Exports:**
+- `loadTaxonomy()` - Load categories and tags from backend
+- `switchTaxonomyTab(tabName)` - Switch between categories/tags tabs
+- `renderCategories()` - Render categories list with Sortable.js
+- `renderTags()` - Render tags list with Sortable.js
+- `showAddCategoryModal()` - Show modal to add new category
+- `addCategory()` - Legacy wrapper for showAddCategoryModal()
+- `editCategory(index)` - Edit existing category
+- `deleteCategory(index)` - Delete category with confirmation
+- `showAddTagModal()` - Show modal to add new tag
+- `addTag()` - Legacy wrapper for showAddTagModal()
+- `editTag(index)` - Edit existing tag
+- `deleteTag(index)` - Delete tag with confirmation
+- `saveTaxonomy()` - Save taxonomy changes to backend
+
+**Features:**
+- Loads taxonomy from `/taxonomy` API endpoint
+- Drag-and-drop reordering with Sortable.js integration
+- Automatic save after add/edit/delete operations
+- Dirty state tracking with visual feedback
+- Tab switching between categories and tags
+- Modal dialogs for add/edit operations
+- Deployment tracking for all save operations
+
+**Dependencies:**
+- `core/utils.js` - Uses `escapeHtml()` and `setButtonLoading()`
+- `ui/notifications.js` - Uses `showError()`, `showSuccess()`, and `hideMessages()`
+- Global `API_BASE` constant
+- Global state: `categories`, `tags`, `lastSavedState`, `isDirty`, `sortableInstances`
+- Global `showModal()` and `showConfirm()` functions
+- Global `trackDeployment()` function
+- External: Sortable.js library for drag-and-drop
+
+**Integration:**
+The Taxonomy module is loaded in `index.html` and all functions are exposed to `window`:
+```javascript
+window.loadTaxonomy = loadTaxonomy;
+window.switchTaxonomyTab = switchTaxonomyTab;
+window.renderCategories = renderCategories;
+// ... etc
+```
+
 ## Status
 
 - **Phase 1**: ✅ Complete (Core utilities and UI notifications)
 - **Phase 2**: ✅ Complete (Trash module extraction - 4 functions)
 - **Phase 3**: ✅ Complete (Settings module extraction - 2 functions)
 - **Phase 4**: ✅ Complete (Media module extraction - 8 functions)
-- **Phase 5**: 📋 Planned (Remaining modules: Taxonomy, Posts, Pages, Deployments)
-- **Phase 6**: 💡 Future (Optimization)
+- **Phase 5**: ✅ Complete (Taxonomy module extraction - 13 functions)
+- **Phase 6**: 📋 Planned (Remaining modules: Posts, Pages, Deployments)
+- **Phase 7**: 💡 Future (Optimization)
 
 ---
 
-**Version:** 4.0.0 (Phase 4)
+**Version:** 5.0.0 (Phase 5)
 **Last Updated:** October 2025

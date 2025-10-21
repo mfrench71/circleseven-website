@@ -1183,6 +1183,21 @@
       viewMediaFull,
       openCloudinaryUpload
     } from '/admin-custom/js/modules/media.js';
+    import {
+      loadTaxonomy,
+      switchTaxonomyTab,
+      renderCategories,
+      renderTags,
+      showAddCategoryModal,
+      addCategory,
+      editCategory,
+      deleteCategory,
+      showAddTagModal,
+      addTag,
+      editTag,
+      deleteTag,
+      saveTaxonomy
+    } from '/admin-custom/js/modules/taxonomy.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -1206,6 +1221,19 @@
     window.copyMediaUrl = copyMediaUrl;
     window.viewMediaFull = viewMediaFull;
     window.openCloudinaryUpload = openCloudinaryUpload;
+    window.loadTaxonomy = loadTaxonomy;
+    window.switchTaxonomyTab = switchTaxonomyTab;
+    window.renderCategories = renderCategories;
+    window.renderTags = renderTags;
+    window.showAddCategoryModal = showAddCategoryModal;
+    window.addCategory = addCategory;
+    window.editCategory = editCategory;
+    window.deleteCategory = deleteCategory;
+    window.showAddTagModal = showAddTagModal;
+    window.addTag = addTag;
+    window.editTag = editTag;
+    window.deleteTag = deleteTag;
+    window.saveTaxonomy = saveTaxonomy;
   </script>
 </body>
 </html>

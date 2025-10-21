@@ -427,15 +427,14 @@ function showMainApp(authenticatedUser) {
   updateLastUpdated();
 }
 
-/**
- * Loads taxonomy (categories and tags) from the API
- *
- * Fetches the taxonomy data from the backend, stores it in global state,
- * initializes the lastSavedState for dirty tracking, and renders both
- * categories and tags lists.
- *
- * @throws {Error} If the API request fails
- */
+// ===== TAXONOMY - Now using ES6 module (js/modules/taxonomy.js) =====
+// Functions: loadTaxonomy(), switchTaxonomyTab(), renderCategories(), renderTags(),
+//            showAddCategoryModal(), addCategory(), editCategory(), deleteCategory(),
+//            showAddTagModal(), addTag(), editTag(), deleteTag(), saveTaxonomy()
+// Helpers: isItemDirty(), markDirty(), updateSaveButton()
+// State variables kept here: categories, tags, lastSavedState, isDirty, sortableInstances
+// The module is imported and exposed to window in index.html
+/*
 async function loadTaxonomy() {
   try {
     const response = await fetch(`${API_BASE}/taxonomy`);
@@ -938,6 +937,7 @@ async function saveTaxonomy() {
     setButtonLoading(saveBtn, false);
   }
 }
+*/
 
 // UI helpers
 /**
