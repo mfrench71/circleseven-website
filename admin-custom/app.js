@@ -748,6 +748,9 @@ function switchSection(sectionName, updateUrl = true) {
     loadTaxonomy();
   } else if (sectionName === 'settings') {
     loadSettings();
+  } else if (sectionName === 'dashboard') {
+    // Refresh deployment status immediately when viewing dashboard
+    updateDashboardDeployments();
   }
 }
 
@@ -3123,20 +3126,21 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// Start background polling for deployment history (slower refresh for all deployments)
+// Start background polling for deployment history
 let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
   if (historyPollInterval) return; // Already polling
 
-  console.log('Starting deployment history background polling (every 30s)');
+  console.log('Starting deployment history background polling (every 10s)');
 
-  // Run initial update
+  // Run initial update immediately
   const dashboardCard = document.getElementById('deployments-card');
   if (dashboardCard) {
     updateDashboardDeployments();
   }
 
-  // Poll every 30 seconds to refresh history (includes code pushes, not just admin changes)
+  // Poll every 10 seconds to refresh history (includes code pushes, not just admin changes)
+  // More frequent polling ensures users see deployment status updates quickly
   historyPollInterval = setInterval(async () => {
     console.log('Background polling: Refreshing deployment history...');
 
@@ -3145,7 +3149,7 @@ function startDeploymentHistoryPolling() {
     if (dashboardCard) {
       await updateDashboardDeployments();
     }
-  }, 30000); // 30 seconds
+  }, 10000); // 10 seconds
 }
 
 // Stop background history polling
