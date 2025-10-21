@@ -188,20 +188,17 @@ export async function restoreItem(filename, sha, type) {
       window.trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
     }
 
-    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored! Changes publishing...`);
 
-    // Remove from global array
+    // Remove from global array (optimistic update)
     window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
 
-    // Re-render trash list
+    // Re-render trash list immediately
     renderTrashList();
 
-    // Reload posts or pages if applicable
-    if (type === 'post' && window.loadPosts && window.allPosts && window.allPosts.length > 0) {
-      await window.loadPosts();
-    } else if (type === 'page' && window.loadPages && window.allPages && window.allPages.length > 0) {
-      await window.loadPages();
-    }
+    // Note: We don't reload posts/pages here to avoid the delay
+    // The deployment tracking header shows progress
+    // Posts/pages will refresh when user switches sections
   } catch (error) {
     showError(`Failed to restore ${itemType}: ` + error.message);
   }
@@ -253,12 +250,12 @@ export async function permanentlyDeleteItem(filename, sha, type) {
       window.trackDeployment(data.commitSha, `Permanently delete ${itemType}: ${filename}`);
     }
 
-    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted! Changes publishing...`);
 
-    // Remove from global array
+    // Remove from global array (optimistic update)
     window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
 
-    // Re-render trash list
+    // Re-render trash list immediately
     renderTrashList();
   } catch (error) {
     showError(`Failed to delete ${itemType}: ` + error.message);
