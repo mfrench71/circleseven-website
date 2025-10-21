@@ -26,11 +26,9 @@ import { escapeHtml } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 
 /**
- * Array of all trashed items (posts and pages)
- * @type {Array<Object>}
- * @private
+ * Access global allTrashedItems array from app.js
+ * This is shared state between the module and app.js
  */
-let allTrashedItems = [];
 
 /**
  * Loads deleted items from the trash
@@ -50,7 +48,7 @@ export async function loadTrash() {
     if (!response.ok) throw new Error('Failed to load trash');
 
     const data = await response.json();
-    allTrashedItems = data.items || [];
+    window.allTrashedItems = data.items || [];
 
     renderTrashList();
   } catch (error) {
@@ -81,6 +79,8 @@ export function renderTrashList() {
     console.warn('Trash DOM elements not found');
     return;
   }
+
+  const allTrashedItems = window.allTrashedItems || [];
 
   if (allTrashedItems.length === 0) {
     listEl.innerHTML = '';
@@ -190,8 +190,8 @@ export async function restoreItem(filename, sha, type) {
 
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
-    // Remove from local array
-    allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
+    // Remove from global array
+    window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
 
     // Re-render trash list
     renderTrashList();
@@ -255,8 +255,8 @@ export async function permanentlyDeleteItem(filename, sha, type) {
 
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
 
-    // Remove from local array
-    allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
+    // Remove from global array
+    window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
 
     // Re-render trash list
     renderTrashList();
@@ -278,5 +278,5 @@ export async function permanentlyDeleteItem(filename, sha, type) {
  * console.log(`${items.length} items in trash`);
  */
 export function getTrashedItems() {
-  return allTrashedItems;
+  return window.allTrashedItems || [];
 }

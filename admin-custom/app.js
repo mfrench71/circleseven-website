@@ -2616,8 +2616,10 @@ function handleImageModalEscape(e) {
 // The functions below are commented out and replaced by the module implementation.
 // See index.html for module loading.
 
-/*
+// Keep allTrashedItems as global state for switchSection to check
 let allTrashedItems = [];
+
+/*
 
 // Load trashed items (posts and pages)
 async function loadTrash() {
