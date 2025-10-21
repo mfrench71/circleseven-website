@@ -2739,6 +2739,8 @@ async function restoreActiveDeployments() {
 function trackDeployment(commitSha, action, itemId = null) {
   if (!commitSha) return;
 
+  console.log(`Tracking deployment: ${commitSha} - ${action}`);
+
   activeDeployments.push({
     commitSha,
     action,
@@ -2746,6 +2748,8 @@ function trackDeployment(commitSha, action, itemId = null) {
     startedAt: new Date(),
     status: 'pending'
   });
+
+  console.log(`Active deployments: ${activeDeployments.length}`);
 
   showDeploymentBanner();
   startDeploymentPolling();
@@ -3178,13 +3182,18 @@ function stopDeploymentHistoryPolling() {
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
 
+  console.log('Starting deployment status polling (every 5s)');
+
   deploymentPollInterval = setInterval(async () => {
     if (activeDeployments.length === 0) {
+      console.log('No active deployments, stopping polling');
       clearInterval(deploymentPollInterval);
       deploymentPollInterval = null;
       hideDeploymentBanner();
       return;
     }
+
+    console.log(`Polling status for ${activeDeployments.length} deployment(s)`);
 
     // Update time display
     updateDeploymentBanner();
@@ -3207,7 +3216,10 @@ function startDeploymentPolling() {
 
       try {
         const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
-        if (!response.ok) continue;
+        if (!response.ok) {
+          console.warn(`Deployment status check failed for ${deployment.commitSha}: ${response.status}`);
+          continue;
+        }
 
         const data = await response.json();
 
@@ -3218,6 +3230,7 @@ function startDeploymentPolling() {
 
         if (data.status === 'completed') {
           // Deployment successful
+          console.log(`Deployment completed: ${deployment.commitSha}`);
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           updateDashboardDeployments();
@@ -3229,6 +3242,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'failed') {
           // Deployment failed
+          console.log(`Deployment failed: ${deployment.commitSha}`);
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           updateDashboardDeployments();
@@ -3241,6 +3255,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
+          console.log(`Deployment cancelled: ${deployment.commitSha}`);
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           updateDashboardDeployments();
@@ -3253,6 +3268,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'skipped') {
           // Deployment skipped (superseded by newer commit)
+          console.log(`Deployment skipped: ${deployment.commitSha}`);
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           updateDashboardDeployments();
@@ -3261,6 +3277,8 @@ function startDeploymentPolling() {
           if (activeDeployments.length === 0) {
             hideDeploymentBanner(); // Just hide for skipped
           }
+        } else {
+          console.log(`Deployment status: ${data.status} for ${deployment.commitSha}`);
         }
         // pending, queued, in_progress continue polling
       } catch (error) {
