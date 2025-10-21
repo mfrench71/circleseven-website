@@ -211,7 +211,7 @@ async function loadTaxonomy() {
     renderTags();
     updateSaveButton();
   } catch (error) {
-    showError('Failed to load taxonomy: ' + error.message);
+    showToastError('Failed to load taxonomy: ' + error.message);
   }
 }
 
@@ -444,7 +444,7 @@ function addCategory() {
   if (!value) return;
 
   if (categories.includes(value)) {
-    showError('Category already exists');
+    showToastError('Category already exists');
     return;
   }
 
@@ -462,12 +462,12 @@ async function editCategory(index) {
 
   const trimmed = newValue.trim();
   if (!trimmed) {
-    showError('Category name cannot be empty');
+    showToastError('Category name cannot be empty');
     return;
   }
 
   if (categories.includes(trimmed) && trimmed !== categories[index]) {
-    showError('Category already exists');
+    showToastError('Category already exists');
     return;
   }
 
@@ -495,7 +495,7 @@ function addTag() {
   if (!value) return;
 
   if (tags.includes(value)) {
-    showError('Tag already exists');
+    showToastError('Tag already exists');
     return;
   }
 
@@ -513,12 +513,12 @@ async function editTag(index) {
 
   const trimmed = newValue.trim();
   if (!trimmed) {
-    showError('Tag name cannot be empty');
+    showToastError('Tag name cannot be empty');
     return;
   }
 
   if (tags.includes(trimmed) && trimmed !== tags[index]) {
-    showError('Tag already exists');
+    showToastError('Tag already exists');
     return;
   }
 
@@ -566,12 +566,12 @@ async function saveTaxonomy() {
     lastSavedState = JSON.stringify({ categories, tags });
     isDirty = false;
 
-    showSuccess();
+    showToastSuccess('Taxonomy saved successfully!');
     renderCategories();
     renderTags();
     updateSaveButton();
   } catch (error) {
-    showError('Failed to save taxonomy: ' + error.message);
+    showToastError('Failed to save taxonomy: ' + error.message);
   } finally {
     setButtonLoading(saveBtn, false);
   }
@@ -827,7 +827,7 @@ async function loadSettings() {
       }
     });
   } catch (error) {
-    showError('Failed to load settings: ' + error.message);
+    showToastError('Failed to load settings: ' + error.message);
   }
 }
 
@@ -871,9 +871,9 @@ async function saveSettings(event) {
       trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
     }
 
-    showSuccess(result.message || 'Settings saved successfully!');
+    showToastSuccess(result.message || 'Settings saved successfully!');
   } catch (error) {
-    showError('Failed to save settings: ' + error.message);
+    showToastError('Failed to save settings: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Settings';
@@ -929,7 +929,7 @@ async function loadPosts() {
     renderPostsList();
     populateTaxonomySelects();
   } catch (error) {
-    showError('Failed to load posts: ' + error.message);
+    showToastError('Failed to load posts: ' + error.message);
   } finally {
     document.getElementById('posts-loading').classList.add('hidden');
   }
@@ -1238,7 +1238,7 @@ async function editPost(filename, updateUrl = true) {
     // Add change listeners to form inputs
     setupPostFormChangeListeners();
   } catch (error) {
-    showError('Failed to load post: ' + error.message);
+    showToastError('Failed to load post: ' + error.message);
   }
 }
 
@@ -1377,7 +1377,7 @@ async function savePost(event) {
         trackDeployment(data.commitSha, `Update post: ${title}`, currentPost.path.replace('_posts/', ''));
       }
 
-      showSuccess('Post updated successfully!');
+      showToastSuccess('Post updated successfully!');
     } else {
       // Create new post
       const filename = generateFilename(title, date);
@@ -1402,7 +1402,7 @@ async function savePost(event) {
         trackDeployment(data.commitSha, `Create post: ${title}`, filename);
       }
 
-      showSuccess('Post created successfully!');
+      showToastSuccess('Post created successfully!');
     }
 
     // Clear dirty flag after successful save
@@ -1412,7 +1412,7 @@ async function savePost(event) {
     await loadPosts();
     showPostsList();
   } catch (error) {
-    showError('Failed to save post: ' + error.message);
+    showToastError('Failed to save post: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Post';
@@ -1449,11 +1449,11 @@ async function deletePost() {
       trackDeployment(data.commitSha, `Move post to trash: ${title}`, filename);
     }
 
-    showSuccess('Post moved to trash successfully!');
+    showToastSuccess('Post moved to trash successfully!');
     await loadPosts();
     showPostsList();
   } catch (error) {
-    showError('Failed to move post to trash: ' + error.message);
+    showToastError('Failed to move post to trash: ' + error.message);
   }
 }
 
@@ -1480,7 +1480,7 @@ async function deletePostFromList(filename, sha) {
       throw new Error(error.message || 'Failed to move post to trash');
     }
 
-    showSuccess('Post moved to trash successfully!');
+    showToastSuccess('Post moved to trash successfully!');
 
     // Remove from local arrays
     allPosts = allPosts.filter(p => p.name !== filename);
@@ -1489,7 +1489,7 @@ async function deletePostFromList(filename, sha) {
     // Re-render the list
     renderPostsList();
   } catch (error) {
-    showError('Failed to move post to trash: ' + error.message);
+    showToastError('Failed to move post to trash: ' + error.message);
   }
 }
 
@@ -1747,7 +1747,7 @@ function selectFeaturedImage() {
   if (widget) {
     widget.show();
   } else {
-    showError('Cloudinary library is still loading. Please try again in a moment.');
+    showToastError('Cloudinary library is still loading. Please try again in a moment.');
   }
 }
 
@@ -1828,7 +1828,7 @@ async function loadTrash() {
 
     renderTrashList();
   } catch (error) {
-    showError('Failed to load trash: ' + error.message);
+    showToastError('Failed to load trash: ' + error.message);
   } finally {
     document.getElementById('trash-loading').classList.add('hidden');
   }
@@ -1921,7 +1921,7 @@ async function restoreItem(filename, sha, type) {
       throw new Error(error.message || `Failed to restore ${itemType}`);
     }
 
-    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -1936,7 +1936,7 @@ async function restoreItem(filename, sha, type) {
       await loadPages();
     }
   } catch (error) {
-    showError(`Failed to restore ${itemType}: ` + error.message);
+    showToastError(`Failed to restore ${itemType}: ` + error.message);
   }
 }
 
@@ -1962,7 +1962,7 @@ async function permanentlyDeleteItem(filename, sha, type) {
       throw new Error(error.message || `Failed to delete ${itemType}`);
     }
 
-    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
+    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -1970,7 +1970,7 @@ async function permanentlyDeleteItem(filename, sha, type) {
     // Re-render trash list
     renderTrashList();
   } catch (error) {
-    showError(`Failed to delete ${itemType}: ` + error.message);
+    showToastError(`Failed to delete ${itemType}: ` + error.message);
   }
 }
 
@@ -2014,7 +2014,7 @@ async function loadMedia() {
 
     renderMediaGrid();
   } catch (error) {
-    showError('Failed to load media: ' + error.message);
+    showToastError('Failed to load media: ' + error.message);
   } finally {
     document.getElementById('media-loading').classList.add('hidden');
   }
@@ -2157,9 +2157,9 @@ const debouncedFilterMedia = debounce(filterMedia, 300);
 async function copyMediaUrl(url) {
   try {
     await navigator.clipboard.writeText(url);
-    showSuccess('Image URL copied to clipboard!');
+    showToastSuccess('Image URL copied to clipboard!');
   } catch (error) {
-    showError('Failed to copy URL: ' + error.message);
+    showToastError('Failed to copy URL: ' + error.message);
   }
 }
 
@@ -2179,7 +2179,7 @@ function viewMediaFull(url) {
 function openCloudinaryUpload() {
   // Check if Cloudinary library is loaded
   if (typeof cloudinary === 'undefined') {
-    showError('Cloudinary library is still loading. Please try again in a moment.');
+    showToastError('Cloudinary library is still loading. Please try again in a moment.');
     return;
   }
 
@@ -2195,12 +2195,12 @@ function openCloudinaryUpload() {
       clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']
     }, (error, result) => {
       if (!error && result && result.event === 'success') {
-        showSuccess('Image uploaded successfully!');
+        showToastSuccess('Image uploaded successfully!');
         // Reload media library
         loadMedia();
       }
       if (error) {
-        showError('Upload failed: ' + error.message);
+        showToastError('Upload failed: ' + error.message);
       }
     });
   }
@@ -2226,7 +2226,7 @@ async function loadPages() {
 
     renderPagesList();
   } catch (error) {
-    showError('Failed to load pages: ' + error.message);
+    showToastError('Failed to load pages: ' + error.message);
   } finally {
     document.getElementById('pages-loading').classList.add('hidden');
   }
@@ -2370,7 +2370,7 @@ async function editPage(filename, updateUrl = true) {
     // Add change listeners to form inputs
     setupPageFormChangeListeners();
   } catch (error) {
-    showError('Failed to load page: ' + error.message);
+    showToastError('Failed to load page: ' + error.message);
   }
 }
 
@@ -2487,7 +2487,7 @@ async function savePage(event) {
         trackDeployment(data.commitSha, `Update page: ${title}`, currentPage_pages.path.replace('_pages/', ''));
       }
 
-      showSuccess('Page updated successfully!');
+      showToastSuccess('Page updated successfully!');
     } else {
       // Create new page
       const filename = generatePageFilename(title);
@@ -2512,7 +2512,7 @@ async function savePage(event) {
         trackDeployment(data.commitSha, `Create page: ${title}`, filename);
       }
 
-      showSuccess('Page created successfully!');
+      showToastSuccess('Page created successfully!');
     }
 
     // Clear dirty flag after successful save
@@ -2522,7 +2522,7 @@ async function savePage(event) {
     await loadPages();
     showPagesList();
   } catch (error) {
-    showError('Failed to save page: ' + error.message);
+    showToastError('Failed to save page: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Page';
@@ -2560,11 +2560,11 @@ async function deletePage() {
       trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
     }
 
-    showSuccess('Page moved to trash successfully!');
+    showToastSuccess('Page moved to trash successfully!');
     await loadPages();
     showPagesList();
   } catch (error) {
-    showError('Failed to move page to trash: ' + error.message);
+    showToastError('Failed to move page to trash: ' + error.message);
   }
 }
 
@@ -2597,7 +2597,7 @@ async function deletePageFromList(filename, sha) {
       trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
     }
 
-    showSuccess('Page moved to trash successfully!');
+    showToastSuccess('Page moved to trash successfully!');
 
     // Remove from local array
     allPages = allPages.filter(p => p.name !== filename);
@@ -2605,7 +2605,7 @@ async function deletePageFromList(filename, sha) {
     // Re-render the list
     renderPagesList();
   } catch (error) {
-    showError('Failed to move page to trash: ' + error.message);
+    showToastError('Failed to move page to trash: ' + error.message);
   }
 }
 
@@ -2792,7 +2792,7 @@ function initToastContainer() {
   if (!toastContainer) {
     toastContainer = document.createElement('div');
     toastContainer.id = 'toast-container';
-    toastContainer.className = 'fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 max-w-md';
+    toastContainer.className = 'fixed bottom-4 right-4 z-[9999] flex flex-col-reverse gap-2 max-w-sm';
     toastContainer.style.cssText = 'pointer-events: none;';
     document.body.appendChild(toastContainer);
   }
@@ -2816,13 +2816,13 @@ function showToast(message, type = 'info', duration = 5000) {
 
   const toast = document.createElement('div');
   toast.id = toastId;
-  toast.className = `${scheme.bg} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform transition-all duration-300 translate-x-full opacity-0`;
-  toast.style.cssText = 'pointer-events: auto;';
+  toast.className = `${scheme.bg} text-white px-3 py-2 rounded-md shadow-lg flex items-center gap-2 transform transition-all duration-300 translate-x-full opacity-0`;
+  toast.style.cssText = 'pointer-events: auto; min-width: 250px;';
   toast.innerHTML = `
-    <i class="fas ${scheme.icon} text-lg flex-shrink-0"></i>
-    <div class="flex-1 text-sm font-medium">${escapeHtml(message)}</div>
-    <button onclick="closeToast('${toastId}')" class="ml-2 ${scheme.hoverBg} rounded p-1 transition flex-shrink-0" title="Dismiss">
-      <i class="fas fa-times text-sm"></i>
+    <i class="fas ${scheme.icon} flex-shrink-0"></i>
+    <div class="flex-1 text-sm">${escapeHtml(message)}</div>
+    <button onclick="closeToast('${toastId}')" class="ml-1 ${scheme.hoverBg} rounded p-0.5 transition flex-shrink-0 opacity-70 hover:opacity-100" title="Dismiss">
+      <i class="fas fa-times text-xs"></i>
     </button>
   `;
 
@@ -2919,7 +2919,7 @@ function startDeploymentPolling() {
       const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
       if (elapsed > 600) {
         activeDeployments.splice(i, 1);
-        showSuccess('Deployment timeout reached. Changes should be live now.');
+        showToastInfo('Deployment timeout reached. Changes should be live now.');
 
         if (activeDeployments.length === 0) {
           hideDeploymentBanner();
@@ -3008,7 +3008,7 @@ async function restoreItemWithTracking(filename, sha, type) {
       trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
     }
 
-    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -3023,7 +3023,7 @@ async function restoreItemWithTracking(filename, sha, type) {
       await loadPages();
     }
   } catch (error) {
-    showError(`Failed to restore ${itemType}: ` + error.message);
+    showToastError(`Failed to restore ${itemType}: ` + error.message);
   }
 }
 
