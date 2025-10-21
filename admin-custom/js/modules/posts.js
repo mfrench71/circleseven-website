@@ -473,7 +473,14 @@ export async function editPost(filename, updateUrl = true) {
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
 
     // Support both 'image' and 'featured_image' fields
-    const imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
+    let imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
+
+    // Convert relative paths to full URLs for HTML5 URL validation
+    if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+      // Assume it's a partial Cloudinary path and construct full URL
+      imageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+    }
+
     document.getElementById('post-image').value = imageUrl;
 
     // Update image preview
