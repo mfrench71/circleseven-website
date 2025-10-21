@@ -883,11 +883,15 @@ export function formatDateForInput(dateStr) {
  * populateTaxonomySelects();
  */
 export function populateTaxonomySelects() {
-  // Initialize autocomplete for categories
-  initTaxonomyAutocomplete('categories', window.categories);
+  // Initialize autocomplete for categories (only if taxonomy is loaded)
+  if (window.categories) {
+    initTaxonomyAutocomplete('categories', window.categories);
+  }
 
-  // Initialize autocomplete for tags
-  initTaxonomyAutocomplete('tags', window.tags);
+  // Initialize autocomplete for tags (only if taxonomy is loaded)
+  if (window.tags) {
+    initTaxonomyAutocomplete('tags', window.tags);
+  }
 }
 
 /**
