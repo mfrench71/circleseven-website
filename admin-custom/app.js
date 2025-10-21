@@ -124,8 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupUnsavedChangesWarning();
   registerServiceWorker();
 
-  // Restore any persistent deployment toasts from previous session
-  restorePersistentToasts().catch(err => console.error('Failed to restore persistent toasts:', err));
+  // Deployment status is now handled by the banner in the header
 
   // Start background polling for deployment history (refreshes every 60s)
   // This captures code pushes and other deployments not triggered via admin
@@ -218,7 +217,7 @@ async function loadTaxonomy() {
     renderTags();
     updateSaveButton();
   } catch (error) {
-    showToastError('Failed to load taxonomy: ' + error.message);
+    showError('Failed to load taxonomy: ' + error.message);
   }
 }
 
@@ -451,7 +450,7 @@ function addCategory() {
   if (!value) return;
 
   if (categories.includes(value)) {
-    showToastError('Category already exists');
+    showError('Category already exists');
     return;
   }
 
@@ -469,12 +468,12 @@ async function editCategory(index) {
 
   const trimmed = newValue.trim();
   if (!trimmed) {
-    showToastError('Category name cannot be empty');
+    showError('Category name cannot be empty');
     return;
   }
 
   if (categories.includes(trimmed) && trimmed !== categories[index]) {
-    showToastError('Category already exists');
+    showError('Category already exists');
     return;
   }
 
@@ -502,7 +501,7 @@ function addTag() {
   if (!value) return;
 
   if (tags.includes(value)) {
-    showToastError('Tag already exists');
+    showError('Tag already exists');
     return;
   }
 
@@ -520,12 +519,12 @@ async function editTag(index) {
 
   const trimmed = newValue.trim();
   if (!trimmed) {
-    showToastError('Tag name cannot be empty');
+    showError('Tag name cannot be empty');
     return;
   }
 
   if (tags.includes(trimmed) && trimmed !== tags[index]) {
-    showToastError('Tag already exists');
+    showError('Tag already exists');
     return;
   }
 
@@ -573,12 +572,12 @@ async function saveTaxonomy() {
     lastSavedState = JSON.stringify({ categories, tags });
     isDirty = false;
 
-    showToastSuccess('Taxonomy saved successfully!');
+    showSuccess('Taxonomy saved successfully!');
     renderCategories();
     renderTags();
     updateSaveButton();
   } catch (error) {
-    showToastError('Failed to save taxonomy: ' + error.message);
+    showError('Failed to save taxonomy: ' + error.message);
   } finally {
     setButtonLoading(saveBtn, false);
   }
@@ -834,7 +833,7 @@ async function loadSettings() {
       }
     });
   } catch (error) {
-    showToastError('Failed to load settings: ' + error.message);
+    showError('Failed to load settings: ' + error.message);
   }
 }
 
@@ -878,9 +877,9 @@ async function saveSettings(event) {
       trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
     }
 
-    showToastSuccess(result.message || 'Settings saved successfully!');
+    showSuccess(result.message || 'Settings saved successfully!');
   } catch (error) {
-    showToastError('Failed to save settings: ' + error.message);
+    showError('Failed to save settings: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Settings';
@@ -936,7 +935,7 @@ async function loadPosts() {
     renderPostsList();
     populateTaxonomySelects();
   } catch (error) {
-    showToastError('Failed to load posts: ' + error.message);
+    showError('Failed to load posts: ' + error.message);
   } finally {
     document.getElementById('posts-loading').classList.add('hidden');
   }
@@ -1245,7 +1244,7 @@ async function editPost(filename, updateUrl = true) {
     // Add change listeners to form inputs
     setupPostFormChangeListeners();
   } catch (error) {
-    showToastError('Failed to load post: ' + error.message);
+    showError('Failed to load post: ' + error.message);
   }
 }
 
@@ -1384,7 +1383,7 @@ async function savePost(event) {
         trackDeployment(data.commitSha, `Update post: ${title}`, currentPost.path.replace('_posts/', ''));
       }
 
-      showToastSuccess('Post updated successfully!');
+      showSuccess('Post updated successfully!');
     } else {
       // Create new post
       const filename = generateFilename(title, date);
@@ -1409,7 +1408,7 @@ async function savePost(event) {
         trackDeployment(data.commitSha, `Create post: ${title}`, filename);
       }
 
-      showToastSuccess('Post created successfully!');
+      showSuccess('Post created successfully!');
     }
 
     // Clear dirty flag after successful save
@@ -1419,7 +1418,7 @@ async function savePost(event) {
     await loadPosts();
     showPostsList();
   } catch (error) {
-    showToastError('Failed to save post: ' + error.message);
+    showError('Failed to save post: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Post';
@@ -1456,11 +1455,11 @@ async function deletePost() {
       trackDeployment(data.commitSha, `Move post to trash: ${title}`, filename);
     }
 
-    showToastSuccess('Post moved to trash successfully!');
+    showSuccess('Post moved to trash successfully!');
     await loadPosts();
     showPostsList();
   } catch (error) {
-    showToastError('Failed to move post to trash: ' + error.message);
+    showError('Failed to move post to trash: ' + error.message);
   }
 }
 
@@ -1487,7 +1486,7 @@ async function deletePostFromList(filename, sha) {
       throw new Error(error.message || 'Failed to move post to trash');
     }
 
-    showToastSuccess('Post moved to trash successfully!');
+    showSuccess('Post moved to trash successfully!');
 
     // Remove from local arrays
     allPosts = allPosts.filter(p => p.name !== filename);
@@ -1496,7 +1495,7 @@ async function deletePostFromList(filename, sha) {
     // Re-render the list
     renderPostsList();
   } catch (error) {
-    showToastError('Failed to move post to trash: ' + error.message);
+    showError('Failed to move post to trash: ' + error.message);
   }
 }
 
@@ -1754,7 +1753,7 @@ function selectFeaturedImage() {
   if (widget) {
     widget.show();
   } else {
-    showToastError('Cloudinary library is still loading. Please try again in a moment.');
+    showError('Cloudinary library is still loading. Please try again in a moment.');
   }
 }
 
@@ -1835,7 +1834,7 @@ async function loadTrash() {
 
     renderTrashList();
   } catch (error) {
-    showToastError('Failed to load trash: ' + error.message);
+    showError('Failed to load trash: ' + error.message);
   } finally {
     document.getElementById('trash-loading').classList.add('hidden');
   }
@@ -1928,7 +1927,7 @@ async function restoreItem(filename, sha, type) {
       throw new Error(error.message || `Failed to restore ${itemType}`);
     }
 
-    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -1943,7 +1942,7 @@ async function restoreItem(filename, sha, type) {
       await loadPages();
     }
   } catch (error) {
-    showToastError(`Failed to restore ${itemType}: ` + error.message);
+    showError(`Failed to restore ${itemType}: ` + error.message);
   }
 }
 
@@ -1969,7 +1968,7 @@ async function permanentlyDeleteItem(filename, sha, type) {
       throw new Error(error.message || `Failed to delete ${itemType}`);
     }
 
-    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -1977,7 +1976,7 @@ async function permanentlyDeleteItem(filename, sha, type) {
     // Re-render trash list
     renderTrashList();
   } catch (error) {
-    showToastError(`Failed to delete ${itemType}: ` + error.message);
+    showError(`Failed to delete ${itemType}: ` + error.message);
   }
 }
 
@@ -2024,7 +2023,7 @@ async function loadMedia() {
 
     renderMediaGrid();
   } catch (error) {
-    showToastError('Failed to load media: ' + error.message);
+    showError('Failed to load media: ' + error.message);
   } finally {
     document.getElementById('media-loading').classList.add('hidden');
   }
@@ -2167,9 +2166,9 @@ const debouncedFilterMedia = debounce(filterMedia, 300);
 async function copyMediaUrl(url) {
   try {
     await navigator.clipboard.writeText(url);
-    showToastSuccess('Image URL copied to clipboard!');
+    showSuccess('Image URL copied to clipboard!');
   } catch (error) {
-    showToastError('Failed to copy URL: ' + error.message);
+    showError('Failed to copy URL: ' + error.message);
   }
 }
 
@@ -2189,7 +2188,7 @@ function viewMediaFull(url) {
 function openCloudinaryUpload() {
   // Check if Cloudinary library is loaded
   if (typeof cloudinary === 'undefined') {
-    showToastError('Cloudinary library is still loading. Please try again in a moment.');
+    showError('Cloudinary library is still loading. Please try again in a moment.');
     return;
   }
 
@@ -2205,12 +2204,12 @@ function openCloudinaryUpload() {
       clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']
     }, (error, result) => {
       if (!error && result && result.event === 'success') {
-        showToastSuccess('Image uploaded successfully!');
+        showSuccess('Image uploaded successfully!');
         // Reload media library
         loadMedia();
       }
       if (error) {
-        showToastError('Upload failed: ' + error.message);
+        showError('Upload failed: ' + error.message);
       }
     });
   }
@@ -2236,7 +2235,7 @@ async function loadPages() {
 
     renderPagesList();
   } catch (error) {
-    showToastError('Failed to load pages: ' + error.message);
+    showError('Failed to load pages: ' + error.message);
   } finally {
     document.getElementById('pages-loading').classList.add('hidden');
   }
@@ -2380,7 +2379,7 @@ async function editPage(filename, updateUrl = true) {
     // Add change listeners to form inputs
     setupPageFormChangeListeners();
   } catch (error) {
-    showToastError('Failed to load page: ' + error.message);
+    showError('Failed to load page: ' + error.message);
   }
 }
 
@@ -2497,7 +2496,7 @@ async function savePage(event) {
         trackDeployment(data.commitSha, `Update page: ${title}`, currentPage_pages.path.replace('_pages/', ''));
       }
 
-      showToastSuccess('Page updated successfully!');
+      showSuccess('Page updated successfully!');
     } else {
       // Create new page
       const filename = generatePageFilename(title);
@@ -2522,7 +2521,7 @@ async function savePage(event) {
         trackDeployment(data.commitSha, `Create page: ${title}`, filename);
       }
 
-      showToastSuccess('Page created successfully!');
+      showSuccess('Page created successfully!');
     }
 
     // Clear dirty flag after successful save
@@ -2532,7 +2531,7 @@ async function savePage(event) {
     await loadPages();
     showPagesList();
   } catch (error) {
-    showToastError('Failed to save page: ' + error.message);
+    showError('Failed to save page: ' + error.message);
   } finally {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Page';
@@ -2570,11 +2569,11 @@ async function deletePage() {
       trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
     }
 
-    showToastSuccess('Page moved to trash successfully!');
+    showSuccess('Page moved to trash successfully!');
     await loadPages();
     showPagesList();
   } catch (error) {
-    showToastError('Failed to move page to trash: ' + error.message);
+    showError('Failed to move page to trash: ' + error.message);
   }
 }
 
@@ -2607,7 +2606,7 @@ async function deletePageFromList(filename, sha) {
       trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
     }
 
-    showToastSuccess('Page moved to trash successfully!');
+    showSuccess('Page moved to trash successfully!');
 
     // Remove from local array
     allPages = allPages.filter(p => p.name !== filename);
@@ -2615,7 +2614,7 @@ async function deletePageFromList(filename, sha) {
     // Re-render the list
     renderPagesList();
   } catch (error) {
-    showToastError('Failed to move page to trash: ' + error.message);
+    showError('Failed to move page to trash: ' + error.message);
   }
 }
 
@@ -2631,8 +2630,7 @@ function generatePageFilename(title) {
 
 const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
 
-// Track which deployments we've already shown toasts for (to avoid duplicates)
-let notifiedDeployments = new Set();
+// Track deployments for history
 
 // Load deployment history from localStorage
 function loadDeploymentHistory() {
@@ -3084,284 +3082,6 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// ===== TOAST NOTIFICATION SYSTEM =====
-
-// Feature flag: Set to false to rollback to old alert system
-const USE_TOAST_NOTIFICATIONS = false;
-
-let toastContainer = null;
-let toastIdCounter = 0;
-
-// Persistent toast storage (for deployment toasts that survive page refresh)
-const PERSISTENT_TOASTS_KEY = 'persistentToasts';
-
-function loadPersistentToasts() {
-  try {
-    const stored = localStorage.getItem(PERSISTENT_TOASTS_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch (error) {
-    console.error('Failed to load persistent toasts:', error);
-    return [];
-  }
-}
-
-function savePersistentToasts(toasts) {
-  try {
-    localStorage.setItem(PERSISTENT_TOASTS_KEY, JSON.stringify(toasts));
-  } catch (error) {
-    console.error('Failed to save persistent toasts:', error);
-  }
-}
-
-function addPersistentToast(toastId, message, type, commitSha) {
-  const toasts = loadPersistentToasts();
-  toasts.push({ id: toastId, message, type, commitSha, createdAt: new Date().toISOString() });
-  savePersistentToasts(toasts);
-}
-
-function removePersistentToast(toastId) {
-  const toasts = loadPersistentToasts();
-  const filtered = toasts.filter(t => t.id !== toastId);
-  savePersistentToasts(filtered);
-}
-
-// Initialize toast container
-function initToastContainer() {
-  if (!toastContainer) {
-    toastContainer = document.createElement('div');
-    toastContainer.id = 'toast-container';
-    toastContainer.className = 'fixed top-4 right-4 z-[9999] flex flex-col gap-2 max-w-sm';
-    toastContainer.style.cssText = 'pointer-events: none;';
-    document.body.appendChild(toastContainer);
-  }
-  return toastContainer;
-}
-
-// Show toast notification
-// persistent: if true, toast persists across page refreshes (for deployments)
-// commitSha: optional, links persistent toast to a specific deployment
-function showToast(message, type = 'info', duration = 5000, persistent = false, commitSha = null) {
-  console.log('showToast called:', { message, type, duration, persistent, commitSha });
-
-  const container = initToastContainer();
-  const toastId = `toast-${toastIdCounter++}`;
-
-  // Toast color schemes
-  const schemes = {
-    success: { bg: 'bg-green-600', icon: 'fa-check-circle', hoverBg: 'hover:bg-green-700' },
-    error: { bg: 'bg-red-600', icon: 'fa-exclamation-circle', hoverBg: 'hover:bg-red-700' },
-    warning: { bg: 'bg-yellow-600', icon: 'fa-exclamation-triangle', hoverBg: 'hover:bg-yellow-700' },
-    info: { bg: 'bg-blue-600', icon: 'fa-info-circle', hoverBg: 'hover:bg-blue-700' }
-  };
-
-  const scheme = schemes[type] || schemes.info;
-
-  const toast = document.createElement('div');
-  toast.id = toastId;
-  toast.className = `${scheme.bg} text-white px-3 py-2 rounded-md shadow-lg flex items-center gap-2 transform transition-all duration-300 translate-x-full opacity-0`;
-  toast.style.cssText = 'pointer-events: auto; min-width: 250px;';
-
-  // Add close button only for non-persistent toasts or completed deployment toasts
-  const closeButton = persistent && type !== 'success' && type !== 'error'
-    ? ''
-    : `<button onclick="closeToast('${toastId}')" class="ml-1 ${scheme.hoverBg} rounded p-0.5 transition flex-shrink-0 opacity-70 hover:opacity-100" title="Dismiss">
-         <i class="fas fa-times text-xs"></i>
-       </button>`;
-
-  toast.innerHTML = `
-    <i class="fas ${scheme.icon} flex-shrink-0"></i>
-    <div class="flex-1 text-sm">${escapeHtml(message)}</div>
-    ${closeButton}
-  `;
-
-  container.appendChild(toast);
-
-  // Animate in
-  setTimeout(() => {
-    toast.classList.remove('translate-x-full', 'opacity-0');
-  }, 10);
-
-  // Store persistent toast in localStorage
-  if (persistent && commitSha) {
-    addPersistentToast(toastId, message, type, commitSha);
-  }
-
-  // Auto-dismiss after duration (only for non-persistent toasts or completed deployments)
-  if (duration > 0 && (!persistent || type === 'success' || type === 'error')) {
-    setTimeout(() => {
-      closeToast(toastId);
-    }, duration);
-  }
-
-  return toastId;
-}
-
-// Close specific toast (exposed globally for onclick handler)
-window.closeToast = function(toastId) {
-  const toast = document.getElementById(toastId);
-  if (toast) {
-    toast.classList.add('translate-x-full', 'opacity-0');
-    setTimeout(() => {
-      toast.remove();
-      // Remove from persistent storage if it exists
-      removePersistentToast(toastId);
-      // Clean up container if empty
-      if (toastContainer && toastContainer.children.length === 0) {
-        toastContainer.remove();
-        toastContainer = null;
-      }
-    }, 300);
-  }
-}
-
-// Restore persistent toasts on page load
-async function restorePersistentToasts() {
-  if (!USE_TOAST_NOTIFICATIONS) return; // Feature disabled
-
-  const persistentToasts = loadPersistentToasts();
-
-  if (persistentToasts.length === 0) return;
-
-  // Fetch current deployment status from GitHub Actions
-  const githubDeployments = await fetchRecentDeploymentsFromGitHub();
-  const toastsToKeep = [];
-
-  for (const toastData of persistentToasts) {
-    // Find the current status of this deployment
-    const deployment = githubDeployments.find(d => d.commitSha === toastData.commitSha);
-
-    if (deployment) {
-      const status = deployment.status;
-      const now = new Date();
-      const createdAt = new Date(toastData.createdAt);
-      const minutesSinceCreation = (now - createdAt) / 1000 / 60;
-
-      // Don't restore toasts older than 15 minutes
-      if (minutesSinceCreation > 15) {
-        continue;
-      }
-
-      // Restore based on current deployment status
-      if (status === 'pending' || status === 'queued' || status === 'in_progress') {
-        // Still in progress - restore the in-progress toast
-        showToast(toastData.message, 'info', 0, false, toastData.commitSha); // Don't re-save to localStorage
-        toastsToKeep.push(toastData);
-      } else if (status === 'completed' && toastData.type === 'success') {
-        // Completed - show success toast briefly if it's recent
-        if (minutesSinceCreation < 2) {
-          showToast('Changes published successfully! Site is now live.', 'success', 10000, false, toastData.commitSha);
-        }
-        // Don't keep in persistent storage
-      } else if (status === 'failed' && toastData.type === 'error') {
-        // Failed - show error toast briefly if it's recent
-        if (minutesSinceCreation < 2) {
-          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 10000, false, toastData.commitSha);
-        }
-        // Don't keep in persistent storage
-      }
-    } else {
-      // Deployment not found - might be too old, don't restore
-      console.log('Deployment not found for toast:', toastData.commitSha);
-    }
-  }
-
-  // Update localStorage with only the toasts we kept (in-progress ones)
-  savePersistentToasts(toastsToKeep);
-}
-
-// Unified message functions with feature flag for easy rollback
-function showToastSuccess(message) {
-  if (USE_TOAST_NOTIFICATIONS) {
-    return showToast(message, 'success', 5000);
-  } else {
-    // Fallback to old DOM-based success message
-    showSuccess(message);
-  }
-}
-
-function showToastError(message) {
-  if (USE_TOAST_NOTIFICATIONS) {
-    return showToast(message, 'error', 7000);
-  } else {
-    // Fallback to old DOM-based error message
-    showError(message);
-  }
-}
-
-function showToastWarning(message) {
-  if (USE_TOAST_NOTIFICATIONS) {
-    return showToast(message, 'warning', 6000);
-  } else {
-    // Fallback to old DOM-based error message (no separate warning in old system)
-    showError(message);
-  }
-}
-
-function showToastInfo(message) {
-  if (USE_TOAST_NOTIFICATIONS) {
-    return showToast(message, 'info', 5000);
-  } else {
-    // Fallback to old DOM-based success message
-    showSuccess(message);
-  }
-}
-
-// Check for new general deployments (code pushes) and show persistent toasts
-async function checkForNewGeneralDeployments() {
-  if (!USE_TOAST_NOTIFICATIONS) return; // Feature disabled
-
-  try {
-    const githubDeployments = await fetchRecentDeploymentsFromGitHub();
-    const persistentToasts = loadPersistentToasts();
-
-    // Check all recent deployments for status changes
-    for (const deployment of githubDeployments) {
-      const commitSha = deployment.commitSha;
-      const status = deployment.status;
-
-      // Check if this is a general deployment (not from our active deployments tracking)
-      const isTrackedDeployment = activeDeployments.some(d => d.commitSha === commitSha);
-      if (isTrackedDeployment) continue; // Skip admin-triggered deployments
-
-      // Check if we have a persistent toast for this deployment
-      const existingToast = persistentToasts.find(t => t.commitSha === commitSha);
-
-      if (existingToast) {
-        // Update existing persistent toast if status changed to completed/failed
-        if ((status === 'completed' || status === 'failed') && existingToast.type === 'info') {
-          // Close the old in-progress toast using the stored ID
-          closeToast(existingToast.id);
-
-          // Show completion toast (NOT persistent since it auto-dismisses)
-          const message = status === 'completed'
-            ? 'Changes published successfully! Site is now live.'
-            : 'Deployment failed. Please check GitHub Actions for details.';
-          const type = status === 'completed' ? 'success' : 'error';
-
-          showToast(message, type, 15000, false, null); // Not persistent
-        }
-      } else if (!notifiedDeployments.has(commitSha)) {
-        // New deployment - show toast based on status
-        if (status === 'pending' || status === 'queued' || status === 'in_progress') {
-          // Deployment starting - show persistent in-progress toast
-          showToast(`Deploying changes: ${deployment.action}`, 'info', 0, true, commitSha);
-          notifiedDeployments.add(commitSha);
-        } else if (status === 'completed') {
-          // Deployment already completed - show success toast (not persistent)
-          showToast('Changes published successfully! Site is now live.', 'success', 15000, false, null);
-          notifiedDeployments.add(commitSha);
-        } else if (status === 'failed') {
-          // Deployment failed - show error toast (not persistent)
-          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, false, null);
-          notifiedDeployments.add(commitSha);
-        }
-      }
-    }
-  } catch (error) {
-    console.error('Failed to check for new general deployments:', error);
-  }
-}
-
 // Start background polling for deployment history (slower refresh for all deployments)
 let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
@@ -3420,7 +3140,7 @@ function startDeploymentPolling() {
       const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
       if (elapsed > 600) {
         activeDeployments.splice(i, 1);
-        showToastInfo('Deployment timeout reached. Changes should be live now.');
+        showSuccess('Deployment timeout reached. Changes should be live now.');
 
         if (activeDeployments.length === 0) {
           hideDeploymentBanner();
@@ -3444,7 +3164,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          showToastSuccess('Changes published successfully! Site is now live.');
+          showSuccess('Changes published successfully! Site is now live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3455,7 +3175,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          showToastError('Deployment failed. Please check GitHub Actions for details.');
+          showError('Deployment failed. Please check GitHub Actions for details.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3466,7 +3186,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          showToastWarning('Deployment was cancelled. Changes may not be live.');
+          showError('Deployment was cancelled. Changes may not be live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3477,7 +3197,7 @@ function startDeploymentPolling() {
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
 
-          showToastInfo('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
+          showSuccess('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3526,7 +3246,7 @@ async function restoreItemWithTracking(filename, sha, type) {
       trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
     }
 
-    showToastSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
     // Remove from local array
     allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
@@ -3541,7 +3261,7 @@ async function restoreItemWithTracking(filename, sha, type) {
       await loadPages();
     }
   } catch (error) {
-    showToastError(`Failed to restore ${itemType}: ` + error.message);
+    showError(`Failed to restore ${itemType}: ` + error.message);
   }
 }
 
