@@ -132,6 +132,9 @@ exports.handler = async (event, context) => {
           } else if (workflowRun.conclusion === 'cancelled') {
             deploymentStatus = 'cancelled';
             message = 'Deployment cancelled';
+          } else if (workflowRun.conclusion === 'skipped') {
+            deploymentStatus = 'skipped';
+            message = 'Deployment skipped (superseded by newer commit)';
           } else {
             deploymentStatus = 'completed';
             message = `Deployment completed with status: ${workflowRun.conclusion}`;

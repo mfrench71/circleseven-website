@@ -2716,7 +2716,8 @@ function updateDashboardDeployments() {
     in_progress: [],
     completed: [],
     failed: [],
-    cancelled: []
+    cancelled: [],
+    skipped: []
   };
 
   activeDeployments.forEach(dep => {
@@ -2960,6 +2961,15 @@ function startDeploymentPolling() {
           // Deployment cancelled
           activeDeployments.splice(i, 1);
           showToastWarning('Deployment was cancelled. Changes may not be live.');
+          updateDashboardDeployments();
+
+          if (activeDeployments.length === 0) {
+            hideDeploymentBanner();
+          }
+        } else if (data.status === 'skipped') {
+          // Deployment skipped (superseded by newer commit)
+          activeDeployments.splice(i, 1);
+          showToastInfo('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
