@@ -149,6 +149,11 @@ export function addToDeploymentHistory(deployment) {
  */
 export async function restoreActiveDeployments() {
   try {
+    // Initialize array if not exists
+    if (!window.activeDeployments) {
+      window.activeDeployments = [];
+    }
+
     const githubDeployments = await fetchRecentDeploymentsFromGitHub();
 
     // Find any in-progress deployments
@@ -191,6 +196,11 @@ export async function restoreActiveDeployments() {
 export function trackDeployment(commitSha, action, itemId = null) {
   if (!commitSha) return;
 
+  // Initialize array if not exists
+  if (!window.activeDeployments) {
+    window.activeDeployments = [];
+  }
+
   window.activeDeployments.push({
     commitSha,
     action,
@@ -229,7 +239,7 @@ export function updateDeploymentBanner() {
   const messageEl = document.getElementById('deployment-status-message');
   const timeEl = document.getElementById('deployment-status-time');
 
-  if (window.activeDeployments.length === 0) return;
+  if (!window.activeDeployments || window.activeDeployments.length === 0) return;
 
   const oldest = window.activeDeployments[0];
   const elapsed = Math.floor((new Date() - oldest.startedAt) / 1000);
@@ -374,6 +384,11 @@ export async function updateDashboardDeployments() {
   // Get deployment history
   const history = await getDeploymentHistory();
   const recentHistory = history.slice(0, 10); // Show last 10
+
+  // Initialize array if not exists
+  if (!window.activeDeployments) {
+    window.activeDeployments = [];
+  }
 
   // Get commit SHAs of active deployments to avoid duplicates
   const activeShas = new Set(window.activeDeployments.map(d => d.commitSha));
@@ -668,6 +683,11 @@ export function startDeploymentHistoryPolling() {
   // Poll every 10 seconds to refresh history (includes code pushes, not just admin changes)
   // More frequent polling ensures users see deployment status updates quickly
   window.historyPollInterval = setInterval(async () => {
+    // Initialize array if not exists
+    if (!window.activeDeployments) {
+      window.activeDeployments = [];
+    }
+
     // Check for new in-progress deployments from GitHub and add to tracking
     try {
       const githubDeployments = await fetchRecentDeploymentsFromGitHub();
@@ -724,8 +744,8 @@ export function startDeploymentPolling() {
 
   window.deploymentPollInterval = setInterval(async () => {
     try {
-      // Always poll, even if no active deployments, to catch external deployments
-      if (window.activeDeployments.length === 0) {
+      // Defensive check: ensure activeDeployments array exists
+      if (!window.activeDeployments || window.activeDeployments.length === 0) {
         hideDeploymentBanner();
         return;
       }

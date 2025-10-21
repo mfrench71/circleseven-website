@@ -72,6 +72,16 @@ const DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
 const FETCH_TIMEOUT = 30000; // 30 seconds
 const DEBOUNCE_DELAY = 300; // milliseconds
 
+// Expose constants for ES6 modules
+window.DEPLOYMENT_STATUS_POLL_INTERVAL = DEPLOYMENT_STATUS_POLL_INTERVAL;
+window.DEPLOYMENT_HISTORY_POLL_INTERVAL = DEPLOYMENT_HISTORY_POLL_INTERVAL;
+window.DEPLOYMENT_TIMEOUT = DEPLOYMENT_TIMEOUT;
+
+// Initialize and expose deployment state for ES6 modules
+window.activeDeployments = activeDeployments;
+window.deploymentPollInterval = deploymentPollInterval;
+window.historyPollInterval = historyPollInterval;
+
 /**
  * Creates a debounced function that delays execution until after wait milliseconds
  *
