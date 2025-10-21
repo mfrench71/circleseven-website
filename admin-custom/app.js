@@ -2644,13 +2644,15 @@ function showDeploymentBanner() {
     // Create banner if it doesn't exist
     banner = document.createElement('div');
     banner.id = 'deployment-banner';
-    banner.className = 'fixed top-0 left-0 right-0 bg-blue-600 text-white px-4 py-3 shadow-md z-50 flex items-center justify-center gap-2';
+    banner.className = 'fixed bottom-4 right-4 bg-teal-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-3 max-w-md';
     banner.innerHTML = `
-      <i class="fas fa-spinner fa-spin"></i>
-      <span id="deployment-message">Publishing changes to GitHub Pages...</span>
-      <span id="deployment-time" class="text-xs opacity-80"></span>
+      <i class="fas fa-spinner fa-spin text-lg"></i>
+      <div class="flex-1">
+        <div id="deployment-message" class="font-medium">Publishing changes to GitHub Pages...</div>
+        <div id="deployment-time" class="text-xs opacity-90 mt-1"></div>
+      </div>
     `;
-    document.body.prepend(banner);
+    document.body.appendChild(banner);
   }
 
   banner.classList.remove('hidden');
@@ -2777,6 +2779,123 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+// ===== TOAST NOTIFICATION SYSTEM =====
+
+// Feature flag: Set to false to rollback to old alert system
+const USE_TOAST_NOTIFICATIONS = true;
+
+let toastContainer = null;
+let toastIdCounter = 0;
+
+// Initialize toast container
+function initToastContainer() {
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.className = 'fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 max-w-md';
+    toastContainer.style.cssText = 'pointer-events: none;';
+    document.body.appendChild(toastContainer);
+  }
+  return toastContainer;
+}
+
+// Show toast notification
+function showToast(message, type = 'info', duration = 5000) {
+  const container = initToastContainer();
+  const toastId = `toast-${toastIdCounter++}`;
+
+  // Toast color schemes
+  const schemes = {
+    success: { bg: 'bg-green-600', icon: 'fa-check-circle', hoverBg: 'hover:bg-green-700' },
+    error: { bg: 'bg-red-600', icon: 'fa-exclamation-circle', hoverBg: 'hover:bg-red-700' },
+    warning: { bg: 'bg-yellow-600', icon: 'fa-exclamation-triangle', hoverBg: 'hover:bg-yellow-700' },
+    info: { bg: 'bg-blue-600', icon: 'fa-info-circle', hoverBg: 'hover:bg-blue-700' }
+  };
+
+  const scheme = schemes[type] || schemes.info;
+
+  const toast = document.createElement('div');
+  toast.id = toastId;
+  toast.className = `${scheme.bg} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform transition-all duration-300 translate-x-full opacity-0`;
+  toast.style.cssText = 'pointer-events: auto;';
+  toast.innerHTML = `
+    <i class="fas ${scheme.icon} text-lg flex-shrink-0"></i>
+    <div class="flex-1 text-sm font-medium">${escapeHtml(message)}</div>
+    <button onclick="closeToast('${toastId}')" class="ml-2 ${scheme.hoverBg} rounded p-1 transition flex-shrink-0" title="Dismiss">
+      <i class="fas fa-times text-sm"></i>
+    </button>
+  `;
+
+  container.appendChild(toast);
+
+  // Animate in
+  setTimeout(() => {
+    toast.classList.remove('translate-x-full', 'opacity-0');
+  }, 10);
+
+  // Auto-dismiss after duration
+  if (duration > 0) {
+    setTimeout(() => {
+      closeToast(toastId);
+    }, duration);
+  }
+
+  return toastId;
+}
+
+// Close specific toast
+function closeToast(toastId) {
+  const toast = document.getElementById(toastId);
+  if (toast) {
+    toast.classList.add('translate-x-full', 'opacity-0');
+    setTimeout(() => {
+      toast.remove();
+      // Clean up container if empty
+      if (toastContainer && toastContainer.children.length === 0) {
+        toastContainer.remove();
+        toastContainer = null;
+      }
+    }, 300);
+  }
+}
+
+// Unified message functions with feature flag for easy rollback
+function showToastSuccess(message) {
+  if (USE_TOAST_NOTIFICATIONS) {
+    return showToast(message, 'success', 5000);
+  } else {
+    // Fallback to old DOM-based success message
+    showSuccess(message);
+  }
+}
+
+function showToastError(message) {
+  if (USE_TOAST_NOTIFICATIONS) {
+    return showToast(message, 'error', 7000);
+  } else {
+    // Fallback to old DOM-based error message
+    showError(message);
+  }
+}
+
+function showToastWarning(message) {
+  if (USE_TOAST_NOTIFICATIONS) {
+    return showToast(message, 'warning', 6000);
+  } else {
+    // Fallback to old DOM-based error message (no separate warning in old system)
+    showError(message);
+  }
+}
+
+function showToastInfo(message) {
+  if (USE_TOAST_NOTIFICATIONS) {
+    return showToast(message, 'info', 5000);
+  } else {
+    // Fallback to old DOM-based success message
+    showSuccess(message);
+  }
+}
+
 // Start polling deployment status
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
@@ -2822,7 +2941,7 @@ function startDeploymentPolling() {
         if (data.status === 'completed') {
           // Deployment successful
           activeDeployments.splice(i, 1);
-          showSuccess('Changes published successfully! Site is now live.');
+          showToastSuccess('Changes published successfully! Site is now live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -2831,7 +2950,7 @@ function startDeploymentPolling() {
         } else if (data.status === 'failed') {
           // Deployment failed
           activeDeployments.splice(i, 1);
-          showError('Deployment failed. Please check GitHub Actions for details.');
+          showToastError('Deployment failed. Please check GitHub Actions for details.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -2840,7 +2959,7 @@ function startDeploymentPolling() {
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
           activeDeployments.splice(i, 1);
-          showError('Deployment was cancelled. Changes may not be live.');
+          showToastWarning('Deployment was cancelled. Changes may not be live.');
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
