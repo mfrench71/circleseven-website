@@ -2419,9 +2419,6 @@ function slugifyPermalink(text) {
     + '/';
 }
 
-// Track if permalink was manually edited
-let permalinkManuallyEdited = false;
-
 // Auto-populate permalink from title
 /**
  * Auto-populates permalink field from page title
