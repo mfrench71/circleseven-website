@@ -56,6 +56,16 @@ jobs:
         run: |
           find _site/assets/js -name "*.js" -type f ! -name "*.min.js" -exec sh -c 'terser "$0" -o "${0%.js}.min.js" -c -m && mv "${0%.js}.min.js" "$0"' {} \;
 
+      - name: Add cache busting to JavaScript files
+        run: |
+          # Get short commit SHA for cache busting
+          CACHE_VERSION=$(git rev-parse --short HEAD)
+          echo "Using cache version: $CACHE_VERSION"
+
+          # Replace version parameter in HTML files with commit SHA
+          find _site -name "*.html" -type f -exec sed -i "s/app\.js?v=[0-9]\+/app.js?v=$CACHE_VERSION/g" {} \;
+          find _site -name "*.html" -type f -exec sed -i "s/styles\.css?v=[0-9]\+/styles.css?v=$CACHE_VERSION/g" {} \;
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
