@@ -728,7 +728,7 @@ async function handleRouteChange() {
 
   if (pathParts.length >= 2 && pathParts[0] === 'admin-custom') {
     const requestedSection = pathParts[1];
-    const validSections = ['dashboard', 'taxonomy', 'posts', 'media', 'trash', 'settings'];
+    const validSections = ['dashboard', 'taxonomy', 'posts', 'pages', 'media', 'trash', 'settings'];
     if (validSections.includes(requestedSection)) {
       section = requestedSection;
     }
@@ -755,6 +755,20 @@ async function handleRouteChange() {
     if (page > 0) {
       currentPage = page;
       renderPostsList();
+    }
+  }
+
+  // Handle pages section sub-routes
+  if (section === 'pages' && pathParts.length >= 3) {
+    if (pathParts[2] === 'new') {
+      // /admin-custom/pages/new
+      showNewPageForm(false); // Don't update URL, we're already there
+    } else if (pathParts[2] === 'edit' && pathParts.length >= 4) {
+      // /admin-custom/pages/edit/filename
+      const filename = decodeURIComponent(pathParts.slice(3).join('/'));
+      if (filename) {
+        editPage(filename, false); // Don't update URL, we're already there
+      }
     }
   }
 }
@@ -1894,6 +1908,8 @@ switchSection = async function(sectionName, updateUrl = true) {
     if (allPosts.length === 0) {
       await loadPosts();
     }
+  } else if (sectionName === 'pages' && allPages.length === 0) {
+    await loadPages();
   } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
     await loadTrash();
   } else if (sectionName === 'media' && allMedia.length === 0) {
@@ -2104,4 +2120,391 @@ function openCloudinaryUpload() {
   }
 
   cloudinaryUploadWidget.open();
+}
+
+// ===== PAGES MANAGEMENT =====
+
+let allPages = [];
+let currentPage_pages = null; // Note: Different from currentPage (posts pagination)
+let pageMarkdownEditor = null; // Separate markdown editor for pages
+let pageHasUnsavedChanges = false; // Track unsaved changes in page editor
+
+// Load pages list with metadata
+async function loadPages() {
+  try {
+    const response = await fetch(`${API_BASE}/pages?metadata=true`);
+    if (!response.ok) throw new Error('Failed to load pages');
+
+    const data = await response.json();
+    allPages = data.pages || [];
+
+    renderPagesList();
+  } catch (error) {
+    showError('Failed to load pages: ' + error.message);
+  } finally {
+    document.getElementById('pages-loading').classList.add('hidden');
+  }
+}
+
+// Render pages list
+function renderPagesList() {
+  const tbody = document.getElementById('pages-table-body');
+  const emptyEl = document.getElementById('pages-empty');
+  const search = document.getElementById('pages-search')?.value.toLowerCase() || '';
+
+  // Filter pages by search term
+  let filtered = allPages.filter(page => {
+    const title = (page.frontmatter?.title || '').toLowerCase();
+    const filename = page.name.toLowerCase();
+    return title.includes(search) || filename.includes(search);
+  });
+
+  // Show/hide empty state
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    emptyEl.classList.remove('hidden');
+    return;
+  }
+
+  emptyEl.classList.add('hidden');
+
+  // Render table rows
+  tbody.innerHTML = filtered.map((page, index) => {
+    const title = page.frontmatter?.title || page.name;
+    const permalink = page.frontmatter?.permalink || '-';
+
+    return `
+      <tr class="hover:bg-gray-50 cursor-pointer" onclick="editPage('${escapeHtml(page.name)}')">
+        <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
+        <td class="px-4 py-3">
+          <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
+          <div class="text-xs text-gray-500">${escapeHtml(page.name)}</div>
+        </td>
+        <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
+        <td class="px-4 py-3 text-right whitespace-nowrap">
+          <button
+            onclick="event.stopPropagation(); editPage('${escapeHtml(page.name)}')"
+            class="text-teal-600 hover:text-teal-700 mr-2"
+            title="Edit"
+          >
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </button>
+          <button
+            onclick="event.stopPropagation(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')"
+            class="text-gray-500 hover:text-red-600"
+            title="Delete"
+          >
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// Filter pages (debounced version)
+function filterPages() {
+  renderPagesList();
+}
+
+const debouncedFilterPages = debounce(filterPages, 300);
+
+// Initialize page markdown editor
+function initPageMarkdownEditor() {
+  if (!pageMarkdownEditor) {
+    pageMarkdownEditor = new EasyMDE({
+      element: document.getElementById('page-content'),
+      spellChecker: false,
+      autosave: {
+        enabled: false
+      },
+      toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'],
+      status: ['lines', 'words', 'cursor']
+    });
+
+    // Track changes in markdown editor
+    pageMarkdownEditor.codemirror.on('change', () => {
+      pageHasUnsavedChanges = true;
+    });
+  }
+}
+
+// Mark page as having unsaved changes
+function markPageDirty() {
+  pageHasUnsavedChanges = true;
+}
+
+// Clear page dirty flag
+function clearPageDirty() {
+  pageHasUnsavedChanges = false;
+}
+
+// Edit page
+async function editPage(filename, updateUrl = true) {
+  try {
+    // Clear any existing page data first to prevent stale state
+    currentPage_pages = null;
+    clearPageDirty();
+
+    const response = await fetch(`${API_BASE}/pages?path=${encodeURIComponent(filename)}`);
+    if (!response.ok) throw new Error('Failed to load page');
+
+    currentPage_pages = await response.json();
+
+    // Update URL to reflect editing state
+    if (updateUrl) {
+      const editUrl = `/admin-custom/pages/edit/${encodeURIComponent(filename)}`;
+      window.history.pushState({ section: 'pages', editing: filename }, '', editUrl);
+    }
+
+    // Populate form
+    document.getElementById('page-title').value = currentPage_pages.frontmatter.title || '';
+    document.getElementById('page-permalink').value = currentPage_pages.frontmatter.permalink || '';
+    document.getElementById('page-layout').value = currentPage_pages.frontmatter.layout || 'page';
+
+    // Initialize markdown editor if needed
+    if (!pageMarkdownEditor) {
+      initPageMarkdownEditor();
+    }
+    pageMarkdownEditor.value(currentPage_pages.body || '');
+
+    // Show editor
+    document.getElementById('pages-list-view').classList.add('hidden');
+    document.getElementById('pages-editor-view').classList.remove('hidden');
+    document.getElementById('page-editor-title').textContent = `Edit: ${filename}`;
+    document.getElementById('delete-page-btn').style.display = 'block';
+
+    // Clear dirty flag when loading page
+    clearPageDirty();
+
+    // Add change listeners to form inputs
+    setupPageFormChangeListeners();
+  } catch (error) {
+    showError('Failed to load page: ' + error.message);
+  }
+}
+
+// Show new page form
+function showNewPageForm(updateUrl = true) {
+  currentPage_pages = null;
+
+  // Update URL
+  if (updateUrl) {
+    window.history.pushState({ section: 'pages', editing: 'new' }, '', '/admin-custom/pages/new');
+  }
+
+  // Clear form
+  document.getElementById('page-title').value = '';
+  document.getElementById('page-permalink').value = '';
+  document.getElementById('page-layout').value = 'page';
+
+  // Initialize markdown editor if needed
+  if (!pageMarkdownEditor) {
+    initPageMarkdownEditor();
+  }
+  pageMarkdownEditor.value('');
+
+  // Show editor
+  document.getElementById('pages-list-view').classList.add('hidden');
+  document.getElementById('pages-editor-view').classList.remove('hidden');
+  document.getElementById('page-editor-title').textContent = 'New Page';
+  document.getElementById('delete-page-btn').style.display = 'none';
+
+  // Clear dirty flag for new page
+  clearPageDirty();
+
+  // Add change listeners to form inputs
+  setupPageFormChangeListeners();
+}
+
+// Setup change listeners for page form
+function setupPageFormChangeListeners() {
+  // Only setup once
+  if (window._pageFormListenersSetup) return;
+  window._pageFormListenersSetup = true;
+
+  const formInputs = [
+    'page-title',
+    'page-permalink',
+    'page-layout'
+  ];
+
+  formInputs.forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+      input.addEventListener('input', markPageDirty);
+    }
+  });
+}
+
+// Show pages list
+async function showPagesList() {
+  // Check for unsaved changes
+  if (pageHasUnsavedChanges) {
+    const confirmed = await showConfirm('You have unsaved changes. Are you sure you want to leave this page?');
+    if (!confirmed) return;
+  }
+
+  // Update URL to pages list
+  window.history.pushState({ section: 'pages' }, '', '/admin-custom/pages');
+
+  document.getElementById('pages-editor-view').classList.add('hidden');
+  document.getElementById('pages-list-view').classList.remove('hidden');
+  currentPage_pages = null;
+  clearPageDirty();
+}
+
+// Save page
+async function savePage(event) {
+  event.preventDefault();
+
+  const saveBtn = document.getElementById('save-page-btn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = 'Saving...';
+
+  try {
+    const title = document.getElementById('page-title').value;
+    const permalink = document.getElementById('page-permalink').value;
+    const layout = document.getElementById('page-layout').value;
+    const content = pageMarkdownEditor ? pageMarkdownEditor.value() : document.getElementById('page-content').value;
+
+    const frontmatter = {
+      layout,
+      title,
+      permalink
+    };
+
+    if (currentPage_pages) {
+      // Update existing page
+      const response = await fetch(`${API_BASE}/pages`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: currentPage_pages.path.replace('_pages/', ''),
+          frontmatter,
+          body: content,
+          sha: currentPage_pages.sha
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to save page');
+      }
+
+      showSuccess('Page updated successfully!');
+    } else {
+      // Create new page
+      const filename = generatePageFilename(title);
+
+      const response = await fetch(`${API_BASE}/pages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename,
+          frontmatter,
+          body: content
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to create page');
+      }
+
+      showSuccess('Page created successfully!');
+    }
+
+    // Clear dirty flag after successful save
+    clearPageDirty();
+
+    // Reload pages and go back to list
+    await loadPages();
+    showPagesList();
+  } catch (error) {
+    showError('Failed to save page: ' + error.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = 'Save Page';
+  }
+}
+
+// Delete page (from editor view)
+async function deletePage() {
+  if (!currentPage_pages) return;
+
+  const title = currentPage_pages.frontmatter?.title || currentPage_pages.path;
+  const confirmed = await showConfirm(`Delete "${title}"? This cannot be undone.`);
+  if (!confirmed) return;
+
+  try {
+    const filename = currentPage_pages.path.replace('_pages/', '');
+
+    const response = await fetch(`${API_BASE}/pages`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: filename,
+        sha: currentPage_pages.sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete page');
+    }
+
+    showSuccess('Page deleted successfully!');
+    await loadPages();
+    showPagesList();
+  } catch (error) {
+    showError('Failed to delete page: ' + error.message);
+  }
+}
+
+// Delete page from list view
+async function deletePageFromList(filename, sha) {
+  const page = allPages.find(p => p.name === filename);
+  const title = page?.frontmatter?.title || filename;
+
+  const confirmed = await showConfirm(`Delete "${title}"? This cannot be undone.`);
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/pages`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: filename,
+        sha: sha
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to delete page');
+    }
+
+    showSuccess('Page deleted successfully!');
+
+    // Remove from local array
+    allPages = allPages.filter(p => p.name !== filename);
+
+    // Re-render the list
+    renderPagesList();
+  } catch (error) {
+    showError('Failed to delete page: ' + error.message);
+  }
+}
+
+// Helper: Generate filename for new page
+function generatePageFilename(title) {
+  const slug = title.toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return `${slug}.md`;
 }

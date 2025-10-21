@@ -48,9 +48,10 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
-  // Skip cross-origin requests and API calls
+  // Skip cross-origin requests, API calls, and non-GET requests
   if (!event.request.url.startsWith(self.location.origin) ||
-      event.request.url.includes('/.netlify/functions/')) {
+      event.request.url.includes('/.netlify/functions/') ||
+      event.request.method !== 'GET') {
     return;
   }
 
