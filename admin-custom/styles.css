@@ -816,3 +816,166 @@ img[loading="lazy"] {
 
 /* Additional text colors */
 .text-gray-300 { color: #d1d5db; }
+
+/* ============================================
+   STANDARDIZED BUTTON SYSTEM
+   Consistent styling, sizing, and behavior
+   ============================================ */
+
+/* Base button styles */
+button, .btn {
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* PRIMARY BUTTONS (Teal) */
+.btn-primary-lg {
+  background-color: var(--color-teal-600);
+  color: var(--color-white);
+  padding: 0.75rem 2rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 150ms;
+}
+.btn-primary-lg:hover:not(:disabled) {
+  background-color: var(--color-teal-700);
+}
+
+.btn-primary {
+  background-color: var(--color-teal-600);
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 150ms;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-teal-700);
+}
+
+.btn-primary-sm {
+  background-color: var(--color-teal-600);
+  color: var(--color-white);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-radius: 0.375rem;
+  transition: all 150ms;
+}
+.btn-primary-sm:hover:not(:disabled) {
+  background-color: var(--color-teal-700);
+}
+
+/* DESTRUCTIVE BUTTONS (Red) */
+.btn-danger-lg {
+  background-color: var(--color-red-600);
+  color: var(--color-white);
+  padding: 0.75rem 2rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 150ms;
+}
+.btn-danger-lg:hover:not(:disabled) {
+  background-color: var(--color-red-700);
+}
+
+.btn-danger {
+  background-color: var(--color-red-600);
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 150ms;
+}
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--color-red-700);
+}
+
+.btn-danger-sm {
+  background-color: var(--color-red-600);
+  color: var(--color-white);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-radius: 0.375rem;
+  transition: all 150ms;
+}
+.btn-danger-sm:hover:not(:disabled) {
+  background-color: var(--color-red-700);
+}
+
+/* SECONDARY/CANCEL BUTTONS */
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  color: var(--color-gray-600);
+  transition: all 150ms;
+}
+.btn-secondary:hover:not(:disabled) {
+  color: var(--color-gray-900);
+}
+
+/* SPECIAL BUTTONS */
+.btn-blue {
+  background-color: #2563eb;
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  transition: all 150ms;
+}
+.btn-blue:hover:not(:disabled) {
+  background-color: var(--color-blue-700);
+}
+
+/* ICON-ONLY BUTTONS */
+.btn-icon-edit {
+  color: var(--color-teal-600);
+  transition: all 150ms;
+  margin-right: 0.5rem;
+}
+.btn-icon-edit:hover:not(:disabled) {
+  color: var(--color-teal-700);
+}
+
+.btn-icon-delete {
+  color: var(--color-gray-500);
+  transition: all 150ms;
+}
+.btn-icon-delete:hover:not(:disabled) {
+  color: var(--color-red-600);
+}
+
+/* TEXT BUTTONS */
+.btn-text-danger {
+  color: var(--color-red-600);
+  padding: 0.5rem 1rem;
+  transition: all 150ms;
+}
+.btn-text-danger:hover:not(:disabled) {
+  color: var(--color-red-700);
+}
+
+.btn-text-primary {
+  color: var(--color-teal-600);
+  transition: all 150ms;
+}
+.btn-text-primary:hover:not(:disabled) {
+  color: var(--color-teal-700);
+}
+
+/* BUTTON WITH ICON */
+.btn-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* DISABLED STATE */
+button:disabled, .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* FULL WIDTH BUTTON */
+.btn-full {
+  width: 100%;
+}

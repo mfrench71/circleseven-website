@@ -310,15 +310,15 @@ function renderCategories() {
       <td class="px-4 py-3 text-right whitespace-nowrap">
         <button
           onclick="editCategory(${index})"
-          class="text-teal-600 hover:text-teal-700 mr-2"
-          title="Edit"
+          class="btn-icon-edit"
+          title="Edit category"
         >
           <i class="fas fa-edit"></i>
         </button>
         <button
           onclick="deleteCategory(${index})"
-          class="text-gray-500 hover:text-red-600"
-          title="Delete"
+          class="btn-icon-delete"
+          title="Delete category"
         >
           <i class="fas fa-trash"></i>
         </button>
@@ -398,15 +398,15 @@ function renderTags() {
       <td class="px-4 py-3 text-right whitespace-nowrap">
         <button
           onclick="editTag(${index})"
-          class="text-teal-600 hover:text-teal-700 mr-2"
-          title="Edit"
+          class="btn-icon-edit"
+          title="Edit tag"
         >
           <i class="fas fa-edit"></i>
         </button>
         <button
           onclick="deleteTag(${index})"
-          class="text-gray-500 hover:text-red-600"
-          title="Delete"
+          class="btn-icon-delete"
+          title="Delete tag"
         >
           <i class="fas fa-trash"></i>
         </button>
@@ -664,7 +664,7 @@ function showConfirm(message, options = {}) {
 
     // Set button text and color (default to red Delete button)
     buttonEl.textContent = options.buttonText || 'Delete';
-    buttonEl.className = options.buttonClass || 'bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700';
+    buttonEl.className = options.buttonClass || 'btn-danger';
 
     overlay.classList.remove('hidden');
   });
@@ -998,8 +998,8 @@ function renderPostsList() {
         <td class="px-4 py-3 text-right whitespace-nowrap">
           <button
             onclick="event.stopPropagation(); editPost('${escapeHtml(post.name)}')"
-            class="text-teal-600 hover:text-teal-700 mr-2"
-            title="Edit"
+            class="btn-icon-edit"
+            title="Edit post"
           >
             <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -1007,8 +1007,8 @@ function renderPostsList() {
           </button>
           <button
             onclick="event.stopPropagation(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
-            class="text-gray-500 hover:text-red-600"
-            title="Delete"
+            class="btn-icon-delete"
+            title="Move post to trash"
           >
             <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -1837,15 +1837,15 @@ function renderTrashList() {
       <span class="text-xs text-gray-500">${(item.size / 1024).toFixed(1)} KB</span>
       <button
         onclick="restoreItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
-        class="px-3 py-1 text-sm bg-teal-600 text-white rounded hover:bg-teal-700"
-        title="Restore"
+        class="btn-primary-sm"
+        title="Restore item from trash"
       >
         Restore
       </button>
       <button
         onclick="permanentlyDeleteItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
-        class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-        title="Permanently Delete"
+        class="btn-danger-sm"
+        title="Permanently delete item"
       >
         Delete Forever
       </button>
@@ -1861,7 +1861,7 @@ async function restoreItem(filename, sha, type) {
   const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`, {
     title: 'Confirm Restore',
     buttonText: 'Restore',
-    buttonClass: 'bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700'
+    buttonClass: 'btn-primary'
   });
   if (!confirmed) return;
 
@@ -2228,8 +2228,8 @@ function renderPagesList() {
         <td class="px-4 py-3 text-right whitespace-nowrap">
           <button
             onclick="event.stopPropagation(); editPage('${escapeHtml(page.name)}')"
-            class="text-teal-600 hover:text-teal-700 mr-2"
-            title="Edit"
+            class="btn-icon-edit"
+            title="Edit page"
           >
             <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -2237,8 +2237,8 @@ function renderPagesList() {
           </button>
           <button
             onclick="event.stopPropagation(); deletePageFromList('${escapeHtml(page.name)}', '${escapeHtml(page.sha)}')"
-            class="text-gray-500 hover:text-red-600"
-            title="Delete"
+            class="btn-icon-delete"
+            title="Move page to trash"
           >
             <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>

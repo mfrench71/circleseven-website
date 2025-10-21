@@ -35,7 +35,7 @@
       <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
         <h1 class="text-2xl font-bold mb-4">Admin Login Required</h1>
         <p class="text-gray-600 mb-4">Please log in to access the taxonomy manager.</p>
-        <button onclick="netlifyIdentity.open()" class="w-full bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700">
+        <button onclick="netlifyIdentity.open()" class="btn-primary btn-full">
           Log In
         </button>
       </div>
@@ -153,13 +153,13 @@
               <div class="flex gap-2 justify-end">
                 <button
                   onclick="closeModal(false)"
-                  class="px-4 py-2 text-gray-600 hover:text-gray-900 transition"
+                  class="btn-secondary"
                 >
                   Cancel
                 </button>
                 <button
                   onclick="closeModal(true)"
-                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700"
+                  class="btn-primary"
                 >
                   Save
                 </button>
@@ -177,14 +177,14 @@
               <div class="flex gap-2 justify-end">
                 <button
                   onclick="closeConfirm(false)"
-                  class="px-4 py-2 text-gray-600 hover:text-gray-900 transition"
+                  class="btn-secondary"
                 >
                   Cancel
                 </button>
                 <button
                   id="confirm-button"
                   onclick="closeConfirm(true)"
-                  class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                  class="btn-danger"
                 >
                   Delete
                 </button>
@@ -333,7 +333,8 @@
               />
               <button
                 onclick="addCategory()"
-                class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                class="btn-primary btn-with-icon"
+                title="Add new category"
               >
                 <i class="fas fa-plus"></i>
                 Add Category
@@ -349,7 +350,8 @@
               />
               <button
                 onclick="addTag()"
-                class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                class="btn-primary btn-with-icon"
+                title="Add new tag"
               >
                 <i class="fas fa-plus"></i>
                 Add Tag
@@ -403,7 +405,8 @@
             <button
               onclick="saveTaxonomy()"
               id="save-btn"
-              class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+              class="btn-primary-lg"
+              title="Save taxonomy changes"
             >
               Save Changes
             </button>
@@ -450,7 +453,8 @@
                 </select>
                 <button
                   onclick="showNewPostForm()"
-                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                  class="btn-primary btn-with-icon"
+                  title="Create new post"
                 >
                   <i class="fas fa-plus"></i>
                   New Post
@@ -515,7 +519,8 @@
           <div id="posts-editor-view" class="hidden">
             <button
               onclick="showPostsList()"
-              class="mb-4 text-teal-600 hover:text-teal-700 flex items-center gap-2"
+              class="mb-4 btn-text-primary btn-with-icon"
+              title="Return to posts list"
             >
               <i class="fas fa-arrow-left"></i>
               Back to Posts
@@ -563,7 +568,7 @@
                       <button
                         type="button"
                         onclick="selectFeaturedImage()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 whitespace-nowrap"
+                        class="btn-blue"
                         title="Browse Cloudinary Media Library"
                       >
                         <i class="fas fa-image"></i> Browse Library
@@ -627,15 +632,17 @@
                   <button
                     type="button"
                     onclick="deletePost()"
-                    class="text-red-600 hover:text-red-700 px-4 py-2"
+                    class="btn-text-danger"
                     id="delete-post-btn"
+                    title="Move post to trash"
                   >
                     Delete Post
                   </button>
                   <button
                     type="submit"
-                    class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+                    class="btn-primary-lg"
                     id="save-post-btn"
+                    title="Save post changes"
                   >
                     Save Post
                   </button>
@@ -675,7 +682,8 @@
                 />
                 <button
                   onclick="showNewPageForm()"
-                  class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                  class="btn-primary btn-with-icon"
+                  title="Create new page"
                 >
                   <i class="fas fa-plus"></i>
                   New Page
@@ -714,7 +722,8 @@
           <div id="pages-editor-view" class="hidden">
             <button
               onclick="showPagesList()"
-              class="mb-4 text-teal-600 hover:text-teal-700 flex items-center gap-2"
+              class="mb-4 btn-text-primary btn-with-icon"
+              title="Return to pages list"
             >
               <i class="fas fa-arrow-left"></i>
               Back to Pages
@@ -779,15 +788,17 @@
                   <button
                     type="button"
                     onclick="deletePage()"
-                    class="text-red-600 hover:text-red-700 px-4 py-2"
+                    class="btn-text-danger"
                     id="delete-page-btn"
+                    title="Move page to trash"
                   >
                     Delete Page
                   </button>
                   <button
                     type="submit"
-                    class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+                    class="btn-primary-lg"
                     id="save-page-btn"
+                    title="Save page changes"
                   >
                     Save Page
                   </button>
@@ -834,7 +845,8 @@
               </select>
               <button
                 onclick="openCloudinaryUpload()"
-                class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 flex items-center gap-2"
+                class="btn-primary btn-with-icon"
+                title="Upload new image to library"
               >
                 <i class="fas fa-upload"></i>
                 Upload Image
@@ -1070,7 +1082,8 @@
                 <button
                   type="submit"
                   id="settings-save-btn"
-                  class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 font-semibold shadow-md"
+                  class="btn-primary-lg"
+                  title="Save site settings"
                 >
                   Save Settings
                 </button>
