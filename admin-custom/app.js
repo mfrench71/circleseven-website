@@ -307,7 +307,6 @@ function renderCategories() {
   const countBadge = document.getElementById('categories-count-badge');
 
   tbody.innerHTML = categories.map((cat, index) => {
-    const statusIcon = getStatusIcon('category', index);
     return `
     <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
       <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
@@ -317,7 +316,6 @@ function renderCategories() {
           <span class="font-medium text-gray-900">${escapeHtml(cat)}</span>
         </div>
       </td>
-      <td class="px-4 py-3 text-center">${statusIcon}</td>
       <td class="px-4 py-3 text-right whitespace-nowrap">
         <button
           onclick="editCategory(${index})"
@@ -355,39 +353,6 @@ function renderCategories() {
   });
 }
 
-// Get status icon for item
-function getStatusIcon(type, index) {
-  if (!lastSavedState) return '';
-
-  const saved = JSON.parse(lastSavedState);
-  const current = type === 'category' ? categories : tags;
-  const savedList = type === 'category' ? saved.categories : saved.tags;
-
-  // New item (not in saved state)
-  if (index >= savedList.length) {
-    return `<span class="text-xs text-yellow-600 flex items-center gap-1" title="Pending save">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-        <circle cx="10" cy="10" r="4"/>
-      </svg>
-    </span>`;
-  }
-
-  // Modified item
-  if (current[index] !== savedList[index]) {
-    return `<span class="text-xs text-yellow-600 flex items-center gap-1" title="Pending save">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-        <circle cx="10" cy="10" r="4"/>
-      </svg>
-    </span>`;
-  }
-
-  // Saved item
-  return `<span class="text-xs text-green-600 flex items-center gap-1" title="Saved">
-    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-    </svg>
-  </span>`;
-}
 
 // Render tags
 function renderTags() {
@@ -395,7 +360,6 @@ function renderTags() {
   const countBadge = document.getElementById('tags-count-badge');
 
   tbody.innerHTML = tags.map((tag, index) => {
-    const statusIcon = getStatusIcon('tag', index);
     return `
     <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
       <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
@@ -405,7 +369,6 @@ function renderTags() {
           <span class="font-medium text-gray-900">${escapeHtml(tag)}</span>
         </div>
       </td>
-      <td class="px-4 py-3 text-center">${statusIcon}</td>
       <td class="px-4 py-3 text-right whitespace-nowrap">
         <button
           onclick="editTag(${index})"
