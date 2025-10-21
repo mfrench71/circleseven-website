@@ -1162,11 +1162,19 @@
   <!-- ES6 Modules Integration -->
   <script type="module">
     // Import modules
+    import { initNotifications } from '/admin-custom/js/ui/notifications.js';
     import {
       loadTrash,
       restoreItem,
       permanentlyDeleteItem
     } from '/admin-custom/js/modules/trash.js';
+
+    // Initialize notifications when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNotifications);
+    } else {
+      initNotifications();
+    }
 
     // Expose to window for onclick handlers and app.js
     window.loadTrash = loadTrash;
