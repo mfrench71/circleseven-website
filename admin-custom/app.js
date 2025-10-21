@@ -2764,12 +2764,65 @@ function updateDeploymentBanner() {
   }
 }
 
+// Show deployment completion state (success or error)
+function showDeploymentCompletion(success = true) {
+  const header = document.getElementById('deployment-status-header');
+  const messageEl = document.getElementById('deployment-status-message');
+  const timeEl = document.getElementById('deployment-status-time');
+  const iconEl = header?.querySelector('i');
+
+  if (!header) return;
+
+  // Update banner styling
+  if (success) {
+    header.className = 'bg-gradient-to-r from-green-500 to-green-600 text-white';
+  } else {
+    header.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white';
+  }
+
+  // Update icon
+  if (iconEl) {
+    iconEl.className = success ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  }
+
+  // Update message
+  if (messageEl) {
+    messageEl.textContent = success
+      ? 'Changes published successfully!'
+      : 'Deployment failed';
+  }
+
+  // Hide time
+  if (timeEl) {
+    timeEl.style.display = 'none';
+  }
+
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    hideDeploymentBanner();
+  }, 3000);
+}
+
 // Hide deployment status banner
 function hideDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
+  const timeEl = document.getElementById('deployment-status-time');
 
   if (header) {
     header.classList.add('hidden');
+    // Reset to default styling
+    header.className = 'hidden bg-gradient-to-r from-teal-500 to-teal-600 text-white animate-gradient-pulse';
+
+    // Reset icon
+    const iconEl = header.querySelector('i');
+    if (iconEl) {
+      iconEl.className = 'fas fa-spinner fa-spin';
+    }
+
+    // Show time again
+    if (timeEl) {
+      timeEl.style.display = '';
+    }
   }
 }
 
@@ -3395,7 +3448,7 @@ function startDeploymentPolling() {
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
-            hideDeploymentBanner();
+            showDeploymentCompletion(true); // Show success state before hiding
           }
         } else if (data.status === 'failed') {
           // Deployment failed
@@ -3406,7 +3459,7 @@ function startDeploymentPolling() {
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
-            hideDeploymentBanner();
+            showDeploymentCompletion(false); // Show error state before hiding
           }
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
@@ -3417,7 +3470,7 @@ function startDeploymentPolling() {
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
-            hideDeploymentBanner();
+            showDeploymentCompletion(false); // Show error state before hiding
           }
         } else if (data.status === 'skipped') {
           // Deployment skipped (superseded by newer commit)
@@ -3428,7 +3481,7 @@ function startDeploymentPolling() {
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
-            hideDeploymentBanner();
+            hideDeploymentBanner(); // Just hide for skipped
           }
         }
         // pending, queued, in_progress continue polling
