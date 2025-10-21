@@ -1,3 +1,25 @@
+/**
+ * Trash Management Netlify Function
+ *
+ * Manages soft-deletion and restoration of posts and pages via a _trash directory.
+ * Implements a recycle bin pattern where deleted items can be restored or permanently deleted.
+ *
+ * Features:
+ * - Moves posts/pages to _trash directory instead of immediate deletion
+ * - Adds trashed_at timestamp to frontmatter for tracking
+ * - Handles filename conflicts with timestamp-based renaming
+ * - Auto-detects item type (post vs page) based on filename pattern
+ * - Supports restore with frontmatter cleanup (removes trashed_at)
+ *
+ * Supported operations:
+ * - GET: List all trashed items with metadata
+ * - POST: Move post or page to trash
+ * - PUT: Restore item from trash to original location
+ * - DELETE: Permanently delete item from trash
+ *
+ * @module netlify/functions/trash
+ */
+
 const https = require('https');
 
 // GitHub API configuration
@@ -8,7 +30,17 @@ const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
 const TRASH_DIR = '_trash';
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @param {Object} [options.body] - Request body (will be JSON stringified)
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const bodyString = options.body ? JSON.stringify(options.body) : '';
@@ -50,6 +82,51 @@ function githubRequest(path, options = {}) {
   });
 }
 
+/**
+ * Netlify Function Handler - Trash Management
+ *
+ * Main entry point for trash management. Handles all operations for the recycle bin
+ * including listing, moving to trash, restoring, and permanent deletion.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
+ * @param {string} event.body - Request body (JSON string)
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET - List all trashed items
+ * // GET /.netlify/functions/trash
+ * // Returns: {
+ * //   items: [
+ * //     {
+ * //       name: "2025-10-21-my-post.md",
+ * //       path: "_trash/2025-10-21-my-post.md",
+ * //       sha: "abc123...",
+ * //       type: "post",
+ * //       trashed_at: "2025-10-21T10:30:00Z"
+ * //     }
+ * //   ]
+ * // }
+ *
+ * @example
+ * // POST - Move item to trash
+ * // POST /.netlify/functions/trash
+ * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
+ * // Returns: { success: true, message: "Post moved to trash successfully" }
+ *
+ * @example
+ * // PUT - Restore item from trash
+ * // PUT /.netlify/functions/trash
+ * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
+ * // Returns: { success: true, message: "Post restored successfully" }
+ *
+ * @example
+ * // DELETE - Permanently delete item
+ * // DELETE /.netlify/functions/trash
+ * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
+ * // Returns: { success: true, message: "Post permanently deleted" }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
