@@ -1,3 +1,18 @@
+/**
+ * Deployment History Netlify Function
+ *
+ * Retrieves recent deployment history from GitHub Actions.
+ * Fetches the last 20 workflow runs and formats them for display in the admin dashboard.
+ *
+ * Maps GitHub Actions workflow runs to a simplified deployment history format
+ * including status, duration, and commit information.
+ *
+ * Supported operations:
+ * - GET: Retrieve recent deployment history
+ *
+ * @module netlify/functions/deployment-history
+ */
+
 const https = require('https');
 
 // GitHub API configuration
@@ -5,7 +20,16 @@ const GITHUB_OWNER = 'mfrench71';
 const GITHUB_REPO = 'circleseven-website';
 const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const reqOptions = {
@@ -37,6 +61,45 @@ function githubRequest(path, options = {}) {
   });
 }
 
+/**
+ * Netlify Function Handler - Deployment History
+ *
+ * Retrieves recent GitHub Actions workflow runs and formats them as
+ * deployment history for dashboard display.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET deployment history
+ * // GET /.netlify/functions/deployment-history
+ * // Returns: {
+ * //   deployments: [
+ * //     {
+ * //       commitSha: "abc123def456",
+ * //       action: "Update taxonomy from custom admin",
+ * //       itemId: null,
+ * //       status: "completed",
+ * //       startedAt: "2025-10-21T10:00:00Z",
+ * //       completedAt: "2025-10-21T10:05:00Z",
+ * //       duration: 300,
+ * //       workflowUrl: "https://github.com/.../actions/runs/123"
+ * //     },
+ * //     {
+ * //       commitSha: "def456ghi789",
+ * //       action: "Create post: 2025-10-20-new-post.md",
+ * //       itemId: null,
+ * //       status: "in_progress",
+ * //       startedAt: "2025-10-21T10:10:00Z",
+ * //       completedAt: "2025-10-21T10:10:00Z",
+ * //       duration: null,
+ * //       workflowUrl: "https://github.com/.../actions/runs/124"
+ * //     }
+ * //   ]
+ * // }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
