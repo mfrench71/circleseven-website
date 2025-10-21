@@ -437,17 +437,17 @@
           <div id="posts-list-view">
             <!-- Search, Sort and Actions -->
             <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-              <div class="flex gap-3 items-center">
+              <div class="flex flex-wrap gap-3 items-center">
                 <input
                   type="text"
                   id="posts-search"
                   placeholder="Search posts..."
-                  class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  class="flex-1 min-w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   oninput="debouncedFilterPosts()"
                 />
                 <select
                   id="posts-sort"
-                  class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 flex-shrink-0"
+                  class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   onchange="sortPosts()"
                 >
                   <option value="date-desc">Newest First</option>
@@ -457,11 +457,11 @@
                 </select>
                 <button
                   onclick="showNewPostForm()"
-                  class="btn-primary btn-with-icon flex-shrink-0"
+                  class="btn-primary btn-with-icon"
                   title="Create new post"
                 >
                   <i class="fas fa-plus"></i>
-                  New Post
+                  Add Post
                 </button>
               </div>
             </div>
@@ -676,21 +676,21 @@
           <div id="pages-list-view">
             <!-- Search and Actions -->
             <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-              <div class="flex gap-3 items-center">
+              <div class="flex flex-wrap gap-3 items-center">
                 <input
                   type="text"
                   id="pages-search"
                   placeholder="Search pages..."
-                  class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  class="flex-1 min-w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   oninput="debouncedFilterPages()"
                 />
                 <button
                   onclick="showNewPageForm()"
-                  class="btn-primary btn-with-icon flex-shrink-0"
+                  class="btn-primary btn-with-icon"
                   title="Create new page"
                 >
                   <i class="fas fa-plus"></i>
-                  New Page
+                  Add Page
                 </button>
               </div>
             </div>
@@ -830,17 +830,17 @@
 
           <!-- Media Controls -->
           <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-            <div class="flex gap-3 items-center">
+            <div class="flex flex-wrap gap-3 items-center">
               <input
                 type="text"
                 id="media-search"
                 placeholder="Search media..."
-                class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                class="flex-1 min-w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 oninput="debouncedFilterMedia()"
               />
               <select
                 id="media-filter"
-                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 flex-shrink-0"
+                class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 onchange="filterMedia()"
               >
                 <option value="all">All Media</option>
@@ -849,7 +849,7 @@
               </select>
               <button
                 onclick="openCloudinaryUpload()"
-                class="btn-primary btn-with-icon flex-shrink-0"
+                class="btn-primary btn-with-icon"
                 title="Upload new image to library"
               >
                 <i class="fas fa-upload"></i>
