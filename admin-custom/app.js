@@ -435,6 +435,9 @@ function showMainApp(authenticatedUser) {
 
   // Load last updated time
   updateLastUpdated();
+
+  // Load GitHub API rate limit status
+  updateRateLimit();
 }
 
 // ===== TAXONOMY - Now using ES6 module (js/modules/taxonomy.js) =====
@@ -800,6 +803,92 @@ async function updateLastUpdated() {
   } catch (error) {
     console.error('Failed to fetch last updated time:', error);
     el.textContent = 'Unknown';
+  }
+}
+
+/**
+ * Updates the GitHub API rate limit display
+ *
+ * Fetches current GitHub API rate limit status and displays it with a color-coded
+ * progress bar (green <50%, yellow 50-80%, red >80% usage).
+ */
+async function updateRateLimit() {
+  const contentEl = document.getElementById('rate-limit-content');
+  if (!contentEl) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/rate-limit`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const { limit, remaining, usedPercent, resetDate, minutesUntilReset } = data;
+
+    // Determine progress bar color based on usage
+    let barColor = 'bg-green-500'; // <50%
+    if (usedPercent >= 80) {
+      barColor = 'bg-red-500';
+    } else if (usedPercent >= 50) {
+      barColor = 'bg-yellow-500';
+    }
+
+    // Format reset time
+    const resetTime = new Date(resetDate);
+    const timeStr = resetTime.toLocaleString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    contentEl.innerHTML = `
+      <div class="space-y-3">
+        <!-- Progress bar -->
+        <div class="relative">
+          <div class="flex items-center justify-between text-sm mb-1">
+            <span class="font-medium text-gray-700">API Usage</span>
+            <span class="font-semibold ${usedPercent >= 80 ? 'text-red-600' : usedPercent >= 50 ? 'text-yellow-600' : 'text-green-600'}">${usedPercent}%</span>
+          </div>
+          <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div class="${barColor} h-full transition-all duration-500 ease-out" style="width: ${usedPercent}%"></div>
+          </div>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="grid grid-cols-3 gap-4 text-center text-sm">
+          <div>
+            <div class="text-gray-500 text-xs mb-1">Remaining</div>
+            <div class="font-semibold text-gray-900">${remaining.toLocaleString()}</div>
+          </div>
+          <div>
+            <div class="text-gray-500 text-xs mb-1">Limit</div>
+            <div class="font-semibold text-gray-900">${limit.toLocaleString()}</div>
+          </div>
+          <div>
+            <div class="text-gray-500 text-xs mb-1">Resets</div>
+            <div class="font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</div>
+          </div>
+        </div>
+
+        <!-- Refresh button -->
+        <div class="text-center pt-2">
+          <button onclick="updateRateLimit()" class="text-sm text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+            <i class="fas fa-sync-alt"></i>
+            Refresh
+          </button>
+        </div>
+      </div>
+    `;
+  } catch (error) {
+    console.error('Failed to fetch rate limit:', error);
+    contentEl.innerHTML = `
+      <div class="text-center py-4">
+        <p class="text-sm text-red-600 mb-2">Failed to load rate limit</p>
+        <button onclick="updateRateLimit()" class="text-sm text-teal-600 hover:text-teal-700 font-medium">
+          <i class="fas fa-sync-alt mr-1"></i>
+          Try Again
+        </button>
+      </div>
+    `;
   }
 }
 
