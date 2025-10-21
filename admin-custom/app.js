@@ -3218,21 +3218,29 @@ function stopDeploymentHistoryPolling() {
 
 // Start polling deployment status
 function startDeploymentPolling() {
-  if (deploymentPollInterval) return; // Already polling
+  if (deploymentPollInterval) {
+    console.log('Deployment polling already running, skipping start');
+    return; // Already polling
+  }
 
   console.log('Starting deployment status polling (every 5s) - runs continuously');
 
+  let pollCount = 0;
   deploymentPollInterval = setInterval(async () => {
+    pollCount++;
+    const pollId = `poll-${pollCount}`;
+    console.log(`[${pollId}] Deployment polling heartbeat - interval is running`);
+
     try {
       // Always poll, even if no active deployments, to catch external deployments
       if (activeDeployments.length === 0) {
-        console.log('No active deployments tracked locally - banner hidden');
+        console.log(`[${pollId}] No active deployments tracked locally - banner hidden`);
         hideDeploymentBanner();
         // Don't stop polling - keep running to detect external deployments
         return;
       }
 
-      console.log(`Polling status for ${activeDeployments.length} deployment(s)`, activeDeployments.map(d => d.commitSha.substring(0, 7)));
+      console.log(`[${pollId}] Polling status for ${activeDeployments.length} deployment(s)`, activeDeployments.map(d => d.commitSha.substring(0, 7)));
 
       // Update time display
       updateDeploymentBanner();
@@ -3254,13 +3262,16 @@ function startDeploymentPolling() {
         }
 
         try {
+          console.log(`[${pollId}] Fetching status for ${deployment.commitSha.substring(0, 7)}...`);
           const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
+          console.log(`[${pollId}] Response status: ${response.status}`);
           if (!response.ok) {
-            console.warn(`Deployment status check failed for ${deployment.commitSha}: ${response.status}`);
+            console.warn(`[${pollId}] Deployment status check failed for ${deployment.commitSha}: ${response.status}`);
             continue;
           }
 
           const data = await response.json();
+          console.log(`[${pollId}] Status data:`, data);
 
           // Update deployment status
           deployment.status = data.status;
