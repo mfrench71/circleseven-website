@@ -2228,12 +2228,20 @@ switchSection = async function(sectionName, updateUrl = true) {
 // State variables kept here: allMedia, currentMediaPage, mediaPerPage, cloudinaryUploadWidget
 // The module is imported and exposed to window in index.html
 
-// ===== PAGES MANAGEMENT =====
+// ===== PAGES MANAGEMENT - Now using ES6 module (js/modules/pages.js) =====
+// Functions: loadPages(), renderPagesList(), filterPages(), debouncedFilterPages,
+//            initPageMarkdownEditor(), cleanupPageMarkdownEditor(), markPageDirty(), clearPageDirty(),
+//            slugifyPermalink(), autoPopulatePermalink(), editPage(), showNewPageForm(),
+//            setupPageFormChangeListeners(), showPagesList(), savePage(), deletePage(),
+//            deletePageFromList(), generatePageFilename()
+// State variables kept here: allPages, currentPage_pages, pageMarkdownEditor, pageHasUnsavedChanges, permalinkManuallyEdited
+// The module is imported and exposed to window in index.html
 
 let allPages = [];
 let currentPage_pages = null; // Note: Different from currentPage (posts pagination)
 let pageMarkdownEditor = null; // Separate markdown editor for pages
 let pageHasUnsavedChanges = false; // Track unsaved changes in page editor
+let permalinkManuallyEdited = false; // Track if permalink was manually edited
 
 // Load pages list with metadata
 /**

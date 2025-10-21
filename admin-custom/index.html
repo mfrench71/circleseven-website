@@ -1236,6 +1236,26 @@
       closeImageModal,
       handleImageModalEscape
     } from '/admin-custom/js/modules/posts.js';
+    import {
+      loadPages,
+      renderPagesList,
+      filterPages,
+      debouncedFilterPages,
+      initPageMarkdownEditor,
+      cleanupPageMarkdownEditor,
+      markPageDirty,
+      clearPageDirty,
+      slugifyPermalink,
+      autoPopulatePermalink,
+      editPage,
+      showNewPageForm,
+      setupPageFormChangeListeners,
+      showPagesList,
+      savePage,
+      deletePage,
+      deletePageFromList,
+      generatePageFilename
+    } from '/admin-custom/js/modules/pages.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -1308,6 +1328,24 @@
     window.openImageModal = openImageModal;
     window.closeImageModal = closeImageModal;
     window.handleImageModalEscape = handleImageModalEscape;
+    window.loadPages = loadPages;
+    window.renderPagesList = renderPagesList;
+    window.filterPages = filterPages;
+    window.debouncedFilterPages = debouncedFilterPages;
+    window.initPageMarkdownEditor = initPageMarkdownEditor;
+    window.cleanupPageMarkdownEditor = cleanupPageMarkdownEditor;
+    window.markPageDirty = markPageDirty;
+    window.clearPageDirty = clearPageDirty;
+    window.slugifyPermalink = slugifyPermalink;
+    window.autoPopulatePermalink = autoPopulatePermalink;
+    window.editPage = editPage;
+    window.showNewPageForm = showNewPageForm;
+    window.setupPageFormChangeListeners = setupPageFormChangeListeners;
+    window.showPagesList = showPagesList;
+    window.savePage = savePage;
+    window.deletePage = deletePage;
+    window.deletePageFromList = deletePageFromList;
+    window.generatePageFilename = generatePageFilename;
   </script>
 </body>
 </html>
