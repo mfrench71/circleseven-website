@@ -363,16 +363,9 @@
 
           <!-- Add New Item Bar -->
           <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
-            <div id="taxonomy-add-category" class="taxonomy-add-item flex gap-2">
-              <input
-                type="text"
-                id="new-category"
-                placeholder="Add new category..."
-                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                onkeypress="if(event.key==='Enter') addCategory()"
-              />
+            <div id="taxonomy-add-category" class="taxonomy-add-item">
               <button
-                onclick="addCategory()"
+                onclick="showAddCategoryModal()"
                 class="btn-primary btn-with-icon"
                 title="Add new category"
               >
@@ -380,16 +373,9 @@
                 Add Category
               </button>
             </div>
-            <div id="taxonomy-add-tag" class="taxonomy-add-item hidden flex gap-2">
-              <input
-                type="text"
-                id="new-tag"
-                placeholder="Add new tag..."
-                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                onkeypress="if(event.key==='Enter') addTag()"
-              />
+            <div id="taxonomy-add-tag" class="taxonomy-add-item hidden">
               <button
-                onclick="addTag()"
+                onclick="showAddTagModal()"
                 class="btn-primary btn-with-icon"
                 title="Add new tag"
               >

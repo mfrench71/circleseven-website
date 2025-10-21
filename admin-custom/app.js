@@ -407,22 +407,30 @@ function renderTags() {
 }
 
 // Add category
-function addCategory() {
-  const input = document.getElementById('new-category');
-  const value = input.value.trim();
+async function showAddCategoryModal() {
+  const newValue = await showModal('Add Category', '');
+  if (newValue === null) return;
 
-  if (!value) return;
+  const trimmed = newValue.trim();
+  if (!trimmed) {
+    showError('Category name cannot be empty');
+    return;
+  }
 
-  if (categories.includes(value)) {
+  if (categories.includes(trimmed)) {
     showError('Category already exists');
     return;
   }
 
-  categories.push(value);
-  input.value = '';
+  categories.push(trimmed);
   markDirty();
   renderCategories();
   hideMessages();
+}
+
+// Legacy function for backwards compatibility
+function addCategory() {
+  showAddCategoryModal();
 }
 
 // Edit category
@@ -458,22 +466,30 @@ async function deleteCategory(index) {
 }
 
 // Add tag
-function addTag() {
-  const input = document.getElementById('new-tag');
-  const value = input.value.trim();
+async function showAddTagModal() {
+  const newValue = await showModal('Add Tag', '');
+  if (newValue === null) return;
 
-  if (!value) return;
+  const trimmed = newValue.trim();
+  if (!trimmed) {
+    showError('Tag name cannot be empty');
+    return;
+  }
 
-  if (tags.includes(value)) {
+  if (tags.includes(trimmed)) {
     showError('Tag already exists');
     return;
   }
 
-  tags.push(value);
-  input.value = '';
+  tags.push(trimmed);
   markDirty();
   renderTags();
   hideMessages();
+}
+
+// Legacy function for backwards compatibility
+function addTag() {
+  showAddTagModal();
 }
 
 // Edit tag
