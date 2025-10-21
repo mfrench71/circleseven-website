@@ -218,11 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/admin-custom/sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registered:', registration.scope);
-      })
       .catch(error => {
-        console.log('ServiceWorker registration failed:', error);
+        console.error('ServiceWorker registration failed:', error);
       });
   }
 }
@@ -2904,8 +2901,6 @@ async function restoreActiveDeployments() {
     );
 
     if (inProgressDeployments.length > 0) {
-      console.log(`Restored ${inProgressDeployments.length} in-progress deployment(s) from GitHub`);
-
       // Add them to activeDeployments (converting GitHub format to our format)
       inProgressDeployments.forEach(deployment => {
         activeDeployments.push({
@@ -2932,8 +2927,6 @@ async function restoreActiveDeployments() {
 function trackDeployment(commitSha, action, itemId = null) {
   if (!commitSha) return;
 
-  console.log(`Tracking deployment: ${commitSha} - ${action}`);
-
   activeDeployments.push({
     commitSha,
     action,
@@ -2941,8 +2934,6 @@ function trackDeployment(commitSha, action, itemId = null) {
     startedAt: new Date(),
     status: 'pending'
   });
-
-  console.log(`Active deployments: ${activeDeployments.length}`);
 
   showDeploymentBanner();
   startDeploymentPolling();
@@ -3355,7 +3346,6 @@ function startDeploymentHistoryPolling() {
       inProgressDeployments.forEach(githubDep => {
         const alreadyTracking = activeDeployments.some(d => d.commitSha === githubDep.commitSha);
         if (!alreadyTracking) {
-          console.log(`Detected deployment: ${githubDep.commitSha.substring(0, 7)} - ${githubDep.action}`);
           activeDeployments.push({
             commitSha: githubDep.commitSha,
             action: githubDep.action,
