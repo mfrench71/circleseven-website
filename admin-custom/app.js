@@ -1,3 +1,45 @@
+/**
+ * Custom Admin Application
+ *
+ * Full-featured content management system (CMS) for Jekyll static sites.
+ * Provides CRUD operations for posts, pages, categories, tags, settings, and media.
+ *
+ * Core Features:
+ * - **Authentication**: Netlify Identity integration with session management
+ * - **Taxonomy Management**: Categories and tags with drag-and-drop reordering
+ * - **Posts Management**: Blog post creation, editing, and organization
+ * - **Pages Management**: Static page editing with protected page support
+ * - **Media Library**: Cloudinary integration for image management and uploads
+ * - **Trash System**: Soft-delete with restore capabilities
+ * - **Settings**: Site configuration (_config.yml) editor with field whitelist
+ * - **Deployment Tracking**: Real-time GitHub Actions workflow monitoring
+ * - **Dashboard**: Quick actions and site information overview
+ *
+ * Architecture:
+ * - Single Page Application (SPA) with hash-based routing
+ * - RESTful API integration with Netlify Functions
+ * - GitHub API for file operations and deployment status
+ * - Cloudinary for media storage and delivery
+ * - Service Worker for offline capability
+ * - Unsaved changes tracking with browser warning
+ *
+ * State Management:
+ * - Global state for taxonomy, posts, pages, media, and user session
+ * - Dirty state tracking for unsaved changes
+ * - Local deployment history with GitHub synchronization
+ * - Cached DOM references for performance
+ *
+ * Dependencies:
+ * - Netlify Identity Widget (authentication)
+ * - Sortable.js (drag-and-drop)
+ * - EasyMDE (markdown editing)
+ * - Cloudinary Media Library (image management)
+ * - Tailwind CSS (styling)
+ * - FontAwesome (icons)
+ *
+ * @module admin-custom/app
+ */
+
 // State
 let categories = [];
 let tags = [];
@@ -29,7 +71,21 @@ const DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
 const FETCH_TIMEOUT = 30000; // 30 seconds
 const DEBOUNCE_DELAY = 300; // milliseconds
 
-// Utility: Debounce function
+/**
+ * Creates a debounced function that delays execution until after wait milliseconds
+ *
+ * Useful for limiting the rate of function calls on events like scroll, resize, or input.
+ * The debounced function will only execute after the specified wait period has elapsed
+ * since the last time it was invoked.
+ *
+ * @param {Function} func - The function to debounce
+ * @param {number} wait - The number of milliseconds to delay
+ * @returns {Function} Debounced function
+ *
+ * @example
+ * const debouncedSearch = debounce(performSearch, 300);
+ * searchInput.addEventListener('input', debouncedSearch);
+ */
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -42,7 +98,20 @@ function debounce(func, wait) {
   };
 }
 
-// Utility: Async error wrapper for onclick handlers
+/**
+ * Wraps async functions to handle errors and display them to the user
+ *
+ * Useful for onclick handlers and other event handlers that call async functions.
+ * Catches any errors thrown by the function and displays them via showError().
+ *
+ * @param {Function} fn - Async function to wrap
+ * @returns {Function} Wrapped function with error handling
+ *
+ * @example
+ * button.onclick = asyncHandler(async () => {
+ *   await savePost();
+ * });
+ */
 function asyncHandler(fn) {
   return async function(...args) {
     try {
@@ -54,7 +123,21 @@ function asyncHandler(fn) {
   };
 }
 
-// Utility: Fetch with timeout
+/**
+ * Fetches a URL with a configurable timeout
+ *
+ * Wraps the fetch API to abort requests that take longer than the specified timeout.
+ * Uses AbortController to cancel in-flight requests.
+ *
+ * @param {string} url - URL to fetch
+ * @param {Object} [options={}] - Fetch options (method, headers, body, etc.)
+ * @param {number} [timeout=FETCH_TIMEOUT] - Timeout in milliseconds (default: 30000)
+ * @returns {Promise<Response>} Fetch response
+ * @throws {Error} If request times out or fetch fails
+ *
+ * @example
+ * const response = await fetchWithTimeout('/api/data', { method: 'GET' }, 10000);
+ */
 async function fetchWithTimeout(url, options = {}, timeout = FETCH_TIMEOUT) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -75,7 +158,13 @@ async function fetchWithTimeout(url, options = {}, timeout = FETCH_TIMEOUT) {
   }
 }
 
-// Utility: Clean up all resources on logout or page hide
+/**
+ * Cleans up all application resources on logout or page hide
+ *
+ * Stops all polling intervals, destroys Sortable.js instances, removes event listeners,
+ * and cleans up markdown editors to prevent memory leaks and ensure clean state transitions.
+ * Called automatically on logout and can be called manually when needed.
+ */
 function cleanupResources() {
   // Stop polling intervals
   stopDeploymentHistoryPolling();
@@ -109,7 +198,22 @@ function cleanupResources() {
   cleanupPageMarkdownEditor();
 }
 
-// Utility: Button loading state
+/**
+ * Sets the loading state of a button with spinner animation
+ *
+ * When enabled, disables the button, stores its original text, and displays a spinner
+ * with custom loading text. When disabled, restores the button to its original state.
+ *
+ * @param {HTMLButtonElement} button - Button element to update
+ * @param {boolean} loading - Whether to show loading state
+ * @param {string} [loadingText='Loading...'] - Text to display during loading
+ *
+ * @example
+ * const saveBtn = document.getElementById('save-btn');
+ * setButtonLoading(saveBtn, true, 'Saving...');
+ * await saveData();
+ * setButtonLoading(saveBtn, false);
+ */
 function setButtonLoading(button, loading, loadingText = 'Loading...') {
   if (loading) {
     button.disabled = true;
@@ -156,7 +260,12 @@ const DOM = {
   sectionSettings: null
 };
 
-// Cache DOM elements after page load
+/**
+ * Caches frequently-accessed DOM elements for performance optimization
+ *
+ * Called once on DOMContentLoaded to store references to DOM elements in the global
+ * DOM object, avoiding repeated getElementById calls and improving performance.
+ */
 function cacheDOMElements() {
   DOM.error = document.getElementById('error');
   DOM.success = document.getElementById('success');
@@ -214,7 +323,13 @@ document.addEventListener('DOMContentLoaded', () => {
   startDeploymentHistoryPolling();
 });
 
-// Register Service Worker for offline capability
+/**
+ * Registers the Service Worker for offline capability
+ *
+ * Attempts to register the service worker at /admin-custom/sw.js if the browser
+ * supports Service Workers. Enables offline functionality and caching strategies.
+ * Silently logs errors if registration fails.
+ */
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/admin-custom/sw.js')
@@ -224,7 +339,15 @@ function registerServiceWorker() {
   }
 }
 
-// Setup unsaved changes warning
+/**
+ * Sets up browser warning for unsaved changes
+ *
+ * Adds a beforeunload event listener that prompts the user before leaving the page
+ * if there are unsaved changes in posts, settings, or taxonomy. Prevents accidental
+ * data loss when closing or refreshing the browser tab.
+ *
+ * @listens window#beforeunload
+ */
 function setupUnsavedChangesWarning() {
   // Warn before closing/refreshing browser tab
   window.addEventListener('beforeunload', (e) => {
@@ -236,7 +359,17 @@ function setupUnsavedChangesWarning() {
   });
 }
 
-// Authentication
+/**
+ * Initializes Netlify Identity authentication
+ *
+ * Sets up event listeners for authentication state changes (init, login, logout)
+ * and initializes the Netlify Identity widget. Manages transition between auth gate
+ * and main application based on authentication status.
+ *
+ * @listens netlifyIdentity#init
+ * @listens netlifyIdentity#login
+ * @listens netlifyIdentity#logout
+ */
 function initAuth() {
   netlifyIdentity.on('init', user => {
     if (user) {
@@ -260,11 +393,24 @@ function initAuth() {
   netlifyIdentity.init();
 }
 
+/**
+ * Displays the authentication gate and hides the main application
+ *
+ * Shows the login/signup interface when the user is not authenticated.
+ */
 function showAuthGate() {
   DOM.authGate.classList.add('show-auth');
   DOM.mainApp.classList.add('hidden');
 }
 
+/**
+ * Shows the main application and initializes user session
+ *
+ * Called after successful authentication. Hides the auth gate, displays the main app,
+ * initializes routing, and updates the last updated timestamp.
+ *
+ * @param {Object} authenticatedUser - User object from Netlify Identity
+ */
 function showMainApp(authenticatedUser) {
   user = authenticatedUser;
   DOM.authGate.classList.remove('show-auth');
@@ -280,7 +426,15 @@ function showMainApp(authenticatedUser) {
   updateLastUpdated();
 }
 
-// Load taxonomy from API
+/**
+ * Loads taxonomy (categories and tags) from the API
+ *
+ * Fetches the taxonomy data from the backend, stores it in global state,
+ * initializes the lastSavedState for dirty tracking, and renders both
+ * categories and tags lists.
+ *
+ * @throws {Error} If the API request fails
+ */
 async function loadTaxonomy() {
   try {
     const response = await fetch(`${API_BASE}/taxonomy`);
@@ -302,7 +456,14 @@ async function loadTaxonomy() {
   }
 }
 
-// Switch taxonomy tabs
+/**
+ * Switches between categories and tags tabs in taxonomy UI
+ *
+ * Updates tab button styles, badge colors, tab content visibility, and
+ * add item input visibility based on the selected tab.
+ *
+ * @param {string} tabName - Either 'categories' or 'tags'
+ */
 function switchTaxonomyTab(tabName) {
   // Update tab buttons
   document.querySelectorAll('.tab-button').forEach(btn => {
@@ -347,7 +508,16 @@ function switchTaxonomyTab(tabName) {
 
 // Tab switching - no longer needed with side-by-side layout
 
-// Check if item has been modified
+/**
+ * Checks if a taxonomy item has been modified since last save
+ *
+ * Compares the current state of a category or tag at the given index
+ * with the last saved state to determine if it has been modified.
+ *
+ * @param {string} type - Either 'category' or 'tag'
+ * @param {number} index - Index of the item to check
+ * @returns {boolean} True if item has been modified, false otherwise
+ */
 function isItemDirty(type, index) {
   if (!lastSavedState) return false;
   const saved = JSON.parse(lastSavedState);
@@ -358,13 +528,23 @@ function isItemDirty(type, index) {
   return current[index] !== savedList[index];
 }
 
-// Mark changes as dirty
+/**
+ * Marks taxonomy as having unsaved changes
+ *
+ * Sets the isDirty flag and updates the save button state to indicate
+ * that there are pending changes that need to be saved.
+ */
 function markDirty() {
   isDirty = true;
   updateSaveButton();
 }
 
-// Update save button state
+/**
+ * Updates the taxonomy save button state based on unsaved changes
+ *
+ * Compares current taxonomy state with last saved state and enables/disables
+ * the save button accordingly, updating its text and styling.
+ */
 function updateSaveButton() {
   const saveBtn = document.getElementById('save-btn');
   const currentState = JSON.stringify({ categories, tags });
@@ -381,7 +561,13 @@ function updateSaveButton() {
   }
 }
 
-// Render categories
+/**
+ * Renders the categories list with drag-and-drop sorting
+ *
+ * Generates the HTML table rows for all categories, initializes Sortable.js
+ * for drag-and-drop reordering, and updates the category count badge.
+ * Each row includes edit and delete buttons.
+ */
 function renderCategories() {
   const tbody = document.getElementById('categories-list');
   const countBadge = document.getElementById('categories-count-badge');
@@ -440,7 +626,13 @@ function renderCategories() {
 }
 
 
-// Render tags
+/**
+ * Renders the tags list with drag-and-drop sorting
+ *
+ * Generates the HTML table rows for all tags, initializes Sortable.js
+ * for drag-and-drop reordering, and updates the tag count badge.
+ * Each row includes edit and delete buttons.
+ */
 function renderTags() {
   const tbody = document.getElementById('tags-list');
   const countBadge = document.getElementById('tags-count-badge');
@@ -498,7 +690,15 @@ function renderTags() {
   });
 }
 
-// Add category
+/**
+ * Shows modal to add a new category
+ *
+ * Displays a modal dialog for entering a new category name, validates the input
+ * (checks for empty names and duplicates), adds the category to the list,
+ * and automatically saves changes to the backend.
+ *
+ * @throws {Error} If category addition fails
+ */
 async function showAddCategoryModal() {
   try {
     const newValue = await showModal('Add Category', '');
@@ -528,11 +728,25 @@ async function showAddCategoryModal() {
 }
 
 // Legacy function for backwards compatibility
+/**
+ * Legacy wrapper for backwards compatibility
+ *
+ * @deprecated Use showAddCategoryModal() directly
+ */
 function addCategory() {
   showAddCategoryModal();
 }
 
 // Edit category
+/**
+ * Shows modal to edit an existing category
+ *
+ * Displays a modal dialog pre-filled with the current category name, validates the edited input (checks for empty names and duplicates), updates the category, and automatically saves changes to the backend.
+ *
+ * @param {number} index - Index of the category to edit
+ *
+ * @throws {Error} If category update fails
+ */
 async function editCategory(index) {
   const newValue = await showModal('Edit Category', categories[index]);
   if (newValue === null) return;
@@ -557,6 +771,15 @@ async function editCategory(index) {
 }
 
 // Delete category
+/**
+ * Deletes a category after user confirmation
+ *
+ * Shows a confirmation dialog, removes the category from the list if confirmed, and automatically saves changes to the backend.
+ *
+ * @param {number} index - Index of the category to delete
+ *
+ * @throws {Error} If category deletion fails
+ */
 async function deleteCategory(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${categories[index]}"?`);
   if (!confirmed) return;
@@ -569,6 +792,13 @@ async function deleteCategory(index) {
 }
 
 // Add tag
+/**
+ * Shows modal to add a new tag
+ *
+ * Displays a modal dialog for entering a new tag name, validates the input (checks for empty names and duplicates), adds the tag to the list, and automatically saves changes to the backend.
+ *
+ * @throws {Error} If tag addition fails
+ */
 async function showAddTagModal() {
   try {
     const newValue = await showModal('Add Tag', '');
@@ -598,11 +828,25 @@ async function showAddTagModal() {
 }
 
 // Legacy function for backwards compatibility
+/**
+ * Legacy wrapper for backwards compatibility
+ *
+ * @deprecated Use showAddTagModal() directly
+ */
 function addTag() {
   showAddTagModal();
 }
 
 // Edit tag
+/**
+ * Shows modal to edit an existing tag
+ *
+ * Displays a modal dialog pre-filled with the current tag name, validates the edited input (checks for empty names and duplicates), updates the tag, and automatically saves changes to the backend.
+ *
+ * @param {number} index - Index of the tag to edit
+ *
+ * @throws {Error} If tag update fails
+ */
 async function editTag(index) {
   const newValue = await showModal('Edit Tag', tags[index]);
   if (newValue === null) return;
@@ -627,6 +871,15 @@ async function editTag(index) {
 }
 
 // Delete tag
+/**
+ * Deletes a tag after user confirmation
+ *
+ * Shows a confirmation dialog, removes the tag from the list if confirmed, and automatically saves changes to the backend.
+ *
+ * @param {number} index - Index of the tag to delete
+ *
+ * @throws {Error} If tag deletion fails
+ */
 async function deleteTag(index) {
   const confirmed = await showConfirm(`Are you sure you want to delete "${tags[index]}"?`);
   if (!confirmed) return;
@@ -639,6 +892,13 @@ async function deleteTag(index) {
 }
 
 // Save taxonomy
+/**
+ * Saves taxonomy changes to the backend
+ *
+ * Sends a PUT request with current categories and tags to the API, handles deployment tracking if changes result in a Git commit, and updates the UI state.
+ *
+ * @throws {Error} If save operation fails
+ */
 async function saveTaxonomy() {
   const saveBtn = DOM.saveBtn;
   setButtonLoading(saveBtn, true, 'Saving...');
@@ -679,12 +939,26 @@ async function saveTaxonomy() {
 }
 
 // UI helpers
+/**
+ * Displays an error message to the user
+ *
+ * Shows the error message in the DOM error element and automatically hides it after 5 seconds.
+ *
+ * @param {string} message - Error message to display
+ */
 function showError(message) {
   DOM.error.querySelector('p').textContent = message;
   DOM.error.classList.remove('hidden');
   setTimeout(() => DOM.error.classList.add('hidden'), 5000);
 }
 
+/**
+ * Displays a success message to the user
+ *
+ * Shows the success message in the DOM success element and automatically hides it after 5 seconds.
+ *
+ * @param {string} [message="Taxonomy saved successfully!"] - Success message to display
+ */
 function showSuccess(message = 'Taxonomy saved successfully!') {
   const msgEl = DOM.success.querySelector('p');
   if (msgEl) {
@@ -696,11 +970,29 @@ function showSuccess(message = 'Taxonomy saved successfully!') {
   setTimeout(() => DOM.success.classList.add('hidden'), 5000);
 }
 
+/**
+ * Hides all error and success messages
+ *
+ * Immediately hides both error and success message elements.
+ */
 function hideMessages() {
   DOM.error.classList.add('hidden');
   DOM.success.classList.add('hidden');
 }
 
+/**
+ * Escapes HTML special characters to prevent XSS attacks
+ *
+ * Converts characters like <, >, &, ", ' to their HTML entity equivalents
+ * by using the browser's built-in text-to-HTML conversion.
+ *
+ * @param {string} text - Raw text to escape
+ * @returns {string} HTML-safe escaped text
+ *
+ * @example
+ * escapeHtml('<script>alert("xss")</script>')
+ * // Returns: '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
+ */
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
@@ -710,6 +1002,16 @@ function escapeHtml(text) {
 // Custom modal dialog
 let modalResolve;
 
+/**
+ * Shows a modal dialog for text input
+ *
+ * Displays a modal with a title and input field, returns a promise that resolves with the entered value or null if cancelled. Handles Enter key for confirmation and Escape key for cancellation.
+ *
+ * @param {string} title - Modal title text
+ * @param {string} [defaultValue=""] - Default input value
+ *
+ * @returns {Promise<string|null>} Promise resolving to entered text or null if cancelled
+ */
 function showModal(title, defaultValue = '') {
   return new Promise((resolve) => {
     modalResolve = resolve;
@@ -743,6 +1045,13 @@ function showModal(title, defaultValue = '') {
   });
 }
 
+/**
+ * Closes the modal dialog and resolves its promise
+ *
+ * Hides the modal overlay and resolves the promise with the input value or null.
+ *
+ * @param {boolean} confirmed - Whether the user confirmed or cancelled
+ */
 function closeModal(confirmed) {
   const overlay = document.getElementById('modal-overlay');
   const input = document.getElementById('modal-input');
@@ -758,6 +1067,19 @@ function closeModal(confirmed) {
 // Custom confirm dialog
 let confirmResolve;
 
+/**
+ * Shows a confirmation dialog
+ *
+ * Displays a modal confirmation dialog with customizable title, message, button text, and styling.
+ *
+ * @param {string} message - Confirmation message
+ * @param {Object} [options={}] - Configuration options
+ * @param {string} [options.title="Confirm Delete"] - Dialog title
+ * @param {string} [options.buttonText="Delete"] - Confirm button text
+ * @param {string} [options.buttonClass="btn-danger"] - Button CSS class
+ *
+ * @returns {Promise<boolean>} Promise resolving to true if confirmed, false otherwise
+ */
 function showConfirm(message, options = {}) {
   return new Promise((resolve) => {
     confirmResolve = resolve;
@@ -780,6 +1102,13 @@ function showConfirm(message, options = {}) {
   });
 }
 
+/**
+ * Closes the confirmation dialog and resolves its promise
+ *
+ * Hides the confirmation overlay and resolves the promise with the user's choice.
+ *
+ * @param {boolean} confirmed - Whether the user confirmed or cancelled
+ */
 function closeConfirm(confirmed) {
   const overlay = document.getElementById('confirm-overlay');
   overlay.classList.add('hidden');
@@ -791,6 +1120,14 @@ function closeConfirm(confirmed) {
 }
 
 // Section switching (Dashboard, Taxonomy, Settings)
+/**
+ * Switches to a different section of the application
+ *
+ * Updates the URL, page title, navigation highlighting, shows/hides section panels, and loads section data if needed. Supports dashboard, taxonomy, posts, pages, media, trash, and settings sections.
+ *
+ * @param {string} sectionName - Name of section to switch to
+ * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ */
 function switchSection(sectionName, updateUrl = true) {
   // Clear currentPost when switching away from posts section
   if (sectionName !== 'posts') {
@@ -878,6 +1215,13 @@ function switchSection(sectionName, updateUrl = true) {
 }
 
 // Handle URL path changes (back/forward/refresh)
+/**
+ * Handles browser URL changes and routes to appropriate section
+ *
+ * Parses the current URL path and query parameters, switches to the appropriate section, and handles sub-routes (e.g., post/page editing, pagination).
+ *
+ * @returns {Promise<void>}
+ */
 async function handleRouteChange() {
   const path = window.location.pathname;
   const pathParts = path.split('/').filter(p => p);
@@ -944,6 +1288,13 @@ window.addEventListener('popstate', (e) => {
 });
 
 // Load settings from API
+/**
+ * Loads site settings from the backend
+ *
+ * Fetches settings from the API and populates form fields with the values.
+ *
+ * @throws {Error} If settings load fails
+ */
 async function loadSettings() {
   try {
     const response = await fetch(`${API_BASE}/settings`);
@@ -964,6 +1315,15 @@ async function loadSettings() {
 }
 
 // Save settings
+/**
+ * Saves site settings to the backend
+ *
+ * Collects form data, converts number fields appropriately, sends a PUT request to the API, and handles deployment tracking.
+ *
+ * @param {Event} event - Form submit event
+ *
+ * @throws {Error} If settings save fails
+ */
 async function saveSettings(event) {
   event.preventDefault();
 
@@ -1013,6 +1373,11 @@ async function saveSettings(event) {
 }
 
 // Update last updated time on dashboard
+/**
+ * Updates the last updated timestamp on the dashboard
+ *
+ * Formats the current date/time and displays it in the dashboard.
+ */
 function updateLastUpdated() {
   const now = new Date();
   const timeStr = now.toLocaleString('en-GB', {
@@ -1040,6 +1405,13 @@ let postHasUnsavedChanges = false; // Track unsaved changes in post editor
 let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
 
 // Load posts list with metadata in one API call
+/**
+ * Loads all posts with metadata from the backend
+ *
+ * Fetches posts list with frontmatter metadata in a single API call, processes dates, and renders the posts list.
+ *
+ * @throws {Error} If posts load fails
+ */
 async function loadPosts() {
   try {
     // Fetch all posts with metadata in a single call using Promise.all on the server
@@ -1068,6 +1440,11 @@ async function loadPosts() {
 }
 
 // Render posts list
+/**
+ * Renders the posts list with filtering, sorting, and pagination
+ *
+ * Applies search filtering, sorts posts by selected criteria, paginates results, and generates HTML table rows with hierarchical category display.
+ */
 function renderPostsList() {
   const tbody = document.getElementById('posts-table-body');
   const emptyEl = document.getElementById('posts-empty');
@@ -1165,6 +1542,16 @@ function renderPostsList() {
 }
 
 // Sort posts list
+/**
+ * Sorts posts by specified criteria
+ *
+ * Supports sorting by date (ascending/descending) and title (ascending/descending).
+ *
+ * @param {Array} posts - Array of post objects to sort
+ * @param {string} sortBy - Sort criteria (date-desc, date-asc, title-asc, title-desc)
+ *
+ * @returns {Array} Sorted array of posts
+ */
 function sortPostsList(posts, sortBy) {
   const sorted = [...posts];
 
@@ -1191,6 +1578,13 @@ function sortPostsList(posts, sortBy) {
 }
 
 // Toggle category visibility in posts list
+/**
+ * Toggles visibility of hierarchical categories in posts list
+ *
+ * Shows or hides remaining categories when a post has multiple categories in its hierarchy.
+ *
+ * @param {string} rowId - ID of the table row containing categories to toggle
+ */
 function toggleCategories(rowId) {
   const row = document.querySelector(`[data-row-id="${rowId}"]`);
   if (!row) return;
@@ -1213,6 +1607,16 @@ function toggleCategories(rowId) {
 }
 
 // Update pagination UI
+/**
+ * Updates pagination UI for posts list
+ *
+ * Updates page numbers, range display, and enables/disables prev/next buttons.
+ *
+ * @param {number} total - Total number of posts
+ * @param {number} start - Starting index of current page
+ * @param {number} end - Ending index of current page
+ * @param {number} totalPages - Total number of pages
+ */
 function updatePagination(total, start, end, totalPages) {
   const paginationEl = document.getElementById('posts-pagination');
   const prevBtn = document.getElementById('posts-prev-btn');
@@ -1234,6 +1638,13 @@ function updatePagination(total, start, end, totalPages) {
 }
 
 // Change page
+/**
+ * Changes the current page in posts pagination
+ *
+ * Updates the current page number, modifies the URL, re-renders the posts list, and scrolls to top.
+ *
+ * @param {number} delta - Page change delta (+1 for next, -1 for previous)
+ */
 function changePage(delta) {
   currentPage += delta;
 
@@ -1248,12 +1659,22 @@ function changePage(delta) {
 }
 
 // Sort posts (triggered by dropdown)
+/**
+ * Triggers posts list re-sort based on dropdown selection
+ *
+ * Resets to first page and re-renders the posts list with new sort order.
+ */
 function sortPosts() {
   currentPage = 1; // Reset to first page
   renderPostsList();
 }
 
 // Filter posts (debounced version will be created in init)
+/**
+ * Filters posts based on search input
+ *
+ * Resets to first page and re-renders the posts list with search filter applied.
+ */
 function filterPosts() {
   currentPage = 1; // Reset to first page
   renderPostsList();
@@ -1263,6 +1684,15 @@ function filterPosts() {
 const debouncedFilterPosts = debounce(filterPosts, 300);
 
 // Format date for display
+/**
+ * Formats a date for display in short format
+ *
+ * Converts Date object to DD MMM YYYY format (e.g., "21 Oct 2025").
+ *
+ * @param {Date|string} date - Date to format
+ *
+ * @returns {string} Formatted date string
+ */
 function formatDateShort(date) {
   if (!date) return '';
   const d = new Date(date);
@@ -1274,6 +1704,11 @@ function formatDateShort(date) {
 }
 
 // Initialize markdown editor
+/**
+ * Initializes the EasyMDE markdown editor for posts
+ *
+ * Creates the EasyMDE instance if it doesn't exist, configures toolbar and status bar, and sets up change tracking.
+ */
 function initMarkdownEditor() {
   if (!markdownEditor) {
     markdownEditor = new EasyMDE({
@@ -1294,6 +1729,11 @@ function initMarkdownEditor() {
 }
 
 // Clean up markdown editor
+/**
+ * Cleans up and destroys the markdown editor instance
+ *
+ * Converts the EasyMDE editor back to a textarea and nullifies the instance to free memory.
+ */
 function cleanupMarkdownEditor() {
   if (markdownEditor) {
     markdownEditor.toTextArea();
@@ -1302,16 +1742,36 @@ function cleanupMarkdownEditor() {
 }
 
 // Mark post as having unsaved changes
+/**
+ * Marks the current post as having unsaved changes
+ *
+ * Sets the postHasUnsavedChanges flag to trigger browser warning on page close.
+ */
 function markPostDirty() {
   postHasUnsavedChanges = true;
 }
 
 // Clear post dirty flag
+/**
+ * Clears the unsaved changes flag for the current post
+ *
+ * Resets the postHasUnsavedChanges flag.
+ */
 function clearPostDirty() {
   postHasUnsavedChanges = false;
 }
 
 // Edit post
+/**
+ * Loads and displays a post for editing
+ *
+ * Fetches post data from the API, populates the editor form, initializes the markdown editor, sets up change tracking, and updates the URL.
+ *
+ * @param {string} filename - Name of the post file to edit
+ * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ *
+ * @throws {Error} If post load fails
+ */
 async function editPost(filename, updateUrl = true) {
   try {
     // Clear any existing post data first to prevent stale state
@@ -1372,6 +1832,13 @@ async function editPost(filename, updateUrl = true) {
 }
 
 // Show new post form
+/**
+ * Shows the editor form for creating a new post
+ *
+ * Clears all form fields, initializes the markdown editor, sets current date, and updates the URL.
+ *
+ * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ */
 function showNewPostForm(updateUrl = true) {
   currentPost = null;
 
@@ -1416,6 +1883,11 @@ function showNewPostForm(updateUrl = true) {
 }
 
 // Setup change listeners for post form
+/**
+ * Sets up change listeners on post editor form fields
+ *
+ * Adds input event listeners to mark the post as dirty when any field changes.
+ */
 function setupPostFormChangeListeners() {
   // Only setup once
   if (window._postFormListenersSetup) return;
@@ -1436,6 +1908,13 @@ function setupPostFormChangeListeners() {
 }
 
 // Show posts list
+/**
+ * Returns to the posts list view from the editor
+ *
+ * Hides the editor, shows the list view, clears currentPost, updates URL, and optionally reloads posts.
+ *
+ * @returns {Promise<void>}
+ */
 async function showPostsList() {
   // Check for unsaved changes
   if (postHasUnsavedChanges) {
@@ -1448,6 +1927,15 @@ async function showPostsList() {
 }
 
 // Save post
+/**
+ * Saves the current post to the backend
+ *
+ * Validates required fields, collects form data including frontmatter and content, sends POST/PUT request, handles deployment tracking, and returns to posts list.
+ *
+ * @param {Event} event - Form submit event
+ *
+ * @throws {Error} If post save fails
+ */
 async function savePost(event) {
   event.preventDefault();
 
@@ -1546,6 +2034,13 @@ async function savePost(event) {
 }
 
 // Delete post (from editor view - move to trash)
+/**
+ * Deletes the currently edited post
+ *
+ * Shows confirmation dialog, sends delete request to backend, tracks deployment, and returns to posts list.
+ *
+ * @throws {Error} If post deletion fails
+ */
 async function deletePost() {
   if (!currentPost) return;
 
@@ -1584,6 +2079,16 @@ async function deletePost() {
 }
 
 // Delete post from list view (move to trash)
+/**
+ * Deletes a post from the posts list view
+ *
+ * Shows confirmation dialog, sends delete request to backend with file SHA, tracks deployment, and refreshes the list.
+ *
+ * @param {string} filename - Name of the post file to delete
+ * @param {string} sha - Git SHA of the file
+ *
+ * @throws {Error} If post deletion fails
+ */
 async function deletePostFromList(filename, sha) {
   const post = allPostsWithMetadata.find(p => p.name === filename);
   const title = post?.frontmatter?.title || filename;
@@ -1625,6 +2130,16 @@ async function deletePostFromList(filename, sha) {
 }
 
 // Helper: Generate filename for new post
+/**
+ * Generates a Jekyll post filename from title and date
+ *
+ * Creates a filename in YYYY-MM-DD-slug.md format by slugifying the title.
+ *
+ * @param {string} title - Post title
+ * @param {string} date - Post date in ISO format
+ *
+ * @returns {string} Generated filename
+ */
 function generateFilename(title, date) {
   const dateObj = new Date(date);
   const dateStr = dateObj.toISOString().split('T')[0];
@@ -1635,6 +2150,15 @@ function generateFilename(title, date) {
 }
 
 // Helper: Format date for datetime-local input
+/**
+ * Formats a date for HTML date input
+ *
+ * Converts Date object or ISO string to YYYY-MM-DD format for input[type="date"].
+ *
+ * @param {Date|string} dateStr - Date to format
+ *
+ * @returns {string} Formatted date string (YYYY-MM-DD)
+ */
 function formatDateForInput(dateStr) {
   if (!dateStr) return '';
   const date = new Date(dateStr);
@@ -1647,6 +2171,11 @@ function formatDateForInput(dateStr) {
 }
 
 // Helper: Populate taxonomy selects (WordPress-style autocomplete)
+/**
+ * Populates taxonomy autocomplete inputs with available options
+ *
+ * Fetches current categories and tags from global state and initializes autocomplete for both.
+ */
 function populateTaxonomySelects() {
   // Initialize autocomplete for categories
   initTaxonomyAutocomplete('categories', categories);
@@ -1660,6 +2189,16 @@ let selectedCategories = [];
 let selectedTags = [];
 
 // Initialize WordPress-style taxonomy autocomplete
+/**
+ * Initializes autocomplete functionality for taxonomy input
+ *
+ * Sets up dropdown suggestions, keyboard navigation, and item selection for categories or tags input.
+ *
+ * @param {string} type - Either "categories" or "tags"
+ * @param {Array<string>} availableItems - List of available taxonomy items
+ *
+ * @returns {Function} Cleanup function to remove event listeners
+ */
 function initTaxonomyAutocomplete(type, availableItems) {
   const input = document.getElementById(`${type}-input`);
   const suggestionsDiv = document.getElementById(`${type}-suggestions`);
@@ -1766,6 +2305,14 @@ function initTaxonomyAutocomplete(type, availableItems) {
 }
 
 // Add taxonomy item (category or tag)
+/**
+ * Adds a selected taxonomy item to the post/page
+ *
+ * Adds the item to the selected list if not already present and renders the updated selection.
+ *
+ * @param {string} type - Either "categories" or "tags"
+ * @param {string} value - Taxonomy item to add
+ */
 function addTaxonomyItem(type, value) {
   const selectedDiv = document.getElementById(`${type}-selected`);
   const input = document.getElementById(`${type}-input`);
@@ -1794,6 +2341,14 @@ function addTaxonomyItem(type, value) {
 }
 
 // Remove taxonomy item
+/**
+ * Removes a taxonomy item from the post/page
+ *
+ * Removes the item from the selected list and renders the updated selection.
+ *
+ * @param {string} type - Either "categories" or "tags"
+ * @param {string} value - Taxonomy item to remove
+ */
 function removeTaxonomyItem(type, value) {
   if (type === 'categories') {
     selectedCategories = selectedCategories.filter(item => item !== value);
@@ -1808,6 +2363,13 @@ function removeTaxonomyItem(type, value) {
 }
 
 // Render selected taxonomy items
+/**
+ * Renders the selected taxonomy items with remove buttons
+ *
+ * Displays selected categories or tags as pills with × buttons for removal.
+ *
+ * @param {string} type - Either "categories" or "tags"
+ */
 function renderSelectedTaxonomy(type) {
   const selectedDiv = document.getElementById(`${type}-selected`);
   const selectedItems = type === 'categories' ? selectedCategories : selectedTags;
@@ -1828,6 +2390,14 @@ function renderSelectedTaxonomy(type) {
 }
 
 // Helper: Set taxonomy values (for loading existing post)
+/**
+ * Sets the selected values for a taxonomy multiselect
+ *
+ * Updates the global state for selected categories or tags.
+ *
+ * @param {string} id - Either "post-categories" or "post-tags"
+ * @param {Array<string>} values - Array of selected values
+ */
 function setMultiSelect(id, values) {
   const type = id === 'post-categories' ? 'categories' : 'tags';
 
@@ -1841,12 +2411,34 @@ function setMultiSelect(id, values) {
 }
 
 // Helper: Get taxonomy values (for saving post)
+/**
+ * Gets the currently selected taxonomy values
+ *
+ * Retrieves selected categories or tags from global state.
+ *
+ * @param {string} id - Either "post-categories" or "post-tags"
+ *
+ * @returns {Array<string>} Array of selected values
+ */
 function getMultiSelectValues(id) {
   const type = id === 'post-categories' ? 'categories' : 'tags';
   return type === 'categories' ? selectedCategories : selectedTags;
 }
 
 // Helper: URL validation
+/**
+ * Validates whether a string is a valid URL
+ *
+ * Uses the URL constructor to test if the string can be parsed as a valid URL.
+ * Useful for validating user-provided URLs before display or storage.
+ *
+ * @param {string} string - String to validate
+ * @returns {boolean} True if valid URL, false otherwise
+ *
+ * @example
+ * isValidUrl('https://example.com') // true
+ * isValidUrl('not a url') // false
+ */
 function isValidUrl(string) {
   try {
     new URL(string);
@@ -1857,6 +2449,13 @@ function isValidUrl(string) {
 }
 
 // Initialize Cloudinary Media Library widget
+/**
+ * Initializes the Cloudinary Media Library widget
+ *
+ * Creates and configures the Cloudinary widget if not already initialized, using credentials from window.cloudinaryConfig.
+ *
+ * @returns {Object} Cloudinary widget instance
+ */
 function initCloudinaryWidget() {
   if (cloudinaryWidget) return cloudinaryWidget;
 
@@ -1892,6 +2491,11 @@ function initCloudinaryWidget() {
 }
 
 // Show Cloudinary widget for featured image selection
+/**
+ * Opens Cloudinary widget for selecting a featured image
+ *
+ * Shows the media library widget and sets the selected image URL to the featured image field.
+ */
 function selectFeaturedImage() {
   const widget = initCloudinaryWidget();
   if (widget) {
@@ -1902,6 +2506,11 @@ function selectFeaturedImage() {
 }
 
 // Update image preview
+/**
+ * Updates the featured image preview
+ *
+ * Shows or hides the image preview based on whether a valid image URL is entered.
+ */
 function updateImagePreview() {
   const imageUrl = document.getElementById('post-image').value.trim();
   const previewDiv = document.getElementById('image-preview');
@@ -1929,6 +2538,13 @@ function updateImagePreview() {
 }
 
 // Open image modal
+/**
+ * Opens a full-size image modal
+ *
+ * Displays the featured image in a modal overlay for full-size viewing.
+ *
+ * @param {string} url - Image URL to display
+ */
 function openImageModal() {
   const imageUrl = document.getElementById('post-image').value.trim();
   const modalOverlay = document.getElementById('image-modal-overlay');
@@ -1950,6 +2566,11 @@ function openImageModal() {
 }
 
 // Close image modal
+/**
+ * Closes the full-size image modal
+ *
+ * Hides the image modal overlay.
+ */
 function closeImageModal() {
   const modalOverlay = document.getElementById('image-modal-overlay');
   modalOverlay.classList.add('hidden');
@@ -1957,6 +2578,15 @@ function closeImageModal() {
 }
 
 // Handle Escape key for image modal
+/**
+ * Handles Escape key press in image modal
+ *
+ * Closes the modal when user presses Escape key.
+ *
+ * @param {KeyboardEvent} e - Keyboard event
+ *
+ * @listens document#keydown
+ */
 function handleImageModalEscape(e) {
   if (e.key === 'Escape') {
     closeImageModal();
@@ -1968,6 +2598,13 @@ function handleImageModalEscape(e) {
 let allTrashedItems = [];
 
 // Load trashed items (posts and pages)
+/**
+ * Loads deleted items from the trash
+ *
+ * Fetches trashed posts and pages from the backend and renders the trash list.
+ *
+ * @throws {Error} If trash load fails
+ */
 async function loadTrash() {
   try {
     const response = await fetch(`${API_BASE}/trash`);
@@ -1985,6 +2622,11 @@ async function loadTrash() {
 }
 
 // Render trash list
+/**
+ * Renders the trash list with restore and permanent delete actions
+ *
+ * Displays all trashed items with their type, date, and action buttons.
+ */
 function renderTrashList() {
   const listEl = document.getElementById('trash-list');
   const emptyEl = document.getElementById('trash-empty');
@@ -2045,6 +2687,17 @@ function renderTrashList() {
 }
 
 // Restore item from trash (post or page)
+/**
+ * Restores a deleted item from trash
+ *
+ * Shows confirmation dialog, sends restore request to backend, tracks deployment, and refreshes the trash list.
+ *
+ * @param {string} filename - Name of the file to restore
+ * @param {string} sha - Git SHA of the deleted file
+ * @param {string} type - Type of item ("post" or "page")
+ *
+ * @throws {Error} If restore fails
+ */
 async function restoreItem(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const destination = type === 'page' ? 'pages' : 'posts';
@@ -2091,6 +2744,17 @@ async function restoreItem(filename, sha, type) {
 }
 
 // Permanently delete item (post or page)
+/**
+ * Permanently deletes an item from trash
+ *
+ * Shows confirmation warning, sends permanent delete request to backend, and refreshes the trash list.
+ *
+ * @param {string} filename - Name of the file to delete
+ * @param {string} sha - Git SHA of the file
+ * @param {string} type - Type of item ("post" or "page")
+ *
+ * @throws {Error} If permanent deletion fails
+ */
 async function permanentlyDeleteItem(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const confirmed = await showConfirm(`Permanently delete "${filename}"? This cannot be undone!`);
@@ -2176,6 +2840,13 @@ switchSection = async function(sectionName, updateUrl = true) {
 // ===== MEDIA LIBRARY MANAGEMENT =====
 
 // Load media from Cloudinary
+/**
+ * Loads media files from Cloudinary
+ *
+ * Fetches all media resources from Cloudinary API and renders the media grid.
+ *
+ * @throws {Error} If media load fails
+ */
 async function loadMedia() {
   try {
     const response = await fetch(`${API_BASE}/media`);
@@ -2193,6 +2864,11 @@ async function loadMedia() {
 }
 
 // Render media grid
+/**
+ * Renders the media library grid
+ *
+ * Displays media files in a paginated grid with thumbnails, filenames, and action buttons.
+ */
 function renderMediaGrid() {
   const grid = document.getElementById('media-grid');
   const emptyEl = document.getElementById('media-empty');
@@ -2282,6 +2958,15 @@ function renderMediaGrid() {
 }
 
 // Check if media was uploaded recently (within 7 days)
+/**
+ * Checks if a media file was recently uploaded
+ *
+ * Determines if a file was uploaded within the last 24 hours.
+ *
+ * @param {string} createdAt - ISO date string of file creation
+ *
+ * @returns {boolean} True if uploaded within last 24 hours
+ */
 function isRecentUpload(createdAt) {
   const uploadDate = new Date(createdAt);
   const weekAgo = new Date();
@@ -2290,6 +2975,13 @@ function isRecentUpload(createdAt) {
 }
 
 // Update media pagination
+/**
+ * Updates media pagination UI
+ *
+ * Updates page number display and enables/disables prev/next buttons.
+ *
+ * @param {number} totalPages - Total number of pages
+ */
 function updateMediaPagination(totalPages) {
   const paginationEl = document.getElementById('media-pagination');
   const prevBtn = document.getElementById('media-prev-btn');
@@ -2310,6 +3002,13 @@ function updateMediaPagination(totalPages) {
 }
 
 // Change media page
+/**
+ * Changes the current page in media pagination
+ *
+ * Updates page number and re-renders the media grid.
+ *
+ * @param {number} delta - Page change delta (+1 for next, -1 for previous)
+ */
 function changeMediaPage(delta) {
   currentMediaPage += delta;
   renderMediaGrid();
@@ -2317,6 +3016,11 @@ function changeMediaPage(delta) {
 }
 
 // Filter media (triggered by dropdown)
+/**
+ * Filters media by search term
+ *
+ * Resets to first page and re-renders media grid with search filter applied.
+ */
 function filterMedia() {
   currentMediaPage = 1;
   renderMediaGrid();
@@ -2326,6 +3030,15 @@ function filterMedia() {
 const debouncedFilterMedia = debounce(filterMedia, 300);
 
 // Copy media URL to clipboard
+/**
+ * Copies a media URL to clipboard
+ *
+ * Uses the Clipboard API to copy the URL and shows a success message.
+ *
+ * @param {string} url - URL to copy to clipboard
+ *
+ * @returns {Promise<void>}
+ */
 async function copyMediaUrl(url) {
   try {
     await navigator.clipboard.writeText(url);
@@ -2336,6 +3049,13 @@ async function copyMediaUrl(url) {
 }
 
 // View media full size
+/**
+ * Opens media file in a new tab
+ *
+ * Opens the full-size media file in a new browser tab.
+ *
+ * @param {string} url - URL of media file
+ */
 function viewMediaFull(url) {
   const modalOverlay = document.getElementById('image-modal-overlay');
   const modalImg = document.getElementById('image-modal-img');
@@ -2348,6 +3068,11 @@ function viewMediaFull(url) {
 }
 
 // Open Cloudinary upload widget
+/**
+ * Opens the Cloudinary upload widget
+ *
+ * Shows the Cloudinary upload widget for uploading new media files and refreshes the media grid after upload.
+ */
 function openCloudinaryUpload() {
   // Check if Cloudinary library is loaded
   if (typeof cloudinary === 'undefined') {
@@ -2388,6 +3113,13 @@ let pageMarkdownEditor = null; // Separate markdown editor for pages
 let pageHasUnsavedChanges = false; // Track unsaved changes in page editor
 
 // Load pages list with metadata
+/**
+ * Loads all pages from the backend
+ *
+ * Fetches the list of pages and renders the pages list.
+ *
+ * @throws {Error} If pages load fails
+ */
 async function loadPages() {
   try {
     const response = await fetch(`${API_BASE}/pages?metadata=true`);
@@ -2405,6 +3137,11 @@ async function loadPages() {
 }
 
 // Render pages list
+/**
+ * Renders the pages list with search filtering
+ *
+ * Filters pages by search term and generates HTML table rows with edit/delete actions.
+ */
 function renderPagesList() {
   const tbody = document.getElementById('pages-table-body');
   const emptyEl = document.getElementById('pages-empty');
@@ -2461,6 +3198,11 @@ function renderPagesList() {
 }
 
 // Filter pages (debounced version)
+/**
+ * Filters pages based on search input
+ *
+ * Re-renders the pages list with search filter applied.
+ */
 function filterPages() {
   renderPagesList();
 }
@@ -2468,6 +3210,11 @@ function filterPages() {
 const debouncedFilterPages = debounce(filterPages, 300);
 
 // Initialize page markdown editor
+/**
+ * Initializes the EasyMDE markdown editor for pages
+ *
+ * Creates the EasyMDE instance for page content editing if it doesn't exist, and sets up change tracking.
+ */
 function initPageMarkdownEditor() {
   if (!pageMarkdownEditor) {
     pageMarkdownEditor = new EasyMDE({
@@ -2488,6 +3235,11 @@ function initPageMarkdownEditor() {
 }
 
 // Clean up page markdown editor
+/**
+ * Cleans up and destroys the page markdown editor instance
+ *
+ * Converts the EasyMDE editor back to a textarea and nullifies the instance.
+ */
 function cleanupPageMarkdownEditor() {
   if (pageMarkdownEditor) {
     pageMarkdownEditor.toTextArea();
@@ -2496,16 +3248,35 @@ function cleanupPageMarkdownEditor() {
 }
 
 // Mark page as having unsaved changes
+/**
+ * Marks the current page as having unsaved changes
+ *
+ * Sets the pageHasUnsavedChanges flag.
+ */
 function markPageDirty() {
   pageHasUnsavedChanges = true;
 }
 
 // Clear page dirty flag
+/**
+ * Clears the unsaved changes flag for the current page
+ *
+ * Resets the pageHasUnsavedChanges flag.
+ */
 function clearPageDirty() {
   pageHasUnsavedChanges = false;
 }
 
 // Slugify text for permalinks (convert "About Us" to "/about-us/")
+/**
+ * Converts text to a URL-friendly slug
+ *
+ * Converts to lowercase, replaces spaces with hyphens, removes special characters.
+ *
+ * @param {string} text - Text to slugify
+ *
+ * @returns {string} URL-friendly slug
+ */
 function slugifyPermalink(text) {
   return '/' + text
     .toLowerCase()
@@ -2521,6 +3292,11 @@ function slugifyPermalink(text) {
 let permalinkManuallyEdited = false;
 
 // Auto-populate permalink from title
+/**
+ * Auto-populates permalink field from page title
+ *
+ * Slugifies the title and sets it as the permalink, adding leading slash.
+ */
 function autoPopulatePermalink() {
   const titleInput = document.getElementById('page-title');
   const permalinkInput = document.getElementById('page-permalink');
@@ -2537,6 +3313,16 @@ function autoPopulatePermalink() {
 }
 
 // Edit page
+/**
+ * Loads and displays a page for editing
+ *
+ * Fetches page data from the API, populates the editor form, initializes the markdown editor, and updates the URL.
+ *
+ * @param {string} filename - Name of the page file to edit
+ * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ *
+ * @throws {Error} If page load fails
+ */
 async function editPage(filename, updateUrl = true) {
   try {
     // Clear any existing page data first to prevent stale state
@@ -2593,6 +3379,13 @@ async function editPage(filename, updateUrl = true) {
 }
 
 // Show new page form
+/**
+ * Shows the editor form for creating a new page
+ *
+ * Clears all form fields, initializes the markdown editor, and updates the URL.
+ *
+ * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ */
 function showNewPageForm(updateUrl = true) {
   currentPage_pages = null;
   permalinkManuallyEdited = false; // Reset flag for new page
@@ -2636,6 +3429,11 @@ function showNewPageForm(updateUrl = true) {
 }
 
 // Setup change listeners for page form
+/**
+ * Sets up change listeners on page editor form fields
+ *
+ * Adds input event listeners to mark the page as dirty when any field changes.
+ */
 function setupPageFormChangeListeners() {
   // Only setup once
   if (window._pageFormListenersSetup) return;
@@ -2673,6 +3471,13 @@ function setupPageFormChangeListeners() {
 }
 
 // Show pages list
+/**
+ * Returns to the pages list view from the editor
+ *
+ * Hides the editor, shows the list view, clears currentPage, updates URL, and optionally reloads pages.
+ *
+ * @returns {Promise<void>}
+ */
 async function showPagesList() {
   // Check for unsaved changes
   if (pageHasUnsavedChanges) {
@@ -2685,6 +3490,15 @@ async function showPagesList() {
 }
 
 // Save page
+/**
+ * Saves the current page to the backend
+ *
+ * Validates required fields, collects form data, sends POST/PUT request, handles deployment tracking, and returns to pages list.
+ *
+ * @param {Event} event - Form submit event
+ *
+ * @throws {Error} If page save fails
+ */
 async function savePage(event) {
   event.preventDefault();
 
@@ -2782,6 +3596,13 @@ async function savePage(event) {
 }
 
 // Delete page (from editor view - move to trash)
+/**
+ * Deletes the currently edited page
+ *
+ * Shows confirmation dialog, validates that protected pages aren't deleted, sends delete request, and returns to pages list.
+ *
+ * @throws {Error} If page deletion fails
+ */
 async function deletePage() {
   if (!currentPage_pages) return;
 
@@ -2821,6 +3642,16 @@ async function deletePage() {
 }
 
 // Delete page from list view (move to trash)
+/**
+ * Deletes a page from the pages list view
+ *
+ * Shows confirmation dialog, validates protected pages, sends delete request with SHA, tracks deployment, and refreshes the list.
+ *
+ * @param {string} filename - Name of the page file to delete
+ * @param {string} sha - Git SHA of the file
+ *
+ * @throws {Error} If page deletion fails
+ */
 async function deletePageFromList(filename, sha) {
   const page = allPages.find(p => p.name === filename);
   const title = page?.frontmatter?.title || filename;
@@ -2862,6 +3693,15 @@ async function deletePageFromList(filename, sha) {
 }
 
 // Helper: Generate filename for new page
+/**
+ * Generates a filename from page title
+ *
+ * Slugifies the title and adds .md extension.
+ *
+ * @param {string} title - Page title
+ *
+ * @returns {string} Generated filename
+ */
 function generatePageFilename(title) {
   const slug = title.toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -2876,6 +3716,11 @@ const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
 // Track deployments for history
 
 // Load deployment history from localStorage
+/**
+ * Loads deployment history from localStorage
+ *
+ * Retrieves and parses the stored deployment history.
+ */
 function loadDeploymentHistory() {
   try {
     const stored = localStorage.getItem('deploymentHistory');
@@ -2887,6 +3732,15 @@ function loadDeploymentHistory() {
 }
 
 // Fetch recent deployments from GitHub Actions (includes all deployments, not just admin-triggered)
+/**
+ * Fetches recent GitHub Actions workflow runs
+ *
+ * Queries the GitHub API for recent deployments and returns the list.
+ *
+ * @returns {Promise<Array>} Array of recent deployments
+ *
+ * @throws {Error} If GitHub API request fails
+ */
 async function fetchRecentDeploymentsFromGitHub() {
   try {
     const response = await fetch(`${API_BASE}/deployment-history`);
@@ -2904,6 +3758,13 @@ async function fetchRecentDeploymentsFromGitHub() {
 }
 
 // Get merged deployment history (localStorage + recent GitHub deployments)
+/**
+ * Gets deployment history, merging localStorage with GitHub data
+ *
+ * Fetches from GitHub if stale, merges with local history, and limits to most recent deployments.
+ *
+ * @returns {Promise<Array>} Array of deployment objects
+ */
 async function getDeploymentHistory() {
   const localHistory = loadDeploymentHistory();
   const githubHistory = await fetchRecentDeploymentsFromGitHub();
@@ -2935,6 +3796,13 @@ async function getDeploymentHistory() {
 }
 
 // Save deployment history to localStorage
+/**
+ * Saves deployment history to localStorage
+ *
+ * Persists the deployment history array and update timestamp.
+ *
+ * @param {Array} history - Deployment history array to save
+ */
 function saveDeploymentHistory(history) {
   try {
     // Auto-archive: keep only the most recent MAX_DEPLOYMENT_HISTORY items
@@ -2946,6 +3814,13 @@ function saveDeploymentHistory(history) {
 }
 
 // Add deployment to history
+/**
+ * Adds a new deployment to history
+ *
+ * Prepends the deployment to history, removes duplicates, limits to 50 items, and persists.
+ *
+ * @param {Object} deployment - Deployment object to add
+ */
 function addToDeploymentHistory(deployment) {
   const history = loadDeploymentHistory();
   history.push({
@@ -2962,6 +3837,13 @@ function addToDeploymentHistory(deployment) {
 }
 
 // Restore active deployments from GitHub on page load
+/**
+ * Restores in-progress deployments from GitHub on page load
+ *
+ * Queries GitHub for currently running workflows and adds them to active deployments.
+ *
+ * @returns {Promise<void>}
+ */
 async function restoreActiveDeployments() {
   try {
     const githubDeployments = await fetchRecentDeploymentsFromGitHub();
@@ -2995,6 +3877,15 @@ async function restoreActiveDeployments() {
 }
 
 // Track deployment and start polling
+/**
+ * Tracks a new deployment
+ *
+ * Adds deployment to active tracking, shows deployment banner, and adds to history.
+ *
+ * @param {string} commitSha - Git commit SHA
+ * @param {string} action - Description of the action
+ * @param {string} [itemId=null] - Optional item identifier
+ */
 function trackDeployment(commitSha, action, itemId = null) {
   if (!commitSha) return;
 
@@ -3012,6 +3903,11 @@ function trackDeployment(commitSha, action, itemId = null) {
 }
 
 // Show deployment status banner
+/**
+ * Shows the deployment status banner
+ *
+ * Displays the banner with deployment progress information.
+ */
 function showDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
 
@@ -3024,6 +3920,11 @@ function showDeploymentBanner() {
 }
 
 // Update deployment status banner message
+/**
+ * Updates the deployment banner with current status
+ *
+ * Refreshes the banner content based on active deployments.
+ */
 function updateDeploymentBanner() {
   const messageEl = document.getElementById('deployment-status-message');
   const timeEl = document.getElementById('deployment-status-time');
@@ -3051,6 +3952,13 @@ function updateDeploymentBanner() {
 }
 
 // Show deployment completion state (success or error)
+/**
+ * Shows deployment completion message
+ *
+ * Displays success or failure message in the banner.
+ *
+ * @param {boolean} [success=true] - Whether deployment succeeded
+ */
 function showDeploymentCompletion(success = true) {
   const header = document.getElementById('deployment-status-header');
   const messageEl = document.getElementById('deployment-status-message');
@@ -3091,6 +3999,11 @@ function showDeploymentCompletion(success = true) {
 }
 
 // Hide deployment status banner
+/**
+ * Hides the deployment status banner
+ *
+ * Removes the banner from view with fade-out animation.
+ */
 function hideDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
   const timeEl = document.getElementById('deployment-status-time');
@@ -3114,6 +4027,13 @@ function hideDeploymentBanner() {
 }
 
 // Update dashboard deployments card (async to fetch history)
+/**
+ * Updates the deployment history display on dashboard
+ *
+ * Fetches recent deployments and renders them in the dashboard widget.
+ *
+ * @returns {Promise<void>}
+ */
 async function updateDashboardDeployments() {
   const card = document.getElementById('deployments-card');
   if (!card) return; // Not on dashboard
@@ -3381,6 +4301,15 @@ async function updateDashboardDeployments() {
 }
 
 // Helper: Get relative time string
+/**
+ * Converts a date to relative time string
+ *
+ * Returns human-readable relative time (e.g., "2 minutes ago", "3 hours ago").
+ *
+ * @param {Date} date - Date to convert
+ *
+ * @returns {string} Relative time string
+ */
 function getRelativeTime(date) {
   const now = new Date();
   const diffSeconds = Math.floor((now - date) / 1000);
@@ -3394,6 +4323,11 @@ function getRelativeTime(date) {
 }
 
 // Start background polling for deployment history
+/**
+ * Starts background polling for deployment history
+ *
+ * Sets up interval to refresh deployment history every 10 seconds.
+ */
 function startDeploymentHistoryPolling() {
   if (historyPollInterval) return; // Already polling
 
@@ -3441,6 +4375,11 @@ function startDeploymentHistoryPolling() {
 }
 
 // Stop background history polling
+/**
+ * Stops deployment history polling
+ *
+ * Clears the polling interval.
+ */
 function stopDeploymentHistoryPolling() {
   if (historyPollInterval) {
     clearInterval(historyPollInterval);
@@ -3449,6 +4388,11 @@ function stopDeploymentHistoryPolling() {
 }
 
 // Start polling deployment status
+/**
+ * Starts polling for active deployment status
+ *
+ * Sets up interval to check deployment status every 5 seconds and handles completion.
+ */
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
 
@@ -3536,6 +4480,17 @@ function startDeploymentPolling() {
 }
 
 // Modified restore item function to track deployment
+/**
+ * Restores an item with deployment tracking
+ *
+ * Internal function that handles restore logic with deployment monitoring.
+ *
+ * @param {string} filename - Name of the file to restore
+ * @param {string} sha - Git SHA of the file
+ * @param {string} type - Type of item ("post" or "page")
+ *
+ * @returns {Promise<void>}
+ */
 async function restoreItemWithTracking(filename, sha, type) {
   const itemType = type === 'page' ? 'page' : 'post';
   const destination = type === 'page' ? 'pages' : 'posts';
