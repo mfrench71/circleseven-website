@@ -13,9 +13,21 @@ const mediaPerPage = 20;
 // Deployment tracking state
 let activeDeployments = []; // Array of { commitSha, action, startedAt }
 let deploymentPollInterval = null;
+let historyPollInterval = null;
+
+// Cleanup tracking
+let sortableInstances = { categories: null, tags: null };
+let taxonomyAutocompleteCleanup = { categories: null, tags: null };
 
 // API endpoints
 const API_BASE = '/.netlify/functions';
+
+// Constants
+const DEPLOYMENT_STATUS_POLL_INTERVAL = 5000; // 5 seconds
+const DEPLOYMENT_HISTORY_POLL_INTERVAL = 10000; // 10 seconds
+const DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
+const FETCH_TIMEOUT = 30000; // 30 seconds
+const DEBOUNCE_DELAY = 300; // milliseconds
 
 // Utility: Debounce function
 function debounce(func, wait) {
@@ -28,6 +40,73 @@ function debounce(func, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
+}
+
+// Utility: Async error wrapper for onclick handlers
+function asyncHandler(fn) {
+  return async function(...args) {
+    try {
+      await fn.apply(this, args);
+    } catch (error) {
+      console.error('Async handler error:', error);
+      showError(error.message || 'An unexpected error occurred');
+    }
+  };
+}
+
+// Utility: Fetch with timeout
+async function fetchWithTimeout(url, options = {}, timeout = FETCH_TIMEOUT) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout - please try again');
+    }
+    throw error;
+  }
+}
+
+// Utility: Clean up all resources on logout or page hide
+function cleanupResources() {
+  // Stop polling intervals
+  stopDeploymentHistoryPolling();
+  if (deploymentPollInterval) {
+    clearInterval(deploymentPollInterval);
+    deploymentPollInterval = null;
+  }
+
+  // Clean up Sortable instances
+  if (sortableInstances.categories) {
+    sortableInstances.categories.destroy();
+    sortableInstances.categories = null;
+  }
+  if (sortableInstances.tags) {
+    sortableInstances.tags.destroy();
+    sortableInstances.tags = null;
+  }
+
+  // Clean up taxonomy autocomplete event listeners
+  if (taxonomyAutocompleteCleanup.categories) {
+    taxonomyAutocompleteCleanup.categories();
+    taxonomyAutocompleteCleanup.categories = null;
+  }
+  if (taxonomyAutocompleteCleanup.tags) {
+    taxonomyAutocompleteCleanup.tags();
+    taxonomyAutocompleteCleanup.tags = null;
+  }
+
+  // Clean up markdown editors
+  cleanupMarkdownEditor();
+  cleanupPageMarkdownEditor();
 }
 
 // Utility: Button loading state
@@ -176,6 +255,7 @@ function initAuth() {
   });
 
   netlifyIdentity.on('logout', () => {
+    cleanupResources();
     showAuthGate();
   });
 
@@ -341,8 +421,13 @@ function renderCategories() {
 
   countBadge.textContent = categories.length;
 
+  // Destroy previous Sortable instance if it exists
+  if (sortableInstances.categories) {
+    sortableInstances.categories.destroy();
+  }
+
   // Initialize sortable
-  new Sortable(tbody, {
+  sortableInstances.categories = new Sortable(tbody, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     dragClass: 'sortable-drag',
@@ -351,7 +436,8 @@ function renderCategories() {
       const item = categories.splice(evt.oldIndex, 1)[0];
       categories.splice(evt.newIndex, 0, item);
       markDirty();
-      renderCategories();
+      // Don't call renderCategories() here - causes excessive re-rendering
+      // Sortable already updated the DOM visually
     }
   });
 }
@@ -394,8 +480,13 @@ function renderTags() {
 
   countBadge.textContent = tags.length;
 
+  // Destroy previous Sortable instance if it exists
+  if (sortableInstances.tags) {
+    sortableInstances.tags.destroy();
+  }
+
   // Initialize sortable
-  new Sortable(tbody, {
+  sortableInstances.tags = new Sortable(tbody, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     dragClass: 'sortable-drag',
@@ -404,7 +495,8 @@ function renderTags() {
       const item = tags.splice(evt.oldIndex, 1)[0];
       tags.splice(evt.newIndex, 0, item);
       markDirty();
-      renderTags();
+      // Don't call renderTags() here - causes excessive re-rendering
+      // Sortable already updated the DOM visually
     }
   });
 }
@@ -1220,6 +1312,14 @@ function initMarkdownEditor() {
   }
 }
 
+// Clean up markdown editor
+function cleanupMarkdownEditor() {
+  if (markdownEditor) {
+    markdownEditor.toTextArea();
+    markdownEditor = null;
+  }
+}
+
 // Mark post as having unsaved changes
 function markPostDirty() {
   postHasUnsavedChanges = true;
@@ -1574,11 +1674,16 @@ function initTaxonomyAutocomplete(type, availableItems) {
   const suggestionsDiv = document.getElementById(`${type}-suggestions`);
   const selectedDiv = document.getElementById(`${type}-selected`);
 
+  // Clean up previous event listeners if they exist
+  if (taxonomyAutocompleteCleanup[type]) {
+    taxonomyAutocompleteCleanup[type]();
+  }
+
   let selectedItems = type === 'categories' ? selectedCategories : selectedTags;
   let activeIndex = -1;
 
   // Handle input changes
-  input.addEventListener('input', (e) => {
+  const inputHandler = (e) => {
     const searchTerm = e.target.value.toLowerCase().trim();
 
     if (searchTerm === '') {
@@ -1604,10 +1709,10 @@ function initTaxonomyAutocomplete(type, availableItems) {
       suggestionsDiv.classList.remove('hidden');
       activeIndex = -1;
     }
-  });
+  };
 
   // Handle keyboard navigation
-  input.addEventListener('keydown', (e) => {
+  const keydownHandler = (e) => {
     const items = suggestionsDiv.querySelectorAll('.taxonomy-suggestion-item');
 
     if (e.key === 'ArrowDown') {
@@ -1626,7 +1731,7 @@ function initTaxonomyAutocomplete(type, availableItems) {
     } else if (e.key === 'Escape') {
       suggestionsDiv.classList.add('hidden');
     }
-  });
+  };
 
   function updateActiveItem(items) {
     items.forEach((item, index) => {
@@ -1640,19 +1745,33 @@ function initTaxonomyAutocomplete(type, availableItems) {
   }
 
   // Handle suggestion clicks
-  suggestionsDiv.addEventListener('click', (e) => {
+  const clickHandler = (e) => {
     const item = e.target.closest('.taxonomy-suggestion-item');
     if (item) {
       addTaxonomyItem(type, item.dataset.value);
     }
-  });
+  };
 
   // Close suggestions when clicking outside
-  document.addEventListener('click', (e) => {
+  const documentClickHandler = (e) => {
     if (!e.target.closest(`#${type}-input`) && !e.target.closest(`#${type}-suggestions`)) {
       suggestionsDiv.classList.add('hidden');
     }
-  });
+  };
+
+  // Add event listeners
+  input.addEventListener('input', inputHandler);
+  input.addEventListener('keydown', keydownHandler);
+  suggestionsDiv.addEventListener('click', clickHandler);
+  document.addEventListener('click', documentClickHandler);
+
+  // Store cleanup function
+  taxonomyAutocompleteCleanup[type] = () => {
+    input.removeEventListener('input', inputHandler);
+    input.removeEventListener('keydown', keydownHandler);
+    suggestionsDiv.removeEventListener('click', clickHandler);
+    document.removeEventListener('click', documentClickHandler);
+  };
 }
 
 // Add taxonomy item (category or tag)
@@ -2364,6 +2483,14 @@ function initPageMarkdownEditor() {
     pageMarkdownEditor.codemirror.on('change', () => {
       pageHasUnsavedChanges = true;
     });
+  }
+}
+
+// Clean up page markdown editor
+function cleanupPageMarkdownEditor() {
+  if (pageMarkdownEditor) {
+    pageMarkdownEditor.toTextArea();
+    pageMarkdownEditor = null;
   }
 }
 
@@ -3189,13 +3316,6 @@ function getRelativeTime(date) {
   return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 }
 
-// Helper: Escape HTML
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
 // Start background polling for deployment history
 let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
@@ -3242,7 +3362,7 @@ function startDeploymentHistoryPolling() {
     if (dashboardCard) {
       await updateDashboardDeployments();
     }
-  }, 10000); // 10 seconds
+  }, DEPLOYMENT_HISTORY_POLL_INTERVAL);
 }
 
 // Stop background history polling
@@ -3272,9 +3392,9 @@ function startDeploymentPolling() {
       for (let i = activeDeployments.length - 1; i >= 0; i--) {
         const deployment = activeDeployments[i];
 
-        // Timeout after 10 minutes (600 seconds)
+        // Timeout after configured duration
         const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
-        if (elapsed > 600) {
+        if (elapsed > DEPLOYMENT_TIMEOUT) {
           activeDeployments.splice(i, 1);
           showSuccess('Deployment timeout reached. Changes should be live now.');
 
@@ -3351,7 +3471,7 @@ function startDeploymentPolling() {
       console.error('Error in deployment polling interval:', error);
       // Don't stop polling even on error
     }
-  }, 5000); // Poll every 5 seconds
+  }, DEPLOYMENT_STATUS_POLL_INTERVAL);
 }
 
 // Modified restore item function to track deployment
