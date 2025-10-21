@@ -13,8 +13,9 @@
   width: 100%;
   height: auto;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   max-width: 100%;
+  max-height: 600px;
 }
 
 /* Responsive adjustments */
@@ -27,12 +28,17 @@
   .post-featured-image {
     width: 100%;
     height: auto;
+    max-height: 500px;
   }
 }
 
 @media (max-width: 480px) {
   .post-featured-image-wrapper {
     margin: 1rem -16px;
+  }
+
+  .post-featured-image {
+    max-height: 400px;
   }
 }
 

@@ -59,13 +59,16 @@ Outputs image optimized for social sharing (1200x630)
     <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image">
   {%- else -%}
     <img
-      src="{{ cloudinary_url }}/c_fill,g_auto,w_1200,h_630,q_auto,f_auto/{{ img_id }}"
-      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_600,h_315,q_auto,f_auto/{{ img_id }} 600w,
-              {{ cloudinary_url }}/c_fill,g_auto,w_1200,h_630,q_auto,f_auto/{{ img_id }} 1200w"
-      sizes="(max-width: 768px) 100vw, 1200px"
+      src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ img_id }}"
+      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto/{{ img_id }} 400w,
+              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto/{{ img_id }} 800w,
+              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto/{{ img_id }} 1200w,
+              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ img_id }} 1600w,
+              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ img_id }} 2400w"
+      sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
       alt="{{ page.title | escape }}"
       class="post-featured-image"
-      loading="eager"
+      loading="lazy"
     >
   {%- endif -%}
 {%- else -%}
