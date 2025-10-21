@@ -313,6 +313,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         error: 'Internal server error',
         message: error.message,
+        details: error.toString(),
         stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
       })
     };
