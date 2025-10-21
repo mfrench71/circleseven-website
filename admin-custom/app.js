@@ -124,6 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupUnsavedChangesWarning();
   registerServiceWorker();
 
+  // Restore any persistent deployment toasts from previous session
+  restorePersistentToasts();
+
   // Start background polling for deployment history (refreshes every 60s)
   // This captures code pushes and other deployments not triggered via admin
   startDeploymentHistoryPolling();
@@ -2628,6 +2631,9 @@ function generatePageFilename(title) {
 
 const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
 
+// Track which deployments we've already shown toasts for (to avoid duplicates)
+let notifiedDeployments = new Set();
+
 // Load deployment history from localStorage
 function loadDeploymentHistory() {
   try {
@@ -3041,6 +3047,39 @@ const USE_TOAST_NOTIFICATIONS = true;
 let toastContainer = null;
 let toastIdCounter = 0;
 
+// Persistent toast storage (for deployment toasts that survive page refresh)
+const PERSISTENT_TOASTS_KEY = 'persistentToasts';
+
+function loadPersistentToasts() {
+  try {
+    const stored = localStorage.getItem(PERSISTENT_TOASTS_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Failed to load persistent toasts:', error);
+    return [];
+  }
+}
+
+function savePersistentToasts(toasts) {
+  try {
+    localStorage.setItem(PERSISTENT_TOASTS_KEY, JSON.stringify(toasts));
+  } catch (error) {
+    console.error('Failed to save persistent toasts:', error);
+  }
+}
+
+function addPersistentToast(toastId, message, type, commitSha) {
+  const toasts = loadPersistentToasts();
+  toasts.push({ id: toastId, message, type, commitSha, createdAt: new Date().toISOString() });
+  savePersistentToasts(toasts);
+}
+
+function removePersistentToast(toastId) {
+  const toasts = loadPersistentToasts();
+  const filtered = toasts.filter(t => t.id !== toastId);
+  savePersistentToasts(filtered);
+}
+
 // Initialize toast container
 function initToastContainer() {
   if (!toastContainer) {
@@ -3054,7 +3093,9 @@ function initToastContainer() {
 }
 
 // Show toast notification
-function showToast(message, type = 'info', duration = 5000) {
+// persistent: if true, toast persists across page refreshes (for deployments)
+// commitSha: optional, links persistent toast to a specific deployment
+function showToast(message, type = 'info', duration = 5000, persistent = false, commitSha = null) {
   const container = initToastContainer();
   const toastId = `toast-${toastIdCounter++}`;
 
@@ -3072,12 +3113,18 @@ function showToast(message, type = 'info', duration = 5000) {
   toast.id = toastId;
   toast.className = `${scheme.bg} text-white px-3 py-2 rounded-md shadow-lg flex items-center gap-2 transform transition-all duration-300 translate-x-full opacity-0`;
   toast.style.cssText = 'pointer-events: auto; min-width: 250px;';
+
+  // Add close button only for non-persistent toasts or completed deployment toasts
+  const closeButton = persistent && type !== 'success' && type !== 'error'
+    ? ''
+    : `<button onclick="closeToast('${toastId}')" class="ml-1 ${scheme.hoverBg} rounded p-0.5 transition flex-shrink-0 opacity-70 hover:opacity-100" title="Dismiss">
+         <i class="fas fa-times text-xs"></i>
+       </button>`;
+
   toast.innerHTML = `
     <i class="fas ${scheme.icon} flex-shrink-0"></i>
     <div class="flex-1 text-sm">${escapeHtml(message)}</div>
-    <button onclick="closeToast('${toastId}')" class="ml-1 ${scheme.hoverBg} rounded p-0.5 transition flex-shrink-0 opacity-70 hover:opacity-100" title="Dismiss">
-      <i class="fas fa-times text-xs"></i>
-    </button>
+    ${closeButton}
   `;
 
   container.appendChild(toast);
@@ -3087,8 +3134,13 @@ function showToast(message, type = 'info', duration = 5000) {
     toast.classList.remove('translate-x-full', 'opacity-0');
   }, 10);
 
-  // Auto-dismiss after duration
-  if (duration > 0) {
+  // Store persistent toast in localStorage
+  if (persistent && commitSha) {
+    addPersistentToast(toastId, message, type, commitSha);
+  }
+
+  // Auto-dismiss after duration (only for non-persistent toasts or completed deployments)
+  if (duration > 0 && (!persistent || type === 'success' || type === 'error')) {
     setTimeout(() => {
       closeToast(toastId);
     }, duration);
@@ -3104,6 +3156,8 @@ window.closeToast = function(toastId) {
     toast.classList.add('translate-x-full', 'opacity-0');
     setTimeout(() => {
       toast.remove();
+      // Remove from persistent storage if it exists
+      removePersistentToast(toastId);
       // Clean up container if empty
       if (toastContainer && toastContainer.children.length === 0) {
         toastContainer.remove();
@@ -3111,6 +3165,38 @@ window.closeToast = function(toastId) {
       }
     }, 300);
   }
+}
+
+// Restore persistent toasts on page load
+function restorePersistentToasts() {
+  const persistentToasts = loadPersistentToasts();
+
+  // Check if any persistent toasts have completed deployments and should be removed
+  const activeDeploymentsFromHistory = loadDeploymentHistory();
+  const toastsToKeep = [];
+
+  for (const toastData of persistentToasts) {
+    // Check if this deployment has completed
+    const deployment = activeDeploymentsFromHistory.find(d => d.commitSha === toastData.commitSha);
+
+    // Only restore if deployment is still in progress or recently completed
+    if (deployment) {
+      const completedTime = new Date(deployment.completedAt || deployment.startedAt);
+      const now = new Date();
+      const minutesSinceCompletion = (now - completedTime) / 1000 / 60;
+
+      // If deployment completed less than 1 minute ago, keep success/error toast visible
+      // If deployment is still in progress (pending/queued/in_progress), keep toast
+      if (deployment.status === 'pending' || deployment.status === 'queued' || deployment.status === 'in_progress' || minutesSinceCompletion < 1) {
+        // Recreate the toast
+        showToast(toastData.message, toastData.type, 0, true, toastData.commitSha);
+        toastsToKeep.push(toastData);
+      }
+    }
+  }
+
+  // Update localStorage with only the toasts we kept
+  savePersistentToasts(toastsToKeep);
 }
 
 // Unified message functions with feature flag for easy rollback
@@ -3150,6 +3236,45 @@ function showToastInfo(message) {
   }
 }
 
+// Check for new general deployments (code pushes) and show persistent toasts
+async function checkForNewGeneralDeployments() {
+  try {
+    const githubDeployments = await fetchRecentDeploymentsFromGitHub();
+
+    // Check the most recent deployment
+    if (githubDeployments.length > 0) {
+      const latestDeployment = githubDeployments[0];
+
+      // If this is a new deployment we haven't notified about
+      if (!notifiedDeployments.has(latestDeployment.commitSha)) {
+        // Check if this is a general deployment (not from our active deployments tracking)
+        const isTrackedDeployment = activeDeployments.some(d => d.commitSha === latestDeployment.commitSha);
+
+        if (!isTrackedDeployment) {
+          // This is a general deployment (code push) - show persistent toast
+          const status = latestDeployment.status;
+
+          if (status === 'pending' || status === 'queued' || status === 'in_progress') {
+            // Deployment starting - show persistent in-progress toast
+            showToast(`Deploying changes: ${latestDeployment.action}`, 'info', 0, true, latestDeployment.commitSha);
+            notifiedDeployments.add(latestDeployment.commitSha);
+          } else if (status === 'completed') {
+            // Deployment completed - show success toast
+            showToast('Changes published successfully! Site is now live.', 'success', 15000, true, latestDeployment.commitSha);
+            notifiedDeployments.add(latestDeployment.commitSha);
+          } else if (status === 'failed') {
+            // Deployment failed
+            showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, true, latestDeployment.commitSha);
+            notifiedDeployments.add(latestDeployment.commitSha);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Failed to check for new general deployments:', error);
+  }
+}
+
 // Start background polling for deployment history (slower refresh for all deployments)
 let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
@@ -3165,9 +3290,13 @@ function startDeploymentHistoryPolling() {
 
   // Poll every 30 seconds to refresh history (includes code pushes, not just admin changes)
   historyPollInterval = setInterval(async () => {
+    console.log('Background polling: Refreshing deployment history...');
+
+    // Check for new general deployments from GitHub Actions
+    await checkForNewGeneralDeployments();
+
     const dashboardCard = document.getElementById('deployments-card');
     if (dashboardCard) {
-      console.log('Background polling: Refreshing deployment history...');
       await updateDashboardDeployments();
     }
   }, 30000); // 30 seconds (reduced from 60)
@@ -3204,7 +3333,7 @@ function startDeploymentPolling() {
       const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
       if (elapsed > 600) {
         activeDeployments.splice(i, 1);
-        showToastInfo('Deployment timeout reached. Changes should be live now.');
+        showToast('Deployment timeout reached. Changes should be live now.', 'info', 15000);
 
         if (activeDeployments.length === 0) {
           hideDeploymentBanner();
@@ -3227,7 +3356,10 @@ function startDeploymentPolling() {
           // Deployment successful
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-          showToastSuccess('Changes published successfully! Site is now live.');
+
+          // General deployments (no itemId) get persistent toast, admin changes get normal toast
+          const isGeneralDeployment = !deployment.itemId;
+          showToast('Changes published successfully! Site is now live.', 'success', 15000, isGeneralDeployment, deployment.commitSha);
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3237,7 +3369,9 @@ function startDeploymentPolling() {
           // Deployment failed
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-          showToastError('Deployment failed. Please check GitHub Actions for details.');
+
+          const isGeneralDeployment = !deployment.itemId;
+          showToast('Deployment failed. Please check GitHub Actions for details.', 'error', 15000, isGeneralDeployment, deployment.commitSha);
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3247,7 +3381,9 @@ function startDeploymentPolling() {
           // Deployment cancelled
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-          showToastWarning('Deployment was cancelled. Changes may not be live.');
+
+          const isGeneralDeployment = !deployment.itemId;
+          showToast('Deployment was cancelled. Changes may not be live.', 'warning', 15000, isGeneralDeployment, deployment.commitSha);
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
@@ -3257,7 +3393,9 @@ function startDeploymentPolling() {
           // Deployment skipped (superseded by newer commit)
           addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
-          showToastInfo('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
+
+          const isGeneralDeployment = !deployment.itemId;
+          showToast('Deployment skipped - superseded by a newer change. Latest changes will deploy.', 'info', 15000, isGeneralDeployment, deployment.commitSha);
           updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
