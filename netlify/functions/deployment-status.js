@@ -109,6 +109,10 @@ exports.handler = async (event, context) => {
       let message;
 
       switch (workflowRun.status) {
+        case 'pending':
+          deploymentStatus = 'pending';
+          message = 'Deployment pending...';
+          break;
         case 'queued':
           deploymentStatus = 'queued';
           message = 'Deployment queued...';

@@ -2658,6 +2658,18 @@ function startDeploymentPolling() {
     for (let i = activeDeployments.length - 1; i >= 0; i--) {
       const deployment = activeDeployments[i];
 
+      // Timeout after 10 minutes (600 seconds)
+      const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
+      if (elapsed > 600) {
+        activeDeployments.splice(i, 1);
+        showSuccess('Deployment timeout reached. Changes should be live now.');
+
+        if (activeDeployments.length === 0) {
+          hideDeploymentBanner();
+        }
+        continue;
+      }
+
       try {
         const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
         if (!response.ok) continue;
@@ -2689,6 +2701,7 @@ function startDeploymentPolling() {
             hideDeploymentBanner();
           }
         }
+        // pending, queued, in_progress continue polling
       } catch (error) {
         console.error('Failed to check deployment status:', error);
       }
