@@ -3331,7 +3331,6 @@ function getRelativeTime(date) {
 }
 
 // Start background polling for deployment history
-let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
   if (historyPollInterval) return; // Already polling
 
