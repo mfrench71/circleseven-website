@@ -186,6 +186,16 @@ input:focus, button:focus { outline: 2px solid transparent; outline-offset: 2px;
   to { transform: rotate(360deg); }
 }
 .animate-spin { animation: spin 1s linear infinite; }
+
+@keyframes gradient-pulse {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-pulse {
+  background-size: 200% 200%;
+  animation: gradient-pulse 3s ease infinite;
+}
+
 .inline-block { display: inline-block; }
 .rounded-full { border-radius: 9999px; }
 .border-b-2 { border-bottom-width: 2px; }

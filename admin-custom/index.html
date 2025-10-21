@@ -43,13 +43,51 @@
 
     <!-- Main App (hidden until authenticated) -->
     <div id="main-app" class="hidden">
+      <!-- Deployment Status Header (fixed) -->
+      <div id="deployment-status-header" class="hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg animate-gradient-pulse">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="white" opacity="0.95"/>
+                <circle cx="50" cy="50" r="44" fill="currentColor"/>
+                <g transform="translate(33, 28)">
+                  <rect x="0" y="0" width="34" height="9" fill="white" opacity="0.95"/>
+                  <path d="M 24,9 L 11,46 L 20,46 L 34,9 Z" fill="white" opacity="0.95"/>
+                </g>
+              </svg>
+              <div>
+                <div class="font-semibold">Circle Seven</div>
+                <div id="deployment-status-message" class="text-sm opacity-90">Deploying changes...</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div id="deployment-status-spinner" class="animate-spin">
+                <i class="fas fa-spinner"></i>
+              </div>
+              <div id="deployment-status-time" class="text-sm font-mono opacity-75">0:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Header -->
-      <header class="bg-white shadow-sm">
+      <header id="main-header" class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div class="flex justify-between items-center">
-            <div>
-              <h1 class="text-2xl font-bold text-gray-900">Circle Seven Admin</h1>
-              <p class="text-sm text-gray-500">Content management dashboard</p>
+            <div class="flex items-center gap-3">
+              <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="white" opacity="0.95"/>
+                <circle cx="50" cy="50" r="44" fill="#20b2aa"/>
+                <g transform="translate(33, 28)">
+                  <rect x="0" y="0" width="34" height="9" fill="white" opacity="0.95"/>
+                  <path d="M 24,9 L 11,46 L 20,46 L 34,9 Z" fill="white" opacity="0.95"/>
+                </g>
+              </svg>
+              <div>
+                <h1 class="text-2xl font-bold text-gray-900">Circle Seven Admin</h1>
+                <p class="text-sm text-gray-500">Content management dashboard</p>
+              </div>
             </div>
             <div class="flex items-center gap-3">
               <a href="/" class="px-3 py-1.5 text-sm font-medium text-teal-600 hover:text-teal-700 hover:bg-teal-50 rounded-md transition no-underline flex items-center gap-1.5" target="_blank" rel="noopener" title="View public site">

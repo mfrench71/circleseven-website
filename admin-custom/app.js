@@ -2727,33 +2727,26 @@ function trackDeployment(commitSha, action, itemId = null) {
   updateDashboardDeployments();
 }
 
-// Show deployment status banner
+// Show deployment status header
 function showDeploymentBanner() {
-  let banner = document.getElementById('deployment-banner');
+  const header = document.getElementById('deployment-status-header');
+  const mainHeader = document.getElementById('main-header');
 
-  if (!banner) {
-    // Create banner if it doesn't exist
-    banner = document.createElement('div');
-    banner.id = 'deployment-banner';
-    banner.className = 'fixed bottom-4 right-4 bg-teal-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-3 max-w-md';
-    banner.innerHTML = `
-      <i class="fas fa-spinner fa-spin text-lg"></i>
-      <div class="flex-1">
-        <div id="deployment-message" class="font-medium">Publishing changes to GitHub Pages...</div>
-        <div id="deployment-time" class="text-xs opacity-90 mt-1"></div>
-      </div>
-    `;
-    document.body.appendChild(banner);
+  if (header) {
+    header.classList.remove('hidden');
+    // Add margin to main header so content doesn't hide behind fixed header
+    if (mainHeader) {
+      mainHeader.style.marginTop = '60px';
+    }
+    updateDeploymentBanner();
   }
-
-  banner.classList.remove('hidden');
-  updateDeploymentBanner();
 }
 
-// Update deployment banner message
+// Update deployment status header message
 function updateDeploymentBanner() {
-  const messageEl = document.getElementById('deployment-message');
-  const timeEl = document.getElementById('deployment-time');
+  const messageEl = document.getElementById('deployment-status-message');
+  const timeEl = document.getElementById('deployment-status-time');
+  const spinner = document.getElementById('deployment-status-spinner');
 
   if (activeDeployments.length === 0) return;
 
@@ -2764,20 +2757,35 @@ function updateDeploymentBanner() {
 
   if (messageEl) {
     const count = activeDeployments.length;
-    const plural = count === 1 ? 'change' : 'changes';
-    messageEl.textContent = `Publishing ${count} ${plural} to GitHub Pages...`;
+    const action = oldest.action || 'changes';
+    if (count === 1) {
+      messageEl.textContent = `Publishing: ${action}`;
+    } else {
+      messageEl.textContent = `Publishing ${count} changes to GitHub Pages`;
+    }
   }
 
   if (timeEl) {
-    timeEl.textContent = `(${minutes}:${seconds.toString().padStart(2, '0')})`;
+    timeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // Ensure spinner is visible
+  if (spinner) {
+    spinner.classList.remove('hidden');
   }
 }
 
-// Hide deployment banner
+// Hide deployment status header
 function hideDeploymentBanner() {
-  const banner = document.getElementById('deployment-banner');
-  if (banner) {
-    banner.classList.add('hidden');
+  const header = document.getElementById('deployment-status-header');
+  const mainHeader = document.getElementById('main-header');
+
+  if (header) {
+    header.classList.add('hidden');
+    // Remove margin from main header
+    if (mainHeader) {
+      mainHeader.style.marginTop = '0';
+    }
   }
 }
 
@@ -3042,7 +3050,7 @@ function escapeHtml(text) {
 // ===== TOAST NOTIFICATION SYSTEM =====
 
 // Feature flag: Set to false to rollback to old alert system
-const USE_TOAST_NOTIFICATIONS = true;
+const USE_TOAST_NOTIFICATIONS = false;
 
 let toastContainer = null;
 let toastIdCounter = 0;
