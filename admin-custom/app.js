@@ -1764,16 +1764,16 @@ function handleImageModalEscape(e) {
 
 // ===== TRASH MANAGEMENT =====
 
-let allTrashedPosts = [];
+let allTrashedItems = [];
 
-// Load trashed posts
+// Load trashed items (posts and pages)
 async function loadTrash() {
   try {
     const response = await fetch(`${API_BASE}/trash`);
     if (!response.ok) throw new Error('Failed to load trash');
 
     const data = await response.json();
-    allTrashedPosts = data.posts || [];
+    allTrashedItems = data.items || [];
 
     renderTrashList();
   } catch (error) {
@@ -1788,7 +1788,7 @@ function renderTrashList() {
   const listEl = document.getElementById('trash-list');
   const emptyEl = document.getElementById('trash-empty');
 
-  if (allTrashedPosts.length === 0) {
+  if (allTrashedItems.length === 0) {
     listEl.innerHTML = '';
     emptyEl.classList.remove('hidden');
     return;
@@ -1796,34 +1796,42 @@ function renderTrashList() {
 
   emptyEl.classList.add('hidden');
 
-  listEl.innerHTML = allTrashedPosts.map(post => `
+  listEl.innerHTML = allTrashedItems.map(item => {
+    const typeLabel = item.type === 'page' ? 'Page' : 'Post';
+    const typeBadgeColor = item.type === 'page' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
+
+    return `
     <li class="flex items-center gap-4 p-4 bg-gray-50 rounded-md hover:bg-gray-100 transition">
       <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
       </svg>
-      <span class="flex-1 font-medium">${escapeHtml(post.name)}</span>
-      <span class="text-xs text-gray-500">${(post.size / 1024).toFixed(1)} KB</span>
+      <span class="flex-1 font-medium">${escapeHtml(item.name)}</span>
+      <span class="px-2 py-0.5 text-xs font-medium rounded ${typeBadgeColor}">${typeLabel}</span>
+      <span class="text-xs text-gray-500">${(item.size / 1024).toFixed(1)} KB</span>
       <button
-        onclick="restorePost('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
+        onclick="restoreItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
         class="px-3 py-1 text-sm bg-teal-600 text-white rounded hover:bg-teal-700"
         title="Restore"
       >
         Restore
       </button>
       <button
-        onclick="permanentlyDeletePost('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')"
+        onclick="permanentlyDeleteItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
         class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
         title="Permanently Delete"
       >
         Delete Forever
       </button>
     </li>
-  `).join('');
+  `;
+  }).join('');
 }
 
-// Restore post from trash
-async function restorePost(filename, sha) {
-  const confirmed = await showConfirm(`Restore "${filename}" to posts?`);
+// Restore item from trash (post or page)
+async function restoreItem(filename, sha, type) {
+  const itemType = type === 'page' ? 'page' : 'post';
+  const destination = type === 'page' ? 'pages' : 'posts';
+  const confirmed = await showConfirm(`Restore "${filename}" to ${destination}?`);
   if (!confirmed) return;
 
   try {
@@ -1832,34 +1840,38 @@ async function restorePost(filename, sha) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         filename: filename,
-        sha: sha
+        sha: sha,
+        type: type
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to restore post');
+      throw new Error(error.message || `Failed to restore ${itemType}`);
     }
 
-    showSuccess('Post restored successfully!');
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully!`);
 
     // Remove from local array
-    allTrashedPosts = allTrashedPosts.filter(p => p.name !== filename);
+    allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
 
     // Re-render trash list
     renderTrashList();
 
-    // Reload posts if on posts section
-    if (allPosts.length > 0) {
+    // Reload posts or pages if applicable
+    if (type === 'post' && allPosts.length > 0) {
       await loadPosts();
+    } else if (type === 'page' && allPages.length > 0) {
+      await loadPages();
     }
   } catch (error) {
-    showError('Failed to restore post: ' + error.message);
+    showError(`Failed to restore ${itemType}: ` + error.message);
   }
 }
 
-// Permanently delete post
-async function permanentlyDeletePost(filename, sha) {
+// Permanently delete item (post or page)
+async function permanentlyDeleteItem(filename, sha, type) {
+  const itemType = type === 'page' ? 'page' : 'post';
   const confirmed = await showConfirm(`Permanently delete "${filename}"? This cannot be undone!`);
   if (!confirmed) return;
 
@@ -1869,24 +1881,25 @@ async function permanentlyDeletePost(filename, sha) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         filename: filename,
-        sha: sha
+        sha: sha,
+        type: type
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to delete post');
+      throw new Error(error.message || `Failed to delete ${itemType}`);
     }
 
-    showSuccess('Post permanently deleted');
+    showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`);
 
     // Remove from local array
-    allTrashedPosts = allTrashedPosts.filter(p => p.name !== filename);
+    allTrashedItems = allTrashedItems.filter(p => p.name !== filename);
 
     // Re-render trash list
     renderTrashList();
   } catch (error) {
-    showError('Failed to delete post: ' + error.message);
+    showError(`Failed to delete ${itemType}: ` + error.message);
   }
 }
 
@@ -1910,7 +1923,7 @@ switchSection = async function(sectionName, updateUrl = true) {
     }
   } else if (sectionName === 'pages' && allPages.length === 0) {
     await loadPages();
-  } else if (sectionName === 'trash' && allTrashedPosts.length === 0) {
+  } else if (sectionName === 'trash' && allTrashedItems.length === 0) {
     await loadTrash();
   } else if (sectionName === 'media' && allMedia.length === 0) {
     await loadMedia();
@@ -2433,63 +2446,65 @@ async function savePage(event) {
   }
 }
 
-// Delete page (from editor view)
+// Delete page (from editor view - move to trash)
 async function deletePage() {
   if (!currentPage_pages) return;
 
   const title = currentPage_pages.frontmatter?.title || currentPage_pages.path;
-  const confirmed = await showConfirm(`Delete "${title}"? This cannot be undone.`);
+  const confirmed = await showConfirm(`Move "${title}" to trash?`);
   if (!confirmed) return;
 
   try {
     const filename = currentPage_pages.path.replace('_pages/', '');
 
-    const response = await fetch(`${API_BASE}/pages`, {
-      method: 'DELETE',
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        path: filename,
-        sha: currentPage_pages.sha
+        filename: filename,
+        sha: currentPage_pages.sha,
+        type: 'page'
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to delete page');
+      throw new Error(error.message || 'Failed to move page to trash');
     }
 
-    showSuccess('Page deleted successfully!');
+    showSuccess('Page moved to trash successfully!');
     await loadPages();
     showPagesList();
   } catch (error) {
-    showError('Failed to delete page: ' + error.message);
+    showError('Failed to move page to trash: ' + error.message);
   }
 }
 
-// Delete page from list view
+// Delete page from list view (move to trash)
 async function deletePageFromList(filename, sha) {
   const page = allPages.find(p => p.name === filename);
   const title = page?.frontmatter?.title || filename;
 
-  const confirmed = await showConfirm(`Delete "${title}"? This cannot be undone.`);
+  const confirmed = await showConfirm(`Move "${title}" to trash?`);
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`${API_BASE}/pages`, {
-      method: 'DELETE',
+    const response = await fetch(`${API_BASE}/trash`, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        path: filename,
-        sha: sha
+        filename: filename,
+        sha: sha,
+        type: 'page'
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Failed to delete page');
+      throw new Error(error.message || 'Failed to move page to trash');
     }
 
-    showSuccess('Page deleted successfully!');
+    showSuccess('Page moved to trash successfully!');
 
     // Remove from local array
     allPages = allPages.filter(p => p.name !== filename);
@@ -2497,7 +2512,7 @@ async function deletePageFromList(filename, sha) {
     // Re-render the list
     renderPagesList();
   } catch (error) {
-    showError('Failed to delete page: ' + error.message);
+    showError('Failed to move page to trash: ' + error.message);
   }
 }
 
