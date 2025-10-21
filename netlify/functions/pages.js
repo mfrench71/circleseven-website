@@ -233,7 +233,7 @@ exports.handler = async (event, context) => {
       const content = buildFrontmatter(frontmatter) + '\n' + body;
 
       // Update file via GitHub API
-      await githubRequest(`/contents/${PAGES_DIR}/${path}`, {
+      const updateResponse = await githubRequest(`/contents/${PAGES_DIR}/${path}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -249,7 +249,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Page updated successfully'
+          message: 'Page updated successfully',
+          commitSha: updateResponse.commit?.sha
         })
       };
     }
@@ -284,7 +285,7 @@ exports.handler = async (event, context) => {
       const content = buildFrontmatter(frontmatter) + '\n' + body;
 
       // Create file via GitHub API
-      await githubRequest(`/contents/${PAGES_DIR}/${filename}`, {
+      const createResponse = await githubRequest(`/contents/${PAGES_DIR}/${filename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -299,7 +300,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Page created successfully'
+          message: 'Page created successfully',
+          commitSha: createResponse.commit?.sha
         })
       };
     }
@@ -331,7 +333,7 @@ exports.handler = async (event, context) => {
       }
 
       // Delete file via GitHub API
-      await githubRequest(`/contents/${PAGES_DIR}/${path}`, {
+      const deleteResponse = await githubRequest(`/contents/${PAGES_DIR}/${path}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -346,7 +348,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Page deleted successfully'
+          message: 'Page deleted successfully',
+          commitSha: deleteResponse.commit?.sha
         })
       };
     }

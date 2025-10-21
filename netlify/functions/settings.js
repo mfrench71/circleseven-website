@@ -138,7 +138,7 @@ exports.handler = async (event, context) => {
       });
 
       // Update file via GitHub API
-      await githubRequest(`/contents/${FILE_PATH}`, {
+      const updateResponse = await githubRequest(`/contents/${FILE_PATH}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -154,7 +154,8 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Settings updated successfully. Netlify will rebuild the site automatically in 1-2 minutes.'
+          message: 'Settings updated successfully. Netlify will rebuild the site automatically in 1-2 minutes.',
+          commitSha: updateResponse.commit?.sha
         })
       };
     }

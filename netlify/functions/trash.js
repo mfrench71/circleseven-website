@@ -337,11 +337,8 @@ exports.handler = async (event, context) => {
         }
       });
 
-      console.log('Restore commit SHA:', restoreResponse.commit?.sha);
-      console.log('Restore response:', JSON.stringify(restoreResponse, null, 2));
-
       // Delete from _trash folder
-      const deleteResponse = await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -350,9 +347,6 @@ exports.handler = async (event, context) => {
           branch: GITHUB_BRANCH
         }
       });
-
-      console.log('Delete commit SHA:', deleteResponse.commit?.sha);
-      console.log('Delete response:', JSON.stringify(deleteResponse, null, 2));
 
       return {
         statusCode: 200,

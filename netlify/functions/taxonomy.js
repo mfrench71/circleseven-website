@@ -116,7 +116,7 @@ ${tags.map(t => `  - item: ${t}`).join('\n')}
 `;
 
       // Update file via GitHub API
-      await githubRequest(`/contents/${FILE_PATH}`, {
+      const updateResponse = await githubRequest(`/contents/${FILE_PATH}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
@@ -132,7 +132,8 @@ ${tags.map(t => `  - item: ${t}`).join('\n')}
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.'
+          message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.',
+          commitSha: updateResponse.commit?.sha
         })
       };
     }

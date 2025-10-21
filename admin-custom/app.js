@@ -2576,21 +2576,20 @@ function generatePageFilename(title) {
 // ===== DEPLOYMENT STATUS TRACKING =====
 
 // Track deployment and start polling
-function trackDeployment(commitSha, action) {
-  if (!commitSha) {
-    console.log('trackDeployment called with no commitSha');
-    return;
-  }
+function trackDeployment(commitSha, action, itemId = null) {
+  if (!commitSha) return;
 
-  console.log('Tracking deployment:', { commitSha, action });
   activeDeployments.push({
     commitSha,
     action,
-    startedAt: new Date()
+    itemId, // Track which item this deployment is for (e.g., filename)
+    startedAt: new Date(),
+    status: 'pending'
   });
 
   showDeploymentBanner();
   startDeploymentPolling();
+  updateDashboardDeployments();
 }
 
 // Show deployment status banner
@@ -2627,7 +2626,9 @@ function updateDeploymentBanner() {
   const seconds = elapsed % 60;
 
   if (messageEl) {
-    messageEl.textContent = `Publishing changes to GitHub Pages...`;
+    const count = activeDeployments.length;
+    const plural = count === 1 ? 'change' : 'changes';
+    messageEl.textContent = `Publishing ${count} ${plural} to GitHub Pages...`;
   }
 
   if (timeEl) {
@@ -2641,6 +2642,95 @@ function hideDeploymentBanner() {
   if (banner) {
     banner.classList.add('hidden');
   }
+}
+
+// Update dashboard deployments card
+function updateDashboardDeployments() {
+  const card = document.getElementById('deployments-card');
+  if (!card) return; // Not on dashboard
+
+  const cardContent = card.querySelector('.card-content');
+  if (!cardContent) return;
+
+  if (activeDeployments.length === 0) {
+    cardContent.innerHTML = `
+      <div class="text-center py-8 text-gray-500">
+        <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
+        <p>No active deployments</p>
+        <p class="text-sm mt-1">All changes are published</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Group deployments by status
+  const statusGroups = {
+    pending: [],
+    queued: [],
+    in_progress: [],
+    completed: [],
+    failed: [],
+    cancelled: []
+  };
+
+  activeDeployments.forEach(dep => {
+    statusGroups[dep.status]?.push(dep);
+  });
+
+  let html = '<div class="space-y-3">';
+
+  // Show deployments by status
+  ['in_progress', 'queued', 'pending'].forEach(status => {
+    if (statusGroups[status].length === 0) return;
+
+    statusGroups[status].forEach(deployment => {
+      const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      let statusIcon, statusColor, statusText;
+      if (status === 'in_progress') {
+        statusIcon = 'fa-spinner fa-spin';
+        statusColor = 'text-blue-600';
+        statusText = 'Deploying';
+      } else if (status === 'queued') {
+        statusIcon = 'fa-clock';
+        statusColor = 'text-yellow-600';
+        statusText = 'Queued';
+      } else {
+        statusIcon = 'fa-hourglass-half';
+        statusColor = 'text-gray-600';
+        statusText = 'Pending';
+      }
+
+      html += `
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <i class="fas ${statusIcon} ${statusColor}"></i>
+            <div class="flex-1 min-w-0">
+              <div class="font-medium text-sm truncate">${escapeHtml(deployment.action)}</div>
+              ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs ${statusColor} font-medium">${statusText}</span>
+            <span class="text-xs text-gray-500 font-mono">${timeStr}</span>
+          </div>
+        </div>
+      `;
+    });
+  });
+
+  html += '</div>';
+  cardContent.innerHTML = html;
+}
+
+// Helper: Escape HTML
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 // Start polling deployment status
@@ -2679,31 +2769,35 @@ function startDeploymentPolling() {
         if (!response.ok) continue;
 
         const data = await response.json();
-        console.log('Deployment status response for', deployment.commitSha, ':', data);
+
+        // Update deployment status
+        deployment.status = data.status;
+        deployment.updatedAt = new Date();
+        updateDashboardDeployments();
 
         if (data.status === 'completed') {
           // Deployment successful
-          console.log('Deployment completed successfully for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showSuccess('Changes published successfully! Site is now live.');
+          updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
             hideDeploymentBanner();
           }
         } else if (data.status === 'failed') {
           // Deployment failed
-          console.log('Deployment failed for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showError('Deployment failed. Please check GitHub Actions for details.');
+          updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
             hideDeploymentBanner();
           }
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
-          console.log('Deployment cancelled for', deployment.commitSha);
           activeDeployments.splice(i, 1);
           showError('Deployment was cancelled. Changes may not be live.');
+          updateDashboardDeployments();
 
           if (activeDeployments.length === 0) {
             hideDeploymentBanner();
