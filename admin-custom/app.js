@@ -123,6 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
   handleRouteChange();
   setupUnsavedChangesWarning();
   registerServiceWorker();
+
+  // Start background polling for deployment history (refreshes every 60s)
+  // This captures code pushes and other deployments not triggered via admin
+  startDeploymentHistoryPolling();
 });
 
 // Register Service Worker for offline capability
@@ -2619,6 +2623,81 @@ function generatePageFilename(title) {
 
 // ===== DEPLOYMENT STATUS TRACKING =====
 
+const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
+
+// Load deployment history from localStorage
+function loadDeploymentHistory() {
+  try {
+    const stored = localStorage.getItem('deploymentHistory');
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Failed to load deployment history:', error);
+    return [];
+  }
+}
+
+// Fetch recent deployments from GitHub Actions (includes all deployments, not just admin-triggered)
+async function fetchRecentDeploymentsFromGitHub() {
+  try {
+    const response = await fetch(`${API_BASE}/deployment-history`);
+    if (!response.ok) return [];
+
+    const data = await response.json();
+    return data.deployments || [];
+  } catch (error) {
+    console.error('Failed to fetch deployment history from GitHub:', error);
+    return [];
+  }
+}
+
+// Get merged deployment history (localStorage + recent GitHub deployments)
+async function getDeploymentHistory() {
+  const localHistory = loadDeploymentHistory();
+  const githubHistory = await fetchRecentDeploymentsFromGitHub();
+
+  // Merge and deduplicate by commitSha
+  const merged = [...localHistory];
+  const existingShas = new Set(localHistory.map(d => d.commitSha));
+
+  githubHistory.forEach(deployment => {
+    if (!existingShas.has(deployment.commitSha)) {
+      merged.push(deployment);
+    }
+  });
+
+  // Sort by completedAt (most recent first)
+  merged.sort((a, b) => new Date(b.completedAt || b.startedAt) - new Date(a.completedAt || a.startedAt));
+
+  return merged;
+}
+
+// Save deployment history to localStorage
+function saveDeploymentHistory(history) {
+  try {
+    // Auto-archive: keep only the most recent MAX_DEPLOYMENT_HISTORY items
+    const trimmed = history.slice(-MAX_DEPLOYMENT_HISTORY);
+    localStorage.setItem('deploymentHistory', JSON.stringify(trimmed));
+  } catch (error) {
+    console.error('Failed to save deployment history:', error);
+  }
+}
+
+// Add deployment to history
+function addToDeploymentHistory(deployment) {
+  const history = loadDeploymentHistory();
+  history.push({
+    commitSha: deployment.commitSha,
+    action: deployment.action,
+    itemId: deployment.itemId,
+    status: deployment.status,
+    startedAt: deployment.startedAt,
+    completedAt: new Date(),
+    duration: Math.floor((new Date() - new Date(deployment.startedAt)) / 1000)
+  });
+  saveDeploymentHistory(history);
+  updateDashboardDeployments(); // Refresh display
+}
+
 // Track deployment and start polling
 function trackDeployment(commitSha, action, itemId = null) {
   if (!commitSha) return;
@@ -2690,58 +2769,32 @@ function hideDeploymentBanner() {
   }
 }
 
-// Update dashboard deployments card
-function updateDashboardDeployments() {
+// Update dashboard deployments card (async to fetch history)
+async function updateDashboardDeployments() {
   const card = document.getElementById('deployments-card');
   if (!card) return; // Not on dashboard
 
   const cardContent = card.querySelector('.card-content');
   if (!cardContent) return;
 
-  if (activeDeployments.length === 0) {
-    cardContent.innerHTML = `
-      <div class="text-center py-8 text-gray-500">
-        <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
-        <p>No active deployments</p>
-        <p class="text-sm mt-1">All changes are published</p>
-      </div>
-    `;
-    return;
-  }
-
-  // Group deployments by status
-  const statusGroups = {
-    pending: [],
-    queued: [],
-    in_progress: [],
-    completed: [],
-    failed: [],
-    cancelled: [],
-    skipped: []
-  };
-
-  activeDeployments.forEach(dep => {
-    statusGroups[dep.status]?.push(dep);
-  });
-
   let html = '<div class="space-y-3">';
 
-  // Show deployments by status
-  ['in_progress', 'queued', 'pending'].forEach(status => {
-    if (statusGroups[status].length === 0) return;
+  // Show active deployments first
+  if (activeDeployments.length > 0) {
+    html += '<div class="font-semibold text-sm text-gray-700 mb-2">Active Deployments</div>';
 
-    statusGroups[status].forEach(deployment => {
-      const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
+    activeDeployments.forEach(deployment => {
+      const elapsed = Math.floor((new Date() - new Date(deployment.startedAt)) / 1000);
       const minutes = Math.floor(elapsed / 60);
       const seconds = elapsed % 60;
       const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
       let statusIcon, statusColor, statusText;
-      if (status === 'in_progress') {
+      if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-blue-600';
         statusText = 'Deploying';
-      } else if (status === 'queued') {
+      } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-yellow-600';
         statusText = 'Queued';
@@ -2752,7 +2805,7 @@ function updateDashboardDeployments() {
       }
 
       html += `
-        <div class="flex items-center justify-between p-3 bg-gray-50 rounded border border-gray-200">
+        <div class="flex items-center justify-between p-3 bg-blue-50 rounded border border-blue-200">
           <div class="flex items-center gap-3 flex-1 min-w-0">
             <i class="fas ${statusIcon} ${statusColor}"></i>
             <div class="flex-1 min-w-0">
@@ -2767,10 +2820,104 @@ function updateDashboardDeployments() {
         </div>
       `;
     });
-  });
+  }
 
-  html += '</div>';
+  // Show recent deployment history
+  const history = await getDeploymentHistory();
+  const recentHistory = history.slice(0, 10); // Show last 10
+
+  if (recentHistory.length > 0) {
+    if (activeDeployments.length > 0) {
+      html += '<div class="font-semibold text-sm text-gray-700 mt-4 mb-2">Recent Deployments</div>';
+    }
+
+    recentHistory.forEach(deployment => {
+      let statusIcon, statusColor, statusText, bgColor;
+      if (deployment.status === 'completed') {
+        statusIcon = 'fa-check-circle';
+        statusColor = 'text-green-600';
+        statusText = 'Success';
+        bgColor = 'bg-green-50 border-green-200';
+      } else if (deployment.status === 'failed') {
+        statusIcon = 'fa-times-circle';
+        statusColor = 'text-red-600';
+        statusText = 'Failed';
+        bgColor = 'bg-red-50 border-red-200';
+      } else if (deployment.status === 'cancelled') {
+        statusIcon = 'fa-ban';
+        statusColor = 'text-yellow-600';
+        statusText = 'Cancelled';
+        bgColor = 'bg-yellow-50 border-yellow-200';
+      } else if (deployment.status === 'skipped') {
+        statusIcon = 'fa-forward';
+        statusColor = 'text-blue-600';
+        statusText = 'Skipped';
+        bgColor = 'bg-blue-50 border-blue-200';
+      } else {
+        statusIcon = 'fa-circle';
+        statusColor = 'text-gray-600';
+        statusText = deployment.status;
+        bgColor = 'bg-gray-50 border-gray-200';
+      }
+
+      // Format relative time
+      const completedAt = new Date(deployment.completedAt || deployment.startedAt);
+      const relativeTime = getRelativeTime(completedAt);
+
+      // Format duration
+      let durationStr = '';
+      if (deployment.duration) {
+        const minutes = Math.floor(deployment.duration / 60);
+        const seconds = deployment.duration % 60;
+        durationStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+      }
+
+      html += `
+        <div class="flex items-center justify-between p-3 ${bgColor} rounded border">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <i class="fas ${statusIcon} ${statusColor}"></i>
+            <div class="flex-1 min-w-0">
+              <div class="font-medium text-sm truncate">${escapeHtml(deployment.action)}</div>
+              ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs ${statusColor} font-medium">${statusText}</span>
+            ${durationStr ? `<span class="text-xs text-gray-500 font-mono">${durationStr}</span>` : ''}
+            <span class="text-xs text-gray-400">${relativeTime}</span>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // Show empty state if no deployments at all
+  if (activeDeployments.length === 0 && recentHistory.length === 0) {
+    html = `
+      <div class="text-center py-8 text-gray-500">
+        <i class="fas fa-rocket text-4xl mb-2 text-gray-400"></i>
+        <p>No deployments yet</p>
+        <p class="text-sm mt-1">Make a change to see deployment history</p>
+      </div>
+    `;
+  } else {
+    html += '</div>';
+  }
+
   cardContent.innerHTML = html;
+}
+
+// Helper: Get relative time string
+function getRelativeTime(date) {
+  const now = new Date();
+  const diffSeconds = Math.floor((now - date) / 1000);
+
+  if (diffSeconds < 60) return 'just now';
+  if (diffSeconds < 3600) return `${Math.floor(diffSeconds / 60)}m ago`;
+  if (diffSeconds < 86400) return `${Math.floor(diffSeconds / 3600)}h ago`;
+  if (diffSeconds < 604800) return `${Math.floor(diffSeconds / 86400)}d ago`;
+
+  return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 }
 
 // Helper: Escape HTML
@@ -2897,6 +3044,29 @@ function showToastInfo(message) {
   }
 }
 
+// Start background polling for deployment history (slower refresh for all deployments)
+let historyPollInterval = null;
+function startDeploymentHistoryPolling() {
+  if (historyPollInterval) return; // Already polling
+
+  // Poll every 60 seconds to refresh history (includes code pushes, not just admin changes)
+  historyPollInterval = setInterval(async () => {
+    // Only update if we're on the dashboard
+    const dashboardCard = document.getElementById('deployments-card');
+    if (dashboardCard) {
+      await updateDashboardDeployments();
+    }
+  }, 60000); // 60 seconds
+}
+
+// Stop background history polling
+function stopDeploymentHistoryPolling() {
+  if (historyPollInterval) {
+    clearInterval(historyPollInterval);
+    historyPollInterval = null;
+  }
+}
+
 // Start polling deployment status
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
@@ -2941,6 +3111,7 @@ function startDeploymentPolling() {
 
         if (data.status === 'completed') {
           // Deployment successful
+          addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           showToastSuccess('Changes published successfully! Site is now live.');
           updateDashboardDeployments();
@@ -2950,6 +3121,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'failed') {
           // Deployment failed
+          addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           showToastError('Deployment failed. Please check GitHub Actions for details.');
           updateDashboardDeployments();
@@ -2959,6 +3131,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'cancelled') {
           // Deployment cancelled
+          addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           showToastWarning('Deployment was cancelled. Changes may not be live.');
           updateDashboardDeployments();
@@ -2968,6 +3141,7 @@ function startDeploymentPolling() {
           }
         } else if (data.status === 'skipped') {
           // Deployment skipped (superseded by newer commit)
+          addToDeploymentHistory(deployment);
           activeDeployments.splice(i, 1);
           showToastInfo('Deployment skipped - superseded by a newer change. Latest changes will deploy.');
           updateDashboardDeployments();
