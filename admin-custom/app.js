@@ -752,6 +752,18 @@ function switchSection(sectionName, updateUrl = true) {
   } else if (sectionName === 'dashboard') {
     // Refresh deployment status immediately when viewing dashboard
     updateDashboardDeployments();
+  } else if (sectionName === 'pages') {
+    // Show pages list view (hide editor if it's open)
+    document.getElementById('pages-editor-view').classList.add('hidden');
+    document.getElementById('pages-list-view').classList.remove('hidden');
+    currentPage_pages = null;
+    clearPageDirty();
+  } else if (sectionName === 'posts') {
+    // Show posts list view (hide editor if it's open)
+    document.getElementById('posts-editor-view').classList.add('hidden');
+    document.getElementById('posts-list-view').classList.remove('hidden');
+    currentPost = null;
+    clearPostDirty();
   }
 }
 
@@ -1319,16 +1331,8 @@ async function showPostsList() {
     if (!confirmed) return;
   }
 
-  // Update URL to posts list
-  const url = currentPage > 1
-    ? `/admin-custom/posts?page=${currentPage}`
-    : '/admin-custom/posts';
-  window.history.pushState({ section: 'posts', page: currentPage }, '', url);
-
-  document.getElementById('posts-editor-view').classList.add('hidden');
-  document.getElementById('posts-list-view').classList.remove('hidden');
-  currentPost = null;
-  clearPostDirty();
+  // Navigate back instead of pushing new state (makes browser back button work correctly)
+  window.history.back();
 }
 
 // Save post
@@ -2448,13 +2452,8 @@ async function showPagesList() {
     if (!confirmed) return;
   }
 
-  // Update URL to pages list
-  window.history.pushState({ section: 'pages' }, '', '/admin-custom/pages');
-
-  document.getElementById('pages-editor-view').classList.add('hidden');
-  document.getElementById('pages-list-view').classList.remove('hidden');
-  currentPage_pages = null;
-  clearPageDirty();
+  // Navigate back instead of pushing new state (makes browser back button work correctly)
+  window.history.back();
 }
 
 // Save page
