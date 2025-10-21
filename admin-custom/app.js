@@ -770,12 +770,28 @@ function switchSection(sectionName, updateUrl = true) {
     document.getElementById('pages-list-view').classList.remove('hidden');
     currentPage_pages = null;
     clearPageDirty();
+    // Load pages if not already loaded
+    if (allPages.length === 0) {
+      loadPages();
+    }
   } else if (sectionName === 'posts') {
     // Show posts list view (hide editor if it's open)
     document.getElementById('posts-editor-view').classList.add('hidden');
     document.getElementById('posts-list-view').classList.remove('hidden');
     currentPost = null;
     clearPostDirty();
+    // Load posts if not already loaded
+    if (allPosts.length === 0) {
+      loadPosts();
+    }
+  } else if (sectionName === 'media') {
+    // Load media if not already loaded
+    if (!window.mediaLoaded) {
+      loadMedia();
+    }
+  } else if (sectionName === 'trash') {
+    // Refresh trash list when viewing trash section
+    loadTrash();
   }
 }
 
