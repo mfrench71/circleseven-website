@@ -52,7 +52,7 @@ export async function loadTrash() {
 
     renderTrashList();
   } catch (error) {
-    showError('Failed to load trash: ' + error.message);
+    showError('Failed to load bin: ' + error.message);
   } finally {
     const loadingEl = document.getElementById('trash-loading');
     if (loadingEl) {
@@ -114,14 +114,14 @@ export function renderTrashList() {
       </svg>
       <div class="flex-1">
         <div class="font-medium">${escapeHtml(item.name)}</div>
-        ${trashedAtDisplay ? `<div class="text-xs text-gray-500">Trashed: ${trashedAtDisplay}</div>` : ''}
+        ${trashedAtDisplay ? `<div class="text-xs text-gray-500">Deleted: ${trashedAtDisplay}</div>` : ''}
       </div>
       <span class="px-2 py-0.5 text-xs font-medium rounded ${typeBadgeColor}">${typeLabel}</span>
       <span class="text-xs text-gray-500">${(item.size / 1024).toFixed(1)} KB</span>
       <button
         onclick="window.restoreItem('${escapeHtml(item.name)}', '${escapeHtml(item.sha)}', '${escapeHtml(item.type)}')"
         class="btn-primary-sm"
-        title="Restore item from trash"
+        title="Restore item from bin"
       >
         Restore
       </button>

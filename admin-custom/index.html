@@ -133,7 +133,7 @@
               id="nav-trash"
               class="nav-button px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 no-underline"
             >
-              Trash
+              Bin
             </a>
             <a
               href="/admin-custom/settings"
@@ -450,7 +450,7 @@
             </summary>
             <div class="px-4 pb-3 pt-2">
               <ul class="text-sm text-blue-800 space-y-1">
-                <li>• Hover over any post title to reveal Edit, Trash, and View actions</li>
+                <li>• Hover over any post title to reveal Edit, Bin, and View actions</li>
                 <li>• Click Edit to modify frontmatter, categories, tags, and content</li>
                 <li>• Use search and sort controls to find specific posts</li>
                 <li>• All changes save to GitHub and trigger a site rebuild (1-2 min)</li>
@@ -664,7 +664,7 @@
                     onclick="deletePost()"
                     class="btn-text-danger"
                     id="delete-post-btn"
-                    title="Move post to trash"
+                    title="Move post to bin"
                   >
                     Delete Post
                   </button>
@@ -850,7 +850,7 @@
                     onclick="deletePage()"
                     class="btn-text-danger"
                     id="delete-page-btn"
-                    title="Move page to trash"
+                    title="Move page to bin"
                   >
                     Delete Page
                   </button>
@@ -958,7 +958,7 @@
 
         <!-- Trash Section -->
         <div id="section-trash" class="section-panel hidden">
-          <h2 class="text-xl font-bold text-gray-900 mb-6">Trash</h2>
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Bin</h2>
 
           <!-- Collapsible Help -->
           <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
@@ -967,7 +967,7 @@
             </summary>
             <div class="px-4 pb-3 pt-2">
               <p class="text-sm text-blue-800">
-                Deleted posts are moved here. You can restore them or permanently delete them. Permanently deleted posts cannot be recovered.
+                Deleted posts and pages are moved here. You can restore them or permanently delete them. Permanently deleted items cannot be recovered.
               </p>
             </div>
           </details>
@@ -980,7 +980,7 @@
             </div>
             <div id="trash-empty" class="hidden p-8 text-center text-gray-500">
               <i class="fas fa-trash-alt fa-4x mx-auto mb-4 text-gray-300"></i>
-              <p class="text-lg font-medium">Trash is empty</p>
+              <p class="text-lg font-medium">Bin is empty</p>
             </div>
             <ul id="trash-list" class="space-y-2">
               <!-- Trash items will be inserted here -->
