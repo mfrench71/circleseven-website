@@ -2680,6 +2680,14 @@ function startDeploymentPolling() {
           if (activeDeployments.length === 0) {
             hideDeploymentBanner();
           }
+        } else if (data.status === 'cancelled') {
+          // Deployment cancelled
+          activeDeployments.splice(i, 1);
+          showError('Deployment was cancelled. Changes may not be live.');
+
+          if (activeDeployments.length === 0) {
+            hideDeploymentBanner();
+          }
         }
       } catch (error) {
         console.error('Failed to check deployment status:', error);
