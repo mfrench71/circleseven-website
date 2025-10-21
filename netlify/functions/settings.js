@@ -1,3 +1,20 @@
+/**
+ * Site Settings Management Netlify Function
+ *
+ * Manages Jekyll site configuration stored in _config.yml.
+ * Provides read and update operations for whitelisted configuration fields.
+ *
+ * Security: Only fields listed in EDITABLE_FIELDS can be modified.
+ * This prevents malicious updates to sensitive configuration like build settings,
+ * plugins, or deployment configurations.
+ *
+ * Supported operations:
+ * - GET: Retrieve current editable settings
+ * - PUT: Update editable settings
+ *
+ * @module netlify/functions/settings
+ */
+
 const https = require('https');
 const yaml = require('js-yaml');
 
@@ -7,7 +24,15 @@ const GITHUB_REPO = 'circleseven-website';
 const GITHUB_BRANCH = 'main';
 const FILE_PATH = '_config.yml';
 
-// Editable settings (whitelist for security)
+/**
+ * Editable settings whitelist for security
+ *
+ * Only fields in this array can be read or modified through the API.
+ * This prevents unauthorized changes to sensitive Jekyll configuration
+ * like plugins, build settings, or deployment configurations.
+ *
+ * @constant {string[]}
+ */
 const EDITABLE_FIELDS = [
   'title',
   'description',
@@ -20,7 +45,17 @@ const EDITABLE_FIELDS = [
   'lang'
 ];
 
-// Helper to make GitHub API requests
+/**
+ * Makes authenticated requests to the GitHub API
+ *
+ * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
+ * @param {Object} [options={}] - Request options
+ * @param {string} [options.method='GET'] - HTTP method
+ * @param {Object} [options.headers] - Additional headers
+ * @param {Object} [options.body] - Request body (will be JSON stringified)
+ * @returns {Promise<Object>} Parsed JSON response from GitHub API
+ * @throws {Error} If the GitHub API returns a non-2xx status code
+ */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
     const req = https.request({
@@ -53,6 +88,46 @@ function githubRequest(path, options = {}) {
   });
 }
 
+/**
+ * Netlify Function Handler - Settings Management
+ *
+ * Main entry point for site settings management. Handles reading and updating
+ * Jekyll _config.yml with security controls to prevent unauthorized changes.
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, PUT, OPTIONS)
+ * @param {string} event.body - Request body (JSON string for PUT)
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET settings
+ * // GET /.netlify/functions/settings
+ * // Returns: {
+ * //   title: "Circle Seven",
+ * //   description: "Tech blog...",
+ * //   author: "Matthew French",
+ * //   email: "...",
+ * //   paginate: 12,
+ * //   ...
+ * // }
+ *
+ * @example
+ * // UPDATE settings
+ * // PUT /.netlify/functions/settings
+ * // Body: {
+ * //   title: "Circle Seven Blog",
+ * //   description: "Updated description",
+ * //   paginate: 15
+ * // }
+ * // Returns: { success: true, message: "...", commitSha: "..." }
+ *
+ * @example
+ * // INVALID UPDATE (non-whitelisted field)
+ * // PUT /.netlify/functions/settings
+ * // Body: { plugins: ["evil-plugin"] }
+ * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
+ */
 exports.handler = async (event, context) => {
   // CORS headers
   const headers = {
