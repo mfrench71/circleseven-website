@@ -128,15 +128,30 @@ exports.handler = async (event, context) => {
       const itemData = await githubRequest(`/contents/${sourceDir}/${filename}?ref=${GITHUB_BRANCH}`);
       const content = itemData.content;
 
-      // Create the item in _trash folder
+      // Check if file already exists in trash
+      let existingTrashFile = null;
+      try {
+        existingTrashFile = await githubRequest(`/contents/${TRASH_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
+      } catch (error) {
+        // File doesn't exist in trash, which is fine
+      }
+
+      // Create or update the item in _trash folder
+      const trashBody = {
+        message: `Move ${itemType} to trash: ${filename}`,
+        content: content,
+        branch: GITHUB_BRANCH
+      };
+
+      // If file exists in trash, include its SHA for update
+      if (existingTrashFile) {
+        trashBody.sha = existingTrashFile.sha;
+      }
+
       await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: {
-          message: `Move ${itemType} to trash: ${filename}`,
-          content: content,
-          branch: GITHUB_BRANCH
-        }
+        body: trashBody
       });
 
       // Delete from source folder
