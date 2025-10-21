@@ -671,6 +671,12 @@ function closeConfirm(confirmed) {
 
 // Section switching (Dashboard, Taxonomy, Settings)
 function switchSection(sectionName, updateUrl = true) {
+  // Clear currentPost when switching away from posts section
+  if (sectionName !== 'posts') {
+    currentPost = null;
+    clearPostDirty();
+  }
+
   // Update URL using History API if requested
   if (updateUrl) {
     const newPath = sectionName === 'dashboard' ? '/admin-custom/' : `/admin-custom/${sectionName}`;
@@ -1134,6 +1140,10 @@ function clearPostDirty() {
 // Edit post
 async function editPost(filename, updateUrl = true) {
   try {
+    // Clear any existing post data first to prevent stale state
+    currentPost = null;
+    clearPostDirty();
+
     const response = await fetch(`${API_BASE}/posts?path=${encodeURIComponent(filename)}`);
     if (!response.ok) throw new Error('Failed to load post');
 
