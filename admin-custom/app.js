@@ -127,6 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Restore any in-progress deployments from GitHub on page load
   restoreActiveDeployments();
 
+  // Start deployment status polling (runs continuously to catch all deployments)
+  startDeploymentPolling();
+
   // Start background polling for deployment history (refreshes every 10s)
   // This captures code pushes and other deployments not triggered via admin
   startDeploymentHistoryPolling();
@@ -3217,108 +3220,113 @@ function stopDeploymentHistoryPolling() {
 function startDeploymentPolling() {
   if (deploymentPollInterval) return; // Already polling
 
-  console.log('Starting deployment status polling (every 5s)');
+  console.log('Starting deployment status polling (every 5s) - runs continuously');
 
   deploymentPollInterval = setInterval(async () => {
-    if (activeDeployments.length === 0) {
-      console.log('No active deployments, stopping polling');
-      clearInterval(deploymentPollInterval);
-      deploymentPollInterval = null;
-      hideDeploymentBanner();
-      return;
-    }
-
-    console.log(`Polling status for ${activeDeployments.length} deployment(s)`);
-
-    // Update time display
-    updateDeploymentBanner();
-
-    // Check status of each deployment
-    for (let i = activeDeployments.length - 1; i >= 0; i--) {
-      const deployment = activeDeployments[i];
-
-      // Timeout after 10 minutes (600 seconds)
-      const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
-      if (elapsed > 600) {
-        activeDeployments.splice(i, 1);
-        showSuccess('Deployment timeout reached. Changes should be live now.');
-
-        if (activeDeployments.length === 0) {
-          hideDeploymentBanner();
-        }
-        continue;
+    try {
+      // Always poll, even if no active deployments, to catch external deployments
+      if (activeDeployments.length === 0) {
+        console.log('No active deployments tracked locally - banner hidden');
+        hideDeploymentBanner();
+        // Don't stop polling - keep running to detect external deployments
+        return;
       }
 
-      try {
-        const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
-        if (!response.ok) {
-          console.warn(`Deployment status check failed for ${deployment.commitSha}: ${response.status}`);
+      console.log(`Polling status for ${activeDeployments.length} deployment(s)`, activeDeployments.map(d => d.commitSha.substring(0, 7)));
+
+      // Update time display
+      updateDeploymentBanner();
+
+      // Check status of each deployment
+      for (let i = activeDeployments.length - 1; i >= 0; i--) {
+        const deployment = activeDeployments[i];
+
+        // Timeout after 10 minutes (600 seconds)
+        const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
+        if (elapsed > 600) {
+          activeDeployments.splice(i, 1);
+          showSuccess('Deployment timeout reached. Changes should be live now.');
+
+          if (activeDeployments.length === 0) {
+            hideDeploymentBanner();
+          }
           continue;
         }
 
-        const data = await response.json();
+        try {
+          const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
+          if (!response.ok) {
+            console.warn(`Deployment status check failed for ${deployment.commitSha}: ${response.status}`);
+            continue;
+          }
 
-        // Update deployment status
-        deployment.status = data.status;
-        deployment.updatedAt = new Date();
-        updateDashboardDeployments();
+          const data = await response.json();
 
-        if (data.status === 'completed') {
-          // Deployment successful
-          console.log(`Deployment completed: ${deployment.commitSha}`);
-          addToDeploymentHistory(deployment);
-          activeDeployments.splice(i, 1);
+          // Update deployment status
+          deployment.status = data.status;
+          deployment.updatedAt = new Date();
           updateDashboardDeployments();
 
-          // Only show success message when ALL deployments are complete
-          if (activeDeployments.length === 0) {
-            showSuccess('Changes published successfully! Site is now live.');
-            showDeploymentCompletion(true); // Show success state before hiding
+          if (data.status === 'completed') {
+            // Deployment successful
+            console.log(`Deployment completed: ${deployment.commitSha}`);
+            addToDeploymentHistory(deployment);
+            activeDeployments.splice(i, 1);
+            updateDashboardDeployments();
+
+            // Only show success message when ALL deployments are complete
+            if (activeDeployments.length === 0) {
+              showSuccess('Changes published successfully! Site is now live.');
+              showDeploymentCompletion(true); // Show success state before hiding
+            }
+          } else if (data.status === 'failed') {
+            // Deployment failed
+            console.log(`Deployment failed: ${deployment.commitSha}`);
+            addToDeploymentHistory(deployment);
+            activeDeployments.splice(i, 1);
+            updateDashboardDeployments();
+
+            // Show error immediately for failures (user needs to know)
+            showError('Deployment failed. Please check GitHub Actions for details.');
+
+            if (activeDeployments.length === 0) {
+              showDeploymentCompletion(false); // Show error state before hiding
+            }
+          } else if (data.status === 'cancelled') {
+            // Deployment cancelled
+            console.log(`Deployment cancelled: ${deployment.commitSha}`);
+            addToDeploymentHistory(deployment);
+            activeDeployments.splice(i, 1);
+            updateDashboardDeployments();
+
+            // Show error immediately for cancellations
+            showError('Deployment was cancelled. Changes may not be live.');
+
+            if (activeDeployments.length === 0) {
+              showDeploymentCompletion(false); // Show error state before hiding
+            }
+          } else if (data.status === 'skipped') {
+            // Deployment skipped (superseded by newer commit)
+            console.log(`Deployment skipped: ${deployment.commitSha}`);
+            addToDeploymentHistory(deployment);
+            activeDeployments.splice(i, 1);
+            updateDashboardDeployments();
+
+            // Don't show message for skipped (it's normal when multiple changes are queued)
+            if (activeDeployments.length === 0) {
+              hideDeploymentBanner(); // Just hide for skipped
+            }
+          } else {
+            console.log(`Deployment status: ${data.status} for ${deployment.commitSha}`);
           }
-        } else if (data.status === 'failed') {
-          // Deployment failed
-          console.log(`Deployment failed: ${deployment.commitSha}`);
-          addToDeploymentHistory(deployment);
-          activeDeployments.splice(i, 1);
-          updateDashboardDeployments();
-
-          // Show error immediately for failures (user needs to know)
-          showError('Deployment failed. Please check GitHub Actions for details.');
-
-          if (activeDeployments.length === 0) {
-            showDeploymentCompletion(false); // Show error state before hiding
-          }
-        } else if (data.status === 'cancelled') {
-          // Deployment cancelled
-          console.log(`Deployment cancelled: ${deployment.commitSha}`);
-          addToDeploymentHistory(deployment);
-          activeDeployments.splice(i, 1);
-          updateDashboardDeployments();
-
-          // Show error immediately for cancellations
-          showError('Deployment was cancelled. Changes may not be live.');
-
-          if (activeDeployments.length === 0) {
-            showDeploymentCompletion(false); // Show error state before hiding
-          }
-        } else if (data.status === 'skipped') {
-          // Deployment skipped (superseded by newer commit)
-          console.log(`Deployment skipped: ${deployment.commitSha}`);
-          addToDeploymentHistory(deployment);
-          activeDeployments.splice(i, 1);
-          updateDashboardDeployments();
-
-          // Don't show message for skipped (it's normal when multiple changes are queued)
-          if (activeDeployments.length === 0) {
-            hideDeploymentBanner(); // Just hide for skipped
-          }
-        } else {
-          console.log(`Deployment status: ${data.status} for ${deployment.commitSha}`);
+          // pending, queued, in_progress continue polling
+        } catch (error) {
+          console.error('Failed to check deployment status:', error);
         }
-        // pending, queued, in_progress continue polling
-      } catch (error) {
-        console.error('Failed to check deployment status:', error);
       }
+    } catch (error) {
+      console.error('Error in deployment polling interval:', error);
+      // Don't stop polling even on error
     }
   }, 5000); // Poll every 5 seconds
 }
