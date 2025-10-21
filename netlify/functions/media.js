@@ -1,3 +1,18 @@
+/**
+ * Media Library Netlify Function
+ *
+ * Provides read-only access to Cloudinary media library resources.
+ * Fetches image metadata from Cloudinary Admin API for use in the media browser.
+ *
+ * Security: Uses Basic Authentication with API Key and Secret.
+ * Only GET requests are allowed - no upload or delete operations.
+ *
+ * Supported operations:
+ * - GET: Retrieve list of media resources from Cloudinary
+ *
+ * @module netlify/functions/media
+ */
+
 const https = require('https');
 
 // Cloudinary configuration
@@ -11,8 +26,32 @@ if (!CLOUDINARY_API_SECRET) {
 }
 
 /**
- * Netlify Function: Media Library
- * Fetches media resources from Cloudinary
+ * Netlify Function Handler - Media Library
+ *
+ * Main entry point for media library access. Fetches media resources from
+ * Cloudinary Admin API with pagination support (max 500 results).
+ *
+ * @param {Object} event - Netlify function event object
+ * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {Object} context - Netlify function context
+ * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ *
+ * @example
+ * // GET media resources
+ * // GET /.netlify/functions/media
+ * // Returns: {
+ * //   resources: [
+ * //     {
+ * //       public_id: "image1",
+ * //       format: "jpg",
+ * //       width: 1920,
+ * //       height: 1080,
+ * //       secure_url: "https://res.cloudinary.com/..."
+ * //     },
+ * //     ...
+ * //   ],
+ * //   total: 25
+ * // }
  */
 exports.handler = async (event, context) => {
   // Set CORS headers
@@ -76,7 +115,30 @@ exports.handler = async (event, context) => {
 };
 
 /**
- * Fetch resources from Cloudinary Admin API
+ * Fetches media resources from Cloudinary Admin API
+ *
+ * Makes authenticated request to Cloudinary using Basic Auth.
+ * Retrieves up to 500 image resources with metadata including URLs,
+ * dimensions, format, and public IDs.
+ *
+ * @returns {Promise<Array>} Array of Cloudinary resource objects
+ * @throws {Error} If Cloudinary API request fails or response cannot be parsed
+ *
+ * @example
+ * const resources = await fetchCloudinaryResources();
+ * // Returns: [{
+ * //   public_id: "sample",
+ * //   format: "jpg",
+ * //   version: 1234567890,
+ * //   resource_type: "image",
+ * //   type: "upload",
+ * //   created_at: "2025-10-21T10:00:00Z",
+ * //   bytes: 125000,
+ * //   width: 1920,
+ * //   height: 1080,
+ * //   url: "http://...",
+ * //   secure_url: "https://..."
+ * // }, ...]
  */
 function fetchCloudinaryResources() {
   return new Promise((resolve, reject) => {
