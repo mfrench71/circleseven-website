@@ -2780,89 +2780,118 @@ async function updateDashboardDeployments() {
   const cardContent = card.querySelector('.card-content');
   if (!cardContent) return;
 
-  let html = '<div class="space-y-3">';
-
-  // Show active deployments first
-  if (activeDeployments.length > 0) {
-    html += '<div class="font-semibold text-sm text-gray-700 mb-2">Active Deployments</div>';
-
-    activeDeployments.forEach(deployment => {
-      const elapsed = Math.floor((new Date() - new Date(deployment.startedAt)) / 1000);
-      const minutes = Math.floor(elapsed / 60);
-      const seconds = elapsed % 60;
-      const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-      let statusIcon, statusColor, statusText;
-      if (deployment.status === 'in_progress') {
-        statusIcon = 'fa-spinner fa-spin';
-        statusColor = 'text-blue-600';
-        statusText = 'Deploying';
-      } else if (deployment.status === 'queued') {
-        statusIcon = 'fa-clock';
-        statusColor = 'text-yellow-600';
-        statusText = 'Queued';
-      } else {
-        statusIcon = 'fa-hourglass-half';
-        statusColor = 'text-gray-600';
-        statusText = 'Pending';
-      }
-
-      html += `
-        <div class="flex items-center justify-between p-3 bg-blue-50 rounded border border-blue-200">
-          <div class="flex items-center gap-3 flex-1 min-w-0">
-            <i class="fas ${statusIcon} ${statusColor}"></i>
-            <div class="flex-1 min-w-0">
-              <div class="font-medium text-sm truncate">${escapeHtml(deployment.action)}</div>
-              ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
-            </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs ${statusColor} font-medium">${statusText}</span>
-            <span class="text-xs text-gray-500 font-mono">${timeStr}</span>
-          </div>
-        </div>
-      `;
-    });
-  }
-
-  // Show recent deployment history
+  // Get deployment history
   const history = await getDeploymentHistory();
   const recentHistory = history.slice(0, 10); // Show last 10
 
   console.log('Deployment history:', { total: history.length, showing: recentHistory.length });
 
-  if (recentHistory.length > 0) {
-    if (activeDeployments.length > 0) {
-      html += '<div class="font-semibold text-sm text-gray-700 mt-4 mb-2">Recent Deployments</div>';
-    }
+  // Combine active and history for table display
+  const mainDeployments = [
+    ...activeDeployments.map(d => ({ ...d, isActive: true })),
+    ...recentHistory.filter(d => d.status === 'completed' || d.status === 'failed').map(d => ({ ...d, isActive: false }))
+  ];
 
-    recentHistory.forEach(deployment => {
-      let statusIcon, statusColor, statusText, bgColor;
+  // Separate skipped/cancelled for collapsible section
+  const hiddenDeployments = recentHistory.filter(d => d.status === 'skipped' || d.status === 'cancelled');
+
+  // Show empty state if no deployments at all
+  if (mainDeployments.length === 0 && hiddenDeployments.length === 0) {
+    cardContent.innerHTML = `
+      <div class="text-center py-8 text-gray-500">
+        <i class="fas fa-rocket text-4xl mb-2 text-gray-400"></i>
+        <p>No deployments yet</p>
+        <p class="text-sm mt-1">Make a change to see deployment history</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Build compact table
+  let html = `
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-gray-200">
+            <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
+            <th class="text-left py-2 px-3 font-semibold text-gray-700">Action</th>
+            <th class="text-right py-2 px-3 font-semibold text-gray-700">Duration</th>
+            <th class="text-right py-2 px-3 font-semibold text-gray-700">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  mainDeployments.forEach((deployment, index) => {
+    let statusIcon, statusColor, statusText, rowBg;
+
+    if (deployment.isActive) {
+      // Active deployments
+      let animationClass = '';
+
+      if (deployment.status === 'in_progress') {
+        statusIcon = 'fa-spinner fa-spin';
+        statusColor = 'text-blue-600';
+        statusText = 'Deploying';
+        rowBg = 'bg-blue-100';
+        animationClass = 'animate-pulse';
+      } else if (deployment.status === 'queued') {
+        statusIcon = 'fa-clock';
+        statusColor = 'text-yellow-600';
+        statusText = 'Queued';
+        rowBg = 'bg-yellow-50';
+      } else {
+        statusIcon = 'fa-hourglass-half';
+        statusColor = 'text-gray-600';
+        statusText = 'Pending';
+        rowBg = 'bg-gray-50';
+      }
+
+      const elapsed = Math.floor((new Date() - new Date(deployment.startedAt)) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      html += `
+        <tr class="${rowBg} ${animationClass}">
+          <td class="py-2 px-3">
+            <div class="flex items-center gap-2">
+              <i class="fas ${statusIcon} ${statusColor}"></i>
+              <span class="${statusColor} font-medium">${statusText}</span>
+            </div>
+          </td>
+          <td class="py-2 px-3">
+            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          </td>
+          <td class="py-2 px-3 text-right font-mono text-gray-500">${timeStr}</td>
+          <td class="py-2 px-3 text-right text-gray-400">live</td>
+        </tr>
+      `;
+    } else {
+      // Historical deployments
+      rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        bgColor = 'bg-green-50 border-green-200';
       } else if (deployment.status === 'failed') {
         statusIcon = 'fa-times-circle';
         statusColor = 'text-red-600';
         statusText = 'Failed';
-        bgColor = 'bg-red-50 border-red-200';
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
         statusColor = 'text-yellow-600';
         statusText = 'Cancelled';
-        bgColor = 'bg-yellow-50 border-yellow-200';
       } else if (deployment.status === 'skipped') {
         statusIcon = 'fa-forward';
         statusColor = 'text-blue-600';
         statusText = 'Skipped';
-        bgColor = 'bg-blue-50 border-blue-200';
       } else {
         statusIcon = 'fa-circle';
         statusColor = 'text-gray-600';
         statusText = deployment.status;
-        bgColor = 'bg-gray-50 border-gray-200';
       }
 
       // Format relative time
@@ -2870,7 +2899,7 @@ async function updateDashboardDeployments() {
       const relativeTime = getRelativeTime(completedAt);
 
       // Format duration
-      let durationStr = '';
+      let durationStr = '-';
       if (deployment.duration) {
         const minutes = Math.floor(deployment.duration / 60);
         const seconds = deployment.duration % 60;
@@ -2878,38 +2907,107 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <div class="flex items-center justify-between p-3 ${bgColor} rounded border">
-          <div class="flex items-center gap-3 flex-1 min-w-0">
-            <i class="fas ${statusIcon} ${statusColor}"></i>
-            <div class="flex-1 min-w-0">
-              <div class="font-medium text-sm truncate">${escapeHtml(deployment.action)}</div>
-              ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+        <tr class="${rowBg} hover:bg-gray-100">
+          <td class="py-2 px-3">
+            <div class="flex items-center gap-2">
+              <i class="fas ${statusIcon} ${statusColor}"></i>
+              <span class="${statusColor} font-medium">${statusText}</span>
             </div>
-          </div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs ${statusColor} font-medium">${statusText}</span>
-            ${durationStr ? `<span class="text-xs text-gray-500 font-mono">${durationStr}</span>` : ''}
-            <span class="text-xs text-gray-400">${relativeTime}</span>
-          </div>
-        </div>
+          </td>
+          <td class="py-2 px-3">
+            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          </td>
+          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
+          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+        </tr>
+      `;
+    }
+  });
+
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  // Add collapsible section for skipped/cancelled if any
+  if (hiddenDeployments.length > 0) {
+    html += `
+      <details class="mt-3">
+        <summary class="cursor-pointer text-sm text-gray-600 hover:text-gray-900 py-2 px-3 bg-gray-50 rounded flex items-center justify-between">
+          <span>
+            <i class="fas fa-chevron-right mr-2 text-xs transition-transform"></i>
+            Skipped/Cancelled Deployments (${hiddenDeployments.length})
+          </span>
+        </summary>
+        <div class="mt-2 overflow-x-auto">
+          <table class="w-full text-sm">
+            <tbody>
+    `;
+
+    hiddenDeployments.forEach((deployment, index) => {
+      let statusIcon, statusColor, statusText;
+
+      if (deployment.status === 'cancelled') {
+        statusIcon = 'fa-ban';
+        statusColor = 'text-yellow-600';
+        statusText = 'Cancelled';
+      } else {
+        statusIcon = 'fa-forward';
+        statusColor = 'text-blue-600';
+        statusText = 'Skipped';
+      }
+
+      const rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      const completedAt = new Date(deployment.completedAt || deployment.startedAt);
+      const relativeTime = getRelativeTime(completedAt);
+
+      let durationStr = '-';
+      if (deployment.duration) {
+        const minutes = Math.floor(deployment.duration / 60);
+        const seconds = deployment.duration % 60;
+        durationStr = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+      }
+
+      html += `
+        <tr class="${rowBg} opacity-75">
+          <td class="py-2 px-3">
+            <div class="flex items-center gap-2">
+              <i class="fas ${statusIcon} ${statusColor}"></i>
+              <span class="${statusColor} font-medium">${statusText}</span>
+            </div>
+          </td>
+          <td class="py-2 px-3">
+            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          </td>
+          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
+          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+        </tr>
       `;
     });
-  }
 
-  // Show empty state if no deployments at all
-  if (activeDeployments.length === 0 && recentHistory.length === 0) {
-    html = `
-      <div class="text-center py-8 text-gray-500">
-        <i class="fas fa-rocket text-4xl mb-2 text-gray-400"></i>
-        <p>No deployments yet</p>
-        <p class="text-sm mt-1">Make a change to see deployment history</p>
-      </div>
+    html += `
+            </tbody>
+          </table>
+        </div>
+      </details>
     `;
-  } else {
-    html += '</div>';
   }
 
   cardContent.innerHTML = html;
+
+  // Add event listener to rotate chevron on details toggle
+  const details = cardContent.querySelector('details');
+  if (details) {
+    details.addEventListener('toggle', (e) => {
+      const chevron = e.target.querySelector('.fa-chevron-right');
+      if (chevron) {
+        chevron.style.transform = e.target.open ? 'rotate(90deg)' : 'rotate(0deg)';
+      }
+    });
+  }
 }
 
 // Helper: Get relative time string
