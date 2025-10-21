@@ -2082,7 +2082,8 @@ function updateMediaPagination(totalPages) {
   const paginationEl = document.getElementById('media-pagination');
   const prevBtn = document.getElementById('media-prev-btn');
   const nextBtn = document.getElementById('media-next-btn');
-  const pageInfo = document.getElementById('media-page-info');
+  const currentPageEl = document.getElementById('media-current-page');
+  const totalPagesEl = document.getElementById('media-total-pages');
 
   if (totalPages <= 1) {
     paginationEl.classList.add('hidden');
@@ -2090,7 +2091,8 @@ function updateMediaPagination(totalPages) {
   }
 
   paginationEl.classList.remove('hidden');
-  pageInfo.textContent = `Page ${currentMediaPage} of ${totalPages}`;
+  currentPageEl.textContent = currentMediaPage;
+  totalPagesEl.textContent = totalPages;
   prevBtn.disabled = currentMediaPage === 1;
   nextBtn.disabled = currentMediaPage === totalPages;
 }
