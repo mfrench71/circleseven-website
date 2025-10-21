@@ -1983,7 +1983,10 @@ const originalSwitchSection = switchSection;
 switchSection = async function(sectionName, updateUrl = true) {
   originalSwitchSection(sectionName, updateUrl);
 
-  if (sectionName === 'posts') {
+  if (sectionName === 'dashboard') {
+    // Refresh deployment history when viewing dashboard
+    await updateDashboardDeployments();
+  } else if (sectionName === 'posts') {
     // Always show the posts list when switching to Posts section
     showPostsList();
 
@@ -3152,14 +3155,22 @@ let historyPollInterval = null;
 function startDeploymentHistoryPolling() {
   if (historyPollInterval) return; // Already polling
 
-  // Poll every 60 seconds to refresh history (includes code pushes, not just admin changes)
+  console.log('Starting deployment history background polling (every 30s)');
+
+  // Run initial update
+  const dashboardCard = document.getElementById('deployments-card');
+  if (dashboardCard) {
+    updateDashboardDeployments();
+  }
+
+  // Poll every 30 seconds to refresh history (includes code pushes, not just admin changes)
   historyPollInterval = setInterval(async () => {
-    // Only update if we're on the dashboard
     const dashboardCard = document.getElementById('deployments-card');
     if (dashboardCard) {
+      console.log('Background polling: Refreshing deployment history...');
       await updateDashboardDeployments();
     }
-  }, 60000); // 60 seconds
+  }, 30000); // 30 seconds (reduced from 60)
 }
 
 // Stop background history polling
