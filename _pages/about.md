@@ -2,11 +2,12 @@
 layout: page
 title: About
 permalink: /about/
+date: 2025-10-22T20:11
 ---
 
 # About Circle Seven
 
-Welcome to Circle Seven, a portfolio and blog documenting my journey through Digital Art and Technology, creative projects, and technical explorations.
+Welcome to my portfolio and blog documenting my journey through Digital Art and Technology, creative projects, and technical explorations.
 
 ## What You'll Find Here
 
