@@ -368,21 +368,8 @@ export async function showAddCategoryModal() {
     await saveTaxonomy();
   } catch (error) {
     console.error('Error adding category:', error);
-    showError('Failed to add category');
+    showError('Failed to add category: ' + error.message);
   }
-}
-
-/**
- * Legacy wrapper for backwards compatibility
- *
- * @deprecated Use showAddCategoryModal() directly
- *
- * @example
- * import { addCategory } from './modules/taxonomy.js';
- * addCategory();
- */
-export function addCategory() {
-  showAddCategoryModal();
 }
 
 /**
@@ -486,21 +473,8 @@ export async function showAddTagModal() {
     await saveTaxonomy();
   } catch (error) {
     console.error('Error adding tag:', error);
-    showError('Failed to add tag');
+    showError('Failed to add tag: ' + error.message);
   }
-}
-
-/**
- * Legacy wrapper for backwards compatibility
- *
- * @deprecated Use showAddTagModal() directly
- *
- * @example
- * import { addTag } from './modules/taxonomy.js';
- * addTag();
- */
-export function addTag() {
-  showAddTagModal();
 }
 
 /**
