@@ -17,3 +17,12 @@ wp_convert.py
 
 # Claude settings
 .claude/
+
+# Local Netlify folder
+.netlify
+
+# Test output directories
+coverage/
+html/
+playwright-report/
+test-results/
