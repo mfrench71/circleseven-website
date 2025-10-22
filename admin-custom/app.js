@@ -1059,6 +1059,15 @@ function renderPostsList() {
       : formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
+    // Construct frontend URL from filename (YYYY-MM-DD-slug.md -> /YYYY/MM/DD/slug/)
+    const filename = post.name.replace('.md', '');
+    const parts = filename.split('-');
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+    const slug = parts.slice(3).join('-');
+    const frontendUrl = `/${year}/${month}/${day}/${slug}/`;
+
     // Display categories as text links with hierarchical separators
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
@@ -1078,7 +1087,7 @@ function renderPostsList() {
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); editPost('${escapeHtml(post.name)}')">Edit</a></span> |
             <span><a href="#" onclick="event.preventDefault(); deletePostFromList('${escapeHtml(post.name)}', '${escapeHtml(post.sha)}')" class="text-red-600 hover:text-red-700">Bin</a></span> |
-            <span><a href="${escapeHtml(post.url)}" target="_blank" rel="noopener">View</a></span>
+            <span><a href="${escapeHtml(frontendUrl)}" target="_blank" rel="noopener">View</a></span>
           </div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
