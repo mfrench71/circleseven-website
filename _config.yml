@@ -36,7 +36,7 @@ collections:
     output: true
     permalink: /:path/
 paginate: 10
-title: Circle Seven
+title: Matt French
 timezone: Europe/London
 exclude:
   - Gemfile
