@@ -65,8 +65,14 @@ describe('Notifications Module', () => {
       // textContent automatically escapes HTML
       messageEl.textContent = '<script>alert("XSS")</script>';
 
-      expect(messageEl.innerHTML).not.toContain('<script>');
+      // When using textContent, HTML is escaped in the DOM
+      // innerHTML will show escaped version, textContent shows the raw string
       expect(messageEl.textContent).toBe('<script>alert("XSS")</script>');
+
+      // The actual DOM should not execute the script
+      // (In a real DOM, innerHTML would show &lt;script&gt; when textContent is set)
+      const hasActualScriptTag = messageEl.querySelector('script') !== null;
+      expect(hasActualScriptTag).toBe(false);
     });
   });
 

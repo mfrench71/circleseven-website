@@ -7,11 +7,12 @@
 import { vi } from 'vitest';
 
 // Mock localStorage
+const storage = {};
 const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
+  getItem: vi.fn((key) => storage[key] || null),
+  setItem: vi.fn((key, value) => { storage[key] = value; }),
+  removeItem: vi.fn((key) => { delete storage[key]; }),
+  clear: vi.fn(() => { Object.keys(storage).forEach(key => delete storage[key]); }),
 };
 
 global.localStorage = localStorageMock;
@@ -51,6 +52,9 @@ global.window.API_BASE = '/.netlify/functions';
 
 // Reset mocks before each test
 beforeEach(() => {
+  // Clear storage objects
+  Object.keys(storage).forEach(key => delete storage[key]);
+
   localStorage.clear();
   sessionStorage.clear();
   vi.clearAllMocks();
