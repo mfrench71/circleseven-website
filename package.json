@@ -2,9 +2,17 @@
   "name": "circleseven-website",
   "version": "1.0.0",
   "description": "Circle Seven - Portfolio and blog of Matthew French",
+  "type": "module",
   "scripts": {
     "dev": "bundle exec jekyll serve",
-    "build": "bundle exec jekyll build"
+    "build": "bundle exec jekyll build",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "repository": {
     "type": "git",
@@ -15,5 +23,11 @@
   "dependencies": {
     "js-yaml": "^4.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@vitest/coverage-v8": "^1.0.4",
+    "@vitest/ui": "^1.0.4",
+    "happy-dom": "^12.10.3",
+    "vitest": "^1.0.4"
+  }
 }
