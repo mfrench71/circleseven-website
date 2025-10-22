@@ -3421,8 +3421,8 @@ async function updateDashboardDeployments() {
             <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
             ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="px-4 py-3 text-right font-mono text-gray-500">${timeStr}</td>
-          <td class="px-4 py-3 text-right text-gray-400">live</td>
+          <td class="px-4 py-3 font-mono text-gray-500">${timeStr}</td>
+          <td class="px-4 py-3 text-gray-400">live</td>
         </tr>
       `;
     } else {
