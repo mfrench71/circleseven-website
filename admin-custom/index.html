@@ -310,31 +310,31 @@
           <!-- API & Deployments Row (side by side) -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- GitHub API Rate Limit Card -->
-            <div id="rate-limit-card" class="bg-white rounded-lg shadow-sm p-6">
-              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <i class="fab fa-github text-gray-700"></i>
-                GitHub API Rate Limit
-                <span class="text-xs text-gray-500 font-normal">(per hour)</span>
+            <div id="rate-limit-card" class="bg-white rounded-lg shadow-sm p-4">
+              <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <i class="fab fa-github text-gray-700 text-xs"></i>
+                GitHub API
+                <span class="text-xs text-gray-500 font-normal">(hourly)</span>
               </h3>
-              <div id="rate-limit-content" class="space-y-4">
-                <div class="text-center py-4 text-gray-500">
-                  <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-teal-600 mb-2"></div>
-                  <p class="text-sm">Loading rate limit status...</p>
+              <div id="rate-limit-content">
+                <div class="text-center py-3 text-gray-500">
+                  <div class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-teal-600 mb-2"></div>
+                  <p class="text-xs">Loading...</p>
                 </div>
               </div>
             </div>
 
             <!-- Deployment Status Card -->
-            <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-6">
-              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <i class="fas fa-rocket text-teal-600"></i>
+            <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-4">
+              <h3 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <i class="fas fa-rocket text-teal-600 text-xs"></i>
                 Deployments
               </h3>
               <div class="card-content">
-                <div class="text-center py-8 text-gray-500">
-                  <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
-                  <p>No active deployments</p>
-                  <p class="text-sm mt-1">All changes are published</p>
+                <div class="text-center py-6 text-gray-500">
+                  <i class="fas fa-check-circle text-3xl mb-1.5 text-green-500"></i>
+                  <p class="text-sm">No active deployments</p>
+                  <p class="text-xs mt-0.5">All changes are published</p>
                 </div>
               </div>
             </div>

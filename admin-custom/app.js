@@ -882,38 +882,38 @@ async function updateRateLimit() {
     });
 
     contentEl.innerHTML = `
-      <div class="space-y-3">
-        <!-- Progress bar -->
+      <div class="space-y-2">
+        <!-- Progress bar (compact) -->
         <div class="relative">
-          <div class="flex items-center justify-between text-sm mb-1">
-            <span class="font-medium text-gray-700">API Usage</span>
+          <div class="flex items-center justify-between text-xs mb-1">
+            <span class="font-medium text-gray-600">Usage</span>
             <span class="font-semibold ${usedPercent >= 80 ? 'text-red-600' : usedPercent >= 50 ? 'text-yellow-600' : 'text-green-600'}">${usedPercent}%</span>
           </div>
-          <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+          <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
             <div class="${barColor} h-full transition-all duration-500 ease-out" style="width: ${usedPercent}%"></div>
           </div>
         </div>
 
-        <!-- Stats grid -->
-        <div class="grid grid-cols-3 gap-4 text-center text-sm">
+        <!-- Stats grid (compact) -->
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
           <div>
-            <div class="text-gray-500 text-xs mb-1">Remaining</div>
-            <div class="font-semibold text-gray-900">${remaining.toLocaleString()}</div>
+            <div class="text-gray-500 mb-0.5">Remaining</div>
+            <div class="font-semibold text-gray-900 text-sm">${remaining.toLocaleString()}</div>
           </div>
           <div>
-            <div class="text-gray-500 text-xs mb-1">Limit</div>
-            <div class="font-semibold text-gray-900">${limit.toLocaleString()}</div>
+            <div class="text-gray-500 mb-0.5">Limit</div>
+            <div class="font-semibold text-gray-900 text-sm">${limit.toLocaleString()}</div>
           </div>
           <div>
-            <div class="text-gray-500 text-xs mb-1">Resets</div>
-            <div class="font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</div>
+            <div class="text-gray-500 mb-0.5">Resets</div>
+            <div class="font-semibold text-gray-900 text-sm">${minutesUntilReset}m</div>
           </div>
         </div>
 
-        <!-- Refresh button -->
-        <div class="text-center pt-2">
-          <button onclick="updateRateLimit()" class="text-sm text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
-            <i class="fas fa-sync-alt"></i>
+        <!-- Refresh button (compact) -->
+        <div class="text-center pt-1">
+          <button onclick="updateRateLimit()" class="text-xs text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+            <i class="fas fa-sync-alt text-[10px]"></i>
             Refresh
           </button>
         </div>

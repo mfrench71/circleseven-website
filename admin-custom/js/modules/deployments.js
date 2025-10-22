@@ -409,10 +409,10 @@ export async function updateDashboardDeployments() {
   // Show empty state if no deployments at all
   if (mainDeployments.length === 0 && hiddenDeployments.length === 0) {
     cardContent.innerHTML = `
-      <div class="text-center py-8 text-gray-500">
-        <i class="fas fa-rocket text-4xl mb-2 text-gray-400"></i>
-        <p>No deployments yet</p>
-        <p class="text-sm mt-1">Make a change to see deployment history</p>
+      <div class="text-center py-6 text-gray-500">
+        <i class="fas fa-rocket text-3xl mb-1.5 text-gray-400"></i>
+        <p class="text-sm">No deployments yet</p>
+        <p class="text-xs mt-0.5">Make a change to see deployment history</p>
       </div>
     `;
     return;
@@ -421,13 +421,13 @@ export async function updateDashboardDeployments() {
   // Build compact table
   let html = `
     <div class="overflow-x-auto">
-      <table class="w-full text-sm">
+      <table class="w-full text-xs">
         <thead>
           <tr class="border-b border-gray-200">
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Action</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Duration</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Time</th>
+            <th class="text-left py-1 px-2 font-semibold text-gray-600 text-xs">Status</th>
+            <th class="text-left py-1 px-2 font-semibold text-gray-600 text-xs">Action</th>
+            <th class="text-right py-1 px-2 font-semibold text-gray-600 text-xs">Duration</th>
+            <th class="text-right py-1 px-2 font-semibold text-gray-600 text-xs">Time</th>
           </tr>
         </thead>
         <tbody>
@@ -465,18 +465,18 @@ export async function updateDashboardDeployments() {
 
       html += `
         <tr class="${rowBg} ${animationClass}">
-          <td class="py-2 px-3">
-            <div class="flex items-center gap-2">
-              <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+          <td class="py-1 px-2">
+            <div class="flex items-center gap-1.5">
+              <i class="fas ${statusIcon} ${statusColor} text-xs"></i>
+              <span class="${statusColor} font-medium text-xs">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td class="py-1 px-2">
+            <div class="truncate max-w-md text-xs">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-[10px] text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${timeStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">live</td>
+          <td class="py-1 px-2 text-right font-mono text-gray-500 text-xs">${timeStr}</td>
+          <td class="py-1 px-2 text-right text-gray-400 text-xs">live</td>
         </tr>
       `;
     } else {
@@ -540,18 +540,18 @@ export async function updateDashboardDeployments() {
 
       html += `
         <tr class="${rowBg} ${animationClass} hover:bg-gray-100">
-          <td class="py-2 px-3">
-            <div class="flex items-center gap-2">
-              <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+          <td class="py-1 px-2">
+            <div class="flex items-center gap-1.5">
+              <i class="fas ${statusIcon} ${statusColor} text-xs"></i>
+              <span class="${statusColor} font-medium text-xs">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td class="py-1 px-2">
+            <div class="truncate max-w-md text-xs">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-[10px] text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="py-1 px-2 text-right font-mono text-gray-500 text-xs">${durationStr}</td>
+          <td class="py-1 px-2 text-right text-gray-400 text-xs">${relativeTime}</td>
         </tr>
       `;
     }
@@ -566,15 +566,15 @@ export async function updateDashboardDeployments() {
   // Add collapsible section for skipped/cancelled if any
   if (hiddenDeployments.length > 0) {
     html += `
-      <details class="mt-3">
-        <summary class="cursor-pointer text-sm text-gray-600 hover:text-gray-900 py-2 px-3 bg-gray-50 rounded flex items-center justify-between">
+      <details class="mt-2">
+        <summary class="cursor-pointer text-xs text-gray-600 hover:text-gray-900 py-1.5 px-2 bg-gray-50 rounded flex items-center justify-between">
           <span>
-            <i class="fas fa-chevron-right mr-2 text-xs transition-transform"></i>
-            Skipped/Cancelled Deployments (${hiddenDeployments.length})
+            <i class="fas fa-chevron-right mr-1.5 text-[10px] transition-transform"></i>
+            Skipped/Cancelled (${hiddenDeployments.length})
           </span>
         </summary>
-        <div class="mt-2 overflow-x-auto">
-          <table class="w-full text-sm">
+        <div class="mt-1 overflow-x-auto">
+          <table class="w-full text-xs">
             <tbody>
     `;
 
@@ -604,18 +604,18 @@ export async function updateDashboardDeployments() {
 
       html += `
         <tr class="${rowBg} opacity-75">
-          <td class="py-2 px-3">
-            <div class="flex items-center gap-2">
-              <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+          <td class="py-1 px-2">
+            <div class="flex items-center gap-1.5">
+              <i class="fas ${statusIcon} ${statusColor} text-xs"></i>
+              <span class="${statusColor} font-medium text-xs">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td class="py-1 px-2">
+            <div class="truncate max-w-md text-xs">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-[10px] text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="py-1 px-2 text-right font-mono text-gray-500 text-xs">${durationStr}</td>
+          <td class="py-1 px-2 text-right text-gray-400 text-xs">${relativeTime}</td>
         </tr>
       `;
     });
