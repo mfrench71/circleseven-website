@@ -3383,28 +3383,25 @@ async function updateDashboardDeployments() {
   `;
 
   mainDeployments.forEach((deployment, index) => {
-    let statusIcon, statusColor, statusText, rowBg;
+    let statusIcon, statusColor, statusText, animationClass;
 
     if (deployment.isActive) {
       // Active deployments
-      let animationClass = '';
+      animationClass = '';
 
       if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-blue-600';
         statusText = 'Deploying';
-        rowBg = 'bg-blue-100';
         animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-yellow-600';
         statusText = 'Queued';
-        rowBg = 'bg-yellow-50';
       } else {
         statusIcon = 'fa-hourglass-half';
         statusColor = 'text-gray-600';
         statusText = 'Pending';
-        rowBg = 'bg-gray-50';
       }
 
       const elapsed = Math.floor((new Date() - new Date(deployment.startedAt)) / 1000);
@@ -3413,7 +3410,7 @@ async function updateDashboardDeployments() {
       const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
       html += `
-        <tr class="${rowBg} ${animationClass}">
+        <tr class="${animationClass}">
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -3430,49 +3427,41 @@ async function updateDashboardDeployments() {
       `;
     } else {
       // Historical deployments (from GitHub)
-      let animationClass = '';
+      animationClass = '';
 
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else if (deployment.status === 'failed') {
         statusIcon = 'fa-times-circle';
         statusColor = 'text-red-600';
         statusText = 'Failed';
-        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-blue-600';
         statusText = 'Deploying';
-        rowBg = 'bg-blue-50';
         animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-yellow-600';
         statusText = 'Queued';
-        rowBg = 'bg-yellow-50';
       } else if (deployment.status === 'pending') {
         statusIcon = 'fa-hourglass-half';
         statusColor = 'text-gray-600';
         statusText = 'Pending';
-        rowBg = 'bg-gray-100';
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
         statusColor = 'text-yellow-600';
         statusText = 'Cancelled';
-        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else if (deployment.status === 'skipped') {
         statusIcon = 'fa-forward';
         statusColor = 'text-blue-600';
         statusText = 'Skipped';
-        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       } else {
         statusIcon = 'fa-circle';
         statusColor = 'text-gray-600';
         statusText = deployment.status;
-        rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
       }
 
       // Format relative time
@@ -3488,7 +3477,7 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} ${animationClass}">
+        <tr class="${animationClass}">
           <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
