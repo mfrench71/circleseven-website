@@ -421,16 +421,16 @@ export async function updateDashboardDeployments() {
   // Build compact table
   let html = `
     <div class="overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-gray-200">
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Action</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Duration</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Time</th>
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-200">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deployed</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-200">
   `;
 
   mainDeployments.forEach((deployment, index) => {
