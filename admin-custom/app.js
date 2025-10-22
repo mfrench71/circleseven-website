@@ -615,8 +615,9 @@ function closeConfirm(confirmed) {
  *
  * @param {string} sectionName - Name of section to switch to
  * @param {boolean} [updateUrl=true] - Whether to update browser URL
+ * @returns {Promise<void>}
  */
-function switchSection(sectionName, updateUrl = true) {
+async function switchSection(sectionName, updateUrl = true) {
   // Clear currentPost when switching away from posts section
   if (sectionName !== 'posts') {
     currentPost = null;
@@ -665,7 +666,7 @@ function switchSection(sectionName, updateUrl = true) {
 
   // Load data for the section if needed
   if (sectionName === 'taxonomy' && (!categories || categories.length === 0)) {
-    loadTaxonomy();
+    await loadTaxonomy();
   } else if (sectionName === 'settings') {
     // Settings functions are loaded via ES6 modules - check they're available
     // If not ready yet, retry after a short delay
@@ -699,7 +700,7 @@ function switchSection(sectionName, updateUrl = true) {
     clearPageDirty();
     // Load pages if not already loaded
     if (allPages.length === 0) {
-      loadPages();
+      await loadPages();
     }
   } else if (sectionName === 'posts') {
     // Show posts list view (hide editor if it's open)
@@ -709,7 +710,7 @@ function switchSection(sectionName, updateUrl = true) {
     clearPostDirty();
     // Load posts if not already loaded
     if (allPosts.length === 0) {
-      loadPosts();
+      await loadPosts();
     }
   } else if (sectionName === 'media') {
     // Load media if not already loaded
@@ -2787,7 +2788,7 @@ async function savePage(event) {
     const title = document.getElementById('page-title').value;
     const permalink = document.getElementById('page-permalink').value;
     const layout = document.getElementById('page-layout').value;
-    const protected = document.getElementById('page-protected').checked;
+    const isProtected = document.getElementById('page-protected').checked;
     const date = document.getElementById('page-date').value;
     const content = pageMarkdownEditor ? pageMarkdownEditor.value() : document.getElementById('page-content').value;
 
@@ -2803,7 +2804,7 @@ async function savePage(event) {
     }
 
     // Only add protected field if it's true
-    if (protected) {
+    if (isProtected) {
       frontmatter.protected = true;
     }
 
