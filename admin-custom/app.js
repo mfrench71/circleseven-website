@@ -1067,7 +1067,7 @@ function renderPostsList() {
     const filename = post.name.replace('.md', '');
     const parts = filename.split('-');
     const slug = parts.slice(3).join('-'); // Skip YYYY-MM-DD prefix
-    const frontendUrl = `/${slug}/`;
+    const frontendUrl = `${window.location.origin}/${slug}/`;
 
     // Display categories as text links with hierarchical separators
     let categoriesDisplay = '';
