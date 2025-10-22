@@ -202,15 +202,15 @@ export function renderCategories() {
 
   tbody.innerHTML = categories.map((cat, index) => {
     return `
-    <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
-      <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
-      <td class="px-4 py-3">
+    <tr class="hover:bg-gray-50 cursor-move text-xs" data-index="${index}">
+      <td class="px-3 py-2 text-gray-500">${index + 1}</td>
+      <td class="px-3 py-2">
         <div class="flex items-center gap-2">
           <i class="fas fa-bars text-gray-400 flex-shrink-0"></i>
           <span class="font-medium text-gray-900">${escapeHtml(cat)}</span>
         </div>
       </td>
-      <td class="px-4 py-3 text-right whitespace-nowrap">
+      <td class="px-3 py-2 text-right whitespace-nowrap">
         <button
           onclick="window.editCategory(${index})"
           class="btn-icon-edit"
@@ -286,15 +286,15 @@ export function renderTags() {
 
   tbody.innerHTML = tags.map((tag, index) => {
     return `
-    <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
-      <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
-      <td class="px-4 py-3">
+    <tr class="hover:bg-gray-50 cursor-move text-xs" data-index="${index}">
+      <td class="px-3 py-2 text-gray-500">${index + 1}</td>
+      <td class="px-3 py-2">
         <div class="flex items-center gap-2">
           <i class="fas fa-bars text-gray-400 flex-shrink-0"></i>
           <span class="font-medium text-gray-900">${escapeHtml(tag)}</span>
         </div>
       </td>
-      <td class="px-4 py-3 text-right whitespace-nowrap">
+      <td class="px-3 py-2 text-right whitespace-nowrap">
         <button
           onclick="window.editTag(${index})"
           class="btn-icon-edit"

@@ -464,7 +464,7 @@ export async function updateDashboardDeployments() {
       const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
       html += `
-        <tr class="${rowBg} ${animationClass}">
+        <tr class="${rowBg} ${animationClass} text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -539,7 +539,7 @@ export async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} ${animationClass} hover:bg-gray-100">
+        <tr class="${rowBg} ${animationClass} hover:bg-gray-100 text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -603,7 +603,7 @@ export async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} opacity-75">
+        <tr class="${rowBg} opacity-75 text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>

@@ -280,9 +280,9 @@ export function renderPostsList() {
     }
 
     return `
-      <tr class="hover:bg-gray-50" data-row-id="cat-row-${rowNumber}">
-        <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
-        <td class="px-4 py-3 row-with-actions">
+      <tr class="hover:bg-gray-50 text-xs" data-row-id="cat-row-${rowNumber}">
+        <td class="px-3 py-2 text-gray-500">${rowNumber}</td>
+        <td class="px-3 py-2 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); window.editPost('${escapeHtml(post.name)}')">Edit</a></span> |
@@ -290,8 +290,8 @@ export function renderPostsList() {
             <span><a href="${escapeHtml(post.url)}" target="_blank" rel="noopener">View</a></span>
           </div>
         </td>
-        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
-        <td class="px-4 py-3 text-sm">${categoriesDisplay}</td>
+        <td class="px-3 py-2 text-gray-600 whitespace-nowrap">${date}</td>
+        <td class="px-3 py-2">${categoriesDisplay}</td>
       </tr>
     `;
   }).join('');

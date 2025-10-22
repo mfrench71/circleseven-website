@@ -174,17 +174,17 @@ export function renderPagesList() {
       : '-';
 
     return `
-      <tr class="hover:bg-gray-50">
-        <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
-        <td class="px-4 py-3 row-with-actions">
+      <tr class="hover:bg-gray-50 text-xs">
+        <td class="px-3 py-2 text-gray-500">${index + 1}</td>
+        <td class="px-3 py-2 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); window.editPage('${escapeHtml(page.name)}')">Edit</a></span>${deleteLink} |
             <span><a href="${escapeHtml(permalink)}" target="_blank" rel="noopener">View</a></span>
           </div>
         </td>
-        <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">${formattedDate}</td>
+        <td class="px-3 py-2 text-gray-600">${escapeHtml(permalink)}</td>
+        <td class="px-3 py-2 text-gray-600">${formattedDate}</td>
       </tr>
     `;
   }).join('');
