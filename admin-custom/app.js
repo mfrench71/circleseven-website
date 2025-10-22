@@ -396,6 +396,12 @@ function setupUnsavedChangesWarning() {
  * @listens netlifyIdentity#logout
  */
 function initAuth() {
+  // Test mode bypass for E2E tests
+  if (localStorage.getItem('TEST_MODE') === 'true') {
+    showMainApp({ email: 'test@playwright.dev', user_metadata: { full_name: 'Test User' } });
+    return;
+  }
+
   netlifyIdentity.on('init', user => {
     if (user) {
       showMainApp(user);

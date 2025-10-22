@@ -18,6 +18,13 @@
 
 import { test, expect } from '@playwright/test';
 
+// Enable test mode for all admin tests (bypass authentication)
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('TEST_MODE', 'true');
+  });
+});
+
 // Helper function to wait for section to be visible
 async function navigateToSection(page, sectionId) {
   await page.click(`#nav-${sectionId}`);

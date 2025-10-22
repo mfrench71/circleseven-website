@@ -8,11 +8,13 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Admin Interface Smoke Test', () => {
   test.beforeEach(async ({ page }) => {
+    // Enable test mode (bypass authentication)
+    await page.addInitScript(() => {
+      localStorage.setItem('TEST_MODE', 'true');
+    });
+
     // Navigate to admin
     await page.goto('/admin-custom/');
-
-    // Note: In real tests, you'd handle Netlify Identity login
-    // For now, this assumes you're already logged in or have bypassed auth
   });
 
   test('loads without console errors', async ({ page }) => {
