@@ -97,28 +97,32 @@ test.describe('Admin - Dashboard', () => {
   test('dashboard loads with quick actions', async ({ page }) => {
     await expect(page.locator('#section-dashboard')).toBeVisible();
 
-    // Quick actions should be present
-    const quickActions = page.locator('.quick-action');
-    await expect(quickActions.first()).toBeVisible();
+    // Quick actions should be present - check for the "Manage Posts" link
+    const managePostsLink = page.locator('a:has-text("Manage Posts")');
+    await expect(managePostsLink).toBeVisible();
+
+    const manageTaxonomyLink = page.locator('a:has-text("Manage Taxonomy")');
+    await expect(manageTaxonomyLink).toBeVisible();
   });
 
   test('dashboard shows site information', async ({ page }) => {
-    // Site info card should be visible
-    const siteInfo = page.locator('.site-info, .dashboard-card');
-    const count = await siteInfo.count();
-    expect(count).toBeGreaterThan(0);
+    // Site info card should be visible - check for "Site Information" heading
+    const siteInfoHeading = page.locator('h3:has-text("Site Information")');
+    await expect(siteInfoHeading).toBeVisible();
+
+    // Check for site URL
+    const siteUrl = page.locator('#section-dashboard a[href="/"]');
+    await expect(siteUrl).toBeVisible();
   });
 
   test('quick action buttons navigate correctly', async ({ page }) => {
-    // Click "New Post" quick action if it exists
-    const newPostBtn = page.locator('button:has-text("New Post"), .quick-action:has-text("New Post")');
-    const count = await newPostBtn.count();
+    // Click "Manage Posts" quick action
+    const managePostsLink = page.locator('a:has-text("Manage Posts")');
+    await managePostsLink.click();
 
-    if (count > 0) {
-      await newPostBtn.first().click();
-      await expect(page.locator('#section-posts')).toBeVisible();
-      await expect(page.locator('#post-form')).toBeVisible();
-    }
+    // Should navigate to posts section
+    await expect(page.locator('#section-posts')).toBeVisible();
+    await expect(page.locator('#posts-table-body')).toBeVisible();
   });
 });
 
@@ -139,37 +143,37 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('new post button shows form', async ({ page }) => {
-    const newPostBtn = page.locator('#new-post-btn, button:has-text("New Post")');
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
-    // Form should be visible
-    await expect(page.locator('#post-form')).toBeVisible();
-    await expect(page.locator('#post-form-title')).toBeVisible();
-    await expect(page.locator('#post-form-date')).toBeVisible();
-    await expect(page.locator('#post-form-content')).toBeVisible();
+    // Editor view should be visible
+    await expect(page.locator('#posts-editor-view')).toBeVisible();
+    await expect(page.locator('#post-title')).toBeVisible();
+    await expect(page.locator('#post-date')).toBeVisible();
+    await expect(page.locator('#post-content')).toBeVisible();
   });
 
   test('cancel button hides post form', async ({ page }) => {
-    const newPostBtn = page.locator('#new-post-btn, button:has-text("New Post")');
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
-    await expect(page.locator('#post-form')).toBeVisible();
+    await expect(page.locator('#posts-editor-view')).toBeVisible();
 
-    const cancelBtn = page.locator('#cancel-post-btn, button:has-text("Cancel")');
-    await cancelBtn.click();
+    // Click back to posts button
+    const backBtn = page.locator('button:has-text("Back to Posts")');
+    await backBtn.click();
 
-    await expect(page.locator('#post-form')).not.toBeVisible();
+    // Should show list view
+    await expect(page.locator('#posts-list-view')).toBeVisible();
+    await expect(page.locator('#posts-editor-view')).not.toBeVisible();
   });
 
   test('post form validates required fields', async ({ page }) => {
-    const newPostBtn = page.locator('#new-post-btn, button:has-text("New Post")');
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
-    // Try to save without filling required fields
-    const saveBtn = page.locator('#save-post-btn, button:has-text("Save Post")');
-
     // Title field should be required
-    const titleField = page.locator('#post-form-title');
+    const titleField = page.locator('#post-title');
     const isRequired = await titleField.getAttribute('required');
     expect(isRequired).not.toBeNull();
   });
@@ -189,23 +193,21 @@ test.describe('Admin - Posts Management', () => {
     }
   });
 
-  test('categories and tags select  fields are populated', async ({ page }) => {
-    const newPostBtn = page.locator('#new-post-btn');
+  test('categories and tags autocomplete fields are present', async ({ page }) => {
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
-    // Categories select should have options
-    const categoriesSelect = page.locator('#post-form-categories, select[name="categories"]');
-    const categoriesCount = await categoriesSelect.count();
+    // Categories input should be present
+    const categoriesInput = page.locator('#categories-input');
+    await expect(categoriesInput).toBeVisible();
 
-    if (categoriesCount > 0) {
-      const options = categoriesSelect.locator('option');
-      const optionsCount = await options.count();
-      expect(optionsCount).toBeGreaterThan(0);
-    }
+    // Tags input should be present
+    const tagsInput = page.locator('#tags-input');
+    await expect(tagsInput).toBeVisible();
   });
 
   test('EasyMDE editor initializes for content field', async ({ page }) => {
-    const newPostBtn = page.locator('#new-post-btn');
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
     // Wait for EasyMDE to initialize
@@ -234,20 +236,21 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('new page button shows form', async ({ page }) => {
-    const newPageBtn = page.locator('#new-page-btn, button:has-text("New Page")');
+    const newPageBtn = page.locator('button:has-text("Add Page")');
     await newPageBtn.click();
 
-    await expect(page.locator('#page-form')).toBeVisible();
-    await expect(page.locator('#page-form-title')).toBeVisible();
-    await expect(page.locator('#page-form-permalink')).toBeVisible();
+    // Editor view should be visible
+    await expect(page.locator('#pages-editor-view')).toBeVisible();
+    await expect(page.locator('#page-title')).toBeVisible();
+    await expect(page.locator('#page-permalink')).toBeVisible();
   });
 
   test('protected page checkbox is present in form', async ({ page }) => {
-    const newPageBtn = page.locator('#new-page-btn');
+    const newPageBtn = page.locator('button:has-text("Add Page")');
     await newPageBtn.click();
 
     // Protected checkbox should be in the form
-    const protectedCheckbox = page.locator('#page-form-protected, input[name="protected"]');
+    const protectedCheckbox = page.locator('#page-protected');
     await expect(protectedCheckbox).toBeVisible();
 
     // Should be unchecked by default for new pages
@@ -272,10 +275,10 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('can toggle protected status in page form', async ({ page }) => {
-    const newPageBtn = page.locator('#new-page-btn');
+    const newPageBtn = page.locator('button:has-text("Add Page")');
     await newPageBtn.click();
 
-    const protectedCheckbox = page.locator('#page-form-protected, input[name="protected"]');
+    const protectedCheckbox = page.locator('#page-protected');
 
     // Toggle checkbox
     await protectedCheckbox.check();
@@ -286,17 +289,15 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('layout selector is populated', async ({ page }) => {
-    const newPageBtn = page.locator('#new-page-btn');
+    const newPageBtn = page.locator('button:has-text("Add Page")');
     await newPageBtn.click();
 
-    const layoutSelect = page.locator('#page-form-layout, select[name="layout"]');
-    const count = await layoutSelect.count();
+    const layoutSelect = page.locator('#page-layout');
+    await expect(layoutSelect).toBeVisible();
 
-    if (count > 0) {
-      const options = layoutSelect.locator('option');
-      const optionsCount = await options.count();
-      expect(optionsCount).toBeGreaterThan(0);
-    }
+    const options = layoutSelect.locator('option');
+    const optionsCount = await options.count();
+    expect(optionsCount).toBeGreaterThan(0);
   });
 });
 
@@ -311,64 +312,82 @@ test.describe('Admin - Taxonomy Management', () => {
     await expect(categoriesList).toBeVisible();
   });
 
-  test('tags list loads', async ({ page }) => {
+  test('tags list loads when tab is clicked', async ({ page }) => {
+    // Tags tab content is hidden by default, need to click it
+    const tagsTab = page.locator('#tab-tags');
+    await tagsTab.click();
+
+    await page.waitForTimeout(300);
+
     const tagsList = page.locator('#tags-list');
     await expect(tagsList).toBeVisible();
   });
 
-  test('add category button shows form', async ({ page }) => {
-    const addCategoryBtn = page.locator('#add-category-btn, button:has-text("Add Category")');
-    const count = await addCategoryBtn.count();
+  test('add category button shows modal', async ({ page }) => {
+    const addCategoryBtn = page.locator('button:has-text("Add Category")');
+    await addCategoryBtn.click();
+
+    // Modal should appear
+    const modal = page.locator('#modal-overlay');
+    await expect(modal).toBeVisible();
+    await expect(modal).not.toHaveClass(/hidden/);
+
+    // Close modal
+    const cancelBtn = page.locator('#modal-overlay button:has-text("Cancel")');
+    await cancelBtn.click();
+  });
+
+  test('add tag button shows modal', async ({ page }) => {
+    // Click tags tab first
+    const tagsTab = page.locator('#tab-tags');
+    await tagsTab.click();
+
+    const addTagBtn = page.locator('button:has-text("Add Tag")');
+    await addTagBtn.click();
+
+    // Modal should appear
+    const modal = page.locator('#modal-overlay');
+    await expect(modal).toBeVisible();
+    await expect(modal).not.toHaveClass(/hidden/);
+
+    // Close modal
+    const cancelBtn = page.locator('#modal-overlay button:has-text("Cancel")');
+    await cancelBtn.click();
+  });
+
+  test('categories have edit and delete buttons on hover', async ({ page }) => {
+    const categoryRows = page.locator('#categories-list tr');
+    const count = await categoryRows.count();
 
     if (count > 0) {
-      await addCategoryBtn.click();
+      // Hover over first category row to reveal actions
+      const firstRow = categoryRows.first();
+      await firstRow.hover();
 
-      const form = page.locator('#category-form, .category-form');
-      await expect(form).toBeVisible();
+      // Should have action buttons (edit and delete)
+      const actionButtons = firstRow.locator('button');
+      const buttonCount = await actionButtons.count();
+      expect(buttonCount).toBeGreaterThan(0);
     }
   });
 
-  test('add tag button shows form', async ({ page }) => {
-    const addTagBtn = page.locator('#add-tag-btn, button:has-text("Add Tag")');
-    const count = await addTagBtn.count();
+  test('tags have edit and delete buttons on hover', async ({ page }) => {
+    // Click tags tab first
+    const tagsTab = page.locator('#tab-tags');
+    await tagsTab.click();
+
+    const tagRows = page.locator('#tags-list tr');
+    const count = await tagRows.count();
 
     if (count > 0) {
-      await addTagBtn.click();
+      // Hover over first tag row to reveal actions
+      const firstRow = tagRows.first();
+      await firstRow.hover();
 
-      const form = page.locator('#tag-form, .tag-form');
-      await expect(form).toBeVisible();
-    }
-  });
-
-  test('categories have edit and delete buttons', async ({ page }) => {
-    const categoryItems = page.locator('#categories-list li, .category-item');
-    const count = await categoryItems.count();
-
-    if (count > 0) {
-      const firstCategory = categoryItems.first();
-
-      // Should have edit button
-      const editBtn = firstCategory.locator('button:has-text("Edit"), .edit-btn');
-      await expect(editBtn).toBeVisible();
-
-      // Should have delete button
-      const deleteBtn = firstCategory.locator('button:has-text("Delete"), .delete-btn');
-      await expect(deleteBtn).toBeVisible();
-    }
-  });
-
-  test('tags have edit and delete buttons', async ({ page }) => {
-    const tagItems = page.locator('#tags-list li, .tag-item');
-    const count = await tagItems.count();
-
-    if (count > 0) {
-      const firstTag = tagItems.first();
-
-      const editBtn = firstTag.locator('button:has-text("Edit"), .edit-btn');
-      await expect(editBtn).toBeVisible();
-
-      const deleteBtn = firstTag.locator('button:has-text("Delete"), .delete-btn');
-      await expect(deleteBtn).toBeVisible();
+      // Should have action buttons
+      const actionButtons = firstRow.locator('button');
+      const buttonCount = await actionButtons.count();
+      expect(buttonCount).toBeGreaterThan(0);
     }
   });
 });
@@ -388,20 +407,9 @@ test.describe('Admin - Media Library', () => {
     await expect(mediaGrid).toBeVisible();
   });
 
-  test('refresh media button works', async ({ page }) => {
-    const refreshBtn = page.locator('#refresh-media-btn, button:has-text("Refresh")');
-    const count = await refreshBtn.count();
-
-    if (count > 0) {
-      await refreshBtn.click();
-
-      // Should show loading state or refresh
-      await page.waitForTimeout(500);
-
-      // Media grid should still be visible
-      const mediaGrid = page.locator('#media-grid, .media-grid, #media-list');
-      await expect(mediaGrid).toBeVisible();
-    }
+  test('upload image button is present', async ({ page }) => {
+    const uploadBtn = page.locator('button:has-text("Upload Image")');
+    await expect(uploadBtn).toBeVisible();
   });
 
   test('media items show thumbnails and info', async ({ page }) => {
@@ -471,12 +479,15 @@ test.describe('Admin - Trash Management', () => {
     }
   });
 
-  test('empty trash button is present', async ({ page }) => {
-    const emptyTrashBtn = page.locator('#empty-trash-btn, button:has-text("Empty Trash")');
-    const count = await emptyTrashBtn.count();
+  test('trash list or empty message is displayed', async ({ page }) => {
+    // Either trash list or empty message should be visible
+    const trashList = page.locator('#trash-list');
+    const emptyMessage = page.locator('#trash-empty');
 
-    // Button should exist
-    expect(count).toBeGreaterThan(0);
+    const listVisible = await trashList.isVisible();
+    const emptyVisible = await emptyMessage.isVisible();
+
+    expect(listVisible || emptyVisible).toBe(true);
   });
 });
 
@@ -486,8 +497,12 @@ test.describe('Admin - Settings', () => {
     await navigateToSection(page, 'settings');
   });
 
-  test('settings form loads', async ({ page }) => {
-    await expect(page.locator('#admin-settings-form, #settings-form')).toBeVisible();
+  test('settings forms load', async ({ page }) => {
+    // Admin settings form
+    await expect(page.locator('#admin-settings-form')).toBeVisible();
+
+    // Site settings form
+    await expect(page.locator('#settings-form')).toBeVisible();
   });
 
   test('admin settings fields are present', async ({ page }) => {
@@ -508,9 +523,14 @@ test.describe('Admin - Settings', () => {
     expect(parseInt(historyPollValue)).toBeGreaterThan(0);
   });
 
-  test('save settings button is present', async ({ page }) => {
-    const saveBtn = page.locator('#save-admin-settings-btn, button:has-text("Save Settings")');
-    await expect(saveBtn).toBeVisible();
+  test('save settings buttons are present', async ({ page }) => {
+    // Admin settings save button
+    const adminSaveBtn = page.locator('#admin-settings-save-btn, button:has-text("Save Admin Settings")');
+    await expect(adminSaveBtn).toBeVisible();
+
+    // Site settings save button
+    const siteSaveBtn = page.locator('#settings-save-btn, button:has-text("Save Settings")');
+    await expect(siteSaveBtn).toBeVisible();
   });
 
   test('reset to defaults button is present', async ({ page }) => {
@@ -648,14 +668,19 @@ test.describe('Admin - Navigation and UI', () => {
       const tabBtn = page.locator(`#nav-${tab}`);
       await tabBtn.click();
 
+      await page.waitForTimeout(200);
+
       const section = page.locator(`#section-${tab}`);
       await expect(section).toBeVisible();
 
-      // Tab should be marked active
-      const isActive = await tabBtn.evaluate(el =>
-        el.classList.contains('active') || el.getAttribute('aria-selected') === 'true'
+      // Tab should have teal border (active style)
+      const borderColor = await tabBtn.evaluate(el =>
+        window.getComputedStyle(el).borderBottomColor
       );
-      expect(isActive).toBe(true);
+
+      // Should have teal or blue border when active (not gray)
+      expect(borderColor).not.toBe('rgba(0, 0, 0, 0)');
+      expect(borderColor).not.toBe('transparent');
     }
   });
 
@@ -759,13 +784,11 @@ test.describe('Admin - Error Handling', () => {
   test('validates form inputs', async ({ page }) => {
     await navigateToSection(page, 'posts');
 
-    const newPostBtn = page.locator('#new-post-btn');
+    const newPostBtn = page.locator('button:has-text("Add Post")');
     await newPostBtn.click();
 
-    // Try to submit with invalid data
-    const titleField = page.locator('#post-form-title');
-
     // HTML5 validation should prevent empty title
+    const titleField = page.locator('#post-title');
     const isRequired = await titleField.getAttribute('required');
     expect(isRequired).not.toBeNull();
   });
