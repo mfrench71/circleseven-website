@@ -896,19 +896,19 @@ async function updateRateLimit() {
 
         <!-- Rate Limit Table -->
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table class="w-full">
             <thead class="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Remaining</th>
-                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Limit</th>
-                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Resets</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remaining</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Limit</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Resets</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-gray-200">
               <tr>
-                <td class="px-3 py-2 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
-                <td class="px-3 py-2 font-semibold text-gray-900">${limit.toLocaleString()}</td>
-                <td class="px-3 py-2 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
+                <td class="px-4 py-3 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
+                <td class="px-4 py-3 font-semibold text-gray-900">${limit.toLocaleString()}</td>
+                <td class="px-4 py-3 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
               </tr>
             </tbody>
           </table>
@@ -3370,16 +3370,16 @@ async function updateDashboardDeployments() {
   // Build compact table
   let html = `
     <div class="overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-gray-200">
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Status</th>
-            <th class="text-left py-2 px-3 font-semibold text-gray-700">Action</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Duration</th>
-            <th class="text-right py-2 px-3 font-semibold text-gray-700">Time</th>
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-200">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+            <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+            <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="divide-y divide-gray-200">
   `;
 
   mainDeployments.forEach((deployment, index) => {
@@ -3414,18 +3414,18 @@ async function updateDashboardDeployments() {
 
       html += `
         <tr class="${rowBg} ${animationClass}">
-          <td class="py-2 px-3">
+          <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
               <span class="${statusColor} font-medium">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
+          <td class="px-4 py-3">
             <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
             ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${timeStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">live</td>
+          <td class="px-4 py-3 text-right font-mono text-gray-500">${timeStr}</td>
+          <td class="px-4 py-3 text-right text-gray-400">live</td>
         </tr>
       `;
     } else {
@@ -3488,19 +3488,19 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} ${animationClass} hover:bg-gray-100">
-          <td class="py-2 px-3">
+        <tr class="${rowBg} ${animationClass}">
+          <td class="px-4 py-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
               <span class="${statusColor} font-medium">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
+          <td class="px-4 py-3">
             <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
             ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="px-4 py-3 text-right font-mono text-gray-500">${durationStr}</td>
+          <td class="px-4 py-3 text-right text-gray-400">${relativeTime}</td>
         </tr>
       `;
     }
