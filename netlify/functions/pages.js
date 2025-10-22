@@ -337,6 +337,12 @@ exports.handler = async (event, context) => {
         };
       }
 
+      // Auto-update last_modified_at with current timestamp
+      const now = new Date();
+      const timezoneOffset = now.getTimezoneOffset();
+      const localDate = new Date(now.getTime() - (timezoneOffset * 60 * 1000));
+      frontmatter.last_modified_at = localDate.toISOString().slice(0, 19).replace('T', ' ');
+
       // Build complete markdown content
       const content = buildFrontmatter(frontmatter) + '\n' + body;
 
@@ -388,6 +394,12 @@ exports.handler = async (event, context) => {
           })
         };
       }
+
+      // Auto-set last_modified_at for new pages
+      const now = new Date();
+      const timezoneOffset = now.getTimezoneOffset();
+      const localDate = new Date(now.getTime() - (timezoneOffset * 60 * 1000));
+      frontmatter.last_modified_at = localDate.toISOString().slice(0, 19).replace('T', ' ');
 
       // Build complete markdown content
       const content = buildFrontmatter(frontmatter) + '\n' + body;
