@@ -157,7 +157,7 @@ export function renderMediaGrid() {
           <div class="absolute inset-0 flex items-center justify-center">
             <div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
               <button
-                onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}')"
+                onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}', event)"
                 class="bg-white text-gray-700 p-3 rounded-lg hover:bg-teal-50 hover:text-teal-600 shadow-lg transition-all transform hover:scale-105"
                 title="Copy URL to clipboard"
                 aria-label="Copy URL"
@@ -281,22 +281,78 @@ export const debouncedFilterMedia = debounce(filterMedia, 300);
 /**
  * Copies a media URL to clipboard
  *
- * Uses the Clipboard API to copy the URL and shows a success message.
+ * Uses the Clipboard API to copy the URL and shows a contextual tooltip
+ * near the clicked button instead of a top toast notification.
  *
  * @param {string} url - URL to copy to clipboard
+ * @param {Event} event - Click event from the button
  *
  * @returns {Promise<void>}
  *
  * @example
  * import { copyMediaUrl } from './modules/media.js';
- * await copyMediaUrl('https://res.cloudinary.com/.../image.jpg');
+ * await copyMediaUrl('https://res.cloudinary.com/.../image.jpg', event);
  */
-export async function copyMediaUrl(url) {
+export async function copyMediaUrl(url, event) {
   try {
     await navigator.clipboard.writeText(url);
-    showSuccess('Image URL copied to clipboard!');
+
+    // Show contextual tooltip near the button
+    const button = event?.currentTarget || event?.target;
+    if (button) {
+      showCopyTooltip(button);
+    } else {
+      // Fallback to toast if no button reference
+      showSuccess('Image URL copied to clipboard!');
+    }
   } catch (error) {
     showError('Failed to copy URL: ' + error.message);
+  }
+}
+
+/**
+ * Shows a temporary tooltip near the copy button
+ *
+ * Creates and displays a small tooltip that appears near the clicked button
+ * and automatically fades out after 2 seconds.
+ *
+ * @param {HTMLElement} button - The button element that was clicked
+ *
+ * @private
+ */
+function showCopyTooltip(button) {
+  // Create tooltip element
+  const tooltip = document.createElement('div');
+  tooltip.className = 'absolute z-50 bg-green-600 text-white text-xs font-medium px-3 py-1.5 rounded shadow-lg pointer-events-none';
+  tooltip.textContent = 'Copied!';
+  tooltip.style.opacity = '0';
+  tooltip.style.transition = 'opacity 0.2s';
+
+  // Position tooltip above the button
+  const parent = button.closest('.media-item');
+  if (parent) {
+    parent.style.position = 'relative';
+    parent.appendChild(tooltip);
+
+    // Center tooltip horizontally and position above button
+    tooltip.style.left = '50%';
+    tooltip.style.top = '50%';
+    tooltip.style.transform = 'translate(-50%, -50%)';
+
+    // Fade in
+    requestAnimationFrame(() => {
+      tooltip.style.opacity = '1';
+    });
+
+    // Fade out and remove after 2 seconds
+    setTimeout(() => {
+      tooltip.style.opacity = '0';
+      setTimeout(() => {
+        if (tooltip.parentNode) {
+          tooltip.parentNode.removeChild(tooltip);
+        }
+      }, 200);
+    }, 2000);
   }
 }
 
