@@ -991,6 +991,7 @@ async function loadPosts() {
 
     renderPostsList();
     populateTaxonomySelects();
+    populateCategoryFilter();
   } catch (error) {
     showError('Failed to load posts: ' + error.message);
   } finally {
@@ -1009,13 +1010,22 @@ function renderPostsList() {
   const emptyEl = document.getElementById('posts-empty');
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
+  const categoryFilter = document.getElementById('posts-category-filter')?.value || '';
 
-  // Filter posts by search term (search in title and filename)
+  // Filter posts by search term and category
   let filtered = allPostsWithMetadata.filter(post => {
     const title = (post.frontmatter?.title || '').toLowerCase();
     const filename = post.name.toLowerCase();
     const searchTerm = search.toLowerCase();
-    return title.includes(searchTerm) || filename.includes(searchTerm);
+    const matchesSearch = title.includes(searchTerm) || filename.includes(searchTerm);
+
+    // Category filter
+    const matchesCategory = !categoryFilter || (
+      Array.isArray(post.frontmatter?.categories) &&
+      post.frontmatter.categories.includes(categoryFilter)
+    );
+
+    return matchesSearch && matchesCategory;
   });
 
   // Sort posts
@@ -1049,36 +1059,13 @@ function renderPostsList() {
       : formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
-    // Display categories hierarchically with collapsible toggle
+    // Display categories as text links with hierarchical separators
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
-      if (categories.length === 1) {
-        // Single category - no toggle needed
-        categoriesDisplay = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
-      } else {
-        // Multiple categories - show first with toggle, rest collapsible
-        const firstCategory = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
-        const remainingCategories = categories.slice(1).map((cat, idx) => {
-          const separator = '<span class="text-gray-400 mx-1">›</span>';
-          return `${separator}<span class="badge badge-category">${escapeHtml(cat)}</span>`;
-        }).join('');
-
-        const rowId = `cat-row-${rowNumber}`;
-        categoriesDisplay = `
-          <div class="flex items-center gap-1">
-            <button
-              onclick="event.stopPropagation(); toggleCategories('${rowId}')"
-              class="category-toggle flex-shrink-0 text-gray-400 hover:text-gray-600 transition"
-              title="Toggle category hierarchy"
-            >
-              <i class="fas fa-chevron-down chevron-down"></i>
-              <i class="fas fa-chevron-up chevron-up hidden"></i>
-            </button>
-            ${firstCategory}
-            <span class="category-remaining hidden">${remainingCategories}</span>
-          </div>
-        `;
-      }
+      categoriesDisplay = categories.map((cat, idx) => {
+        const separator = idx > 0 ? '<span class="text-gray-400 mx-1">›</span>' : '';
+        return `${separator}<a href="#" onclick="event.preventDefault(); filterByCategory('${escapeHtml(cat)}')" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
+      }).join('');
     } else {
       categoriesDisplay = '<span class="text-gray-400">-</span>';
     }
@@ -1246,6 +1233,68 @@ function filterPosts() {
 
 // Debounced version for search input
 const debouncedFilterPosts = debounce(filterPosts, 300);
+
+// Populate category filter dropdown
+/**
+ * Populates the category filter dropdown with all unique categories from posts
+ *
+ * Collects all categories from posts and populates the dropdown in the order they appear in the taxonomy.
+ */
+function populateCategoryFilter() {
+  const filterSelect = document.getElementById('posts-category-filter');
+  if (!filterSelect) return;
+
+  // Get all unique categories from posts
+  const categoriesSet = new Set();
+  allPostsWithMetadata.forEach(post => {
+    if (Array.isArray(post.frontmatter?.categories)) {
+      post.frontmatter.categories.forEach(cat => categoriesSet.add(cat));
+    }
+  });
+
+  // Convert to array and sort by taxonomy order if available
+  let categories = Array.from(categoriesSet);
+  if (window.categoriesData && Array.isArray(window.categoriesData)) {
+    // Sort by taxonomy order
+    categories.sort((a, b) => {
+      const indexA = window.categoriesData.indexOf(a);
+      const indexB = window.categoriesData.indexOf(b);
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+      return indexA - indexB;
+    });
+  } else {
+    // Fallback to alphabetical sort
+    categories.sort();
+  }
+
+  // Build options HTML
+  const options = categories.map(cat =>
+    `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`
+  ).join('');
+
+  // Preserve current selection
+  const currentValue = filterSelect.value;
+  filterSelect.innerHTML = '<option value="">All Categories</option>' + options;
+  if (currentValue && categories.includes(currentValue)) {
+    filterSelect.value = currentValue;
+  }
+}
+
+// Filter posts by category (called from category links)
+/**
+ * Sets the category filter and re-renders the posts list
+ *
+ * @param {string} category - Category name to filter by
+ */
+function filterByCategory(category) {
+  const filterSelect = document.getElementById('posts-category-filter');
+  if (filterSelect) {
+    filterSelect.value = category;
+    filterPosts();
+  }
+}
 
 // Format date for display
 /**
