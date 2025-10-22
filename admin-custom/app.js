@@ -894,20 +894,24 @@ async function updateRateLimit() {
           </div>
         </div>
 
-        <!-- Stats grid -->
-        <div class="grid grid-cols-3 gap-4 text-center text-sm">
-          <div>
-            <div class="text-gray-500 text-xs mb-1">Remaining</div>
-            <div class="font-semibold text-gray-900">${remaining.toLocaleString()}</div>
-          </div>
-          <div>
-            <div class="text-gray-500 text-xs mb-1">Limit</div>
-            <div class="font-semibold text-gray-900">${limit.toLocaleString()}</div>
-          </div>
-          <div>
-            <div class="text-gray-500 text-xs mb-1">Resets</div>
-            <div class="font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</div>
-          </div>
+        <!-- Rate Limit Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Remaining</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Limit</th>
+                <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Resets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-3 py-2 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
+                <td class="px-3 py-2 font-semibold text-gray-900">${limit.toLocaleString()}</td>
+                <td class="px-3 py-2 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Refresh button -->
