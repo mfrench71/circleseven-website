@@ -194,6 +194,12 @@ export function renderCategories() {
 
   const categories = window.categories || [];
 
+  // Remove loading spinner if it exists
+  const loadingRow = document.getElementById('categories-loading');
+  if (loadingRow) {
+    loadingRow.remove();
+  }
+
   tbody.innerHTML = categories.map((cat, index) => {
     return `
     <tr class="hover:bg-gray-50 cursor-move" data-index="${index}">
@@ -271,6 +277,12 @@ export function renderTags() {
   if (!tbody || !countBadge) return;
 
   const tags = window.tags || [];
+
+  // Remove loading spinner if it exists
+  const loadingRow = document.getElementById('tags-loading');
+  if (loadingRow) {
+    loadingRow.remove();
+  }
 
   tbody.innerHTML = tags.map((tag, index) => {
     return `
