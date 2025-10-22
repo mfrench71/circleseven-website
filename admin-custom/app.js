@@ -662,11 +662,25 @@ function switchSection(sectionName, updateUrl = true) {
     loadTaxonomy();
   } else if (sectionName === 'settings') {
     // Settings functions are loaded via ES6 modules - check they're available
+    // If not ready yet, retry after a short delay
     if (typeof window.loadSettings === 'function') {
       window.loadSettings();
+    } else {
+      setTimeout(() => {
+        if (typeof window.loadSettings === 'function') {
+          window.loadSettings();
+        }
+      }, 100);
     }
+
     if (typeof window.loadAdminSettings === 'function') {
       window.loadAdminSettings();
+    } else {
+      setTimeout(() => {
+        if (typeof window.loadAdminSettings === 'function') {
+          window.loadAdminSettings();
+        }
+      }, 100);
     }
   } else if (sectionName === 'dashboard') {
     // Refresh deployment status immediately when viewing dashboard
