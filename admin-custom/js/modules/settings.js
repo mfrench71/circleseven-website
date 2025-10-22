@@ -57,6 +57,44 @@ function getAdminSettings() {
 }
 
 /**
+ * Loads just the site title and updates the admin header
+ *
+ * Fetches settings from the /settings API endpoint and updates the admin title
+ * and dashboard welcome message. This is a lightweight version for initial page load.
+ *
+ * @throws {Error} If settings load fails
+ *
+ * @example
+ * import { loadSiteTitle } from './modules/settings.js';
+ * await loadSiteTitle();
+ */
+export async function loadSiteTitle() {
+  try {
+    const response = await fetch(`${window.API_BASE}/settings`);
+    if (!response.ok) return; // Silently fail - not critical
+
+    const settings = await response.json();
+
+    // Update admin title with site title
+    if (settings.title) {
+      const adminTitle = document.getElementById('admin-title');
+      if (adminTitle) {
+        adminTitle.textContent = `${settings.title} Admin`;
+      }
+
+      // Update dashboard welcome message
+      const welcomeTitle = document.getElementById('dashboard-welcome-title');
+      if (welcomeTitle) {
+        welcomeTitle.textContent = `Welcome to ${settings.title} Admin`;
+      }
+    }
+  } catch (error) {
+    // Silently fail - not critical for app function
+    console.warn('Failed to load site title:', error);
+  }
+}
+
+/**
  * Loads site settings from the backend and populates form fields
  *
  * Fetches settings from the /settings API endpoint and populates all form inputs
@@ -83,11 +121,16 @@ export async function loadSettings() {
       }
     });
 
-    // Update admin title with site title
+    // Update admin title and welcome message with site title
     if (settings.title) {
       const adminTitle = document.getElementById('admin-title');
       if (adminTitle) {
         adminTitle.textContent = `${settings.title} Admin`;
+      }
+
+      const welcomeTitle = document.getElementById('dashboard-welcome-title');
+      if (welcomeTitle) {
+        welcomeTitle.textContent = `Welcome to ${settings.title} Admin`;
       }
     }
   } catch (error) {
@@ -151,12 +194,17 @@ export async function saveSettings(event) {
       window.trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
     }
 
-    // Update admin title if site title changed
+    // Update admin title and welcome message if site title changed
     const newTitle = settings.title;
     if (newTitle) {
       const adminTitle = document.getElementById('admin-title');
       if (adminTitle) {
         adminTitle.textContent = `${newTitle} Admin`;
+      }
+
+      const welcomeTitle = document.getElementById('dashboard-welcome-title');
+      if (welcomeTitle) {
+        welcomeTitle.textContent = `Welcome to ${newTitle} Admin`;
       }
     }
 

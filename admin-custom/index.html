@@ -239,7 +239,7 @@
 
           <!-- Collapsible Welcome -->
           <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
-            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+            <summary id="dashboard-welcome-title" class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
               Welcome to Circle Seven Admin
             </summary>
             <div class="px-4 pb-3 pt-2">
@@ -250,7 +250,7 @@
           </details>
 
           <!-- Site Info & GitHub API Row -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <!-- Site Info Card -->
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Site Information</h3>
@@ -1301,6 +1301,7 @@
       permanentlyDeleteItem
     } from '/admin-custom/js/modules/trash.js?v=1761123112';
     import {
+      loadSiteTitle,
       loadSettings,
       saveSettings,
       loadAdminSettings,
@@ -1426,6 +1427,7 @@
     window.loadTrash = loadTrash;
     window.restoreItem = restoreItem;
     window.permanentlyDeleteItem = permanentlyDeleteItem;
+    window.loadSiteTitle = loadSiteTitle;
     window.loadSettings = loadSettings;
     window.saveSettings = saveSettings;
     window.loadAdminSettings = loadAdminSettings;

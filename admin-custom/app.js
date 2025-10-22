@@ -453,6 +453,11 @@ function showMainApp(authenticatedUser) {
   // Handle routing on login
   handleRouteChange();
 
+  // Load site title to update admin header
+  if (typeof window.loadSiteTitle === 'function') {
+    window.loadSiteTitle();
+  }
+
   // Load last updated time
   updateLastUpdated();
 
@@ -2465,11 +2470,16 @@ function renderPagesList() {
       ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
+    // Protected badge
+    const protectedBadge = isProtected
+      ? '<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700" title="Protected from deletion"><i class="fas fa-lock mr-1"></i>Protected</span>'
+      : '';
+
     return `
       <tr class="hover:bg-gray-50">
         <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
         <td class="px-4 py-3 row-with-actions">
-          <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
+          <div class="font-medium text-gray-900">${escapeHtml(title)}${protectedBadge}</div>
           <div class="row-actions">
             <span><a href="#" onclick="event.preventDefault(); editPage('${escapeHtml(page.name)}')">Edit</a></span>${deleteLink} |
             <span><a href="${escapeHtml(permalink)}" target="_blank" rel="noopener">View</a></span>
