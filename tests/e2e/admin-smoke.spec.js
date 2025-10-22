@@ -5,12 +5,67 @@
  */
 
 import { test, expect } from '@playwright/test';
+import { mockPosts, mockPages, mockTaxonomy, mockDeploymentStatus, mockDeploymentHistory, mockRateLimit, mockTrashItems, mockSettings, mockMedia } from '../fixtures/mock-data.js';
 
 test.describe('Admin Interface Smoke Test', () => {
   test.beforeEach(async ({ page }) => {
     // Enable test mode (bypass authentication)
     await page.addInitScript(() => {
       localStorage.setItem('TEST_MODE', 'true');
+    });
+
+    // Mock Netlify Functions API endpoints
+    await page.route('**/.netlify/functions/posts*', async (route) => {
+      const url = new URL(route.request().url());
+      const method = route.request().method();
+
+      if (method === 'GET') {
+        if (url.searchParams.get('metadata') === 'true') {
+          await route.fulfill({ status: 200, body: JSON.stringify({ posts: mockPosts }) });
+        } else {
+          await route.fulfill({ status: 200, body: JSON.stringify({ posts: mockPosts.map(p => ({ name: p.name, path: p.path, sha: p.sha, size: p.size })) }) });
+        }
+      } else {
+        await route.fulfill({ status: 200, body: JSON.stringify({ success: true }) });
+      }
+    });
+
+    await page.route('**/.netlify/functions/pages*', async (route) => {
+      const method = route.request().method();
+
+      if (method === 'GET') {
+        await route.fulfill({ status: 200, body: JSON.stringify({ pages: mockPages }) });
+      } else {
+        await route.fulfill({ status: 200, body: JSON.stringify({ success: true }) });
+      }
+    });
+
+    await page.route('**/.netlify/functions/taxonomy*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify(mockTaxonomy) });
+    });
+
+    await page.route('**/.netlify/functions/deployment-status*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify(mockDeploymentStatus) });
+    });
+
+    await page.route('**/.netlify/functions/deployment-history*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify({ runs: mockDeploymentHistory }) });
+    });
+
+    await page.route('**/.netlify/functions/rate-limit*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify(mockRateLimit) });
+    });
+
+    await page.route('**/.netlify/functions/trash*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify({ items: mockTrashItems }) });
+    });
+
+    await page.route('**/.netlify/functions/settings*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify(mockSettings) });
+    });
+
+    await page.route('**/.netlify/functions/media*', async (route) => {
+      await route.fulfill({ status: 200, body: JSON.stringify(mockMedia) });
     });
 
     // Navigate to admin
