@@ -154,8 +154,8 @@ export function renderMediaGrid() {
             class="w-full h-full object-cover"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition flex items-center justify-center">
-            <div class="opacity-0 group-hover:opacity-100 transition flex gap-2">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
               <button
                 onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}')"
                 class="bg-white text-gray-700 p-3 rounded-lg hover:bg-teal-50 hover:text-teal-600 shadow-lg transition-all transform hover:scale-105"
