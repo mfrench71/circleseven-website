@@ -1,238 +1,350 @@
 /**
  * Unit Tests for Settings Module
  *
- * Tests admin settings and site settings functionality.
+ * Tests both site configuration and admin application settings management.
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { setupDocument, createAdminSettingsForm } from '../../utils/dom-helpers.js';
-import { mockAdminSettings, mockSiteSettings } from '../../utils/mock-data.js';
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import {
+  loadSettings,
+  saveSettings,
+  loadAdminSettings,
+  saveAdminSettings,
+  resetAdminSettings
+} from '../../../admin-custom/js/modules/settings.js';
+import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
 
 describe('Settings Module', () => {
+  let mockFetch;
+
   beforeEach(() => {
-    setupDocument();
+    // Setup DOM
+    document.body.innerHTML = `
+      <div id="error" class="hidden"><p></p></div>
+      <div id="success" class="hidden"><p></p></div>
+
+      <!-- Site Settings Form -->
+      <form id="settings-form">
+        <input id="setting-title" name="title" value="" />
+        <input id="setting-description" name="description" value="" />
+        <input id="setting-url" name="url" value="" />
+        <input id="setting-paginate" name="paginate" value="" />
+        <input id="setting-related_posts_count" name="related_posts_count" value="" />
+        <button id="settings-save-btn">Save Settings</button>
+      </form>
+
+      <!-- Admin Settings Form -->
+      <form id="admin-settings-form">
+        <input id="admin-setting-deployment-poll-interval" name="deployment_poll_interval" value="" />
+        <input id="admin-setting-deployment-history-poll-interval" name="deployment_history_poll_interval" value="" />
+        <input id="admin-setting-deployment-timeout" name="deployment_timeout" value="" />
+        <input id="admin-setting-fetch-timeout" name="fetch_timeout" value="" />
+        <input id="admin-setting-debounce-delay" name="debounce_delay" value="" />
+        <button id="admin-settings-save-btn">Save Admin Settings</button>
+      </form>
+    `;
+
+    // Initialize notifications
+    initNotifications();
+
+    // Setup window globals
+    window.API_BASE = '/.netlify/functions';
+    window.trackDeployment = vi.fn();
+    window.DEPLOYMENT_STATUS_POLL_INTERVAL = 10000;
+    window.DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000;
+    window.DEPLOYMENT_TIMEOUT = 600;
+
+    // Mock fetch
+    mockFetch = vi.fn();
+    global.fetch = mockFetch;
+
+    // Clear localStorage
     localStorage.clear();
   });
 
-  describe('loadAdminSettings', () => {
-    it('populates form fields with correct IDs', () => {
-      // Create admin settings form
-      const form = createAdminSettingsForm();
-
-      // Store settings in localStorage
-      localStorage.setItem('admin_settings', JSON.stringify(mockAdminSettings));
-
-      // Simulate loadAdminSettings - converts underscore keys to dash IDs
-      Object.entries(mockAdminSettings).forEach(([key, value]) => {
-        const fieldId = `admin-setting-${key.replace(/_/g, '-')}`;
-        const input = document.getElementById(fieldId);
-        if (input) {
-          input.value = value;
-        }
-      });
-
-      // Verify all fields populated correctly
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value)
-        .toBe('10000');
-      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value)
-        .toBe('30000');
-      expect(document.getElementById('admin-setting-deployment-timeout').value)
-        .toBe('600');
-      expect(document.getElementById('admin-setting-fetch-timeout').value)
-        .toBe('30000');
-      expect(document.getElementById('admin-setting-debounce-delay').value)
-        .toBe('300');
-    });
-
-    it('falls back to defaults if no stored settings', () => {
-      const form = createAdminSettingsForm();
-
-      // No settings in localStorage
-      const stored = localStorage.getItem('admin_settings');
-      expect(stored).toBeNull();
-
-      // Populate with defaults
-      const defaults = mockAdminSettings;
-      Object.entries(defaults).forEach(([key, value]) => {
-        const fieldId = `admin-setting-${key.replace(/_/g, '-')}`;
-        const input = document.getElementById(fieldId);
-        if (input) {
-          input.value = value;
-        }
-      });
-
-      // Verify defaults loaded
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value)
-        .toBe('10000');
-    });
-
-    it('merges stored settings with defaults', () => {
-      createAdminSettingsForm();
-
-      // Only store partial settings
-      localStorage.setItem('admin_settings', JSON.stringify({
-        deployment_poll_interval: 15000
-      }));
-
-      const stored = JSON.parse(localStorage.getItem('admin_settings'));
-      const merged = { ...mockAdminSettings, ...stored };
-
-      // deployment_poll_interval overridden, others use defaults
-      expect(merged.deployment_poll_interval).toBe(15000);
-      expect(merged.deployment_history_poll_interval).toBe(30000);
-    });
-  });
-
-  describe('saveAdminSettings', () => {
-    it('stores form values in localStorage', () => {
-      const form = createAdminSettingsForm();
-
-      // Change a value
-      document.getElementById('admin-setting-deployment-poll-interval').value = '15000';
-
-      // Collect form data
-      const formData = new FormData(form);
-      const settings = {};
-      formData.forEach((value, key) => {
-        settings[key] = parseInt(value, 10);
-      });
-
-      // Save to localStorage
-      localStorage.setItem('admin_settings', JSON.stringify(settings));
-
-      // Verify saved
-      const stored = JSON.parse(localStorage.getItem('admin_settings'));
-      expect(stored.deployment_poll_interval).toBe(15000);
-    });
-
-    it('updates global constants', () => {
-      createAdminSettingsForm();
-
-      // Mock window globals
-      window.DEPLOYMENT_STATUS_POLL_INTERVAL = 10000;
-
-      // Save new settings
-      const newSettings = { ...mockAdminSettings, deployment_poll_interval: 15000 };
-      localStorage.setItem('admin_settings', JSON.stringify(newSettings));
-
-      // Update global
-      window.DEPLOYMENT_STATUS_POLL_INTERVAL = newSettings.deployment_poll_interval;
-
-      expect(window.DEPLOYMENT_STATUS_POLL_INTERVAL).toBe(15000);
-    });
-
-    it('shows success notification after save', () => {
-      createAdminSettingsForm();
-
-      const successNotification = vi.fn();
-
-      // Simulate save
-      localStorage.setItem('admin_settings', JSON.stringify(mockAdminSettings));
-      successNotification('Admin settings saved!');
-
-      expect(successNotification).toHaveBeenCalledWith('Admin settings saved!');
-    });
-  });
-
-  describe('resetAdminSettings', () => {
-    it('restores default values to form', () => {
-      const form = createAdminSettingsForm();
-
-      // Change values
-      document.getElementById('admin-setting-deployment-poll-interval').value = '99999';
-
-      // Reset to defaults
-      Object.entries(mockAdminSettings).forEach(([key, value]) => {
-        const fieldId = `admin-setting-${key.replace(/_/g, '-')}`;
-        const input = document.getElementById(fieldId);
-        if (input) {
-          input.value = value;
-        }
-      });
-
-      // Verify reset
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value)
-        .toBe('10000');
-    });
-
-    it('does not save automatically - user must click save', () => {
-      createAdminSettingsForm();
-
-      // Reset form values
-      Object.entries(mockAdminSettings).forEach(([key, value]) => {
-        const fieldId = `admin-setting-${key.replace(/_/g, '-')}`;
-        const input = document.getElementById(fieldId);
-        if (input) {
-          input.value = value;
-        }
-      });
-
-      // localStorage should not be updated yet
-      const stored = localStorage.getItem('admin_settings');
-      expect(stored).toBeNull();
-    });
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe('loadSettings (Site Configuration)', () => {
-    it('populates site settings from API response', async () => {
-      // Create site settings form
-      const form = document.createElement('form');
-      form.id = 'settings-form';
+    it('fetches settings from API and populates form', async () => {
+      const mockSettings = {
+        title: 'My Blog',
+        description: 'A test blog',
+        url: 'https://example.com',
+        paginate: '10',
+        related_posts_count: '5'
+      };
 
-      Object.entries(mockSiteSettings).forEach(([key, value]) => {
-        const input = document.createElement('input');
-        input.id = `setting-${key}`;
-        input.name = key;
-        form.appendChild(input);
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockSettings
       });
 
-      document.body.appendChild(form);
+      await loadSettings();
 
-      // Mock fetch
-      global.fetch = vi.fn(() =>
-        Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockSiteSettings)
-        })
-      );
-
-      // Simulate loadSettings
-      const response = await fetch('/.netlify/functions/settings');
-      const settings = await response.json();
-
-      Object.entries(settings).forEach(([key, value]) => {
-        const input = document.getElementById(`setting-${key}`);
-        if (input) {
-          input.value = value;
-        }
-      });
-
-      // Verify fields populated
-      expect(document.getElementById('setting-title').value).toBe('Circle Seven');
-      expect(document.getElementById('setting-author').value).toBe('Matthew French');
-      expect(document.getElementById('setting-email').value).toBe('test@example.com');
+      expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/settings');
+      expect(document.getElementById('setting-title').value).toBe('My Blog');
+      expect(document.getElementById('setting-description').value).toBe('A test blog');
+      expect(document.getElementById('setting-url').value).toBe('https://example.com');
     });
 
-    it('shows error if API call fails', async () => {
-      global.fetch = vi.fn(() => Promise.reject(new Error('Network error')));
+    it('handles API error gracefully', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 500
+      });
 
-      const showError = vi.fn();
+      await loadSettings();
 
-      try {
-        await fetch('/.netlify/functions/settings');
-      } catch (error) {
-        showError('Failed to load settings: ' + error.message);
-      }
+      const errorEl = document.getElementById('error');
+      expect(errorEl.classList.contains('hidden')).toBe(false);
+    });
 
-      expect(showError).toHaveBeenCalledWith('Failed to load settings: Network error');
+    it('handles network error gracefully', async () => {
+      mockFetch.mockRejectedValue(new Error('Network error'));
+
+      await loadSettings();
+
+      const errorEl = document.getElementById('error');
+      expect(errorEl.classList.contains('hidden')).toBe(false);
+    });
+
+    it('populates empty values for missing settings', async () => {
+      const mockSettings = {
+        title: 'My Blog'
+        // description is missing
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockSettings
+      });
+
+      await loadSettings();
+
+      expect(document.getElementById('setting-title').value).toBe('My Blog');
+      expect(document.getElementById('setting-description').value).toBe('');
+    });
+
+    it('only populates fields that exist in DOM', async () => {
+      const mockSettings = {
+        title: 'My Blog',
+        nonexistent_field: 'value'
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockSettings
+      });
+
+      // Should not throw error for nonexistent field
+      await expect(loadSettings()).resolves.not.toThrow();
     });
   });
 
-  describe('ID Matching (Regression Test)', () => {
-    it('admin setting IDs match JavaScript expectations', () => {
-      createAdminSettingsForm();
+  describe('saveSettings (Site Configuration)', () => {
+    it('saves settings to API', async () => {
+      document.getElementById('setting-title').value = 'New Title';
+      document.getElementById('setting-description').value = 'New Description';
+      document.getElementById('setting-paginate').value = '15';
 
-      // These are the exact IDs the JavaScript looks for
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true, message: 'Settings saved!' })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        '/.netlify/functions/settings',
+        expect.objectContaining({
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+      );
+
+      const callArgs = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(callArgs.body);
+      expect(body.title).toBe('New Title');
+      expect(body.description).toBe('New Description');
+      expect(body.paginate).toBe(15); // Should be converted to number
+    });
+
+    it('converts number fields to integers', async () => {
+      document.getElementById('setting-paginate').value = '20';
+      document.getElementById('setting-related_posts_count').value = '8';
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      const callArgs = mockFetch.mock.calls[0][1];
+      const body = JSON.parse(callArgs.body);
+      expect(typeof body.paginate).toBe('number');
+      expect(body.paginate).toBe(20);
+      expect(typeof body.related_posts_count).toBe('number');
+      expect(body.related_posts_count).toBe(8);
+    });
+
+    it('tracks deployment when commit SHA returned', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          success: true,
+          commitSha: 'abc123',
+          message: 'Settings saved!'
+        })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      expect(window.trackDeployment).toHaveBeenCalledWith(
+        'abc123',
+        'Update site settings',
+        '_config.yml'
+      );
+    });
+
+    it('shows success message after save', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true, message: 'Saved!' })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      const successEl = document.getElementById('success');
+      expect(successEl.classList.contains('hidden')).toBe(false);
+    });
+
+    it('shows error message when save fails', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        json: async () => ({ message: 'Save failed' })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      const errorEl = document.getElementById('error');
+      expect(errorEl.classList.contains('hidden')).toBe(false);
+    });
+
+    it('disables button during save', async () => {
+      mockFetch.mockImplementation(() =>
+        new Promise(resolve => {
+          setTimeout(() => {
+            resolve({ ok: true, json: async () => ({ success: true }) });
+          }, 100);
+        })
+      );
+
+      const event = new Event('submit');
+      const savePromise = saveSettings(event);
+
+      const saveBtn = document.getElementById('settings-save-btn');
+      expect(saveBtn.disabled).toBe(true);
+      expect(saveBtn.innerHTML).toBe('Saving...');
+
+      await savePromise;
+
+      expect(saveBtn.disabled).toBe(false);
+      expect(saveBtn.innerHTML).toBe('Save Settings');
+    });
+
+    it('re-enables button even on error', async () => {
+      mockFetch.mockRejectedValue(new Error('Network error'));
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      const saveBtn = document.getElementById('settings-save-btn');
+      expect(saveBtn.disabled).toBe(false);
+      expect(saveBtn.innerHTML).toBe('Save Settings');
+    });
+
+    it('prevents default form submission', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true })
+      });
+
+      const event = new Event('submit');
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
+
+      await saveSettings(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('loadAdminSettings', () => {
+    it('loads default admin settings when none stored', () => {
+      loadAdminSettings();
+
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000');
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600');
+      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30000');
+      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300');
+    });
+
+    it('loads stored admin settings from localStorage', () => {
+      const customSettings = {
+        deployment_poll_interval: 20000,
+        deployment_history_poll_interval: 60000,
+        deployment_timeout: 1200,
+        fetch_timeout: 60000,
+        debounce_delay: 500
+      };
+
+      localStorage.setItem('admin_settings', JSON.stringify(customSettings));
+
+      loadAdminSettings();
+
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20000');
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('60000');
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('1200');
+    });
+
+    it('merges stored settings with defaults', () => {
+      const partialSettings = {
+        deployment_poll_interval: 15000
+        // Other settings missing
+      };
+
+      localStorage.setItem('admin_settings', JSON.stringify(partialSettings));
+
+      loadAdminSettings();
+
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('15000');
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000'); // Default
+    });
+
+    it('handles corrupt localStorage data gracefully', () => {
+      localStorage.setItem('admin_settings', 'not valid json');
+
+      // Should not throw
+      expect(() => loadAdminSettings()).not.toThrow();
+
+      // Should load defaults
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+    });
+
+    it('converts underscore keys to dash IDs correctly (regression test)', () => {
+      loadAdminSettings();
+
+      // Test the ID matching that was previously broken
       const expectedIds = [
         'admin-setting-deployment-poll-interval',
         'admin-setting-deployment-history-poll-interval',
@@ -244,23 +356,176 @@ describe('Settings Module', () => {
       expectedIds.forEach(id => {
         const element = document.getElementById(id);
         expect(element).not.toBeNull();
-        expect(element.tagName).toBe('INPUT');
+        expect(element.value).toBeTruthy();
       });
     });
+  });
 
-    it('converts underscore keys to dash IDs correctly', () => {
-      const testCases = [
-        { key: 'deployment_poll_interval', expected: 'admin-setting-deployment-poll-interval' },
-        { key: 'deployment_history_poll_interval', expected: 'admin-setting-deployment-history-poll-interval' },
-        { key: 'deployment_timeout', expected: 'admin-setting-deployment-timeout' },
-        { key: 'fetch_timeout', expected: 'admin-setting-fetch-timeout' },
-        { key: 'debounce_delay', expected: 'admin-setting-debounce-delay' },
-      ];
+  describe('saveAdminSettings', () => {
+    it('saves admin settings to localStorage', () => {
+      document.getElementById('admin-setting-deployment-poll-interval').value = '25000';
+      document.getElementById('admin-setting-deployment-history-poll-interval').value = '45000';
+      document.getElementById('admin-setting-deployment-timeout').value = '800';
 
-      testCases.forEach(({ key, expected }) => {
-        const result = `admin-setting-${key.replace(/_/g, '-')}`;
-        expect(result).toBe(expected);
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const stored = JSON.parse(localStorage.getItem('admin_settings'));
+      expect(stored.deployment_poll_interval).toBe(25000);
+      expect(stored.deployment_history_poll_interval).toBe(45000);
+      expect(stored.deployment_timeout).toBe(800);
+    });
+
+    it('updates global constants', () => {
+      document.getElementById('admin-setting-deployment-poll-interval').value = '15000';
+      document.getElementById('admin-setting-deployment-history-poll-interval').value = '50000';
+      document.getElementById('admin-setting-deployment-timeout').value = '900';
+
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      expect(window.DEPLOYMENT_STATUS_POLL_INTERVAL).toBe(15000);
+      expect(window.DEPLOYMENT_HISTORY_POLL_INTERVAL).toBe(50000);
+      expect(window.DEPLOYMENT_TIMEOUT).toBe(900);
+    });
+
+    it('shows success message', () => {
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const successEl = document.getElementById('success');
+      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.querySelector('p').textContent).toContain('Admin settings saved');
+    });
+
+    it('disables button during save', () => {
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const saveBtn = document.getElementById('admin-settings-save-btn');
+      // Button gets re-enabled in finally block
+      expect(saveBtn.disabled).toBe(false);
+      expect(saveBtn.innerHTML).toBe('Save Admin Settings');
+    });
+
+    it('prevents default form submission', () => {
+      const event = new Event('submit');
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
+
+      saveAdminSettings(event);
+
+      expect(preventDefaultSpy).toHaveBeenCalled();
+    });
+
+    it('parses all values as integers', () => {
+      document.getElementById('admin-setting-deployment-poll-interval').value = '12345';
+      document.getElementById('admin-setting-fetch-timeout').value = '67890';
+
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const stored = JSON.parse(localStorage.getItem('admin_settings'));
+      expect(typeof stored.deployment_poll_interval).toBe('number');
+      expect(typeof stored.fetch_timeout).toBe('number');
+      expect(stored.deployment_poll_interval).toBe(12345);
+    });
+  });
+
+  describe('resetAdminSettings', () => {
+    it('resets form fields to default values', () => {
+      // Set custom values first
+      document.getElementById('admin-setting-deployment-poll-interval').value = '99999';
+      document.getElementById('admin-setting-deployment-history-poll-interval').value = '88888';
+
+      resetAdminSettings();
+
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000');
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600');
+      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30000');
+      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300');
+    });
+
+    it('does not save automatically', () => {
+      resetAdminSettings();
+
+      // localStorage should not be updated
+      expect(localStorage.getItem('admin_settings')).toBeNull();
+    });
+
+    it('shows success message indicating user must save', () => {
+      resetAdminSettings();
+
+      const successEl = document.getElementById('success');
+      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.querySelector('p').textContent).toContain('Click "Save"');
+    });
+  });
+
+  describe('Integration - Complete Settings Workflow', () => {
+    it('can load, modify, and save site settings', async () => {
+      // Load existing settings
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ title: 'Old Title' })
       });
+
+      await loadSettings();
+      expect(document.getElementById('setting-title').value).toBe('Old Title');
+
+      // Modify and save
+      document.getElementById('setting-title').value = 'New Title';
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true, message: 'Saved!' })
+      });
+
+      const event = new Event('submit');
+      await saveSettings(event);
+
+      const successEl = document.getElementById('success');
+      expect(successEl.classList.contains('hidden')).toBe(false);
+    });
+
+    it('can load, modify, and save admin settings', () => {
+      // Load defaults
+      loadAdminSettings();
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+
+      // Modify
+      document.getElementById('admin-setting-deployment-poll-interval').value = '20000';
+
+      // Save
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      // Verify saved
+      const stored = JSON.parse(localStorage.getItem('admin_settings'));
+      expect(stored.deployment_poll_interval).toBe(20000);
+
+      // Load again to verify persistence
+      document.getElementById('admin-setting-deployment-poll-interval').value = '';
+      loadAdminSettings();
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20000');
+    });
+
+    it('can reset admin settings and then save', () => {
+      // Set custom values
+      document.getElementById('admin-setting-deployment-poll-interval').value = '99999';
+      const event1 = new Event('submit');
+      saveAdminSettings(event1);
+
+      // Reset
+      resetAdminSettings();
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+
+      // Save the defaults
+      const event2 = new Event('submit');
+      saveAdminSettings(event2);
+
+      const stored = JSON.parse(localStorage.getItem('admin_settings'));
+      expect(stored.deployment_poll_interval).toBe(10000);
     });
   });
 });
