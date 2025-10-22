@@ -265,6 +265,7 @@ export function renderPostsList() {
               onclick="event.stopPropagation(); window.toggleCategories('${rowId}')"
               class="category-toggle flex-shrink-0 text-gray-400 hover:text-gray-600 transition"
               title="Toggle category hierarchy"
+              aria-label="Toggle category hierarchy"
             >
               <i class="fas fa-chevron-down chevron-down"></i>
               <i class="fas fa-chevron-up chevron-up hidden"></i>

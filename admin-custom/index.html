@@ -225,6 +225,7 @@
               onclick="closeImageModal()"
               class="absolute -top-10 right-0 text-white hover:text-gray-300 transition"
               title="Close (Esc)"
+              aria-label="Close image modal"
             >
               <i class="fas fa-times fa-2x"></i>
             </button>
@@ -1341,11 +1342,9 @@
       renderCategories,
       renderTags,
       showAddCategoryModal,
-      addCategory,
       editCategory,
       deleteCategory,
       showAddTagModal,
-      addTag,
       editTag,
       deleteTag,
       saveTaxonomy
@@ -1457,11 +1456,9 @@
     window.renderCategories = renderCategories;
     window.renderTags = renderTags;
     window.showAddCategoryModal = showAddCategoryModal;
-    window.addCategory = addCategory;
     window.editCategory = editCategory;
     window.deleteCategory = deleteCategory;
     window.showAddTagModal = showAddTagModal;
-    window.addTag = addTag;
     window.editTag = editTag;
     window.deleteTag = deleteTag;
     window.saveTaxonomy = saveTaxonomy;
