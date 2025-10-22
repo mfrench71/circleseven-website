@@ -1043,6 +1043,7 @@ function renderPostsList() {
     const rowNumber = startIndex + index + 1; // Calculate actual row number
     const title = post.frontmatter?.title || post.name;
     const date = formatDateShort(post.date);
+    const lastModified = post.frontmatter?.last_modified_at ? formatDateShort(post.frontmatter.last_modified_at) : '-';
     const categories = post.frontmatter?.categories || [];
 
     // Display categories hierarchically with collapsible toggle
@@ -1091,6 +1092,7 @@ function renderPostsList() {
           </div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${date}</td>
+        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${lastModified}</td>
         <td class="px-4 py-3 text-sm">${categoriesDisplay}</td>
       </tr>
     `;
@@ -2470,6 +2472,12 @@ function renderPagesList() {
       ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
+    // Get last modified date
+    const lastModifiedDate = page.frontmatter?.last_modified_at || '-';
+    const formattedLastModified = lastModifiedDate !== '-'
+      ? new Date(lastModifiedDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : '-';
+
     // Protected badge
     const protectedBadge = isProtected
       ? '<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700" title="Protected from deletion"><i class="fas fa-lock mr-1"></i>Protected</span>'
@@ -2486,7 +2494,8 @@ function renderPagesList() {
           </div>
         </td>
         <td class="px-4 py-3 text-sm text-gray-600">${escapeHtml(permalink)}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">${formattedDate}</td>
+        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${formattedDate}</td>
+        <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">${formattedLastModified}</td>
       </tr>
     `;
   }).join('');
