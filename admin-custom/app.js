@@ -82,6 +82,11 @@ window.activeDeployments = activeDeployments;
 window.deploymentPollInterval = deploymentPollInterval;
 window.historyPollInterval = historyPollInterval;
 
+// Initialize taxonomy arrays on window object to prevent undefined access
+// These will be populated by loadTaxonomy() but need to exist before that
+window.categories = categories;
+window.tags = tags;
+
 /**
  * Creates a debounced function that delays execution until after wait milliseconds
  *
