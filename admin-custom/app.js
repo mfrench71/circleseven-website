@@ -644,7 +644,7 @@ function switchSection(sectionName, updateUrl = true) {
   }
 
   // Load data for the section if needed
-  if (sectionName === 'taxonomy' && categories.length === 0) {
+  if (sectionName === 'taxonomy' && (!categories || categories.length === 0)) {
     loadTaxonomy();
   } else if (sectionName === 'settings') {
     loadSettings();
@@ -2293,7 +2293,7 @@ switchSection = async function(sectionName, updateUrl = true) {
     clearPostDirty();
 
     // Load taxonomy first if not loaded (needed for category/tag selects)
-    if (categories.length === 0) {
+    if (!categories || categories.length === 0) {
       await loadTaxonomy();
     }
 
