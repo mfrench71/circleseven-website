@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 
   <!-- Local CSS (Tailwind-inspired utilities) -->
-  <link rel="stylesheet" href="/admin-custom/styles.css?v=1761123024">
+  <link rel="stylesheet" href="/admin-custom/styles.css?v=1761123112">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -306,31 +306,35 @@
             </div>
           </div>
 
-          <!-- GitHub API Rate Limit Card (full width) -->
-          <div id="rate-limit-card" class="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <i class="fab fa-github text-gray-700"></i>
-              GitHub API Rate Limit
-            </h3>
-            <div id="rate-limit-content" class="space-y-4">
-              <div class="text-center py-4 text-gray-500">
-                <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-teal-600 mb-2"></div>
-                <p class="text-sm">Loading rate limit status...</p>
+          <!-- API & Deployments Row (side by side) -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- GitHub API Rate Limit Card -->
+            <div id="rate-limit-card" class="bg-white rounded-lg shadow-sm p-6">
+              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fab fa-github text-gray-700"></i>
+                GitHub API Rate Limit
+                <span class="text-xs text-gray-500 font-normal">(per hour)</span>
+              </h3>
+              <div id="rate-limit-content" class="space-y-4">
+                <div class="text-center py-4 text-gray-500">
+                  <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-teal-600 mb-2"></div>
+                  <p class="text-sm">Loading rate limit status...</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Deployment Status Card (full width) -->
-          <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <i class="fas fa-rocket text-teal-600"></i>
-              Deployments
-            </h3>
-            <div class="card-content">
-              <div class="text-center py-8 text-gray-500">
-                <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
-                <p>No active deployments</p>
-                <p class="text-sm mt-1">All changes are published</p>
+            <!-- Deployment Status Card -->
+            <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-6">
+              <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-rocket text-teal-600"></i>
+                Deployments
+              </h3>
+              <div class="card-content">
+                <div class="text-center py-8 text-gray-500">
+                  <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
+                  <p>No active deployments</p>
+                  <p class="text-sm mt-1">All changes are published</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1171,21 +1175,21 @@
     </div>
   </div>
 
-  <script src="/admin-custom/app.js?v=1761123024"></script>
+  <script src="/admin-custom/app.js?v=1761123112"></script>
 
   <!-- ES6 Modules Integration -->
   <script type="module">
     // Import modules
-    import { initNotifications } from '/admin-custom/js/ui/notifications.js?v=1761123024';
+    import { initNotifications } from '/admin-custom/js/ui/notifications.js?v=1761123112';
     import {
       loadTrash,
       restoreItem,
       permanentlyDeleteItem
-    } from '/admin-custom/js/modules/trash.js?v=1761123024';
+    } from '/admin-custom/js/modules/trash.js?v=1761123112';
     import {
       loadSettings,
       saveSettings
-    } from '/admin-custom/js/modules/settings.js?v=1761123024';
+    } from '/admin-custom/js/modules/settings.js?v=1761123112';
     import {
       loadMedia,
       renderMediaGrid,
@@ -1196,7 +1200,7 @@
       copyMediaUrl,
       viewMediaFull,
       openCloudinaryUpload
-    } from '/admin-custom/js/modules/media.js?v=1761123024';
+    } from '/admin-custom/js/modules/media.js?v=1761123112';
     import {
       loadTaxonomy,
       switchTaxonomyTab,
@@ -1211,7 +1215,7 @@
       editTag,
       deleteTag,
       saveTaxonomy
-    } from '/admin-custom/js/modules/taxonomy.js?v=1761123024';
+    } from '/admin-custom/js/modules/taxonomy.js?v=1761123112';
     import {
       loadPosts,
       renderPostsList,
@@ -1249,7 +1253,7 @@
       openImageModal,
       closeImageModal,
       handleImageModalEscape
-    } from '/admin-custom/js/modules/posts.js?v=1761123024';
+    } from '/admin-custom/js/modules/posts.js?v=1761123112';
     import {
       loadPages,
       renderPagesList,
@@ -1269,7 +1273,7 @@
       deletePage,
       deletePageFromList,
       generatePageFilename
-    } from '/admin-custom/js/modules/pages.js?v=1761123024';
+    } from '/admin-custom/js/modules/pages.js?v=1761123112';
     import {
       loadDeploymentHistory,
       fetchRecentDeploymentsFromGitHub,
@@ -1287,7 +1291,7 @@
       startDeploymentHistoryPolling,
       stopDeploymentHistoryPolling,
       startDeploymentPolling
-    } from '/admin-custom/js/modules/deployments.js?v=1761123024';
+    } from '/admin-custom/js/modules/deployments.js?v=1761123112';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
