@@ -150,7 +150,10 @@ test.describe('Admin - Posts Management', () => {
     await expect(page.locator('#posts-editor-view')).toBeVisible();
     await expect(page.locator('#post-title')).toBeVisible();
     await expect(page.locator('#post-date')).toBeVisible();
-    await expect(page.locator('#post-content')).toBeVisible();
+
+    // Content field exists (may be hidden by EasyMDE wrapper)
+    const contentField = page.locator('#post-content');
+    await expect(contentField).toBeAttached();
   });
 
   test('cancel button hides post form', async ({ page }) => {
@@ -544,13 +547,16 @@ test.describe('Admin - Settings', () => {
     const siteForm = page.locator('#settings-form');
     await expect(siteForm).toBeVisible();
 
-    // Common fields
-    const titleField = page.locator('#setting-title, input[name="title"]');
-    const count = await titleField.count();
+    // Common fields - use specific ID for settings title field
+    const titleField = page.locator('#setting-title');
+    await expect(titleField).toBeVisible();
 
-    if (count > 0) {
-      await expect(titleField).toBeVisible();
-    }
+    // Additional fields
+    const emailField = page.locator('#setting-email');
+    await expect(emailField).toBeVisible();
+
+    const authorField = page.locator('#setting-author');
+    await expect(authorField).toBeVisible();
   });
 });
 
@@ -740,9 +746,13 @@ test.describe('Admin - Navigation and UI', () => {
   });
 
   test('header and branding are present', async ({ page }) => {
-    // Admin should have a header
-    const header = page.locator('header, .admin-header, h1');
-    await expect(header.first()).toBeVisible();
+    // Admin should have a header with Circle Seven branding
+    const header = page.locator('#main-header');
+    await expect(header).toBeVisible();
+
+    // Should have the Circle Seven text
+    const branding = page.locator('h1:has-text("Circle Seven Admin")');
+    await expect(branding).toBeVisible();
   });
 
   test('responsive design works on mobile', async ({ page }) => {
