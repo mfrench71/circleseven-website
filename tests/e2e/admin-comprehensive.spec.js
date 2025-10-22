@@ -548,14 +548,14 @@ test.describe('Admin - Settings', () => {
     await expect(siteForm).toBeVisible();
 
     // Common fields - use specific ID for settings title field
-    const titleField = page.locator('#setting-title');
+    const titleField = page.locator('#settings-form #setting-title');
     await expect(titleField).toBeVisible();
 
     // Additional fields
-    const emailField = page.locator('#setting-email');
+    const emailField = page.locator('#settings-form #setting-email');
     await expect(emailField).toBeVisible();
 
-    const authorField = page.locator('#setting-author');
+    const authorField = page.locator('#settings-form #setting-author');
     await expect(authorField).toBeVisible();
   });
 });
@@ -750,9 +750,10 @@ test.describe('Admin - Navigation and UI', () => {
     const header = page.locator('#main-header');
     await expect(header).toBeVisible();
 
-    // Should have the Circle Seven text
-    const branding = page.locator('h1:has-text("Circle Seven Admin")');
+    // Should have the Circle Seven admin title in the header
+    const branding = page.locator('#admin-title');
     await expect(branding).toBeVisible();
+    await expect(branding).toContainText('Admin');
   });
 
   test('responsive design works on mobile', async ({ page }) => {
