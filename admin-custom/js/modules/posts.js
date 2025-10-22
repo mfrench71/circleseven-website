@@ -27,8 +27,8 @@
  * @module modules/posts
  */
 
-import { escapeHtml, debounce } from '../core/utils.js';
-import { showError, showSuccess } from '../ui/notifications.js';
+import { escapeHtml, debounce } from '../core/utils.js?v=2';
+import { showError, showSuccess } from '../ui/notifications.js?v=2';
 
 // Cache configuration
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds

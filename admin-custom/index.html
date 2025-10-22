@@ -1176,16 +1176,16 @@
   <!-- ES6 Modules Integration -->
   <script type="module">
     // Import modules
-    import { initNotifications } from '/admin-custom/js/ui/notifications.js';
+    import { initNotifications } from '/admin-custom/js/ui/notifications.js?v=2';
     import {
       loadTrash,
       restoreItem,
       permanentlyDeleteItem
-    } from '/admin-custom/js/modules/trash.js';
+    } from '/admin-custom/js/modules/trash.js?v=2';
     import {
       loadSettings,
       saveSettings
-    } from '/admin-custom/js/modules/settings.js';
+    } from '/admin-custom/js/modules/settings.js?v=2';
     import {
       loadMedia,
       renderMediaGrid,
@@ -1196,7 +1196,7 @@
       copyMediaUrl,
       viewMediaFull,
       openCloudinaryUpload
-    } from '/admin-custom/js/modules/media.js';
+    } from '/admin-custom/js/modules/media.js?v=2';
     import {
       loadTaxonomy,
       switchTaxonomyTab,
@@ -1211,7 +1211,7 @@
       editTag,
       deleteTag,
       saveTaxonomy
-    } from '/admin-custom/js/modules/taxonomy.js';
+    } from '/admin-custom/js/modules/taxonomy.js?v=2';
     import {
       loadPosts,
       renderPostsList,
@@ -1249,7 +1249,7 @@
       openImageModal,
       closeImageModal,
       handleImageModalEscape
-    } from '/admin-custom/js/modules/posts.js';
+    } from '/admin-custom/js/modules/posts.js?v=2';
     import {
       loadPages,
       renderPagesList,
@@ -1269,7 +1269,7 @@
       deletePage,
       deletePageFromList,
       generatePageFilename
-    } from '/admin-custom/js/modules/pages.js';
+    } from '/admin-custom/js/modules/pages.js?v=2';
     import {
       loadDeploymentHistory,
       fetchRecentDeploymentsFromGitHub,
@@ -1287,7 +1287,7 @@
       startDeploymentHistoryPolling,
       stopDeploymentHistoryPolling,
       startDeploymentPolling
-    } from '/admin-custom/js/modules/deployments.js';
+    } from '/admin-custom/js/modules/deployments.js?v=2';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
