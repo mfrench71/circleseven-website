@@ -2296,7 +2296,8 @@ switchSection = async function(sectionName, updateUrl = true) {
     currentPost = null;
     clearPostDirty();
 
-    // Load taxonomy first if not loaded (needed for category/tag selects)
+    // ALWAYS load taxonomy first if not loaded (needed for category/tag selects)
+    // Must load before ANY posts operations
     if (!categories || categories.length === 0) {
       await loadTaxonomy();
     }
@@ -2304,6 +2305,12 @@ switchSection = async function(sectionName, updateUrl = true) {
     // Load posts if not loaded yet
     if (allPosts.length === 0) {
       await loadPosts();
+    } else {
+      // Posts already loaded - just re-render the list
+      // But ONLY if taxonomy is loaded
+      if (categories && categories.length > 0 && window.renderPostsList) {
+        window.renderPostsList();
+      }
     }
   } else if (sectionName === 'pages') {
     // Always show the pages list when switching to Pages section
