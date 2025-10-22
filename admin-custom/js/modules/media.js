@@ -154,21 +154,23 @@ export function renderMediaGrid() {
             class="w-full h-full object-cover"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition flex items-center justify-center">
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center">
             <div class="opacity-0 group-hover:opacity-100 transition flex gap-2">
               <button
                 onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}')"
-                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
-                title="Copy URL"
+                class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-gray-100 shadow-lg transition"
+                title="Copy URL to clipboard"
+                aria-label="Copy URL"
               >
-                <i class="fas fa-copy"></i>
+                <i class="fas fa-copy text-sm"></i>
               </button>
               <button
                 onclick="event.stopPropagation(); window.viewMediaFull('${escapeHtml(media.secure_url)}')"
-                class="bg-white text-gray-900 p-2 rounded-full hover:bg-gray-100"
-                title="View Full Size"
+                class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-gray-100 shadow-lg transition"
+                title="View full size image"
+                aria-label="View full size"
               >
-                <i class="fas fa-search-plus"></i>
+                <i class="fas fa-search-plus text-sm"></i>
               </button>
             </div>
           </div>
