@@ -1062,14 +1062,12 @@ function renderPostsList() {
       : formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
-    // Construct frontend URL from filename (YYYY-MM-DD-slug.md -> /YYYY/MM/DD/slug/)
+    // Construct frontend URL from filename slug
+    // Jekyll permalink is /:title/, so extract slug from filename
     const filename = post.name.replace('.md', '');
     const parts = filename.split('-');
-    const year = parts[0];
-    const month = parts[1];
-    const day = parts[2];
-    const slug = parts.slice(3).join('-');
-    const frontendUrl = `/${year}/${month}/${day}/${slug}/`;
+    const slug = parts.slice(3).join('-'); // Skip YYYY-MM-DD prefix
+    const frontendUrl = `/${slug}/`;
 
     // Display categories as text links with hierarchical separators
     let categoriesDisplay = '';
