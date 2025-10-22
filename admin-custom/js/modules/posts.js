@@ -27,8 +27,8 @@
  * @module modules/posts
  */
 
-import { escapeHtml, debounce } from '../core/utils.js?v=1761115350';
-import { showError, showSuccess } from '../ui/notifications.js?v=1761115350';
+import { escapeHtml, debounce } from '../core/utils.js?v=1761123024';
+import { showError, showSuccess } from '../ui/notifications.js?v=1761123024';
 
 // Cache configuration
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -131,8 +131,22 @@ export async function loadPosts() {
         };
       }).filter(post => post !== null); // Filter out malformed posts
 
-      renderPostsList();
-      populateTaxonomySelects();
+      console.log('About to render posts list. Categories:', window.categories, 'Tags:', window.tags);
+
+      try {
+        renderPostsList();
+      } catch (renderError) {
+        console.error('Error in renderPostsList:', renderError);
+        throw new Error(`renderPostsList failed: ${renderError.message}`);
+      }
+
+      try {
+        populateTaxonomySelects();
+      } catch (taxonomyError) {
+        console.error('Error in populateTaxonomySelects:', taxonomyError);
+        throw new Error(`populateTaxonomySelects failed: ${taxonomyError.message}`);
+      }
+
       document.getElementById('posts-loading').classList.add('hidden');
       return;
     }
@@ -157,9 +171,24 @@ export async function loadPosts() {
         : new Date(post.name.substring(0, 10))
     }));
 
-    renderPostsList();
-    populateTaxonomySelects();
+    console.log('About to render posts list (from API). Categories:', window.categories, 'Tags:', window.tags);
+
+    try {
+      renderPostsList();
+    } catch (renderError) {
+      console.error('Error in renderPostsList:', renderError);
+      throw new Error(`renderPostsList failed: ${renderError.message}`);
+    }
+
+    try {
+      populateTaxonomySelects();
+    } catch (taxonomyError) {
+      console.error('Error in populateTaxonomySelects:', taxonomyError);
+      throw new Error(`populateTaxonomySelects failed: ${taxonomyError.message}`);
+    }
   } catch (error) {
+    console.error('Full error object:', error);
+    console.error('Error stack:', error.stack);
     showError('Failed to load posts: ' + error.message);
   } finally {
     document.getElementById('posts-loading').classList.add('hidden');
