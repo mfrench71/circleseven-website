@@ -220,16 +220,16 @@
 
         <!-- Image Modal -->
         <div id="image-modal-overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4" style="z-index: 9999;" onclick="closeImageModal()">
-          <div class="relative max-w-6xl max-h-full" onclick="event.stopPropagation()">
+          <div class="relative w-full h-full flex items-center justify-center" onclick="event.stopPropagation()">
             <button
               onclick="closeImageModal()"
-              class="absolute -top-10 right-0 text-white hover:text-gray-300 transition"
+              class="absolute top-4 right-4 text-white hover:text-gray-300 transition"
               title="Close (Esc)"
               aria-label="Close image modal"
             >
               <i class="fas fa-times fa-2x"></i>
             </button>
-            <img id="image-modal-img" src="" alt="Full size preview" class="max-w-full max-h-screen rounded-lg shadow-2xl" />
+            <img id="image-modal-img" src="" alt="Full size preview" class="max-w-full max-h-full rounded-lg shadow-2xl" style="max-height: 85vh; object-fit: contain;" />
           </div>
         </div>
 
