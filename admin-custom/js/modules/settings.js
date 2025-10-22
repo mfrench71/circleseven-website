@@ -61,6 +61,7 @@ function getAdminSettings() {
  *
  * Fetches settings from the /settings API endpoint and updates the admin title
  * and dashboard welcome message. This is a lightweight version for initial page load.
+ * Uses localStorage to cache the title and display it immediately on subsequent loads.
  *
  * @throws {Error} If settings load fails
  *
@@ -69,10 +70,16 @@ function getAdminSettings() {
  * await loadSiteTitle();
  */
 export async function loadSiteTitle() {
+  // Load cached title immediately to prevent FOUC
+  const cachedTitle = localStorage.getItem('site_title');
+  if (cachedTitle) {
+    updateTitleElements(cachedTitle);
+  }
+
   try {
     const response = await fetch(`${window.API_BASE}/settings`);
     if (!response.ok) {
-      // If fetch fails, keep the default title
+      // If fetch fails, keep the cached or default title
       return;
     }
 
@@ -80,20 +87,33 @@ export async function loadSiteTitle() {
 
     // Update admin title with site title
     if (settings.title) {
-      const adminTitle = document.getElementById('admin-title');
-      if (adminTitle) {
-        adminTitle.textContent = `${settings.title} Admin`;
-      }
-
-      // Update dashboard welcome message
-      const welcomeTitle = document.getElementById('dashboard-welcome-title');
-      if (welcomeTitle) {
-        welcomeTitle.textContent = `Welcome to ${settings.title} Admin`;
-      }
+      // Cache the title for next time
+      localStorage.setItem('site_title', settings.title);
+      updateTitleElements(settings.title);
     }
   } catch (error) {
     // Silently fail - not critical for app function
     console.warn('Failed to load site title:', error);
+  }
+}
+
+/**
+ * Updates title elements in the DOM
+ *
+ * Helper function to update admin title and welcome message.
+ *
+ * @param {string} title - Site title
+ * @private
+ */
+function updateTitleElements(title) {
+  const adminTitle = document.getElementById('admin-title');
+  if (adminTitle) {
+    adminTitle.textContent = `${title} Admin`;
+  }
+
+  const welcomeTitle = document.getElementById('dashboard-welcome-title');
+  if (welcomeTitle) {
+    welcomeTitle.textContent = `Welcome to ${title} Admin`;
   }
 }
 
@@ -126,15 +146,9 @@ export async function loadSettings() {
 
     // Update admin title and welcome message with site title
     if (settings.title) {
-      const adminTitle = document.getElementById('admin-title');
-      if (adminTitle) {
-        adminTitle.textContent = `${settings.title} Admin`;
-      }
-
-      const welcomeTitle = document.getElementById('dashboard-welcome-title');
-      if (welcomeTitle) {
-        welcomeTitle.textContent = `Welcome to ${settings.title} Admin`;
-      }
+      // Cache the title
+      localStorage.setItem('site_title', settings.title);
+      updateTitleElements(settings.title);
     }
   } catch (error) {
     showError('Failed to load settings: ' + error.message);
@@ -200,15 +214,9 @@ export async function saveSettings(event) {
     // Update admin title and welcome message if site title changed
     const newTitle = settings.title;
     if (newTitle) {
-      const adminTitle = document.getElementById('admin-title');
-      if (adminTitle) {
-        adminTitle.textContent = `${newTitle} Admin`;
-      }
-
-      const welcomeTitle = document.getElementById('dashboard-welcome-title');
-      if (welcomeTitle) {
-        welcomeTitle.textContent = `Welcome to ${newTitle} Admin`;
-      }
+      // Cache the title
+      localStorage.setItem('site_title', newTitle);
+      updateTitleElements(newTitle);
     }
 
     showSuccess(result.message || 'Settings saved successfully!');
