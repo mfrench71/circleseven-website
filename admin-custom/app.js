@@ -66,8 +66,8 @@ const API_BASE = '/.netlify/functions';
 window.API_BASE = API_BASE; // Expose for ES6 modules
 
 // Constants
-const DEPLOYMENT_STATUS_POLL_INTERVAL = 5000; // 5 seconds
-const DEPLOYMENT_HISTORY_POLL_INTERVAL = 10000; // 10 seconds
+const DEPLOYMENT_STATUS_POLL_INTERVAL = 10000; // 10 seconds (reduced polling frequency)
+const DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000; // 30 seconds (reduced polling frequency)
 const DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
 const FETCH_TIMEOUT = 30000; // 30 seconds
 const DEBOUNCE_DELAY = 300; // milliseconds
@@ -1687,11 +1687,15 @@ function formatDateForInput(dateStr) {
  * Fetches current categories and tags from global state and initializes autocomplete for both.
  */
 function populateTaxonomySelects() {
-  // Initialize autocomplete for categories
-  initTaxonomyAutocomplete('categories', categories);
+  // Initialize autocomplete for categories (only if taxonomy is loaded)
+  if (categories && Array.isArray(categories)) {
+    initTaxonomyAutocomplete('categories', categories);
+  }
 
-  // Initialize autocomplete for tags
-  initTaxonomyAutocomplete('tags', tags);
+  // Initialize autocomplete for tags (only if taxonomy is loaded)
+  if (tags && Array.isArray(tags)) {
+    initTaxonomyAutocomplete('tags', tags);
+  }
 }
 
 // Selected taxonomy items state
