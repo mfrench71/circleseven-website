@@ -91,6 +91,11 @@ window.tags = tags;
 window.sortableInstances = sortableInstances;
 window.taxonomyAutocompleteCleanup = taxonomyAutocompleteCleanup;
 
+// Expose posts pagination state for ES6 modules
+// These will be updated by posts.js module functions
+window.currentPage = 1;
+window.postsPerPage = 10;
+
 /**
  * Creates a debounced function that delays execution until after wait milliseconds
  *
@@ -739,7 +744,7 @@ async function handleRouteChange() {
     // /admin-custom/posts?page=2
     const page = parseInt(searchParams.get('page'), 10);
     if (page > 0) {
-      currentPage = page;
+      window.currentPage = page;
       renderPostsList();
     }
   }
@@ -918,8 +923,7 @@ async function updateRateLimit() {
 let allPosts = [];
 let allPostsWithMetadata = [];
 let currentPost = null;
-let currentPage = 1;
-const postsPerPage = 10;
+// currentPage and postsPerPage are now defined on window object (see lines 96-97)
 let markdownEditor = null; // EasyMDE instance
 let postHasUnsavedChanges = false; // Track unsaved changes in post editor
 let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
@@ -984,9 +988,9 @@ function renderPostsList() {
 
   // Pagination
   const totalPosts = filtered.length;
-  const totalPages = Math.ceil(totalPosts / postsPerPage);
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = Math.min(startIndex + postsPerPage, totalPosts);
+  const totalPages = Math.ceil(totalPosts / window.postsPerPage);
+  const startIndex = (window.currentPage - 1) * window.postsPerPage;
+  const endIndex = Math.min(startIndex + window.postsPerPage, totalPosts);
   const paginatedPosts = filtered.slice(startIndex, endIndex);
 
   // Show/hide empty state
@@ -1153,8 +1157,8 @@ function updatePagination(total, start, end, totalPages) {
   document.getElementById('posts-range-end').textContent = end;
   document.getElementById('posts-total').textContent = total;
 
-  prevBtn.disabled = currentPage === 1;
-  nextBtn.disabled = currentPage === totalPages;
+  prevBtn.disabled = window.currentPage === 1;
+  nextBtn.disabled = window.currentPage === totalPages;
 }
 
 // Change page
@@ -1166,13 +1170,13 @@ function updatePagination(total, start, end, totalPages) {
  * @param {number} delta - Page change delta (+1 for next, -1 for previous)
  */
 function changePage(delta) {
-  currentPage += delta;
+  window.currentPage += delta;
 
   // Update URL with new page number
-  const url = currentPage > 1
-    ? `/admin-custom/posts?page=${currentPage}`
+  const url = window.currentPage > 1
+    ? `/admin-custom/posts?page=${window.currentPage}`
     : '/admin-custom/posts';
-  window.history.pushState({ section: 'posts', page: currentPage }, '', url);
+  window.history.pushState({ section: 'posts', page: window.currentPage }, '', url);
 
   renderPostsList();
   document.getElementById('posts-list-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1185,7 +1189,7 @@ function changePage(delta) {
  * Resets to first page and re-renders the posts list with new sort order.
  */
 function sortPosts() {
-  currentPage = 1; // Reset to first page
+  window.currentPage = 1; // Reset to first page
   renderPostsList();
 }
 
@@ -1196,7 +1200,7 @@ function sortPosts() {
  * Resets to first page and re-renders the posts list with search filter applied.
  */
 function filterPosts() {
-  currentPage = 1; // Reset to first page
+  window.currentPage = 1; // Reset to first page
   renderPostsList();
 }
 
