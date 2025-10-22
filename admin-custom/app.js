@@ -1406,6 +1406,17 @@ async function editPost(filename, updateUrl = true) {
     document.getElementById('post-title').value = currentPost.frontmatter.title || '';
     document.getElementById('post-date').value = formatDateForInput(currentPost.frontmatter.date);
 
+    // Populate last modified date (read-only field)
+    const lastModifiedField = document.getElementById('post-last-modified');
+    if (lastModifiedField) {
+      const lastModified = currentPost.frontmatter.last_modified_at || currentPost.frontmatter.date;
+      if (lastModified) {
+        lastModifiedField.value = formatDateShort(new Date(lastModified));
+      } else {
+        lastModifiedField.value = '';
+      }
+    }
+
     // Support both 'image' and 'featured_image' fields
     const imageUrl = currentPost.frontmatter.image || currentPost.frontmatter.featured_image || '';
     document.getElementById('post-image').value = imageUrl;
@@ -2703,6 +2714,17 @@ async function editPage(filename, updateUrl = true) {
     // Set date field - use existing date or default to current date/time
     const dateValue = currentPage_pages.frontmatter.date || new Date().toISOString();
     document.getElementById('page-date').value = formatDateForInput(dateValue);
+
+    // Populate last modified date (read-only field)
+    const pageLastModifiedField = document.getElementById('page-last-modified');
+    if (pageLastModifiedField) {
+      const lastModified = currentPage_pages.frontmatter.last_modified_at || currentPage_pages.frontmatter.date;
+      if (lastModified) {
+        pageLastModifiedField.value = formatDateShort(new Date(lastModified));
+      } else {
+        pageLastModifiedField.value = '';
+      }
+    }
 
     // Initialize markdown editor if needed
     if (!pageMarkdownEditor) {
