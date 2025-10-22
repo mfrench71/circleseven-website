@@ -661,8 +661,13 @@ function switchSection(sectionName, updateUrl = true) {
   if (sectionName === 'taxonomy' && (!categories || categories.length === 0)) {
     loadTaxonomy();
   } else if (sectionName === 'settings') {
-    loadSettings();
-    loadAdminSettings();
+    // Settings functions are loaded via ES6 modules - check they're available
+    if (typeof window.loadSettings === 'function') {
+      window.loadSettings();
+    }
+    if (typeof window.loadAdminSettings === 'function') {
+      window.loadAdminSettings();
+    }
   } else if (sectionName === 'dashboard') {
     // Refresh deployment status immediately when viewing dashboard
     updateDashboardDeployments();
