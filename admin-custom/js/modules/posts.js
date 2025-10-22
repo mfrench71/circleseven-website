@@ -1338,21 +1338,21 @@ export function initCloudinaryWidget() {
 }
 
 /**
- * Opens Cloudinary widget for selecting a featured image
+ * Opens custom image chooser for selecting a featured image
  *
- * Shows the media library widget and sets the selected image URL to the featured image field.
+ * Shows the custom image chooser modal and sets the selected image URL to the featured image field.
  *
  * @example
  * import { selectFeaturedImage } from './modules/posts.js';
  * selectFeaturedImage();
  */
 export function selectFeaturedImage() {
-  const widget = initCloudinaryWidget();
-  if (widget) {
-    widget.show();
-  } else {
-    showError('Cloudinary library is still loading. Please try again in a moment.');
-  }
+  // Use custom image chooser instead of Cloudinary widget
+  window.openImageChooser((imageUrl) => {
+    document.getElementById('post-image').value = imageUrl;
+    updateImagePreview();
+    markPostDirty();
+  });
 }
 
 /**
