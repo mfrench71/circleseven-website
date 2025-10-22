@@ -321,9 +321,11 @@ export async function copyMediaUrl(url, event) {
  * @private
  */
 function showCopyTooltip(button) {
-  // Create tooltip element
+  // Create tooltip element with enhanced visibility
   const tooltip = document.createElement('div');
-  tooltip.className = 'absolute z-50 bg-green-600 text-white text-xs font-medium px-3 py-1.5 rounded shadow-lg pointer-events-none';
+  tooltip.className = 'absolute z-50 text-white text-sm font-semibold px-4 py-2 rounded-lg pointer-events-none';
+  tooltip.style.backgroundColor = 'rgba(22, 163, 74, 0.95)'; // Solid green-600 with high opacity
+  tooltip.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)';
   tooltip.textContent = 'Copied!';
   tooltip.style.opacity = '0';
   tooltip.style.transition = 'opacity 0.2s';

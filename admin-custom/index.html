@@ -220,15 +220,15 @@
 
         <!-- Image Modal -->
         <div id="image-modal-overlay" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4" style="z-index: 9999;" onclick="closeImageModal()">
+          <button
+            onclick="closeImageModal()"
+            class="fixed top-4 right-4 bg-gray-900 bg-opacity-80 hover:bg-opacity-100 text-white rounded-full w-12 h-12 flex items-center justify-center transition shadow-lg hover:scale-110 z-10"
+            title="Close (Esc)"
+            aria-label="Close image modal"
+          >
+            <i class="fas fa-times fa-lg"></i>
+          </button>
           <div class="relative w-full h-full flex items-center justify-center" onclick="event.stopPropagation()">
-            <button
-              onclick="closeImageModal()"
-              class="absolute top-4 right-4 bg-gray-900 bg-opacity-80 hover:bg-opacity-100 text-white rounded-full w-12 h-12 flex items-center justify-center transition shadow-lg hover:scale-110"
-              title="Close (Esc)"
-              aria-label="Close image modal"
-            >
-              <i class="fas fa-times fa-lg"></i>
-            </button>
             <img id="image-modal-img" src="" alt="Full size preview" class="max-w-full max-h-full rounded-lg shadow-2xl" style="max-height: 85vh; object-fit: contain;" />
           </div>
         </div>
@@ -301,7 +301,13 @@
                 <i class="fas fa-rocket text-teal-600"></i>
                 Deployments
               </h3>
-              <div class="card-content">
+              <!-- Loading State -->
+              <div id="deployments-loading" class="text-center py-8 text-gray-500">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mb-2"></div>
+                <p>Loading deployment history...</p>
+              </div>
+              <!-- Content (hidden initially, shown after loading) -->
+              <div id="deployments-content" class="hidden card-content">
                 <div class="text-center py-8 text-gray-500">
                   <i class="fas fa-check-circle text-4xl mb-2 text-green-500"></i>
                   <p>No active deployments</p>

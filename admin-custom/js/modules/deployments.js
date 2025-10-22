@@ -375,7 +375,14 @@ export async function updateDashboardDeployments() {
   const card = document.getElementById('deployments-card');
   if (!card) return; // Not on dashboard
 
-  const cardContent = card.querySelector('.card-content');
+  // Hide loading spinner and show content
+  const loadingEl = document.getElementById('deployments-loading');
+  const contentEl = document.getElementById('deployments-content');
+
+  if (loadingEl) loadingEl.classList.add('hidden');
+  if (contentEl) contentEl.classList.remove('hidden');
+
+  const cardContent = contentEl || card.querySelector('.card-content');
   if (!cardContent) return;
 
   // Get deployment history
