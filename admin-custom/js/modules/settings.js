@@ -82,6 +82,14 @@ export async function loadSettings() {
         input.value = settings[key] || '';
       }
     });
+
+    // Update admin title with site title
+    if (settings.title) {
+      const adminTitle = document.getElementById('admin-title');
+      if (adminTitle) {
+        adminTitle.textContent = `${settings.title} Admin`;
+      }
+    }
   } catch (error) {
     showError('Failed to load settings: ' + error.message);
   }
@@ -141,6 +149,15 @@ export async function saveSettings(event) {
     const result = await response.json();
     if (result.commitSha && window.trackDeployment) {
       window.trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
+    }
+
+    // Update admin title if site title changed
+    const newTitle = settings.title;
+    if (newTitle) {
+      const adminTitle = document.getElementById('admin-title');
+      if (adminTitle) {
+        adminTitle.textContent = `${newTitle} Admin`;
+      }
     }
 
     showSuccess(result.message || 'Settings saved successfully!');
