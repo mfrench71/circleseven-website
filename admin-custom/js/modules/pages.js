@@ -99,7 +99,6 @@ export async function loadPages() {
     // Try to load from cache first
     const cachedPages = getCache(PAGES_CACHE_KEY);
     if (cachedPages) {
-      console.log('Loading pages from cache');
       window.allPages = cachedPages;
       renderPagesList();
       document.getElementById('pages-loading').classList.add('hidden');
@@ -107,7 +106,6 @@ export async function loadPages() {
     }
 
     // Cache miss - fetch from API
-    console.log('Loading pages from API');
     const response = await fetch(`${window.API_BASE}/pages?metadata=true`);
     if (!response.ok) throw new Error('Failed to load pages');
 

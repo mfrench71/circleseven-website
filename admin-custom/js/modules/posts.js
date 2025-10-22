@@ -110,7 +110,6 @@ export async function loadPosts() {
     // Try to load from cache first
     const cachedPosts = getCache(POSTS_CACHE_KEY);
     if (cachedPosts && Array.isArray(cachedPosts)) {
-      console.log('Loading posts from cache');
       window.allPosts = cachedPosts;
 
       // Process all posts with metadata into allPostsWithMetadata
@@ -131,8 +130,6 @@ export async function loadPosts() {
         };
       }).filter(post => post !== null); // Filter out malformed posts
 
-      console.log('About to render posts list. Categories:', window.categories, 'Tags:', window.tags);
-
       try {
         renderPostsList();
       } catch (renderError) {
@@ -152,7 +149,6 @@ export async function loadPosts() {
     }
 
     // Cache miss - fetch from API
-    console.log('Loading posts from API');
     const response = await fetch(`${window.API_BASE}/posts?metadata=true`);
     if (!response.ok) throw new Error('Failed to load posts');
 
@@ -171,8 +167,6 @@ export async function loadPosts() {
         : new Date(post.name.substring(0, 10))
     }));
 
-    console.log('About to render posts list (from API). Categories:', window.categories, 'Tags:', window.tags);
-
     try {
       renderPostsList();
     } catch (renderError) {
@@ -187,8 +181,7 @@ export async function loadPosts() {
       throw new Error(`populateTaxonomySelects failed: ${taxonomyError.message}`);
     }
   } catch (error) {
-    console.error('Full error object:', error);
-    console.error('Error stack:', error.stack);
+    console.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
   } finally {
     document.getElementById('posts-loading').classList.add('hidden');
