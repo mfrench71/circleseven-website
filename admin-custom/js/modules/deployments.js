@@ -313,13 +313,11 @@ export function showDeploymentCompletion(success = true, completedDeployments = 
 
     // Reload posts list if any post-related deployments completed
     if (hasPostChanges && typeof window.loadPosts === 'function') {
-      console.log('Auto-reloading posts list after deployment completion');
       window.loadPosts();
     }
 
     // Reload pages list if any page-related deployments completed
     if (hasPageChanges && typeof window.loadPages === 'function') {
-      console.log('Auto-reloading pages list after deployment completion');
       window.loadPages();
     }
 
@@ -328,7 +326,6 @@ export function showDeploymentCompletion(success = true, completedDeployments = 
       d.action && (d.action.toLowerCase().includes('restore') || d.action.toLowerCase().includes('delete'))
     );
     if (hasTrashChanges && typeof window.loadTrash === 'function') {
-      console.log('Auto-reloading trash list after deployment completion');
       window.loadTrash();
     }
   }

@@ -3250,36 +3250,7 @@ function showDeploymentCompletion(success = true, completedDeployments = []) {
     timeEl.style.display = 'none';
   }
 
-  // Auto-reload affected lists when deployment succeeds
-  if (success && completedDeployments.length > 0) {
-    const hasPostChanges = completedDeployments.some(d =>
-      d.action && d.action.toLowerCase().includes('post')
-    );
-    const hasPageChanges = completedDeployments.some(d =>
-      d.action && d.action.toLowerCase().includes('page')
-    );
-
-    // Reload posts list if any post-related deployments completed
-    if (hasPostChanges && typeof loadPosts === 'function') {
-      console.log('Auto-reloading posts list after deployment completion');
-      loadPosts();
-    }
-
-    // Reload pages list if any page-related deployments completed
-    if (hasPageChanges && typeof loadPages === 'function') {
-      console.log('Auto-reloading pages list after deployment completion');
-      loadPages();
-    }
-
-    // Reload trash list if restore/delete operations completed
-    const hasTrashChanges = completedDeployments.some(d =>
-      d.action && (d.action.toLowerCase().includes('restore') || d.action.toLowerCase().includes('delete'))
-    );
-    if (hasTrashChanges && typeof window.loadTrash === 'function') {
-      console.log('Auto-reloading trash list after deployment completion');
-      window.loadTrash();
-    }
-  }
+  // Note: Auto-reload of affected lists is handled by deployments.js module
 
   // Auto-hide after 5 seconds for success, 8 seconds for failure
   const hideDelay = success ? 5000 : 8000;
