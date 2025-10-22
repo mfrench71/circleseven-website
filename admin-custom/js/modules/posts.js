@@ -989,12 +989,12 @@ export function formatDateForInput(dateStr) {
  */
 export function populateTaxonomySelects() {
   // Initialize autocomplete for categories (only if taxonomy is loaded)
-  if (window.categories) {
+  if (window.categories && Array.isArray(window.categories)) {
     initTaxonomyAutocomplete('categories', window.categories);
   }
 
   // Initialize autocomplete for tags (only if taxonomy is loaded)
-  if (window.tags) {
+  if (window.tags && Array.isArray(window.tags)) {
     initTaxonomyAutocomplete('tags', window.tags);
   }
 }
