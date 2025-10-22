@@ -146,42 +146,43 @@ export function renderMediaGrid() {
       const sizeKB = (media.bytes / 1024).toFixed(1);
 
       return `
-      <div class="media-item group relative bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:border-teal-500 transition cursor-pointer">
-        <div class="aspect-square relative">
+      <div class="media-item group relative bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-teal-500 transition shadow-sm hover:shadow-md">
+        <div class="aspect-square relative bg-gray-100">
           <img
             src="${thumbnailUrl}"
             alt="${escapeHtml(filename)}"
             class="w-full h-full object-cover"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center">
+          <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition flex items-center justify-center">
             <div class="opacity-0 group-hover:opacity-100 transition flex gap-2">
               <button
                 onclick="event.stopPropagation(); window.copyMediaUrl('${escapeHtml(media.secure_url)}')"
-                class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-gray-100 shadow-lg transition"
+                class="bg-white text-gray-700 p-3 rounded-lg hover:bg-teal-50 hover:text-teal-600 shadow-lg transition-all transform hover:scale-105"
                 title="Copy URL to clipboard"
                 aria-label="Copy URL"
               >
-                <i class="fas fa-copy text-sm"></i>
+                <i class="fas fa-copy"></i>
               </button>
               <button
                 onclick="event.stopPropagation(); window.viewMediaFull('${escapeHtml(media.secure_url)}')"
-                class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-gray-100 shadow-lg transition"
+                class="bg-white text-gray-700 p-3 rounded-lg hover:bg-teal-50 hover:text-teal-600 shadow-lg transition-all transform hover:scale-105"
                 title="View full size image"
                 aria-label="View full size"
               >
-                <i class="fas fa-search-plus text-sm"></i>
+                <i class="fas fa-search-plus"></i>
               </button>
             </div>
           </div>
         </div>
-        <div class="p-2">
-          <p class="text-xs font-medium text-gray-900 truncate" title="${escapeHtml(filename)}">
+        <div class="p-3">
+          <p class="text-sm font-medium text-gray-900 truncate mb-1" title="${escapeHtml(filename)}">
             ${escapeHtml(filename)}
           </p>
-          <p class="text-xs text-gray-500">
-            ${media.width} × ${media.height} • ${sizeKB} KB
-          </p>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span>${media.width} × ${media.height}</span>
+            <span>${sizeKB} KB</span>
+          </div>
         </div>
       </div>
     `;
