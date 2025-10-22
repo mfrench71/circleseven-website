@@ -87,6 +87,10 @@ window.historyPollInterval = historyPollInterval;
 window.categories = categories;
 window.tags = tags;
 
+// Expose cleanup tracking objects for ES6 modules
+window.sortableInstances = sortableInstances;
+window.taxonomyAutocompleteCleanup = taxonomyAutocompleteCleanup;
+
 /**
  * Creates a debounced function that delays execution until after wait milliseconds
  *
