@@ -20,7 +20,7 @@ This site features:
 
 ## About the Site
 
-This site is built with Jekyll and hosted on GitHub Pages. It serves as both a portfolio of completed work and a living document of ongoing projects and research.
+This site is built with Jekyll and hosted on Netlify. It features a custom content management system built specifically for this site, allowing for seamless content updates and media management. The site serves as both a portfolio of completed work and a living document of ongoing projects and research.
 
 Feel free to explore the categories and search functionality to discover content that interests you.
 
