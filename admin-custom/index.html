@@ -223,11 +223,11 @@
           <div class="relative w-full h-full flex items-center justify-center" onclick="event.stopPropagation()">
             <button
               onclick="closeImageModal()"
-              class="absolute top-4 right-4 text-white hover:text-gray-300 transition"
+              class="absolute top-4 right-4 bg-gray-900 bg-opacity-80 hover:bg-opacity-100 text-white rounded-full w-12 h-12 flex items-center justify-center transition shadow-lg hover:scale-110"
               title="Close (Esc)"
               aria-label="Close image modal"
             >
-              <i class="fas fa-times fa-2x"></i>
+              <i class="fas fa-times fa-lg"></i>
             </button>
             <img id="image-modal-img" src="" alt="Full size preview" class="max-w-full max-h-full rounded-lg shadow-2xl" style="max-height: 85vh; object-fit: contain;" />
           </div>
@@ -261,8 +261,9 @@
                 </div>
                 <div class="flex justify-between items-center">
                   <span class="text-gray-600">Build Status:</span>
-                  <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener">
-                    <img src="https://api.netlify.com/api/v1/badges/ba57aa6d-bc95-4069-b1fd-65692e79c164/deploy-status" alt="Netlify Status" />
+                  <a href="https://app.netlify.com/sites/circleseven/deploys" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded hover:bg-green-200 transition no-underline" id="build-status-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="build-status-text">Published</span>
                   </a>
                 </div>
                 <div class="flex justify-between">
