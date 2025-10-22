@@ -244,43 +244,13 @@
             </summary>
             <div class="px-4 pb-3 pt-2">
               <p class="text-sm text-blue-800">
-                This custom admin interface provides quick access to manage your site's taxonomy and settings. For full content management (posts, pages, etc.), use the Decap CMS link below.
+                This custom admin interface provides full content management for your Jekyll site, including posts, pages, taxonomy, media library, and settings.
               </p>
             </div>
           </details>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Quick Links Card -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-              <h3 class="font-semibold text-gray-900 mb-4">Quick Actions</h3>
-              <div class="space-y-2">
-                <a
-                  href="/admin-custom/posts"
-                  onclick="event.preventDefault(); switchSection('posts')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
-                >
-                  <span class="font-medium">Manage Posts</span>
-                  <i class="fas fa-chevron-right text-gray-400"></i>
-                </a>
-                <a
-                  href="/admin-custom/taxonomy"
-                  onclick="event.preventDefault(); switchSection('taxonomy')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
-                >
-                  <span class="font-medium">Manage Taxonomy</span>
-                  <i class="fas fa-chevron-right text-gray-400"></i>
-                </a>
-                <a
-                  href="/admin-custom/settings"
-                  onclick="event.preventDefault(); switchSection('settings')"
-                  class="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-md transition flex items-center justify-between no-underline text-gray-900"
-                >
-                  <span class="font-medium">Site Settings</span>
-                  <i class="fas fa-chevron-right text-gray-400"></i>
-                </a>
-              </div>
-            </div>
-
+          <!-- Site Info & GitHub API Row -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <!-- Site Info Card -->
             <div class="bg-white rounded-lg shadow-sm p-6">
               <h3 class="font-semibold text-gray-900 mb-4">Site Information</h3>
@@ -305,10 +275,7 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- API & Deployments Row (side by side) -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- GitHub API Rate Limit Card -->
             <div id="rate-limit-card" class="bg-white rounded-lg shadow-sm p-6">
               <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -323,7 +290,10 @@
                 </div>
               </div>
             </div>
+          </div>
 
+          <!-- Deployments Row (full width) -->
+          <div class="mb-8">
             <!-- Deployment Status Card -->
             <div id="deployments-card" class="bg-white rounded-lg shadow-sm p-6">
               <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
