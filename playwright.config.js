@@ -68,7 +68,8 @@ export default defineConfig({
   ],
 
   // Run local dev server before starting tests
-  webServer: {
+  // Note: Set SKIP_WEBSERVER=1 to skip auto-start if server is already running
+  webServer: process.env.SKIP_WEBSERVER ? undefined : {
     command: 'netlify dev',
     url: 'http://localhost:8888',
     reuseExistingServer: !process.env.CI,
