@@ -392,11 +392,18 @@ exports.handler = async (event, context) => {
         };
       }
 
-      // Auto-set last_modified_at for new posts
-      const now = new Date();
-      const timezoneOffset = now.getTimezoneOffset();
-      const localDate = new Date(now.getTime() - (timezoneOffset * 60 * 1000));
-      frontmatter.last_modified_at = localDate.toISOString().slice(0, 19).replace('T', ' ');
+      // Auto-set last_modified_at to match published date for new posts
+      // Parse the date field and use it as the initial last_modified_at
+      if (frontmatter.date) {
+        const publishedDate = new Date(frontmatter.date);
+        frontmatter.last_modified_at = publishedDate.toISOString().slice(0, 19).replace('T', ' ');
+      } else {
+        // Fallback to current time if no date field exists
+        const now = new Date();
+        const timezoneOffset = now.getTimezoneOffset();
+        const localDate = new Date(now.getTime() - (timezoneOffset * 60 * 1000));
+        frontmatter.last_modified_at = localDate.toISOString().slice(0, 19).replace('T', ' ');
+      }
 
       // Build complete markdown content
       const content = buildFrontmatter(frontmatter) + '\n' + body;
