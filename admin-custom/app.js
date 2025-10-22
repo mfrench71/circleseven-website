@@ -726,6 +726,9 @@ async function switchSection(sectionName, updateUrl = true) {
     // Refresh trash list when viewing trash section
     loadTrash();
   }
+
+  // Scroll to top of page when switching sections
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Handle URL path changes (back/forward/refresh)
@@ -1080,7 +1083,7 @@ function renderPostsList() {
     }
 
     return `
-      <tr class="hover:bg-gray-50" data-row-id="cat-row-${rowNumber}">
+      <tr data-row-id="cat-row-${rowNumber}">
         <td class="px-4 py-3 text-sm text-gray-500">${rowNumber}</td>
         <td class="px-4 py-3 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}</div>
@@ -2556,7 +2559,7 @@ function renderPagesList() {
       : '';
 
     return `
-      <tr class="hover:bg-gray-50">
+      <tr>
         <td class="px-4 py-3 text-sm text-gray-500">${index + 1}</td>
         <td class="px-4 py-3 row-with-actions">
           <div class="font-medium text-gray-900">${escapeHtml(title)}${protectedBadge}</div>

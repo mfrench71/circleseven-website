@@ -325,6 +325,16 @@ select {
   line-height: 1.25rem;
 }
 
+/* Custom select dropdown with teal chevron */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%230d9488' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
@@ -406,6 +416,17 @@ th {
 .text-right { text-align: right; }
 .uppercase { text-transform: uppercase; }
 .tracking-wider { letter-spacing: 0.05em; }
+
+/* Striped table rows */
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+tbody tr:hover {
+  background-color: #f3f4f6 !important;
+}
 
 /* Badge styles */
 .badge {
