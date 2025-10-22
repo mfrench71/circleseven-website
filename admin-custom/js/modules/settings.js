@@ -71,7 +71,11 @@ function getAdminSettings() {
 export async function loadSiteTitle() {
   try {
     const response = await fetch(`${window.API_BASE}/settings`);
-    if (!response.ok) return; // Silently fail - not critical
+    if (!response.ok) {
+      // If fetch fails, show the default title
+      showTitle();
+      return;
+    }
 
     const settings = await response.json();
 
@@ -88,9 +92,25 @@ export async function loadSiteTitle() {
         welcomeTitle.textContent = `Welcome to ${settings.title} Admin`;
       }
     }
+
+    // Show the title now that it's updated
+    showTitle();
   } catch (error) {
     // Silently fail - not critical for app function
     console.warn('Failed to load site title:', error);
+    // Show the default title even if there was an error
+    showTitle();
+  }
+}
+
+/**
+ * Shows the admin title (removes opacity-0 class)
+ * @private
+ */
+function showTitle() {
+  const adminTitle = document.getElementById('admin-title');
+  if (adminTitle) {
+    adminTitle.classList.remove('opacity-0');
   }
 }
 
