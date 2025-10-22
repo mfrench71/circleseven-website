@@ -51,8 +51,13 @@ export function initNotifications() {
  * showError('Failed to save post');
  */
 export function showError(message) {
+  // Auto-initialize if not already initialized
   if (!errorElement) {
-    console.error('Error element not initialized:', message);
+    initNotifications();
+  }
+
+  if (!errorElement) {
+    console.error('Error element not found in DOM:', message);
     return;
   }
 
@@ -80,8 +85,13 @@ export function showError(message) {
  * showSuccess('Post saved successfully!');
  */
 export function showSuccess(message = 'Operation successful!') {
+  // Auto-initialize if not already initialized
   if (!successElement) {
-    console.error('Success element not initialized:', message);
+    initNotifications();
+  }
+
+  if (!successElement) {
+    console.error('Success element not found in DOM:', message);
     return;
   }
 
