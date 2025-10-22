@@ -27,8 +27,8 @@
  * @module modules/posts
  */
 
-import { escapeHtml, debounce } from '../core/utils.js?v=1761115227';
-import { showError, showSuccess } from '../ui/notifications.js?v=1761115227';
+import { escapeHtml, debounce } from '../core/utils.js?v=1761115350';
+import { showError, showSuccess } from '../ui/notifications.js?v=1761115350';
 
 // Cache configuration
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -109,18 +109,27 @@ export async function loadPosts() {
   try {
     // Try to load from cache first
     const cachedPosts = getCache(POSTS_CACHE_KEY);
-    if (cachedPosts) {
+    if (cachedPosts && Array.isArray(cachedPosts)) {
       console.log('Loading posts from cache');
       window.allPosts = cachedPosts;
 
       // Process all posts with metadata into allPostsWithMetadata
-      window.allPostsWithMetadata = window.allPosts.map(post => ({
-        ...post,
-        frontmatter: post.frontmatter || {},
-        date: post.frontmatter?.date
-          ? new Date(post.frontmatter.date)
-          : new Date(post.name.substring(0, 10))
-      }));
+      // Add defensive checks for malformed cached data
+      window.allPostsWithMetadata = window.allPosts.map(post => {
+        // Ensure post is an object
+        if (!post || typeof post !== 'object') {
+          console.warn('Skipping malformed post:', post);
+          return null;
+        }
+
+        return {
+          ...post,
+          frontmatter: post.frontmatter || {},
+          date: post.frontmatter?.date
+            ? new Date(post.frontmatter.date)
+            : new Date(post.name?.substring(0, 10) || Date.now())
+        };
+      }).filter(post => post !== null); // Filter out malformed posts
 
       renderPostsList();
       populateTaxonomySelects();
@@ -172,10 +181,16 @@ export function renderPostsList() {
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
 
+  // Safety check: ensure allPostsWithMetadata exists and is an array
+  if (!window.allPostsWithMetadata || !Array.isArray(window.allPostsWithMetadata)) {
+    console.error('allPostsWithMetadata is not initialized properly');
+    window.allPostsWithMetadata = [];
+  }
+
   // Filter posts by search term (search in title and filename)
   let filtered = window.allPostsWithMetadata.filter(post => {
     const title = (post.frontmatter?.title || '').toLowerCase();
-    const filename = post.name.toLowerCase();
+    const filename = post.name?.toLowerCase() || '';
     const searchTerm = search.toLowerCase();
     return title.includes(searchTerm) || filename.includes(searchTerm);
   });
