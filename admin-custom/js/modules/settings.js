@@ -1,15 +1,21 @@
 /**
  * Settings Module
  *
- * Manages site configuration settings from _config.yml with form handling and deployment tracking.
- * Provides settings load and save functionality for the admin interface.
+ * Manages both site configuration and admin application settings.
  *
  * Features:
- * - Load site settings from backend
+ * - Load/save site settings from _config.yml via backend API
+ * - Load/save admin application settings from localStorage
  * - Populate form fields with current settings
- * - Save settings with type conversion (integers for paginate and related_posts_count)
- * - Track deployments when settings are saved
- * - Handle form submission with loading states
+ * - Track deployments when site settings are saved
+ * - Reset admin settings to defaults
+ *
+ * Admin Settings (stored in localStorage):
+ * - Deployment status poll interval
+ * - Deployment history poll interval
+ * - Deployment timeout
+ * - Fetch timeout
+ * - Debounce delay
  *
  * Dependencies:
  * - ui/notifications.js for showError() and showSuccess()
@@ -20,6 +26,35 @@
  */
 
 import { showError, showSuccess } from '../ui/notifications.js';
+
+/**
+ * Default admin application settings
+ * @constant {Object}
+ */
+const DEFAULT_ADMIN_SETTINGS = {
+  deployment_poll_interval: 10000,      // 10 seconds
+  deployment_history_poll_interval: 30000, // 30 seconds
+  deployment_timeout: 600,              // 10 minutes (in seconds)
+  fetch_timeout: 30000,                 // 30 seconds
+  debounce_delay: 300                   // 300 milliseconds
+};
+
+/**
+ * Loads admin settings from localStorage or returns defaults
+ *
+ * @returns {Object} Admin settings object
+ */
+function getAdminSettings() {
+  try {
+    const stored = localStorage.getItem('admin_settings');
+    if (stored) {
+      return { ...DEFAULT_ADMIN_SETTINGS, ...JSON.parse(stored) };
+    }
+  } catch (error) {
+    console.warn('Failed to load admin settings from localStorage:', error);
+  }
+  return { ...DEFAULT_ADMIN_SETTINGS };
+}
 
 /**
  * Loads site settings from the backend and populates form fields
@@ -115,4 +150,104 @@ export async function saveSettings(event) {
     saveBtn.disabled = false;
     saveBtn.innerHTML = 'Save Settings';
   }
+}
+
+/**
+ * Loads admin application settings and populates the form
+ *
+ * Retrieves settings from localStorage and populates form inputs with current values.
+ * Falls back to defaults if no stored settings exist.
+ *
+ * @example
+ * import { loadAdminSettings } from './modules/settings.js';
+ * await loadAdminSettings();
+ */
+export function loadAdminSettings() {
+  const settings = getAdminSettings();
+
+  // Populate form fields
+  Object.keys(settings).forEach(key => {
+    const input = document.getElementById(`admin-setting-${key.replace(/_/g, '-')}`);
+    if (input) {
+      input.value = settings[key] || '';
+    }
+  });
+}
+
+/**
+ * Saves admin application settings to localStorage
+ *
+ * Collects form data, validates values, stores in localStorage, and updates global constants.
+ * Shows success/error notifications.
+ *
+ * @param {Event} event - Form submit event
+ *
+ * @example
+ * import { saveAdminSettings } from './modules/settings.js';
+ *
+ * // Attach to form submit
+ * document.getElementById('admin-settings-form').addEventListener('submit', saveAdminSettings);
+ */
+export function saveAdminSettings(event) {
+  event.preventDefault();
+
+  const saveBtn = document.getElementById('admin-settings-save-btn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = 'Saving...';
+
+  try {
+    const form = document.getElementById('admin-settings-form');
+    const formData = new FormData(form);
+    const settings = {};
+
+    // Collect and parse form values
+    formData.forEach((value, key) => {
+      settings[key] = parseInt(value, 10);
+    });
+
+    // Save to localStorage
+    localStorage.setItem('admin_settings', JSON.stringify(settings));
+
+    // Update global constants that are already in use
+    if (window.DEPLOYMENT_STATUS_POLL_INTERVAL !== undefined) {
+      window.DEPLOYMENT_STATUS_POLL_INTERVAL = settings.deployment_poll_interval;
+    }
+    if (window.DEPLOYMENT_HISTORY_POLL_INTERVAL !== undefined) {
+      window.DEPLOYMENT_HISTORY_POLL_INTERVAL = settings.deployment_history_poll_interval;
+    }
+    if (window.DEPLOYMENT_TIMEOUT !== undefined) {
+      window.DEPLOYMENT_TIMEOUT = settings.deployment_timeout;
+    }
+
+    showSuccess('Admin settings saved! Some changes may require a page refresh to take full effect.');
+  } catch (error) {
+    showError('Failed to save admin settings: ' + error.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = 'Save Admin Settings';
+  }
+}
+
+/**
+ * Resets admin application settings to default values
+ *
+ * Reloads the form with default values and notifies the user. Does not save automatically -
+ * user must click "Save" to persist the defaults.
+ *
+ * @example
+ * import { resetAdminSettings } from './modules/settings.js';
+ *
+ * // Attach to reset button
+ * document.getElementById('reset-admin-settings').addEventListener('click', resetAdminSettings);
+ */
+export function resetAdminSettings() {
+  // Populate form with defaults
+  Object.keys(DEFAULT_ADMIN_SETTINGS).forEach(key => {
+    const input = document.getElementById(`admin-setting-${key.replace(/_/g, '-')}`);
+    if (input) {
+      input.value = DEFAULT_ADMIN_SETTINGS[key];
+    }
+  });
+
+  showSuccess('Admin settings reset to defaults. Click "Save" to apply.');
 }

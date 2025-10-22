@@ -657,6 +657,7 @@ function switchSection(sectionName, updateUrl = true) {
     loadTaxonomy();
   } else if (sectionName === 'settings') {
     loadSettings();
+    loadAdminSettings();
   } else if (sectionName === 'dashboard') {
     // Refresh deployment status immediately when viewing dashboard
     updateDashboardDeployments();
