@@ -1043,7 +1043,10 @@ function renderPostsList() {
     const rowNumber = startIndex + index + 1; // Calculate actual row number
     const title = post.frontmatter?.title || post.name;
     const date = formatDateShort(post.date);
-    const lastModified = post.frontmatter?.last_modified_at ? formatDateShort(post.frontmatter.last_modified_at) : '-';
+    // Fall back to published date if last_modified_at doesn't exist
+    const lastModified = post.frontmatter?.last_modified_at
+      ? formatDateShort(post.frontmatter.last_modified_at)
+      : formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
     // Display categories hierarchically with collapsible toggle
@@ -2472,9 +2475,9 @@ function renderPagesList() {
       ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
-    // Get last modified date
-    const lastModifiedDate = page.frontmatter?.last_modified_at || '-';
-    const formattedLastModified = lastModifiedDate !== '-'
+    // Get last modified date - fall back to published date if not set
+    const lastModifiedDate = page.frontmatter?.last_modified_at || page.frontmatter?.date;
+    const formattedLastModified = lastModifiedDate
       ? new Date(lastModifiedDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
