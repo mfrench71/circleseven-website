@@ -905,10 +905,10 @@ async function updateRateLimit() {
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              <tr>
-                <td class="px-4 py-3 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
-                <td class="px-4 py-3 font-semibold text-gray-900">${limit.toLocaleString()}</td>
-                <td class="px-4 py-3 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
+              <tr class="text-xs">
+                <td class="px-3 py-2 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
+                <td class="px-3 py-2 font-semibold text-gray-900">${limit.toLocaleString()}</td>
+                <td class="px-3 py-2 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
               </tr>
             </tbody>
           </table>
