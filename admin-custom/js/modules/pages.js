@@ -381,12 +381,12 @@ export async function editPage(filename, updateUrl = true) {
     if (!window.pageMarkdownEditor) {
       initPageMarkdownEditor();
     }
-    // Ensure editor content is set (use setTimeout to ensure EasyMDE is ready)
-    setTimeout(() => {
-      if (window.pageMarkdownEditor) {
+    // Ensure editor content is set (use requestAnimationFrame for reliable initialization)
+    requestAnimationFrame(() => {
+      if (window.pageMarkdownEditor && window.pageMarkdownEditor.codemirror) {
         window.pageMarkdownEditor.value(window.currentPage_pages.body || '');
       }
-    }, 0);
+    });
 
     // Show editor
     document.getElementById('pages-list-view').classList.add('hidden');
@@ -437,12 +437,12 @@ export function showNewPageForm(updateUrl = true) {
   if (!window.pageMarkdownEditor) {
     initPageMarkdownEditor();
   }
-  // Ensure editor is cleared (use setTimeout to ensure EasyMDE is ready)
-  setTimeout(() => {
-    if (window.pageMarkdownEditor) {
+  // Ensure editor is cleared (use requestAnimationFrame for reliable initialization)
+  requestAnimationFrame(() => {
+    if (window.pageMarkdownEditor && window.pageMarkdownEditor.codemirror) {
       window.pageMarkdownEditor.value('');
     }
-  }, 0);
+  });
 
   // Show editor
   document.getElementById('pages-list-view').classList.add('hidden');

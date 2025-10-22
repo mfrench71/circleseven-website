@@ -615,12 +615,12 @@ export async function editPost(filename, updateUrl = true) {
     if (!window.markdownEditor) {
       initMarkdownEditor();
     }
-    // Ensure editor content is set (use setTimeout to ensure EasyMDE is ready)
-    setTimeout(() => {
-      if (window.markdownEditor) {
+    // Ensure editor content is set (use requestAnimationFrame for reliable initialization)
+    requestAnimationFrame(() => {
+      if (window.markdownEditor && window.markdownEditor.codemirror) {
         window.markdownEditor.value(window.currentPost.body || '');
       }
-    }, 0);
+    });
 
     // Set categories and tags
     setMultiSelect('post-categories', window.currentPost.frontmatter.categories || []);
@@ -673,12 +673,12 @@ export function showNewPostForm(updateUrl = true) {
   if (!window.markdownEditor) {
     initMarkdownEditor();
   }
-  // Ensure editor is cleared (use setTimeout to ensure EasyMDE is ready)
-  setTimeout(() => {
-    if (window.markdownEditor) {
+  // Ensure editor is cleared (use requestAnimationFrame for reliable initialization)
+  requestAnimationFrame(() => {
+    if (window.markdownEditor && window.markdownEditor.codemirror) {
       window.markdownEditor.value('');
     }
-  }, 0);
+  });
 
   setMultiSelect('post-categories', []);
   setMultiSelect('post-tags', []);
