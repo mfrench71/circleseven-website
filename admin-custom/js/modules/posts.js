@@ -244,36 +244,22 @@ export function renderPostsList() {
     const date = formatDateShort(post.date);
     const categories = post.frontmatter?.categories || [];
 
-    // Display categories hierarchically with collapsible toggle
+    // Display categories hierarchically as clickable links
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
       if (categories.length === 1) {
-        // Single category - no toggle needed
-        categoriesDisplay = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
+        // Single category - display as link with no toggle
+        const catSlug = categories[0].toLowerCase().replace(/\s+/g, '-');
+        categoriesDisplay = `<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(categories[0])}</a>`;
       } else {
-        // Multiple categories - show first with toggle, rest collapsible
-        const firstCategory = `<span class="badge badge-category">${escapeHtml(categories[0])}</span>`;
-        const remainingCategories = categories.slice(1).map((cat, idx) => {
-          const separator = '<span class="text-gray-400 mx-1">›</span>';
-          return `${separator}<span class="badge badge-category">${escapeHtml(cat)}</span>`;
+        // Multiple categories - display as breadcrumb-style links with › separators
+        const categoryLinks = categories.map((cat, idx) => {
+          const catSlug = cat.toLowerCase().replace(/\s+/g, '-');
+          const separator = idx > 0 ? '<span class="text-gray-400 mx-1">›</span>' : '';
+          return `${separator}<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
         }).join('');
 
-        const rowId = `cat-row-${rowNumber}`;
-        categoriesDisplay = `
-          <div class="flex items-center gap-1">
-            <button
-              onclick="event.stopPropagation(); window.toggleCategories('${rowId}')"
-              class="category-toggle flex-shrink-0 text-gray-400 hover:text-gray-600 transition"
-              title="Toggle category hierarchy"
-              aria-label="Toggle category hierarchy"
-            >
-              <i class="fas fa-chevron-down chevron-down"></i>
-              <i class="fas fa-chevron-up chevron-up hidden"></i>
-            </button>
-            ${firstCategory}
-            <span class="category-remaining hidden">${remainingCategories}</span>
-          </div>
-        `;
+        categoriesDisplay = `<div class="flex items-center gap-1">${categoryLinks}</div>`;
       }
     } else {
       categoriesDisplay = '<span class="text-gray-400">-</span>';
