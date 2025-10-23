@@ -247,23 +247,14 @@ export function renderPostsList() {
       : date; // Default to published date
     const categories = post.frontmatter?.categories || [];
 
-    // Display categories hierarchically as clickable links
+    // Display categories as comma-separated clickable links
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
-      if (categories.length === 1) {
-        // Single category - display as link with no toggle
-        const catSlug = categories[0].toLowerCase().replace(/\s+/g, '-');
-        categoriesDisplay = `<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(categories[0])}</a>`;
-      } else {
-        // Multiple categories - display as breadcrumb-style links with › separators
-        const categoryLinks = categories.map((cat, idx) => {
-          const catSlug = cat.toLowerCase().replace(/\s+/g, '-');
-          const separator = idx > 0 ? '<span class="text-gray-400 mx-1">›</span>' : '';
-          return `${separator}<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
-        }).join('');
-
-        categoriesDisplay = `<div class="flex items-center gap-1">${categoryLinks}</div>`;
-      }
+      const categoryLinks = categories.map(cat => {
+        const catSlug = cat.toLowerCase().replace(/\s+/g, '-');
+        return `<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
+      }).join(', ');
+      categoriesDisplay = categoryLinks;
     } else {
       categoriesDisplay = '<span class="text-gray-400">-</span>';
     }
