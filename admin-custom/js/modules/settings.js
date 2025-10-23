@@ -314,7 +314,31 @@ export function saveAdminSettings(event) {
       window.DEPLOYMENT_TIMEOUT = settings.deployment_timeout;
     }
 
-    showSuccess('Admin settings saved! Some changes may require a page refresh to take full effect.');
+    // Restart polling intervals to apply new settings immediately
+    // Stop existing intervals
+    if (window.deploymentPollInterval) {
+      clearInterval(window.deploymentPollInterval);
+      window.deploymentPollInterval = null;
+    }
+    if (typeof window.stopDeploymentHistoryPolling === 'function') {
+      window.stopDeploymentHistoryPolling();
+    }
+
+    // Restart with new settings
+    // Only restart deployment polling if there are active deployments
+    if (window.activeDeployments && window.activeDeployments.length > 0) {
+      if (typeof window.startDeploymentPolling === 'function') {
+        window.startDeploymentPolling();
+      }
+    }
+    // Always restart history polling if we're on the dashboard
+    if (document.getElementById('deployments-card')) {
+      if (typeof window.startDeploymentHistoryPolling === 'function') {
+        window.startDeploymentHistoryPolling();
+      }
+    }
+
+    showSuccess('Admin settings saved and applied immediately!');
   } catch (error) {
     showError('Failed to save admin settings: ' + error.message);
   } finally {
