@@ -355,12 +355,27 @@ document.addEventListener('DOMContentLoaded', () => {
  * supports Service Workers. Enables offline functionality and caching strategies.
  * Silently logs errors if registration fails.
  */
-function registerServiceWorker() {
+async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/admin-custom/sw.js')
-      .catch(error => {
-        console.error('ServiceWorker registration failed:', error);
-      });
+    try {
+      // First, unregister ALL existing service workers to clear old caches
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (let registration of registrations) {
+        await registration.unregister();
+        console.log('Unregistered old service worker');
+      }
+
+      // Clear all caches
+      const cacheNames = await caches.keys();
+      await Promise.all(cacheNames.map(name => caches.delete(name)));
+      console.log('Cleared all caches');
+
+      // Now register the new service worker
+      await navigator.serviceWorker.register('/admin-custom/sw.js');
+      console.log('Registered new service worker');
+    } catch (error) {
+      console.error('ServiceWorker operation failed:', error);
+    }
   }
 }
 
