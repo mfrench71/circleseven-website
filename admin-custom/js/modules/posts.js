@@ -144,6 +144,11 @@ export async function loadPosts() {
         throw new Error(`populateTaxonomySelects failed: ${taxonomyError.message}`);
       }
 
+      // Populate category filter dropdown
+      if (window.populateCategoryFilter) {
+        window.populateCategoryFilter();
+      }
+
       document.getElementById('posts-loading').classList.add('hidden');
       return;
     }
@@ -180,6 +185,11 @@ export async function loadPosts() {
       console.error('Error in populateTaxonomySelects:', taxonomyError);
       throw new Error(`populateTaxonomySelects failed: ${taxonomyError.message}`);
     }
+
+    // Populate category filter dropdown
+    if (window.populateCategoryFilter) {
+      window.populateCategoryFilter();
+    }
   } catch (error) {
     console.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
@@ -202,6 +212,7 @@ export function renderPostsList() {
   const emptyEl = document.getElementById('posts-empty');
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
+  const categoryFilter = document.getElementById('posts-category-filter')?.value || '';
 
   // Safety check: ensure allPostsWithMetadata exists and is an array
   if (!window.allPostsWithMetadata || !Array.isArray(window.allPostsWithMetadata)) {
@@ -209,12 +220,21 @@ export function renderPostsList() {
     window.allPostsWithMetadata = [];
   }
 
-  // Filter posts by search term (search in title and filename)
+  // Filter posts by search term (search in title and filename) and category
   let filtered = window.allPostsWithMetadata.filter(post => {
     const title = (post.frontmatter?.title || '').toLowerCase();
     const filename = post.name?.toLowerCase() || '';
     const searchTerm = search.toLowerCase();
-    return title.includes(searchTerm) || filename.includes(searchTerm);
+    const matchesSearch = title.includes(searchTerm) || filename.includes(searchTerm);
+
+    // If category filter is set, check if post has that category
+    if (categoryFilter) {
+      const hasCategory = Array.isArray(post.frontmatter?.categories) &&
+                         post.frontmatter.categories.includes(categoryFilter);
+      return matchesSearch && hasCategory;
+    }
+
+    return matchesSearch;
   });
 
   // Sort posts
