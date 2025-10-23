@@ -94,6 +94,77 @@ export function clearCache(key) {
 }
 
 /**
+ * Populates the category filter dropdown with available categories
+ *
+ * Collects all unique categories from posts and populates the dropdown
+ * in the order they appear in the taxonomy.
+ *
+ * @example
+ * import { populateCategoryFilter } from './modules/posts.js';
+ * populateCategoryFilter();
+ */
+export function populateCategoryFilter() {
+  const filterSelect = document.getElementById('posts-category-filter');
+  if (!filterSelect) return;
+
+  // Get all unique categories from posts
+  const categoriesSet = new Set();
+  window.allPostsWithMetadata.forEach(post => {
+    if (Array.isArray(post.frontmatter?.categories)) {
+      post.frontmatter.categories.forEach(cat => categoriesSet.add(cat));
+    }
+  });
+
+  // Convert to array and sort by taxonomy order if available
+  let categories = Array.from(categoriesSet);
+  if (window.categories && Array.isArray(window.categories)) {
+    // Sort by taxonomy order
+    categories.sort((a, b) => {
+      const indexA = window.categories.indexOf(a);
+      const indexB = window.categories.indexOf(b);
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+      return indexA - indexB;
+    });
+  } else {
+    // Fallback to alphabetical sort
+    categories.sort();
+  }
+
+  // Build options HTML
+  const options = categories.map(cat =>
+    `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`
+  ).join('');
+
+  // Preserve current selection
+  const currentValue = filterSelect.value;
+  filterSelect.innerHTML = '<option value="">All Categories</option>' + options;
+  if (currentValue && categories.includes(currentValue)) {
+    filterSelect.value = currentValue;
+  }
+}
+
+/**
+ * Sets the category filter and re-renders the posts list
+ *
+ * Called when clicking a category link in the posts list.
+ *
+ * @param {string} category - Category name to filter by
+ *
+ * @example
+ * import { filterByCategory } from './modules/posts.js';
+ * filterByCategory('Photography');
+ */
+export function filterByCategory(category) {
+  const filterSelect = document.getElementById('posts-category-filter');
+  if (filterSelect) {
+    filterSelect.value = category;
+    filterPosts();
+  }
+}
+
+/**
  * Loads posts from the backend with metadata
  *
  * Fetches all posts with frontmatter, processes dates, and renders the posts list.
@@ -145,9 +216,7 @@ export async function loadPosts() {
       }
 
       // Populate category filter dropdown
-      if (window.populateCategoryFilter) {
-        window.populateCategoryFilter();
-      }
+      populateCategoryFilter();
 
       document.getElementById('posts-loading').classList.add('hidden');
       return;
@@ -187,9 +256,7 @@ export async function loadPosts() {
     }
 
     // Populate category filter dropdown
-    if (window.populateCategoryFilter) {
-      window.populateCategoryFilter();
-    }
+    populateCategoryFilter();
   } catch (error) {
     console.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
@@ -271,8 +338,7 @@ export function renderPostsList() {
     let categoriesDisplay = '';
     if (Array.isArray(categories) && categories.length > 0) {
       const categoryLinks = categories.map(cat => {
-        const catSlug = cat.toLowerCase().replace(/\s+/g, '-');
-        return `<a href="/category/${catSlug}/" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
+        return `<a href="#" onclick="event.preventDefault(); window.filterByCategory('${escapeHtml(cat).replace(/'/g, "\\'")}'); return false;" class="text-teal-600 hover:text-teal-700 hover:underline">${escapeHtml(cat)}</a>`;
       }).join(', ');
       categoriesDisplay = categoryLinks;
     } else {
