@@ -454,22 +454,36 @@ export function toggleCategories(rowId) {
  */
 export function updatePagination(total, start, end, totalPages) {
   const paginationEl = document.getElementById('posts-pagination');
+  const paginationTopEl = document.getElementById('posts-pagination-top');
   const prevBtn = document.getElementById('posts-prev-btn');
   const nextBtn = document.getElementById('posts-next-btn');
+  const prevBtnTop = document.getElementById('posts-prev-btn-top');
+  const nextBtnTop = document.getElementById('posts-next-btn-top');
 
   if (totalPages <= 1) {
     paginationEl.classList.add('hidden');
+    paginationTopEl.classList.add('hidden');
     return;
   }
 
   paginationEl.classList.remove('hidden');
+  paginationTopEl.classList.remove('hidden');
 
+  // Update bottom pagination
   document.getElementById('posts-range-start').textContent = start;
   document.getElementById('posts-range-end').textContent = end;
   document.getElementById('posts-total').textContent = total;
 
+  // Update top pagination
+  document.getElementById('posts-range-start-top').textContent = start;
+  document.getElementById('posts-range-end-top').textContent = end;
+  document.getElementById('posts-total-top').textContent = total;
+
+  // Update button states
   prevBtn.disabled = window.currentPage === 1;
   nextBtn.disabled = window.currentPage === totalPages;
+  prevBtnTop.disabled = window.currentPage === 1;
+  nextBtnTop.disabled = window.currentPage === totalPages;
 }
 
 /**

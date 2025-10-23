@@ -207,25 +207,41 @@ export function renderMediaGrid() {
  */
 export function updateMediaPagination(totalPages) {
   const paginationEl = document.getElementById('media-pagination');
+  const paginationTopEl = document.getElementById('media-pagination-top');
   const prevBtn = document.getElementById('media-prev-btn');
   const nextBtn = document.getElementById('media-next-btn');
+  const prevBtnTop = document.getElementById('media-prev-btn-top');
+  const nextBtnTop = document.getElementById('media-next-btn-top');
   const currentPageEl = document.getElementById('media-current-page');
   const totalPagesEl = document.getElementById('media-total-pages');
+  const currentPageTopEl = document.getElementById('media-current-page-top');
+  const totalPagesTopEl = document.getElementById('media-total-pages-top');
 
   if (!paginationEl) return;
 
   if (totalPages <= 1) {
     paginationEl.classList.add('hidden');
+    if (paginationTopEl) paginationTopEl.classList.add('hidden');
     return;
   }
 
   const currentMediaPage = window.currentMediaPage || 1;
 
+  // Update bottom pagination
   paginationEl.classList.remove('hidden');
   if (currentPageEl) currentPageEl.textContent = currentMediaPage;
   if (totalPagesEl) totalPagesEl.textContent = totalPages;
   if (prevBtn) prevBtn.disabled = currentMediaPage === 1;
   if (nextBtn) nextBtn.disabled = currentMediaPage === totalPages;
+
+  // Update top pagination
+  if (paginationTopEl) {
+    paginationTopEl.classList.remove('hidden');
+    if (currentPageTopEl) currentPageTopEl.textContent = currentMediaPage;
+    if (totalPagesTopEl) totalPagesTopEl.textContent = totalPages;
+    if (prevBtnTop) prevBtnTop.disabled = currentMediaPage === 1;
+    if (nextBtnTop) nextBtnTop.disabled = currentMediaPage === totalPages;
+  }
 }
 
 /**
