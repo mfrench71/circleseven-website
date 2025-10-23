@@ -244,7 +244,7 @@ export function renderPostsList() {
     const date = formatDateShort(post.date);
     const lastModified = post.frontmatter?.last_modified_at
       ? formatDateShort(new Date(post.frontmatter.last_modified_at))
-      : '-';
+      : date; // Default to published date
     const categories = post.frontmatter?.categories || [];
 
     // Display categories hierarchically as clickable links

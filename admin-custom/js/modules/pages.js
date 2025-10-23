@@ -173,10 +173,10 @@ export function renderPagesList() {
       ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
-    // Get last modified date
+    // Get last modified date - default to published date if not present
     const lastModified = page.frontmatter?.last_modified_at
       ? new Date(page.frontmatter.last_modified_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-      : '-';
+      : formattedDate; // Default to published date
 
     return `
       <tr class="hover:bg-gray-50 text-xs">
