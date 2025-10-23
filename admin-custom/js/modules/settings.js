@@ -338,7 +338,17 @@ export function saveAdminSettings(event) {
       }
     }
 
-    showSuccess('Admin settings saved! Polling intervals applied immediately. Refresh page to apply other settings.');
+    showSuccess(`
+      <div class="flex items-center justify-between gap-4">
+        <span>Admin settings saved! Polling intervals applied immediately.</span>
+        <button
+          onclick="location.reload()"
+          class="px-3 py-1.5 text-sm font-medium bg-white text-green-700 hover:bg-green-50 border border-green-300 rounded-md transition flex-shrink-0"
+        >
+          <i class="fas fa-sync-alt mr-1.5"></i>Refresh Page
+        </button>
+      </div>
+    `);
   } catch (error) {
     showError('Failed to save admin settings: ' + error.message);
   } finally {
