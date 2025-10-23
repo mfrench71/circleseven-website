@@ -507,11 +507,11 @@
                 </select>
                 <button
                   onclick="resetPostsFilters()"
-                  class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition flex items-center gap-1.5"
+                  class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition flex items-center gap-2"
                   title="Reset all filters to default"
                 >
                   <i class="fas fa-redo"></i>
-                  Reset
+                  <span>Reset</span>
                 </button>
               </div>
             </div>
@@ -1060,15 +1060,15 @@
                       type="number"
                       id="admin-setting-deployment-poll-interval"
                       name="deployment_poll_interval"
-                      min="5000"
-                      max="60000"
-                      step="1000"
+                      min="5"
+                      max="60"
+                      step="1"
                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                       required
                     />
-                    <span class="text-sm text-gray-600">ms</span>
+                    <span class="text-sm text-gray-600">seconds</span>
                   </div>
-                  <p class="text-xs text-gray-500 mt-1">How often to check deployment status (default: 10000ms / 10 seconds)</p>
+                  <p class="text-xs text-gray-500 mt-1">How often to check deployment status (default: 10 seconds)</p>
                 </div>
 
                 <!-- Deployment History Poll Interval -->
@@ -1081,15 +1081,15 @@
                       type="number"
                       id="admin-setting-deployment-history-poll-interval"
                       name="deployment_history_poll_interval"
-                      min="10000"
-                      max="120000"
-                      step="1000"
+                      min="10"
+                      max="120"
+                      step="1"
                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                       required
                     />
-                    <span class="text-sm text-gray-600">ms</span>
+                    <span class="text-sm text-gray-600">seconds</span>
                   </div>
-                  <p class="text-xs text-gray-500 mt-1">How often to refresh deployment history (default: 30000ms / 30 seconds)</p>
+                  <p class="text-xs text-gray-500 mt-1">How often to refresh deployment history (default: 30 seconds)</p>
                 </div>
 
                 <!-- Deployment Timeout -->
@@ -1123,15 +1123,15 @@
                       type="number"
                       id="admin-setting-fetch-timeout"
                       name="fetch_timeout"
-                      min="5000"
-                      max="120000"
-                      step="1000"
+                      min="5"
+                      max="120"
+                      step="1"
                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                       required
                     />
-                    <span class="text-sm text-gray-600">ms</span>
+                    <span class="text-sm text-gray-600">seconds</span>
                   </div>
-                  <p class="text-xs text-gray-500 mt-1">Maximum time for API requests (default: 30000ms / 30 seconds)</p>
+                  <p class="text-xs text-gray-500 mt-1">Maximum time for API requests (default: 30 seconds)</p>
                 </div>
 
                 <!-- Debounce Delay -->

@@ -233,6 +233,7 @@ export async function saveSettings(event) {
  *
  * Retrieves settings from localStorage and populates form inputs with current values.
  * Falls back to defaults if no stored settings exist.
+ * Converts milliseconds to seconds for display in the UI for time-based settings.
  *
  * @example
  * import { loadAdminSettings } from './modules/settings.js';
@@ -241,11 +242,19 @@ export async function saveSettings(event) {
 export function loadAdminSettings() {
   const settings = getAdminSettings();
 
+  // Fields that need conversion from milliseconds to seconds for display
+  const msToSecondsFields = ['deployment_poll_interval', 'deployment_history_poll_interval', 'fetch_timeout'];
+
   // Populate form fields
   Object.keys(settings).forEach(key => {
     const input = document.getElementById(`admin-setting-${key.replace(/_/g, '-')}`);
     if (input) {
-      input.value = settings[key] || '';
+      // Convert milliseconds to seconds for display if needed
+      if (msToSecondsFields.includes(key)) {
+        input.value = Math.round(settings[key] / 1000);
+      } else {
+        input.value = settings[key] || '';
+      }
     }
   });
 }
@@ -254,6 +263,7 @@ export function loadAdminSettings() {
  * Saves admin application settings to localStorage
  *
  * Collects form data, validates values, stores in localStorage, and updates global constants.
+ * Converts seconds to milliseconds for storage for time-based settings.
  * Shows success/error notifications.
  *
  * @param {Event} event - Form submit event
@@ -276,9 +286,18 @@ export function saveAdminSettings(event) {
     const formData = new FormData(form);
     const settings = {};
 
+    // Fields that need conversion from seconds to milliseconds for storage
+    const secondsToMsFields = ['deployment_poll_interval', 'deployment_history_poll_interval', 'fetch_timeout'];
+
     // Collect and parse form values
     formData.forEach((value, key) => {
-      settings[key] = parseInt(value, 10);
+      const numValue = parseInt(value, 10);
+      // Convert seconds to milliseconds for storage if needed
+      if (secondsToMsFields.includes(key)) {
+        settings[key] = numValue * 1000;
+      } else {
+        settings[key] = numValue;
+      }
     });
 
     // Save to localStorage
@@ -309,6 +328,7 @@ export function saveAdminSettings(event) {
  *
  * Reloads the form with default values and notifies the user. Does not save automatically -
  * user must click "Save" to persist the defaults.
+ * Converts milliseconds to seconds for display in the UI for time-based settings.
  *
  * @example
  * import { resetAdminSettings } from './modules/settings.js';
@@ -317,11 +337,19 @@ export function saveAdminSettings(event) {
  * document.getElementById('reset-admin-settings').addEventListener('click', resetAdminSettings);
  */
 export function resetAdminSettings() {
+  // Fields that need conversion from milliseconds to seconds for display
+  const msToSecondsFields = ['deployment_poll_interval', 'deployment_history_poll_interval', 'fetch_timeout'];
+
   // Populate form with defaults
   Object.keys(DEFAULT_ADMIN_SETTINGS).forEach(key => {
     const input = document.getElementById(`admin-setting-${key.replace(/_/g, '-')}`);
     if (input) {
-      input.value = DEFAULT_ADMIN_SETTINGS[key];
+      // Convert milliseconds to seconds for display if needed
+      if (msToSecondsFields.includes(key)) {
+        input.value = Math.round(DEFAULT_ADMIN_SETTINGS[key] / 1000);
+      } else {
+        input.value = DEFAULT_ADMIN_SETTINGS[key];
+      }
     }
   });
 
