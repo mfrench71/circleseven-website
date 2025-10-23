@@ -292,11 +292,12 @@ describe('Settings Module', () => {
     it('loads default admin settings when none stored', () => {
       loadAdminSettings();
 
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
-      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000');
-      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600');
-      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30000');
-      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300');
+      // Values are converted from milliseconds to seconds for display
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10'); // 10000ms -> 10s
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30'); // 30000ms -> 30s
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600'); // Already in seconds
+      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30'); // 30000ms -> 30s
+      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300'); // Already in milliseconds
     });
 
     it('loads stored admin settings from localStorage', () => {
@@ -312,9 +313,10 @@ describe('Settings Module', () => {
 
       loadAdminSettings();
 
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20000');
-      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('60000');
-      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('1200');
+      // Values are converted from milliseconds to seconds for display
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20'); // 20000ms -> 20s
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('60'); // 60000ms -> 60s
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('1200'); // Already in seconds
     });
 
     it('merges stored settings with defaults', () => {
@@ -327,8 +329,8 @@ describe('Settings Module', () => {
 
       loadAdminSettings();
 
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('15000');
-      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000'); // Default
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('15'); // 15000ms -> 15s
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30'); // Default 30000ms -> 30s
     });
 
     it('handles corrupt localStorage data gracefully', () => {
@@ -338,7 +340,7 @@ describe('Settings Module', () => {
       expect(() => loadAdminSettings()).not.toThrow();
 
       // Should load defaults
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10'); // 10000ms -> 10s
     });
 
     it('converts underscore keys to dash IDs correctly (regression test)', () => {
@@ -363,30 +365,32 @@ describe('Settings Module', () => {
 
   describe('saveAdminSettings', () => {
     it('saves admin settings to localStorage', () => {
-      document.getElementById('admin-setting-deployment-poll-interval').value = '25000';
-      document.getElementById('admin-setting-deployment-history-poll-interval').value = '45000';
-      document.getElementById('admin-setting-deployment-timeout').value = '800';
+      // Form values are in seconds, converted to milliseconds when saved
+      document.getElementById('admin-setting-deployment-poll-interval').value = '25'; // 25 seconds
+      document.getElementById('admin-setting-deployment-history-poll-interval').value = '45'; // 45 seconds
+      document.getElementById('admin-setting-deployment-timeout').value = '800'; // Already in seconds
 
       const event = new Event('submit');
       saveAdminSettings(event);
 
       const stored = JSON.parse(localStorage.getItem('admin_settings'));
-      expect(stored.deployment_poll_interval).toBe(25000);
-      expect(stored.deployment_history_poll_interval).toBe(45000);
-      expect(stored.deployment_timeout).toBe(800);
+      expect(stored.deployment_poll_interval).toBe(25000); // 25s -> 25000ms
+      expect(stored.deployment_history_poll_interval).toBe(45000); // 45s -> 45000ms
+      expect(stored.deployment_timeout).toBe(800); // No conversion
     });
 
     it('updates global constants', () => {
-      document.getElementById('admin-setting-deployment-poll-interval').value = '15000';
-      document.getElementById('admin-setting-deployment-history-poll-interval').value = '50000';
-      document.getElementById('admin-setting-deployment-timeout').value = '900';
+      // Form values are in seconds, converted to milliseconds when saved
+      document.getElementById('admin-setting-deployment-poll-interval').value = '15'; // 15 seconds
+      document.getElementById('admin-setting-deployment-history-poll-interval').value = '50'; // 50 seconds
+      document.getElementById('admin-setting-deployment-timeout').value = '900'; // Already in seconds
 
       const event = new Event('submit');
       saveAdminSettings(event);
 
-      expect(window.DEPLOYMENT_STATUS_POLL_INTERVAL).toBe(15000);
-      expect(window.DEPLOYMENT_HISTORY_POLL_INTERVAL).toBe(50000);
-      expect(window.DEPLOYMENT_TIMEOUT).toBe(900);
+      expect(window.DEPLOYMENT_STATUS_POLL_INTERVAL).toBe(15000); // 15s -> 15000ms
+      expect(window.DEPLOYMENT_HISTORY_POLL_INTERVAL).toBe(50000); // 50s -> 50000ms
+      expect(window.DEPLOYMENT_TIMEOUT).toBe(900); // No conversion
     });
 
     it('shows success message', () => {
@@ -418,8 +422,9 @@ describe('Settings Module', () => {
     });
 
     it('parses all values as integers', () => {
-      document.getElementById('admin-setting-deployment-poll-interval').value = '12345';
-      document.getElementById('admin-setting-fetch-timeout').value = '67890';
+      // Form values in seconds, converted to milliseconds when saved
+      document.getElementById('admin-setting-deployment-poll-interval').value = '12'; // 12 seconds
+      document.getElementById('admin-setting-fetch-timeout').value = '67'; // 67 seconds
 
       const event = new Event('submit');
       saveAdminSettings(event);
@@ -427,7 +432,7 @@ describe('Settings Module', () => {
       const stored = JSON.parse(localStorage.getItem('admin_settings'));
       expect(typeof stored.deployment_poll_interval).toBe('number');
       expect(typeof stored.fetch_timeout).toBe('number');
-      expect(stored.deployment_poll_interval).toBe(12345);
+      expect(stored.deployment_poll_interval).toBe(12000); // 12s -> 12000ms
     });
   });
 
@@ -439,11 +444,12 @@ describe('Settings Module', () => {
 
       resetAdminSettings();
 
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
-      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30000');
-      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600');
-      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30000');
-      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300');
+      // Values are displayed in seconds (converted from milliseconds)
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10'); // 10000ms -> 10s
+      expect(document.getElementById('admin-setting-deployment-history-poll-interval').value).toBe('30'); // 30000ms -> 30s
+      expect(document.getElementById('admin-setting-deployment-timeout').value).toBe('600'); // Already in seconds
+      expect(document.getElementById('admin-setting-fetch-timeout').value).toBe('30'); // 30000ms -> 30s
+      expect(document.getElementById('admin-setting-debounce-delay').value).toBe('300'); // Already in milliseconds
     });
 
     it('does not save automatically', () => {
@@ -491,41 +497,41 @@ describe('Settings Module', () => {
     it('can load, modify, and save admin settings', () => {
       // Load defaults
       loadAdminSettings();
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10'); // 10000ms -> 10s
 
-      // Modify
-      document.getElementById('admin-setting-deployment-poll-interval').value = '20000';
+      // Modify (in seconds)
+      document.getElementById('admin-setting-deployment-poll-interval').value = '20'; // 20 seconds
 
       // Save
       const event = new Event('submit');
       saveAdminSettings(event);
 
-      // Verify saved
+      // Verify saved (converted to milliseconds)
       const stored = JSON.parse(localStorage.getItem('admin_settings'));
-      expect(stored.deployment_poll_interval).toBe(20000);
+      expect(stored.deployment_poll_interval).toBe(20000); // 20s -> 20000ms
 
-      // Load again to verify persistence
+      // Load again to verify persistence (displayed in seconds)
       document.getElementById('admin-setting-deployment-poll-interval').value = '';
       loadAdminSettings();
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20000');
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('20'); // 20000ms -> 20s
     });
 
     it('can reset admin settings and then save', () => {
-      // Set custom values
-      document.getElementById('admin-setting-deployment-poll-interval').value = '99999';
+      // Set custom values (in seconds)
+      document.getElementById('admin-setting-deployment-poll-interval').value = '99'; // 99 seconds
       const event1 = new Event('submit');
       saveAdminSettings(event1);
 
-      // Reset
+      // Reset (displays in seconds)
       resetAdminSettings();
-      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10000');
+      expect(document.getElementById('admin-setting-deployment-poll-interval').value).toBe('10'); // 10000ms -> 10s
 
       // Save the defaults
       const event2 = new Event('submit');
       saveAdminSettings(event2);
 
       const stored = JSON.parse(localStorage.getItem('admin_settings'));
-      expect(stored.deployment_poll_interval).toBe(10000);
+      expect(stored.deployment_poll_interval).toBe(10000); // 10s -> 10000ms
     });
   });
 });
