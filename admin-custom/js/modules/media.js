@@ -377,7 +377,9 @@ function showCopyTooltip(button) {
 /**
  * Opens media file in full-size modal
  *
- * Displays the full-size media file in an image modal overlay.
+ * Displays the full-size media file in an image modal overlay with optimization and loading state.
+ * Applies Cloudinary transformations for quality optimization.
+ * Shows loading spinner until image loads, then displays the image.
  * Attaches keyboard escape handler for closing the modal.
  *
  * @param {string} url - URL of media file
@@ -389,9 +391,42 @@ function showCopyTooltip(button) {
 export function viewMediaFull(url) {
   const modalOverlay = document.getElementById('image-modal-overlay');
   const modalImg = document.getElementById('image-modal-img');
+  const modalLoading = document.getElementById('image-modal-loading');
 
   if (modalImg) {
-    modalImg.src = url;
+    // Apply Cloudinary optimization: auto quality, auto format, max 2000px width for full-size viewing
+    const optimizedUrl = url.replace('/upload/', '/upload/q_auto,f_auto,w_2000/');
+
+    // Reset image state
+    modalImg.classList.add('hidden');
+    modalImg.src = '';
+
+    // Show loading spinner
+    if (modalLoading) {
+      modalLoading.classList.remove('hidden');
+    }
+
+    // Load the image
+    modalImg.onload = function() {
+      // Hide loading spinner
+      if (modalLoading) {
+        modalLoading.classList.add('hidden');
+      }
+      // Show image with fade-in effect
+      modalImg.classList.remove('hidden');
+    };
+
+    modalImg.onerror = function() {
+      // Hide loading spinner on error
+      if (modalLoading) {
+        modalLoading.classList.add('hidden');
+      }
+      // Try to show the image anyway (fallback)
+      modalImg.classList.remove('hidden');
+    };
+
+    // Set the optimized URL to start loading
+    modalImg.src = optimizedUrl;
   }
 
   if (modalOverlay) {
