@@ -76,15 +76,17 @@ export function showError(message) {
  * Displays a success message to the user
  *
  * Shows the success message in a green notification banner that auto-dismisses after 5 seconds.
- * Message is automatically escaped to prevent XSS attacks.
+ * Message is automatically escaped to prevent XSS attacks unless allowHtml is true.
  *
  * @param {string} [message='Operation successful!'] - Success message to display
+ * @param {boolean} [allowHtml=false] - If true, message is treated as HTML (use with caution)
  *
  * @example
  * import { showSuccess } from './ui/notifications.js';
  * showSuccess('Post saved successfully!');
+ * showSuccess('<div>HTML content</div>', true);
  */
-export function showSuccess(message = 'Operation successful!') {
+export function showSuccess(message = 'Operation successful!', allowHtml = false) {
   // Auto-initialize if not already initialized
   if (!successElement) {
     initNotifications();
@@ -96,10 +98,20 @@ export function showSuccess(message = 'Operation successful!') {
   }
 
   const messageEl = successElement.querySelector('p');
-  if (messageEl) {
-    messageEl.textContent = message;
+  if (allowHtml) {
+    // Allow HTML content
+    if (messageEl) {
+      messageEl.innerHTML = message;
+    } else {
+      successElement.innerHTML = `<p class="text-green-800">${message}</p>`;
+    }
   } else {
-    successElement.innerHTML = `<p class="text-green-800">${escapeHtml(message)}</p>`;
+    // Escape HTML for safety
+    if (messageEl) {
+      messageEl.textContent = message;
+    } else {
+      successElement.innerHTML = `<p class="text-green-800">${escapeHtml(message)}</p>`;
+    }
   }
 
   successElement.classList.remove('hidden');

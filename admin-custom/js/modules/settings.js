@@ -348,7 +348,7 @@ export function saveAdminSettings(event) {
           <i class="fas fa-sync-alt mr-1.5"></i>Refresh Page
         </button>
       </div>
-    `);
+    `, true);
   } catch (error) {
     showError('Failed to save admin settings: ' + error.message);
   } finally {
