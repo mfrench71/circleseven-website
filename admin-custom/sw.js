@@ -1,7 +1,7 @@
 // Service Worker for Circle Seven Admin
 // Provides offline capability and faster repeat visits
 
-const CACHE_NAME = 'circle-seven-admin-v3';
+const CACHE_NAME = 'circle-seven-admin-v5';
 
 // Only cache same-origin resources during install
 const urlsToCache = [
@@ -54,7 +54,7 @@ self.addEventListener('fetch', event => {
   }
 
   event.respondWith(
-    caches.match(event.request)
+    caches.match(event.request, { ignoreSearch: false })
       .then(response => {
         // Cache hit - return response
         if (response) {
