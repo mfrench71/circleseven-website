@@ -538,6 +538,40 @@ export function filterPosts() {
 export const debouncedFilterPosts = debounce(filterPosts, 300);
 
 /**
+ * Resets all post filters to their default values
+ *
+ * Clears the search input, resets category filter to "All Categories",
+ * resets sort to "Newest First", and re-renders the posts list.
+ *
+ * @example
+ * import { resetPostsFilters } from './modules/posts.js';
+ * resetPostsFilters();
+ */
+export function resetPostsFilters() {
+  // Clear search input
+  const searchInput = document.getElementById('posts-search');
+  if (searchInput) {
+    searchInput.value = '';
+  }
+
+  // Reset category filter
+  const categoryFilter = document.getElementById('posts-category-filter');
+  if (categoryFilter) {
+    categoryFilter.value = '';
+  }
+
+  // Reset sort to newest first
+  const sortSelect = document.getElementById('posts-sort');
+  if (sortSelect) {
+    sortSelect.value = 'date-desc';
+  }
+
+  // Reset to first page and re-render
+  window.currentPage = 1;
+  renderPostsList();
+}
+
+/**
  * Formats a date for display in short format
  *
  * Converts Date object to DD MMM YYYY format (e.g., "21 Oct 2025").
