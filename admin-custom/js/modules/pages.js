@@ -173,6 +173,11 @@ export function renderPagesList() {
       ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
       : '-';
 
+    // Get last modified date
+    const lastModified = page.frontmatter?.last_modified_at
+      ? new Date(page.frontmatter.last_modified_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : '-';
+
     return `
       <tr class="hover:bg-gray-50 text-xs">
         <td class="px-3 py-2 text-gray-500">${index + 1}</td>
@@ -185,6 +190,7 @@ export function renderPagesList() {
         </td>
         <td class="px-3 py-2 text-gray-600">${escapeHtml(permalink)}</td>
         <td class="px-3 py-2 text-gray-600">${formattedDate}</td>
+        <td class="px-3 py-2 text-gray-600">${lastModified}</td>
       </tr>
     `;
   }).join('');

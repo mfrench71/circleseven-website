@@ -242,6 +242,9 @@ export function renderPostsList() {
     const rowNumber = startIndex + index + 1; // Calculate actual row number
     const title = post.frontmatter?.title || post.name;
     const date = formatDateShort(post.date);
+    const lastModified = post.frontmatter?.last_modified_at
+      ? formatDateShort(new Date(post.frontmatter.last_modified_at))
+      : '-';
     const categories = post.frontmatter?.categories || [];
 
     // Display categories hierarchically as clickable links
@@ -277,6 +280,7 @@ export function renderPostsList() {
           </div>
         </td>
         <td class="px-3 py-2 text-gray-600 whitespace-nowrap">${date}</td>
+        <td class="px-3 py-2 text-gray-600 whitespace-nowrap">${lastModified}</td>
         <td class="px-3 py-2">${categoriesDisplay}</td>
       </tr>
     `;
