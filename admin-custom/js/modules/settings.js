@@ -338,7 +338,7 @@ export function saveAdminSettings(event) {
       }
     }
 
-    showSuccess('Admin settings saved and applied immediately!');
+    showSuccess('Admin settings saved! Polling intervals applied immediately. Refresh page to apply other settings.');
   } catch (error) {
     showError('Failed to save admin settings: ' + error.message);
   } finally {
