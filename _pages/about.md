@@ -3,6 +3,7 @@ layout: page
 title: About
 permalink: /about/
 date: 2025-10-22T20:11
+last_modified_at: 2025-10-24 09:22:56
 ---
 
 Welcome to my portfolio and blog documenting my journey through Digital Art and Technology, creative projects, and technical explorations.
