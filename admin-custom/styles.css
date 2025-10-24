@@ -183,10 +183,16 @@ body {
 
 /* Borders */
 .border { border-width: 1px; }
+.border-b-2 { border-bottom-width: 2px; }
+.border-4 { border-width: 4px; }
 .border-gray-300 { border-color: #d1d5db; }
+.border-gray-800 { border-color: #1f2937; }
 .border-blue-200 { border-color: #bfdbfe; }
 .border-green-200 { border-color: #bbf7d0; }
 .border-red-200 { border-color: #fecaca; }
+.border-teal-600 { border-color: var(--color-teal-600); }
+.border-t-teal-600 { border-top-color: var(--color-teal-600); }
+.border-b-teal-600 { border-bottom-color: var(--color-teal-600); }
 .rounded { border-radius: 0.25rem; }
 .rounded-md { border-radius: 0.375rem; }
 .rounded-lg { border-radius: 0.5rem; }
