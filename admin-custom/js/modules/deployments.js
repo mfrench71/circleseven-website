@@ -446,8 +446,8 @@ export async function updateDashboardDeployments() {
     let hoverClass = ''; // Only add hover for non-colored rows
 
     if (deployment.isActive) {
-      // Active deployments
-      let animationClass = '';
+      // Active deployments - all status rows pulse
+      let animationClass = 'animate-pulse';
 
       if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
@@ -455,7 +455,6 @@ export async function updateDashboardDeployments() {
         statusText = 'Deploying';
         rowBg = 'bg-blue-600';
         textColor = 'text-white';
-        animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-white';
@@ -495,16 +494,16 @@ export async function updateDashboardDeployments() {
       // Historical deployments (from GitHub)
       let animationClass = '';
 
-      // Check if deployment completed recently (within last 30 seconds)
+      // Check if deployment completed recently (within last 10 seconds)
       const completedRecently = deployment.status === 'completed' &&
         deployment.completedAt &&
-        (Date.now() - new Date(deployment.completedAt).getTime()) < 30000;
+        (Date.now() - new Date(deployment.completedAt).getTime()) < 10000;
 
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        // First row: show green background for 30 seconds after completion, then revert to normal
+        // First row: show green background for 10 seconds after completion, then revert to normal
         // Other rows: alternating white/gray
         if (index === 0 && completedRecently) {
           rowBg = 'bg-green-500';
