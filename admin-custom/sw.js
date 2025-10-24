@@ -44,7 +44,7 @@ self.addEventListener('activate', event => {
   return self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - strategy depends on resource type
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests, API calls, and non-GET requests
   if (!event.request.url.startsWith(self.location.origin) ||
@@ -53,6 +53,29 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Network-first strategy for JavaScript modules (always get fresh code)
+  if (event.request.url.includes('/admin-custom/js/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Cache the fresh response for offline use
+          if (response && response.status === 200) {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Network failed, fallback to cache
+          return caches.match(event.request);
+        })
+    );
+    return;
+  }
+
+  // Cache-first strategy for other resources (HTML, CSS, images)
   event.respondWith(
     caches.match(event.request, { ignoreSearch: false })
       .then(response => {
