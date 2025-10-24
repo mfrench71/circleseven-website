@@ -364,6 +364,7 @@ function cacheDOMElements() {
  *
  * Sets up click handlers to ensure only one accordion section is open at a time.
  * When a section is clicked, all other sections close automatically.
+ * Scrolls the accordion content to the top of the viewport when opened.
  */
 function initSettingsAccordion() {
   const accordion = document.getElementById('settings-accordion');
@@ -385,6 +386,16 @@ function initSettingsAccordion() {
             otherItem.removeAttribute('open');
           }
         });
+      }
+    });
+
+    // Scroll to top when accordion opens
+    item.addEventListener('toggle', (event) => {
+      if (event.target.open) {
+        // Use a small delay to ensure the accordion has finished opening
+        setTimeout(() => {
+          event.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
     });
   });
