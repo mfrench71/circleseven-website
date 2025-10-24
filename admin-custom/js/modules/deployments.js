@@ -441,7 +441,7 @@ export async function updateDashboardDeployments() {
   `;
 
   mainDeployments.forEach((deployment, index) => {
-    let statusIcon, statusColor, statusText, rowBg;
+    let statusIcon, statusColor, statusText, rowBg, textColor = '';
 
     if (deployment.isActive) {
       // Active deployments
@@ -449,20 +449,23 @@ export async function updateDashboardDeployments() {
 
       if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
-        statusColor = 'text-blue-600';
+        statusColor = 'text-white';
         statusText = 'Deploying';
-        rowBg = 'bg-blue-100';
+        rowBg = 'bg-blue-600';
+        textColor = 'text-white';
         animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
-        statusColor = 'text-yellow-600';
+        statusColor = 'text-white';
         statusText = 'Queued';
-        rowBg = 'bg-yellow-50';
+        rowBg = 'bg-yellow-500';
+        textColor = 'text-white';
       } else {
         statusIcon = 'fa-hourglass-half';
-        statusColor = 'text-gray-600';
+        statusColor = 'text-white';
         statusText = 'Pending';
-        rowBg = 'bg-gray-50';
+        rowBg = 'bg-gray-500';
+        textColor = 'text-white';
       }
 
       const elapsed = Math.floor((new Date() - new Date(deployment.startedAt)) / 1000);
@@ -471,7 +474,7 @@ export async function updateDashboardDeployments() {
       const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
       html += `
-        <tr class="${rowBg} ${animationClass} text-xs">
+        <tr class="${rowBg} ${animationClass} ${textColor} text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -480,10 +483,10 @@ export async function updateDashboardDeployments() {
           </td>
           <td class="py-2 px-3">
             <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+            ${deployment.itemId ? `<div class="text-xs ${textColor} opacity-80 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${timeStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">live</td>
+          <td class="py-2 px-3 text-right font-mono ${textColor} opacity-80">${timeStr}</td>
+          <td class="py-2 px-3 text-right ${textColor} opacity-80">live</td>
         </tr>
       `;
     } else {
@@ -499,10 +502,12 @@ export async function updateDashboardDeployments() {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        // First row: always show green background to highlight most recent deployment
+        // First row: show green background only for 30 seconds, then revert to normal
         // Other rows: alternating white/gray
-        if (index === 0) {
-          rowBg = isRecentSuccess ? 'bg-green-50 transition-colors duration-1000' : 'bg-green-50';
+        if (index === 0 && isRecentSuccess) {
+          rowBg = 'bg-green-500 transition-colors duration-1000';
+          statusColor = 'text-white';
+          textColor = 'text-white';
         } else {
           rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
         }
@@ -512,23 +517,47 @@ export async function updateDashboardDeployments() {
         statusText = 'Failed';
         // First row: show red background to highlight failure
         // Other rows: alternating white/gray
-        rowBg = index === 0 ? 'bg-red-50' : (index % 2 === 0 ? 'bg-white' : 'bg-gray-50');
+        if (index === 0) {
+          rowBg = 'bg-red-500';
+          statusColor = 'text-white';
+          textColor = 'text-white';
+        } else {
+          rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        }
       } else if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-blue-600';
         statusText = 'Deploying';
-        rowBg = index === 0 ? 'bg-blue-100' : 'bg-blue-50';
+        if (index === 0) {
+          rowBg = 'bg-blue-600';
+          statusColor = 'text-white';
+          textColor = 'text-white';
+        } else {
+          rowBg = 'bg-blue-50';
+        }
         animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-yellow-600';
         statusText = 'Queued';
-        rowBg = index === 0 ? 'bg-yellow-100' : 'bg-yellow-50';
+        if (index === 0) {
+          rowBg = 'bg-yellow-500';
+          statusColor = 'text-white';
+          textColor = 'text-white';
+        } else {
+          rowBg = 'bg-yellow-50';
+        }
       } else if (deployment.status === 'pending') {
         statusIcon = 'fa-hourglass-half';
         statusColor = 'text-gray-600';
         statusText = 'Pending';
-        rowBg = index === 0 ? 'bg-gray-200' : 'bg-gray-100';
+        if (index === 0) {
+          rowBg = 'bg-gray-500';
+          statusColor = 'text-white';
+          textColor = 'text-white';
+        } else {
+          rowBg = 'bg-gray-100';
+        }
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
         statusColor = 'text-yellow-600';
@@ -559,7 +588,7 @@ export async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} ${animationClass} hover:bg-gray-100 text-xs">
+        <tr class="${rowBg} ${animationClass} ${textColor} hover:bg-gray-100 text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -567,11 +596,11 @@ export async function updateDashboardDeployments() {
             </div>
           </td>
           <td class="py-2 px-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+            <div class="truncate max-w-md ${textColor ? textColor : 'text-gray-900'}">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="text-xs ${textColor ? textColor + ' opacity-80' : 'text-gray-500'} truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="py-2 px-3 text-right font-mono ${textColor ? textColor + ' opacity-80' : 'text-gray-500'}">${durationStr}</td>
+          <td class="py-2 px-3 text-right ${textColor ? textColor + ' opacity-80' : 'text-gray-400'}">${relativeTime}</td>
         </tr>
       `;
     }
