@@ -16,6 +16,8 @@
  * - Global constants: API_BASE, DEPLOYMENT_STATUS_POLL_INTERVAL, DEPLOYMENT_HISTORY_POLL_INTERVAL, DEPLOYMENT_TIMEOUT
  * - Global state: activeDeployments, deploymentPollInterval, historyPollInterval
  * - Other modules: loadPosts(), loadPages(), loadTrash()
+ *
+ * @version 1.0.5
  */
 
 import { escapeHtml } from '../core/utils.js';
