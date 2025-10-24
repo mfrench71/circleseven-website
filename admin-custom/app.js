@@ -1053,9 +1053,6 @@ let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
 let selectedCategories = [];
 let selectedTags = [];
 
-// Taxonomy autocomplete cleanup callbacks
-let taxonomyAutocompleteCleanup = { categories: null, tags: null };
-
 // ===== ALL POSTS FUNCTIONS MOVED TO MODULE =====
 // All post management functions have been fully modularized in:
 //   /admin-custom/js/modules/posts.js
