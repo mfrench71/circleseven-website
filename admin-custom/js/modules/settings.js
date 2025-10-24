@@ -282,6 +282,9 @@ export function saveAdminSettings(event) {
   saveBtn.innerHTML = 'Saving...';
 
   try {
+    // Get current settings before saving to detect changes
+    const oldSettings = getAdminSettings();
+
     const form = document.getElementById('admin-settings-form');
     const formData = new FormData(form);
     const settings = {};
@@ -299,6 +302,11 @@ export function saveAdminSettings(event) {
         settings[key] = numValue;
       }
     });
+
+    // Check if settings that require refresh have changed
+    const needsRefresh =
+      settings.fetch_timeout !== oldSettings.fetch_timeout ||
+      settings.debounce_delay !== oldSettings.debounce_delay;
 
     // Save to localStorage
     localStorage.setItem('admin_settings', JSON.stringify(settings));
@@ -338,17 +346,22 @@ export function saveAdminSettings(event) {
       }
     }
 
-    showSuccess(`
-      <div class="flex items-center justify-between gap-4">
-        <span>Admin settings saved! Polling intervals applied immediately.</span>
-        <button
-          onclick="location.reload()"
-          class="px-3 py-1.5 text-sm font-medium bg-white text-green-700 hover:bg-green-50 border border-green-300 rounded-md transition flex-shrink-0"
-        >
-          <i class="fas fa-sync-alt mr-1.5"></i>Refresh Page
-        </button>
-      </div>
-    `, true);
+    // Show different message based on whether refresh is needed
+    if (needsRefresh) {
+      showSuccess(`
+        <div class="flex items-center justify-between gap-4">
+          <span>Admin settings saved! Polling intervals applied immediately. Refresh page to apply timeout and debounce settings.</span>
+          <button
+            onclick="location.reload()"
+            class="px-3 py-1.5 text-sm font-medium bg-white text-green-700 hover:bg-green-50 border border-green-300 rounded-md transition flex-shrink-0"
+          >
+            <i class="fas fa-sync-alt mr-1.5"></i>Refresh Page
+          </button>
+        </div>
+      `, true);
+    } else {
+      showSuccess('Admin settings saved and applied immediately!');
+    }
   } catch (error) {
     showError('Failed to save admin settings: ' + error.message);
   } finally {

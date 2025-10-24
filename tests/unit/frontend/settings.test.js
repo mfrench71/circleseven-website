@@ -402,6 +402,54 @@ describe('Settings Module', () => {
       expect(successEl.querySelector('p').textContent).toContain('Admin settings saved');
     });
 
+    it('shows simple message when only polling intervals change', () => {
+      // Load initial settings
+      loadAdminSettings();
+
+      // Change only polling interval (doesn't require refresh)
+      document.getElementById('admin-setting-deployment-poll-interval').value = '25';
+
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const successEl = document.getElementById('success');
+      const message = successEl.querySelector('p').textContent;
+      expect(message).toContain('applied immediately');
+      expect(message).not.toContain('Refresh page');
+    });
+
+    it('shows refresh button when fetch_timeout changes', () => {
+      // Load initial settings
+      loadAdminSettings();
+
+      // Change fetch_timeout (requires refresh)
+      document.getElementById('admin-setting-fetch-timeout').value = '60'; // Different from default 30s
+
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const successEl = document.getElementById('success');
+      const message = successEl.querySelector('p').innerHTML;
+      expect(message).toContain('Refresh page');
+      expect(message).toContain('button');
+    });
+
+    it('shows refresh button when debounce_delay changes', () => {
+      // Load initial settings
+      loadAdminSettings();
+
+      // Change debounce_delay (requires refresh)
+      document.getElementById('admin-setting-debounce-delay').value = '500'; // Different from default 300ms
+
+      const event = new Event('submit');
+      saveAdminSettings(event);
+
+      const successEl = document.getElementById('success');
+      const message = successEl.querySelector('p').innerHTML;
+      expect(message).toContain('Refresh page');
+      expect(message).toContain('button');
+    });
+
     it('disables button during save', () => {
       const event = new Event('submit');
       saveAdminSettings(event);
