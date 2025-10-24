@@ -1164,3 +1164,13 @@ details[open] .settings-chevron {
 .settings-accordion-item summary::-webkit-details-marker {
   display: none;
 }
+
+/* Hide default triangle/twirly for accordion (we use chevrons instead) */
+.settings-accordion-item summary::before {
+  display: none;
+}
+
+/* Ensure accordion titles are left-aligned */
+.settings-accordion-item summary {
+  text-align: left;
+}
