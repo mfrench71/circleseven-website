@@ -426,14 +426,14 @@ th {
 .uppercase { text-transform: uppercase; }
 .tracking-wider { letter-spacing: 0.05em; }
 
-/* Striped table rows */
-tbody tr:nth-child(even) {
+/* Striped table rows - exclude deployments table which has dynamic row colors */
+tbody tr:nth-child(even):not(#deployments-content tbody tr) {
   background-color: #f9fafb;
 }
-tbody tr:nth-child(odd) {
+tbody tr:nth-child(odd):not(#deployments-content tbody tr) {
   background-color: #ffffff;
 }
-tbody tr:hover {
+tbody tr:hover:not(#deployments-content tbody tr) {
   background-color: #f3f4f6 !important;
 }
 
