@@ -88,10 +88,13 @@ body {
 .p-8 { padding: 2rem; }
 .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
 .px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
 .px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
 .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
 .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-5 { padding-top: 1.25rem; padding-bottom: 1.25rem; }
 .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
 .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
 .mb-2 { margin-bottom: 0.5rem; }
@@ -1115,4 +1118,49 @@ button:disabled, .btn:disabled {
 
 .hover\:text-red-700:hover {
   color: var(--color-red-700);
+}
+
+/* ============================================
+   BOOTSTRAP-STYLE ACCORDION
+   Settings page accordion with one-at-a-time behavior
+   ============================================ */
+.select-none {
+  user-select: none;
+}
+
+.transition-colors {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.last\:border-b-0:last-child {
+  border-bottom-width: 0;
+}
+
+/* Chevron rotation for open/closed accordion items */
+details[open] .settings-chevron {
+  transform: rotate(180deg);
+}
+
+/* Custom details/summary styling for accordion */
+.settings-accordion-item summary {
+  list-style: none;
+}
+
+.settings-accordion-item summary::-webkit-details-marker {
+  display: none;
 }

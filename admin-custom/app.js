@@ -65,17 +65,47 @@ let taxonomyAutocompleteCleanup = { categories: null, tags: null };
 const API_BASE = '/.netlify/functions';
 window.API_BASE = API_BASE; // Expose for ES6 modules
 
-// Constants
-const DEPLOYMENT_STATUS_POLL_INTERVAL = 10000; // 10 seconds (reduced polling frequency)
-const DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000; // 30 seconds (reduced polling frequency)
-const DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
-const FETCH_TIMEOUT = 30000; // 30 seconds
-const DEBOUNCE_DELAY = 300; // milliseconds
+// Default constants (will be overridden by admin settings if they exist)
+const DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL = 10000; // 10 seconds
+const DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000; // 30 seconds
+const DEFAULT_DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
+const DEFAULT_FETCH_TIMEOUT = 30000; // 30 seconds
+const DEFAULT_DEBOUNCE_DELAY = 300; // milliseconds
 
-// Expose constants for ES6 modules
-window.DEPLOYMENT_STATUS_POLL_INTERVAL = DEPLOYMENT_STATUS_POLL_INTERVAL;
-window.DEPLOYMENT_HISTORY_POLL_INTERVAL = DEPLOYMENT_HISTORY_POLL_INTERVAL;
-window.DEPLOYMENT_TIMEOUT = DEPLOYMENT_TIMEOUT;
+/**
+ * Loads admin settings from localStorage and applies them to global constants
+ *
+ * Called on app startup to ensure polling intervals use user preferences.
+ */
+function loadAndApplyAdminSettings() {
+  try {
+    const stored = localStorage.getItem('admin_settings');
+    if (stored) {
+      const settings = JSON.parse(stored);
+      // Apply settings or use defaults
+      window.DEPLOYMENT_STATUS_POLL_INTERVAL = settings.deployment_poll_interval || DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL;
+      window.DEPLOYMENT_HISTORY_POLL_INTERVAL = settings.deployment_history_poll_interval || DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL;
+      window.DEPLOYMENT_TIMEOUT = settings.deployment_timeout || DEFAULT_DEPLOYMENT_TIMEOUT;
+      window.FETCH_TIMEOUT = settings.fetch_timeout || DEFAULT_FETCH_TIMEOUT;
+      window.DEBOUNCE_DELAY = settings.debounce_delay || DEFAULT_DEBOUNCE_DELAY;
+    } else {
+      // No settings in localStorage - use defaults
+      window.DEPLOYMENT_STATUS_POLL_INTERVAL = DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL;
+      window.DEPLOYMENT_HISTORY_POLL_INTERVAL = DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL;
+      window.DEPLOYMENT_TIMEOUT = DEFAULT_DEPLOYMENT_TIMEOUT;
+      window.FETCH_TIMEOUT = DEFAULT_FETCH_TIMEOUT;
+      window.DEBOUNCE_DELAY = DEFAULT_DEBOUNCE_DELAY;
+    }
+  } catch (error) {
+    console.warn('Failed to load admin settings, using defaults:', error);
+    // Use defaults
+    window.DEPLOYMENT_STATUS_POLL_INTERVAL = DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL;
+    window.DEPLOYMENT_HISTORY_POLL_INTERVAL = DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL;
+    window.DEPLOYMENT_TIMEOUT = DEFAULT_DEPLOYMENT_TIMEOUT;
+    window.FETCH_TIMEOUT = DEFAULT_FETCH_TIMEOUT;
+    window.DEBOUNCE_DELAY = DEFAULT_DEBOUNCE_DELAY;
+  }
+}
 
 // Initialize and expose deployment state for ES6 modules
 window.activeDeployments = activeDeployments;
@@ -329,6 +359,37 @@ function cacheDOMElements() {
   DOM.sectionSettings = document.getElementById('section-settings');
 }
 
+/**
+ * Initializes Bootstrap-style accordion behavior for settings sections
+ *
+ * Sets up click handlers to ensure only one accordion section is open at a time.
+ * When a section is clicked, all other sections close automatically.
+ */
+function initSettingsAccordion() {
+  const accordion = document.getElementById('settings-accordion');
+  if (!accordion) return;
+
+  const accordionItems = accordion.querySelectorAll('.settings-accordion-item');
+
+  accordionItems.forEach(item => {
+    const summary = item.querySelector('summary');
+    if (!summary) return;
+
+    summary.addEventListener('click', (event) => {
+      const isCurrentlyOpen = item.hasAttribute('open');
+
+      // If clicking on a closed item, close all other items first
+      if (!isCurrentlyOpen) {
+        accordionItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.hasAttribute('open')) {
+            otherItem.removeAttribute('open');
+          }
+        });
+      }
+    });
+  });
+}
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   cacheDOMElements();
@@ -336,6 +397,13 @@ document.addEventListener('DOMContentLoaded', () => {
   handleRouteChange();
   setupUnsavedChangesWarning();
   registerServiceWorker();
+
+  // Initialize settings accordion behavior
+  initSettingsAccordion();
+
+  // Load admin settings from localStorage BEFORE starting polling
+  // This ensures polling intervals use user preferences instead of defaults
+  loadAndApplyAdminSettings();
 
   // Restore any in-progress deployments from GitHub on page load
   restoreActiveDeployments();

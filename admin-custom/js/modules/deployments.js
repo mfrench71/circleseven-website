@@ -442,6 +442,7 @@ export async function updateDashboardDeployments() {
 
   mainDeployments.forEach((deployment, index) => {
     let statusIcon, statusColor, statusText, rowBg, textColor = '';
+    let hoverClass = ''; // Only add hover for non-colored rows
 
     if (deployment.isActive) {
       // Active deployments
@@ -508,8 +509,11 @@ export async function updateDashboardDeployments() {
           rowBg = 'bg-green-500 transition-colors duration-1000';
           statusColor = 'text-white';
           textColor = 'text-white';
+          hoverClass = ''; // No hover effect on colored background
         } else {
           rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+          textColor = ''; // Use default text colors
+          hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
         }
       } else if (deployment.status === 'failed') {
         statusIcon = 'fa-times-circle';
@@ -521,8 +525,11 @@ export async function updateDashboardDeployments() {
           rowBg = 'bg-red-500';
           statusColor = 'text-white';
           textColor = 'text-white';
+          hoverClass = ''; // No hover effect on colored background
         } else {
           rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+          textColor = ''; // Use default text colors
+          hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
         }
       } else if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
@@ -532,8 +539,11 @@ export async function updateDashboardDeployments() {
           rowBg = 'bg-blue-600';
           statusColor = 'text-white';
           textColor = 'text-white';
+          hoverClass = ''; // No hover effect on colored background
         } else {
           rowBg = 'bg-blue-50';
+          textColor = ''; // Use default text colors
+          hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
         }
         animationClass = 'animate-pulse';
       } else if (deployment.status === 'queued') {
@@ -544,8 +554,11 @@ export async function updateDashboardDeployments() {
           rowBg = 'bg-yellow-500';
           statusColor = 'text-white';
           textColor = 'text-white';
+          hoverClass = ''; // No hover effect on colored background
         } else {
           rowBg = 'bg-yellow-50';
+          textColor = ''; // Use default text colors
+          hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
         }
       } else if (deployment.status === 'pending') {
         statusIcon = 'fa-hourglass-half';
@@ -555,24 +568,33 @@ export async function updateDashboardDeployments() {
           rowBg = 'bg-gray-500';
           statusColor = 'text-white';
           textColor = 'text-white';
+          hoverClass = ''; // No hover effect on colored background
         } else {
           rowBg = 'bg-gray-100';
+          textColor = ''; // Use default text colors
+          hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
         }
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
         statusColor = 'text-yellow-600';
         statusText = 'Cancelled';
         rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        textColor = ''; // Use default text colors
+        hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
       } else if (deployment.status === 'skipped') {
         statusIcon = 'fa-forward';
         statusColor = 'text-blue-600';
         statusText = 'Skipped';
         rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        textColor = ''; // Use default text colors
+        hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
       } else {
         statusIcon = 'fa-circle';
         statusColor = 'text-gray-600';
         statusText = deployment.status;
         rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+        textColor = ''; // Use default text colors
+        hoverClass = 'hover:bg-gray-100'; // Enable hover on normal rows
       }
 
       // Format relative time
@@ -588,7 +610,7 @@ export async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} ${animationClass} ${textColor} hover:bg-gray-100 text-xs">
+        <tr class="${rowBg} ${animationClass} ${textColor} ${hoverClass} text-xs">
           <td class="py-2 px-3">
             <div class="flex items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
