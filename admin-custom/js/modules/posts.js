@@ -588,7 +588,7 @@ export function resetPostsFilters() {
 /**
  * Formats a date for display in short format
  *
- * Converts Date object to DD MMM YYYY format (e.g., "21 Oct 2025").
+ * Converts Date object to DD MMM YYYY HH:MM format (e.g., "21 Oct 2025 14:30").
  *
  * @param {Date|string} date - Date to format
  *
@@ -596,15 +596,18 @@ export function resetPostsFilters() {
  *
  * @example
  * import { formatDateShort } from './modules/posts.js';
- * formatDateShort(new Date()); // "21 Oct 2025"
+ * formatDateShort(new Date()); // "21 Oct 2025 14:30"
  */
 export function formatDateShort(date) {
   if (!date) return '';
   const d = new Date(date);
-  return d.toLocaleDateString('en-GB', {
+  return d.toLocaleString('en-GB', {
     day: '2-digit',
     month: 'short',
-    year: 'numeric'
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
   });
 }
 

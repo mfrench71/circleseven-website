@@ -170,12 +170,12 @@ export function renderPagesList() {
     // Get date from frontmatter or file metadata
     const datePublished = page.frontmatter?.date || '-';
     const formattedDate = datePublished !== '-'
-      ? new Date(datePublished).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      ? new Date(datePublished).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
       : '-';
 
     // Get last modified date - default to published date if not present
     const lastModified = page.frontmatter?.last_modified_at
-      ? new Date(page.frontmatter.last_modified_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      ? new Date(page.frontmatter.last_modified_at).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
       : formattedDate; // Default to published date
 
     return `
