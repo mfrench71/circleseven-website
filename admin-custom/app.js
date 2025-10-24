@@ -1053,9 +1053,6 @@ let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
 let selectedCategories = [];
 let selectedTags = [];
 
-// Cloudinary widget state
-let cloudinaryWidget = null;
-
 // Taxonomy autocomplete cleanup callbacks
 let taxonomyAutocompleteCleanup = { categories: null, tags: null };
 
