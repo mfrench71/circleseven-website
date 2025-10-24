@@ -494,13 +494,18 @@ export async function updateDashboardDeployments() {
       // Historical deployments (from GitHub)
       let animationClass = '';
 
+      // Check if deployment completed recently (within last 30 seconds)
+      const completedRecently = deployment.status === 'completed' &&
+        deployment.completedAt &&
+        (Date.now() - new Date(deployment.completedAt).getTime()) < 30000;
+
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        // First row: show green background to highlight latest deployment
+        // First row: show green background for 30 seconds after completion, then revert to normal
         // Other rows: alternating white/gray
-        if (index === 0) {
+        if (index === 0 && completedRecently) {
           rowBg = 'bg-green-500';
           statusColor = 'text-white';
           textColor = 'text-white';
