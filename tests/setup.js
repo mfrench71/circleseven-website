@@ -50,6 +50,67 @@ global.API_BASE = '/.netlify/functions';
 global.window = global.window || {};
 global.window.API_BASE = '/.netlify/functions';
 
+/**
+ * Mock EasyMDE (Markdown Editor)
+ *
+ * Provides a minimal mock that satisfies the interface used by
+ * posts.js and pages.js modules.
+ */
+class MockEasyMDE {
+  constructor(options) {
+    this.element = options.element;
+    this._value = '';
+
+    // Mock CodeMirror instance
+    this.codemirror = {
+      on: vi.fn(),
+      off: vi.fn(),
+      getValue: () => this._value,
+      setValue: (val) => { this._value = val; }
+    };
+  }
+
+  value(val) {
+    if (val !== undefined) {
+      this._value = val;
+      return;
+    }
+    return this._value;
+  }
+
+  toTextArea() {
+    // Convert back to textarea (cleanup)
+  }
+}
+
+// Make EasyMDE available globally
+global.EasyMDE = MockEasyMDE;
+
+/**
+ * Mock window.showConfirm
+ *
+ * Used by delete operations to confirm actions
+ */
+global.showConfirm = vi.fn().mockResolvedValue(true);
+
+/**
+ * Mock window.showPrompt
+ *
+ * Used for text input dialogs
+ */
+global.showPrompt = vi.fn().mockResolvedValue('test-input');
+
+/**
+ * Mock formatDateForInput
+ *
+ * Utility function used by pages and posts modules
+ */
+global.formatDateForInput = (dateStr) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toISOString().slice(0, 16);
+};
+
 // Reset mocks before each test
 beforeEach(() => {
   // Clear storage objects
@@ -58,6 +119,16 @@ beforeEach(() => {
   localStorage.clear();
   sessionStorage.clear();
   vi.clearAllMocks();
+
+  // Reset global state
+  if (global.window) {
+    global.window.markdownEditor = null;
+    global.window.pageMarkdownEditor = null;
+    global.window.postHasUnsavedChanges = false;
+    global.window.pageHasUnsavedChanges = false;
+    global.window.allPages = [];
+    global.window.allPosts = [];
+  }
 });
 
 // Clean up after each test

@@ -153,11 +153,11 @@ describe('Pages Module', () => {
 
   describe('clearPagesCache', () => {
     it('removes pages cache from localStorage', () => {
-      localStorage.setItem('pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
 
       clearPagesCache();
 
-      expect(localStorage.getItem('pages_cache')).toBeNull();
+      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
     });
 
     it('does not throw if cache does not exist', () => {
@@ -194,7 +194,7 @@ describe('Pages Module', () => {
 
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => mockPages
+        json: async () => ({ pages: mockPages })
       });
 
       await loadPages();
@@ -209,12 +209,12 @@ describe('Pages Module', () => {
 
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => mockPages
+        json: async () => ({ pages: mockPages })
       });
 
       await loadPages();
 
-      const cached = JSON.parse(localStorage.getItem('pages_cache'));
+      const cached = JSON.parse(localStorage.getItem('admin_pages_cache'));
       expect(cached.data).toEqual(mockPages);
       expect(cached.timestamp).toBeDefined();
     });
@@ -226,7 +226,7 @@ describe('Pages Module', () => {
         timestamp: Date.now() // Fresh cache
       };
 
-      localStorage.setItem('pages_cache', JSON.stringify(cacheData));
+      localStorage.setItem('admin_pages_cache', JSON.stringify(cacheData));
 
       await loadPages();
 
@@ -242,12 +242,12 @@ describe('Pages Module', () => {
         timestamp: oldTimestamp
       };
 
-      localStorage.setItem('pages_cache', JSON.stringify(cacheData));
+      localStorage.setItem('admin_pages_cache', JSON.stringify(cacheData));
 
       const freshPages = [{ filename: 'fresh.md', sha: 'abc', frontmatter: { title: 'Fresh' } }];
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => freshPages
+        json: async () => ({ pages: freshPages })
       });
 
       await loadPages();
@@ -837,7 +837,7 @@ describe('Pages Module', () => {
     });
 
     it('clears pages cache after save', async () => {
-      localStorage.setItem('pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
 
       mockFetch.mockResolvedValue({
         ok: true,
@@ -847,7 +847,7 @@ describe('Pages Module', () => {
       const event = new Event('submit');
       await savePage(event);
 
-      expect(localStorage.getItem('pages_cache')).toBeNull();
+      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
     });
 
     it('shows error when save fails', async () => {
@@ -966,7 +966,7 @@ describe('Pages Module', () => {
     });
 
     it('clears pages cache after delete', async () => {
-      localStorage.setItem('pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
 
       mockShowConfirm.mockResolvedValue(true);
       mockFetch.mockResolvedValue({
@@ -976,7 +976,7 @@ describe('Pages Module', () => {
 
       await deletePage();
 
-      expect(localStorage.getItem('pages_cache')).toBeNull();
+      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
     });
 
     it('shows success message after delete', async () => {
@@ -1035,7 +1035,7 @@ describe('Pages Module', () => {
     });
 
     it('clears cache and reloads pages after delete', async () => {
-      localStorage.setItem('pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
 
       mockShowConfirm.mockResolvedValue(true);
       mockFetch.mockResolvedValueOnce({
@@ -1044,12 +1044,12 @@ describe('Pages Module', () => {
       });
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => []
+        json: async () => ({ pages: [] })
       });
 
       await deletePageFromList('test.md', 'abc123');
 
-      expect(localStorage.getItem('pages_cache')).toBeNull();
+      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
       // Should call loadPages which fetches pages
       expect(mockFetch).toHaveBeenCalledTimes(2);
     });
