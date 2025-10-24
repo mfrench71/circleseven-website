@@ -23,6 +23,7 @@
  * - Global trackDeployment() function
  *
  * @module modules/settings
+ * @version 1.0.0
  */
 
 import { showError, showSuccess } from '../ui/notifications.js';
