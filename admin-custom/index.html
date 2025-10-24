@@ -1102,6 +1102,21 @@
         <div id="section-settings" class="section-panel hidden">
           <h2 class="text-xl font-bold text-gray-900 mb-6">Settings</h2>
 
+          <!-- Collapsible Help -->
+          <details class="bg-blue-50 border border-blue-200 rounded-lg mb-6">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-blue-900 text-sm hover:bg-blue-100 transition rounded-lg">
+              How to use
+            </summary>
+            <div class="px-4 pb-3 pt-2">
+              <ul class="text-sm text-blue-800 space-y-1">
+                <li>• <strong>Admin Settings:</strong> Control how the admin interface behaves (polling, timeouts, debounce)</li>
+                <li>• <strong>Site Configuration:</strong> Update _config.yml settings (triggers automatic rebuild)</li>
+                <li>• Settings are applied immediately or show a refresh button if needed</li>
+                <li>• Use "Reset to Defaults" to restore admin settings to their original values</li>
+              </ul>
+            </div>
+          </details>
+
           <!-- Admin Application Settings -->
           <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Admin Application Settings</h3>

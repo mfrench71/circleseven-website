@@ -499,10 +499,10 @@ export async function updateDashboardDeployments() {
         statusIcon = 'fa-check-circle';
         statusColor = 'text-green-600';
         statusText = 'Success';
-        // First row: show green background if recent, white if old
+        // First row: always show green background to highlight most recent deployment
         // Other rows: alternating white/gray
-        if (index === 0 && isRecentSuccess) {
-          rowBg = 'bg-green-50 transition-colors duration-1000';
+        if (index === 0) {
+          rowBg = isRecentSuccess ? 'bg-green-50 transition-colors duration-1000' : 'bg-green-50';
         } else {
           rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
         }
