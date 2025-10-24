@@ -111,7 +111,8 @@ export async function getDeploymentHistory() {
 export function saveDeploymentHistory(history) {
   try {
     // Auto-archive: keep only the most recent MAX_DEPLOYMENT_HISTORY items
-    const trimmed = history.slice(-MAX_DEPLOYMENT_HISTORY);
+    // History is sorted newest-first, so take the first N items
+    const trimmed = history.slice(0, MAX_DEPLOYMENT_HISTORY);
     localStorage.setItem('deploymentHistory', JSON.stringify(trimmed));
   } catch (error) {
     console.error('Failed to save deployment history:', error);
@@ -828,10 +829,14 @@ export function startDeploymentPolling() {
         // Timeout after configured duration
         const elapsed = Math.floor((new Date() - deployment.startedAt) / 1000);
         if (elapsed > window.DEPLOYMENT_TIMEOUT) {
+          // Deployment timed out - mark as failed and add to history
+          deployment.status = 'failed';
+          addToDeploymentHistory(deployment);
           window.activeDeployments.splice(i, 1);
 
           if (window.activeDeployments.length === 0) {
-            showDeploymentCompletion(true, [deployment]);
+            // Show timeout as failure, not success
+            showDeploymentCompletion(false, [deployment]);
           }
           continue;
         }
