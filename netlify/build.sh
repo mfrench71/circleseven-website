@@ -51,4 +51,4 @@ echo "Cache busting complete. Updated to version: $CACHE_BUST"
 bundle exec jekyll build
 
 echo "Build complete!"
-# Deployment test - Tue 28 Oct 2025 12:45:18 GMT
+# Deployment test - Tue 28 Oct 2025 13:15:42 GMT
