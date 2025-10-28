@@ -131,6 +131,11 @@ export function renderPagesList() {
   const search = document.getElementById('pages-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('pages-sort')?.value || 'title-asc';
 
+  // If the required DOM elements don't exist (e.g., called from bin page), exit early
+  if (!tbody || !emptyEl) {
+    return;
+  }
+
   const allPages = window.allPages || [];
 
   // Helper function to escape strings for JavaScript context (onclick attributes)
