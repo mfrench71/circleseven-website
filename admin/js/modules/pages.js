@@ -93,7 +93,7 @@ export async function loadPages() {
     if (cachedPages) {
       window.allPages = cachedPages;
       renderPagesList();
-      document.getElementById('pages-loading').classList.add('d-none');
+      document.getElementById('pages-loading')?.classList.add('d-none');
       return;
     }
 
@@ -111,7 +111,7 @@ export async function loadPages() {
   } catch (error) {
     showError('Failed to load pages: ' + error.message);
   } finally {
-    document.getElementById('pages-loading').classList.add('d-none');
+    document.getElementById('pages-loading')?.classList.add('d-none');
   }
 }
 
