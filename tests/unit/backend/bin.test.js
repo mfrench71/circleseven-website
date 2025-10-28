@@ -1,8 +1,8 @@
 /**
- * Unit Tests for Trash Netlify Function
+ * Unit Tests for Bin Netlify Function
  *
  * Tests soft-deletion and restoration system for posts and pages.
- * Covers trash operations: list, move to trash, restore, permanent delete.
+ * Covers bin operations: list, move to bin, restore, permanent delete.
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
@@ -11,7 +11,7 @@ import https from 'https';
 // Mock the https module
 vi.mock('https');
 
-describe('Trash Function', () => {
+describe('Bin Function', () => {
   let handler;
   let mockRequest;
   let mockResponse;
@@ -40,7 +40,7 @@ describe('Trash Function', () => {
     https.request = vi.fn().mockReturnValue(mockRequest);
 
     // Import handler after mocking
-    const module = await import('../../../netlify/functions/trash.js');
+    const module = await import('../../../netlify/functions/bin.js');
     handler = module.handler;
   });
 
@@ -80,27 +80,27 @@ describe('Trash Function', () => {
     });
   });
 
-  describe('GET - List trashed items', () => {
-    it('lists all trashed markdown files', async () => {
+  describe('GET - List bined items', () => {
+    it('lists all bined markdown files', async () => {
       const event = {
         httpMethod: 'GET'
       };
 
-      const mockTrashFiles = [
-        { name: '2025-10-21-post.md', path: '_trash/2025-10-21-post.md', sha: 'sha1', size: 500 },
-        { name: 'about.md', path: '_trash/about.md', sha: 'sha2', size: 300 },
-        { name: 'README.txt', path: '_trash/README.txt', sha: 'sha3', size: 100 } // Should be filtered
+      const mockBinFiles = [
+        { name: '2025-10-21-post.md', path: '_bin/2025-10-21-post.md', sha: 'sha1', size: 500 },
+        { name: 'about.md', path: '_bin/about.md', sha: 'sha2', size: 300 },
+        { name: 'README.txt', path: '_bin/README.txt', sha: 'sha3', size: 100 } // Should be filtered
       ];
 
-      // First call: list trash directory
-      // Subsequent calls: get each file's content for trashed_at
+      // First call: list bin directory
+      // Subsequent calls: get each file's content for bined_at
       const mockCalls = [
-        JSON.stringify(mockTrashFiles),
+        JSON.stringify(mockBinFiles),
         JSON.stringify({
-          content: Buffer.from('---\ntitle: Post\ntrashed_at: 2025-10-21T10:00:00Z\n---\nContent').toString('base64')
+          content: Buffer.from('---\ntitle: Post\nbined_at: 2025-10-21T10:00:00Z\n---\nContent').toString('base64')
         }),
         JSON.stringify({
-          content: Buffer.from('---\ntitle: About\ntrashed_at: 2025-10-22T15:30:00Z\n---\nContent').toString('base64')
+          content: Buffer.from('---\ntitle: About\nbined_at: 2025-10-22T15:30:00Z\n---\nContent').toString('base64')
         })
       ];
 
@@ -114,7 +114,7 @@ describe('Trash Function', () => {
       expect(body.items).toHaveLength(2);
       expect(body.items[0].name).toBe('2025-10-21-post.md');
       expect(body.items[0].type).toBe('post');
-      expect(body.items[0].trashed_at).toBe('2025-10-21T10:00:00Z');
+      expect(body.items[0].bined_at).toBe('2025-10-21T10:00:00Z');
       expect(body.items[1].name).toBe('about.md');
       expect(body.items[1].type).toBe('page');
       // Verify .txt file was filtered out
@@ -128,13 +128,13 @@ describe('Trash Function', () => {
 
       const mockCalls = [
         JSON.stringify([
-          { name: '2025-10-21-my-post.md', path: '_trash/2025-10-21-my-post.md', sha: 'sha1', size: 500 },
-          { name: 'contact.md', path: '_trash/contact.md', sha: 'sha2', size: 300 },
-          { name: '2024-12-01-old-post.md', path: '_trash/2024-12-01-old-post.md', sha: 'sha3', size: 400 }
+          { name: '2025-10-21-my-post.md', path: '_bin/2025-10-21-my-post.md', sha: 'sha1', size: 500 },
+          { name: 'contact.md', path: '_bin/contact.md', sha: 'sha2', size: 300 },
+          { name: '2024-12-01-old-post.md', path: '_bin/2024-12-01-old-post.md', sha: 'sha3', size: 400 }
         ]),
-        JSON.stringify({ content: Buffer.from('---\ntitle: Post 1\ntrashed_at: 2025-10-21\n---\n').toString('base64') }),
-        JSON.stringify({ content: Buffer.from('---\ntitle: Contact\ntrashed_at: 2025-10-21\n---\n').toString('base64') }),
-        JSON.stringify({ content: Buffer.from('---\ntitle: Old\ntrashed_at: 2024-12-01\n---\n').toString('base64') })
+        JSON.stringify({ content: Buffer.from('---\ntitle: Post 1\nbined_at: 2025-10-21\n---\n').toString('base64') }),
+        JSON.stringify({ content: Buffer.from('---\ntitle: Contact\nbined_at: 2025-10-21\n---\n').toString('base64') }),
+        JSON.stringify({ content: Buffer.from('---\ntitle: Old\nbined_at: 2024-12-01\n---\n').toString('base64') })
       ];
 
       let callIndex = 0;
@@ -150,7 +150,7 @@ describe('Trash Function', () => {
       expect(body.items[1].type).toBe('page');
     });
 
-    it('returns empty array when trash directory does not exist', async () => {
+    it('returns empty array when bin directory does not exist', async () => {
       const event = {
         httpMethod: 'GET'
       };
@@ -167,17 +167,17 @@ describe('Trash Function', () => {
       expect(body.items).toEqual([]);
     });
 
-    it('handles missing trashed_at gracefully', async () => {
+    it('handles missing bined_at gracefully', async () => {
       const event = {
         httpMethod: 'GET'
       };
 
       const mockCalls = [
         JSON.stringify([
-          { name: 'test.md', path: '_trash/test.md', sha: 'sha1', size: 500 }
+          { name: 'test.md', path: '_bin/test.md', sha: 'sha1', size: 500 }
         ]),
         JSON.stringify({
-          content: Buffer.from('---\ntitle: Test\n---\nNo trashed_at field').toString('base64')
+          content: Buffer.from('---\ntitle: Test\n---\nNo bined_at field').toString('base64')
         })
       ];
 
@@ -187,20 +187,20 @@ describe('Trash Function', () => {
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
 
-      expect(body.items[0].trashed_at).toBeNull();
+      expect(body.items[0].bined_at).toBeNull();
     });
 
-    it('handles error fetching trashed_at for individual files', async () => {
+    it('handles error fetching bined_at for individual files', async () => {
       const event = {
         httpMethod: 'GET'
       };
 
       const mockCalls = [
         JSON.stringify([
-          { name: 'file1.md', path: '_trash/file1.md', sha: 'sha1', size: 500 },
-          { name: 'file2.md', path: '_trash/file2.md', sha: 'sha2', size: 600 }
+          { name: 'file1.md', path: '_bin/file1.md', sha: 'sha1', size: 500 },
+          { name: 'file2.md', path: '_bin/file2.md', sha: 'sha2', size: 600 }
         ]),
-        JSON.stringify({ content: Buffer.from('---\ntrashed_at: 2025-10-21\n---\n').toString('base64') })
+        JSON.stringify({ content: Buffer.from('---\nbined_at: 2025-10-21\n---\n').toString('base64') })
         // file2 will error (no mock for second file fetch)
       ];
 
@@ -246,15 +246,15 @@ describe('Trash Function', () => {
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
 
-      // Should still return both files, file2 with null trashed_at
+      // Should still return both files, file2 with null bined_at
       expect(body.items).toHaveLength(2);
-      expect(body.items[0].trashed_at).toBe('2025-10-21');
-      expect(body.items[1].trashed_at).toBeNull();
+      expect(body.items[0].bined_at).toBe('2025-10-21');
+      expect(body.items[1].bined_at).toBeNull();
     });
   });
 
-  describe('POST - Move to trash', () => {
-    it('moves post to trash successfully', async () => {
+  describe('POST - Move to bin', () => {
+    it('moves post to bin successfully', async () => {
       const event = {
         httpMethod: 'POST',
         body: JSON.stringify({
@@ -276,10 +276,10 @@ Post content here`;
           content: Buffer.from(originalContent).toString('base64'),
           sha: 'current-sha-456'
         }),
-        // Check if exists in trash (404)
+        // Check if exists in bin (404)
         null, // Will error (doesn't exist)
-        // Create in trash
-        JSON.stringify({ commit: { sha: 'trash-commit-sha' } }),
+        // Create in bin
+        JSON.stringify({ commit: { sha: 'bin-commit-sha' } }),
         // Delete from source
         JSON.stringify({ commit: { sha: 'delete-commit-sha' } })
       ];
@@ -287,7 +287,7 @@ Post content here`;
       let callIndex = 0;
       https.request.mockImplementation((options, callback) => {
         if (callIndex === 1) {
-          // Check trash existence - return 404
+          // Check bin existence - return 404
           mockResponse.statusCode = 404;
           callback(mockResponse);
 
@@ -323,11 +323,11 @@ Post content here`;
       expect(response.statusCode).toBe(200);
       const body = JSON.parse(response.body);
       expect(body.success).toBe(true);
-      expect(body.message).toBe('Post moved to trash successfully');
-      expect(body.commitSha).toBe('trash-commit-sha');
+      expect(body.message).toBe('Post moved to bin successfully');
+      expect(body.commitSha).toBe('bin-commit-sha');
     });
 
-    it('adds trashed_at timestamp to frontmatter', async () => {
+    it('adds bined_at timestamp to frontmatter', async () => {
       const event = {
         httpMethod: 'POST',
         body: JSON.stringify({
@@ -351,9 +351,9 @@ Content`;
       });
 
       // Capture the written content
-      let trashedContent = '';
+      let binedContent = '';
       mockRequest.write.mockImplementation((data) => {
-        trashedContent = data;
+        binedContent = data;
       });
 
       // Mock remaining calls
@@ -375,7 +375,7 @@ Content`;
             if (endCallback) endCallback();
           });
         } else if (callCount === 2) {
-          // Check trash (404)
+          // Check bin (404)
           mockResponse.statusCode = 404;
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
@@ -384,7 +384,7 @@ Content`;
           });
           mockResponse.statusCode = 200;
         } else if (callCount === 3) {
-          // Create in trash - capture content
+          // Create in bin - capture content
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
@@ -410,14 +410,14 @@ Content`;
 
       await handler(event, {});
 
-      // Verify trashed_at was added
-      const requestBody = JSON.parse(trashedContent);
+      // Verify bined_at was added
+      const requestBody = JSON.parse(binedContent);
       const decodedContent = Buffer.from(requestBody.content, 'base64').toString('utf8');
-      expect(decodedContent).toContain('trashed_at:');
-      expect(decodedContent).toMatch(/trashed_at: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+      expect(decodedContent).toContain('bined_at:');
+      expect(decodedContent).toMatch(/bined_at: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
     });
 
-    it('renames file with timestamp if already exists in trash', async () => {
+    it('renames file with timestamp if already exists in bin', async () => {
       const event = {
         httpMethod: 'POST',
         body: JSON.stringify({
@@ -447,7 +447,7 @@ Content`;
             if (endCallback) endCallback();
           });
         } else if (callCount === 2) {
-          // Check trash - file EXISTS
+          // Check bin - file EXISTS
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
@@ -460,7 +460,7 @@ Content`;
             if (endCallback) endCallback();
           });
         } else if (callCount === 3) {
-          // Create in trash with renamed file - capture path
+          // Create in bin with renamed file - capture path
           capturedPath = options.path;
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
@@ -488,8 +488,8 @@ Content`;
       await handler(event, {});
 
       // Verify filename was renamed with timestamp
-      expect(capturedPath).toContain('_trash/existing-post-');
-      expect(capturedPath).toMatch(/_trash\/existing-post-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.md$/);
+      expect(capturedPath).toContain('_bin/existing-post-');
+      expect(capturedPath).toMatch(/_bin\/existing-post-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.md$/);
     });
 
     it('uses post directory for type=post', async () => {
@@ -677,21 +677,21 @@ Content`;
     });
   });
 
-  describe('PUT - Restore from trash', () => {
-    it('restores post from trash successfully', async () => {
+  describe('PUT - Restore from bin', () => {
+    it('restores post from bin successfully', async () => {
       const event = {
         httpMethod: 'PUT',
         body: JSON.stringify({
           filename: '2025-10-21-restored-post.md',
-          sha: 'trash-sha-123',
+          sha: 'bin-sha-123',
           type: 'post'
         })
       };
 
-      const trashedContent = `---
+      const binedContent = `---
 title: Restored Post
 date: 2025-10-21
-trashed_at: 2025-10-21T10:00:00Z
+bined_at: 2025-10-21T10:00:00Z
 ---
 Content`;
 
@@ -710,15 +710,15 @@ Content`;
           });
           mockResponse.statusCode = 200;
         } else if (callCount === 2) {
-          // Get trashed item
+          // Get bined item
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
             const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
 
             if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from(trashedContent).toString('base64'),
-              sha: 'trash-sha-123'
+              content: Buffer.from(binedContent).toString('base64'),
+              sha: 'bin-sha-123'
             }));
             if (endCallback) endCallback();
           });
@@ -733,7 +733,7 @@ Content`;
             if (endCallback) endCallback();
           });
         } else {
-          // Delete from trash
+          // Delete from bin
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
@@ -756,7 +756,7 @@ Content`;
       expect(body.commitSha).toBe('restore-commit');
     });
 
-    it('removes trashed_at from frontmatter when restoring', async () => {
+    it('removes bined_at from frontmatter when restoring', async () => {
       const event = {
         httpMethod: 'PUT',
         body: JSON.stringify({
@@ -766,10 +766,10 @@ Content`;
         })
       };
 
-      const trashedContent = `---
+      const binedContent = `---
 title: Test
 date: 2025-10-21
-trashed_at: 2025-10-21T10:00:00Z
+bined_at: 2025-10-21T10:00:00Z
 categories:
   - Tech
 ---
@@ -791,14 +791,14 @@ Content`;
           });
           mockResponse.statusCode = 200;
         } else if (callCount === 2) {
-          // Get trashed item
+          // Get bined item
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
             const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
 
             if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from(trashedContent).toString('base64')
+              content: Buffer.from(binedContent).toString('base64')
             }));
             if (endCallback) endCallback();
           });
@@ -816,7 +816,7 @@ Content`;
             if (endCallback) endCallback();
           });
         } else {
-          // Delete from trash
+          // Delete from bin
           callback(mockResponse);
           mockRequest.end.mockImplementation(() => {
             const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
@@ -832,10 +832,10 @@ Content`;
 
       await handler(event, {});
 
-      // Verify trashed_at was removed
+      // Verify bined_at was removed
       const requestBody = JSON.parse(restoredContent);
       const decodedContent = Buffer.from(requestBody.content, 'base64').toString('utf8');
-      expect(decodedContent).not.toContain('trashed_at');
+      expect(decodedContent).not.toContain('bined_at');
       expect(decodedContent).toContain('title: Test');
       expect(decodedContent).toContain('categories:');
     });
@@ -1021,12 +1021,12 @@ Content`;
   });
 
   describe('DELETE - Permanent delete', () => {
-    it('permanently deletes item from trash', async () => {
+    it('permanently deletes item from bin', async () => {
       const event = {
         httpMethod: 'DELETE',
         body: JSON.stringify({
           filename: '2025-10-21-deleted.md',
-          sha: 'trash-sha-123',
+          sha: 'bin-sha-123',
           type: 'post'
         })
       };
@@ -1045,7 +1045,7 @@ Content`;
       expect(body.commitSha).toBe('delete-commit-sha');
     });
 
-    it('sends delete request to trash directory', async () => {
+    it('sends delete request to bin directory', async () => {
       const event = {
         httpMethod: 'DELETE',
         body: JSON.stringify({
@@ -1064,7 +1064,7 @@ Content`;
 
       const requestOptions = https.request.mock.calls[0][0];
       expect(requestOptions.method).toBe('DELETE');
-      expect(requestOptions.path).toContain('_trash/test.md');
+      expect(requestOptions.path).toContain('_bin/test.md');
 
       const writtenData = mockRequest.write.mock.calls[0][0];
       const requestBody = JSON.parse(writtenData);

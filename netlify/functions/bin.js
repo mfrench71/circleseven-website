@@ -1,23 +1,23 @@
 /**
- * Trash Management Netlify Function
+ * Bin Management Netlify Function
  *
- * Manages soft-deletion and restoration of posts and pages via a _trash directory.
+ * Manages soft-deletion and restoration of posts and pages via a _bin directory.
  * Implements a recycle bin pattern where deleted items can be restored or permanently deleted.
  *
  * Features:
- * - Moves posts/pages to _trash directory instead of immediate deletion
- * - Adds trashed_at timestamp to frontmatter for tracking
+ * - Moves posts/pages to _bin directory instead of immediate deletion
+ * - Adds binned_at timestamp to frontmatter for tracking
  * - Handles filename conflicts with timestamp-based renaming
  * - Auto-detects item type (post vs page) based on filename pattern
- * - Supports restore with frontmatter cleanup (removes trashed_at)
+ * - Supports restore with frontmatter cleanup (removes binned_at)
  *
  * Supported operations:
- * - GET: List all trashed items with metadata
- * - POST: Move post or page to trash
- * - PUT: Restore item from trash to original location
- * - DELETE: Permanently delete item from trash
+ * - GET: List all binned items with metadata
+ * - POST: Move post or page to bin
+ * - PUT: Restore item from bin to original location
+ * - DELETE: Permanently delete item from bin
  *
- * @module netlify/functions/trash
+ * @module netlify/functions/bin
  */
 
 const https = require('https');
@@ -28,7 +28,7 @@ const GITHUB_REPO = 'circleseven-website';
 const GITHUB_BRANCH = 'main';
 const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
-const TRASH_DIR = '_trash';
+const BIN_DIR = '_bin';
 
 /**
  * Makes authenticated requests to the GitHub API
@@ -83,10 +83,10 @@ function githubRequest(path, options = {}) {
 }
 
 /**
- * Netlify Function Handler - Trash Management
+ * Netlify Function Handler - Bin Management
  *
  * Main entry point for trash management. Handles all operations for the recycle bin
- * including listing, moving to trash, restoring, and permanent deletion.
+ * including listing, moving to bin, restoring, and permanent deletion.
  *
  * @param {Object} event - Netlify function event object
  * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
@@ -95,35 +95,35 @@ function githubRequest(path, options = {}) {
  * @returns {Promise<Object>} Response object with statusCode, headers, and body
  *
  * @example
- * // GET - List all trashed items
- * // GET /.netlify/functions/trash
+ * // GET - List all binned items
+ * // GET /.netlify/functions/bin
  * // Returns: {
  * //   items: [
  * //     {
  * //       name: "2025-10-21-my-post.md",
- * //       path: "_trash/2025-10-21-my-post.md",
+ * //       path: "_bin/2025-10-21-my-post.md",
  * //       sha: "abc123...",
  * //       type: "post",
- * //       trashed_at: "2025-10-21T10:30:00Z"
+ * //       binned_at: "2025-10-21T10:30:00Z"
  * //     }
  * //   ]
  * // }
  *
  * @example
- * // POST - Move item to trash
- * // POST /.netlify/functions/trash
+ * // POST - Move item to bin
+ * // POST /.netlify/functions/bin
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
- * // Returns: { success: true, message: "Post moved to trash successfully" }
+ * // Returns: { success: true, message: "Post moved to bin successfully" }
  *
  * @example
- * // PUT - Restore item from trash
- * // PUT /.netlify/functions/trash
+ * // PUT - Restore item from bin
+ * // PUT /.netlify/functions/bin
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
  * // Returns: { success: true, message: "Post restored successfully" }
  *
  * @example
  * // DELETE - Permanently delete item
- * // DELETE /.netlify/functions/trash
+ * // DELETE /.netlify/functions/bin
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
@@ -142,33 +142,33 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // GET - List all trashed items (posts and pages)
+    // GET - List all binned items (posts and pages)
     if (event.httpMethod === 'GET') {
       try {
-        const files = await githubRequest(`/contents/${TRASH_DIR}?ref=${GITHUB_BRANCH}`);
+        const files = await githubRequest(`/contents/${BIN_DIR}?ref=${GITHUB_BRANCH}`);
 
         // Filter to only .md files and categorize by type
-        // Fetch content for each file to get trashed_at timestamp
+        // Fetch content for each file to get binned_at timestamp
         const trashedItemsPromises = files
           .filter(file => file.name.endsWith('.md'))
           .map(async file => {
             // Determine type: posts start with date pattern (YYYY-MM-DD), pages don't
             const isPost = /^\d{4}-\d{2}-\d{2}-/.test(file.name);
 
-            // Fetch file content to extract trashed_at timestamp
+            // Fetch file content to extract binned_at timestamp
             let trashedAt = null;
             try {
-              const fileData = await githubRequest(`/contents/${TRASH_DIR}/${file.name}?ref=${GITHUB_BRANCH}`);
+              const fileData = await githubRequest(`/contents/${BIN_DIR}/${file.name}?ref=${GITHUB_BRANCH}`);
               const content = Buffer.from(fileData.content, 'base64').toString('utf8');
               const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
               if (frontmatterMatch) {
-                const trashedAtMatch = frontmatterMatch[1].match(/trashed_at:\s*(.+)/);
+                const trashedAtMatch = frontmatterMatch[1].match(/binned_at:\s*(.+)/);
                 if (trashedAtMatch) {
                   trashedAt = trashedAtMatch[1].trim();
                 }
               }
             } catch (error) {
-              console.error(`Failed to extract trashed_at for ${file.name}:`, error);
+              console.error(`Failed to extract binned_at for ${file.name}:`, error);
             }
 
             return {
@@ -177,7 +177,7 @@ exports.handler = async (event, context) => {
               sha: file.sha,
               size: file.size,
               type: isPost ? 'post' : 'page',
-              trashed_at: trashedAt
+              binned_at: trashedAt
             };
           });
 
@@ -189,7 +189,7 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({ items: trashedItems })
         };
       } catch (error) {
-        // If _trash folder doesn't exist, return empty array
+        // If _bin folder doesn't exist, return empty array
         if (error.message.includes('404')) {
           return {
             statusCode: 200,
@@ -201,7 +201,7 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // POST - Move post or page to trash
+    // POST - Move post or page to bin
     if (event.httpMethod === 'POST') {
       if (!process.env.GITHUB_TOKEN) {
         return {
@@ -236,7 +236,7 @@ exports.handler = async (event, context) => {
       const contentBase64 = itemData.content;
       const currentSha = itemData.sha; // Use the current SHA from GitHub, not the one passed in
 
-      // Decode content to add trashed_at timestamp to frontmatter
+      // Decode content to add binned_at timestamp to frontmatter
       const content = Buffer.from(contentBase64, 'base64').toString('utf8');
       const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
       const match = content.match(frontmatterRegex);
@@ -246,8 +246,8 @@ exports.handler = async (event, context) => {
         const frontmatter = match[1];
         const body = match[2];
         const trashedAt = new Date().toISOString();
-        // Add trashed_at to frontmatter
-        const modifiedFrontmatter = `${frontmatter}\ntrashed_at: ${trashedAt}`;
+        // Add binned_at to frontmatter
+        const modifiedFrontmatter = `${frontmatter}\nbinned_at: ${trashedAt}`;
         modifiedContent = `---\n${modifiedFrontmatter}\n---\n${body}`;
       } else {
         // No frontmatter found, use original content
@@ -262,7 +262,7 @@ exports.handler = async (event, context) => {
       let finalFilename = filename;
 
       try {
-        existingTrashFile = await githubRequest(`/contents/${TRASH_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
+        existingTrashFile = await githubRequest(`/contents/${BIN_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
       } catch (error) {
         // File doesn't exist in trash, which is fine
       }
@@ -281,14 +281,14 @@ exports.handler = async (event, context) => {
         }
       }
 
-      // Create the item in _trash folder (with original or renamed filename)
+      // Create the item in _bin folder (with original or renamed filename)
       const trashBody = {
-        message: `Move ${itemType} to trash: ${finalFilename}`,
+        message: `Move ${itemType} to bin: ${finalFilename}`,
         content: modifiedContentBase64,
         branch: GITHUB_BRANCH
       };
 
-      const trashResponse = await githubRequest(`/contents/${TRASH_DIR}/${finalFilename}`, {
+      const trashResponse = await githubRequest(`/contents/${BIN_DIR}/${finalFilename}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: trashBody
@@ -299,7 +299,7 @@ exports.handler = async (event, context) => {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Remove from ${sourceDir} (moved to trash): ${filename}`,
+          message: `Remove from ${sourceDir} (moved to bin): ${filename}`,
           sha: currentSha, // Use the SHA we just fetched, not the stale one from the client
           branch: GITHUB_BRANCH
         }
@@ -310,13 +310,13 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to trash successfully`,
+          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to bin successfully`,
           commitSha: trashResponse.commit?.sha
         })
       };
     }
 
-    // PUT - Restore post or page from trash
+    // PUT - Restore post or page from bin
     if (event.httpMethod === 'PUT') {
       if (!process.env.GITHUB_TOKEN) {
         return {
@@ -377,10 +377,10 @@ exports.handler = async (event, context) => {
       }
 
       // Get trashed item content
-      const trashedData = await githubRequest(`/contents/${TRASH_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
+      const trashedData = await githubRequest(`/contents/${BIN_DIR}/${filename}?ref=${GITHUB_BRANCH}`);
       const contentBase64 = trashedData.content;
 
-      // Decode content to remove trashed_at timestamp from frontmatter
+      // Decode content to remove binned_at timestamp from frontmatter
       const content = Buffer.from(contentBase64, 'base64').toString('utf8');
       const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
       const match = content.match(frontmatterRegex);
@@ -389,10 +389,10 @@ exports.handler = async (event, context) => {
       if (match) {
         const frontmatter = match[1];
         const body = match[2];
-        // Remove trashed_at line from frontmatter
+        // Remove binned_at line from frontmatter
         const cleanedFrontmatter = frontmatter
           .split('\n')
-          .filter(line => !line.match(/^\s*trashed_at:\s*.+/))
+          .filter(line => !line.match(/^\s*binned_at:\s*.+/))
           .join('\n');
         restoredContent = `---\n${cleanedFrontmatter}\n---\n${body}`;
       } else {
@@ -408,18 +408,18 @@ exports.handler = async (event, context) => {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Restore ${itemType} from trash: ${filename}`,
+          message: `Restore ${itemType} from bin: ${filename}`,
           content: restoredContentBase64,
           branch: GITHUB_BRANCH
         }
       });
 
-      // Delete from _trash folder
-      await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      // Delete from _bin folder
+      await githubRequest(`/contents/${BIN_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Remove from trash (restored): ${filename}`,
+          message: `Remove from bin (restored): ${filename}`,
           sha: sha,
           branch: GITHUB_BRANCH
         }
@@ -436,7 +436,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // DELETE - Permanently delete item from trash
+    // DELETE - Permanently delete item from bin
     if (event.httpMethod === 'DELETE') {
       if (!process.env.GITHUB_TOKEN) {
         return {
@@ -464,8 +464,8 @@ exports.handler = async (event, context) => {
 
       const itemType = type === 'page' ? 'page' : 'post';
 
-      // Permanently delete from _trash folder
-      const deleteResponse = await githubRequest(`/contents/${TRASH_DIR}/${filename}`, {
+      // Permanently delete from _bin folder
+      const deleteResponse = await githubRequest(`/contents/${BIN_DIR}/${filename}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {

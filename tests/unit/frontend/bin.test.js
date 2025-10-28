@@ -1,20 +1,20 @@
 /**
- * Unit Tests for Trash Module
+ * Unit Tests for Bin Module
  *
  * Tests soft-deleted item management including restore and permanent deletion.
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import {
-  loadTrash,
-  renderTrashList,
+  loadBin,
+  renderBinList,
   restoreItem,
   permanentlyDeleteItem,
-  getTrashedItems
-} from '../../../admin/js/modules/trash.js';
+  getBinedItems
+} from '../../../admin/js/modules/bin.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
-describe('Trash Module', () => {
+describe('Bin Module', () => {
   let mockFetch;
   let mockShowConfirm;
   let mockTrackDeployment;
@@ -24,9 +24,9 @@ describe('Trash Module', () => {
     document.body.innerHTML = `
       <div id="error" class="hidden"><p></p></div>
       <div id="success" class="hidden"><p></p></div>
-      <div id="trash-loading" class="">Loading...</div>
-      <ul id="trash-list"></ul>
-      <div id="trash-empty" class="hidden">Bin is empty</div>
+      <div id="bin-loading" class="">Loading...</div>
+      <ul id="bin-list"></ul>
+      <div id="bin-empty" class="hidden">Bin is empty</div>
     `;
 
     // Initialize notifications
@@ -34,7 +34,7 @@ describe('Trash Module', () => {
 
     // Setup window globals
     window.API_BASE = '/.netlify/functions';
-    window.allTrashedItems = [];
+    window.allBinedItems = [];
     window.showConfirm = mockShowConfirm = vi.fn();
     window.trackDeployment = mockTrackDeployment = vi.fn();
 
@@ -47,37 +47,37 @@ describe('Trash Module', () => {
     vi.restoreAllMocks();
   });
 
-  describe('loadTrash', () => {
-    it('fetches trash items from API and updates window.allTrashedItems', async () => {
-      const mockTrash = {
+  describe('loadBin', () => {
+    it('fetches bin items from API and updates window.allBinedItems', async () => {
+      const mockBin = {
         items: [
           {
             name: 'deleted-post.md',
             sha: 'abc123',
             type: 'post',
             size: 1024,
-            trashed_at: '2025-10-20T10:00:00Z'
+            bined_at: '2025-10-20T10:00:00Z'
           },
           {
             name: 'deleted-page.md',
             sha: 'def456',
             type: 'page',
             size: 2048,
-            trashed_at: '2025-10-19T14:30:00Z'
+            bined_at: '2025-10-19T14:30:00Z'
           }
         ]
       };
 
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => mockTrash
+        json: async () => mockBin
       });
 
-      await loadTrash();
+      await loadBin();
 
-      expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/trash');
-      expect(window.allTrashedItems).toEqual(mockTrash.items);
-      expect(window.allTrashedItems.length).toBe(2);
+      expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/bin');
+      expect(window.allBinedItems).toEqual(mockBin.items);
+      expect(window.allBinedItems.length).toBe(2);
     });
 
     it('handles empty items array', async () => {
@@ -86,9 +86,9 @@ describe('Trash Module', () => {
         json: async () => ({ items: [] })
       });
 
-      await loadTrash();
+      await loadBin();
 
-      expect(window.allTrashedItems).toEqual([]);
+      expect(window.allBinedItems).toEqual([]);
     });
 
     it('handles missing items property', async () => {
@@ -97,9 +97,9 @@ describe('Trash Module', () => {
         json: async () => ({})
       });
 
-      await loadTrash();
+      await loadBin();
 
-      expect(window.allTrashedItems).toEqual([]);
+      expect(window.allBinedItems).toEqual([]);
     });
 
     it('shows error when API fetch fails', async () => {
@@ -108,7 +108,7 @@ describe('Trash Module', () => {
         status: 500
       });
 
-      await loadTrash();
+      await loadBin();
 
       const errorEl = document.getElementById('error');
       expect(errorEl.classList.contains('hidden')).toBe(false);
@@ -118,7 +118,7 @@ describe('Trash Module', () => {
     it('handles network error gracefully', async () => {
       mockFetch.mockRejectedValue(new Error('Network error'));
 
-      await loadTrash();
+      await loadBin();
 
       const errorEl = document.getElementById('error');
       expect(errorEl.classList.contains('hidden')).toBe(false);
@@ -130,10 +130,10 @@ describe('Trash Module', () => {
         json: async () => ({ items: [] })
       });
 
-      const loadingEl = document.getElementById('trash-loading');
+      const loadingEl = document.getElementById('bin-loading');
       loadingEl.classList.remove('hidden');
 
-      await loadTrash();
+      await loadBin();
 
       expect(loadingEl.classList.contains('hidden')).toBe(true);
     });
@@ -141,69 +141,69 @@ describe('Trash Module', () => {
     it('hides loading indicator even on error', async () => {
       mockFetch.mockRejectedValue(new Error('Network error'));
 
-      const loadingEl = document.getElementById('trash-loading');
+      const loadingEl = document.getElementById('bin-loading');
       loadingEl.classList.remove('hidden');
 
-      await loadTrash();
+      await loadBin();
 
       expect(loadingEl.classList.contains('hidden')).toBe(true);
     });
   });
 
-  describe('renderTrashList', () => {
+  describe('renderBinList', () => {
     beforeEach(() => {
-      window.allTrashedItems = [
+      window.allBinedItems = [
         {
           name: 'deleted-post.md',
           sha: 'abc123',
           type: 'post',
           size: 1024,
-          trashed_at: '2025-10-20T10:00:00Z'
+          bined_at: '2025-10-20T10:00:00Z'
         },
         {
           name: 'deleted-page.md',
           sha: 'def456',
           type: 'page',
           size: 2048,
-          trashed_at: '2025-10-19T14:30:00Z'
+          bined_at: '2025-10-19T14:30:00Z'
         }
       ];
     });
 
-    it('renders trash list with all items', () => {
-      renderTrashList();
+    it('renders bin list with all items', () => {
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       expect(listEl.children.length).toBe(2);
       expect(listEl.innerHTML).toContain('deleted-post.md');
       expect(listEl.innerHTML).toContain('deleted-page.md');
     });
 
-    it('shows empty state when no items in trash', () => {
-      window.allTrashedItems = [];
+    it('shows empty state when no items in bin', () => {
+      window.allBinedItems = [];
 
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
-      const emptyEl = document.getElementById('trash-empty');
+      const listEl = document.getElementById('bin-list');
+      const emptyEl = document.getElementById('bin-empty');
 
       expect(listEl.innerHTML).toBe('');
       expect(emptyEl.classList.contains('hidden')).toBe(false);
     });
 
     it('hides empty state when items exist', () => {
-      const emptyEl = document.getElementById('trash-empty');
+      const emptyEl = document.getElementById('bin-empty');
       emptyEl.classList.remove('hidden');
 
-      renderTrashList();
+      renderBinList();
 
       expect(emptyEl.classList.contains('hidden')).toBe(true);
     });
 
     it('displays correct type badges for posts and pages', () => {
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       const html = listEl.innerHTML;
 
       // Post should have blue badge
@@ -216,48 +216,48 @@ describe('Trash Module', () => {
     });
 
     it('displays file size in KB', () => {
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       expect(listEl.innerHTML).toContain('1.0 KB'); // 1024 / 1024
       expect(listEl.innerHTML).toContain('2.0 KB'); // 2048 / 1024
     });
 
-    it('formats trashed_at timestamp correctly', () => {
-      renderTrashList();
+    it('formats bined_at timestamp correctly', () => {
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       // Should contain "Deleted:" label
       expect(listEl.innerHTML).toContain('Deleted:');
     });
 
-    it('handles items without trashed_at timestamp', () => {
-      window.allTrashedItems = [{
+    it('handles items without bined_at timestamp', () => {
+      window.allBinedItems = [{
         name: 'no-timestamp.md',
         sha: 'xyz789',
         type: 'post',
         size: 512
-        // No trashed_at field
+        // No bined_at field
       }];
 
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       expect(listEl.innerHTML).toContain('no-timestamp.md');
     });
 
     it('escapes HTML in item names to prevent XSS', () => {
-      window.allTrashedItems = [{
+      window.allBinedItems = [{
         name: '<script>alert("XSS")</script>.md',
         sha: 'xss123',
         type: 'post',
         size: 1024,
-        trashed_at: '2025-10-20T10:00:00Z'
+        bined_at: '2025-10-20T10:00:00Z'
       }];
 
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
 
       // Verify the item appears in the list
       expect(listEl.children.length).toBe(1);
@@ -269,9 +269,9 @@ describe('Trash Module', () => {
     });
 
     it('renders restore button for each item', () => {
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       const html = listEl.innerHTML;
 
       expect(html).toContain('Restore');
@@ -279,9 +279,9 @@ describe('Trash Module', () => {
     });
 
     it('renders delete forever button for each item', () => {
-      renderTrashList();
+      renderBinList();
 
-      const listEl = document.getElementById('trash-list');
+      const listEl = document.getElementById('bin-list');
       const html = listEl.innerHTML;
 
       expect(html).toContain('Delete Forever');
@@ -292,11 +292,11 @@ describe('Trash Module', () => {
       const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
       // Remove DOM elements
-      document.getElementById('trash-list').remove();
+      document.getElementById('bin-list').remove();
 
-      renderTrashList();
+      renderBinList();
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith('Trash DOM elements not found');
+      expect(consoleWarnSpy).toHaveBeenCalledWith('Bin DOM elements not found');
       consoleWarnSpy.mockRestore();
     });
   });
@@ -343,14 +343,14 @@ describe('Trash Module', () => {
         json: async () => ({ success: true, commitSha: 'commit123' })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
       await restoreItem('my-post.md', 'abc123', 'post');
 
       expect(mockFetch).toHaveBeenCalledWith(
-        '/.netlify/functions/trash',
+        '/.netlify/functions/bin',
         expect.objectContaining({
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' }
@@ -371,7 +371,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true, commitSha: 'commit123' })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -390,7 +390,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -408,7 +408,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-page.md', sha: 'def456', type: 'page', size: 2048 }
       ];
 
@@ -425,15 +425,15 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 },
         { name: 'other-post.md', sha: 'xyz789', type: 'post', size: 512 }
       ];
 
       await restoreItem('my-post.md', 'abc123', 'post');
 
-      expect(window.allTrashedItems.length).toBe(1);
-      expect(window.allTrashedItems[0].name).toBe('other-post.md');
+      expect(window.allBinedItems.length).toBe(1);
+      expect(window.allBinedItems[0].name).toBe('other-post.md');
     });
 
     it('shows error when restore fails', async () => {
@@ -487,14 +487,14 @@ describe('Trash Module', () => {
         json: async () => ({ success: true, commitSha: 'commit456' })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
       expect(mockFetch).toHaveBeenCalledWith(
-        '/.netlify/functions/trash',
+        '/.netlify/functions/bin',
         expect.objectContaining({
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
@@ -515,7 +515,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true, commitSha: 'commit456' })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -534,7 +534,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -552,7 +552,7 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-page.md', sha: 'def456', type: 'page', size: 2048 }
       ];
 
@@ -569,15 +569,15 @@ describe('Trash Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 },
         { name: 'other-post.md', sha: 'xyz789', type: 'post', size: 512 }
       ];
 
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
-      expect(window.allTrashedItems.length).toBe(1);
-      expect(window.allTrashedItems[0].name).toBe('other-post.md');
+      expect(window.allBinedItems.length).toBe(1);
+      expect(window.allBinedItems[0].name).toBe('other-post.md');
     });
 
     it('shows error when deletion fails', async () => {
@@ -605,56 +605,56 @@ describe('Trash Module', () => {
     });
   });
 
-  describe('getTrashedItems', () => {
-    it('returns current trashed items array', () => {
+  describe('getBinedItems', () => {
+    it('returns current bined items array', () => {
       const mockItems = [
         { name: 'item1.md', sha: 'abc', type: 'post', size: 1024 },
         { name: 'item2.md', sha: 'def', type: 'page', size: 2048 }
       ];
 
-      window.allTrashedItems = mockItems;
+      window.allBinedItems = mockItems;
 
-      const items = getTrashedItems();
+      const items = getBinedItems();
 
       expect(items).toEqual(mockItems);
       expect(items.length).toBe(2);
     });
 
     it('returns empty array when no items', () => {
-      window.allTrashedItems = [];
+      window.allBinedItems = [];
 
-      const items = getTrashedItems();
+      const items = getBinedItems();
 
       expect(items).toEqual([]);
     });
 
-    it('returns empty array when allTrashedItems is undefined', () => {
-      window.allTrashedItems = undefined;
+    it('returns empty array when allBinedItems is undefined', () => {
+      window.allBinedItems = undefined;
 
-      const items = getTrashedItems();
+      const items = getBinedItems();
 
       expect(items).toEqual([]);
     });
   });
 
-  describe('Integration - Complete Trash Workflow', () => {
+  describe('Integration - Complete Bin Workflow', () => {
     it('can load, display, and restore items', async () => {
-      // Load trash
+      // Load bin
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
           items: [
-            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, trashed_at: '2025-10-20T10:00:00Z' }
+            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, bined_at: '2025-10-20T10:00:00Z' }
           ]
         })
       });
 
-      await loadTrash();
-      expect(window.allTrashedItems.length).toBe(1);
+      await loadBin();
+      expect(window.allBinedItems.length).toBe(1);
 
       // Render list
-      renderTrashList();
-      const listEl = document.getElementById('trash-list');
+      renderBinList();
+      const listEl = document.getElementById('bin-list');
       expect(listEl.children.length).toBe(1);
 
       // Restore item
@@ -666,23 +666,23 @@ describe('Trash Module', () => {
 
       await restoreItem('deleted-post.md', 'abc123', 'post');
 
-      expect(window.allTrashedItems.length).toBe(0);
+      expect(window.allBinedItems.length).toBe(0);
       expect(mockTrackDeployment).toHaveBeenCalled();
     });
 
     it('can load, display, and permanently delete items', async () => {
-      // Load trash
+      // Load bin
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
           items: [
-            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, trashed_at: '2025-10-20T10:00:00Z' }
+            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, bined_at: '2025-10-20T10:00:00Z' }
           ]
         })
       });
 
-      await loadTrash();
-      expect(window.allTrashedItems.length).toBe(1);
+      await loadBin();
+      expect(window.allBinedItems.length).toBe(1);
 
       // Permanently delete item
       mockShowConfirm.mockResolvedValue(true);
@@ -693,24 +693,24 @@ describe('Trash Module', () => {
 
       await permanentlyDeleteItem('deleted-post.md', 'abc123', 'post');
 
-      expect(window.allTrashedItems.length).toBe(0);
+      expect(window.allBinedItems.length).toBe(0);
       expect(mockTrackDeployment).toHaveBeenCalled();
     });
 
     it('handles cancelled operations gracefully', async () => {
-      window.allTrashedItems = [
+      window.allBinedItems = [
         { name: 'item.md', sha: 'abc', type: 'post', size: 1024 }
       ];
 
       // User cancels restore
       mockShowConfirm.mockResolvedValue(false);
       await restoreItem('item.md', 'abc', 'post');
-      expect(window.allTrashedItems.length).toBe(1); // Still there
+      expect(window.allBinedItems.length).toBe(1); // Still there
 
       // User cancels delete
       mockShowConfirm.mockResolvedValue(false);
       await permanentlyDeleteItem('item.md', 'abc', 'post');
-      expect(window.allTrashedItems.length).toBe(1); // Still there
+      expect(window.allBinedItems.length).toBe(1); // Still there
     });
   });
 });
