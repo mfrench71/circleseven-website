@@ -240,7 +240,7 @@ export function showDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
 
   if (header) {
-    header.classList.remove('hidden');
+    header.classList.remove('d-none');
     updateDeploymentBanner();
   } else {
     console.error('deployment-status-header element not found in DOM!');
@@ -295,11 +295,11 @@ export function showDeploymentCompletion(success = true, completedDeployments = 
 
   if (!header) return;
 
-  // Update banner styling
+  // Update banner styling (Bootstrap classes)
   if (success) {
-    header.className = 'bg-gradient-to-r from-green-500 to-green-600 text-white';
+    header.className = 'bg-success text-white';
   } else {
-    header.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white';
+    header.className = 'bg-danger text-white';
   }
 
   // Update icon
@@ -364,9 +364,9 @@ export function hideDeploymentBanner() {
   const timeEl = document.getElementById('deployment-status-time');
 
   if (header) {
-    header.classList.add('hidden');
-    // Reset to default styling
-    header.className = 'hidden bg-gradient-to-r from-teal-500 to-teal-600 text-white animate-gradient-pulse';
+    header.classList.add('d-none');
+    // Reset to default styling (Bootstrap classes)
+    header.className = 'd-none bg-primary text-white';
 
     // Reset icon
     const iconEl = header.querySelector('i');
