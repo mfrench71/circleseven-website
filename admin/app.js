@@ -1506,18 +1506,19 @@ async function updateDashboardDeployments() {
     let statusIcon, statusColor, statusText, rowClass;
 
     if (deployment.isActive) {
-      // Active deployments - highlight with info background
-      rowClass = 'table-info';
-
+      // Active deployments - use status-specific background colors
       if (deployment.status === 'in_progress') {
+        rowClass = 'table-primary';
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-primary';
         statusText = 'Deploying';
       } else if (deployment.status === 'queued') {
+        rowClass = 'table-warning';
         statusIcon = 'fa-clock';
         statusColor = 'text-warning';
         statusText = 'Queued';
       } else {
+        rowClass = 'table-secondary';
         statusIcon = 'fa-hourglass-half';
         statusColor = 'text-secondary';
         statusText = 'Pending';
