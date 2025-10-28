@@ -200,9 +200,12 @@ export async function restoreItem(filename, sha, type) {
     // Re-render bin list immediately
     renderBinList();
 
-    // Note: We don't reload posts/pages here to avoid the delay
-    // The deployment tracking header shows progress
-    // Posts/pages will refresh when user switches sections
+    // Reload the appropriate list to show the restored item
+    if (type === 'page' && typeof window.loadPages === 'function') {
+      await window.loadPages();
+    } else if (type === 'post' && typeof window.loadPosts === 'function') {
+      await window.loadPosts();
+    }
   } catch (error) {
     showError(`Failed to restore ${itemType}: ` + error.message);
   }
