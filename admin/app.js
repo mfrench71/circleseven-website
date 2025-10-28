@@ -34,7 +34,7 @@
  * - Sortable.js (drag-and-drop)
  * - EasyMDE (markdown editing)
  * - Cloudinary Media Library (image management)
- * - Tailwind CSS (styling)
+ * - Bootstrap 5 (styling)
  * - FontAwesome (icons)
  *
  * @module admin/app
@@ -71,6 +71,7 @@ const DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000; // 30 seconds
 const DEFAULT_DEPLOYMENT_TIMEOUT = 600; // 10 minutes in seconds
 const DEFAULT_FETCH_TIMEOUT = 30000; // 30 seconds
 const DEFAULT_DEBOUNCE_DELAY = 300; // milliseconds
+const MAX_DEPLOYMENT_HISTORY = 50; // Maximum deployments to keep in localStorage
 
 /**
  * Loads admin settings from localStorage and applies them to global constants
@@ -248,9 +249,8 @@ function cleanupResources() {
     taxonomyAutocompleteCleanup.tags = null;
   }
 
-  // Clean up markdown editors
-  cleanupMarkdownEditor();
-  cleanupPageMarkdownEditor();
+  // Note: Markdown editor cleanup is handled by individual edit pages
+  // via their own 'unload' event listeners. Edit pages don't load app.js.
 }
 
 /**
@@ -359,86 +359,12 @@ function cacheDOMElements() {
   DOM.sectionSettings = document.getElementById('section-settings');
 }
 
-/**
- * Initializes Bootstrap-style accordion behavior for settings sections
- *
- * Sets up click handlers to ensure only one accordion section is open at a time.
- * When a section is clicked, all other sections close automatically.
- * Scrolls the accordion content to the top of the viewport when opened.
- */
-function initSettingsAccordion() {
-  const accordion = document.getElementById('settings-accordion');
-  if (!accordion) return;
-
-  const accordionItems = accordion.querySelectorAll('.settings-accordion-item');
-
-  accordionItems.forEach(item => {
-    const summary = item.querySelector('summary');
-    if (!summary) return;
-
-    summary.addEventListener('click', (event) => {
-      const isCurrentlyOpen = item.hasAttribute('open');
-
-      // If clicking on a closed item, close all other items first
-      if (!isCurrentlyOpen) {
-        accordionItems.forEach(otherItem => {
-          if (otherItem !== item && otherItem.hasAttribute('open')) {
-            otherItem.removeAttribute('open');
-          }
-        });
-      }
-    });
-
-    // Scroll to top when accordion opens
-    item.addEventListener('toggle', (event) => {
-      if (event.target.open) {
-        // Use a small delay to ensure the accordion has finished opening
-        setTimeout(() => {
-          event.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
-    });
-  });
-}
-
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
   // All admin pages now use standalone initialization via ES6 modules
   // app.js only needs to load admin settings for all pages
   // Individual pages handle their own auth, routing, and initialization
   loadAndApplyAdminSettings();
-
-  // Note: The code below is legacy SPA code kept for reference but no longer executed
-  // All admin pages (including dashboard) use initStandalonePage() from standalone-init.js
-  return;
-
-  // === LEGACY SPA CODE BELOW (NO LONGER EXECUTED) ===
-  // This code is kept for reference during transition period
-  // It will be removed once all pages are confirmed working
-
-  const path = window.location.pathname;
-  const isStandalonePage = path.match(/^\/admin\/(posts|pages|media|bin|settings|categories|tags|trash|taxonomy)(\/|$)/);
-
-  if (isStandalonePage) {
-    loadAndApplyAdminSettings();
-    return;
-  }
-
-  // Dashboard SPA initialization
-  cacheDOMElements();
-  initAuth();
-  handleRouteChange();
-  setupUnsavedChangesWarning();
-  registerServiceWorker();
-
-  // Initialize settings accordion behavior
-  initSettingsAccordion();
-
-  loadAndApplyAdminSettings();
-
-  restoreActiveDeployments();
-  startDeploymentPolling();
-  startDeploymentHistoryPolling();
 });
 
 /**
@@ -596,13 +522,7 @@ function showMainApp(authenticatedUser) {
   updateRateLimit();
 }
 
-// ===== TAXONOMY - Now using ES6 module (js/modules/taxonomy.js) =====
-// Functions: loadTaxonomy(), switchTaxonomyTab(), renderCategories(), renderTags(),
-//            showAddCategoryModal(), addCategory(), editCategory(), deleteCategory(),
-//            showAddTagModal(), addTag(), editTag(), deleteTag(), saveTaxonomy()
-// Helpers: isItemDirty(), markDirty(), updateSaveButton()
-// State variables kept here: categories, tags, lastSavedState, isDirty, sortableInstances
-// The module is imported and exposed to window in index.html
+// Taxonomy functions moved to js/modules/taxonomy.js
 
 /**
  * Escapes HTML special characters to prevent XSS attacks
@@ -992,17 +912,7 @@ window.addEventListener('popstate', (e) => {
   handleRouteChange();
 });
 
-// Load settings from API
-/**
- * Loads site settings from the backend
- *
- * Fetches settings from the API and populates form fields with the values.
- *
- * @throws {Error} If settings load fails
- */
-// ===== SETTINGS - Now using ES6 module (js/modules/settings.js) =====
-// Functions: loadSettings(), saveSettings()
-// The module is imported and exposed to window in index.html
+// Settings functions moved to js/modules/settings.js
 
 // Update last updated time on dashboard
 /**
@@ -1112,7 +1022,7 @@ async function updateRateLimit() {
 
         <!-- Refresh button -->
         <div class="text-center pt-2">
-          <button onclick="updateRateLimit()" class="text-sm text-teal-600 hover:text-teal-700 font-medium inline-flex items-center gap-1">
+          <button onclick="updateRateLimit()" class="btn btn-link text-primary small fw-medium d-inline-flex align-items-center gap-1">
             <i class="fas fa-sync-alt"></i>
             Refresh
           </button>
@@ -1133,43 +1043,17 @@ async function updateRateLimit() {
   }
 }
 
-// ===== POSTS MANAGEMENT - Now using ES6 module (js/modules/posts.js) =====
-// Functions: loadPosts(), renderPostsList(), sortPostsList(), toggleCategories(), updatePagination(),
-//            changePage(), sortPosts(), filterPosts(), debouncedFilterPosts, formatDateShort(),
-//            initMarkdownEditor(), cleanupMarkdownEditor(), markPostDirty(), clearPostDirty(),
-//            editPost(), showNewPostForm(), setupPostFormChangeListeners(), showPostsList(), savePost(),
-//            deletePost(), deletePostFromList(), generateFilename(), formatDateForInput(),
-//            populateTaxonomySelects(), initTaxonomyAutocomplete(), addTaxonomyItem(), removeTaxonomyItem(),
-//            renderSelectedTaxonomy(), setMultiSelect(), getMultiSelectValues(), initCloudinaryWidget(),
-//            selectFeaturedImage(), updateImagePreview(), openImageModal(), closeImageModal(), handleImageModalEscape()
-// State variables kept here: allPosts, allPostsWithMetadata, currentPost, currentPage, postsPerPage,
-//                            markdownEditor, postHasUnsavedChanges, selectedCategories, selectedTags
-// The module is imported and exposed to window in index.html
-
+// Posts management moved to js/modules/posts.js
 let allPosts = [];
 let allPostsWithMetadata = [];
 let currentPost = null;
-// currentPage and postsPerPage are now defined on window object (see lines 96-97)
-let markdownEditor = null; // EasyMDE instance
-let postHasUnsavedChanges = false; // Track unsaved changes in post editor
-let settingsHasUnsavedChanges = false; // Track unsaved changes in settings
-
-// Selected taxonomy items state
+let markdownEditor = null;
+let postHasUnsavedChanges = false;
+let settingsHasUnsavedChanges = false;
 let selectedCategories = [];
 let selectedTags = [];
 
-// ===== ALL POSTS FUNCTIONS MOVED TO MODULE =====
-// All post management functions have been fully modularized in:
-//   /admin/js/modules/posts.js
-// The module is imported and exposed to window in index.html
-// Functions are accessed via window.loadPosts(), window.editPost(), etc.
-
-// ===== TRASH MANAGEMENT - Now using ES6 module (js/modules/trash.js) =====
-// Functions: loadTrash(), renderTrashList(), restoreItemWithTracking(), permanentlyDeleteItem()
-// State variables kept here: allTrashedItems
-// The module is imported and exposed to window in index.html
-
-// Keep allTrashedItems as global state for switchSection to check
+// Trash management moved to js/modules/trash.js
 let allTrashedItems = [];
 
 
@@ -1227,44 +1111,16 @@ switchSection = async function(sectionName, updateUrl = true) {
 // Update window reference to the new switchSection
 window.switchSection = switchSection;
 
-// ===== MEDIA LIBRARY MANAGEMENT - Now using ES6 module (js/modules/media.js) =====
-// Functions: loadMedia(), renderMediaGrid(), updateMediaPagination(), changeMediaPage(),
-//            filterMedia(), debouncedFilterMedia, copyMediaUrl(), viewMediaFull(), openCloudinaryUpload()
-// Helper: isRecentUpload()
-// State variables kept here: allMedia, currentMediaPage, mediaPerPage, cloudinaryUploadWidget
-// The module is imported and exposed to window in index.html
+// Media library management moved to js/modules/media.js
 
-// ===== PAGES MANAGEMENT - Now using ES6 module (js/modules/pages.js) =====
-// Functions: loadPages(), renderPagesList(), filterPages(), debouncedFilterPages,
-//            initPageMarkdownEditor(), cleanupPageMarkdownEditor(), markPageDirty(), clearPageDirty(),
-//            slugifyPermalink(), autoPopulatePermalink(), editPage(), showNewPageForm(),
-//            setupPageFormChangeListeners(), showPagesList(), savePage(), deletePage(),
-//            deletePageFromList(), generatePageFilename()
-// State variables kept here: allPages, currentPage_pages, pageMarkdownEditor, pageHasUnsavedChanges, permalinkManuallyEdited
-// The module is imported and exposed to window in index.html
-
+// Pages management moved to js/modules/pages.js
 let allPages = [];
-let currentPage_pages = null; // Note: Different from currentPage (posts pagination)
-let pageMarkdownEditor = null; // Separate markdown editor for pages
-let pageHasUnsavedChanges = false; // Track unsaved changes in page editor
-let permalinkManuallyEdited = false; // Track if permalink was manually edited
+let currentPage_pages = null;
+let pageMarkdownEditor = null;
+let pageHasUnsavedChanges = false;
+let permalinkManuallyEdited = false;
 
-// ===== ALL PAGES FUNCTIONS MOVED TO MODULE =====
-// All page management functions have been fully modularized in:
-//   /admin/js/modules/pages.js
-// The module is imported and exposed to window in index.html
-// Functions are accessed via window.loadPages(), window.editPage(), etc.
-
-// ===== DEPLOYMENT STATUS TRACKING - Now using ES6 module (js/modules/deployments.js) =====
-// Functions: loadDeploymentHistory(), fetchRecentDeploymentsFromGitHub(), getDeploymentHistory(),
-//            saveDeploymentHistory(history), addToDeploymentHistory(deployment), restoreActiveDeployments(),
-//            trackDeployment(commitSha, action, itemId = null), showDeploymentBanner(), updateDeploymentBanner(),
-//            showDeploymentCompletion(success = true, completedDeployments = []), hideDeploymentBanner(),
-//            updateDashboardDeployments(), getRelativeTime(date), startDeploymentHistoryPolling(),
-//            stopDeploymentHistoryPolling(), startDeploymentPolling()
-// State variables kept here: activeDeployments, deploymentPollInterval, historyPollInterval
-// Constants kept here: DEPLOYMENT_STATUS_POLL_INTERVAL, DEPLOYMENT_HISTORY_POLL_INTERVAL, DEPLOYMENT_TIMEOUT
-// The module is imported and exposed to window in index.html
+// Deployment tracking (legacy functions kept for backward compatibility)
 
 // Load deployment history from localStorage
 /**
