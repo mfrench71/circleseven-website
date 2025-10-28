@@ -782,12 +782,12 @@ function toggleSubmenu(menuName) {
   const chevron = document.getElementById(`${menuName}-chevron`);
 
   if (submenu) {
-    submenu.classList.toggle('hidden');
+    submenu.classList.toggle('d-none');
   }
 
   if (chevron) {
     // Rotate chevron when submenu is open
-    const isOpen = submenu && !submenu.classList.contains('hidden');
+    const isOpen = submenu && !submenu.classList.contains('d-none');
     chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
   }
 }
@@ -849,12 +849,12 @@ async function switchSection(sectionName, updateUrl = true) {
 
   // Update section panels
   document.querySelectorAll('.section-panel').forEach(panel => {
-    panel.classList.add('hidden');
+    panel.classList.add('d-none');
   });
 
   const sectionEl = document.getElementById(`section-${sectionName}`);
   if (sectionEl) {
-    sectionEl.classList.remove('hidden');
+    sectionEl.classList.remove('d-none');
   }
 
   // Load data for the section if needed
@@ -887,8 +887,8 @@ async function switchSection(sectionName, updateUrl = true) {
     updateDashboardDeployments();
   } else if (sectionName === 'pages') {
     // Show pages list view (hide editor if it's open)
-    document.getElementById('pages-editor-view').classList.add('hidden');
-    document.getElementById('pages-list-view').classList.remove('hidden');
+    document.getElementById('pages-editor-view').classList.add('d-none');
+    document.getElementById('pages-list-view').classList.remove('d-none');
     currentPage_pages = null;
     clearPageDirty();
     // Load pages if not already loaded
@@ -897,8 +897,8 @@ async function switchSection(sectionName, updateUrl = true) {
     }
   } else if (sectionName === 'posts') {
     // Show posts list view (hide editor if it's open)
-    document.getElementById('posts-editor-view').classList.add('hidden');
-    document.getElementById('posts-list-view').classList.remove('hidden');
+    document.getElementById('posts-editor-view').classList.add('d-none');
+    document.getElementById('posts-list-view').classList.remove('d-none');
     currentPost = null;
     clearPostDirty();
     // Load posts if not already loaded
@@ -1184,8 +1184,8 @@ switchSection = async function(sectionName, updateUrl = true) {
   } else if (sectionName === 'posts') {
     // Always show the posts list when switching to Posts section
     // Show list view, hide editor view
-    document.getElementById('posts-list-view').classList.remove('hidden');
-    document.getElementById('posts-editor-view').classList.add('hidden');
+    document.getElementById('posts-list-view').classList.remove('d-none');
+    document.getElementById('posts-editor-view').classList.add('d-none');
     currentPost = null;
     clearPostDirty();
 
@@ -1208,8 +1208,8 @@ switchSection = async function(sectionName, updateUrl = true) {
   } else if (sectionName === 'pages') {
     // Always show the pages list when switching to Pages section
     // Show list view, hide editor view
-    document.getElementById('pages-list-view').classList.remove('hidden');
-    document.getElementById('pages-editor-view').classList.add('hidden');
+    document.getElementById('pages-list-view').classList.remove('d-none');
+    document.getElementById('pages-editor-view').classList.add('d-none');
     currentPage_pages = null;
     clearPageDirty();
 
@@ -1463,7 +1463,7 @@ function showDeploymentBanner() {
   const header = document.getElementById('deployment-status-header');
 
   if (header) {
-    header.classList.remove('hidden');
+    header.classList.remove('d-none');
     updateDeploymentBanner();
   } else {
     console.error('deployment-status-header element not found in DOM!');
@@ -1520,11 +1520,11 @@ function showDeploymentCompletion(success = true, completedDeployments = []) {
 
   if (!header) return;
 
-  // Update banner styling
+  // Update banner styling (Bootstrap classes)
   if (success) {
-    header.className = 'bg-gradient-to-r from-green-500 to-green-600 text-white';
+    header.className = 'bg-success text-white';
   } else {
-    header.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white';
+    header.className = 'bg-danger text-white';
   }
 
   // Update icon
@@ -1564,9 +1564,9 @@ function hideDeploymentBanner() {
   const timeEl = document.getElementById('deployment-status-time');
 
   if (header) {
-    header.classList.add('hidden');
-    // Reset to default styling
-    header.className = 'hidden bg-gradient-to-r from-teal-500 to-teal-600 text-white animate-gradient-pulse';
+    header.classList.add('d-none');
+    // Reset to default styling (Bootstrap classes)
+    header.className = 'd-none bg-primary text-white';
 
     // Reset icon
     const iconEl = header.querySelector('i');
