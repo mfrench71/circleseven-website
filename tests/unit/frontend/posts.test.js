@@ -19,8 +19,8 @@ import {
   deletePost,
   editPost,
   showNewPostForm
-} from '../../../admin-custom/js/modules/posts.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/posts.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 // Mock Cloudinary
 global.cloudinary = {

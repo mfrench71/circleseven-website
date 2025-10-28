@@ -11,8 +11,8 @@ import {
   filterChooserMedia,
   selectChooserImage,
   closeImageChooser
-} from '../../../admin-custom/js/modules/image-chooser.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/image-chooser.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Image Chooser Module', () => {
   let mockFetch;

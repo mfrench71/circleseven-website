@@ -18,8 +18,8 @@ import {
   editTag,
   deleteTag,
   saveTaxonomy
-} from '../../../admin-custom/js/modules/taxonomy.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/taxonomy.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Taxonomy Module', () => {
   let mockFetch;

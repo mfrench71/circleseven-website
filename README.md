@@ -30,8 +30,8 @@ Modern, performant static site built on free, enterprise-grade services:
 | **[Cloudflare](https://cloudflare.com)** | DNS & Email Routing | Free |
 | **[Cloudinary](https://cloudinary.com)** | Image CDN & Optimization | Free (25GB storage) |
 | **[GitHub](https://github.com)** | Source Control & CI/CD | Free |
-| **[Decap CMS](https://decapcms.org)** | Content Management | Free |
-| **Custom Admin** | Advanced CMS (Jekyll-native) | Free |
+| **[Decap CMS](https://decapcms.org)** | Content Management (Alternative) | Free |
+| **Custom Admin** | Advanced Multi-Page CMS (Jekyll-native) | Free |
 
 ### Architecture Flow
 
@@ -123,17 +123,30 @@ circleseven-website/
 │       └── lazy-cards.js    # Lazy loading for post cards
 ├── category/                # Category landing pages (22 pages)
 ├── tag/                     # Tag landing pages
-├── admin/                   # Decap CMS admin interface
+├── admin/                   # Custom Admin CMS (GitHub-powered, multi-page)
+│   ├── index.html           # Dashboard (main entry point)
+│   ├── posts/index.html     # Posts management page
+│   ├── pages/index.html     # Pages management page
+│   ├── media/index.html     # Media library page
+│   ├── categories/index.html# Categories management page
+│   ├── tags/index.html      # Tags management page
+│   ├── bin/index.html       # Bin (soft-deleted items) page
+│   ├── settings/index.html  # Settings editor page
+│   ├── js/                  # ES6 modules (110 functions across 10 modules)
+│   │   ├── standalone-init.js    # Auth helper for standalone pages
+│   │   ├── components/           # Shared header and sidebar
+│   │   ├── core/                 # Utilities (debounce, escapeHtml, etc.)
+│   │   ├── ui/                   # Notifications system
+│   │   └── modules/              # Feature modules (posts, pages, media, etc.)
+│   ├── app.js               # Legacy dashboard logic (fully documented)
+│   ├── styles.css           # Shared styles (Tailwind-inspired utilities)
+│   ├── sw.js                # Service Worker for offline capability
+│   └── README.md            # Custom Admin documentation
+├── admin-decap/             # Decap CMS (alternative, visual editor)
 │   ├── index.html           # CMS entry point
 │   ├── config.yml           # CMS configuration
 │   ├── cms.js               # Custom editor components
 │   └── README.md            # CMS documentation
-├── admin-custom/            # Custom Admin CMS (GitHub-powered)
-│   ├── index.html           # Admin interface
-│   ├── app.js               # Application logic (with JSDoc)
-│   ├── styles.css           # WordPress-style UI
-│   ├── sw.js                # Service Worker for offline capability
-│   └── README.md            # Custom Admin documentation
 ├── netlify/functions/       # Serverless API endpoints
 │   ├── taxonomy.js          # Categories and tags CRUD
 │   ├── posts.js             # Blog posts management
@@ -219,35 +232,40 @@ The site offers two CMS options:
 
 ### Custom Admin (Recommended) ⭐
 
-A GitHub-powered, WordPress-style CMS built specifically for Jekyll with advanced features:
+A GitHub-powered, WordPress-style CMS built specifically for Jekyll with a modern multi-page architecture:
 
-**Access:** [https://circleseven.co.uk/admin-custom/](https://circleseven.co.uk/admin-custom/)
+**Access:** [https://circleseven.co.uk/admin/](https://circleseven.co.uk/admin/)
 
 #### Features
 
+- **Multi-Page Architecture** - Standalone pages for each section with shared header and sidebar
 - **Dashboard** - Quick actions, site stats, and recent deployment history
-- **Posts Management** - Create, edit, delete with markdown editor and real-time preview
-- **Pages Management** - Manage static pages with protected page support
-- **Media Library** - Browse, upload, search Cloudinary images with pagination
-- **Taxonomy Manager** - Drag-and-drop reordering of categories and tags
-- **Settings Editor** - Modify `_config.yml` through intuitive interface
-- **Trash System** - Soft delete with restore capability for posts and pages
-- **Deployment Tracking** - Real-time GitHub Actions workflow monitoring
+- **Posts Management** (`/admin/posts/`) - Create, edit, delete with markdown editor and real-time preview
+- **Pages Management** (`/admin/pages/`) - Manage static pages with auto-generated permalinks and protected page support
+- **Media Library** (`/admin/media/`) - Browse, upload, search Cloudinary images with pagination (20 per page)
+- **Categories** (`/admin/categories/`) - Drag-and-drop reordering of post categories
+- **Tags** (`/admin/tags/`) - Drag-and-drop reordering of post tags
+- **Settings Editor** (`/admin/settings/`) - Modify `_config.yml` through intuitive interface
+- **Bin System** (`/admin/bin/`) - Soft delete with restore capability for posts and pages
+- **Deployment Tracking** - Real-time GitHub Actions workflow monitoring with live status banners
+- **Protected Pages** - Lock indicator for system pages that cannot be deleted
+- **ES6 Modules** - Clean, modular architecture with 110 functions across 10 modules + 2 components
 - **WordPress-style UX** - Autocomplete taxonomy, collapsible categories, hover actions
 - **Offline Capable** - Service Worker caching for faster repeat visits
 - **Mobile Responsive** - Works on all devices
 
 #### Quick Start
 
-1. Navigate to `/admin-custom/`
+1. Navigate to `/admin/`
 2. Click "Log In" and authenticate with Netlify Identity
-3. Select a section from the navigation:
+3. Select a section from the sidebar:
    - **Dashboard** - Overview and quick actions
-   - **Taxonomy** - Manage categories and tags
    - **Posts** - Create and edit blog posts
    - **Pages** - Manage static pages
-   - **Media Library** - Browse and upload images
-   - **Trash** - Restore deleted items
+   - **Media** - Browse and upload images
+   - **Categories** - Manage post categories
+   - **Tags** - Manage post tags
+   - **Bin** - Restore deleted items
    - **Settings** - Edit site configuration
 
 #### Creating Posts
@@ -279,14 +297,16 @@ The Media Library requires this environment variable in Netlify:
 
 #### Architecture
 
-- **Frontend:** Single Page App with hash-based routing
-- **Backend:** Netlify Functions (serverless API)
+- **Frontend:** Multi-page standalone architecture with shared components
+- **Backend:** Netlify Functions (serverless API endpoints)
 - **Storage:** GitHub (all content in version control)
 - **Images:** Cloudinary (CDN with automatic optimization)
-- **Auth:** Netlify Identity (secure, managed authentication)
-- **Deployment:** GitHub Actions (automatic on commit)
+- **Auth:** Netlify Identity with TEST_MODE support for E2E testing
+- **Deployment:** GitHub Actions with real-time status tracking
+- **Modules:** 110 functions across 10 ES6 modules + 2 shared components
+- **Pattern:** Each page uses `standalone-init.js` for authentication, `initHeader()` and `initSidebar()` for shared UI
 
-See `admin-custom/README.md` for detailed documentation.
+See `admin/README.md` and `admin/js/README.md` for detailed documentation.
 
 ---
 
@@ -294,7 +314,7 @@ See `admin-custom/README.md` for detailed documentation.
 
 Original CMS interface with visual editing:
 
-**Access:** [https://circleseven.co.uk/admin/](https://circleseven.co.uk/admin/)
+**Access:** [https://circleseven.co.uk/admin-decap/](https://circleseven.co.uk/admin-decap/)
 
 1. Authenticate with Netlify Identity
 2. Create/edit posts visually with rich editor
@@ -562,8 +582,9 @@ CLOUDINARY_API_SECRET=your_api_secret
 ## Documentation
 
 ### CMS Documentation
-- `admin-custom/README.md` - **Custom Admin** setup and usage guide
-- `admin/README.md` - Decap CMS setup and usage
+- `admin/README.md` - **Custom Admin** setup and usage guide
+- `admin/js/README.md` - ES6 modules architecture documentation (110 functions)
+- `admin-decap/README.md` - Decap CMS setup and usage
 
 ### Technical Documentation
 - `docs/EMAIL_MIGRATION_CLOUDFLARE.md` - Email configuration guide
@@ -575,7 +596,8 @@ CLOUDINARY_API_SECRET=your_api_secret
 All Netlify Functions and frontend JavaScript files include comprehensive JSDoc documentation:
 - `netlify/functions/*.js` - Serverless API endpoints with full JSDoc annotations
 - `assets/js/*.js` - Frontend JavaScript with JSDoc documentation
-- `admin-custom/app.js` - 4,500+ lines fully documented (123 functions)
+- `admin/app.js` - Dashboard logic (fully documented)
+- `admin/js/modules/*.js` - 110 functions across 10 ES6 modules with full JSDoc
 
 ## Contributing
 

@@ -1,26 +1,26 @@
 /**
- * Comprehensive E2E Tests for Admin Custom Interface
+ * Comprehensive E2E Tests for Custom Admin Interface
  *
- * Tests complete workflows including:
+ * Tests complete workflows for multi-page admin architecture including:
  * - Posts CRUD operations
  * - Pages CRUD operations (including protected pages feature)
- * - Taxonomy management (categories and tags)
+ * - Category and tag management
  * - Media library
- * - Trash operations
+ * - Bin operations
  * - Settings management
  * - Deployment status and history
  * - Notifications
  * - Search and filtering
  *
  * @requires Playwright
- * @note These tests require Netlify Dev to be running with GitHub API access
+ * @note Tests now work with multi-page standalone architecture
  */
 
 import { test, expect } from '@playwright/test';
 import { mockPosts, mockPages, mockTaxonomy, mockDeploymentStatus, mockDeploymentHistory, mockRateLimit, mockTrashItems, mockSettings, mockMedia } from '../fixtures/mock-data.js';
 
-// Enable test mode and mock API responses for all admin tests
-test.beforeEach(async ({ page }) => {
+// Helper to setup API mocks for all tests
+async function setupApiMocks(page) {
   // Enable test mode (bypass authentication)
   await page.addInitScript(() => {
     localStorage.setItem('TEST_MODE', 'true');
@@ -79,19 +79,12 @@ test.beforeEach(async ({ page }) => {
   await page.route('**/.netlify/functions/media*', async (route) => {
     await route.fulfill({ status: 200, body: JSON.stringify(mockMedia) });
   });
-});
-
-// Helper function to wait for section to be visible
-async function navigateToSection(page, sectionId) {
-  await page.click(`#nav-${sectionId}`);
-  await expect(page.locator(`#section-${sectionId}`)).toBeVisible();
-  // Wait for any async loading
-  await page.waitForTimeout(500);
 }
 
 test.describe('Admin - Dashboard', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
+    await setupApiMocks(page);
+    await page.goto('/admin/');
   });
 
   test('dashboard loads with quick actions', async ({ page }) => {
@@ -101,8 +94,8 @@ test.describe('Admin - Dashboard', () => {
     const managePostsLink = page.locator('a:has-text("Manage Posts")');
     await expect(managePostsLink).toBeVisible();
 
-    const manageTaxonomyLink = page.locator('a:has-text("Manage Taxonomy")');
-    await expect(manageTaxonomyLink).toBeVisible();
+    const manageCategoriesLink = page.locator('a:has-text("Manage Categories")');
+    await expect(manageCategoriesLink).toBeVisible();
   });
 
   test('dashboard shows site information', async ({ page }) => {
@@ -115,21 +108,22 @@ test.describe('Admin - Dashboard', () => {
     await expect(siteUrl).toBeVisible();
   });
 
-  test('quick action buttons navigate correctly', async ({ page }) => {
+  test('quick action links navigate correctly', async ({ page }) => {
     // Click "Manage Posts" quick action
     const managePostsLink = page.locator('a:has-text("Manage Posts")');
     await managePostsLink.click();
 
-    // Should navigate to posts section
+    // Should navigate to posts page
+    await page.waitForURL('**/admin/posts/');
     await expect(page.locator('#section-posts')).toBeVisible();
-    await expect(page.locator('#posts-table-body')).toBeVisible();
   });
 });
 
 test.describe('Admin - Posts Management', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'posts');
+    await setupApiMocks(page);
+    await page.goto('/admin/posts/');
+    await page.waitForLoadState('networkidle');
   });
 
   test('posts list loads', async ({ page }) => {
@@ -143,7 +137,7 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('new post button shows form', async ({ page }) => {
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     // Editor view should be visible
@@ -157,7 +151,7 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('cancel button hides post form', async ({ page }) => {
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     await expect(page.locator('#posts-editor-view')).toBeVisible();
@@ -172,7 +166,7 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('post form validates required fields', async ({ page }) => {
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     // Title field should be required
@@ -197,7 +191,7 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('categories and tags autocomplete fields are present', async ({ page }) => {
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     // Categories input should be present
@@ -210,7 +204,7 @@ test.describe('Admin - Posts Management', () => {
   });
 
   test('EasyMDE editor initializes for content field', async ({ page }) => {
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     // Wait for EasyMDE to initialize
@@ -229,8 +223,9 @@ test.describe('Admin - Posts Management', () => {
 
 test.describe('Admin - Pages Management', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'pages');
+    await setupApiMocks(page);
+    await page.goto('/admin/pages/');
+    await page.waitForLoadState('networkidle');
   });
 
   test('pages list loads', async ({ page }) => {
@@ -239,7 +234,7 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('new page button shows form', async ({ page }) => {
-    const newPageBtn = page.locator('button:has-text("Add Page")');
+    const newPageBtn = page.locator('button:has-text("New Page")');
     await newPageBtn.click();
 
     // Editor view should be visible
@@ -249,7 +244,7 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('protected page checkbox is present in form', async ({ page }) => {
-    const newPageBtn = page.locator('button:has-text("Add Page")');
+    const newPageBtn = page.locator('button:has-text("New Page")');
     await newPageBtn.click();
 
     // Protected checkbox should be in the form
@@ -263,7 +258,7 @@ test.describe('Admin - Pages Management', () => {
 
   test('protected pages show lock icon instead of delete button', async ({ page }) => {
     // Check if there are any protected pages
-    const lockIcons = page.locator('.protected-indicator, .lock-icon, svg.lucide-lock');
+    const lockIcons = page.locator('.fa-lock, i[title="Protected page"]');
     const count = await lockIcons.count();
 
     if (count > 0) {
@@ -278,7 +273,7 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('can toggle protected status in page form', async ({ page }) => {
-    const newPageBtn = page.locator('button:has-text("Add Page")');
+    const newPageBtn = page.locator('button:has-text("New Page")');
     await newPageBtn.click();
 
     const protectedCheckbox = page.locator('#page-protected');
@@ -292,7 +287,7 @@ test.describe('Admin - Pages Management', () => {
   });
 
   test('layout selector is populated', async ({ page }) => {
-    const newPageBtn = page.locator('button:has-text("Add Page")');
+    const newPageBtn = page.locator('button:has-text("New Page")');
     await newPageBtn.click();
 
     const layoutSelect = page.locator('#page-layout');
@@ -304,10 +299,11 @@ test.describe('Admin - Pages Management', () => {
   });
 });
 
-test.describe('Admin - Taxonomy Management', () => {
+test.describe('Admin - Categories Management', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'taxonomy');
+    await setupApiMocks(page);
+    await page.goto('/admin/categories/');
+    await page.waitForLoadState('networkidle');
   });
 
   test('categories list loads', async ({ page }) => {
@@ -315,38 +311,9 @@ test.describe('Admin - Taxonomy Management', () => {
     await expect(categoriesList).toBeVisible();
   });
 
-  test('tags list loads when tab is clicked', async ({ page }) => {
-    // Tags tab content is hidden by default, need to click it
-    const tagsTab = page.locator('#tab-tags');
-    await tagsTab.click();
-
-    await page.waitForTimeout(300);
-
-    const tagsList = page.locator('#tags-list');
-    await expect(tagsList).toBeVisible();
-  });
-
   test('add category button shows modal', async ({ page }) => {
     const addCategoryBtn = page.locator('button:has-text("Add Category")');
     await addCategoryBtn.click();
-
-    // Modal should appear
-    const modal = page.locator('#modal-overlay');
-    await expect(modal).toBeVisible();
-    await expect(modal).not.toHaveClass(/hidden/);
-
-    // Close modal
-    const cancelBtn = page.locator('#modal-overlay button:has-text("Cancel")');
-    await cancelBtn.click();
-  });
-
-  test('add tag button shows modal', async ({ page }) => {
-    // Click tags tab first
-    const tagsTab = page.locator('#tab-tags');
-    await tagsTab.click();
-
-    const addTagBtn = page.locator('button:has-text("Add Tag")');
-    await addTagBtn.click();
 
     // Modal should appear
     const modal = page.locator('#modal-overlay');
@@ -373,12 +340,35 @@ test.describe('Admin - Taxonomy Management', () => {
       expect(buttonCount).toBeGreaterThan(0);
     }
   });
+});
+
+test.describe('Admin - Tags Management', () => {
+  test.beforeEach(async ({ page }) => {
+    await setupApiMocks(page);
+    await page.goto('/admin/tags/');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('tags list loads', async ({ page }) => {
+    const tagsList = page.locator('#tags-list');
+    await expect(tagsList).toBeVisible();
+  });
+
+  test('add tag button shows modal', async ({ page }) => {
+    const addTagBtn = page.locator('button:has-text("Add Tag")');
+    await addTagBtn.click();
+
+    // Modal should appear
+    const modal = page.locator('#modal-overlay');
+    await expect(modal).toBeVisible();
+    await expect(modal).not.toHaveClass(/hidden/);
+
+    // Close modal
+    const cancelBtn = page.locator('#modal-overlay button:has-text("Cancel")');
+    await cancelBtn.click();
+  });
 
   test('tags have edit and delete buttons on hover', async ({ page }) => {
-    // Click tags tab first
-    const tagsTab = page.locator('#tab-tags');
-    await tagsTab.click();
-
     const tagRows = page.locator('#tags-list tr');
     const count = await tagRows.count();
 
@@ -397,16 +387,17 @@ test.describe('Admin - Taxonomy Management', () => {
 
 test.describe('Admin - Media Library', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'media');
+    await setupApiMocks(page);
+    await page.goto('/admin/media/');
+    await page.waitForLoadState('networkidle');
   });
 
   test('media section loads', async ({ page }) => {
     await expect(page.locator('#section-media')).toBeVisible();
   });
 
-  test('media grid or list is present', async ({ page }) => {
-    const mediaGrid = page.locator('#media-grid, .media-grid, #media-list, .media-list');
+  test('media grid is present', async ({ page }) => {
+    const mediaGrid = page.locator('#media-grid');
     await expect(mediaGrid).toBeVisible();
   });
 
@@ -434,23 +425,24 @@ test.describe('Admin - Media Library', () => {
   });
 });
 
-test.describe('Admin - Trash Management', () => {
+test.describe('Admin - Bin Management', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'trash');
+    await setupApiMocks(page);
+    await page.goto('/admin/bin/');
+    await page.waitForLoadState('networkidle');
   });
 
-  test('trash section loads', async ({ page }) => {
+  test('bin section loads', async ({ page }) => {
     await expect(page.locator('#section-trash')).toBeVisible();
   });
 
-  test('trash list or table is present', async ({ page }) => {
-    const trashList = page.locator('#trash-list, #trash-table-body, .trash-list');
+  test('bin list is present', async ({ page }) => {
+    const trashList = page.locator('#trash-list');
     await expect(trashList).toBeVisible();
   });
 
-  test('trash items show type (post/page)', async ({ page }) => {
-    const trashItems = page.locator('.trash-item, #trash-list li, #trash-table-body tr');
+  test('bin items show type (post/page)', async ({ page }) => {
+    const trashItems = page.locator('#trash-list li');
     const count = await trashItems.count();
 
     if (count > 0) {
@@ -463,27 +455,27 @@ test.describe('Admin - Trash Management', () => {
     }
   });
 
-  test('trash items have restore and delete buttons', async ({ page }) => {
-    const trashItems = page.locator('.trash-item, #trash-list li, #trash-table-body tr');
+  test('bin items have restore and delete buttons', async ({ page }) => {
+    const trashItems = page.locator('#trash-list li');
     const count = await trashItems.count();
 
     if (count > 0) {
       const firstItem = trashItems.first();
 
       // Should have restore button
-      const restoreBtn = firstItem.locator('button:has-text("Restore"), .restore-btn');
+      const restoreBtn = firstItem.locator('button:has-text("Restore")');
       const restoreCount = await restoreBtn.count();
       expect(restoreCount).toBeGreaterThan(0);
 
       // Should have delete button
-      const deleteBtn = firstItem.locator('button:has-text("Delete"), .delete-btn');
+      const deleteBtn = firstItem.locator('button:has-text("Delete")');
       const deleteCount = await deleteBtn.count();
       expect(deleteCount).toBeGreaterThan(0);
     }
   });
 
-  test('trash list or empty message is displayed', async ({ page }) => {
-    // Either trash list or empty message should be visible
+  test('bin list or empty message is displayed', async ({ page }) => {
+    // Either bin list or empty message should be visible
     const trashList = page.locator('#trash-list');
     const emptyMessage = page.locator('#trash-empty');
 
@@ -496,117 +488,71 @@ test.describe('Admin - Trash Management', () => {
 
 test.describe('Admin - Settings', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-    await navigateToSection(page, 'settings');
+    await setupApiMocks(page);
+    await page.goto('/admin/settings/');
+    await page.waitForLoadState('networkidle');
   });
 
-  test('settings forms load', async ({ page }) => {
-    // Admin settings form
-    await expect(page.locator('#admin-settings-form')).toBeVisible();
-
+  test('settings form loads', async ({ page }) => {
     // Site settings form
     await expect(page.locator('#settings-form')).toBeVisible();
   });
 
-  test('admin settings fields are present', async ({ page }) => {
-    // Deployment poll interval
-    const deploymentPollField = page.locator('#admin-setting-deployment-poll-interval');
-    await expect(deploymentPollField).toBeVisible();
-
-    // History poll interval
-    const historyPollField = page.locator('#admin-setting-deployment-history-poll-interval');
-    await expect(historyPollField).toBeVisible();
-  });
-
-  test('admin settings have valid default values', async ({ page }) => {
-    const deploymentPollValue = await page.inputValue('#admin-setting-deployment-poll-interval');
-    expect(parseInt(deploymentPollValue)).toBeGreaterThan(0);
-
-    const historyPollValue = await page.inputValue('#admin-setting-deployment-history-poll-interval');
-    expect(parseInt(historyPollValue)).toBeGreaterThan(0);
-  });
-
-  test('save settings buttons are present', async ({ page }) => {
-    // Admin settings save button
-    const adminSaveBtn = page.locator('#admin-settings-save-btn, button:has-text("Save Admin Settings")');
-    await expect(adminSaveBtn).toBeVisible();
-
-    // Site settings save button
-    const siteSaveBtn = page.locator('#settings-save-btn, button:has-text("Save Settings")');
-    await expect(siteSaveBtn).toBeVisible();
-  });
-
-  test('reset to defaults button is present', async ({ page }) => {
-    const resetBtn = page.locator('button:has-text("Reset to Defaults")');
-    const count = await resetBtn.count();
-    expect(count).toBeGreaterThan(0);
-  });
-
   test('site settings fields are present', async ({ page }) => {
-    // Site settings form should exist
-    const siteForm = page.locator('#settings-form');
-    await expect(siteForm).toBeVisible();
-
     // Common fields - use specific ID for settings title field
-    const titleField = page.locator('#settings-form #setting-title');
+    const titleField = page.locator('#setting-title');
     await expect(titleField).toBeVisible();
 
     // Additional fields
-    const emailField = page.locator('#settings-form #setting-email');
+    const emailField = page.locator('#setting-email');
     await expect(emailField).toBeVisible();
 
-    const authorField = page.locator('#settings-form #setting-author');
+    const authorField = page.locator('#setting-author');
     await expect(authorField).toBeVisible();
   });
-});
 
-test.describe('Admin - Deployment Status', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
-  });
-
-  test('deployment status widget is visible', async ({ page }) => {
-    // Deployment status should be somewhere on dashboard or header
-    const deploymentStatus = page.locator('.deployment-status, #deployment-status');
-    const count = await deploymentStatus.count();
-
-    if (count > 0) {
-      await expect(deploymentStatus.first()).toBeVisible();
-    }
-  });
-
-  test('deployment status shows current state', async ({ page }) => {
-    const deploymentStatus = page.locator('.deployment-status, #deployment-status');
-    const count = await deploymentStatus.count();
-
-    if (count > 0) {
-      const statusText = await deploymentStatus.first().textContent();
-
-      // Should contain status keywords
-      const hasStatus = statusText.match(/success|pending|in_progress|failure|queued|running|completed/i);
-      expect(hasStatus).not.toBeNull();
-    }
-  });
-
-  test('deployment history link works', async ({ page }) => {
-    const historyLink = page.locator('a:has-text("History"), button:has-text("History"), #view-deployment-history');
-    const count = await historyLink.count();
-
-    if (count > 0) {
-      await historyLink.first().click();
-
-      // Should show deployment history
-      await page.waitForTimeout(500);
-      const historySection = page.locator('.deployment-history, #deployment-history-list');
-      const historyCount = await historySection.count();
-      expect(historyCount).toBeGreaterThan(0);
-    }
+  test('save settings button is present', async ({ page }) => {
+    // Site settings save button
+    const siteSaveBtn = page.locator('button:has-text("Save Settings")');
+    await expect(siteSaveBtn).toBeVisible();
   });
 });
 
-test.describe('Admin - Notifications', () => {
+test.describe('Admin - Shared UI Elements', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
+    await setupApiMocks(page);
+    await page.goto('/admin/');
+  });
+
+  test('header is present on all pages', async ({ page }) => {
+    const header = page.locator('#header-container');
+    await expect(header).toBeVisible();
+
+    // Check header contains site title
+    const siteTitle = page.locator('#site-title');
+    await expect(siteTitle).toBeVisible();
+  });
+
+  test('sidebar is present on all pages', async ({ page }) => {
+    const sidebar = page.locator('#sidebar-container');
+    await expect(sidebar).toBeVisible();
+
+    // Check all navigation links
+    await expect(page.locator('a[href="/admin/"]')).toBeVisible();
+    await expect(page.locator('a[href="/admin/posts/"]')).toBeVisible();
+    await expect(page.locator('a[href="/admin/pages/"]')).toBeVisible();
+  });
+
+  test('sidebar highlights active page', async ({ page }) => {
+    await page.goto('/admin/posts/');
+
+    // Posts link should be highlighted
+    const postsLink = page.locator('a[href="/admin/posts/"]');
+    const bgColor = await postsLink.evaluate(el => window.getComputedStyle(el).backgroundColor);
+
+    // Should have teal background when active
+    expect(bgColor).not.toBe('rgba(0, 0, 0, 0)');
+    expect(bgColor).not.toBe('transparent');
   });
 
   test('notification elements exist', async ({ page }) => {
@@ -621,100 +567,54 @@ test.describe('Admin - Notifications', () => {
     const successEl = page.locator('#success');
     const errorEl = page.locator('#error');
 
-    // Should have hidden class or not be visible
-    const successHidden = await successEl.isVisible();
-    const errorHidden = await errorEl.isVisible();
+    // Should not be visible initially
+    const successVisible = await successEl.isVisible();
+    const errorVisible = await errorEl.isVisible();
 
-    expect(successHidden).toBe(false);
-    expect(errorHidden).toBe(false);
-  });
-
-  test('notification appears when action is triggered', async ({ page }) => {
-    // Navigate to settings and click reset
-    await navigateToSection(page, 'settings');
-
-    const resetBtn = page.locator('button:has-text("Reset to Defaults")');
-    const count = await resetBtn.count();
-
-    if (count > 0) {
-      await resetBtn.click();
-
-      // Wait for notification
-      await page.waitForTimeout(500);
-
-      // Either success or error notification should appear
-      const successEl = page.locator('#success');
-      const errorEl = page.locator('#error');
-
-      const successVisible = await successEl.isVisible();
-      const errorVisible = await errorEl.isVisible();
-
-      expect(successVisible || errorVisible).toBe(true);
-    }
+    expect(successVisible).toBe(false);
+    expect(errorVisible).toBe(false);
   });
 });
 
-test.describe('Admin - Navigation and UI', () => {
+test.describe('Admin - Page Navigation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
+    await setupApiMocks(page);
+    await page.goto('/admin/');
   });
 
-  test('all section tabs are clickable', async ({ page }) => {
-    const tabs = [
-      'dashboard',
-      'taxonomy',
-      'posts',
-      'pages',
-      'media',
-      'trash',
-      'settings'
-    ];
+  test('can navigate between pages via sidebar', async ({ page }) => {
+    // Navigate to posts
+    await page.click('a[href="/admin/posts/"]');
+    await page.waitForURL('**/admin/posts/');
+    await expect(page.locator('#section-posts')).toBeVisible();
 
-    for (const tab of tabs) {
-      const tabBtn = page.locator(`#nav-${tab}`);
-      await tabBtn.click();
+    // Navigate to media
+    await page.click('a[href="/admin/media/"]');
+    await page.waitForURL('**/admin/media/');
+    await expect(page.locator('#section-media')).toBeVisible();
 
-      await page.waitForTimeout(200);
-
-      const section = page.locator(`#section-${tab}`);
-      await expect(section).toBeVisible();
-
-      // Tab should have teal border (active style)
-      const borderColor = await tabBtn.evaluate(el =>
-        window.getComputedStyle(el).borderBottomColor
-      );
-
-      // Should have teal or blue border when active (not gray)
-      expect(borderColor).not.toBe('rgba(0, 0, 0, 0)');
-      expect(borderColor).not.toBe('transparent');
-    }
+    // Navigate back to dashboard
+    await page.click('a[href="/admin/"]');
+    await page.waitForURL('**/admin/');
+    await expect(page.locator('#section-dashboard')).toBeVisible();
   });
 
-  test('only one section is visible at a time', async ({ page }) => {
-    const sections = [
-      'dashboard',
-      'taxonomy',
-      'posts',
-      'pages',
-      'media',
-      'trash',
-      'settings'
-    ];
+  test('page URLs are correct', async ({ page }) => {
+    await page.goto('/admin/posts/');
+    expect(page.url()).toContain('/admin/posts/');
 
-    // Click different sections
-    await page.click('#nav-posts');
-    await page.waitForTimeout(200);
+    await page.goto('/admin/pages/');
+    expect(page.url()).toContain('/admin/pages/');
 
-    // Count visible sections
-    let visibleCount = 0;
-    for (const section of sections) {
-      const el = page.locator(`#section-${section}`);
-      const isVisible = await el.isVisible();
-      if (isVisible) visibleCount++;
-    }
+    await page.goto('/admin/settings/');
+    expect(page.url()).toContain('/admin/settings/');
+  });
+});
 
-    // Only one should be visible
-    expect(visibleCount).toBe(1);
+test.describe('Admin - Accessibility', () => {
+  test.beforeEach(async ({ page }) => {
+    await setupApiMocks(page);
+    await page.goto('/admin/');
   });
 
   test('page has no accessibility violations', async ({ page }) => {
@@ -745,23 +645,12 @@ test.describe('Admin - Navigation and UI', () => {
     }
   });
 
-  test('header and branding are present', async ({ page }) => {
-    // Admin should have a header with Circle Seven branding
-    const header = page.locator('#main-header');
-    await expect(header).toBeVisible();
-
-    // Should have the Circle Seven admin title in the header
-    const branding = page.locator('#admin-title');
-    await expect(branding).toBeVisible();
-    await expect(branding).toContainText('Admin');
-  });
-
   test('responsive design works on mobile', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
 
-    // Navigation should still be accessible
-    const nav = page.locator('nav, .admin-nav, .tabs');
-    await expect(nav.first()).toBeVisible();
+    // Sidebar should still be accessible
+    const sidebar = page.locator('#sidebar-container');
+    await expect(sidebar).toBeAttached();
 
     // Content should not overflow
     const body = page.locator('body');
@@ -772,15 +661,16 @@ test.describe('Admin - Navigation and UI', () => {
 
 test.describe('Admin - Error Handling', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/admin-custom/');
+    await setupApiMocks(page);
+    await page.goto('/admin/posts/');
   });
 
   test('handles network errors gracefully', async ({ page }) => {
     // Simulate offline mode
     await page.route('**/.netlify/functions/**', route => route.abort('failed'));
 
-    // Try to load posts
-    await navigateToSection(page, 'posts');
+    // Reload page
+    await page.reload();
 
     // Should show error notification or message
     await page.waitForTimeout(1000);
@@ -793,9 +683,7 @@ test.describe('Admin - Error Handling', () => {
   });
 
   test('validates form inputs', async ({ page }) => {
-    await navigateToSection(page, 'posts');
-
-    const newPostBtn = page.locator('button:has-text("Add Post")');
+    const newPostBtn = page.locator('button:has-text("New Post")');
     await newPostBtn.click();
 
     // HTML5 validation should prevent empty title

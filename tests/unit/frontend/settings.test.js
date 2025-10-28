@@ -11,8 +11,8 @@ import {
   loadAdminSettings,
   saveAdminSettings,
   resetAdminSettings
-} from '../../../admin-custom/js/modules/settings.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/settings.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Settings Module', () => {
   let mockFetch;

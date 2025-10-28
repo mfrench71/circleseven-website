@@ -11,8 +11,8 @@ import {
   restoreItem,
   permanentlyDeleteItem,
   getTrashedItems
-} from '../../../admin-custom/js/modules/trash.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/trash.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Trash Module', () => {
   let mockFetch;

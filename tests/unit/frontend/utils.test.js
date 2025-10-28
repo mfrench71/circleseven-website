@@ -15,7 +15,7 @@ import {
   setButtonLoading,
   escapeHtml,
   isValidUrl
-} from '../../../admin-custom/js/core/utils.js';
+} from '../../../admin/js/core/utils.js';
 
 describe('Core Utils Module', () => {
   beforeEach(() => {

@@ -20,8 +20,8 @@ import {
   savePage,
   deletePage,
   deletePageFromList
-} from '../../../admin-custom/js/modules/pages.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/pages.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Pages Module', () => {
   let mockFetch;
@@ -567,14 +567,10 @@ describe('Pages Module', () => {
       expect(deleteBtn.style.display).toBe('none');
     });
 
-    it('updates URL when updateUrl is true', () => {
+    it('does not update URL (SPA routing removed)', () => {
       showNewPageForm(true);
 
-      expect(history.pushState).toHaveBeenCalledWith(
-        { view: 'pages', action: 'new' },
-        '',
-        '/admin-custom/#pages-new'
-      );
+      expect(history.pushState).not.toHaveBeenCalled();
     });
 
     it('does not update URL when updateUrl is false', () => {
@@ -657,7 +653,7 @@ describe('Pages Module', () => {
       expect(editorView.classList.contains('hidden')).toBe(false);
     });
 
-    it('updates URL when updateUrl is true', async () => {
+    it('does not update URL (SPA routing removed)', async () => {
       const mockPage = {
         content: '',
         frontmatter: {},
@@ -673,7 +669,7 @@ describe('Pages Module', () => {
 
       await editPage('test.md', true);
 
-      expect(history.pushState).toHaveBeenCalled();
+      expect(history.pushState).not.toHaveBeenCalled();
     });
 
     it('handles protected pages', async () => {

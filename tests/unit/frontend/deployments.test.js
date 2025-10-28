@@ -18,8 +18,8 @@ import {
   getRelativeTime,
   restoreActiveDeployments,
   fetchRecentDeploymentsFromGitHub
-} from '../../../admin-custom/js/modules/deployments.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/deployments.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Deployments Module', () => {
   let mockFetch;

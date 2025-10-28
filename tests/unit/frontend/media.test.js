@@ -15,8 +15,8 @@ import {
   copyMediaUrl,
   viewMediaFull,
   openCloudinaryUpload
-} from '../../../admin-custom/js/modules/media.js';
-import { initNotifications } from '../../../admin-custom/js/ui/notifications.js';
+} from '../../../admin/js/modules/media.js';
+import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Media Module', () => {
   let mockFetch;

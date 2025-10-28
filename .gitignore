@@ -20,6 +20,9 @@ wp_convert.py
 # Local Netlify folder
 .netlify
 
+# Environment variables (contains secrets)
+.env
+
 # Test output directories
 coverage/
 html/
