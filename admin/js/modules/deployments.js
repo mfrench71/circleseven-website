@@ -636,10 +636,10 @@ export async function updateDashboardDeployments() {
           </td>
           <td>
             <div class="text-truncate ${textColor ? textColor : 'text-dark'}" style="max-width: 300px;">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="small ${textColor ? textColor + ' opacity-75' : 'text-muted'} text-truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+            ${deployment.itemId ? `<div class="small ${textColor ? textColor : 'text-muted'} text-truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="text-end font-monospace ${textColor ? textColor + ' opacity-75' : 'text-muted'}">${durationStr}</td>
-          <td class="text-end ${textColor ? textColor + ' opacity-75' : 'text-secondary'}">${relativeTime}</td>
+          <td class="text-end font-monospace ${textColor ? textColor : 'text-muted'}">${durationStr}</td>
+          <td class="text-end ${textColor ? textColor : 'text-secondary'}">${relativeTime}</td>
         </tr>
       `;
     }

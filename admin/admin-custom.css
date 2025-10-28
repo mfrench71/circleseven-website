@@ -437,6 +437,27 @@ table .btn-link {
   background-color: #e2e3e5 !important;
 }
 
+/* Bootstrap utility classes for colored rows */
+.table tr.bg-success > td {
+  background-color: #198754 !important;
+}
+
+.table tr.bg-danger > td {
+  background-color: #dc3545 !important;
+}
+
+.table tr.bg-primary > td {
+  background-color: #0d9488 !important;
+}
+
+.table tr.bg-warning > td {
+  background-color: #ffc107 !important;
+}
+
+.table tr.bg-secondary > td {
+  background-color: #6c757d !important;
+}
+
 /* ============================================
    UTILITY OVERRIDES
    ============================================ */
