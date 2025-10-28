@@ -1503,17 +1503,16 @@ async function updateDashboardDeployments() {
   `;
 
   mainDeployments.forEach((deployment, index) => {
-    let statusIcon, statusColor, statusText, animationClass;
+    let statusIcon, statusColor, statusText, rowClass;
 
     if (deployment.isActive) {
-      // Active deployments
-      animationClass = '';
+      // Active deployments - highlight with info background
+      rowClass = 'table-info';
 
       if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-primary';
         statusText = 'Deploying';
-        animationClass = '';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-warning';
@@ -1530,7 +1529,7 @@ async function updateDashboardDeployments() {
       const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
       html += `
-        <tr class="${animationClass}">
+        <tr class="${rowClass}">
           <td>
             <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
@@ -1546,8 +1545,8 @@ async function updateDashboardDeployments() {
         </tr>
       `;
     } else {
-      // Historical deployments (from GitHub)
-      animationClass = '';
+      // Historical deployments (from GitHub) - default white background
+      rowClass = '';
 
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
@@ -1561,7 +1560,6 @@ async function updateDashboardDeployments() {
         statusIcon = 'fa-spinner fa-spin';
         statusColor = 'text-primary';
         statusText = 'Deploying';
-        animationClass = '';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
         statusColor = 'text-warning';
@@ -1597,7 +1595,7 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${animationClass}">
+        <tr class="${rowClass}">
           <td>
             <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
