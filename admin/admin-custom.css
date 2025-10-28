@@ -417,6 +417,22 @@ table .btn-link {
 }
 
 /* ============================================
+   DEPLOYMENT TABLE ROW COLORS
+   ============================================ */
+/* Ensure table row background colors apply to all cells */
+.table tr.table-primary > td {
+  background-color: #cfe2ff !important;
+}
+
+.table tr.table-warning > td {
+  background-color: #fff3cd !important;
+}
+
+.table tr.table-secondary > td {
+  background-color: #e2e3e5 !important;
+}
+
+/* ============================================
    UTILITY OVERRIDES
    ============================================ */
 .no-underline {
