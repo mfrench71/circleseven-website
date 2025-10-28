@@ -1063,11 +1063,11 @@ async function updateRateLimit() {
     const { limit, remaining, usedPercent, resetDate, minutesUntilReset } = data;
 
     // Determine progress bar color based on usage
-    let barColor = 'bg-green-500'; // <50%
+    let barColor = 'bg-success'; // <50%
     if (usedPercent >= 80) {
-      barColor = 'bg-red-500';
+      barColor = 'bg-danger';
     } else if (usedPercent >= 50) {
-      barColor = 'bg-yellow-500';
+      barColor = 'bg-warning';
     }
 
     // Format reset time
@@ -1081,30 +1081,30 @@ async function updateRateLimit() {
       <div class="space-y-3">
         <!-- Progress bar -->
         <div class="relative">
-          <div class="flex items-center justify-between text-sm mb-1">
-            <span class="font-medium text-gray-700">API Usage</span>
-            <span class="font-semibold ${usedPercent >= 80 ? 'text-red-600' : usedPercent >= 50 ? 'text-yellow-600' : 'text-green-600'}">${usedPercent}%</span>
+          <div class="d-flex align-items-center justify-content-between text-sm mb-1">
+            <span class="fw-medium text-dark">API Usage</span>
+            <span class="fw-semibold ${usedPercent >= 80 ? 'text-danger' : usedPercent >= 50 ? 'text-warning' : 'text-success'}">${usedPercent}%</span>
           </div>
-          <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-            <div class="${barColor} h-full transition-all duration-500 ease-out" style="width: ${usedPercent}%"></div>
+          <div class="w-100 bg-light rounded overflow-hidden" style="height: 1rem;">
+            <div class="${barColor} h-100 transition" style="width: ${usedPercent}%"></div>
           </div>
         </div>
 
         <!-- Rate Limit Table -->
         <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead class="bg-gray-50 border-b border-gray-200">
+          <table class="table table-sm">
+            <thead class="table-light">
               <tr>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remaining</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Limit</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Resets</th>
+                <th class="text-start small text-muted text-uppercase">Remaining</th>
+                <th class="text-start small text-muted text-uppercase">Limit</th>
+                <th class="text-start small text-muted text-uppercase">Resets</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr class="text-xs">
-                <td class="px-3 py-2 font-semibold text-gray-900">${remaining.toLocaleString()}</td>
-                <td class="px-3 py-2 font-semibold text-gray-900">${limit.toLocaleString()}</td>
-                <td class="px-3 py-2 font-semibold text-gray-900">${minutesUntilReset}m (${timeStr})</td>
+            <tbody>
+              <tr class="small">
+                <td class="fw-semibold">${remaining.toLocaleString()}</td>
+                <td class="fw-semibold">${limit.toLocaleString()}</td>
+                <td class="fw-semibold">${minutesUntilReset}m (${timeStr})</td>
               </tr>
             </tbody>
           </table>
@@ -1123,9 +1123,9 @@ async function updateRateLimit() {
     console.error('Failed to fetch rate limit:', error);
     contentEl.innerHTML = `
       <div class="text-center py-4">
-        <p class="text-sm text-red-600 mb-2">Failed to load rate limit</p>
-        <button onclick="updateRateLimit()" class="text-sm text-teal-600 hover:text-teal-700 font-medium">
-          <i class="fas fa-sync-alt mr-1"></i>
+        <p class="small text-danger mb-2">Failed to load rate limit</p>
+        <button onclick="updateRateLimit()" class="btn btn-link text-primary small fw-medium">
+          <i class="fas fa-sync-alt me-1"></i>
           Try Again
         </button>
       </div>
@@ -1622,10 +1622,10 @@ async function updateDashboardDeployments() {
   // Show empty state if no deployments at all
   if (mainDeployments.length === 0 && hiddenDeployments.length === 0) {
     cardContent.innerHTML = `
-      <div class="text-center py-8 text-gray-500">
-        <i class="fas fa-rocket text-4xl mb-2 text-gray-400"></i>
+      <div class="text-center py-4 text-muted">
+        <i class="fas fa-rocket fs-1 mb-2 text-secondary"></i>
         <p>No deployments yet</p>
-        <p class="text-sm mt-1">Make a change to see deployment history</p>
+        <p class="small mt-1">Make a change to see deployment history</p>
       </div>
     `;
     return;
@@ -1634,16 +1634,16 @@ async function updateDashboardDeployments() {
   // Build compact table
   let html = `
     <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead class="bg-gray-50 border-b border-gray-200">
+      <table class="table table-sm">
+        <thead class="table-light">
           <tr>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deployed</th>
+            <th class="text-start small text-muted text-uppercase">Status</th>
+            <th class="text-start small text-muted text-uppercase">Action</th>
+            <th class="text-start small text-muted text-uppercase">Duration</th>
+            <th class="text-start small text-muted text-uppercase">Deployed</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
+        <tbody>
   `;
 
   mainDeployments.forEach((deployment, index) => {
@@ -1655,16 +1655,16 @@ async function updateDashboardDeployments() {
 
       if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
-        statusColor = 'text-blue-600';
+        statusColor = 'text-primary';
         statusText = 'Deploying';
-        animationClass = 'animate-pulse';
+        animationClass = '';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
-        statusColor = 'text-yellow-600';
+        statusColor = 'text-warning';
         statusText = 'Queued';
       } else {
         statusIcon = 'fa-hourglass-half';
-        statusColor = 'text-gray-600';
+        statusColor = 'text-secondary';
         statusText = 'Pending';
       }
 
@@ -1675,18 +1675,18 @@ async function updateDashboardDeployments() {
 
       html += `
         <tr class="${animationClass}">
-          <td class="px-4 py-3">
-            <div class="flex items-center gap-2">
+          <td>
+            <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+              <span class="${statusColor} fw-medium">${statusText}</span>
             </div>
           </td>
-          <td class="px-4 py-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td>
+            <div class="text-truncate">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="small text-muted text-truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="px-4 py-3 font-mono text-gray-500">${timeStr}</td>
-          <td class="px-4 py-3 text-gray-400">live</td>
+          <td class="font-monospace text-muted">${timeStr}</td>
+          <td class="text-muted">live</td>
         </tr>
       `;
     } else {
@@ -1695,36 +1695,36 @@ async function updateDashboardDeployments() {
 
       if (deployment.status === 'completed') {
         statusIcon = 'fa-check-circle';
-        statusColor = 'text-green-600';
+        statusColor = 'text-success';
         statusText = 'Success';
       } else if (deployment.status === 'failed') {
         statusIcon = 'fa-times-circle';
-        statusColor = 'text-red-600';
+        statusColor = 'text-danger';
         statusText = 'Failed';
       } else if (deployment.status === 'in_progress') {
         statusIcon = 'fa-spinner fa-spin';
-        statusColor = 'text-blue-600';
+        statusColor = 'text-primary';
         statusText = 'Deploying';
-        animationClass = 'animate-pulse';
+        animationClass = '';
       } else if (deployment.status === 'queued') {
         statusIcon = 'fa-clock';
-        statusColor = 'text-yellow-600';
+        statusColor = 'text-warning';
         statusText = 'Queued';
       } else if (deployment.status === 'pending') {
         statusIcon = 'fa-hourglass-half';
-        statusColor = 'text-gray-600';
+        statusColor = 'text-secondary';
         statusText = 'Pending';
       } else if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
-        statusColor = 'text-yellow-600';
+        statusColor = 'text-warning';
         statusText = 'Cancelled';
       } else if (deployment.status === 'skipped') {
         statusIcon = 'fa-forward';
-        statusColor = 'text-blue-600';
+        statusColor = 'text-primary';
         statusText = 'Skipped';
       } else {
         statusIcon = 'fa-circle';
-        statusColor = 'text-gray-600';
+        statusColor = 'text-secondary';
         statusText = deployment.status;
       }
 
@@ -1742,18 +1742,18 @@ async function updateDashboardDeployments() {
 
       html += `
         <tr class="${animationClass}">
-          <td class="px-4 py-3">
-            <div class="flex items-center gap-2">
+          <td>
+            <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+              <span class="${statusColor} fw-medium">${statusText}</span>
             </div>
           </td>
-          <td class="px-4 py-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td>
+            <div class="text-truncate">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="small text-muted text-truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="px-4 py-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="px-4 py-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="text-end font-monospace text-muted">${durationStr}</td>
+          <td class="text-end text-muted">${relativeTime}</td>
         </tr>
       `;
     }
@@ -1769,14 +1769,14 @@ async function updateDashboardDeployments() {
   if (hiddenDeployments.length > 0) {
     html += `
       <details class="mt-3">
-        <summary class="cursor-pointer text-sm text-gray-600 hover:text-gray-900 py-2 px-3 bg-gray-50 rounded flex items-center justify-between">
+        <summary class="cursor-pointer small text-muted py-2 px-3 bg-light rounded d-flex align-items-center justify-content-between">
           <span>
-            <i class="fas fa-chevron-right mr-2 text-xs transition-transform"></i>
+            <i class="fas fa-chevron-right me-2 transition"></i>
             Skipped/Cancelled Deployments (${hiddenDeployments.length})
           </span>
         </summary>
-        <div class="mt-2 overflow-x-auto">
-          <table class="w-full text-sm">
+        <div class="mt-2 overflow-auto">
+          <table class="table table-sm small">
             <tbody>
     `;
 
@@ -1785,15 +1785,15 @@ async function updateDashboardDeployments() {
 
       if (deployment.status === 'cancelled') {
         statusIcon = 'fa-ban';
-        statusColor = 'text-yellow-600';
+        statusColor = 'text-warning';
         statusText = 'Cancelled';
       } else {
         statusIcon = 'fa-forward';
-        statusColor = 'text-blue-600';
+        statusColor = 'text-primary';
         statusText = 'Skipped';
       }
 
-      const rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      const rowBg = index % 2 === 0 ? '' : 'table-light';
       const completedAt = new Date(deployment.completedAt || deployment.startedAt);
       const relativeTime = getRelativeTime(completedAt);
 
@@ -1805,19 +1805,19 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg} opacity-75">
-          <td class="py-2 px-3">
-            <div class="flex items-center gap-2">
+        <tr class="${rowBg}" style="opacity: 0.75;">
+          <td>
+            <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>
-              <span class="${statusColor} font-medium">${statusText}</span>
+              <span class="${statusColor} fw-medium">${statusText}</span>
             </div>
           </td>
-          <td class="py-2 px-3">
-            <div class="truncate max-w-md">${escapeHtml(deployment.action)}</div>
-            ${deployment.itemId ? `<div class="text-xs text-gray-500 truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
+          <td>
+            <div class="text-truncate">${escapeHtml(deployment.action)}</div>
+            ${deployment.itemId ? `<div class="small text-muted text-truncate">${escapeHtml(deployment.itemId)}</div>` : ''}
           </td>
-          <td class="py-2 px-3 text-right font-mono text-gray-500">${durationStr}</td>
-          <td class="py-2 px-3 text-right text-gray-400">${relativeTime}</td>
+          <td class="text-end font-monospace text-muted">${durationStr}</td>
+          <td class="text-end text-muted">${relativeTime}</td>
         </tr>
       `;
     });
