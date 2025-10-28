@@ -151,7 +151,7 @@ export function renderMediaGrid() {
 
       return `
       <div class="media-item position-relative bg-white rounded overflow-hidden border shadow-sm">
-        <div class="position-relative bg-light" style="aspect-ratio: 1/1;">
+        <div class="position-relative bg-light" class="ratio ratio-1x1">
           <img
             src="${thumbnailUrl}"
             alt="${escapeHtml(filename)}"

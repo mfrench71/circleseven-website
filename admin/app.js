@@ -1660,7 +1660,7 @@ async function updateDashboardDeployments() {
       }
 
       html += `
-        <tr class="${rowBg}" style="opacity: 0.75;">
+        <tr class="${rowBg}" class="opacity-75">
           <td>
             <div class="d-flex align-items-center gap-2">
               <i class="fas ${statusIcon} ${statusColor}"></i>

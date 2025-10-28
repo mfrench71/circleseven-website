@@ -261,7 +261,7 @@ export function renderCategories() {
 
   tbody.innerHTML = categories.map((cat, index) => {
     return `
-    <tr class="small" style="cursor: move;" data-index="${index}">
+    <tr class="small" class="cursor-move" data-index="${index}">
       <td class="px-3 py-2 text-muted">${index + 1}</td>
       <td class="px-3 py-2">
         <div class="d-flex align-items-center gap-2">
@@ -345,7 +345,7 @@ export function renderTags() {
 
   tbody.innerHTML = tags.map((tag, index) => {
     return `
-    <tr class="small" style="cursor: move;" data-index="${index}">
+    <tr class="small" class="cursor-move" data-index="${index}">
       <td class="px-3 py-2 text-muted">${index + 1}</td>
       <td class="px-3 py-2">
         <div class="d-flex align-items-center gap-2">

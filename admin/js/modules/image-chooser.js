@@ -125,7 +125,7 @@ function renderChooserGrid() {
           <button
             onclick="window.selectChooserImage('${escapeJs(media.secure_url)}');"
             class="chooser-image-btn position-relative bg-light rounded overflow-hidden border border-2 w-100 p-0"
-            style="aspect-ratio: 1/1;"
+            class="ratio ratio-1x1"
             title="${escapeHtml(filename)}"
           >
             <img

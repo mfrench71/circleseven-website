@@ -98,7 +98,7 @@
                     <i class="fas fa-times fa-lg"></i>
                   </button>
                 </div>
-                <div class="modal-body p-0 position-relative" style="min-height: 50vh;">
+                <div class="modal-body p-0 position-relative min-vh-50">
                   <!-- Loading Spinner -->
                   <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                     <div class="text-center">
@@ -138,7 +138,7 @@
                   </div>
 
                   <!-- Grid -->
-                  <div class="p-4" style="max-height: 60vh; overflow-y: auto;">
+                  <div class="p-4 overflow-y-auto" style="max-height: 60vh;">
                     <div id="chooser-grid" class="row row-cols-3 row-cols-md-4 row-cols-lg-6 g-3">
                       <!-- Images will be inserted here -->
                     </div>
@@ -248,7 +248,7 @@
                     </div>
                     <div id="image-preview" class="d-none mt-2">
                       <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative">
-                        <img id="image-preview-img" src="" alt="Image preview" class="rounded border" style="max-width: 150px; max-height: 100px; object-fit: cover;" />
+                        <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
                       </button>
                       <div class="form-text">Click to view full size</div>
                     </div>

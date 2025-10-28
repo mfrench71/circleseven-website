@@ -65,7 +65,7 @@
                   <i class="fas fa-times fa-lg"></i>
                 </button>
               </div>
-              <div class="modal-body p-0 position-relative" style="min-height: 50vh;">
+              <div class="modal-body p-0 position-relative min-vh-50">
                 <!-- Loading Spinner -->
                 <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                   <div class="text-center">
@@ -114,8 +114,7 @@
                 />
                 <select
                   id="media-filter"
-                  class="form-select"
-                  style="width: auto;"
+                  class="form-select w-auto"
                   onchange="filterMedia()"
                 >
                   <option value="all">All Media</option>
@@ -168,7 +167,7 @@
               <p class="mb-0">Loading media library...</p>
             </div>
             <div id="media-empty" class="d-none p-5 text-center text-muted">
-              <i class="fas fa-image fa-4x mb-3" style="color: #d1d5db;"></i>
+              <i class="fas fa-image fa-4x mb-3 text-secondary opacity-50"></i>
               <p class="fs-5 fw-medium mb-1">No media found</p>
               <p class="small mb-0">Upload your first image to get started</p>
             </div>

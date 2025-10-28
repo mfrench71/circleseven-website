@@ -24,7 +24,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('dashboard')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Dashboard"
             >
-              <i class="fas fa-tachometer-alt fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-tachometer-alt fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Dashboard</span>
             </a>
           </li>
@@ -36,7 +36,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('posts')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Posts"
             >
-              <i class="fas fa-file-alt fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-file-alt fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Posts</span>
             </a>
             <!-- Flyout menu -->
@@ -57,7 +57,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('pages')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Pages"
             >
-              <i class="fas fa-file fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-file fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Pages</span>
             </a>
           </li>
@@ -69,7 +69,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('media')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Media Library"
             >
-              <i class="fas fa-image fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-image fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Media Library</span>
             </a>
           </li>
@@ -81,7 +81,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('bin')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Bin"
             >
-              <i class="fas fa-trash-alt fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-trash-alt fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Bin</span>
             </a>
           </li>
@@ -93,7 +93,7 @@ export function renderSidebar(activePage = 'dashboard') {
               class="sidebar-nav-item ${isActive('settings')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Settings"
             >
-              <i class="fas fa-cog fs-5" style="width: 1.25rem; text-align: center;"></i>
+              <i class="fas fa-cog fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Settings</span>
             </a>
           </li>
