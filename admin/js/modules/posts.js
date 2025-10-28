@@ -186,7 +186,7 @@ export async function loadPosts() {
         populateTaxonomySelects();
         populateCategoryFilter();
 
-        document.getElementById('posts-loading').classList.add('d-none');
+        document.getElementById('posts-loading')?.classList.add('d-none');
         return;
       } else {
         // Old cache format - clear it and fetch fresh data
@@ -223,7 +223,7 @@ export async function loadPosts() {
     console.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
   } finally {
-    document.getElementById('posts-loading').classList.add('d-none');
+    document.getElementById('posts-loading')?.classList.add('d-none');
   }
 }
 
@@ -242,6 +242,11 @@ export function renderPostsList() {
   const search = document.getElementById('posts-search')?.value.toLowerCase() || '';
   const sortBy = document.getElementById('posts-sort')?.value || 'date-desc';
   const categoryFilter = document.getElementById('posts-category-filter')?.value || '';
+
+  // If the required DOM elements don't exist (e.g., called from bin page), exit early
+  if (!tbody || !emptyEl) {
+    return;
+  }
 
   // Safety check: ensure allPostsWithMetadata exists and is an array
   if (!window.allPostsWithMetadata || !Array.isArray(window.allPostsWithMetadata)) {
@@ -280,7 +285,7 @@ export function renderPostsList() {
   if (filtered.length === 0) {
     tbody.innerHTML = '';
     emptyEl.classList.remove('d-none');
-    document.getElementById('posts-pagination').classList.add('d-none');
+    document.getElementById('posts-pagination')?.classList.add('d-none');
     return;
   }
 
