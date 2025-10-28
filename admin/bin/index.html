@@ -152,6 +152,57 @@
       initNotifications();
     }
 
+    // Confirmation modal utility with options support
+    window.showConfirm = (message, options = {}) => {
+      return new Promise((resolve) => {
+        const modalEl = document.getElementById('confirmModal');
+        if (!modalEl) {
+          console.error('confirmModal element not found');
+          resolve(false);
+          return;
+        }
+
+        const modal = new bootstrap.Modal(modalEl);
+        const titleEl = document.getElementById('confirmModalLabel');
+        const messageEl = document.getElementById('confirm-message');
+        const confirmBtn = document.getElementById('confirm-button');
+
+        // Set title (default to "Confirm Delete")
+        if (titleEl) titleEl.textContent = options.title || 'Confirm Delete';
+
+        // Set message
+        if (messageEl) messageEl.textContent = message;
+
+        // Set button text and class (default to red Delete button)
+        if (confirmBtn) {
+          confirmBtn.textContent = options.buttonText || 'Delete';
+          // Add 'btn' prefix if not already included
+          const btnClass = options.buttonClass || 'btn-danger';
+          confirmBtn.className = btnClass.startsWith('btn ') ? btnClass : `btn ${btnClass}`;
+        }
+
+        // Remove old event listeners by cloning the confirm button
+        const newConfirmBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+        // Handle confirm button click
+        newConfirmBtn.addEventListener('click', () => {
+          modal.hide();
+          resolve(true);
+        });
+
+        // Handle cancel/close
+        const handleCancel = () => {
+          resolve(false);
+          modalEl.removeEventListener('hidden.bs.modal', handleCancel);
+        };
+        modalEl.addEventListener('hidden.bs.modal', handleCancel, { once: true });
+
+        // Show modal
+        modal.show();
+      });
+    };
+
     // Expose to window for onclick handlers and app.js
     window.loadSiteTitle = loadSiteTitle;
     window.loadBin = loadBin;
