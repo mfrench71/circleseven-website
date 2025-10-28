@@ -129,8 +129,8 @@
     // Import modules
     import { initNotifications } from '/admin/js/ui/notifications.js?v=1761218399';
     import { loadSiteTitle } from '/admin/js/modules/settings.js?v=1761218399';
-    import { loadPages } from '/admin/js/modules/pages.js?v=1761218399';
-    import { loadPosts } from '/admin/js/modules/posts.js?v=1761218399';
+    import { loadPages, clearPagesCache } from '/admin/js/modules/pages.js?v=1761218399';
+    import { loadPosts, clearCache as clearPostsCache } from '/admin/js/modules/posts.js?v=1761218399';
     import {
       loadBin,
       restoreItem,
@@ -208,7 +208,9 @@
     // Expose to window for onclick handlers and app.js
     window.loadSiteTitle = loadSiteTitle;
     window.loadPages = loadPages;
+    window.clearPagesCache = clearPagesCache;
     window.loadPosts = loadPosts;
+    window.clearPostsCache = clearPostsCache;
     window.loadBin = loadBin;
     window.restoreItem = restoreItem;
     window.permanentlyDeleteItem = permanentlyDeleteItem;

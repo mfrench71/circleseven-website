@@ -200,11 +200,23 @@ export async function restoreItem(filename, sha, type) {
     // Re-render bin list immediately
     renderBinList();
 
-    // Reload the appropriate list to show the restored item
-    if (type === 'page' && typeof window.loadPages === 'function') {
-      await window.loadPages();
-    } else if (type === 'post' && typeof window.loadPosts === 'function') {
-      await window.loadPosts();
+    // Clear cache and reload the appropriate list to show the restored item
+    if (type === 'page') {
+      // Clear pages cache before reloading
+      if (typeof window.clearPagesCache === 'function') {
+        window.clearPagesCache();
+      }
+      if (typeof window.loadPages === 'function') {
+        await window.loadPages();
+      }
+    } else if (type === 'post') {
+      // Clear posts cache before reloading
+      if (typeof window.clearPostsCache === 'function') {
+        window.clearPostsCache();
+      }
+      if (typeof window.loadPosts === 'function') {
+        await window.loadPosts();
+      }
     }
   } catch (error) {
     showError(`Failed to restore ${itemType}: ` + error.message);
