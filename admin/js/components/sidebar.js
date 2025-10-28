@@ -77,8 +77,8 @@ export function renderSidebar(activePage = 'dashboard') {
           <!-- Bin -->
           <li class="mb-1">
             <a
-              href="/admin/trash/"
-              class="sidebar-nav-item ${isActive('trash')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+              href="/admin/bin/"
+              class="sidebar-nav-item ${isActive('bin')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
               title="Bin"
             >
               <i class="fas fa-trash-alt fs-5" style="width: 1.25rem; text-align: center;"></i>

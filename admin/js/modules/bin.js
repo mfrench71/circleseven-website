@@ -5,7 +5,7 @@
  * Provides bin list rendering, item restoration, and permanent deletion.
  *
  * Features:
- * - Load and display trashed items
+ * - Load and display binned items
  * - Restore items to posts or pages
  * - Permanently delete items
  * - Track deployments for restore/delete operations
@@ -19,42 +19,42 @@
  * - Global trackDeployment() function
  * - Global loadPosts() and loadPages() functions
  *
- * @module modules/trash
+ * @module modules/bin
  */
 
 import { escapeHtml } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 
 /**
- * Access global allTrashedItems array from app.js
+ * Access global allBinnedItems array from app.js
  * This is shared state between the module and app.js
  */
 
 /**
  * Loads deleted items from the bin
  *
- * Fetches trashed posts and pages from the backend and renders the bin list.
+ * Fetches binned posts and pages from the backend and renders the bin list.
  * Hides the loading indicator when complete.
  *
- * @throws {Error} If trash load fails
+ * @throws {Error} If bin load fails
  *
  * @example
- * import { loadTrash } from './modules/trash.js';
- * await loadTrash();
+ * import { loadBin } from './modules/bin.js';
+ * await loadBin();
  */
-export async function loadTrash() {
+export async function loadBin() {
   try {
-    const response = await fetch(`${window.API_BASE}/trash`);
-    if (!response.ok) throw new Error('Failed to load trash');
+    const response = await fetch(`${window.API_BASE}/bin`);
+    if (!response.ok) throw new Error('Failed to load bin');
 
     const data = await response.json();
-    window.allTrashedItems = data.items || [];
+    window.allBinnedItems = data.items || [];
 
-    renderTrashList();
+    renderBinList();
   } catch (error) {
     showError('Failed to load bin: ' + error.message);
   } finally {
-    const loadingEl = document.getElementById('trash-loading');
+    const loadingEl = document.getElementById('bin-loading');
     if (loadingEl) {
       loadingEl.classList.add('d-none');
     }
@@ -64,29 +64,29 @@ export async function loadTrash() {
 /**
  * Renders the bin list with restore and permanent delete actions
  *
- * Displays all trashed items with their type, date, and action buttons.
+ * Displays all binned items with their type, date, and action buttons.
  * Shows empty state message when no items are in bin.
  *
  * @example
- * import { renderTrashList } from './modules/trash.js';
- * renderTrashList();
+ * import { renderBinList } from './modules/bin.js';
+ * renderBinList();
  */
-export function renderTrashList() {
-  const listEl = document.getElementById('trash-list');
-  const emptyEl = document.getElementById('trash-empty');
+export function renderBinList() {
+  const listEl = document.getElementById('bin-list');
+  const emptyEl = document.getElementById('bin-empty');
 
   if (!listEl || !emptyEl) {
-    console.warn('Trash DOM elements not found');
+    console.warn('Bin DOM elements not found');
     return;
   }
 
-  const allTrashedItems = window.allTrashedItems || [];
+  const allBinnedItems = window.allBinnedItems || [];
 
   // Helper function to escape strings for JavaScript context (onclick attributes)
   // This is different from escapeHtml() which creates HTML entities
   const escapeJs = (str) => String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
 
-  if (allTrashedItems.length === 0) {
+  if (allBinnedItems.length === 0) {
     listEl.innerHTML = '';
     emptyEl.classList.remove('d-none');
     return;
@@ -94,15 +94,15 @@ export function renderTrashList() {
 
   emptyEl.classList.add('d-none');
 
-  listEl.innerHTML = allTrashedItems.map(item => {
+  listEl.innerHTML = allBinnedItems.map(item => {
     const typeLabel = item.type === 'page' ? 'Page' : 'Post';
     const typeBadgeColor = item.type === 'page' ? 'bg-info bg-opacity-10 text-info' : 'bg-primary bg-opacity-10 text-primary';
 
-    // Format trashed_at timestamp
-    let trashedAtDisplay = '';
-    if (item.trashed_at) {
-      const trashedDate = new Date(item.trashed_at);
-      trashedAtDisplay = trashedDate.toLocaleString('en-GB', {
+    // Format binned_at timestamp
+    let binnedAtDisplay = '';
+    if (item.binned_at) {
+      const binnedDate = new Date(item.binned_at);
+      binnedAtDisplay = binnedDate.toLocaleString('en-GB', {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -118,7 +118,7 @@ export function renderTrashList() {
       </svg>
       <div class="flex-fill">
         <div class="fw-medium">${escapeHtml(item.name)}</div>
-        ${trashedAtDisplay ? `<div class="small text-muted">Deleted: ${trashedAtDisplay}</div>` : ''}
+        ${binnedAtDisplay ? `<div class="small text-muted">Deleted: ${binnedAtDisplay}</div>` : ''}
       </div>
       <span class="badge ${typeBadgeColor} fw-medium">${typeLabel}</span>
       <span class="small text-muted">${(item.size / 1024).toFixed(1)} KB</span>
@@ -154,7 +154,7 @@ export function renderTrashList() {
  * @throws {Error} If restore fails
  *
  * @example
- * import { restoreItem } from './modules/trash.js';
+ * import { restoreItem } from './modules/bin.js';
  * await restoreItem('my-post.md', 'abc123', 'post');
  */
 export async function restoreItem(filename, sha, type) {
@@ -170,7 +170,7 @@ export async function restoreItem(filename, sha, type) {
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`${window.API_BASE}/trash`, {
+    const response = await fetch(`${window.API_BASE}/bin`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -195,10 +195,10 @@ export async function restoreItem(filename, sha, type) {
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored! Changes publishing...`);
 
     // Remove from global array (optimistic update)
-    window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
+    window.allBinnedItems = window.allBinnedItems.filter(p => p.name !== filename);
 
-    // Re-render trash list immediately
-    renderTrashList();
+    // Re-render bin list immediately
+    renderBinList();
 
     // Note: We don't reload posts/pages here to avoid the delay
     // The deployment tracking header shows progress
@@ -223,7 +223,7 @@ export async function restoreItem(filename, sha, type) {
  * @throws {Error} If permanent deletion fails
  *
  * @example
- * import { permanentlyDeleteItem } from './modules/trash.js';
+ * import { permanentlyDeleteItem } from './modules/bin.js';
  * await permanentlyDeleteItem('old-post.md', 'abc123', 'post');
  */
 export async function permanentlyDeleteItem(filename, sha, type) {
@@ -233,7 +233,7 @@ export async function permanentlyDeleteItem(filename, sha, type) {
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`${window.API_BASE}/trash`, {
+    const response = await fetch(`${window.API_BASE}/bin`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -257,27 +257,27 @@ export async function permanentlyDeleteItem(filename, sha, type) {
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted! Changes publishing...`);
 
     // Remove from global array (optimistic update)
-    window.allTrashedItems = window.allTrashedItems.filter(p => p.name !== filename);
+    window.allBinnedItems = window.allBinnedItems.filter(p => p.name !== filename);
 
-    // Re-render trash list immediately
-    renderTrashList();
+    // Re-render bin list immediately
+    renderBinList();
   } catch (error) {
     showError(`Failed to delete ${itemType}: ` + error.message);
   }
 }
 
 /**
- * Gets the current trashed items array
+ * Gets the current binned items array
  *
- * Provides read-only access to the trashed items for testing or inspection.
+ * Provides read-only access to the binned items for testing or inspection.
  *
- * @returns {Array<Object>} Array of trashed items
+ * @returns {Array<Object>} Array of binned items
  *
  * @example
- * import { getTrashedItems } from './modules/trash.js';
- * const items = getTrashedItems();
+ * import { getBinnedItems } from './modules/bin.js';
+ * const items = getBinnedItems();
  * console.log(`${items.length} items in bin`);
  */
-export function getTrashedItems() {
-  return window.allTrashedItems || [];
+export function getBinnedItems() {
+  return window.allBinnedItems || [];
 }

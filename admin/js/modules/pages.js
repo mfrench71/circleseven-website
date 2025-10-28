@@ -825,13 +825,13 @@ export async function deletePage() {
   if (!window.currentPage_pages) return;
 
   const title = window.currentPage_pages.frontmatter?.title || window.currentPage_pages.path;
-  const confirmed = await window.showConfirm(`Move "${title}" to trash?`);
+  const confirmed = await window.showConfirm(`Move "${title}" to bin?`);
   if (!confirmed) return;
 
   try {
     const filename = window.currentPage_pages.path.replace('_pages/', '');
 
-    const response = await fetch(`${window.API_BASE}/trash`, {
+    const response = await fetch(`${window.API_BASE}/bin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -848,7 +848,7 @@ export async function deletePage() {
 
     const data = await response.json();
     if (data.commitSha) {
-      window.trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
+      window.trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
     }
 
     showSuccess('Page moved to bin successfully!');
@@ -882,11 +882,11 @@ export async function deletePageFromList(filename, sha) {
   const page = allPages.find(p => p.name === filename);
   const title = page?.frontmatter?.title || filename;
 
-  const confirmed = await window.showConfirm(`Move "${title}" to trash?`);
+  const confirmed = await window.showConfirm(`Move "${title}" to bin?`);
   if (!confirmed) return;
 
   try {
-    const response = await fetch(`${window.API_BASE}/trash`, {
+    const response = await fetch(`${window.API_BASE}/bin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -903,7 +903,7 @@ export async function deletePageFromList(filename, sha) {
 
     const data = await response.json();
     if (data.commitSha) {
-      window.trackDeployment(data.commitSha, `Move page to trash: ${title}`, filename);
+      window.trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
     }
 
     showSuccess('Page moved to bin successfully!');

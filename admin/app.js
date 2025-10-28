@@ -311,7 +311,7 @@ const DOM = {
   sectionDashboard: null,
   sectionTaxonomy: null,
   sectionPosts: null,
-  sectionTrash: null,
+  sectionBin: null,
   sectionSettings: null
 };
 
@@ -355,7 +355,7 @@ function cacheDOMElements() {
   DOM.sectionTaxonomy = document.getElementById('section-taxonomy');
   DOM.sectionPosts = document.getElementById('section-posts');
   DOM.sectionMedia = document.getElementById('section-media');
-  DOM.sectionTrash = document.getElementById('section-trash');
+  DOM.sectionBin = document.getElementById('section-bin');
   DOM.sectionSettings = document.getElementById('section-settings');
 }
 
@@ -723,7 +723,7 @@ window.switchSection = switchSection;
 /**
  * Switches to a different section of the application
  *
- * Updates the URL, page title, navigation highlighting, shows/hides section panels, and loads section data if needed. Supports dashboard, taxonomy, posts, pages, media, trash, and settings sections.
+ * Updates the URL, page title, navigation highlighting, shows/hides section panels, and loads section data if needed. Supports dashboard, taxonomy, posts, pages, media, bin, and settings sections.
  *
  * @param {string} sectionName - Name of section to switch to
  * @param {boolean} [updateUrl=true] - Whether to update browser URL
@@ -749,7 +749,7 @@ async function switchSection(sectionName, updateUrl = true) {
     posts: 'Posts',
     pages: 'Pages',
     media: 'Media Library',
-    trash: 'Bin',
+    bin: 'Bin',
     settings: 'Settings'
   };
   const sectionTitle = titleMap[sectionName] || 'Admin';
@@ -760,8 +760,8 @@ async function switchSection(sectionName, updateUrl = true) {
     item.classList.remove('active');
   });
 
-  // Map trash section to correct sidebar ID
-  const sidebarId = sectionName === 'trash' ? 'sidebar-nav-trash' : `sidebar-nav-${sectionName}`;
+  // Map bin section to correct sidebar ID
+  const sidebarId = sectionName === 'bin' ? 'sidebar-nav-bin' : `sidebar-nav-${sectionName}`;
   const activeNav = document.getElementById(sidebarId);
   if (activeNav) {
     activeNav.classList.add('active');
@@ -830,9 +830,9 @@ async function switchSection(sectionName, updateUrl = true) {
     if (!window.mediaLoaded) {
       loadMedia();
     }
-  } else if (sectionName === 'trash') {
-    // Refresh trash list when viewing trash section
-    loadTrash();
+  } else if (sectionName === 'bin') {
+    // Refresh bin list when viewing bin section
+    loadBin();
   }
 
   // Scroll to top of page when switching sections
@@ -861,7 +861,7 @@ async function handleRouteChange() {
 
   if (pathParts.length >= 2 && pathParts[0] === 'admin') {
     const requestedSection = pathParts[1];
-    const validSections = ['dashboard', 'taxonomy', 'posts', 'pages', 'media', 'trash', 'settings'];
+    const validSections = ['dashboard', 'taxonomy', 'posts', 'pages', 'media', 'bin', 'settings'];
     if (validSections.includes(requestedSection)) {
       section = requestedSection;
     }
@@ -1053,11 +1053,11 @@ let settingsHasUnsavedChanges = false;
 let selectedCategories = [];
 let selectedTags = [];
 
-// Trash management moved to js/modules/trash.js
-let allTrashedItems = [];
+// Bin management moved to js/modules/bin.js
+let allBinnedItems = [];
 
 
-// Update switchSection to load posts and trash
+// Update switchSection to load posts and bin
 const originalSwitchSection = switchSection;
 switchSection = async function(sectionName, updateUrl = true) {
   originalSwitchSection(sectionName, updateUrl);
@@ -1101,8 +1101,8 @@ switchSection = async function(sectionName, updateUrl = true) {
     if (allPages.length === 0) {
       await loadPages();
     }
-  } else if (sectionName === 'trash' && allTrashedItems.length === 0) {
-    await loadTrash();
+  } else if (sectionName === 'bin' && allBinnedItems.length === 0) {
+    await loadBin();
   } else if (sectionName === 'media' && allMedia.length === 0) {
     await loadMedia();
   }
@@ -1879,5 +1879,5 @@ function startDeploymentPolling() {
 }
 
 // NOTE: restoreItemWithTracking has been moved to ES6 module
-// See /admin/js/modules/trash.js and index.html for module loading
+// See /admin/js/modules/bin.js and index.html for module loading
 

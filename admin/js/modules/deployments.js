@@ -15,7 +15,7 @@
  * - core/utils.js (escapeHtml)
  * - Global constants: API_BASE, DEPLOYMENT_STATUS_POLL_INTERVAL, DEPLOYMENT_HISTORY_POLL_INTERVAL, DEPLOYMENT_TIMEOUT
  * - Global state: activeDeployments, deploymentPollInterval, historyPollInterval
- * - Other modules: loadPosts(), loadPages(), loadTrash()
+ * - Other modules: loadPosts(), loadPages(), loadBin()
  *
  * @version 1.0.5
  */
@@ -338,12 +338,12 @@ export function showDeploymentCompletion(success = true, completedDeployments = 
       window.loadPages();
     }
 
-    // Reload trash list if restore/delete operations completed
-    const hasTrashChanges = completedDeployments.some(d =>
+    // Reload bin list if restore/delete operations completed
+    const hasBinChanges = completedDeployments.some(d =>
       d.action && (d.action.toLowerCase().includes('restore') || d.action.toLowerCase().includes('delete'))
     );
-    if (hasTrashChanges && typeof window.loadTrash === 'function') {
-      window.loadTrash();
+    if (hasBinChanges && typeof window.loadBin === 'function') {
+      window.loadBin();
     }
   }
 
