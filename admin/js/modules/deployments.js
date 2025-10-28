@@ -679,7 +679,7 @@ export async function updateDashboardDeployments() {
         statusText = 'Skipped';
       }
 
-      const rowBg = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      const rowBg = index % 2 === 0 ? '' : 'table-light';
       const completedAt = new Date(deployment.completedAt || deployment.startedAt);
       const relativeTime = getRelativeTime(completedAt);
 
