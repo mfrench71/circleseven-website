@@ -18,7 +18,7 @@
  */
 
 import { escapeHtml } from '../core/utils.js';
-import { logger } from '../core/logger.js';
+import logger from '../core/logger.js';
 
 // State
 let currentEditor = null;

@@ -393,8 +393,144 @@ export function renderCategories() {
   tbody.innerHTML = rows.join('');
   countBadge.textContent = categories.length;
 
-  // Note: Sortable.js drag-and-drop is temporarily disabled for hierarchical view
-  // Will be re-enabled with hierarchy-aware sorting in next update
+  // Destroy previous Sortable instance if it exists
+  if (window.sortableInstances && window.sortableInstances.categories) {
+    window.sortableInstances.categories.destroy();
+  }
+
+  // Initialize hierarchical drag-and-drop
+  if (typeof Sortable !== 'undefined') {
+    if (!window.sortableInstances) {
+      window.sortableInstances = { categories: null, tags: null };
+    }
+
+    window.sortableInstances.categories = new Sortable(tbody, {
+      animation: 150,
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      handle: 'tr',
+
+      // Control what can be moved where
+      onMove: (evt) => {
+        const draggedRow = evt.dragged;
+        const relatedRow = evt.related;
+
+        const isDraggingParent = draggedRow.classList.contains('taxonomy-tree-parent');
+        const isDraggingChild = draggedRow.classList.contains('taxonomy-tree-child');
+        const isRelatedParent = relatedRow.classList.contains('taxonomy-tree-parent');
+        const isRelatedChild = relatedRow.classList.contains('taxonomy-tree-child');
+
+        // Parents can only be dropped relative to other parents
+        if (isDraggingParent && isRelatedChild) {
+          return false;
+        }
+
+        // Children can only be dropped relative to siblings (same parent)
+        if (isDraggingChild && isRelatedChild) {
+          const draggedParentIdx = draggedRow.getAttribute('data-parent-index');
+          const relatedParentIdx = relatedRow.getAttribute('data-parent-index');
+          if (draggedParentIdx !== relatedParentIdx) {
+            return false; // Different parent - not allowed for now
+          }
+        }
+
+        // Children cannot be dropped relative to parents
+        if (isDraggingChild && isRelatedParent) {
+          return false;
+        }
+
+        return true;
+      },
+
+      // Update data structure after drag
+      onEnd: (evt) => {
+        const draggedRow = evt.item;
+        const isDraggingParent = draggedRow.classList.contains('taxonomy-tree-parent');
+        const isDraggingChild = draggedRow.classList.contains('taxonomy-tree-child');
+
+        if (isDraggingParent) {
+          // Reordering parent categories
+          const oldParentIndex = parseInt(draggedRow.getAttribute('data-parent-index'));
+
+          // Calculate new index by counting parent rows before this one
+          let newParentIndex = 0;
+          const allRows = Array.from(tbody.children);
+          const draggedRowIndex = allRows.indexOf(draggedRow);
+
+          for (let i = 0; i < draggedRowIndex; i++) {
+            if (allRows[i].classList.contains('taxonomy-tree-parent')) {
+              newParentIndex++;
+            }
+          }
+
+          // Move in categoriesTree
+          const movedParent = window.categoriesTree.splice(oldParentIndex, 1)[0];
+          window.categoriesTree.splice(newParentIndex, 0, movedParent);
+
+          // Rebuild flat categories array
+          rebuildFlatCategories();
+
+          // Re-render to update data attributes and row numbers
+          renderCategories();
+          markDirty();
+
+        } else if (isDraggingChild) {
+          // Reordering children within same parent
+          const parentIndex = parseInt(draggedRow.getAttribute('data-parent-index'));
+          const oldChildIndex = parseInt(draggedRow.getAttribute('data-child-index'));
+
+          // Calculate new child index within parent
+          let newChildIndex = 0;
+          const allRows = Array.from(tbody.children);
+          const draggedRowIndex = allRows.indexOf(draggedRow);
+
+          for (let i = 0; i < draggedRowIndex; i++) {
+            const row = allRows[i];
+            if (row.classList.contains('taxonomy-tree-child') &&
+                row.getAttribute('data-parent-index') === String(parentIndex)) {
+              newChildIndex++;
+            }
+          }
+
+          // Move in categoriesTree children array
+          const parent = window.categoriesTree[parentIndex];
+          if (parent && parent.children) {
+            const movedChild = parent.children.splice(oldChildIndex, 1)[0];
+            parent.children.splice(newChildIndex, 0, movedChild);
+
+            // Rebuild flat categories array
+            rebuildFlatCategories();
+
+            // Re-render to update data attributes and row numbers
+            renderCategories();
+            markDirty();
+          }
+        }
+      }
+    });
+  }
+}
+
+/**
+ * Rebuilds the flat categories array from the hierarchical categoriesTree
+ * Maintains backwards compatibility with code expecting flat array
+ *
+ * @private
+ */
+function rebuildFlatCategories() {
+  window.categories = [];
+
+  window.categoriesTree.forEach(parent => {
+    // Add parent
+    window.categories.push(parent.item);
+
+    // Add children
+    if (parent.children && parent.children.length > 0) {
+      parent.children.forEach(child => {
+        window.categories.push(child.item);
+      });
+    }
+  });
 }
 
 /**
@@ -482,34 +618,138 @@ export function renderTags() {
 }
 
 /**
- * Finds a category by name and calls edit with the correct index
+ * Finds a category by name in the tree and edits it
  *
  * @param {string} categoryName - Name of the category to edit
  */
 export async function editCategoryByName(categoryName) {
-  const categories = window.categories || [];
-  const index = categories.findIndex(cat => cat === categoryName);
+  try {
+    // Find the category in the tree
+    let found = null;
+    let isParent = false;
+    let parentIndex = -1;
+    let childIndex = -1;
 
-  if (index !== -1) {
-    await editCategory(index);
-  } else {
-    showError('Category not found');
+    window.categoriesTree.forEach((parent, pIdx) => {
+      if (parent.item === categoryName) {
+        found = parent;
+        isParent = true;
+        parentIndex = pIdx;
+      } else if (parent.children) {
+        parent.children.forEach((child, cIdx) => {
+          if (child.item === categoryName) {
+            found = child;
+            isParent = false;
+            parentIndex = pIdx;
+            childIndex = cIdx;
+          }
+        });
+      }
+    });
+
+    if (!found) {
+      showError('Category not found');
+      return;
+    }
+
+    const newValue = await window.showModal('Edit Category', found.item);
+    if (newValue === null) return;
+
+    const trimmed = newValue.trim();
+    if (!trimmed) {
+      showError('Category name cannot be empty');
+      return;
+    }
+
+    // Check for duplicates in flat list
+    if (window.categories.includes(trimmed) && trimmed !== found.item) {
+      showError('Category already exists');
+      return;
+    }
+
+    // Update in tree
+    if (isParent) {
+      window.categoriesTree[parentIndex].item = trimmed;
+    } else {
+      window.categoriesTree[parentIndex].children[childIndex].item = trimmed;
+    }
+
+    // Rebuild flat array and re-render
+    rebuildFlatCategories();
+    renderCategories();
+    hideMessages();
+
+    // Auto-save
+    await saveTaxonomy();
+  } catch (error) {
+    console.error('Error editing category:', error);
+    showError('Failed to edit category: ' + error.message);
   }
 }
 
 /**
- * Finds a category by name and calls delete with the correct index
+ * Finds a category by name in the tree and deletes it
  *
  * @param {string} categoryName - Name of the category to delete
  */
 export async function deleteCategoryByName(categoryName) {
-  const categories = window.categories || [];
-  const index = categories.findIndex(cat => cat === categoryName);
+  try {
+    // Find the category in the tree
+    let found = null;
+    let isParent = false;
+    let parentIndex = -1;
+    let childIndex = -1;
+    let hasChildren = false;
 
-  if (index !== -1) {
-    await deleteCategory(index);
-  } else {
-    showError('Category not found');
+    window.categoriesTree.forEach((parent, pIdx) => {
+      if (parent.item === categoryName) {
+        found = parent;
+        isParent = true;
+        parentIndex = pIdx;
+        hasChildren = parent.children && parent.children.length > 0;
+      } else if (parent.children) {
+        parent.children.forEach((child, cIdx) => {
+          if (child.item === categoryName) {
+            found = child;
+            isParent = false;
+            parentIndex = pIdx;
+            childIndex = cIdx;
+          }
+        });
+      }
+    });
+
+    if (!found) {
+      showError('Category not found');
+      return;
+    }
+
+    // Warn if deleting parent with children
+    let confirmMessage = `Are you sure you want to delete "${categoryName}"?`;
+    if (hasChildren) {
+      confirmMessage = `Delete "${categoryName}" and all ${hasChildren} child ${hasChildren === 1 ? 'category' : 'categories'}?`;
+    }
+
+    const confirmed = await window.showConfirm(confirmMessage);
+    if (!confirmed) return;
+
+    // Delete from tree
+    if (isParent) {
+      window.categoriesTree.splice(parentIndex, 1);
+    } else {
+      window.categoriesTree[parentIndex].children.splice(childIndex, 1);
+    }
+
+    // Rebuild flat array and re-render
+    rebuildFlatCategories();
+    renderCategories();
+    hideMessages();
+
+    // Auto-save
+    await saveTaxonomy();
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    showError('Failed to delete category: ' + error.message);
   }
 }
 
@@ -517,8 +757,10 @@ export async function deleteCategoryByName(categoryName) {
  * Shows modal to add a new category
  *
  * Displays a modal dialog for entering a new category name, validates the input
- * (checks for empty names and duplicates), adds the category to the list,
+ * (checks for empty names and duplicates), adds the category to the hierarchical tree,
  * and automatically saves changes to the backend.
+ *
+ * New categories are added as top-level parents with empty children arrays.
  *
  * @throws {Error} If category addition fails
  *
@@ -542,7 +784,15 @@ export async function showAddCategoryModal() {
       return;
     }
 
-    window.categories.push(trimmed);
+    // Add to hierarchical tree as top-level parent
+    window.categoriesTree.push({
+      item: trimmed,
+      slug: '',
+      children: []
+    });
+
+    // Rebuild flat array and re-render
+    rebuildFlatCategories();
     renderCategories();
     hideMessages();
 

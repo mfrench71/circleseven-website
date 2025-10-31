@@ -24,7 +24,7 @@
 
 import { escapeHtml } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
-import { logger } from '../core/logger.js';
+import logger from '../core/logger.js';
 
 /**
  * Access global allBinnedItems array from app.js
