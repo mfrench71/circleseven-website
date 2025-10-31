@@ -416,15 +416,6 @@
                             />
                             <button
                               type="button"
-                              onclick="document.getElementById('post-image').value=''; updateImagePreview();"
-                              class="btn btn-outline-secondary"
-                              title="Remove featured image"
-                              id="remove-featured-image-btn"
-                            >
-                              <i class="fas fa-times"></i>
-                            </button>
-                            <button
-                              type="button"
                               onclick="selectFeaturedImage()"
                               class="btn btn-primary"
                               title="Browse Cloudinary Media Library"
@@ -433,14 +424,22 @@
                             </button>
                           </div>
                         </div>
-                        <div id="image-preview" class="d-none">
+                        <div id="image-preview" class="d-none position-relative" style="display: inline-block;">
                           <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative" style="display: inline-block;">
                             <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
-                            <div class="position-absolute top-50 start-50 translate-middle" style="pointer-events: none;">
-                              <i class="fas fa-search-plus text-white" style="font-size: 2rem; text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.9);"></i>
+                            <div class="position-absolute top-50 start-50 translate-middle" style="pointer-events: none; background: white; border-radius: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                              <i class="fas fa-search" style="font-size: 1.2rem; color: #1f2937;"></i>
                             </div>
                           </button>
-                          <div class="form-text">Click to view full size</div>
+                          <button
+                            type="button"
+                            onclick="document.getElementById('post-image').value=''; updateImagePreview(); event.stopPropagation();"
+                            class="btn btn-sm position-absolute"
+                            style="top: -8px; right: -8px; background: white; border-radius: 50%; width: 24px; height: 24px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 1px solid #e5e7eb;"
+                            title="Remove image"
+                          >
+                            <i class="fas fa-times" style="font-size: 0.75rem; color: #6b7280;"></i>
+                          </button>
                         </div>
                       </div>
                     </div>
