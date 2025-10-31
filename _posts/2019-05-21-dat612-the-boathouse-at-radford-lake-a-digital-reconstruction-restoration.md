@@ -13,7 +13,7 @@ tags:
   - Sound
   - Unity
 featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Unity-2018.3.8f1-Personal-SampleScene.unity-Final-Year-Project-PC-Mac-Linux-Standalone-_DX11_-16_05_2019-08_31_03
-last_modified_at: 2025-10-31 11:13:07
+last_modified_at: 2025-10-31 11:16:46
 ---
 
 ## Concept
@@ -26,12 +26,12 @@ Secondly, the project allows the user to interact with specific areas of the env
 
 To complement these core aspects of the project, and to attempt to create a digital historical ‘experience’, the virtual environment has a number of features that help to bring the project to life. These include:
 
-- A dynamic day/night cycle (and the ability to alter the length of the day through the user interface), including realistic simulations of the movement of the sun, moon, and stars.
-- Dynamic ambient sound, such as water and wind audio effects
-- Atmospheric effects, such as moving clouds (with shadows), sun and moon ‘god’ rays, and simulated wind
-- Flora and fauna, including birds, butterflies, trees, bushes, grasses, flowers, and plants
-- Animated doors and ‘restoration’ features
-- A fully-modelled terrain featuring Radford lake, woods, footpaths, and a road/track
+* A dynamic day/night cycle (and the ability to alter the length of the day through the user interface), including realistic simulations of the movement of the sun, moon, and stars.
+* Dynamic ambient sound, such as water and wind audio effects
+* Atmospheric effects, such as moving clouds (with shadows), sun and moon ‘god’ rays, and simulated wind
+* Flora and fauna, including birds, butterflies, trees, bushes, grasses, flowers, and plants
+* Animated doors and ‘restoration’ features
+* A fully-modelled terrain featuring Radford lake, woods, footpaths, and a road/track
 
 Finally, a pause menu provides access to some of the archive material on which the restoration is based. The user is able to view photographs of the Boathouse as it appeared from the late 1880s to the early 1900s and textual information gives context and background to the project.
 
@@ -119,10 +119,10 @@ This editing was carried out in Blender and largely involved removing floating a
 
 The structures that were created from photogrammetry are:
 
-- The armoury (400 photographs)
-- The covered walkway and ‘ruin’ (250 photographs)
-- The cider press (19 photographs)
-- The quay wall (38 photographs)
+* The armoury (400 photographs)
+* The covered walkway and ‘ruin’ (250 photographs)
+* The cider press (19 photographs)
+* The quay wall (38 photographs)
 
 <figure>
 <div class="embed-container">
@@ -155,11 +155,11 @@ Rather than just exploring a relatively static environment, I wanted the user to
 
 To that end, I incorporated the following elements:
 
-- A dynamic day/night cycle (and the ability to alter the length of the day through the user interface), including realistic simulations of the movement of the sun, moon, and stars.
-- Dynamic ambient sound, such as water and wind-in-the-trees audio effects. As the user approaches the lake or wooded areas, the effect is more noticeable.
-- Particle, shader, lighting, and audio effects combine to simulate the armoury’s cracking log fire. The flames create moving shadows, sparks jump out from the fire, and the light reflects on the restored floor. Smoke rises from the fire and drifts from the top of the chimney.
-- Atmospheric effects, such as moving clouds (with shadows), sun and moon ‘god’ rays, and simulated wind.
-- Flora and fauna, including birds (with bird calls), butterflies, trees, bushes, grasses, flowers, and plants.
+* A dynamic day/night cycle (and the ability to alter the length of the day through the user interface), including realistic simulations of the movement of the sun, moon, and stars.
+* Dynamic ambient sound, such as water and wind-in-the-trees audio effects. As the user approaches the lake or wooded areas, the effect is more noticeable.
+* Particle, shader, lighting, and audio effects combine to simulate the armoury’s cracking log fire. The flames create moving shadows, sparks jump out from the fire, and the light reflects on the restored floor. Smoke rises from the fire and drifts from the top of the chimney.
+* Atmospheric effects, such as moving clouds (with shadows), sun and moon ‘god’ rays, and simulated wind.
+* Flora and fauna, including birds (with bird calls), butterflies, trees, bushes, grasses, flowers, and plants.
 
 <div class="gallery">
 
