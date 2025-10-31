@@ -103,6 +103,9 @@ export async function loadTaxonomy() {
       renderCategories();
       renderTags();
       updateSaveButton();
+
+      // Initialize to show Categories tab by default
+      switchTaxonomyTab('categories');
       return;
     }
 
@@ -140,6 +143,9 @@ export async function loadTaxonomy() {
     renderCategories();
     renderTags();
     updateSaveButton();
+
+    // Initialize to show Categories tab by default
+    switchTaxonomyTab('categories');
   } catch (error) {
     showError('Failed to load taxonomy: ' + error.message);
   }
