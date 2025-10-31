@@ -238,10 +238,29 @@ export function trackDeployment(commitSha, action, itemId = null) {
  * Displays the banner with deployment progress information.
  */
 export function showDeploymentBanner() {
-  const header = document.getElementById('deployment-status-header');
+  const deploymentStatus = document.getElementById('deployment-status-header');
+  const greeting = document.getElementById('header-greeting');
+  const mainHeader = document.getElementById('main-header');
+  const links = mainHeader?.querySelectorAll('a, button');
 
-  if (header) {
-    header.classList.remove('d-none');
+  if (deploymentStatus) {
+    // Show deployment status, hide greeting
+    deploymentStatus.classList.remove('d-none');
+    deploymentStatus.classList.add('d-flex');
+    if (greeting) greeting.classList.add('d-none');
+
+    // Change header to teal background with white text
+    if (mainHeader) {
+      mainHeader.classList.remove('bg-white');
+      mainHeader.classList.add('bg-primary', 'text-white');
+    }
+
+    // Update link colors to white
+    links?.forEach(link => {
+      link.classList.remove('text-primary', 'text-secondary');
+      link.classList.add('text-white');
+    });
+
     updateDeploymentBanner();
   } else {
     logger.error('deployment-status-header element not found in DOM!');
@@ -289,18 +308,18 @@ export function updateDeploymentBanner() {
  * @param {Array<Object>} [completedDeployments=[]] - Array of completed deployment objects
  */
 export function showDeploymentCompletion(success = true, completedDeployments = []) {
-  const header = document.getElementById('deployment-status-header');
+  const deploymentStatus = document.getElementById('deployment-status-header');
+  const mainHeader = document.getElementById('main-header');
   const messageEl = document.getElementById('deployment-status-message');
   const timeEl = document.getElementById('deployment-status-time');
-  const iconEl = header?.querySelector('i');
+  const iconEl = deploymentStatus?.querySelector('i');
 
-  if (!header) return;
+  if (!deploymentStatus) return;
 
-  // Update banner styling (Bootstrap classes)
-  if (success) {
-    header.className = 'bg-success text-white';
-  } else {
-    header.className = 'bg-danger text-white';
+  // Update header styling for success/failure
+  if (mainHeader) {
+    mainHeader.classList.remove('bg-primary', 'bg-success', 'bg-danger');
+    mainHeader.classList.add(success ? 'bg-success' : 'bg-danger');
   }
 
   // Update icon
@@ -361,16 +380,33 @@ export function showDeploymentCompletion(success = true, completedDeployments = 
  * Removes the banner from view with fade-out animation.
  */
 export function hideDeploymentBanner() {
-  const header = document.getElementById('deployment-status-header');
+  const deploymentStatus = document.getElementById('deployment-status-header');
+  const greeting = document.getElementById('header-greeting');
+  const mainHeader = document.getElementById('main-header');
   const timeEl = document.getElementById('deployment-status-time');
+  const links = mainHeader?.querySelectorAll('a, button');
 
-  if (header) {
-    header.classList.add('d-none');
-    // Reset to default styling (Bootstrap classes)
-    header.className = 'd-none bg-primary text-white';
+  if (deploymentStatus) {
+    // Hide deployment status, show greeting
+    deploymentStatus.classList.add('d-none');
+    deploymentStatus.classList.remove('d-flex');
+    if (greeting) greeting.classList.remove('d-none');
+
+    // Reset header to white background
+    if (mainHeader) {
+      mainHeader.classList.remove('bg-primary', 'bg-success', 'bg-danger', 'text-white');
+      mainHeader.classList.add('bg-white');
+    }
+
+    // Reset link colors
+    links?.forEach((link, index) => {
+      link.classList.remove('text-white');
+      // First link is "Visit Site" (primary), second is "Log Out" (secondary)
+      link.classList.add(index === 0 ? 'text-primary' : 'text-secondary');
+    });
 
     // Reset icon
-    const iconEl = header.querySelector('i');
+    const iconEl = deploymentStatus.querySelector('i');
     if (iconEl) {
       iconEl.className = 'fas fa-spinner fa-spin';
     }
