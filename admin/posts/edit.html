@@ -126,15 +126,50 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
-                  <!-- Search -->
+                  <!-- Search and Filter -->
                   <div class="p-3 border-bottom">
-                    <input
-                      type="text"
-                      id="chooser-search"
-                      placeholder="Search images..."
-                      class="form-control"
-                      oninput="window.filterChooserMedia()"
-                    />
+                    <div class="row g-2">
+                      <div class="col-md-6">
+                        <input
+                          type="text"
+                          id="chooser-search"
+                          placeholder="Search images..."
+                          class="form-control"
+                          oninput="window.filterChooserMedia()"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <select
+                          id="chooser-folder"
+                          class="form-select"
+                          onchange="window.filterChooserMedia()"
+                        >
+                          <option value="">All Folders</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- Multi-Select Controls (shown only in multi-select mode) -->
+                    <div id="chooser-multi-controls" class="d-none mt-2">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group btn-group-sm" role="group">
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="window.selectAllChooserImages()"
+                          >
+                            Select All
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="window.clearChooserSelection()"
+                          >
+                            Clear All
+                          </button>
+                        </div>
+                        <span id="chooser-selection-count" class="small text-muted"></span>
+                      </div>
+                    </div>
                   </div>
 
                   <!-- Grid -->
@@ -169,6 +204,24 @@
                       Next
                     </button>
                   </div>
+                </div>
+                <!-- Modal Footer (shown only in multi-select mode) -->
+                <div id="chooser-modal-footer" class="modal-footer d-none">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="window.confirmChooserSelection()"
+                    id="chooser-confirm-btn"
+                  >
+                    Insert Gallery
+                  </button>
                 </div>
               </div>
             </div>
@@ -215,14 +268,10 @@
                   </div>
 
                   <div class="col-md-6">
-                    <label for="post-last-modified" class="form-label">Last Modified</label>
-                    <input
-                      type="text"
-                      id="post-last-modified"
-                      readonly
-                      class="form-control"
-                      placeholder="Not yet modified"
-                    />
+                    <label class="form-label">Last Modified</label>
+                    <div class="d-flex align-items-center" style="height: 38px;">
+                      <span id="post-last-modified" class="text-muted">Not yet modified</span>
+                    </div>
                     <div class="form-text">Automatically updated when post is saved</div>
                   </div>
 
@@ -364,7 +413,11 @@
       openImageChooser,
       changeChooserPage,
       filterChooserMedia,
-      selectChooserImage
+      selectChooserImage,
+      toggleChooserImage,
+      confirmChooserSelection,
+      selectAllChooserImages,
+      clearChooserSelection
     } from '/admin/js/modules/image-chooser.js';
     import {
       loadDeploymentHistory,
@@ -388,6 +441,10 @@
     window.changeChooserPage = changeChooserPage;
     window.filterChooserMedia = filterChooserMedia;
     window.selectChooserImage = selectChooserImage;
+    window.toggleChooserImage = toggleChooserImage;
+    window.confirmChooserSelection = confirmChooserSelection;
+    window.selectAllChooserImages = selectAllChooserImages;
+    window.clearChooserSelection = clearChooserSelection;
     window.trackDeployment = trackDeployment;
 
     // Confirmation modal utility
@@ -479,8 +536,7 @@
           document.getElementById('delete-post-btn').style.display = 'none';
         }
 
-        // Setup form change listeners
-        setupPostFormChangeListeners();
+        // Form change listeners are set up by editPost() and showNewPostForm()
       });
     };
 

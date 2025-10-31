@@ -28,9 +28,13 @@
 
 import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
+import { generateGalleryHTML } from './image-chooser.js';
 
 // Cache configuration
 const PAGES_CACHE_KEY = 'admin_pages_cache';
+
+// Initialization flag to prevent false dirty flag during page load
+let isInitializingPage = false;
 
 /**
  * Gets cached data if still valid
@@ -391,6 +395,63 @@ export function changePagesPagination(delta) {
 }
 
 /**
+ * Opens image chooser for inserting images into markdown editor
+ *
+ * Opens the Cloudinary image chooser modal and inserts the selected image as markdown syntax at the cursor position.
+ *
+ * @param {Object} editor - EasyMDE editor instance
+ *
+ * @example
+ * import { openImageChooserForMarkdown } from './modules/pages.js';
+ * openImageChooserForMarkdown(window.pageMarkdownEditor);
+ */
+export function openImageChooserForMarkdown(editor) {
+  window.openImageChooser((imageUrl) => {
+    // Insert markdown image syntax at cursor position
+    const cm = editor.codemirror;
+    const cursor = cm.getCursor();
+    cm.setSelection(cursor, cursor); // Clear any selection
+    cm.replaceSelection(`![](${imageUrl})`);
+    // Focus editor
+    cm.focus();
+    // Mark as dirty
+    window.pageHasUnsavedChanges = true;
+  });
+}
+
+/**
+ * Opens image chooser in multi-select mode for inserting gallery into markdown editor
+ *
+ * Opens the Cloudinary image chooser modal in multi-select mode. When confirmed,
+ * generates gallery HTML and inserts it at the cursor position.
+ *
+ * @param {Object} editor - EasyMDE editor instance
+ *
+ * @example
+ * import { openGalleryChooserForMarkdown } from './modules/pages.js';
+ * openGalleryChooserForMarkdown(window.pageMarkdownEditor);
+ */
+export function openGalleryChooserForMarkdown(editor) {
+  // Open image chooser in multi-select mode
+  window.openImageChooser((imageUrls) => {
+    // Generate gallery HTML from selected images
+    const galleryHTML = generateGalleryHTML(imageUrls);
+
+    if (galleryHTML) {
+      // Insert gallery HTML at cursor position
+      const cm = editor.codemirror;
+      const cursor = cm.getCursor();
+      cm.setSelection(cursor, cursor); // Clear any selection
+      cm.replaceSelection(`\n${galleryHTML}\n`);
+      // Focus editor
+      cm.focus();
+      // Mark as dirty
+      window.pageHasUnsavedChanges = true;
+    }
+  }, true); // true = multi-select mode
+}
+
+/**
  * Initializes the EasyMDE markdown editor for pages
  *
  * Creates the EasyMDE instance for page content editing if it doesn't exist, and sets up change tracking.
@@ -407,13 +468,41 @@ export function initPageMarkdownEditor() {
       autosave: {
         enabled: false
       },
-      toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'],
+      toolbar: [
+        'bold', 'italic', 'heading',
+        '|',
+        'quote', 'unordered-list', 'ordered-list',
+        '|',
+        'link', 'image',
+        {
+          name: 'cloudinary-image',
+          action: (editor) => {
+            openImageChooserForMarkdown(editor);
+          },
+          className: 'fa fa-cloud-upload-alt',
+          title: 'Insert Image from Cloudinary'
+        },
+        {
+          name: 'cloudinary-gallery',
+          action: (editor) => {
+            openGalleryChooserForMarkdown(editor);
+          },
+          className: 'fa fa-images',
+          title: 'Insert Gallery from Cloudinary'
+        },
+        '|',
+        'preview', 'side-by-side', 'fullscreen',
+        '|',
+        'guide'
+      ],
       status: ['lines', 'words', 'cursor']
     });
 
-    // Track changes in markdown editor
+    // Track changes in markdown editor (but not during initialization)
     window.pageMarkdownEditor.codemirror.on('change', () => {
-      window.pageHasUnsavedChanges = true;
+      if (!isInitializingPage) {
+        window.pageHasUnsavedChanges = true;
+      }
     });
   }
 }
@@ -526,9 +615,11 @@ export function autoPopulatePermalink() {
  */
 export async function editPage(filename, updateUrl = true) {
   try {
+    // Set initialization flag to prevent false dirty flag
+    isInitializingPage = true;
+
     // Clear any existing page data first to prevent stale state
     window.currentPage_pages = null;
-    clearPageDirty();
     window.permalinkManuallyEdited = false; // Reset flag when loading existing page
 
     const response = await fetch(`${window.API_BASE}/pages?path=${encodeURIComponent(filename)}`);
@@ -555,6 +646,9 @@ export async function editPage(filename, updateUrl = true) {
       if (window.pageMarkdownEditor && window.pageMarkdownEditor.codemirror) {
         window.pageMarkdownEditor.value(window.currentPage_pages.body || '');
       }
+      // Clear dirty flag and end initialization AFTER editor content is set
+      clearPageDirty();
+      isInitializingPage = false;
     });
 
     // Show editor (if these elements exist - they may not on standalone editor page)
@@ -566,15 +660,24 @@ export async function editPage(filename, updateUrl = true) {
     const editorTitle = document.getElementById('page-editor-title');
     const deleteBtn = document.getElementById('delete-page-btn');
     if (editorTitle) editorTitle.textContent = `Edit: ${filename}`;
-    if (deleteBtn) deleteBtn.style.display = 'block';
 
-    // Clear dirty flag when loading page
-    clearPageDirty();
+    // Hide delete button for protected pages
+    if (deleteBtn) {
+      const isProtected = window.currentPage_pages?.frontmatter?.protected === true;
+      if (isProtected) {
+        deleteBtn.style.display = 'none';
+        deleteBtn.disabled = true;
+      } else {
+        deleteBtn.style.display = 'block';
+        deleteBtn.disabled = false;
+      }
+    }
 
     // Add change listeners to form inputs
     setupPageFormChangeListeners();
   } catch (error) {
     showError('Failed to load page: ' + error.message);
+    isInitializingPage = false;
   }
 }
 

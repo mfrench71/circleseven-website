@@ -146,7 +146,7 @@ function fetchCloudinaryResources() {
 
     const options = {
       hostname: 'api.cloudinary.com',
-      path: `/v1_1/${CLOUDINARY_CLOUD_NAME}/resources/image?max_results=500`,
+      path: `/v1_1/${CLOUDINARY_CLOUD_NAME}/resources/image?max_results=500&type=upload`,
       method: 'GET',
       headers: {
         'Authorization': `Basic ${auth}`,

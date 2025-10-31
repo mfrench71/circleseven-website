@@ -29,9 +29,13 @@
 
 import { escapeHtml, debounce } from '../core/utils.js?v=1761123112';
 import { showError, showSuccess } from '../ui/notifications.js?v=1761123112';
+import { generateGalleryHTML } from './image-chooser.js';
 
 // Cache configuration
 const POSTS_CACHE_KEY = 'admin_posts_cache';
+
+// Initialization flag to prevent false dirty flag during post load
+let isInitializingPost = false;
 
 /**
  * Gets cached data if still valid
@@ -604,13 +608,41 @@ export function initMarkdownEditor() {
       autosave: {
         enabled: false
       },
-      toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide'],
+      toolbar: [
+        'bold', 'italic', 'heading',
+        '|',
+        'quote', 'unordered-list', 'ordered-list',
+        '|',
+        'link', 'image',
+        {
+          name: 'cloudinary-image',
+          action: (editor) => {
+            openImageChooserForMarkdown(editor);
+          },
+          className: 'fa fa-cloud-upload-alt',
+          title: 'Insert Image from Cloudinary'
+        },
+        {
+          name: 'cloudinary-gallery',
+          action: (editor) => {
+            openGalleryChooserForMarkdown(editor);
+          },
+          className: 'fa fa-images',
+          title: 'Insert Gallery from Cloudinary'
+        },
+        '|',
+        'preview', 'side-by-side', 'fullscreen',
+        '|',
+        'guide'
+      ],
       status: ['lines', 'words', 'cursor']
     });
 
-    // Track changes in markdown editor
+    // Track changes in markdown editor (but not during initialization)
     window.markdownEditor.codemirror.on('change', () => {
-      window.postHasUnsavedChanges = true;
+      if (!isInitializingPost) {
+        window.postHasUnsavedChanges = true;
+      }
     });
   }
 }
@@ -673,9 +705,11 @@ export function clearPostDirty() {
  */
 export async function editPost(filename, updateUrl = true) {
   try {
+    // Set initialization flag to prevent false dirty flag
+    isInitializingPost = true;
+
     // Clear any existing post data first to prevent stale state
     window.currentPost = null;
-    clearPostDirty();
 
     const response = await fetch(`${window.API_BASE}/posts?path=${encodeURIComponent(filename)}`);
     if (!response.ok) throw new Error('Failed to load post');
@@ -685,6 +719,22 @@ export async function editPost(filename, updateUrl = true) {
     // Populate form
     document.getElementById('post-title').value = window.currentPost.frontmatter.title || '';
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
+
+    // Display last modified date (read-only, informational)
+    const lastModifiedEl = document.getElementById('post-last-modified');
+    if (lastModifiedEl && window.currentPost.frontmatter.last_modified_at) {
+      const lastModified = new Date(window.currentPost.frontmatter.last_modified_at);
+      lastModifiedEl.textContent = lastModified.toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    } else if (lastModifiedEl) {
+      lastModifiedEl.textContent = 'Not yet modified';
+    }
 
     // Support both 'image' and 'featured_image' fields
     let imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
@@ -709,19 +759,20 @@ export async function editPost(filename, updateUrl = true) {
       if (window.markdownEditor && window.markdownEditor.codemirror) {
         window.markdownEditor.value(window.currentPost.body || '');
       }
+      // Clear dirty flag and end initialization AFTER editor content is set
+      clearPostDirty();
+      isInitializingPost = false;
     });
 
     // Set categories and tags
     setMultiSelect('post-categories', window.currentPost.frontmatter.categories || []);
     setMultiSelect('post-tags', window.currentPost.frontmatter.tags || []);
 
-    // Clear dirty flag when loading post
-    clearPostDirty();
-
     // Add change listeners to form inputs
     setupPostFormChangeListeners();
   } catch (error) {
     showError('Failed to load post: ' + error.message);
+    isInitializingPost = false;
   }
 }
 
@@ -1445,6 +1496,63 @@ export function selectFeaturedImage() {
     updateImagePreview();
     markPostDirty();
   });
+}
+
+/**
+ * Opens image chooser for inserting images into markdown editor
+ *
+ * Opens the Cloudinary image chooser modal and inserts the selected image as markdown syntax at the cursor position.
+ *
+ * @param {Object} editor - EasyMDE editor instance
+ *
+ * @example
+ * import { openImageChooserForMarkdown } from './modules/posts.js';
+ * openImageChooserForMarkdown(window.markdownEditor);
+ */
+export function openImageChooserForMarkdown(editor) {
+  window.openImageChooser((imageUrl) => {
+    // Insert markdown image syntax at cursor position
+    const cm = editor.codemirror;
+    const cursor = cm.getCursor();
+    cm.setSelection(cursor, cursor); // Clear any selection
+    cm.replaceSelection(`![](${imageUrl})`);
+    // Focus editor
+    cm.focus();
+    // Mark as dirty
+    markPostDirty();
+  });
+}
+
+/**
+ * Opens image chooser in multi-select mode for inserting gallery into markdown editor
+ *
+ * Opens the Cloudinary image chooser modal in multi-select mode. When confirmed,
+ * generates gallery HTML and inserts it at the cursor position.
+ *
+ * @param {Object} editor - EasyMDE editor instance
+ *
+ * @example
+ * import { openGalleryChooserForMarkdown } from './modules/posts.js';
+ * openGalleryChooserForMarkdown(window.markdownEditor);
+ */
+export function openGalleryChooserForMarkdown(editor) {
+  // Open image chooser in multi-select mode
+  window.openImageChooser((imageUrls) => {
+    // Generate gallery HTML from selected images
+    const galleryHTML = generateGalleryHTML(imageUrls);
+
+    if (galleryHTML) {
+      // Insert gallery HTML at cursor position
+      const cm = editor.codemirror;
+      const cursor = cm.getCursor();
+      cm.setSelection(cursor, cursor); // Clear any selection
+      cm.replaceSelection(`\n${galleryHTML}\n`);
+      // Focus editor
+      cm.focus();
+      // Mark as dirty
+      markPostDirty();
+    }
+  }, true); // true = multi-select mode
 }
 
 /**
