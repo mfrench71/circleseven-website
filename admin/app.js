@@ -1672,6 +1672,164 @@ async function updateDashboardDeployments() {
   }
 }
 
+// Update recently published content table on dashboard
+/**
+ * Fetches and displays recently published posts and pages on dashboard
+ *
+ * Shows the 10 most recently modified posts and pages with titles, types, and dates.
+ *
+ * @returns {Promise<void>}
+ */
+async function updateRecentlyPublished() {
+  const loadingEl = document.getElementById('recently-published-loading');
+  const contentEl = document.getElementById('recently-published-content');
+  const tbody = document.getElementById('recently-published-tbody');
+
+  if (!loadingEl || !contentEl || !tbody) return; // Not on dashboard
+
+  try {
+    // Show loading state
+    loadingEl.classList.remove('d-none');
+    contentEl.classList.add('d-none');
+
+    const token = user?.token?.access_token;
+    if (!token) {
+      throw new Error('Not authenticated');
+    }
+
+    // Fetch both posts and pages in parallel
+    const [postsResponse, pagesResponse] = await Promise.all([
+      fetch(`https://api.github.com/repos/${window.GITHUB_REPO}/contents/_posts`, {
+        headers: { 'Authorization': `token ${token}` }
+      }),
+      fetch(`https://api.github.com/repos/${window.GITHUB_REPO}/contents/_pages`, {
+        headers: { 'Authorization': `token ${token}` }
+      })
+    ]);
+
+    const posts = postsResponse.ok ? await postsResponse.json() : [];
+    const pages = pagesResponse.ok ? await pagesResponse.json() : [];
+
+    // Filter for markdown files and add type
+    const postFiles = Array.isArray(posts)
+      ? posts
+          .filter(f => f.name.endsWith('.md'))
+          .map(f => ({ ...f, type: 'Post', folder: '_posts' }))
+      : [];
+
+    const pageFiles = Array.isArray(pages)
+      ? pages
+          .filter(f => f.name.endsWith('.md'))
+          .map(f => ({ ...f, type: 'Page', folder: '_pages' }))
+      : [];
+
+    // Combine and fetch commit dates for each file
+    const allFiles = [...postFiles, ...pageFiles];
+
+    // Fetch last commit date for each file
+    const filesWithDates = await Promise.all(
+      allFiles.map(async (file) => {
+        try {
+          const commitsUrl = `https://api.github.com/repos/${window.GITHUB_REPO}/commits?path=${file.folder}/${file.name}&per_page=1`;
+          const response = await fetch(commitsUrl, {
+            headers: { 'Authorization': `token ${token}` }
+          });
+          const commits = await response.json();
+          const lastCommitDate = commits[0]?.commit?.committer?.date || new Date(0).toISOString();
+
+          // Extract title from filename
+          let title = file.name.replace(/\.md$/, '');
+          // Remove date prefix if present (YYYY-MM-DD-)
+          title = title.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+          // Convert hyphens to spaces and capitalize
+          title = title.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+          return {
+            ...file,
+            lastModified: new Date(lastCommitDate),
+            title
+          };
+        } catch (error) {
+          logger.error(`Failed to fetch commit date for ${file.name}:`, error);
+          return {
+            ...file,
+            lastModified: new Date(0),
+            title: file.name
+          };
+        }
+      })
+    );
+
+    // Sort by last modified date (newest first) and take top 10
+    const recentFiles = filesWithDates
+      .sort((a, b) => b.lastModified - a.lastModified)
+      .slice(0, 10);
+
+    // Render table rows
+    tbody.innerHTML = '';
+
+    if (recentFiles.length === 0) {
+      contentEl.classList.remove('d-none');
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="4" class="text-center py-4 text-muted">
+            <i class="fas fa-file-alt fs-3 mb-2 text-secondary d-block"></i>
+            <span>No content yet</span>
+          </td>
+        </tr>
+      `;
+      loadingEl.classList.add('d-none');
+      return;
+    }
+
+    recentFiles.forEach(file => {
+      const relativeTime = getRelativeTime(file.lastModified);
+      const typeIcon = file.type === 'Post' ? 'fa-newspaper' : 'fa-file-alt';
+      const typeBadge = file.type === 'Post' ? 'bg-primary' : 'bg-secondary';
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>
+          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark fw-medium">
+            ${escapeHtml(file.title)}
+          </a>
+        </td>
+        <td>
+          <span class="badge ${typeBadge} text-white">
+            <i class="fas ${typeIcon} me-1"></i>
+            ${file.type}
+          </span>
+        </td>
+        <td class="text-muted">${relativeTime}</td>
+        <td class="text-end">
+          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="btn btn-sm btn-outline-primary">
+            <i class="fas fa-edit"></i>
+            Edit
+          </a>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Hide loading, show content
+    loadingEl.classList.add('d-none');
+    contentEl.classList.remove('d-none');
+
+  } catch (error) {
+    logger.error('Failed to load recently published:', error);
+    loadingEl.classList.add('d-none');
+    contentEl.classList.remove('d-none');
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" class="text-center py-4 text-danger">
+          <i class="fas fa-exclamation-triangle fs-3 mb-2 d-block"></i>
+          <span>Failed to load recently published content</span>
+        </td>
+      </tr>
+    `;
+  }
+}
+
 // Helper: Get relative time string
 /**
  * Converts a date to relative time string

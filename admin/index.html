@@ -154,6 +154,43 @@
               </div>
             </div>
           </div>
+
+          <!-- Recently Published Row (full width) -->
+          <div class="mb-4">
+            <div id="recently-published-card" class="card shadow-sm">
+              <div class="card-body">
+                <h3 class="h6 fw-semibold mb-3 d-flex align-items-center gap-2">
+                  <i class="fas fa-clock text-primary"></i>
+                  Recently Published
+                </h3>
+                <!-- Loading State -->
+                <div id="recently-published-loading" class="text-center py-5 text-muted">
+                  <div class="spinner-border text-primary mb-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mb-0">Loading recent content...</p>
+                </div>
+                <!-- Content (hidden initially, shown after loading) -->
+                <div id="recently-published-content" class="d-none">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="border-0 small text-muted">Title</th>
+                          <th class="border-0 small text-muted">Type</th>
+                          <th class="border-0 small text-muted">Published</th>
+                          <th class="border-0 small text-muted text-end">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="recently-published-tbody">
+                        <!-- Will be populated by JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -202,6 +239,7 @@
     window.loadDeploymentHistory = loadDeploymentHistory;
     window.restoreActiveDeployments = restoreActiveDeployments;
     window.updateDashboardDeployments = updateDashboardDeployments;
+    window.updateRecentlyPublished = updateRecentlyPublished;
 
     // Page-specific initialization
     const init = async () => {
@@ -219,6 +257,9 @@
 
         // Update dashboard deployments
         await updateDashboardDeployments();
+
+        // Update recently published content
+        await updateRecentlyPublished();
 
         // Start polling for deployment updates
         startDeploymentHistoryPolling();
