@@ -582,14 +582,18 @@ describe('Deployment Status Function', () => {
     mockResponse.statusCode = statusCode;
 
     https.request.mockImplementation((options, callback) => {
-      callback(mockResponse);
-
       mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
+        // Call the callback to invoke the response handler
+        callback(mockResponse);
 
-        if (dataCallback) dataCallback(body);
-        if (endCallback) endCallback();
+        // Use setImmediate to ensure event listeners are registered before triggering events
+        setImmediate(() => {
+          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
+          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
+
+          if (dataCallback) dataCallback(body);
+          if (endCallback) endCallback();
+        });
       });
 
       return mockRequest;

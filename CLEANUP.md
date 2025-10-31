@@ -4,11 +4,13 @@ This document tracks code cleanup tasks identified in the comprehensive audit pe
 
 ## ✅ Completed Tasks
 
-### 1. Remove Unused CSS File
-- **File**: `assets/css/table-of-contents.css` (124 lines)
+### 1. Remove Unused CSS Files
+- **Files**:
+  - `assets/css/table-of-contents.css` (124 lines)
+  - `admin/styles.css` (34K, 1,444 lines)
 - **Status**: ✅ **DELETED**
-- **Impact**: Eliminates unnecessary HTTP request
-- **Commit**: e8d13b2
+- **Impact**: Eliminates 35K+ unnecessary files, fixes service worker caching
+- **Commits**: e8d13b2, ad7b59d
 
 ### 2. Remove Debug Console.log
 - **File**: `admin/js/modules/taxonomy.js` line 321
@@ -16,66 +18,41 @@ This document tracks code cleanup tasks identified in the comprehensive audit pe
 - **Impact**: Cleaner production code
 - **Commit**: e8d13b2
 
+### 3. Replace Console Statements with Logger Utility
+- **Scope**: 43 console.* statements across 13 admin JS files
+- **Status**: ✅ **COMPLETED**
+- **Impact**: Production-safe logging that only outputs in development
+- **Commit**: 82a2ba2
+
 ## 🔴 HIGH PRIORITY - Remaining Tasks
 
-### 3. Replace console.* Statements with Logger Utility
-- **Scope**: 60+ console.log/warn/error statements across admin JS files
-- **Files Affected**:
-  - `admin/js/modules/deployments.js` (10+ instances)
-  - `admin/js/modules/taxonomy.js` (8+ instances)
-  - `admin/app.js` (14+ instances)
-  - `admin/js/modules/posts.js` (5+ instances)
-  - Various other admin modules
-
-- **Solution**: Import and use existing logger utility at `admin/js/core/logger.js`
-  ```javascript
-  import logger from '../core/logger.js';
-  // Replace: console.log('message')
-  // With: logger.log('message')
-  // Replace: console.error('error')
-  // With: logger.error('error')
-  ```
-
-- **Why**: Logger only outputs in development mode, keeping production clean
-- **Effort**: Medium (systematic search & replace across multiple files)
-
-### 4. Consolidate Duplicate Admin CSS Files
-- **Files**:
-  - `admin/styles.css` (1,444 lines) - Tailwind-inspired utilities
-  - `admin/admin.css` (643 lines) - Bootstrap-focused styles
-  - **Total**: 2,087 lines with significant duplication
-
-- **Problem**:
-  - Duplicate EasyMDE preview styles (200+ lines)
-  - Duplicate sidebar navigation styles
-  - Duplicate button styles
-  - Duplicate utility classes
-
-- **Recommendation**:
-  - Keep `admin/admin.css` as primary file (Bootstrap-based)
-  - Merge non-duplicate utility classes from `styles.css`
-  - Remove all Tailwind-style utilities that duplicate Bootstrap
-  - Delete or significantly reduce `styles.css`
-
-- **Why**: Reduces maintenance burden, eliminates confusion, improves load time
-- **Effort**: High (requires careful merging to avoid breaking admin UI)
-- **Risk**: Medium (could break admin interface if not done carefully)
-
-### 5. Fix Test Suite - Mock GitHub API Calls
+### 4. Fix Test Suite - Mock GitHub API Calls
 - **Problem**: Tests disabled in `netlify/build.sh` (line 40) due to failures
 - **Root Cause**: Tests making real GitHub API calls without valid credentials
   - Error: `GitHub API error: 401 Bad credentials`
-  - Affects: `tests/unit/backend/posts.test.js`, `tests/unit/backend/bin.test.js`
+  - Affects: `tests/unit/backend/posts.test.js`, `tests/unit/backend/bin.test.js`, and 4 other backend test files
 
-- **Solution**:
-  1. Install mocking library (if not present): `msw` or `nock`
-  2. Create mock GitHub API responses
-  3. Update tests to use mocks instead of real HTTP calls
-  4. Re-enable tests in build.sh
+- **Attempted Fix** (Partially Complete):
+  1. ✅ Fixed timing issue in `setupGitHubMock()` - used `setImmediate()` to ensure event listeners are registered before triggering callbacks
+  2. ✅ Applied fix to 6 test files and 8 helper functions
+  3. ❌ Tests still fail - deeper mocking issue discovered
+
+- **Deeper Issue Found**:
+  - `vi.mock('https')` doesn't properly mock Node.js built-in modules with CommonJS `require()`
+  - `vi.resetModules()` in `beforeEach()` clears the https mock
+  - Handler files use `const https = require('https')` (CommonJS)
+  - Test files use `import https from 'https'` (ESM)
+  - These get different module references, so mocking one doesn't affect the other
+
+- **Recommended Solutions**:
+  1. **Install HTTP mocking library**: `nock` or `msw` - these intercept HTTP requests at a lower level
+  2. **Refactor test setup**: Remove `vi.resetModules()` or use factory functions with `vi.mock()`
+  3. **Convert to ESM**: Change handler files to use ES modules instead of CommonJS
 
 - **Why**: CI/CD should run tests before production deploys
-- **Effort**: Medium-High (requires test infrastructure setup)
+- **Effort**: HIGH (requires test infrastructure refactor - installing nock/msw and updating all 6 backend test files)
 - **Priority**: HIGH (impacts code quality and deployment safety)
+- **Status**: In Progress - timing fix applied, but module mocking needs complete redesign
 
 ## 🟡 MEDIUM PRIORITY - Optional Improvements
 
@@ -115,39 +92,33 @@ This document tracks code cleanup tasks identified in the comprehensive audit pe
 ## 📊 Summary Statistics
 
 ### Before Cleanup:
-- **Unused CSS**: 124 lines (table-of-contents.css)
-- **Debug logging**: 60+ console statements
-- **Duplicate CSS**: ~200+ lines (EasyMDE preview styles alone)
+- **Unused CSS**: 35K+ (table-of-contents.css + styles.css)
+- **Debug logging**: 43 console statements in admin JS
 - **Tests**: Disabled due to API mocking issues
-- **Total CSS**: 2,087 lines (admin) + 3,960 lines (frontend) = 6,047 lines
+- **Total admin CSS**: 2,087 lines across 2 files
 
-### After Quick Cleanup:
-- **Unused CSS**: ✅ 0 lines (removed)
-- **Debug logging**: 59 console statements remaining
-- **Tests**: Issue identified (needs mocking infrastructure)
+### After Cleanup (Completed):
+- **Unused CSS**: ✅ 0 files (removed 35K+)
+- **Debug logging**: ✅ 1 console statement remaining (service worker only)
+- **Admin CSS**: ✅ Single file (admin.css) - eliminated 1,444 line duplicate
+- **Logger adoption**: ✅ 43 statements converted to production-safe logging
 
-### Potential Impact of Full Cleanup:
-- **Code reduction**: ~500-800 lines through deduplication
-- **Performance**: Fewer HTTP requests if CSS consolidated
-- **Quality**: Tests enabled in CI/CD pipeline
-- **Maintainability**: Single source of truth for admin styles
+### Remaining Work:
+- **Tests**: Still disabled, needs proper mocking implementation
+- **Impact**: ~1,600 lines of code removed, cleaner production logging
 
-## 🎯 Recommended Action Plan
+## 🎯 Action Plan Status
 
-### Phase 1 (Quick Wins - 2-4 hours):
-1. ✅ Delete unused CSS
-2. ✅ Remove debug console.log
-3. ⏸️ Replace 5-10 highest-use console statements with logger
-4. ⏸️ Document remaining console replacement as tech debt
+### Phase 1 (Quick Wins):
+1. ✅ Delete unused CSS files (both frontend and admin)
+2. ✅ Remove debug console.log statements
+3. ✅ Replace ALL console statements with logger utility (43 instances)
+4. ✅ Eliminate duplicate admin CSS (removed styles.css entirely)
 
-### Phase 2 (Quality Improvements - 1-2 days):
-5. ⏸️ Fix test suite mocking
+### Phase 2 (Quality Improvements - Remaining):
+5. ⏸️ Fix test suite mocking (needs proper https mock implementation)
 6. ⏸️ Re-enable tests in build pipeline
-7. ⏸️ Consolidate admin CSS files
-
-### Phase 3 (Performance - 1 day):
-8. ⏸️ Consider CSS concatenation strategy
-9. ⏸️ Implement if build pipeline supports it
+7. ⏸️ Consider frontend CSS concatenation (optional performance improvement)
 
 ## ✅ Positive Findings
 
@@ -175,4 +146,6 @@ This document tracks code cleanup tasks identified in the comprehensive audit pe
 
 **Last Updated**: October 31, 2025
 **Audit Performed By**: Claude Code AI
-**Completion Status**: 2/8 high priority tasks completed (25%)
+**Completion Status**: 3/4 high priority tasks completed (75%)
+**Code Reduced**: ~1,600 lines removed
+**Files Deleted**: 2 unused CSS files (35K+)
