@@ -1,58 +1,119 @@
 # Site Taxonomy - Manage categories and tags used across the site
 # Edit these lists in CMS Settings > Taxonomy (Categories & Tags)
+#
+# Categories now support hierarchy with parent-child relationships.
+# Each category can have optional 'slug' and 'children' fields.
+# Children inherit from their parent for organizational purposes.
 
 categories:
   - item: Projects
+    slug: projects
+    children: []
   - item: Photography
+    slug: photography
+    children: []
   - item: Retro Computing
+    slug: retro-computing
+    children: []
   - item: Motion Graphics
+    slug: motion-graphics
+    children: []
   - item: Digital Art and Technology
-  - item: DAT401 - Strategies for Digital Art and Technology
-  - item: DAT402 - Digital Culture
-  - item: DAT403 - Digital Media Design
-  - item: DAT404 - Web Technologies
-  - item: DAT405 - Creative Coding
-  - item: DAT406 - Digital Making
-  - item: DAT501 - Strategies for Digital Art and Technology
-  - item: DAT503 - Reflexive Design
-  - item: DAT504 - Advanced Web Technologies
-  - item: DAT505 - Advanced Creative Coding
-  - item: DAT506 - Emerging Technologies
-  - item: DAT601 - Realtime
-  - item: DAT602 - Everyware
-  - item: DAT612 - Final Year Project
-  - item: DAT613 - Dissertation
-  - item: INDE601 - Netscapes
+    slug: digital-art-technology
+    children:
+      - item: DAT401 - Strategies for Digital Art and Technology
+        slug: dat401
+      - item: DAT402 - Digital Culture
+        slug: dat402
+      - item: DAT403 - Digital Media Design
+        slug: dat403
+      - item: DAT404 - Web Technologies
+        slug: dat404
+      - item: DAT405 - Creative Coding
+        slug: dat405
+      - item: DAT406 - Digital Making
+        slug: dat406
+      - item: DAT501 - Strategies for Digital Art and Technology
+        slug: dat501
+      - item: DAT503 - Reflexive Design
+        slug: dat503
+      - item: DAT504 - Advanced Web Technologies
+        slug: dat504
+      - item: DAT505 - Advanced Creative Coding
+        slug: dat505
+      - item: DAT506 - Emerging Technologies
+        slug: dat506
+      - item: DAT601 - Realtime
+        slug: dat601
+      - item: DAT602 - Everyware
+        slug: dat602
+      - item: DAT612 - Final Year Project
+        slug: dat612
+      - item: DAT613 - Dissertation
+        slug: dat613
+      - item: INDE601 - Netscapes
+        slug: inde601
 
 tags:
   - item: Photography
+    slug: photography
   - item: Academic
+    slug: academic
   - item: Tutorial
+    slug: tutorial
   - item: Web Development
+    slug: web-development
   - item: JavaScript
+    slug: javascript
   - item: Python
+    slug: python
   - item: Photoshop
+    slug: photoshop
   - item: Illustrator
+    slug: illustrator
   - item: After Effects
+    slug: after-effects
   - item: Blender
+    slug: blender
   - item: Unity
+    slug: unity
   - item: Arduino
+    slug: arduino
   - item: Photogrammetry
+    slug: photogrammetry
   - item: Video
+    slug: video
   - item: Sound
+    slug: sound
   - item: DAT401
+    slug: dat401
   - item: DAT402
+    slug: dat402
   - item: DAT403
+    slug: dat403
   - item: DAT404
+    slug: dat404
   - item: DAT405
+    slug: dat405
   - item: DAT406
+    slug: dat406
   - item: DAT501
+    slug: dat501
   - item: DAT503
+    slug: dat503
   - item: DAT504
+    slug: dat504
   - item: DAT505
+    slug: dat505
   - item: DAT506
+    slug: dat506
   - item: DAT601
+    slug: dat601
   - item: DAT602
+    slug: dat602
   - item: DAT612
+    slug: dat612
   - item: DAT613
+    slug: dat613
   - item: INDE601
+    slug: inde601

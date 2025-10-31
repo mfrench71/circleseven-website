@@ -116,7 +116,30 @@ exports.handler = async (event, context) => {
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
       const taxonomy = yaml.load(content);
 
-      // Extract strings from objects
+      /**
+       * Flattens hierarchical categories to simple string array
+       * Maintains backwards compatibility with existing code
+       */
+      const flattenCategories = (categories) => {
+        const flat = [];
+        categories.forEach(cat => {
+          // Add parent
+          const name = typeof cat === 'string' ? cat : cat.item;
+          flat.push(name);
+
+          // Add children if they exist
+          if (cat.children && Array.isArray(cat.children)) {
+            cat.children.forEach(child => {
+              flat.push(typeof child === 'string' ? child : child.item);
+            });
+          }
+        });
+        return flat;
+      };
+
+      /**
+       * Extracts strings from flat tag array
+       */
       const extractStrings = (arr) => arr.map(item =>
         typeof item === 'string' ? item : (item.item || item)
       );
@@ -125,8 +148,13 @@ exports.handler = async (event, context) => {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          categories: extractStrings(taxonomy.categories || []),
-          tags: extractStrings(taxonomy.tags || [])
+          // Flat arrays for backwards compatibility
+          categories: flattenCategories(taxonomy.categories || []),
+          tags: extractStrings(taxonomy.tags || []),
+
+          // Hierarchical structure for new UI
+          categoriesTree: taxonomy.categories || [],
+          tagsTree: taxonomy.tags || []
         })
       };
     }
@@ -145,10 +173,16 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { categories, tags } = JSON.parse(event.body);
+      const requestBody = JSON.parse(event.body);
+
+      // Accept either flat arrays (backwards compat) or hierarchical trees
+      const categoriesTree = requestBody.categoriesTree ||
+        (requestBody.categories || []).map(c => ({ item: c, slug: '', children: [] }));
+      const tagsTree = requestBody.tagsTree ||
+        (requestBody.tags || []).map(t => ({ item: t, slug: '' }));
 
       // Validate input
-      if (!Array.isArray(categories) || !Array.isArray(tags)) {
+      if (!Array.isArray(categoriesTree) || !Array.isArray(tagsTree)) {
         return {
           statusCode: 400,
           headers,
@@ -159,15 +193,46 @@ exports.handler = async (event, context) => {
       // Get current file to get its SHA
       const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
 
-      // Create YAML with comments
+      /**
+       * Generates YAML for a category with optional children
+       */
+      const generateCategoryYAML = (cat, indent = 2) => {
+        const spaces = ' '.repeat(indent);
+        let yaml = `${spaces}- item: ${cat.item}\n`;
+        yaml += `${spaces}  slug: ${cat.slug || ''}\n`;
+
+        if (cat.children && cat.children.length > 0) {
+          yaml += `${spaces}  children:\n`;
+          cat.children.forEach(child => {
+            yaml += `${spaces}    - item: ${child.item}\n`;
+            yaml += `${spaces}      slug: ${child.slug || ''}\n`;
+          });
+        } else {
+          yaml += `${spaces}  children: []\n`;
+        }
+
+        return yaml;
+      };
+
+      /**
+       * Generates YAML for a tag
+       */
+      const generateTagYAML = (tag) => {
+        return `  - item: ${tag.item}\n    slug: ${tag.slug || ''}\n`;
+      };
+
+      // Create YAML with comments and hierarchy
       const yamlContent = `# Site Taxonomy - Manage categories and tags used across the site
 # Edit these lists in CMS Settings > Taxonomy (Categories & Tags)
+#
+# Categories now support hierarchy with parent-child relationships.
+# Each category can have optional 'slug' and 'children' fields.
+# Children inherit from their parent for organizational purposes.
 
 categories:
-${categories.map(c => `  - item: ${c}`).join('\n')}
-
+${categoriesTree.map(c => generateCategoryYAML(c, 2)).join('')}
 tags:
-${tags.map(t => `  - item: ${t}`).join('\n')}
+${tagsTree.map(t => generateTagYAML(t)).join('')}
 `;
 
       // Update file via GitHub API
