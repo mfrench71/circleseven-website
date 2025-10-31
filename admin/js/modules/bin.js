@@ -24,6 +24,7 @@
 
 import { escapeHtml } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
+import { logger } from '../core/logger.js';
 
 /**
  * Access global allBinnedItems array from app.js
@@ -76,7 +77,7 @@ export function renderBinList() {
   const emptyEl = document.getElementById('bin-empty');
 
   if (!listEl || !emptyEl) {
-    console.warn('Bin DOM elements not found');
+    logger.warn('Bin DOM elements not found');
     return;
   }
 
@@ -204,24 +205,24 @@ export async function restoreItem(filename, sha, type) {
     if (type === 'page') {
       // Clear pages cache before reloading
       if (typeof window.clearPagesCache === 'function') {
-        console.log('[Bin] Clearing pages cache after restoration');
+        logger.log('[Bin] Clearing pages cache after restoration');
         window.clearPagesCache();
       }
       if (typeof window.loadPages === 'function') {
-        console.log('[Bin] Reloading pages list after restoration');
+        logger.log('[Bin] Reloading pages list after restoration');
         await window.loadPages();
-        console.log('[Bin] Pages reloaded, count:', window.allPages?.length);
+        logger.log('[Bin] Pages reloaded, count:', window.allPages?.length);
       }
     } else if (type === 'post') {
       // Clear posts cache before reloading
       if (typeof window.clearPostsCache === 'function') {
-        console.log('[Bin] Clearing posts cache after restoration');
+        logger.log('[Bin] Clearing posts cache after restoration');
         window.clearPostsCache();
       }
       if (typeof window.loadPosts === 'function') {
-        console.log('[Bin] Reloading posts list after restoration');
+        logger.log('[Bin] Reloading posts list after restoration');
         await window.loadPosts();
-        console.log('[Bin] Posts reloaded, count:', window.allPosts?.length);
+        logger.log('[Bin] Posts reloaded, count:', window.allPosts?.length);
       }
     }
   } catch (error) {
