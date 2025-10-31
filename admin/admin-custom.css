@@ -482,3 +482,113 @@ table .btn-link {
 .cursor-move {
   cursor: move;
 }
+
+/* ============================================
+   INLINE STYLE EXTRACTIONS
+   Converted from inline styles for better maintainability
+   ============================================ */
+
+/* Auth & Modals */
+.auth-gate-card {
+  max-width: 28rem;
+  width: 100%;
+}
+
+.modal-close-btn {
+  width: 3rem;
+  height: 3rem;
+}
+
+.modal-image-preview {
+  max-height: 85vh;
+}
+
+.modal-scrollable-content {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Card Headers */
+.card-header-gradient {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+}
+
+/* Image Preview Component */
+.image-preview-wrapper {
+  display: inline-block;
+}
+
+.image-preview-thumbnail {
+  max-width: 150px;
+  max-height: 100px;
+}
+
+.image-preview-magnify-overlay {
+  pointer-events: none;
+  background: white;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.image-preview-magnify-icon {
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.image-preview-remove-btn {
+  top: -8px;
+  right: -8px;
+  background: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #e5e7eb;
+}
+
+.image-preview-remove-icon {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Lists & Tables */
+.link-list-scrollable {
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+}
+
+.table-col-id {
+  width: 4rem;
+}
+
+.table-col-actions {
+  width: 8rem;
+}
+
+/* Utility Classes */
+.spinner-lg {
+  width: 4rem;
+  height: 4rem;
+}
+
+.progress-thin {
+  height: 8px;
+}
+
+.search-input-min {
+  min-width: 16rem;
+}
+
+.form-text-height {
+  height: 38px;
+}
