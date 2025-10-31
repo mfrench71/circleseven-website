@@ -39,12 +39,18 @@ li a {
 // Wider content width on larger screens
 @media (min-width: 1200px) {
   .wrapper {
-    max-width: 1140px;
+    max-width: 1280px;
   }
 }
 
 @media (min-width: 1400px) {
   .wrapper {
-    max-width: 1320px;
+    max-width: 1440px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .wrapper {
+    max-width: 1600px;
   }
 }
