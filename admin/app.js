@@ -128,33 +128,6 @@ window.currentPage = 1;
 window.postsPerPage = 10;
 
 /**
- * Creates a debounced function that delays execution until after wait milliseconds
- *
- * Useful for limiting the rate of function calls on events like scroll, resize, or input.
- * The debounced function will only execute after the specified wait period has elapsed
- * since the last time it was invoked.
- *
- * @param {Function} func - The function to debounce
- * @param {number} wait - The number of milliseconds to delay
- * @returns {Function} Debounced function
- *
- * @example
- * const debouncedSearch = debounce(performSearch, 300);
- * searchInput.addEventListener('input', debouncedSearch);
- */
-function debounce(func, wait) {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
-
-/**
  * Wraps async functions to handle errors and display them to the user
  *
  * Useful for onclick handlers and other event handlers that call async functions.
