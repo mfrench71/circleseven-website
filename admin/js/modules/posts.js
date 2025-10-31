@@ -765,7 +765,8 @@ export async function editPost(filename, updateUrl = true) {
     document.getElementById('post-title').value = window.currentPost.frontmatter.title || '';
     document.getElementById('post-excerpt').value = window.currentPost.frontmatter.excerpt || '';
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
-    document.getElementById('post-featured').checked = window.currentPost.frontmatter.featured === true;
+    // Handle both boolean true and string "true" from YAML parser
+    document.getElementById('post-featured').checked = window.currentPost.frontmatter.featured === true || window.currentPost.frontmatter.featured === 'true';
 
     // Display last modified date (read-only, informational)
     const lastModifiedEl = document.getElementById('post-last-modified');
