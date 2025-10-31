@@ -21,10 +21,10 @@ export default defineConfig({
         '**/*.config.js',
         '_site/',
         '.jekyll-cache/',
-        'admin-custom/app.js', // Main app file - will be tested via integration
+        'admin/app.js', // Main app file - will be tested via integration
       ],
       include: [
-        'admin-custom/js/**/*.js',
+        'admin/js/**/*.js',
         'netlify/functions/**/*.js'
       ],
       // Aim for high coverage
@@ -51,7 +51,7 @@ export default defineConfig({
   // Resolve module imports
   resolve: {
     alias: {
-      '@': '/admin-custom/js',
+      '@': '/admin/js',
       '@functions': '/netlify/functions',
     },
   },
