@@ -36,7 +36,24 @@ li a {
   }
 }
 
-// Wider content width on larger screens
+// Wider content width at all viewport sizes (minima default is 800px)
+.wrapper {
+  max-width: 95%;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    max-width: 960px;
+  }
+}
+
 @media (min-width: 1200px) {
   .wrapper {
     max-width: 1280px;
