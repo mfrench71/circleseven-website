@@ -16,7 +16,7 @@ categories:
       - item: Retro Computing
         slug: retro-computing
   - item: Digital Art and Technology
-    slug: digital-art-technology
+    slug: digital-art-and-technology
     children:
       - item: DAT401 - Strategies for Digital Art and Technology
         slug: dat401
