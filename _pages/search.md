@@ -246,8 +246,13 @@ protected: true
       const article = document.createElement('article');
       article.className = 'post-card';
 
-      // Slugify category for badge class
-      const categorySlug = item.category ? item.category.toLowerCase().replace(/\s+/g, '-') : '';
+      // Slugify category for badge class (match Jekyll's slugify filter)
+      const categorySlug = item.category ?
+        item.category
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')  // Replace non-alphanumeric with dashes
+          .replace(/^-+|-+$/g, '')      // Remove leading/trailing dashes
+        : '';
       const categoryBadge = item.category ?
         `<a href="{{ site.baseurl }}/category/${categorySlug}/" class="category-badge badge-${categorySlug}">${item.category}</a>` : '';
 
