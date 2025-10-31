@@ -86,6 +86,18 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
+          <!-- Appearance -->
+          <li class="mb-1">
+            <a
+              href="/admin/appearance/"
+              class="sidebar-nav-item ${isActive('appearance')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+              title="Appearance"
+            >
+              <i class="fas fa-paint-brush fs-5" class="sidebar-icon"></i>
+              <span class="sidebar-nav-text">Appearance</span>
+            </a>
+          </li>
+
           <!-- Settings -->
           <li class="mb-1">
             <a
