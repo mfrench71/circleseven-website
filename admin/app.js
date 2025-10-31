@@ -1678,10 +1678,9 @@ async function updateDashboardDeployments() {
  *
  * Shows the 10 most recently modified posts and pages with titles, types, and dates.
  *
- * @param {Object} currentUser - The authenticated user object
  * @returns {Promise<void>}
  */
-async function updateRecentlyPublished(currentUser) {
+async function updateRecentlyPublished() {
   const loadingEl = document.getElementById('recently-published-loading');
   const contentEl = document.getElementById('recently-published-content');
   const tbody = document.getElementById('recently-published-tbody');
@@ -1693,6 +1692,8 @@ async function updateRecentlyPublished(currentUser) {
     loadingEl.classList.remove('d-none');
     contentEl.classList.add('d-none');
 
+    // Get current user from Netlify Identity
+    const currentUser = window.netlifyIdentity?.currentUser();
     const token = currentUser?.token?.access_token;
     if (!token) {
       throw new Error('Not authenticated');
