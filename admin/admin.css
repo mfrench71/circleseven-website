@@ -595,7 +595,7 @@ table .btn-link {
 
 /* Taxonomy Tree View Styles */
 .taxonomy-tree-indent {
-  padding-left: 3.5rem;
+  padding-left: 3.5rem !important;
 }
 
 .taxonomy-tree-expand-btn {
