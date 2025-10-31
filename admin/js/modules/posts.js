@@ -623,7 +623,28 @@ export function initMarkdownEditor() {
         return this.parent.markdown(processedText);
       },
       toolbar: [
-        'bold', 'italic', 'heading',
+        'bold', 'italic',
+        {
+          name: 'heading-1',
+          action: EasyMDE.toggleHeading1,
+          className: 'fa fa-header',
+          title: 'Heading 1',
+          default: true
+        },
+        {
+          name: 'heading-2',
+          action: EasyMDE.toggleHeading2,
+          className: 'fa fa-header',
+          title: 'Heading 2',
+          default: true
+        },
+        {
+          name: 'heading-3',
+          action: EasyMDE.toggleHeading3,
+          className: 'fa fa-header',
+          title: 'Heading 3',
+          default: true
+        },
         '|',
         'quote', 'unordered-list', 'ordered-list',
         '|',
