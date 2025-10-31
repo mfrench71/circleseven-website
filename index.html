@@ -8,11 +8,11 @@ layout: default-sidebar
       {% if paginator.page == 1 and forloop.index > 12 %}
         {% continue %}
       {% endif %}
-      <article class="post-card{% if forloop.first and paginator.page == 1 %} featured{% endif %}">
+      <article class="post-card{% if post.featured %} featured{% endif %}">
         <!-- Card Image -->
         <div class="post-card-image">
           <a href="{{ post.url | relative_url }}">
-            {% if forloop.first and paginator.page == 1 %}
+            {% if post.featured %}
               {% include post-card-image.html post=post loading="eager" %}
             {% else %}
               {% include post-card-image.html post=post %}

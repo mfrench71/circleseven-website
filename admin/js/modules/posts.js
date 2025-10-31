@@ -765,6 +765,7 @@ export async function editPost(filename, updateUrl = true) {
     document.getElementById('post-title').value = window.currentPost.frontmatter.title || '';
     document.getElementById('post-excerpt').value = window.currentPost.frontmatter.excerpt || '';
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
+    document.getElementById('post-featured').checked = window.currentPost.frontmatter.featured === true;
 
     // Display last modified date (read-only, informational)
     const lastModifiedEl = document.getElementById('post-last-modified');
@@ -841,6 +842,7 @@ export function showNewPostForm(updateUrl = true) {
   document.getElementById('post-excerpt').value = '';
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
   document.getElementById('post-image').value = '';
+  document.getElementById('post-featured').checked = false;
 
   // Clear image preview
   document.getElementById('image-preview').classList.add('d-none');
@@ -893,6 +895,12 @@ export function setupPostFormChangeListeners() {
       input.addEventListener('input', markPostDirty);
     }
   });
+
+  // Add change listener for checkbox
+  const featuredCheckbox = document.getElementById('post-featured');
+  if (featuredCheckbox) {
+    featuredCheckbox.addEventListener('change', markPostDirty);
+  }
 }
 
 /**
@@ -969,6 +977,12 @@ export async function savePost(event) {
       } else {
         frontmatter.image = image;
       }
+    }
+
+    // Add featured field if checkbox is checked
+    const featured = document.getElementById('post-featured').checked;
+    if (featured) {
+      frontmatter.featured = true;
     }
 
     if (window.currentPost) {
