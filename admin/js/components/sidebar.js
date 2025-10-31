@@ -29,8 +29,8 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
-          <!-- Posts (with flyout) -->
-          <li class="mb-1 sidebar-nav-item-with-flyout">
+          <!-- Posts -->
+          <li class="mb-1">
             <a
               href="/admin/posts/"
               class="sidebar-nav-item ${isActive('posts')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
@@ -39,15 +39,18 @@ export function renderSidebar(activePage = 'dashboard') {
               <i class="fas fa-file-alt fs-5" class="sidebar-icon"></i>
               <span class="sidebar-nav-text">Posts</span>
             </a>
-            <!-- Flyout menu -->
-            <div class="sidebar-flyout-menu card shadow-sm">
-              <div class="card-body p-0">
-                <a href="/admin/taxonomy/" class="d-block px-3 py-2 text-decoration-none text-secondary small ${activePage === 'taxonomy' ? 'active' : ''}" title="Categories & Tags">
-                  <i class="fas fa-folder me-2"></i>
-                  <span>Categories & Tags</span>
-                </a>
-              </div>
-            </div>
+          </li>
+
+          <!-- Taxonomy -->
+          <li class="mb-1">
+            <a
+              href="/admin/taxonomy/"
+              class="sidebar-nav-item ${isActive('taxonomy')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+              title="Taxonomy"
+            >
+              <i class="fas fa-tags fs-5" class="sidebar-icon"></i>
+              <span class="sidebar-nav-text">Taxonomy</span>
+            </a>
           </li>
 
           <!-- Pages -->
