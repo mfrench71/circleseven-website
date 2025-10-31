@@ -28,7 +28,7 @@ import { escapeHtml, setButtonLoading } from '../core/utils.js';
 import { showError, showSuccess, hideMessages } from '../ui/notifications.js';
 
 // Cache configuration
-const TAXONOMY_CACHE_KEY = 'admin_taxonomy_cache';
+const TAXONOMY_CACHE_KEY = 'admin_taxonomy_cache_v2'; // v2: Added hierarchical structure support
 
 /**
  * Gets cached taxonomy data
