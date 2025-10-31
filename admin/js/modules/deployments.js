@@ -21,6 +21,7 @@
  */
 
 import { escapeHtml } from '../core/utils.js';
+import logger from '../core/logger.js';
 
 const MAX_DEPLOYMENT_HISTORY = 50; // Keep last 50 deployments
 
@@ -36,7 +37,7 @@ export function loadDeploymentHistory() {
     const stored = localStorage.getItem('deploymentHistory');
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('Failed to load deployment history:', error);
+    logger.error('Failed to load deployment history:', error);
     return [];
   }
 }
@@ -61,7 +62,7 @@ export async function fetchRecentDeploymentsFromGitHub() {
       // Only log if enough time has passed since last error
       const now = Date.now();
       if (now - lastErrorTime > ERROR_LOG_THROTTLE) {
-        console.warn('Deployment history endpoint not available:', response.status);
+        logger.warn('Deployment history endpoint not available:', response.status);
         lastErrorTime = now;
       }
       return [];
@@ -73,7 +74,7 @@ export async function fetchRecentDeploymentsFromGitHub() {
     // Only log if enough time has passed since last error
     const now = Date.now();
     if (now - lastErrorTime > ERROR_LOG_THROTTLE) {
-      console.warn('Failed to fetch deployment history:', error.message);
+      logger.warn('Failed to fetch deployment history:', error.message);
       lastErrorTime = now;
     }
     return [];
@@ -131,7 +132,7 @@ export function saveDeploymentHistory(history) {
     const trimmed = history.slice(0, MAX_DEPLOYMENT_HISTORY);
     localStorage.setItem('deploymentHistory', JSON.stringify(trimmed));
   } catch (error) {
-    console.error('Failed to save deployment history:', error);
+    logger.error('Failed to save deployment history:', error);
   }
 }
 
@@ -197,7 +198,7 @@ export async function restoreActiveDeployments() {
       }
     }
   } catch (error) {
-    console.error('Failed to restore active deployments:', error);
+    logger.error('Failed to restore active deployments:', error);
   }
 }
 
@@ -243,7 +244,7 @@ export function showDeploymentBanner() {
     header.classList.remove('d-none');
     updateDeploymentBanner();
   } else {
-    console.error('deployment-status-header element not found in DOM!');
+    logger.error('deployment-status-header element not found in DOM!');
   }
 }
 
@@ -800,7 +801,7 @@ export function startDeploymentHistoryPolling() {
         }
       });
     } catch (error) {
-      console.error('Failed to check for new deployments:', error);
+      logger.error('Failed to check for new deployments:', error);
     }
 
     // Update dashboard deployments (fetches from GitHub via getDeploymentHistory)
@@ -864,7 +865,7 @@ export function startDeploymentPolling() {
         try {
           const response = await fetch(`${window.API_BASE}/deployment-status?sha=${deployment.commitSha}`);
           if (!response.ok) {
-            console.warn(`Deployment status check failed: ${response.status}`);
+            logger.warn(`Deployment status check failed: ${response.status}`);
             continue;
           }
 
@@ -908,11 +909,11 @@ export function startDeploymentPolling() {
           }
           // pending, queued, in_progress continue polling
         } catch (error) {
-          console.error('Failed to check deployment status:', error);
+          logger.error('Failed to check deployment status:', error);
         }
       }
     } catch (error) {
-      console.error('Error in deployment polling interval:', error);
+      logger.error('Error in deployment polling interval:', error);
       // Don't stop polling even on error
     }
   }, window.DEPLOYMENT_STATUS_POLL_INTERVAL);

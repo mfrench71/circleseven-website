@@ -34,7 +34,7 @@ export async function initAppearance() {
     populateFontSelects();
     setupEventListeners();
   } catch (error) {
-    console.error('Failed to initialize appearance:', error);
+    logger.error('Failed to initialize appearance:', error);
     showError('Failed to load font settings');
   }
 }
@@ -146,7 +146,7 @@ export async function saveFonts() {
     showSuccess('Font settings saved successfully! Your site will rebuild in 1-2 minutes.');
     currentSettings = settings.google_fonts;
   } catch (error) {
-    console.error('Failed to save fonts:', error);
+    logger.error('Failed to save fonts:', error);
     showError('Failed to save font settings');
   }
 }

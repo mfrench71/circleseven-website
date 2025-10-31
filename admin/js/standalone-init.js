@@ -18,7 +18,7 @@ export function waitForAuth() {
     }
 
     if (typeof netlifyIdentity === 'undefined') {
-      console.error('Netlify Identity script not loaded');
+      logger.error('Netlify Identity script not loaded');
       resolve(null);
       return;
     }
@@ -122,7 +122,7 @@ export async function initStandalonePage(pageName, initCallback) {
     }
 
   } catch (error) {
-    console.error('Standalone page initialization error:', error);
+    logger.error('Standalone page initialization error:', error);
     // Show error state
     const errorEl = document.getElementById('error');
     if (errorEl) {

@@ -31,6 +31,7 @@ import { escapeHtml, debounce } from '../core/utils.js?v=1761123112';
 import { showError, showSuccess } from '../ui/notifications.js?v=1761123112';
 import { generateGalleryHTML } from './image-chooser.js';
 import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
+import logger from '../core/logger.js';
 
 // Cache configuration
 const POSTS_CACHE_KEY = 'admin_posts_cache';
@@ -52,7 +53,7 @@ function getCache(key) {
     const { data } = JSON.parse(cached);
     return data;
   } catch (error) {
-    console.warn('Cache read error:', error);
+    logger.warn('Cache read error:', error);
     return null;
   }
 }
@@ -70,7 +71,7 @@ function setCache(key, data) {
       timestamp: Date.now()
     }));
   } catch (error) {
-    console.warn('Cache write error:', error);
+    logger.warn('Cache write error:', error);
   }
 }
 
@@ -227,7 +228,7 @@ export async function loadPosts() {
     populateCategoryFilter();
     initLinkEditor();
   } catch (error) {
-    console.error('Error loading posts:', error);
+    logger.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
   } finally {
     document.getElementById('posts-loading')?.classList.add('d-none');
@@ -257,7 +258,7 @@ export function renderPostsList() {
 
   // Safety check: ensure allPostsWithMetadata exists and is an array
   if (!window.allPostsWithMetadata || !Array.isArray(window.allPostsWithMetadata)) {
-    console.error('allPostsWithMetadata is not initialized properly');
+    logger.error('allPostsWithMetadata is not initialized properly');
     window.allPostsWithMetadata = [];
   }
 
@@ -1418,7 +1419,7 @@ export function renderSelectedTaxonomy(type) {
 
   // Defensive check: ensure selectedItems is always an array
   if (!Array.isArray(selectedItems)) {
-    console.warn(`${type} is not an array, resetting to empty array:`, selectedItems);
+    logger.warn(`${type} is not an array, resetting to empty array:`, selectedItems);
     selectedItems = [];
     // Update the global state
     if (type === 'categories') {
@@ -1514,7 +1515,7 @@ export function initCloudinaryWidget() {
 
   // Check if Cloudinary library is loaded
   if (typeof cloudinary === 'undefined') {
-    console.error('Cloudinary library not loaded yet');
+    logger.error('Cloudinary library not loaded yet');
     return null;
   }
 

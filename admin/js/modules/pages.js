@@ -30,6 +30,7 @@ import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 import { generateGalleryHTML } from './image-chooser.js';
 import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
+import logger from '../core/logger.js';
 
 // Cache configuration
 const PAGES_CACHE_KEY = 'admin_pages_cache';
@@ -48,7 +49,7 @@ function getCache(key) {
     const { data } = JSON.parse(cached);
     return data;
   } catch (error) {
-    console.warn('Cache read error:', error);
+    logger.warn('Cache read error:', error);
     return null;
   }
 }
@@ -63,7 +64,7 @@ function setCache(key, data) {
       timestamp: Date.now()
     }));
   } catch (error) {
-    console.warn('Cache write error:', error);
+    logger.warn('Cache write error:', error);
   }
 }
 

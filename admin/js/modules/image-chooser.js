@@ -22,6 +22,7 @@
 
 import { escapeHtml } from '../core/utils.js';
 import { showError } from '../ui/notifications.js';
+import logger from '../core/logger.js';
 
 let chooserCallback = null;
 let chooserMedia = [];
@@ -49,7 +50,7 @@ let chooserSelectedImages = [];
  *
  * // Multi select
  * openImageChooser((urls) => {
- *   console.log('Selected:', urls);
+ *   logger.log('Selected:', urls);
  * }, true);
  */
 export async function openImageChooser(callback, multiSelect = false) {

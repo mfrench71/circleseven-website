@@ -26,6 +26,7 @@
 
 import { escapeHtml, setButtonLoading } from '../core/utils.js';
 import { showError, showSuccess, hideMessages } from '../ui/notifications.js';
+import logger from '../core/logger.js';
 
 // Cache configuration
 const TAXONOMY_CACHE_KEY = 'admin_taxonomy_cache_v2'; // v2: Added hierarchical structure support
@@ -40,7 +41,7 @@ function getCache(key) {
     const { data } = JSON.parse(cached);
     return data;
   } catch (error) {
-    console.warn('Taxonomy cache read error:', error);
+    logger.warn('Taxonomy cache read error:', error);
     return null;
   }
 }
@@ -55,7 +56,7 @@ function setCache(key, data) {
       timestamp: Date.now()
     }));
   } catch (error) {
-    console.warn('Taxonomy cache write error:', error);
+    logger.warn('Taxonomy cache write error:', error);
   }
 }
 
@@ -311,7 +312,7 @@ export function renderCategories() {
   const countBadge = document.getElementById('categories-count-badge');
 
   if (!tbody || !countBadge) {
-    console.error('renderCategories: Missing tbody or countBadge elements');
+    logger.error('renderCategories: Missing tbody or countBadge elements');
     return;
   }
 
@@ -711,7 +712,7 @@ export async function editCategoryByName(categoryName) {
     // Auto-save
     await saveTaxonomy();
   } catch (error) {
-    console.error('Error editing category:', error);
+    logger.error('Error editing category:', error);
     showError('Failed to edit category: ' + error.message);
   }
 }
@@ -777,7 +778,7 @@ export async function deleteCategoryByName(categoryName) {
     // Auto-save
     await saveTaxonomy();
   } catch (error) {
-    console.error('Error deleting category:', error);
+    logger.error('Error deleting category:', error);
     showError('Failed to delete category: ' + error.message);
   }
 }
@@ -828,7 +829,7 @@ export async function showAddCategoryModal() {
     // Auto-save after adding
     await saveTaxonomy();
   } catch (error) {
-    console.error('Error adding category:', error);
+    logger.error('Error adding category:', error);
     showError('Failed to add category: ' + error.message);
   }
 }
@@ -933,7 +934,7 @@ export async function showAddTagModal() {
     // Auto-save after adding
     await saveTaxonomy();
   } catch (error) {
-    console.error('Error adding tag:', error);
+    logger.error('Error adding tag:', error);
     showError('Failed to add tag: ' + error.message);
   }
 }
@@ -1157,7 +1158,7 @@ export async function findTaxonomyUsage() {
 
     showBulkResults(html);
   } catch (error) {
-    console.error('Error finding taxonomy usage:', error);
+    logger.error('Error finding taxonomy usage:', error);
     showError('Failed to find usage: ' + error.message);
   }
 }
@@ -1243,7 +1244,7 @@ export async function renameTaxonomy() {
     document.getElementById('rename-old').value = '';
     document.getElementById('rename-new').value = '';
   } catch (error) {
-    console.error('Error renaming taxonomy:', error);
+    logger.error('Error renaming taxonomy:', error);
     showError('Failed to rename: ' + error.message);
   }
 }
@@ -1336,7 +1337,7 @@ export async function mergeTaxonomy() {
     document.getElementById('merge-source').value = '';
     document.getElementById('merge-target').value = '';
   } catch (error) {
-    console.error('Error merging taxonomy:', error);
+    logger.error('Error merging taxonomy:', error);
     showError('Failed to merge: ' + error.message);
   }
 }

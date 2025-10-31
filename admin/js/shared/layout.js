@@ -33,7 +33,7 @@ function checkAuth() {
 
   // Check Netlify Identity
   if (typeof netlifyIdentity === 'undefined') {
-    console.error('Netlify Identity widget not loaded');
+    logger.error('Netlify Identity widget not loaded');
     return false;
   }
 
@@ -230,7 +230,7 @@ window.toggleSidebar = function() {
  */
 export function initAuth() {
   if (typeof netlifyIdentity === 'undefined') {
-    console.error('Netlify Identity widget not loaded');
+    logger.error('Netlify Identity widget not loaded');
     return;
   }
 

@@ -69,12 +69,12 @@ export function asyncHandler(fn) {
     try {
       await fn.apply(this, args);
     } catch (error) {
-      console.error('Async handler error:', error);
+      logger.error('Async handler error:', error);
       // Note: showError must be available in global scope or imported
       if (typeof showError === 'function') {
         showError(error.message || 'An unexpected error occurred');
       } else {
-        console.error('showError function not available:', error.message);
+        logger.error('showError function not available:', error.message);
       }
     }
   };

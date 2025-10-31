@@ -27,6 +27,7 @@
  */
 
 import { showError, showSuccess } from '../ui/notifications.js';
+import logger from '../core/logger.js';
 
 /**
  * Default admin application settings
@@ -52,7 +53,7 @@ function getAdminSettings() {
       return { ...DEFAULT_ADMIN_SETTINGS, ...JSON.parse(stored) };
     }
   } catch (error) {
-    console.warn('Failed to load admin settings from localStorage:', error);
+    logger.warn('Failed to load admin settings from localStorage:', error);
   }
   return { ...DEFAULT_ADMIN_SETTINGS };
 }
@@ -94,7 +95,7 @@ export async function loadSiteTitle() {
     }
   } catch (error) {
     // Silently fail - not critical for app function
-    console.warn('Failed to load site title:', error);
+    logger.warn('Failed to load site title:', error);
   }
 }
 

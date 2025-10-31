@@ -8,6 +8,7 @@
  */
 
 import { escapeHtml } from '../core/utils.js';
+import logger from './core/logger.js';
 
 /**
  * Cached references to notification DOM elements
@@ -34,7 +35,7 @@ export function initNotifications() {
   successElement = document.getElementById('success');
 
   if (!errorElement || !successElement) {
-    console.warn('Notification elements not found in DOM');
+    logger.warn('Notification elements not found in DOM');
   }
 }
 
@@ -57,7 +58,7 @@ export function showError(message) {
   }
 
   if (!errorElement) {
-    console.error('Error element not found in DOM:', message);
+    logger.error('Error element not found in DOM:', message);
     return;
   }
 
@@ -93,7 +94,7 @@ export function showSuccess(message = 'Operation successful!', allowHtml = false
   }
 
   if (!successElement) {
-    console.error('Success element not found in DOM:', message);
+    logger.error('Success element not found in DOM:', message);
     return;
   }
 

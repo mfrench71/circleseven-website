@@ -298,7 +298,7 @@ export async function permanentlyDeleteItem(filename, sha, type) {
  * @example
  * import { getBinnedItems } from './modules/bin.js';
  * const items = getBinnedItems();
- * console.log(`${items.length} items in bin`);
+ * logger.log(`${items.length} items in bin`);
  */
 export function getBinnedItems() {
   return window.allBinnedItems || [];

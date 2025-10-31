@@ -98,7 +98,7 @@ function loadAndApplyAdminSettings() {
       window.DEBOUNCE_DELAY = DEFAULT_DEBOUNCE_DELAY;
     }
   } catch (error) {
-    console.warn('Failed to load admin settings, using defaults:', error);
+    logger.warn('Failed to load admin settings, using defaults:', error);
     // Use defaults
     window.DEPLOYMENT_STATUS_POLL_INTERVAL = DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL;
     window.DEPLOYMENT_HISTORY_POLL_INTERVAL = DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL;
@@ -146,7 +146,7 @@ function asyncHandler(fn) {
     try {
       await fn.apply(this, args);
     } catch (error) {
-      console.error('Async handler error:', error);
+      logger.error('Async handler error:', error);
       showError(error.message || 'An unexpected error occurred');
     }
   };
@@ -354,19 +354,19 @@ async function registerServiceWorker() {
       const registrations = await navigator.serviceWorker.getRegistrations();
       for (let registration of registrations) {
         await registration.unregister();
-        console.log('Unregistered old service worker');
+        logger.log('Unregistered old service worker');
       }
 
       // Clear all caches
       const cacheNames = await caches.keys();
       await Promise.all(cacheNames.map(name => caches.delete(name)));
-      console.log('Cleared all caches');
+      logger.log('Cleared all caches');
 
       // Now register the new service worker
       await navigator.serviceWorker.register('/admin/sw.js');
-      console.log('Registered new service worker');
+      logger.log('Registered new service worker');
     } catch (error) {
-      console.error('ServiceWorker operation failed:', error);
+      logger.error('ServiceWorker operation failed:', error);
     }
   }
 }
@@ -530,7 +530,7 @@ function showModal(title, defaultValue = '') {
   return new Promise((resolve) => {
     const modalEl = document.getElementById('inputModal');
     if (!modalEl) {
-      console.error('inputModal element not found');
+      logger.error('inputModal element not found');
       resolve(null);
       return;
     }
@@ -606,7 +606,7 @@ function showConfirm(message, options = {}) {
   return new Promise((resolve) => {
     const modalEl = document.getElementById('confirmModal');
     if (!modalEl) {
-      console.error('confirmModal element not found');
+      logger.error('confirmModal element not found');
       resolve(false);
       return;
     }
@@ -921,7 +921,7 @@ async function updateLastUpdated() {
       el.textContent = 'Unknown';
     }
   } catch (error) {
-    console.error('Failed to fetch last updated time:', error);
+    logger.error('Failed to fetch last updated time:', error);
     el.textContent = 'Unknown';
   }
 }
@@ -1003,7 +1003,7 @@ async function updateRateLimit() {
       </div>
     `;
   } catch (error) {
-    console.error('Failed to fetch rate limit:', error);
+    logger.error('Failed to fetch rate limit:', error);
     contentEl.innerHTML = `
       <div class="text-center py-4">
         <p class="small text-danger mb-2">Failed to load rate limit</p>
@@ -1106,7 +1106,7 @@ function loadDeploymentHistory() {
     const stored = localStorage.getItem('deploymentHistory');
     return stored ? JSON.parse(stored) : [];
   } catch (error) {
-    console.error('Failed to load deployment history:', error);
+    logger.error('Failed to load deployment history:', error);
     return [];
   }
 }
@@ -1125,14 +1125,14 @@ async function fetchRecentDeploymentsFromGitHub() {
   try {
     const response = await fetch(`${API_BASE}/deployment-history`);
     if (!response.ok) {
-      console.warn('Deployment history endpoint not available yet:', response.status);
+      logger.warn('Deployment history endpoint not available yet:', response.status);
       return [];
     }
 
     const data = await response.json();
     return data.deployments || [];
   } catch (error) {
-    console.warn('Failed to fetch deployment history from GitHub (will retry):', error.message);
+    logger.warn('Failed to fetch deployment history from GitHub (will retry):', error.message);
     return [];
   }
 }
@@ -1189,7 +1189,7 @@ function saveDeploymentHistory(history) {
     const trimmed = history.slice(-MAX_DEPLOYMENT_HISTORY);
     localStorage.setItem('deploymentHistory', JSON.stringify(trimmed));
   } catch (error) {
-    console.error('Failed to save deployment history:', error);
+    logger.error('Failed to save deployment history:', error);
   }
 }
 
@@ -1252,7 +1252,7 @@ async function restoreActiveDeployments() {
       }
     }
   } catch (error) {
-    console.error('Failed to restore active deployments:', error);
+    logger.error('Failed to restore active deployments:', error);
   }
 }
 
@@ -1295,7 +1295,7 @@ function showDeploymentBanner() {
     header.classList.remove('d-none');
     updateDeploymentBanner();
   } else {
-    console.error('deployment-status-header element not found in DOM!');
+    logger.error('deployment-status-header element not found in DOM!');
   }
 }
 
@@ -1735,7 +1735,7 @@ function startDeploymentHistoryPolling() {
         }
       });
     } catch (error) {
-      console.error('Failed to check for new deployments:', error);
+      logger.error('Failed to check for new deployments:', error);
     }
 
     // Update dashboard deployments (fetches from GitHub via getDeploymentHistory)
@@ -1797,7 +1797,7 @@ function startDeploymentPolling() {
         try {
           const response = await fetch(`${API_BASE}/deployment-status?sha=${deployment.commitSha}`);
           if (!response.ok) {
-            console.warn(`Deployment status check failed: ${response.status}`);
+            logger.warn(`Deployment status check failed: ${response.status}`);
             continue;
           }
 
@@ -1841,11 +1841,11 @@ function startDeploymentPolling() {
           }
           // pending, queued, in_progress continue polling
         } catch (error) {
-          console.error('Failed to check deployment status:', error);
+          logger.error('Failed to check deployment status:', error);
         }
       }
     } catch (error) {
-      console.error('Error in deployment polling interval:', error);
+      logger.error('Error in deployment polling interval:', error);
       // Don't stop polling even on error
     }
   }, DEPLOYMENT_STATUS_POLL_INTERVAL);
