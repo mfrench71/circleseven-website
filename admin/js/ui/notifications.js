@@ -8,7 +8,7 @@
  */
 
 import { escapeHtml } from '../core/utils.js';
-import logger from './core/logger.js';
+import logger from '../core/logger.js';
 
 /**
  * Cached references to notification DOM elements

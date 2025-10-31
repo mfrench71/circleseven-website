@@ -1547,16 +1547,18 @@ export function initCloudinaryWidget() {
 /**
  * Opens custom image chooser for selecting a featured image
  *
- * Shows the custom image chooser modal and sets the selected image URL to the featured image field.
+ * Shows the custom image chooser modal and sets the selected image to the featured image field.
+ * The image chooser returns a Cloudinary public_id (filename) which is set in the field.
+ * The preview will automatically construct the full URL for display.
  *
  * @example
  * import { selectFeaturedImage } from './modules/posts.js';
  * selectFeaturedImage();
  */
 export function selectFeaturedImage() {
-  // Use custom image chooser instead of Cloudinary widget
-  window.openImageChooser((imageUrl) => {
-    document.getElementById('post-image').value = imageUrl;
+  // Use custom image chooser (returns public_id/filename)
+  window.openImageChooser((publicId) => {
+    document.getElementById('post-image').value = publicId;
     updateImagePreview();
     markPostDirty();
   });

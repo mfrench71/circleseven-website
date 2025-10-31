@@ -34,22 +34,4 @@ Parameters:
   {%- assign loading = "lazy" -%}
 {%- endif -%}
 
-{%- if include.caption -%}
-<figure>
-{%- endif -%}
-  <img
-    src="{{ cloudinary_url }}/{{ transform }}/{{ img_src }}"
-    {%- if include.sizes %}
-    srcset="{{ cloudinary_url }}/c_limit,w_400,q_auto,f_auto/{{ img_src }} 400w,
-            {{ cloudinary_url }}/c_limit,w_800,q_auto,f_auto/{{ img_src }} 800w,
-            {{ cloudinary_url }}/c_limit,w_1200,q_auto,f_auto/{{ img_src }} 1200w,
-            {{ cloudinary_url }}/c_limit,w_1600,q_auto,f_auto/{{ img_src }} 1600w"
-    sizes="{{ include.sizes }}"
-    {%- endif %}
-    alt="{{ include.alt | escape }}"
-    loading="{{ loading }}"
-  >
-{%- if include.caption -%}
-  <figcaption>{{ include.caption }}</figcaption>
-</figure>
-{%- endif -%}
+{%- if include.caption -%}<figure>{%- endif -%}<img src="{{ cloudinary_url }}/{{ transform }}/{{ img_src }}"{%- if include.sizes %} srcset="{{ cloudinary_url }}/c_limit,w_400,q_auto,f_auto/{{ img_src }} 400w, {{ cloudinary_url }}/c_limit,w_800,q_auto,f_auto/{{ img_src }} 800w, {{ cloudinary_url }}/c_limit,w_1200,q_auto,f_auto/{{ img_src }} 1200w, {{ cloudinary_url }}/c_limit,w_1600,q_auto,f_auto/{{ img_src }} 1600w" sizes="{{ include.sizes }}"{%- endif %} alt="{{ include.alt | escape }}" loading="{{ loading }}">{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption></figure>{%- endif -%}

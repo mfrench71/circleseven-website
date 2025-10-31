@@ -143,3 +143,8 @@ export default logger;
 
 // Also export individual methods for convenience
 export const { log, info, warn, error, debug, group, groupEnd, table, enableDebugMode, disableDebugMode, isDevMode } = logger;
+
+// Expose logger to window for non-module scripts (like app.js)
+if (typeof window !== 'undefined') {
+  window.logger = logger;
+}
