@@ -83,11 +83,21 @@ export async function loadTaxonomy() {
     // Try to load from cache first
     const cachedData = getCache(TAXONOMY_CACHE_KEY);
     if (cachedData) {
+      // Flat arrays for backwards compatibility
       window.categories = cachedData.categories || [];
       window.tags = cachedData.tags || [];
 
+      // Hierarchical structures for tree view UI
+      window.categoriesTree = cachedData.categoriesTree || [];
+      window.tagsTree = cachedData.tagsTree || [];
+
       // Store initial state as "saved"
-      window.lastSavedState = JSON.stringify({ categories: window.categories, tags: window.tags });
+      window.lastSavedState = JSON.stringify({
+        categories: window.categories,
+        tags: window.tags,
+        categoriesTree: window.categoriesTree,
+        tagsTree: window.tagsTree
+      });
       window.isDirty = false;
 
       renderCategories();
@@ -101,14 +111,30 @@ export async function loadTaxonomy() {
     if (!response.ok) throw new Error('Failed to load taxonomy');
 
     const data = await response.json();
+
+    // Flat arrays for backwards compatibility
     window.categories = data.categories || [];
     window.tags = data.tags || [];
 
-    // Cache the results
-    setCache(TAXONOMY_CACHE_KEY, { categories: window.categories, tags: window.tags });
+    // Hierarchical structures for future tree view UI
+    window.categoriesTree = data.categoriesTree || [];
+    window.tagsTree = data.tagsTree || [];
+
+    // Cache all formats
+    setCache(TAXONOMY_CACHE_KEY, {
+      categories: window.categories,
+      tags: window.tags,
+      categoriesTree: window.categoriesTree,
+      tagsTree: window.tagsTree
+    });
 
     // Store initial state as "saved"
-    window.lastSavedState = JSON.stringify({ categories: window.categories, tags: window.tags });
+    window.lastSavedState = JSON.stringify({
+      categories: window.categories,
+      tags: window.tags,
+      categoriesTree: window.categoriesTree,
+      tagsTree: window.tagsTree
+    });
     window.isDirty = false;
 
     renderCategories();
@@ -220,7 +246,12 @@ function updateSaveButton() {
   const saveBtn = document.getElementById('save-btn');
   if (!saveBtn) return;
 
-  const currentState = JSON.stringify({ categories: window.categories, tags: window.tags });
+  const currentState = JSON.stringify({
+    categories: window.categories,
+    tags: window.tags,
+    categoriesTree: window.categoriesTree,
+    tagsTree: window.tagsTree
+  });
   const hasChanges = currentState !== window.lastSavedState;
 
   if (hasChanges) {
@@ -634,7 +665,13 @@ export async function saveTaxonomy() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ categories: window.categories, tags: window.tags })
+      body: JSON.stringify({
+        // Send both flat (backwards compat) and hierarchical data
+        categories: window.categories,
+        tags: window.tags,
+        categoriesTree: window.categoriesTree,
+        tagsTree: window.tagsTree
+      })
     });
 
     if (!response.ok) {
@@ -648,11 +685,21 @@ export async function saveTaxonomy() {
       window.trackDeployment(data.commitSha, 'Update taxonomy', 'taxonomy.yml');
     }
 
-    // Update cache with new data
-    setCache(TAXONOMY_CACHE_KEY, { categories: window.categories, tags: window.tags });
+    // Update cache with all data formats
+    setCache(TAXONOMY_CACHE_KEY, {
+      categories: window.categories,
+      tags: window.tags,
+      categoriesTree: window.categoriesTree,
+      tagsTree: window.tagsTree
+    });
 
     // Update saved state
-    window.lastSavedState = JSON.stringify({ categories: window.categories, tags: window.tags });
+    window.lastSavedState = JSON.stringify({
+      categories: window.categories,
+      tags: window.tags,
+      categoriesTree: window.categoriesTree,
+      tagsTree: window.tagsTree
+    });
     window.isDirty = false;
 
     showSuccess('Taxonomy saved successfully!');
