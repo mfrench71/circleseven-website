@@ -1678,9 +1678,10 @@ async function updateDashboardDeployments() {
  *
  * Shows the 10 most recently modified posts and pages with titles, types, and dates.
  *
+ * @param {Object} currentUser - The authenticated user object
  * @returns {Promise<void>}
  */
-async function updateRecentlyPublished() {
+async function updateRecentlyPublished(currentUser) {
   const loadingEl = document.getElementById('recently-published-loading');
   const contentEl = document.getElementById('recently-published-content');
   const tbody = document.getElementById('recently-published-tbody');
@@ -1692,7 +1693,7 @@ async function updateRecentlyPublished() {
     loadingEl.classList.remove('d-none');
     contentEl.classList.add('d-none');
 
-    const token = user?.token?.access_token;
+    const token = currentUser?.token?.access_token;
     if (!token) {
       throw new Error('Not authenticated');
     }
@@ -1772,7 +1773,7 @@ async function updateRecentlyPublished() {
       contentEl.classList.remove('d-none');
       tbody.innerHTML = `
         <tr>
-          <td colspan="4" class="text-center py-4 text-muted">
+          <td colspan="2" class="text-center py-4 text-muted">
             <i class="fas fa-file-alt fs-3 mb-2 text-secondary d-block"></i>
             <span>No content yet</span>
           </td>
@@ -1785,28 +1786,16 @@ async function updateRecentlyPublished() {
     recentFiles.forEach(file => {
       const relativeTime = getRelativeTime(file.lastModified);
       const typeIcon = file.type === 'Post' ? 'fa-newspaper' : 'fa-file-alt';
-      const typeBadge = file.type === 'Post' ? 'bg-primary' : 'bg-secondary';
 
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>
-          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark fw-medium">
-            ${escapeHtml(file.title)}
+          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark d-flex align-items-center gap-2">
+            <i class="fas ${typeIcon} text-muted small"></i>
+            <span class="fw-medium">${escapeHtml(file.title)}</span>
           </a>
         </td>
-        <td>
-          <span class="badge ${typeBadge} text-white">
-            <i class="fas ${typeIcon} me-1"></i>
-            ${file.type}
-          </span>
-        </td>
-        <td class="text-muted">${relativeTime}</td>
-        <td class="text-end">
-          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="btn btn-sm btn-outline-primary">
-            <i class="fas fa-edit"></i>
-            Edit
-          </a>
-        </td>
+        <td class="text-muted text-end">${relativeTime}</td>
       `;
       tbody.appendChild(row);
     });
@@ -1821,7 +1810,7 @@ async function updateRecentlyPublished() {
     contentEl.classList.remove('d-none');
     tbody.innerHTML = `
       <tr>
-        <td colspan="4" class="text-center py-4 text-danger">
+        <td colspan="2" class="text-center py-4 text-danger">
           <i class="fas fa-exclamation-triangle fs-3 mb-2 d-block"></i>
           <span>Failed to load recently published content</span>
         </td>
