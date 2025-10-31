@@ -342,18 +342,6 @@ table .btn-link {
   color: #6b21a8;
 }
 
-/* ============================================
-   DEPLOYMENT STATUS BANNER
-   ============================================ */
-#deployment-status-header {
-  position: fixed;
-  top: 49px;
-  left: 0;
-  right: 0;
-  z-index: 1025;
-  transition: transform 0.3s ease;
-}
-
 /* Deployment banner gradient animation */
 @keyframes gradient-pulse {
   0%, 100% {
