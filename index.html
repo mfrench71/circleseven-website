@@ -12,7 +12,11 @@ layout: default-sidebar
         <!-- Card Image -->
         <div class="post-card-image">
           <a href="{{ post.url | relative_url }}">
-            {% include post-card-image.html post=post %}
+            {% if forloop.first and paginator.page == 1 %}
+              {% include post-card-image.html post=post loading="eager" %}
+            {% else %}
+              {% include post-card-image.html post=post %}
+            {% endif %}
           </a>
           <!-- Edit Button (only visible when logged in) -->
           <a href="/admin-custom/posts/edit/{{ post.path | replace: '_posts/', '' }}"

@@ -4,10 +4,25 @@
   <ul class="recent-posts-list">
     {% for post in site.posts limit:5 %}
     <li class="recent-post-item">
-      {% if post.image %}
+      {% if post.image or post.featured_image %}
       <div class="recent-post-thumbnail">
         <a href="{{ post.url | relative_url }}">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+          {%- assign img_src = post.featured_image | default: post.image -%}
+          {%- if img_src contains 'http' -%}
+            {%- comment -%} Full URL (external or Cloudinary) - use as-is {%- endcomment -%}
+            <img src="{{ img_src }}" alt="{{ post.title | escape }}" loading="lazy">
+          {%- else -%}
+            {%- comment -%} Filename/path only - construct Cloudinary URL with optimization {%- endcomment -%}
+            {%- assign img_id = img_src | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+            <img
+              src="{{ site.cloudinary_base_url }}/w_150,h_150,c_fill,q_auto,f_auto/{{ img_id }}"
+              srcset="{{ site.cloudinary_base_url }}/w_150,h_150,c_fill,q_auto,f_auto/{{ img_id }} 150w,
+                      {{ site.cloudinary_base_url }}/w_300,h_300,c_fill,q_auto,f_auto/{{ img_id }} 300w"
+              sizes="150px"
+              alt="{{ post.title | escape }}"
+              loading="lazy"
+            >
+          {%- endif -%}
         </a>
       </div>
       {% endif %}

@@ -305,13 +305,24 @@ export function filterChooserMedia() {
 /**
  * Selects an image from the chooser
  *
- * Calls the callback with the selected image URL and closes the modal using Bootstrap.
+ * Calls the callback with the image public_id (filename) extracted from the Cloudinary URL.
+ * This ensures consistent storage format and enables responsive image optimization.
  *
- * @param {string} url - Image URL
+ * @param {string} url - Full Cloudinary image URL
+ *
+ * @example
+ * // Input: https://res.cloudinary.com/circleseven/image/upload/v123/path/image.jpg
+ * // Output: path/image
  */
 export function selectChooserImage(url) {
   if (chooserCallback) {
-    chooserCallback(url);
+    // Extract public_id from Cloudinary URL (removes version, transformations, extension)
+    // Matches: /upload/(optional v123/)path/to/image(.ext)
+    const publicIdMatch = url.match(/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/);
+    const publicId = publicIdMatch ? publicIdMatch[1] : url;
+
+    // Return just the public_id for consistent storage format
+    chooserCallback(publicId);
   }
 
   // Close modal using Bootstrap
@@ -326,6 +337,7 @@ export function selectChooserImage(url) {
  * Toggles image selection in multi-select mode
  *
  * Adds or removes the image from selected images array and re-renders.
+ * Note: Multi-select stores full URLs for gallery generation compatibility.
  *
  * @param {string} url - Image URL to toggle
  */

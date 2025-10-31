@@ -48,9 +48,10 @@ Outputs thumbnail optimized for cards (300x200)
 {%- comment -%} Output the card image {%- endcomment -%}
 {%- if featured_img and featured_img != '' -%}
   {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- assign loading_value = include.loading | default: "lazy" -%}
 
   {%- if featured_img contains 'http' -%}
-    <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="lazy">
+    <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ img_id }}"
@@ -59,9 +60,10 @@ Outputs thumbnail optimized for cards (300x200)
               {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ img_id }} 960w"
       sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
       alt="{{ include.post.title | escape }}"
-      loading="lazy"
+      loading="{{ loading_value }}"
     >
   {%- endif -%}
 {%- else -%}
-  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ include.post.title | escape }}" loading="lazy">
+  {%- assign loading_value = include.loading | default: "lazy" -%}
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
 {%- endif -%}

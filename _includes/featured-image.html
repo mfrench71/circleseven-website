@@ -53,10 +53,12 @@ Outputs image optimized for social sharing (1200x630)
 {%- if featured_img and featured_img != '' -%}
   {%- comment -%} Remove file extension for Cloudinary public_id {%- endcomment -%}
   {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- comment -%} Featured images are typically above-fold, so default to eager loading for better LCP {%- endcomment -%}
+  {%- assign loading_value = include.loading | default: "eager" -%}
 
   {%- comment -%} Check if it's already a full URL or just a filename {%- endcomment -%}
   {%- if featured_img contains 'http' -%}
-    <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image">
+    <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ img_id }}"
@@ -68,9 +70,11 @@ Outputs image optimized for social sharing (1200x630)
       sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
       alt="{{ page.title | escape }}"
       class="post-featured-image"
-      loading="lazy"
+      loading="{{ loading_value }}"
+      fetchpriority="high"
     >
   {%- endif -%}
 {%- else -%}
-  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ page.title | escape }}" class="post-featured-image">
+  {%- assign loading_value = include.loading | default: "eager" -%}
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
 {%- endif -%}

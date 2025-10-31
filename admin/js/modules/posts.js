@@ -1565,23 +1565,33 @@ export function selectFeaturedImage() {
 /**
  * Opens image chooser for inserting images into markdown editor
  *
- * Opens the Cloudinary image chooser modal and inserts the selected image as markdown syntax at the cursor position.
+ * Opens the Cloudinary image chooser modal and inserts the selected image as a Liquid include
+ * with responsive image optimization. This enables srcset, lazy loading, and auto format/quality.
  *
  * @param {Object} editor - EasyMDE editor instance
  *
  * @example
- * import { openImageChooserForMarkdown } from './modules/posts.js';
+ * import { openImageChooserForMarkdown} from './modules/posts.js';
  * openImageChooserForMarkdown(window.markdownEditor);
+ *
+ * // Inserts:
+ * // {% include cloudinary-image.html src="path/image" alt="Description" %}
  */
 export function openImageChooserForMarkdown(editor) {
-  window.openImageChooser((imageUrl) => {
-    // Insert markdown image syntax at cursor position
+  window.openImageChooser((publicId) => {
+    // Insert Liquid include for responsive, optimized images
+    // Note: imageChooser now returns public_id (filename) instead of full URL
+    const liquid = `{% include cloudinary-image.html src="${publicId}" alt="Description" %}`;
+
+    // Insert at cursor position
     const cm = editor.codemirror;
     const cursor = cm.getCursor();
     cm.setSelection(cursor, cursor); // Clear any selection
-    cm.replaceSelection(`![](${imageUrl})`);
+    cm.replaceSelection(`\n${liquid}\n`);
+
     // Focus editor
     cm.focus();
+
     // Mark as dirty
     markPostDirty();
   });
