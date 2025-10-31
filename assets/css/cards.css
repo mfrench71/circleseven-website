@@ -296,18 +296,34 @@
   color: #e65100;
 }
 
-/* Featured Post (spans 2 columns) */
+/* Featured Post (same size as others, with visual flair) */
 .post-card.featured {
-  grid-column: span 2;
+  position: relative;
+  border: 2px solid #20b2aa;
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.15);
 }
 
-.post-card.featured .post-card-title {
-  font-size: clamp(24px, 3vw, 32px);
+.post-card.featured:hover {
+  box-shadow: 0 6px 20px rgba(32, 178, 170, 0.25);
+  transform: translateY(-2px);
 }
 
-.post-card.featured .post-card-excerpt {
-  font-size: 16px;
-  -webkit-line-clamp: 4;
+/* Featured Badge */
+.post-card.featured::before {
+  content: "Featured";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #20b2aa 0%, #1a9991 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Legacy Post List Support (for non-grid views) */
@@ -324,10 +340,6 @@
     margin-right: 0;
   }
 
-  .post-card.featured {
-    grid-column: span 2;
-  }
-
   .home .page-heading {
     padding-left: 0;
     padding-right: 0;
@@ -340,10 +352,6 @@
     gap: 20px;
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .post-card.featured {
-    grid-column: span 2;
   }
 
   .post-card-content {
