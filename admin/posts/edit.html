@@ -416,6 +416,15 @@
                             />
                             <button
                               type="button"
+                              onclick="document.getElementById('post-image').value=''; updateImagePreview();"
+                              class="btn btn-outline-secondary"
+                              title="Remove featured image"
+                              id="remove-featured-image-btn"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                            <button
+                              type="button"
                               onclick="selectFeaturedImage()"
                               class="btn btn-primary"
                               title="Browse Cloudinary Media Library"
@@ -425,8 +434,11 @@
                           </div>
                         </div>
                         <div id="image-preview" class="d-none">
-                          <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative">
+                          <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative" style="display: inline-block;">
                             <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
+                            <div class="position-absolute top-50 start-50 translate-middle" style="pointer-events: none;">
+                              <i class="fas fa-search-plus text-white" style="font-size: 2rem; text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.9);"></i>
+                            </div>
                           </button>
                           <div class="form-text">Click to view full size</div>
                         </div>
@@ -435,35 +447,42 @@
                   </div>
                 </div>
 
-                <!-- Taxonomy -->
-                <div class="row g-3 mb-4">
-                  <div class="col-md-6">
-                    <label for="categories-input" class="form-label fw-semibold">Categories</label>
-                    <div class="taxonomy-input-wrapper">
-                      <div id="categories-selected" class="taxonomy-selected-tags"></div>
-                      <input
-                        type="text"
-                        id="categories-input"
-                        placeholder="Type to search categories..."
-                        class="taxonomy-input form-control"
-                        autocomplete="off"
-                      />
-                      <div id="categories-suggestions" class="taxonomy-suggestions d-none"></div>
-                    </div>
+                <!-- Taxonomy Card -->
+                <div class="card mb-4">
+                  <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                    <h6 class="mb-0"><i class="fas fa-tags me-2"></i>Taxonomy</h6>
                   </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label for="categories-input" class="form-label">Categories</label>
+                        <div class="taxonomy-input-wrapper">
+                          <div id="categories-selected" class="taxonomy-selected-tags"></div>
+                          <input
+                            type="text"
+                            id="categories-input"
+                            placeholder="Type to search categories..."
+                            class="taxonomy-input form-control"
+                            autocomplete="off"
+                          />
+                          <div id="categories-suggestions" class="taxonomy-suggestions d-none"></div>
+                        </div>
+                      </div>
 
-                  <div class="col-md-6">
-                    <label for="tags-input" class="form-label fw-semibold">Tags</label>
-                    <div class="taxonomy-input-wrapper">
-                      <div id="tags-selected" class="taxonomy-selected-tags"></div>
-                      <input
-                        type="text"
-                        id="tags-input"
-                        placeholder="Type to search tags..."
-                        class="taxonomy-input form-control"
-                        autocomplete="off"
-                      />
-                      <div id="tags-suggestions" class="taxonomy-suggestions d-none"></div>
+                      <div class="col-md-6">
+                        <label for="tags-input" class="form-label">Tags</label>
+                        <div class="taxonomy-input-wrapper">
+                          <div id="tags-selected" class="taxonomy-selected-tags"></div>
+                          <input
+                            type="text"
+                            id="tags-input"
+                            placeholder="Type to search tags..."
+                            class="taxonomy-input form-control"
+                            autocomplete="off"
+                          />
+                          <div id="tags-suggestions" class="taxonomy-suggestions d-none"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
