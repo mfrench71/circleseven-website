@@ -34,7 +34,7 @@
   <div id="app">
     <!-- Auth Gate -->
     <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="card shadow p-4" style="max-width: 28rem; width: 100%;">
+      <div class="card shadow p-4 auth-gate-card">
         <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
         <p class="text-muted mb-3">Please log in to access the page editor.</p>
         <button onclick="netlifyIdentity.open()" class="btn btn-primary w-100">
@@ -140,7 +140,7 @@
                   </div>
 
                   <!-- Grid -->
-                  <div class="p-4 overflow-y-auto" style="max-height: 60vh;">
+                  <div class="p-4 modal-scrollable-content">
                     <div id="chooser-grid" class="row row-cols-3 row-cols-md-4 row-cols-lg-6 g-3">
                       <!-- Images will be inserted here -->
                     </div>
@@ -352,7 +352,7 @@
                   <!-- Date Information Card -->
                   <div class="col-lg-6">
                     <div class="card h-100">
-                      <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                      <div class="card-header text-white card-header-gradient">
                         <h6 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Date Information</h6>
                       </div>
                       <div class="card-body">
@@ -368,7 +368,7 @@
                         </div>
                         <div>
                           <label class="form-label">Last Modified</label>
-                          <div class="d-flex align-items-center" style="height: 38px;">
+                          <div class="d-flex align-items-center form-text-height">
                             <span id="page-last-modified" class="text-muted">Not yet modified</span>
                           </div>
                           <div class="form-text">Automatically updated when page is saved</div>
@@ -380,7 +380,7 @@
                   <!-- Page Settings Card -->
                   <div class="col-lg-6">
                     <div class="card h-100">
-                      <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                      <div class="card-header text-white card-header-gradient">
                         <h6 class="mb-0"><i class="fas fa-cog me-2"></i>Page Settings</h6>
                       </div>
                       <div class="card-body">

@@ -25,7 +25,7 @@
   <div id="app">
     <!-- Auth Gate -->
     <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="card shadow p-4" style="max-width: 28rem; width: 100%;">
+      <div class="card shadow p-4 auth-gate-card">
         <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
         <p class="text-muted mb-3">Please log in to access the media library.</p>
         <button onclick="netlifyIdentity.open()" class="btn btn-primary w-100">
@@ -61,7 +61,7 @@
           <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content bg-dark border-0">
               <div class="modal-header border-0 position-absolute top-0 end-0 z-3">
-                <button type="button" class="btn btn-dark rounded-circle shadow" style="width: 3rem; height: 3rem;" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn btn-dark rounded-circle shadow modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
                   <i class="fas fa-times fa-lg"></i>
                 </button>
               </div>
@@ -69,7 +69,7 @@
                 <!-- Loading Spinner -->
                 <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                   <div class="text-center">
-                    <div class="spinner-border text-primary mb-3" style="width: 4rem; height: 4rem;" role="status">
+                    <div class="spinner-border text-primary mb-3 spinner-lg" role="status">
                       <span class="visually-hidden">Loading...</span>
                     </div>
                     <p class="text-white small">Loading image...</p>
@@ -77,7 +77,7 @@
                 </div>
                 <!-- Image Container -->
                 <div class="d-flex align-items-center justify-content-center p-4">
-                  <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" style="max-height: 85vh;" />
+                  <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" class="modal-image-preview" />
                 </div>
               </div>
             </div>

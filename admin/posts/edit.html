@@ -39,7 +39,7 @@
   <div id="app">
     <!-- Auth Gate -->
     <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="card shadow p-4" style="max-width: 28rem; width: 100%;">
+      <div class="card shadow p-4 auth-gate-card">
         <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
         <p class="text-muted mb-3">Please log in to access the post editor.</p>
         <button onclick="netlifyIdentity.open()" class="btn btn-primary w-100">
@@ -94,7 +94,7 @@
             <div class="modal-dialog modal-dialog-centered modal-xl">
               <div class="modal-content bg-dark border-0">
                 <div class="modal-header border-0 position-absolute top-0 end-0 z-3">
-                  <button type="button" class="btn btn-dark rounded-circle shadow" style="width: 3rem; height: 3rem;" data-bs-dismiss="modal" aria-label="Close">
+                  <button type="button" class="btn btn-dark rounded-circle shadow modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fas fa-times fa-lg"></i>
                   </button>
                 </div>
@@ -102,7 +102,7 @@
                   <!-- Loading Spinner -->
                   <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                     <div class="text-center">
-                      <div class="spinner-border text-primary mb-3" style="width: 4rem; height: 4rem;" role="status">
+                      <div class="spinner-border text-primary mb-3 spinner-lg" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
                       <p class="text-white small">Loading image...</p>
@@ -110,7 +110,7 @@
                   </div>
                   <!-- Image Container -->
                   <div class="d-flex align-items-center justify-content-center p-4">
-                    <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" style="max-height: 85vh;" />
+                    <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" class="modal-image-preview" />
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                   </div>
 
                   <!-- Grid -->
-                  <div class="p-4 overflow-y-auto" style="max-height: 60vh;">
+                  <div class="p-4 modal-scrollable-content">
                     <div id="chooser-grid" class="row row-cols-3 row-cols-md-4 row-cols-lg-6 g-3">
                       <!-- Images will be inserted here -->
                     </div>
@@ -371,7 +371,7 @@
                   <!-- Date Information Card -->
                   <div class="col-lg-6">
                     <div class="card h-100">
-                      <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                      <div class="card-header text-white card-header-gradient">
                         <h6 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Date Information</h6>
                       </div>
                       <div class="card-body">
@@ -387,7 +387,7 @@
                         </div>
                         <div>
                           <label class="form-label">Last Modified</label>
-                          <div class="d-flex align-items-center" style="height: 38px;">
+                          <div class="d-flex align-items-center form-text-height">
                             <span id="post-last-modified" class="text-muted">Not yet modified</span>
                           </div>
                           <div class="form-text">Automatically updated when post is saved</div>
@@ -399,7 +399,7 @@
                   <!-- Featured Image Card -->
                   <div class="col-lg-6">
                     <div class="card h-100">
-                      <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                      <div class="card-header text-white card-header-gradient">
                         <h6 class="mb-0"><i class="fas fa-image me-2"></i>Featured Image</h6>
                       </div>
                       <div class="card-body">
@@ -424,11 +424,11 @@
                             </button>
                           </div>
                         </div>
-                        <div id="image-preview" class="d-none position-relative mt-2" style="display: inline-block;">
-                          <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative" style="display: inline-block;">
-                            <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
+                        <div id="image-preview" class="d-none position-relative mt-2 image-preview-wrapper">
+                          <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative image-preview-wrapper">
+                            <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover image-preview-thumbnail" />
                             <div class="position-absolute top-50 start-50 translate-middle" style="pointer-events: none; background: white; border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                              <i class="fas fa-search" style="font-size: 0.9rem; color: #1f2937;"></i>
+                              <i class="fas fa-search image-preview-magnify-icon"></i>
                             </div>
                           </button>
                           <button
@@ -438,7 +438,7 @@
                             style="top: -8px; right: -8px; background: white; border-radius: 50%; width: 24px; height: 24px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 1px solid #e5e7eb;"
                             title="Remove image"
                           >
-                            <i class="fas fa-times" style="font-size: 0.75rem; color: #6b7280;"></i>
+                            <i class="fas fa-times image-preview-remove-icon"></i>
                           </button>
                         </div>
                       </div>
@@ -448,7 +448,7 @@
 
                 <!-- Taxonomy Card -->
                 <div class="card mb-4">
-                  <div class="card-header text-white" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);">
+                  <div class="card-header text-white card-header-gradient">
                     <h6 class="mb-0"><i class="fas fa-tags me-2"></i>Taxonomy</h6>
                   </div>
                   <div class="card-body">
