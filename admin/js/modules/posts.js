@@ -30,6 +30,7 @@
 import { escapeHtml, debounce } from '../core/utils.js?v=1761123112';
 import { showError, showSuccess } from '../ui/notifications.js?v=1761123112';
 import { generateGalleryHTML } from './image-chooser.js';
+import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
 
 // Cache configuration
 const POSTS_CACHE_KEY = 'admin_posts_cache';
@@ -189,6 +190,7 @@ export async function loadPosts() {
         renderPostsList();
         populateTaxonomySelects();
         populateCategoryFilter();
+        initLinkEditor();
 
         document.getElementById('posts-loading')?.classList.add('d-none');
         return;
@@ -223,6 +225,7 @@ export async function loadPosts() {
     renderPostsList();
     populateTaxonomySelects();
     populateCategoryFilter();
+    initLinkEditor();
   } catch (error) {
     console.error('Error loading posts:', error);
     showError('Failed to load posts: ' + error.message);
@@ -608,12 +611,32 @@ export function initMarkdownEditor() {
       autosave: {
         enabled: false
       },
+      previewRender: function(plainText) {
+        // Handle Kramdown syntax in preview
+        // Convert [text](url){:target="_blank"} to proper HTML
+        let processedText = plainText.replace(
+          /\[([^\]]+)\]\(([^)]+)\)\{:target="_blank"\}/g,
+          '<a href="$2" target="_blank">$1</a>'
+        );
+
+        // Use marked for standard markdown rendering
+        return this.parent.markdown(processedText);
+      },
       toolbar: [
         'bold', 'italic', 'heading',
         '|',
         'quote', 'unordered-list', 'ordered-list',
         '|',
-        'link', 'image',
+        {
+          name: 'link',
+          action: (editor) => {
+            openLinkEditor(editor);
+          },
+          className: 'fa fa-link',
+          title: 'Insert/Edit Link',
+          default: true
+        },
+        'image',
         {
           name: 'cloudinary-image',
           action: (editor) => {
@@ -1664,3 +1687,6 @@ export function closeImageModal() {
 export function handleImageModalEscape(e) {
   // No-op: Bootstrap handles this automatically
 }
+
+// Expose link editor search to window for onclick handler
+window.linkEditorSearchContent = linkEditorSearchContent;

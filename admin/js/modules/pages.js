@@ -29,6 +29,7 @@
 import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 import { generateGalleryHTML } from './image-chooser.js';
+import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
 
 // Cache configuration
 const PAGES_CACHE_KEY = 'admin_pages_cache';
@@ -97,6 +98,7 @@ export async function loadPages() {
     if (cachedPages) {
       window.allPages = cachedPages;
       renderPagesList();
+      initLinkEditor();
       document.getElementById('pages-loading')?.classList.add('d-none');
       return;
     }
@@ -112,6 +114,7 @@ export async function loadPages() {
     setCache(PAGES_CACHE_KEY, window.allPages);
 
     renderPagesList();
+    initLinkEditor();
   } catch (error) {
     showError('Failed to load pages: ' + error.message);
   } finally {
@@ -468,12 +471,32 @@ export function initPageMarkdownEditor() {
       autosave: {
         enabled: false
       },
+      previewRender: function(plainText) {
+        // Handle Kramdown syntax in preview
+        // Convert [text](url){:target="_blank"} to proper HTML
+        let processedText = plainText.replace(
+          /\[([^\]]+)\]\(([^)]+)\)\{:target="_blank"\}/g,
+          '<a href="$2" target="_blank">$1</a>'
+        );
+
+        // Use marked for standard markdown rendering
+        return this.parent.markdown(processedText);
+      },
       toolbar: [
         'bold', 'italic', 'heading',
         '|',
         'quote', 'unordered-list', 'ordered-list',
         '|',
-        'link', 'image',
+        {
+          name: 'link',
+          action: (editor) => {
+            openLinkEditor(editor);
+          },
+          className: 'fa fa-link',
+          title: 'Insert/Edit Link',
+          default: true
+        },
+        'image',
         {
           name: 'cloudinary-image',
           action: (editor) => {
@@ -1048,3 +1071,6 @@ export function generatePageFilename(title) {
     .replace(/^-+|-+$/g, '');
   return `${slug}.md`;
 }
+
+// Expose link editor search to window for onclick handler
+window.linkEditorSearchContent = linkEditorSearchContent;
