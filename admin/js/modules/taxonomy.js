@@ -158,45 +158,50 @@ export async function loadTaxonomy() {
  * switchTaxonomyTab('tags');
  */
 export function switchTaxonomyTab(tabName) {
-  // Update tab buttons
-  document.querySelectorAll('.tab-button').forEach(btn => {
-    btn.classList.remove('border-primary', 'text-primary');
-    btn.classList.add('border-transparent', 'text-secondary');
-  });
+  // Update tab buttons (Bootstrap nav-link)
+  const categoriesTab = document.getElementById('tab-categories');
+  const tagsTab = document.getElementById('tab-tags');
 
-  const activeTab = document.getElementById(`tab-${tabName}`);
-  activeTab.classList.add('border-primary', 'text-primary');
-  activeTab.classList.remove('border-transparent', 'text-secondary');
+  if (!categoriesTab || !tagsTab) return;
 
-  // Update badge colors
-  const categoriesBadge = document.getElementById('categories-count-badge');
-  const tagsBadge = document.getElementById('tags-count-badge');
+  // Remove active class from both
+  categoriesTab.classList.remove('active');
+  tagsTab.classList.remove('active');
 
+  // Add active to selected tab
   if (tabName === 'categories') {
-    categoriesBadge.classList.remove('bg-secondary', 'bg-opacity-10', 'text-secondary');
-    categoriesBadge.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
-    tagsBadge.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
-    tagsBadge.classList.add('bg-secondary', 'bg-opacity-10', 'text-secondary');
+    categoriesTab.classList.add('active');
   } else {
-    tagsBadge.classList.remove('bg-secondary', 'bg-opacity-10', 'text-secondary');
-    tagsBadge.classList.add('bg-primary', 'bg-opacity-10', 'text-primary');
-    categoriesBadge.classList.remove('bg-primary', 'bg-opacity-10', 'text-primary');
-    categoriesBadge.classList.add('bg-secondary', 'bg-opacity-10', 'text-secondary');
+    tagsTab.classList.add('active');
   }
 
-  // Update tab content
-  document.querySelectorAll('.taxonomy-tab').forEach(content => {
-    content.classList.add('d-none');
-  });
+  // Update tab content visibility
+  const categoriesContent = document.getElementById('taxonomy-categories-tab');
+  const tagsContent = document.getElementById('taxonomy-tags-tab');
 
-  document.getElementById(`taxonomy-${tabName}-tab`).classList.remove('d-none');
+  if (categoriesContent && tagsContent) {
+    if (tabName === 'categories') {
+      categoriesContent.classList.remove('d-none');
+      tagsContent.classList.add('d-none');
+    } else {
+      tagsContent.classList.remove('d-none');
+      categoriesContent.classList.add('d-none');
+    }
+  }
 
-  // Update add item inputs
-  document.querySelectorAll('.taxonomy-add-item').forEach(input => {
-    input.classList.add('d-none');
-  });
+  // Update add item buttons
+  const addCategoryDiv = document.getElementById('taxonomy-add-category');
+  const addTagDiv = document.getElementById('taxonomy-add-tag');
 
-  document.getElementById(`taxonomy-add-${tabName === 'categories' ? 'category' : 'tag'}`).classList.remove('d-none');
+  if (addCategoryDiv && addTagDiv) {
+    if (tabName === 'categories') {
+      addCategoryDiv.classList.remove('d-none');
+      addTagDiv.classList.add('d-none');
+    } else {
+      addTagDiv.classList.remove('d-none');
+      addCategoryDiv.classList.add('d-none');
+    }
+  }
 }
 
 /**
