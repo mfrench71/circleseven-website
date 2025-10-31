@@ -266,10 +266,28 @@ function updateSaveButton() {
 }
 
 /**
- * Renders the categories list with drag-and-drop sorting
+ * Toggles visibility of child categories
  *
- * Generates the HTML table rows for all categories, initializes Sortable.js
- * for drag-and-drop reordering, and updates the category count badge.
+ * @param {number} parentIndex - Index of parent category
+ */
+export function toggleCategoryChildren(parentIndex) {
+  const children = document.querySelectorAll(`[data-parent-index="${parentIndex}"]`);
+  const expandBtn = document.querySelector(`[data-expand-btn="${parentIndex}"]`);
+
+  children.forEach(child => {
+    child.classList.toggle('d-none');
+  });
+
+  if (expandBtn) {
+    expandBtn.classList.toggle('collapsed');
+  }
+}
+
+/**
+ * Renders the categories list with hierarchical tree view
+ *
+ * Generates the HTML table rows for all categories in a tree structure with
+ * expand/collapse functionality for parents. Updates the category count badge.
  * Each row includes edit and delete buttons.
  *
  * @example
@@ -282,6 +300,7 @@ export function renderCategories() {
 
   if (!tbody || !countBadge) return;
 
+  const categoriesTree = window.categoriesTree || [];
   const categories = window.categories || [];
 
   // Remove loading spinner if it exists
@@ -290,63 +309,92 @@ export function renderCategories() {
     loadingRow.remove();
   }
 
-  tbody.innerHTML = categories.map((cat, index) => {
-    return `
-    <tr class="small" class="cursor-move" data-index="${index}">
-      <td class="px-3 py-2 text-muted">${index + 1}</td>
-      <td class="px-3 py-2">
-        <div class="d-flex align-items-center gap-2">
-          <i class="fas fa-bars text-secondary flex-shrink-0"></i>
-          <span class="fw-medium text-dark">${escapeHtml(cat)}</span>
-        </div>
-      </td>
-      <td class="px-3 py-2 text-end text-nowrap">
-        <button
-          onclick="window.editCategory(${index})"
-          class="btn-icon-edit"
-          title="Edit category"
-        >
-          <i class="fas fa-edit"></i>
-        </button>
-        <button
-          onclick="window.deleteCategory(${index})"
-          class="btn-icon-delete"
-          title="Delete category"
-        >
-          <i class="fas fa-trash"></i>
-        </button>
-      </td>
-    </tr>
-  `;
-  }).join('');
+  // Generate rows with hierarchy
+  let rowNumber = 1;
+  const rows = [];
 
+  categoriesTree.forEach((parent, parentIndex) => {
+    const hasChildren = parent.children && parent.children.length > 0;
+
+    // Parent row
+    rows.push(`
+      <tr class="small taxonomy-tree-parent" data-parent-index="${parentIndex}">
+        <td class="px-3 py-2 text-muted">${rowNumber++}</td>
+        <td class="px-3 py-2">
+          <div class="d-flex align-items-center gap-2">
+            ${hasChildren ? `
+              <button
+                class="taxonomy-tree-expand-btn"
+                data-expand-btn="${parentIndex}"
+                onclick="window.toggleCategoryChildren(${parentIndex})"
+                title="Expand/collapse children"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            ` : '<span style="width: 1.75rem; display: inline-block;"></span>'}
+            <i class="fas fa-bars text-secondary flex-shrink-0"></i>
+            <span class="fw-medium text-dark">${escapeHtml(parent.item)}</span>
+            ${hasChildren ? `<span class="badge bg-secondary ms-2">${parent.children.length}</span>` : ''}
+          </div>
+        </td>
+        <td class="px-3 py-2 text-end text-nowrap">
+          <button
+            onclick="window.editCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')"
+            class="btn-icon-edit"
+            title="Edit category"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button
+            onclick="window.deleteCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')"
+            class="btn-icon-delete"
+            title="Delete category"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `);
+
+    // Child rows
+    if (hasChildren) {
+      parent.children.forEach((child, childIndex) => {
+        rows.push(`
+          <tr class="small taxonomy-tree-child" data-parent-index="${parentIndex}" data-child-index="${childIndex}">
+            <td class="px-3 py-2 text-muted">${rowNumber++}</td>
+            <td class="px-3 py-2 taxonomy-tree-indent">
+              <div class="d-flex align-items-center gap-2">
+                <i class="fas fa-level-up-alt fa-rotate-90 text-secondary flex-shrink-0" style="font-size: 0.75rem;"></i>
+                <span class="text-dark">${escapeHtml(child.item)}</span>
+              </div>
+            </td>
+            <td class="px-3 py-2 text-end text-nowrap">
+              <button
+                onclick="window.editCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')"
+                class="btn-icon-edit"
+                title="Edit category"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                onclick="window.deleteCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')"
+                class="btn-icon-delete"
+                title="Delete category"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `);
+      });
+    }
+  });
+
+  tbody.innerHTML = rows.join('');
   countBadge.textContent = categories.length;
 
-  // Destroy previous Sortable instance if it exists
-  if (window.sortableInstances && window.sortableInstances.categories) {
-    window.sortableInstances.categories.destroy();
-  }
-
-  // Initialize sortable
-  if (typeof Sortable !== 'undefined') {
-    if (!window.sortableInstances) {
-      window.sortableInstances = { categories: null, tags: null };
-    }
-
-    window.sortableInstances.categories = new Sortable(tbody, {
-      animation: 150,
-      ghostClass: 'sortable-ghost',
-      dragClass: 'sortable-drag',
-      handle: 'tr',
-      onEnd: (evt) => {
-        const item = window.categories.splice(evt.oldIndex, 1)[0];
-        window.categories.splice(evt.newIndex, 0, item);
-        markDirty();
-        // Don't call renderCategories() here - causes excessive re-rendering
-        // Sortable already updated the DOM visually
-      }
-    });
-  }
+  // Note: Sortable.js drag-and-drop is temporarily disabled for hierarchical view
+  // Will be re-enabled with hierarchy-aware sorting in next update
 }
 
 /**

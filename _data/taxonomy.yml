@@ -8,16 +8,13 @@
 categories:
   - item: Projects
     slug: projects
-    children: []
-  - item: Photography
-    slug: photography
-    children: []
-  - item: Retro Computing
-    slug: retro-computing
-    children: []
-  - item: Motion Graphics
-    slug: motion-graphics
-    children: []
+    children:
+      - item: Photography
+        slug: photography
+      - item: Motion Graphics
+        slug: motion-graphics
+      - item: Retro Computing
+        slug: retro-computing
   - item: Digital Art and Technology
     slug: digital-art-technology
     children:

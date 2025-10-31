@@ -592,3 +592,52 @@ table .btn-link {
 .form-text-height {
   height: 38px;
 }
+
+/* Taxonomy Tree View Styles */
+.taxonomy-tree-indent {
+  padding-left: 2.5rem;
+}
+
+.taxonomy-tree-expand-btn {
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.taxonomy-tree-expand-btn:hover {
+  color: #495057;
+}
+
+.taxonomy-tree-expand-btn.collapsed .fa-chevron-down {
+  transform: rotate(-90deg);
+}
+
+.taxonomy-tree-parent {
+  font-weight: 500;
+}
+
+.taxonomy-tree-child {
+  background-color: #f8f9fa;
+}
+
+.taxonomy-tree-child.d-none {
+  display: none !important;
+}
+
+.taxonomy-tree-child-indicator {
+  width: 2px;
+  height: 100%;
+  background-color: #dee2e6;
+  position: absolute;
+  left: 0.75rem;
+  top: 0;
+}
