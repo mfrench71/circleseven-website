@@ -1682,10 +1682,9 @@ async function updateDashboardDeployments() {
  *
  * Shows the 10 most recently modified posts and pages with titles, types, and dates.
  *
- * @param {Object} currentUser - The authenticated user object from initStandalonePage
  * @returns {Promise<void>}
  */
-async function updateRecentlyPublished(currentUser) {
+async function updateRecentlyPublished() {
   const loadingEl = document.getElementById('recently-published-loading');
   const contentEl = document.getElementById('recently-published-content');
   const tbody = document.getElementById('recently-published-tbody');
@@ -1697,83 +1696,19 @@ async function updateRecentlyPublished(currentUser) {
     loadingEl.classList.remove('d-none');
     contentEl.classList.add('d-none');
 
-    const token = currentUser?.token?.access_token;
-    if (!token) {
-      throw new Error('Not authenticated');
+    // Fetch recently published content from Netlify Function
+    const response = await fetch(`${API_BASE}/recently-published`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.status}`);
     }
 
-    // Fetch both posts and pages in parallel
-    const [postsResponse, pagesResponse] = await Promise.all([
-      fetch(`https://api.github.com/repos/${window.GITHUB_REPO}/contents/_posts`, {
-        headers: { 'Authorization': `token ${token}` }
-      }),
-      fetch(`https://api.github.com/repos/${window.GITHUB_REPO}/contents/_pages`, {
-        headers: { 'Authorization': `token ${token}` }
-      })
-    ]);
-
-    const posts = postsResponse.ok ? await postsResponse.json() : [];
-    const pages = pagesResponse.ok ? await pagesResponse.json() : [];
-
-    // Filter for markdown files and add type
-    const postFiles = Array.isArray(posts)
-      ? posts
-          .filter(f => f.name.endsWith('.md'))
-          .map(f => ({ ...f, type: 'Post', folder: '_posts' }))
-      : [];
-
-    const pageFiles = Array.isArray(pages)
-      ? pages
-          .filter(f => f.name.endsWith('.md'))
-          .map(f => ({ ...f, type: 'Page', folder: '_pages' }))
-      : [];
-
-    // Combine and fetch commit dates for each file
-    const allFiles = [...postFiles, ...pageFiles];
-
-    // Fetch last commit date for each file
-    const filesWithDates = await Promise.all(
-      allFiles.map(async (file) => {
-        try {
-          const commitsUrl = `https://api.github.com/repos/${window.GITHUB_REPO}/commits?path=${file.folder}/${file.name}&per_page=1`;
-          const response = await fetch(commitsUrl, {
-            headers: { 'Authorization': `token ${token}` }
-          });
-          const commits = await response.json();
-          const lastCommitDate = commits[0]?.commit?.committer?.date || new Date(0).toISOString();
-
-          // Extract title from filename
-          let title = file.name.replace(/\.md$/, '');
-          // Remove date prefix if present (YYYY-MM-DD-)
-          title = title.replace(/^\d{4}-\d{2}-\d{2}-/, '');
-          // Convert hyphens to spaces and capitalize
-          title = title.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-          return {
-            ...file,
-            lastModified: new Date(lastCommitDate),
-            title
-          };
-        } catch (error) {
-          logger.error(`Failed to fetch commit date for ${file.name}:`, error);
-          return {
-            ...file,
-            lastModified: new Date(0),
-            title: file.name
-          };
-        }
-      })
-    );
-
-    // Sort by last modified date (newest first) and take top 10
-    const recentFiles = filesWithDates
-      .sort((a, b) => b.lastModified - a.lastModified)
-      .slice(0, 10);
+    const recentFiles = await response.json();
 
     // Render table rows
     tbody.innerHTML = '';
 
-    if (recentFiles.length === 0) {
+    if (!recentFiles || recentFiles.length === 0) {
       contentEl.classList.remove('d-none');
       tbody.innerHTML = `
         <tr>
@@ -1788,13 +1723,13 @@ async function updateRecentlyPublished(currentUser) {
     }
 
     recentFiles.forEach(file => {
-      const relativeTime = getRelativeTime(file.lastModified);
+      const relativeTime = getRelativeTime(new Date(file.lastModified));
       const typeIcon = file.type === 'Post' ? 'fa-newspaper' : 'fa-file-alt';
 
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>
-          <a href="/admin-custom/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark d-flex align-items-center gap-2">
+          <a href="/admin/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark d-flex align-items-center gap-2">
             <i class="fas ${typeIcon} text-muted small"></i>
             <span class="fw-medium">${escapeHtml(file.title)}</span>
           </a>
