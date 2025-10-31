@@ -19,37 +19,37 @@ categories:
     slug: digital-art-and-technology
     children:
       - item: DAT401 - Strategies for Digital Art and Technology
-        slug: dat401
+        slug: dat401-strategies-for-digital-art-and-technology
       - item: DAT402 - Digital Culture
-        slug: dat402
+        slug: dat402-digital-culture
       - item: DAT403 - Digital Media Design
-        slug: dat403
+        slug: dat403-digital-media-design
       - item: DAT404 - Web Technologies
-        slug: dat404
+        slug: dat404-web-technologies
       - item: DAT405 - Creative Coding
-        slug: dat405
+        slug: dat405-creative-coding
       - item: DAT406 - Digital Making
-        slug: dat406
+        slug: dat406-digital-making
       - item: DAT501 - Strategies for Digital Art and Technology
-        slug: dat501
+        slug: dat501-strategies-for-digital-art-and-technology
       - item: DAT503 - Reflexive Design
-        slug: dat503
+        slug: dat503-reflexive-design
       - item: DAT504 - Advanced Web Technologies
-        slug: dat504
+        slug: dat504-advanced-web-technologies
       - item: DAT505 - Advanced Creative Coding
-        slug: dat505
+        slug: dat505-advanced-creative-coding
       - item: DAT506 - Emerging Technologies
-        slug: dat506
+        slug: dat506-emerging-technologies
       - item: DAT601 - Realtime
-        slug: dat601
+        slug: dat601-realtime
       - item: DAT602 - Everyware
-        slug: dat602
+        slug: dat602-everyware
       - item: DAT612 - Final Year Project
-        slug: dat612
+        slug: dat612-final-year-project
       - item: DAT613 - Dissertation
-        slug: dat613
+        slug: dat613-dissertation
       - item: INDE601 - Netscapes
-        slug: inde601
+        slug: inde601-netscapes
 
 tags:
   - item: Photography
