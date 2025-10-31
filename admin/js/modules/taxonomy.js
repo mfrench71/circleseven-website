@@ -355,7 +355,7 @@ export function renderCategories() {
     rows.push(`
       <tr class="small taxonomy-tree-parent" data-parent-index="${parentIndex}">
         <td class="px-3 py-2 text-muted">${rowNumber++}</td>
-        <td class="px-3 py-2">
+        <td class="px-3 py-2 row-with-actions">
           <div class="d-flex align-items-center gap-2">
             ${hasChildren ? `
               <button
@@ -371,22 +371,10 @@ export function renderCategories() {
             <span class="fw-medium text-dark">${escapeHtml(parent.item)}</span>
             ${hasChildren ? `<span class="badge bg-secondary ms-2">${parent.children.length}</span>` : ''}
           </div>
-        </td>
-        <td class="px-3 py-2 text-end text-nowrap">
-          <button
-            onclick="window.editCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')"
-            class="btn-icon-edit"
-            title="Edit category"
-          >
-            <i class="fas fa-edit"></i>
-          </button>
-          <button
-            onclick="window.deleteCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')"
-            class="btn-icon-delete"
-            title="Delete category"
-          >
-            <i class="fas fa-trash"></i>
-          </button>
+          <div class="row-actions">
+            <span><button type="button" onclick="window.editCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Edit</button></span> <span class="text-muted">|</span>
+            <span><button type="button" onclick="window.deleteCategoryByName('${escapeHtml(parent.item).replace(/'/g, "\\'")}')" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Bin</button></span>
+          </div>
         </td>
       </tr>
     `);
@@ -397,27 +385,15 @@ export function renderCategories() {
         rows.push(`
           <tr class="small taxonomy-tree-child" data-parent-index="${parentIndex}" data-child-index="${childIndex}">
             <td class="px-3 py-2 text-muted">${rowNumber++}</td>
-            <td class="px-3 py-2 taxonomy-tree-indent">
+            <td class="px-3 py-2 taxonomy-tree-indent row-with-actions">
               <div class="d-flex align-items-center gap-2">
                 <i class="fas fa-level-up-alt fa-rotate-90 text-secondary flex-shrink-0" style="font-size: 0.75rem;"></i>
                 <span class="text-dark">${escapeHtml(child.item)}</span>
               </div>
-            </td>
-            <td class="px-3 py-2 text-end text-nowrap">
-              <button
-                onclick="window.editCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')"
-                class="btn-icon-edit"
-                title="Edit category"
-              >
-                <i class="fas fa-edit"></i>
-              </button>
-              <button
-                onclick="window.deleteCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')"
-                class="btn-icon-delete"
-                title="Delete category"
-              >
-                <i class="fas fa-trash"></i>
-              </button>
+              <div class="row-actions">
+                <span><button type="button" onclick="window.editCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Edit</button></span> <span class="text-muted">|</span>
+                <span><button type="button" onclick="window.deleteCategoryByName('${escapeHtml(child.item).replace(/'/g, "\\'")}')" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Bin</button></span>
+              </div>
             </td>
           </tr>
         `);
@@ -597,27 +573,15 @@ export function renderTags() {
     return `
     <tr class="small" class="cursor-move" data-index="${index}">
       <td class="px-3 py-2 text-muted">${index + 1}</td>
-      <td class="px-3 py-2">
+      <td class="px-3 py-2 row-with-actions">
         <div class="d-flex align-items-center gap-2">
           <i class="fas fa-bars text-secondary flex-shrink-0"></i>
           <span class="fw-medium text-dark">${escapeHtml(tag)}</span>
         </div>
-      </td>
-      <td class="px-3 py-2 text-end text-nowrap">
-        <button
-          onclick="window.editTag(${index})"
-          class="btn-icon-edit"
-          title="Edit tag"
-        >
-          <i class="fas fa-edit"></i>
-        </button>
-        <button
-          onclick="window.deleteTag(${index})"
-          class="btn-icon-delete"
-          title="Delete tag"
-        >
-          <i class="fas fa-trash"></i>
-        </button>
+        <div class="row-actions">
+          <span><button type="button" onclick="window.editTag(${index})" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Edit</button></span> <span class="text-muted">|</span>
+          <span><button type="button" onclick="window.deleteTag(${index})" class="btn btn-link text-primary p-0 border-0 text-decoration-none">Bin</button></span>
+        </div>
       </td>
     </tr>
   `;
