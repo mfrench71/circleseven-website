@@ -355,68 +355,86 @@
                 <h3 class="h5 fw-semibold mb-4" id="post-editor-title">Edit Post</h3>
 
               <form id="post-editor-form" onsubmit="savePost(event)">
-                <!-- Frontmatter Fields -->
+                <!-- Title -->
+                <div class="mb-3">
+                  <label for="post-title" class="form-label fw-semibold">Title</label>
+                  <input
+                    type="text"
+                    id="post-title"
+                    name="title"
+                    required
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <!-- Date Information Card -->
+                  <div class="col-lg-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h6 class="card-title mb-3">Date Information</h6>
+                        <div class="mb-3">
+                          <label for="post-date" class="form-label">Published Date</label>
+                          <input
+                            type="datetime-local"
+                            id="post-date"
+                            name="date"
+                            required
+                            class="form-control"
+                          />
+                        </div>
+                        <div>
+                          <label class="form-label">Last Modified</label>
+                          <div class="d-flex align-items-center" style="height: 38px;">
+                            <span id="post-last-modified" class="text-muted">Not yet modified</span>
+                          </div>
+                          <div class="form-text">Automatically updated when post is saved</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Featured Image Card -->
+                  <div class="col-lg-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h6 class="card-title mb-3">Featured Image</h6>
+                        <div class="mb-2">
+                          <label for="post-image" class="form-label">Image URL</label>
+                          <div class="input-group">
+                            <input
+                              type="url"
+                              id="post-image"
+                              name="image"
+                              placeholder="https://res.cloudinary.com/..."
+                              class="form-control"
+                              oninput="updateImagePreview()"
+                            />
+                            <button
+                              type="button"
+                              onclick="selectFeaturedImage()"
+                              class="btn btn-primary"
+                              title="Browse Cloudinary Media Library"
+                            >
+                              <i class="fas fa-image"></i> Browse
+                            </button>
+                          </div>
+                        </div>
+                        <div id="image-preview" class="d-none">
+                          <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative">
+                            <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
+                          </button>
+                          <div class="form-text">Click to view full size</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Taxonomy -->
                 <div class="row g-3 mb-4">
-                  <div class="col-12">
-                    <label for="post-title" class="form-label">Title</label>
-                    <input
-                      type="text"
-                      id="post-title"
-                      name="title"
-                      required
-                      class="form-control"
-                    />
-                  </div>
-
                   <div class="col-md-6">
-                    <label for="post-date" class="form-label">Published Date</label>
-                    <input
-                      type="datetime-local"
-                      id="post-date"
-                      name="date"
-                      required
-                      class="form-control"
-                    />
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-label">Last Modified</label>
-                    <div class="d-flex align-items-center" style="height: 38px;">
-                      <span id="post-last-modified" class="text-muted">Not yet modified</span>
-                    </div>
-                    <div class="form-text">Automatically updated when post is saved</div>
-                  </div>
-
-                  <div class="col-12">
-                    <label for="post-image" class="form-label">Featured Image URL</label>
-                    <div class="input-group">
-                      <input
-                        type="url"
-                        id="post-image"
-                        name="image"
-                        placeholder="https://res.cloudinary.com/..."
-                        class="form-control"
-                        oninput="updateImagePreview()"
-                      />
-                      <button
-                        type="button"
-                        onclick="selectFeaturedImage()"
-                        class="btn btn-primary"
-                        title="Browse Cloudinary Media Library"
-                      >
-                        <i class="fas fa-image"></i> Browse Library
-                      </button>
-                    </div>
-                    <div id="image-preview" class="d-none mt-2">
-                      <button type="button" onclick="openImageModal()" class="btn btn-link p-0 border-0 position-relative">
-                        <img id="image-preview-img" src="" alt="Image preview" class="rounded border object-fit-cover" style="max-width: 150px; max-height: 100px;" />
-                      </button>
-                      <div class="form-text">Click to view full size</div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label for="categories-input" class="form-label">Categories</label>
+                    <label for="categories-input" class="form-label fw-semibold">Categories</label>
                     <div class="taxonomy-input-wrapper">
                       <div id="categories-selected" class="taxonomy-selected-tags"></div>
                       <input
@@ -431,7 +449,7 @@
                   </div>
 
                   <div class="col-md-6">
-                    <label for="tags-input" class="form-label">Tags</label>
+                    <label for="tags-input" class="form-label fw-semibold">Tags</label>
                     <div class="taxonomy-input-wrapper">
                       <div id="tags-selected" class="taxonomy-selected-tags"></div>
                       <input

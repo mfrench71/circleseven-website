@@ -1398,6 +1398,16 @@ export function renderSelectedTaxonomy(type) {
     }
   }
 
+  // Filter out empty/null/undefined values
+  selectedItems = selectedItems.filter(item => item && String(item).trim());
+
+  // Update global state with filtered items
+  if (type === 'categories') {
+    window.selectedCategories = selectedItems;
+  } else {
+    window.selectedTags = selectedItems;
+  }
+
   // Helper function to escape strings for JavaScript context (onclick attributes)
   const escapeJs = (str) => String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
 

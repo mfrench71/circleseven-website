@@ -660,6 +660,22 @@ export async function editPage(filename, updateUrl = true) {
     const dateValue = window.currentPage_pages.frontmatter.date || new Date().toISOString();
     document.getElementById('page-date').value = window.formatDateForInput(dateValue);
 
+    // Display last modified date (read-only, informational)
+    const lastModifiedEl = document.getElementById('page-last-modified');
+    if (lastModifiedEl && window.currentPage_pages.frontmatter.last_modified_at) {
+      const lastModified = new Date(window.currentPage_pages.frontmatter.last_modified_at);
+      lastModifiedEl.textContent = lastModified.toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    } else if (lastModifiedEl) {
+      lastModifiedEl.textContent = 'Not yet modified';
+    }
+
     // Initialize markdown editor if needed
     if (!window.pageMarkdownEditor) {
       initPageMarkdownEditor();
@@ -727,6 +743,12 @@ export function showNewPageForm(updateUrl = true) {
 
   // Set current date/time as default for new pages
   document.getElementById('page-date').value = window.formatDateForInput(new Date().toISOString());
+
+  // Reset last modified display for new pages
+  const lastModifiedEl = document.getElementById('page-last-modified');
+  if (lastModifiedEl) {
+    lastModifiedEl.textContent = 'Not yet modified';
+  }
 
   // Initialize markdown editor if needed and clear content
   if (!window.pageMarkdownEditor) {
