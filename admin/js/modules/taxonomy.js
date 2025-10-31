@@ -318,12 +318,6 @@ export function renderCategories() {
   const categoriesTree = window.categoriesTree || [];
   const categories = window.categories || [];
 
-  console.log('renderCategories called:', {
-    categoriesTreeCount: categoriesTree.length,
-    categoriesCount: categories.length,
-    categoriesTree: categoriesTree
-  });
-
   // Remove loading spinner if it exists
   const loadingRow = document.getElementById('categories-loading');
   if (loadingRow) {
