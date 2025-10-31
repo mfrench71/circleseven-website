@@ -42,7 +42,8 @@ const EDITABLE_FIELDS = [
   'paginate',
   'related_posts_count',
   'timezone',
-  'lang'
+  'lang',
+  'google_fonts'
 ];
 
 /**
