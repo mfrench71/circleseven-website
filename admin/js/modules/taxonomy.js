@@ -309,15 +309,38 @@ export function renderCategories() {
   const tbody = document.getElementById('categories-list');
   const countBadge = document.getElementById('categories-count-badge');
 
-  if (!tbody || !countBadge) return;
+  if (!tbody || !countBadge) {
+    console.error('renderCategories: Missing tbody or countBadge elements');
+    return;
+  }
 
   const categoriesTree = window.categoriesTree || [];
   const categories = window.categories || [];
+
+  console.log('renderCategories called:', {
+    categoriesTreeCount: categoriesTree.length,
+    categoriesCount: categories.length,
+    categoriesTree: categoriesTree
+  });
 
   // Remove loading spinner if it exists
   const loadingRow = document.getElementById('categories-loading');
   if (loadingRow) {
     loadingRow.remove();
+  }
+
+  // If no categories, show empty state
+  if (categoriesTree.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="3" class="p-5 text-center text-muted">
+          <i class="fas fa-folder-open fa-3x mb-3 text-secondary"></i>
+          <p class="mb-0">No categories yet. Click "Add Category" to create one.</p>
+        </td>
+      </tr>
+    `;
+    countBadge.textContent = '0';
+    return;
   }
 
   // Generate rows with hierarchy
