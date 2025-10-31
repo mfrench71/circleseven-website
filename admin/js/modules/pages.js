@@ -653,7 +653,7 @@ export async function editPage(filename, updateUrl = true) {
     // Populate form
     document.getElementById('page-title').value = window.currentPage_pages.frontmatter.title || '';
     document.getElementById('page-permalink').value = window.currentPage_pages.frontmatter.permalink || '';
-    document.getElementById('page-layout').value = window.currentPage_pages.frontmatter.layout || 'page';
+    document.getElementById('page-layout').value = window.currentPage_pages.frontmatter.layout || 'default';
     document.getElementById('page-protected').checked = window.currentPage_pages.frontmatter.protected === true;
 
     // Set date field - use existing date or default to current date/time
@@ -738,7 +738,7 @@ export function showNewPageForm(updateUrl = true) {
   // Clear form
   document.getElementById('page-title').value = '';
   document.getElementById('page-permalink').value = '';
-  document.getElementById('page-layout').value = 'page';
+  document.getElementById('page-layout').value = 'default';
   document.getElementById('page-protected').checked = false;
 
   // Set current date/time as default for new pages
