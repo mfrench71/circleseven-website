@@ -31,20 +31,24 @@ layout: default
   {%- comment -%} Show child categories if this is a parent {%- endcomment -%}
   {%- if has_children -%}
     <div class="child-categories-section mb-5">
-      <h2 class="h5 fw-bold mb-3">
+      <h2 class="h5 fw-bold mb-4">
         <i class="fas fa-folder-tree me-2"></i>Subcategories
       </h2>
-      <div class="list-group">
+      <div class="row g-3">
         {%- for child in child_categories -%}
           {%- assign child_slug = child.slug | default: child.item | slugify -%}
           {%- assign child_posts = site.categories[child.item] | size -%}
-          <a href="{{ site.baseurl }}/category/{{ child_slug }}/" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            <div>
-              <i class="fas fa-folder-open me-2 text-primary"></i>
-              <span class="fw-medium">{{ child.item }}</span>
-            </div>
-            <span class="badge bg-secondary rounded-pill">{{ child_posts }}</span>
-          </a>
+          <div class="col-md-6">
+            <a href="{{ site.baseurl }}/category/{{ child_slug }}/" class="text-decoration-none">
+              <div class="border rounded p-3 h-100 bg-white hover-shadow d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-folder-open me-3 text-primary fs-5"></i>
+                  <span class="fw-medium text-dark">{{ child.item }}</span>
+                </div>
+                <span class="badge bg-secondary rounded-pill ms-3">{{ child_posts }}</span>
+              </div>
+            </a>
+          </div>
         {%- endfor -%}
       </div>
     </div>
