@@ -282,7 +282,8 @@ function updateSaveButton() {
  * @param {number} parentIndex - Index of parent category
  */
 export function toggleCategoryChildren(parentIndex) {
-  const children = document.querySelectorAll(`[data-parent-index="${parentIndex}"]`);
+  // Only select child rows, not the parent row itself
+  const children = document.querySelectorAll(`.taxonomy-tree-child[data-parent-index="${parentIndex}"]`);
   const expandBtn = document.querySelector(`[data-expand-btn="${parentIndex}"]`);
 
   children.forEach(child => {
