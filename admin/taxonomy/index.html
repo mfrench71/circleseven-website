@@ -98,7 +98,114 @@
         <div id="section-taxonomy">
           <h2 class="h5 fw-bold mb-4">Taxonomy Management</h2>
 
-          <!-- Collapsible Help -->
+          <!-- Bulk Tools Section -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+              <button
+                class="btn btn-link text-decoration-none text-dark fw-medium w-100 text-start d-flex align-items-center justify-content-between p-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#bulk-tools-collapse"
+                aria-expanded="false"
+                aria-controls="bulk-tools-collapse"
+              >
+                <span><i class="fas fa-tools me-2 text-primary"></i>Bulk Tools</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            </div>
+            <div id="bulk-tools-collapse" class="collapse">
+              <div class="card-body">
+                <div class="row g-3">
+                  <!-- Find Usage Tool -->
+                  <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                      <h6 class="fw-bold mb-3"><i class="fas fa-search me-2"></i>Find Usage</h6>
+                      <p class="small text-muted mb-3">Find all posts using specific categories or tags</p>
+                      <div class="mb-3">
+                        <label class="form-label small">Type</label>
+                        <select id="find-type" class="form-select form-select-sm">
+                          <option value="category">Category</option>
+                          <option value="tag">Tag</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small">Search Terms</label>
+                        <input type="text" id="find-terms" class="form-control form-control-sm" placeholder="Enter terms (comma-separated)">
+                      </div>
+                      <button onclick="window.findTaxonomyUsage()" class="btn btn-primary btn-sm w-100">
+                        <i class="fas fa-search me-2"></i>Find
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Rename Tool -->
+                  <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                      <h6 class="fw-bold mb-3"><i class="fas fa-edit me-2"></i>Rename</h6>
+                      <p class="small text-muted mb-3">Rename a category or tag across all content</p>
+                      <div class="mb-3">
+                        <label class="form-label small">Type</label>
+                        <select id="rename-type" class="form-select form-select-sm">
+                          <option value="category">Category</option>
+                          <option value="tag">Tag</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small">Old Name</label>
+                        <input type="text" id="rename-old" class="form-control form-control-sm" placeholder="Current name">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small">New Name</label>
+                        <input type="text" id="rename-new" class="form-control form-control-sm" placeholder="New name">
+                      </div>
+                      <button onclick="window.renameTaxonomy()" class="btn btn-warning btn-sm w-100">
+                        <i class="fas fa-edit me-2"></i>Rename
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Merge Tool -->
+                  <div class="col-md-4">
+                    <div class="border rounded p-3 h-100">
+                      <h6 class="fw-bold mb-3"><i class="fas fa-compress-alt me-2"></i>Merge</h6>
+                      <p class="small text-muted mb-3">Merge multiple categories or tags into one</p>
+                      <div class="mb-3">
+                        <label class="form-label small">Type</label>
+                        <select id="merge-type" class="form-select form-select-sm">
+                          <option value="category">Category</option>
+                          <option value="tag">Tag</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small">Source Terms</label>
+                        <input type="text" id="merge-source" class="form-control form-control-sm" placeholder="Terms to merge (comma-separated)">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small">Target Term</label>
+                        <input type="text" id="merge-target" class="form-control form-control-sm" placeholder="Merge into this term">
+                      </div>
+                      <button onclick="window.mergeTaxonomy()" class="btn btn-danger btn-sm w-100">
+                        <i class="fas fa-compress-alt me-2"></i>Merge
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Results Area -->
+                <div id="bulk-tools-results" class="d-none mt-4">
+                  <div class="card">
+                    <div class="card-header bg-light d-flex align-items-center justify-content-between">
+                      <h6 class="mb-0 fw-bold">Results</h6>
+                      <button onclick="document.getElementById('bulk-tools-results').classList.add('d-none')" class="btn-close" aria-label="Close"></button>
+                    </div>
+                    <div class="card-body">
+                      <div id="bulk-tools-results-content"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Tabs -->
           <div class="mb-4">
@@ -243,7 +350,10 @@
       showAddTagModal,
       editTag,
       deleteTag,
-      saveTaxonomy
+      saveTaxonomy,
+      findTaxonomyUsage,
+      renameTaxonomy,
+      mergeTaxonomy
     } from '/admin/js/modules/taxonomy.js?v=1761218399';
     import {
       loadDeploymentHistory,
@@ -279,6 +389,9 @@
     window.editTag = editTag;
     window.deleteTag = deleteTag;
     window.saveTaxonomy = saveTaxonomy;
+    window.findTaxonomyUsage = findTaxonomyUsage;
+    window.renameTaxonomy = renameTaxonomy;
+    window.mergeTaxonomy = mergeTaxonomy;
     window.loadDeploymentHistory = loadDeploymentHistory;
     window.restoreActiveDeployments = restoreActiveDeployments;
     window.trackDeployment = trackDeployment;

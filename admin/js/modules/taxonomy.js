@@ -1042,3 +1042,272 @@ export async function saveTaxonomy() {
     setButtonLoading(saveBtn, false);
   }
 }
+
+/**
+ * ===========================================================================
+ * BULK TOOLS FUNCTIONS
+ * ===========================================================================
+ */
+
+/**
+ * Displays bulk tools results
+ */
+function showBulkResults(html) {
+  const resultsArea = document.getElementById('bulk-tools-results');
+  const resultsContent = document.getElementById('bulk-tools-results-content');
+
+  if (resultsArea && resultsContent) {
+    resultsContent.innerHTML = html;
+    resultsArea.classList.remove('d-none');
+  }
+}
+
+/**
+ * Find all posts/pages using specific taxonomy terms
+ */
+export async function findTaxonomyUsage() {
+  try {
+    const type = document.getElementById('find-type').value;
+    const termsInput = document.getElementById('find-terms').value.trim();
+
+    if (!termsInput) {
+      showError('Please enter search terms');
+      return;
+    }
+
+    const terms = termsInput.split(',').map(t => t.trim()).filter(t => t);
+
+    if (terms.length === 0) {
+      showError('Please enter valid search terms');
+      return;
+    }
+
+    hideMessages();
+
+    const response = await fetch(`${window.API_BASE}/taxonomy-migrate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operation: 'find',
+        type,
+        terms
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to find usage');
+    }
+
+    const data = await response.json();
+
+    // Build results HTML
+    let html = `
+      <div class="mb-3">
+        <h6 class="fw-bold">Found ${data.totalAffected} ${data.totalAffected === 1 ? 'file' : 'files'} using: ${terms.join(', ')}</h6>
+      </div>
+    `;
+
+    if (data.totalAffected > 0) {
+      html += '<div class="table-responsive"><table class="table table-sm table-hover">';
+      html += '<thead><tr><th>File</th><th>Matching Terms</th><th>All Terms</th></tr></thead>';
+      html += '<tbody>';
+
+      data.affected.forEach(file => {
+        html += `<tr>
+          <td><code class="small">${escapeHtml(file.path)}</code></td>
+          <td><span class="badge bg-primary">${file.matchingTerms.map(escapeHtml).join('</span> <span class="badge bg-primary">')}</span></td>
+          <td><small>${file.allTerms.map(escapeHtml).join(', ')}</small></td>
+        </tr>`;
+      });
+
+      html += '</tbody></table></div>';
+    } else {
+      html += '<p class="text-muted">No files found using these terms.</p>';
+    }
+
+    showBulkResults(html);
+  } catch (error) {
+    console.error('Error finding taxonomy usage:', error);
+    showError('Failed to find usage: ' + error.message);
+  }
+}
+
+/**
+ * Rename a taxonomy term across all content
+ */
+export async function renameTaxonomy() {
+  try {
+    const type = document.getElementById('rename-type').value;
+    const oldName = document.getElementById('rename-old').value.trim();
+    const newName = document.getElementById('rename-new').value.trim();
+
+    if (!oldName || !newName) {
+      showError('Please enter both old and new names');
+      return;
+    }
+
+    if (oldName === newName) {
+      showError('Old and new names must be different');
+      return;
+    }
+
+    // Confirm before proceeding
+    const confirmed = await window.showConfirm(
+      `Rename "${oldName}" to "${newName}" across all content?\n\nThis will update all posts and pages using this ${type}.`
+    );
+
+    if (!confirmed) return;
+
+    hideMessages();
+
+    const response = await fetch(`${window.API_BASE}/taxonomy-migrate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operation: 'rename',
+        type,
+        oldName,
+        newName
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to rename');
+    }
+
+    const data = await response.json();
+
+    // Build results HTML
+    let html = `
+      <div class="alert alert-success mb-3">
+        <i class="fas fa-check-circle me-2"></i>
+        Successfully renamed "${oldName}" to "${newName}" in ${data.updated.length} ${data.updated.length === 1 ? 'file' : 'files'}
+      </div>
+    `;
+
+    if (data.updated.length > 0) {
+      html += '<h6 class="fw-bold mb-2">Updated Files:</h6>';
+      html += '<ul class="list-unstyled">';
+      data.updated.forEach(file => {
+        html += `<li><i class="fas fa-check text-success me-2"></i><code class="small">${escapeHtml(file.path)}</code></li>`;
+      });
+      html += '</ul>';
+    }
+
+    if (data.errors && data.errors.length > 0) {
+      html += '<div class="alert alert-warning mt-3">';
+      html += `<strong>Errors (${data.errors.length}):</strong><ul>`;
+      data.errors.forEach(err => {
+        html += `<li><code>${escapeHtml(err.path)}</code>: ${escapeHtml(err.error)}</li>`;
+      });
+      html += '</ul></div>';
+    }
+
+    showBulkResults(html);
+
+    // Reload taxonomy to show updated list
+    await loadTaxonomy();
+
+    // Clear form
+    document.getElementById('rename-old').value = '';
+    document.getElementById('rename-new').value = '';
+  } catch (error) {
+    console.error('Error renaming taxonomy:', error);
+    showError('Failed to rename: ' + error.message);
+  }
+}
+
+/**
+ * Merge multiple taxonomy terms into one
+ */
+export async function mergeTaxonomy() {
+  try {
+    const type = document.getElementById('merge-type').value;
+    const sourceInput = document.getElementById('merge-source').value.trim();
+    const targetTerm = document.getElementById('merge-target').value.trim();
+
+    if (!sourceInput || !targetTerm) {
+      showError('Please enter source terms and target term');
+      return;
+    }
+
+    const sourceTerms = sourceInput.split(',').map(t => t.trim()).filter(t => t);
+
+    if (sourceTerms.length === 0) {
+      showError('Please enter valid source terms');
+      return;
+    }
+
+    if (sourceTerms.includes(targetTerm)) {
+      showError('Target term cannot be in source terms');
+      return;
+    }
+
+    // Confirm before proceeding
+    const confirmed = await window.showConfirm(
+      `Merge [${sourceTerms.join(', ')}] into "${targetTerm}" across all content?\n\nThis will replace all occurrences of the source ${type}s with the target ${type}.`
+    );
+
+    if (!confirmed) return;
+
+    hideMessages();
+
+    const response = await fetch(`${window.API_BASE}/taxonomy-migrate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operation: 'merge',
+        type,
+        sourceTerms,
+        targetTerm
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to merge');
+    }
+
+    const data = await response.json();
+
+    // Build results HTML
+    let html = `
+      <div class="alert alert-success mb-3">
+        <i class="fas fa-check-circle me-2"></i>
+        Successfully merged [${sourceTerms.join(', ')}] into "${targetTerm}" in ${data.updated.length} ${data.updated.length === 1 ? 'file' : 'files'}
+      </div>
+    `;
+
+    if (data.updated.length > 0) {
+      html += '<h6 class="fw-bold mb-2">Updated Files:</h6>';
+      html += '<ul class="list-unstyled">';
+      data.updated.forEach(file => {
+        html += `<li><i class="fas fa-check text-success me-2"></i><code class="small">${escapeHtml(file.path)}</code></li>`;
+      });
+      html += '</ul>';
+    }
+
+    if (data.errors && data.errors.length > 0) {
+      html += '<div class="alert alert-warning mt-3">';
+      html += `<strong>Errors (${data.errors.length}):</strong><ul>`;
+      data.errors.forEach(err => {
+        html += `<li><code>${escapeHtml(err.path)}</code>: ${escapeHtml(err.error)}</li>`;
+      });
+      html += '</ul></div>';
+    }
+
+    showBulkResults(html);
+
+    // Reload taxonomy to show updated list
+    await loadTaxonomy();
+
+    // Clear form
+    document.getElementById('merge-source').value = '';
+    document.getElementById('merge-target').value = '';
+  } catch (error) {
+    console.error('Error merging taxonomy:', error);
+    showError('Failed to merge: ' + error.message);
+  }
+}
