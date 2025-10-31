@@ -482,6 +482,38 @@ export function renderTags() {
 }
 
 /**
+ * Finds a category by name and calls edit with the correct index
+ *
+ * @param {string} categoryName - Name of the category to edit
+ */
+export async function editCategoryByName(categoryName) {
+  const categories = window.categories || [];
+  const index = categories.findIndex(cat => cat === categoryName);
+
+  if (index !== -1) {
+    await editCategory(index);
+  } else {
+    showError('Category not found');
+  }
+}
+
+/**
+ * Finds a category by name and calls delete with the correct index
+ *
+ * @param {string} categoryName - Name of the category to delete
+ */
+export async function deleteCategoryByName(categoryName) {
+  const categories = window.categories || [];
+  const index = categories.findIndex(cat => cat === categoryName);
+
+  if (index !== -1) {
+    await deleteCategory(index);
+  } else {
+    showError('Category not found');
+  }
+}
+
+/**
  * Shows modal to add a new category
  *
  * Displays a modal dialog for entering a new category name, validates the input
@@ -491,7 +523,7 @@ export function renderTags() {
  * @throws {Error} If category addition fails
  *
  * @example
- * import { showAddCategoryModal } from './modules/taxonomy.js';
+ * import { showAddCategoryModal} from './modules/taxonomy.js';
  * await showAddCategoryModal();
  */
 export async function showAddCategoryModal() {
