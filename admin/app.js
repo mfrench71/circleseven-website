@@ -1722,19 +1722,21 @@ async function updateRecentlyPublished() {
       return;
     }
 
-    recentFiles.forEach(file => {
+    recentFiles.forEach((file, index) => {
       const relativeTime = getRelativeTime(new Date(file.lastModified));
       const typeIcon = file.type === 'Post' ? 'fa-newspaper' : 'fa-file-alt';
+      const rowBg = index % 2 === 0 ? '' : 'table-light';
 
       const row = document.createElement('tr');
+      row.className = rowBg;
       row.innerHTML = `
-        <td>
-          <a href="/admin/${file.type.toLowerCase()}s/edit/${file.name}" class="text-decoration-none text-dark d-flex align-items-center gap-2">
+        <td class="small">
+          <a href="/admin/${file.type.toLowerCase()}s/edit.html?file=${encodeURIComponent(file.name)}" class="text-decoration-none text-dark d-flex align-items-center gap-2">
             <i class="fas ${typeIcon} text-muted small"></i>
-            <span class="fw-medium">${escapeHtml(file.title)}</span>
+            <span class="fw-normal">${escapeHtml(file.title)}</span>
           </a>
         </td>
-        <td class="text-muted text-end">${relativeTime}</td>
+        <td class="text-muted text-end small fw-normal">${relativeTime}</td>
       `;
       tbody.appendChild(row);
     });
