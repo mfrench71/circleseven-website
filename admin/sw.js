@@ -8,7 +8,7 @@ const urlsToCache = [
   '/admin/',
   '/admin/index.html',
   '/admin/app.js',
-  '/admin/styles.css'
+  '/admin/admin.css'
 ];
 
 // Install event - cache resources
