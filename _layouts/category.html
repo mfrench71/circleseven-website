@@ -3,6 +3,9 @@ layout: default
 ---
 
 <div class="category-archive">
+  {%- comment -%} Show breadcrumb navigation {%- endcomment -%}
+  {% include category-breadcrumbs.html category=page.category %}
+
   <h1 class="page-heading">
     <i class="fas fa-folder category-icon"></i>
     {{ page.title }}
@@ -11,6 +14,48 @@ layout: default
   {% if page.description %}
     <p class="category-description">{{ page.description }}</p>
   {% endif %}
+
+  {%- comment -%} Check if this is a parent category with children {%- endcomment -%}
+  {%- assign has_children = false -%}
+  {%- assign child_categories = nil -%}
+  {%- for parent in site.data.taxonomy.categories -%}
+    {%- if parent.item == page.category -%}
+      {%- if parent.children and parent.children.size > 0 -%}
+        {%- assign has_children = true -%}
+        {%- assign child_categories = parent.children -%}
+      {%- endif -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%} Show child categories if this is a parent {%- endcomment -%}
+  {%- if has_children -%}
+    <div class="child-categories-section mb-4">
+      <h2 class="h5 fw-bold mb-3">
+        <i class="fas fa-folder-tree me-2"></i>Subcategories
+      </h2>
+      <div class="row g-3">
+        {%- for child in child_categories -%}
+          {%- assign child_slug = child.slug | default: child.item | slugify -%}
+          {%- assign child_posts = site.categories[child.item] | size -%}
+          <div class="col-md-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h6 card-title">
+                  <a href="{{ site.baseurl }}/category/{{ child_slug }}/" class="text-decoration-none">
+                    <i class="fas fa-folder-open me-2"></i>{{ child.item }}
+                  </a>
+                </h3>
+                <p class="card-text small text-muted mb-0">
+                  {{ child_posts }} {{ child_posts | pluralize: "post", "posts" }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
 
   <p class="post-count-info">{{ site.categories[page.category] | size }} posts in this category</p>
 

@@ -1,0 +1,127 @@
+{%- comment -%}
+  Category Breadcrumbs Include
+
+  Shows hierarchical breadcrumb navigation for a category
+  Automatically finds parent category from taxonomy structure
+
+  Parameters:
+  - category: The category name to show breadcrumbs for
+
+  Usage:
+  {% include category-breadcrumbs.html category=page.category %}
+{%- endcomment -%}
+
+{%- assign current_category = include.category -%}
+{%- assign parent_category = nil -%}
+{%- assign parent_slug = nil -%}
+{%- assign current_slug = nil -%}
+{%- assign is_child = false -%}
+
+{%- comment -%} Find if this is a child category and get its parent {%- endcomment -%}
+{%- for parent in site.data.taxonomy.categories -%}
+  {%- if parent.item == current_category -%}
+    {%- assign current_slug = parent.slug | default: parent.item | slugify -%}
+    {%- break -%}
+  {%- endif -%}
+
+  {%- if parent.children -%}
+    {%- for child in parent.children -%}
+      {%- if child.item == current_category -%}
+        {%- assign is_child = true -%}
+        {%- assign parent_category = parent.item -%}
+        {%- assign parent_slug = parent.slug | default: parent.item | slugify -%}
+        {%- assign current_slug = child.slug | default: child.item | slugify -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<nav aria-label="Category breadcrumb" class="category-breadcrumbs">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a href="{{ site.baseurl }}/" class="breadcrumb-link">
+        <i class="fas fa-home"></i>
+        <span class="breadcrumb-text">Home</span>
+      </a>
+    </li>
+
+    {%- if is_child and parent_category -%}
+      <li class="breadcrumb-separator" aria-hidden="true">
+        <i class="fas fa-chevron-right"></i>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{{ site.baseurl }}/category/{{ parent_slug }}/" class="breadcrumb-link">
+          <i class="fas fa-folder"></i>
+          <span class="breadcrumb-text">{{ parent_category }}</span>
+        </a>
+      </li>
+    {%- endif -%}
+
+    <li class="breadcrumb-separator" aria-hidden="true">
+      <i class="fas fa-chevron-right"></i>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <span class="breadcrumb-current">
+        <i class="fas fa-{% if is_child %}folder-open{% else %}folder{% endif %}"></i>
+        <span class="breadcrumb-text">{{ current_category }}</span>
+      </span>
+    </li>
+  </ol>
+</nav>
+
+<style>
+.category-breadcrumbs {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.375rem;
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #0d9488;
+  text-decoration: none;
+  font-size: 0.9375rem;
+}
+
+.breadcrumb-link:hover {
+  color: #0f766e;
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #6c757d;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #495057;
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.breadcrumb-item.active {
+  color: #495057;
+}
+</style>
