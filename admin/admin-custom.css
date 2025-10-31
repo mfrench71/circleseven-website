@@ -278,8 +278,18 @@ table .btn-link {
 }
 
 /* ============================================
-   EASYMDE PREVIEW STYLES
+   EASYMDE EDITOR STYLES
    ============================================ */
+/* Sticky toolbar */
+.EasyMDEContainer .editor-toolbar {
+  position: sticky !important;
+  top: 49px !important;
+  z-index: 100 !important;
+  background: white !important;
+  border-bottom: 1px solid #d1d5db !important;
+}
+
+/* Preview styles */
 .editor-preview,
 .editor-preview-side {
   padding: 20px !important;
