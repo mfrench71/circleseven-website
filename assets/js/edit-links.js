@@ -6,8 +6,26 @@
 (function() {
   'use strict';
 
+  // Immediately hide all edit links on page load
+  function hideAllEditLinks() {
+    const editLinks = document.querySelectorAll('.edit-post-link, .edit-card-link');
+    editLinks.forEach(link => {
+      link.style.display = 'none';
+      link.classList.remove('edit-link-visible');
+    });
+  }
+
+  // Hide links immediately
+  hideAllEditLinks();
+
   // Wait for Netlify Identity to be ready
   if (window.netlifyIdentity) {
+    // Check current user immediately
+    const currentUser = netlifyIdentity.currentUser();
+    if (currentUser) {
+      updateEditLinks(currentUser);
+    }
+
     netlifyIdentity.on('init', user => {
       updateEditLinks(user);
     });
@@ -20,7 +38,7 @@
       updateEditLinks(null);
     });
 
-    // Check initial state
+    // Check initial state when ready
     netlifyIdentity.on('ready', () => {
       const user = netlifyIdentity.currentUser();
       updateEditLinks(user);
