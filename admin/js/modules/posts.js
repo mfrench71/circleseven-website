@@ -762,6 +762,7 @@ export async function editPost(filename, updateUrl = true) {
 
     // Populate form
     document.getElementById('post-title').value = window.currentPost.frontmatter.title || '';
+    document.getElementById('post-excerpt').value = window.currentPost.frontmatter.excerpt || '';
     document.getElementById('post-date').value = formatDateForInput(window.currentPost.frontmatter.date);
 
     // Display last modified date (read-only, informational)
@@ -836,6 +837,7 @@ export function showNewPostForm(updateUrl = true) {
 
   // Clear form
   document.getElementById('post-title').value = '';
+  document.getElementById('post-excerpt').value = '';
   document.getElementById('post-date').value = formatDateForInput(new Date().toISOString());
   document.getElementById('post-image').value = '';
 
@@ -879,6 +881,7 @@ export function setupPostFormChangeListeners() {
 
   const formInputs = [
     'post-title',
+    'post-excerpt',
     'post-date',
     'post-image'
   ];
@@ -938,6 +941,7 @@ export async function savePost(event) {
 
   try {
     const title = document.getElementById('post-title').value;
+    const excerpt = document.getElementById('post-excerpt').value;
     const date = document.getElementById('post-date').value;
     const image = document.getElementById('post-image').value;
     const content = window.markdownEditor ? window.markdownEditor.value() : document.getElementById('post-content').value;
@@ -951,6 +955,11 @@ export async function savePost(event) {
       categories: selectedCategories,
       tags: selectedTags
     };
+
+    // Add excerpt if provided
+    if (excerpt && excerpt.trim()) {
+      frontmatter.excerpt = excerpt.trim();
+    }
 
     if (image) {
       // Preserve the original image field name when editing
