@@ -65,6 +65,10 @@ let taxonomyAutocompleteCleanup = { categories: null, tags: null };
 const API_BASE = '/.netlify/functions';
 window.API_BASE = API_BASE; // Expose for ES6 modules
 
+// GitHub repository
+const GITHUB_REPO = 'mfrench71/circleseven-website';
+window.GITHUB_REPO = GITHUB_REPO; // Expose for ES6 modules
+
 // Default constants (will be overridden by admin settings if they exist)
 const DEFAULT_DEPLOYMENT_STATUS_POLL_INTERVAL = 10000; // 10 seconds
 const DEFAULT_DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000; // 30 seconds
