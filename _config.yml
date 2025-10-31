@@ -35,7 +35,7 @@ collections:
   pages:
     output: true
     permalink: /:path/
-paginate: 10
+paginate: 12
 title: Matt French
 timezone: Europe/London
 exclude:
