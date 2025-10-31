@@ -204,7 +204,7 @@ table .btn-link {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-top: 8px;
   min-height: 0;
 }
 
