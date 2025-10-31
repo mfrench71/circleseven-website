@@ -18,7 +18,7 @@ Start creating a piece of work; algorithmic artwork, game character design, piec
 
 - photograph your work
 
-- pick an oblique strategies card (from <a href="http://www.joshharrison.net/oblique">http://www.joshharrison.net/oblique</a>- strategies). Take one card only and use it - never pick another that might be 'easier'. Adapt your work according to the instructions on the card.
+- pick an oblique strategies card (from [http://www.joshharrison.net/oblique](http://www.joshharrison.net/oblique)- strategies). Take one card only and use it - never pick another that might be 'easier'. Adapt your work according to the instructions on the card.
 
 Finish after an hour, or when your work is complete. If you finish before the hour is up, try again with another medium (e.g. sound if you were previously working with visuals).
 

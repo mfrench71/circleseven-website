@@ -15,13 +15,13 @@ From the user manual:
 
 *"White Lightning* is a high level development system for the Spectrum 48K. It is aimed primarily at the user who has commercial games writing in mind and has the patience to learn a sizeable new language. It is not a games designer and stunning results probably won't be produced overnight, but it does have the power and flexibility to produce software of a commercial standard (with a little perseverance!). "
 
-<p>Read <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a>.</p>
+Read [part one]({{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/).
 
-<p>For some further context for these articles, please see <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/">'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+For some further context for these articles, please see ['Arcade' - A Sinclair ZX Spectrum Fanzine]({{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/).
 
 ## White Lightning Feature
 
-Yes, I've made it! Never fear! This feature has made it to its next month. Amazing, isn't it? Anyway, with the sprites in memory, type this into screen 6 and then type <code>6 LOAD</code> and then <code>TEST 1</code> and press 'Enter':
+Yes, I've made it! Never fear! This feature has made it to its next month. Amazing, isn't it? Anyway, with the sprites in memory, type this into screen 6 and then type `6 LOAD` and then `TEST 1` and press 'Enter':
 
 <pre>0: SET 44 SPN!;<br>1: LEFT WRR1M PUTBLS;<br>2: RIGHT WRL1M PUTBLS;<br>3: TEST 1 1 KB IF LEFT ENDIF 8 1 KB IF RIGHT ENDIF;<br>4: TEST 1: ATTOFF SET BEGIN TEST 8 2 KB UNTIL;</pre>
 
@@ -29,7 +29,7 @@ Don't be alarmed if nothing happens, just press 'Caps Shift' or 'Space' and watc
 
 'Symbol Shift' gets you out.
 
-<p>This routine would be useful if you had a game like <a href="http://www.worldofspectrum.org/infoseekid.cgi?id=0009372">Lunar Jetman</a> (in my opinion, the most addictive game yet) which had a scrolling landscape rather like the one in this routine.</p>
+This routine would be useful if you had a game like [Lunar Jetman](http://www.worldofspectrum.org/infoseekid.cgi?id=0009372) (in my opinion, the most addictive game yet) which had a scrolling landscape rather like the one in this routine.
 
 When you press 'Space', the landscape goes left, and right when you press 'Caps Shift', rather than the expected right for 'Space' and left for 'Caps' because this simulates a character going over the landscape from left to right and so the landscape would go left and vice-versa.
 
@@ -45,7 +45,7 @@ Line 3: tests to see if SPACE or CAPS SHIFT are pressed and executes to words LE
 
 Line 4: Switches attributes off. Tests to see if SYMBOL SHIFT is pressed and stops if it is, other it executes TEST to continue the routine.
 
-<p>Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), <a href="http://www.circleseven.co.uk/2018/03/09/arcade-spectrum-white-lightning-feature-part-1/">here's the program again</a>.</p>
+Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), [here's the program again](http://www.circleseven.co.uk/2018/03/09/arcade-spectrum-white-lightning-feature-part-1/).
 
 Change line 0 to:
 
@@ -61,7 +61,7 @@ SCR#7:
 
 0: FINAL GO GO2;
 
-Type <code>6 LOAD</code> then <code>FINAL</code>.
+Type `6 LOAD` then `FINAL`.
 
 ## The Originals
 

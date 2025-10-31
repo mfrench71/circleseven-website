@@ -15,7 +15,7 @@ featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_aut
 last_modified_at: 2025-10-31 10:44:09
 ---
 
-<p>In my previous post, I developed some Python scripts which used Microsoft's Azure <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Face API</a> (Microsoft, no date) to train and recognise faces.</p>
+In my previous post, I developed some Python scripts which used Microsoft's Azure [Face API](https://azure.microsoft.com/en-us/services/cognitive-services/face/) (Microsoft, no date) to train and recognise faces.
 
 Whilst the scripts functioned in the way I intended, the usability of the Python scripts for face recognition is not ideal for a number of reasons.
 
@@ -110,7 +110,7 @@ This renders as:
 
 ## Capturing a Live Image
 
-<p>I used <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">WebcamJS</a> to provide the live preview and image capture functionality.</p>
+I used [WebcamJS](https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md) to provide the live preview and image capture functionality.
 
 "WebcamJS is a small ... standalone JavaScript library for capturing still images from your computer's camera, and delivering them to you as JPEG or PNG Data URIs" (Huckaby, no date)
 
@@ -221,6 +221,6 @@ The final result looks like:
 
 ## Bibliography
 
-<p>Huckaby, J. (no date) *WebcamJS*. Available at: <a href="https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md">https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md</a> (Accessed: 13 November 2018).</p>
+Huckaby, J. (no date) *WebcamJS*. Available at: [https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md](https://github.com/jhuckaby/webcamjs/blob/master/DOCS.md) (Accessed: 13 November 2018).
 
-<p>Microsoft (no date) *Face*. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>
+Microsoft (no date) *Face*. Available at: [https://azure.microsoft.com/en-gb/services/cognitive-services/face/](https://azure.microsoft.com/en-gb/services/cognitive-services/face/) (Accessed: 13 November 2018).

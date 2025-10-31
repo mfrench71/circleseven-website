@@ -26,10 +26,10 @@ The second idea, and the one that the group decided to pursue was, again, to use
 
 The group thought that it would be novel, challenging and unusual to present a performance or send a message/make a statement through the medium of medical X-rays. This method of communication might also raise a number of discussion points around privacy, ethics and morality.
 
-<blockquote><p>“Privacy is the interest that individuals have in sustaining a ‘personal space’, free from interference by other people and organisations ... privacy has multiple dimensions, including privacy of the physical person”</p>
+<blockquote>“Privacy is the interest that individuals have in sustaining a ‘personal space’, free from interference by other people and organisations ... privacy has multiple dimensions, including privacy of the physical person”
 </blockquote>
 
-<p><a href="http://www.rogerclarke.com/DV/IPrivacy.html">http://www.rogerclarke.com/DV/IPrivacy.html</a></p>
+[http://www.rogerclarke.com/DV/IPrivacy.html](http://www.rogerclarke.com/DV/IPrivacy.html)
 
 In his article, Clarke states that privacy includes "privacy of the physical person". Individuals choosing this method of communication maintain their physical privacy, but only up until the point that their message is revealed by the medium of x-ray. Individuals are, however, willingly abdicating their privacy at a time, to a large extent, of their choosing.
 
@@ -45,16 +45,16 @@ In his article, Clarke states that privacy includes "privacy of the physical per
 
 This brings us on to the audience for such statements. Bound as they are by doctor-patient confidentiality, medical professionals may face a dilemma when exposed to the messages contained within their patients and I have purposefully used potentially provacative examples to illustrate this conflict.
 
-<blockquote><p>"Personal medical records, including X-rays, in respect of patients treated under the NHS are held to be the property of the Secretary of State. NHS hospital medical records are stored in premises designated by the appropriate health authority. Access to a patient's medical records is governed in the patient's interest by the ethics of the medical and allied professions."</p>
+<blockquote>"Personal medical records, including X-rays, in respect of patients treated under the NHS are held to be the property of the Secretary of State. NHS hospital medical records are stored in premises designated by the appropriate health authority. Access to a patient's medical records is governed in the patient's interest by the ethics of the medical and allied professions."
 </blockquote>
 
-<p>(<a href="http://hansard.millbanksystems.com/written_answers/1976/nov/30/medical-records-ownership-and-storage">http://hansard.millbanksystems.com/written_answers/1976/nov/30/medical-records-ownership-and-storage</a>)</p>
+([http://hansard.millbanksystems.com/written_answers/1976/nov/30/medical-records-ownership-and-storage](http://hansard.millbanksystems.com/written_answers/1976/nov/30/medical-records-ownership-and-storage))
 
 I thought it was interesting to speculate on the nature of messages that an individual might display in this manner.
 
 We thought that individuals may want to communicate information after (or close to) death, or when they no longer have the capability to communicate verbally or in writing. The advantage with storing your dying wishes inside yourself means that your intent cannot be misinterpreted or misconstrued, even when you are no longer around to argue!
 
-<p>In a previous lecture, we examined the contributions made to the PostSecret website (<a href="http://www.postsecret.com">http://www.postsecret.com</a>). These were anonymous messages in the form of postcards and many messages were deeply personal and revealing - confessions of a sort. With this in mind, I thought that the method of the transmission of messages and the audience might influence the nature of the messages themselves. To that end, I have created a number of fictional X-ray images to illustrate this point:</p>
+In a previous lecture, we examined the contributions made to the PostSecret website ([http://www.postsecret.com](http://www.postsecret.com)). These were anonymous messages in the form of postcards and many messages were deeply personal and revealing - confessions of a sort. With this in mind, I thought that the method of the transmission of messages and the audience might influence the nature of the messages themselves. To that end, I have created a number of fictional X-ray images to illustrate this point:
 
 - "Dignitas"
 
@@ -73,9 +73,9 @@ We thought that individuals may want to communicate information after (or close 
 
 </div>
 
-<p>(<a href="https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29">https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29</a>)</p>
+([https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29](https://en.wikipedia.org/wiki/Dignitas_%28assisted_dying_organisation%29))
 
-<p><a href="https://en.wikipedia.org/wiki/Do_not_resuscitate">https://en.wikipedia.org/wiki/Do_not_resuscitate</a></p>
+[https://en.wikipedia.org/wiki/Do_not_resuscitate](https://en.wikipedia.org/wiki/Do_not_resuscitate)
 
 ## How else might messages be communicated?
 

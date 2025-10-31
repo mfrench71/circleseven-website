@@ -19,7 +19,7 @@ Working in a group of three, we decided to produce a crowdsourced film made up o
 
 <div class="embed-container"><iframe src="https://www.youtube.com/embed/1nCqRmx3Dnw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-<p>"Crowdsourcing is the process of getting work or funding, usually online, from a crowd of people. The word is a combination of the words 'crowd' and 'outsourcing'. The idea is to take work and outsource it to a crowd of workers." (<a href="http://dailycrowdsource.com/training/crowdsourcing/what-is-crowdsourcing">http://dailycrowdsource.com/training/crowdsourcing/what-is-crowdsourcing</a>)</p>
+"Crowdsourcing is the process of getting work or funding, usually online, from a crowd of people. The word is a combination of the words 'crowd' and 'outsourcing'. The idea is to take work and outsource it to a crowd of workers." ([http://dailycrowdsource.com/training/crowdsourcing/what-is-crowdsourcing](http://dailycrowdsource.com/training/crowdsourcing/what-is-crowdsourcing))
 
 Example crowdsourced music video:
 

@@ -29,4 +29,4 @@ The main functions of the completed web application are:
  	- Edit profile (skills)
  	- Site statistics
 
-<a href="http://www.circleseven.co.uk/dat504">View the finished Time Bank web site</a>.
+[View the finished Time Bank web site](http://www.circleseven.co.uk/dat504).

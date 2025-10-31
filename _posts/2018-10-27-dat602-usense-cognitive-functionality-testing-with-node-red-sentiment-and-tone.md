@@ -87,4 +87,4 @@ As can be seen, 'anger' and other negative tones score highly for the first sent
 
 As I have developed these Node-RED flows, I have exported the flows as JSON so that they can be shared and imported by other users.
 
-<p><a href="https://github.com/mfrench71/DAT602" target="_blank" rel="noreferrer noopener">https://github.com/mfrench71/DAT602</a></p>
+[https://github.com/mfrench71/DAT602](https://github.com/mfrench71/DAT602){:target="_blank"}

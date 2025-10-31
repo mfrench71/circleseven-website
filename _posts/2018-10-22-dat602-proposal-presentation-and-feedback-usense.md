@@ -40,7 +40,7 @@ On the day of the presentation, we met to finalise the content of the presentati
 
 The final presentation can be seen here:
 
-<a href="https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing">https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing</a>
+[https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing](https://docs.google.com/presentation/d/1aTTiCJ-8wSd50UDeiFNHK7undUQl8xtEnCRAH0D8Nms/edit?usp=sharing)
 <h2>Feedback</h2>
 We received some valuable and insightful feedback from the 3D Design student cohort and tutors in attendance. This can be summarised as follows:
  	- Move away from a tablet design. The general feeling was that a tablet design was not ideal and also difficult to implement. Perhaps a photo-frame or a design that was more in keeping with domestic context (such as a tactile ornament) would be more suitable.

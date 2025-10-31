@@ -17,17 +17,17 @@ featured_image: 05/debord-guide1-e1684144506924
 
 Psychogeography
 
-<blockquote><p>"the study of the precise laws and specific effects of the geographical environment, consciously organised or not, on the emotions and behaviour of individuals."</p>
+<blockquote>"the study of the precise laws and specific effects of the geographical environment, consciously organised or not, on the emotions and behaviour of individuals."
 </blockquote>
 
-<p>(<a href="https://en.wikipedia.org/wiki/Psychogeography">https://en.wikipedia.org/wiki/Psychogeography</a>)</p>
+([https://en.wikipedia.org/wiki/Psychogeography](https://en.wikipedia.org/wiki/Psychogeography))
 
 Dérive:
 
-<blockquote><p>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"</p>
+<blockquote>"Debord defines the dérive as "a mode of experimental behavior linked to the conditions of urban society: a technique of rapid passage through varied ambiances." It is an unplanned journey through a landscape, usually urban, in which participants drop their everyday relation and 'let themselves be drawn by the attractions of the terrain and the encounters they find there"
 </blockquote>
 
-<p>(<a href="https://en.wikipedia.org/wiki/Dérive">https://en.wikipedia.org/wiki/Dérive</a>)</p>
+([https://en.wikipedia.org/wiki/Dérive](https://en.wikipedia.org/wiki/Dérive))
 
 <h5>The Exercise</h5>
 

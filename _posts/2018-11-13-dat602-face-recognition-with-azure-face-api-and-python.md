@@ -13,7 +13,7 @@ tags:
 - Python
 featured_image: 05/face_detect-e1541676689943
 ---
-<p>Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Microsoft Azure Cognitive Services</a> (Microsoft, no date).</p>
+Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of [Microsoft Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/face/) (Microsoft, no date).
 
 The API provides functionality to implement face detection ("detect one or more human faces in an image and get back face rectangles for where in the image the faces are, along with face attributes which contain machine learning-based predictions of facial features. The face attribute features available are: Age, Emotion, Gender, Pose, Smile, and Facial Hair along with 27 landmarks for each face in the image") and face verification ("check the likelihood that two faces belong to the same person. The API will return a confidence score about how likely it is that the two faces belong to one person").
 
@@ -33,7 +33,7 @@ camera.capture('test.jpg')
 
 ## Testing Face - Detect
 
-<p>The next step was to test the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236">Face - Detect API</a> call on a test image. The Python script below will take an image from a local path, post it to Azure's /'detect' endpoint and identify if there are any faces in the photo. If there are, the script will draw a blue rectangle around the faces.</p>
+The next step was to test the [Face - Detect API](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236) call on a test image. The Python script below will take an image from a local path, post it to Azure's /'detect' endpoint and identify if there are any faces in the photo. If there are, the script will draw a blue rectangle around the faces.
 
 ```python
 import urllib, httplib, base64
@@ -77,7 +77,7 @@ Here is a sample test result:
 
 ## PersonGroup - Create
 
-<p>With a successful Face - Detect complete, a <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244">Person Group</a> has to be created for use with identification at a later stage.</p>
+With a successful Face - Detect complete, a [Person Group](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395244) has to be created for use with identification at a later stage.
 
 "A person group is the container for the uploaded person data, including face images and face recognition features."
 
@@ -110,7 +110,7 @@ I created an images directory with sub-directories containing photographs of the
 
 I wanted to use a variety of images, as, during testing, I noticed that the lighting conditions when a photo was taken had a subsequent impact on the reliability of face detection.
 
-<p><a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b">Image requirements for the Face API</a>.</p>
+[Image requirements for the Face API](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b).
 
 ```python
 import urllib, httplib, base64, json
@@ -161,7 +161,7 @@ addFaceToPerson(addPeople())
 
 ## PersonGroup Person - List
 
-<p>To verify the information in my PersonGroup, the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395241">PersonGroup Person - List API</a> call can be used.</p>
+To verify the information in my PersonGroup, the [PersonGroup Person - List API](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395241) call can be used.
 
 "List all persons’ information in the specified person group, including personId, name, userData and persistedFaceIds of registered person faces."
 
@@ -250,7 +250,7 @@ Here is the ouput
 
 ## PersonGroup - Train
 
-<p>The PersonGroup has been populated with people and their faces. The PersonGroup can now be trained to recognise the faces using the <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249">PersonGroup - Train API</a> call.</p>
+The PersonGroup has been populated with people and their faces. The PersonGroup can now be trained to recognise the faces using the [PersonGroup - Train API](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395249) call.
 
 ```python
 import urllib, httplib, base64, json
@@ -270,7 +270,7 @@ print(data) # should be empty
 
 ## PersonGroup Identify
 
-<p>We now have a PersonGroup trained with the faces of known users of the system. The <a href="https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239">Identify API</a> call accepts a list of faceIds from detectFace and returns the personId and a confidence value of possible matches. The personId can be used to retrieve the person's name and the confidence value as a measure of recognition.</p>
+We now have a PersonGroup trained with the faces of known users of the system. The [Identify API](https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395239) call accepts a list of faceIds from detectFace and returns the personId and a confidence value of possible matches. The personId can be used to retrieve the person's name and the confidence value as a measure of recognition.
 
 The code for taking a photo of a person, processing their image and comparing it with the list of known users looks like:
 
@@ -414,4 +414,4 @@ client.disconnect()
 
 ## Bibliography
 
-<p>Microsoft (no date) *Face*. Available at: <a href="https://azure.microsoft.com/en-gb/services/cognitive-services/face/">https://azure.microsoft.com/en-gb/services/cognitive-services/face/</a> (Accessed: 13 November 2018).</p>
+Microsoft (no date) *Face*. Available at: [https://azure.microsoft.com/en-gb/services/cognitive-services/face/](https://azure.microsoft.com/en-gb/services/cognitive-services/face/) (Accessed: 13 November 2018).

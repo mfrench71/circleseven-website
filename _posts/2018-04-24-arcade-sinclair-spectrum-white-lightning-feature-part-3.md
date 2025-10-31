@@ -15,9 +15,9 @@ From the user manual:
 
 *"White Lightning* is a high level development system for the Spectrum 48K. It is aimed primarily at the user who has commercial games writing in mind and has the patience to learn a sizeable new language. It is not a games designer and stunning results probably won't be produced overnight, but it does have the power and flexibility to produce software of a commercial standard (with a little perseverance!). "
 
-<p>Read <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/">part one</a> and <a href="{{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-2/">part two</a>.</p>
+Read [part one]({{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/) and [part two]({{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-2/).
 
-<p>For some further context for these articles, please see<a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121"> 'Arcade' - A Sinclair ZX Spectrum Fanzine</a>.</p>
+For some further context for these articles, please see[ 'Arcade' - A Sinclair ZX Spectrum Fanzine]({{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/).
 
 ## White Lightning Feature
 

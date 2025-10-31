@@ -33,6 +33,6 @@ We are anticipating that the bottles will rotate and would like to incorporate t
 Whilst we intend to share the work required across a number of Arduinos (and possibly a Raspberry Pi), each device will need to perform more than one action simultaneously, e.g. activating the air pump *and* lighting LEDs. We will need to consider the use of a state machine to enable the Arduinos to do more than one thing at a time. We also need to think about  whether the use of plastic bottles will provide a sufficiently attractive aesthetic. An alternative approach might be to use attractive glass bottles but vary the contents; so some might contain actual ocean plastic while the others remain unpolluted.
 
 ## Bibliography
- 	- *Prismatica: Public Art Installation by RAW* (2015) Available at: <a href="http://theinspirationgrid.com/prismatica-public-art-installation-by-raw/">http://theinspirationgrid.com/prismatica-public-art-installation-by-raw/</a> (Accessed: 19 October 2018).
- 	- Raaf, S. (2004) *Sabrina Raaf :: New Media Artist*. Available at: <a href="http://raaf.org/projects.php?pcat=2&amp;proj=4">http://raaf.org/projects.php?pcat=2&amp;proj=4</a> (Accessed: 10 October 2018).
+ 	- *Prismatica: Public Art Installation by RAW* (2015) Available at: [http://theinspirationgrid.com/prismatica-public-art-installation-by-raw/](http://theinspirationgrid.com/prismatica-public-art-installation-by-raw/) (Accessed: 19 October 2018).
+ 	- Raaf, S. (2004) *Sabrina Raaf :: New Media Artist*. Available at: [http://raaf.org/projects.php?pcat=2&amp;proj=4](http://raaf.org/projects.php?pcat=2&amp;proj=4) (Accessed: 10 October 2018).
 

@@ -18,27 +18,27 @@ Read...
 
 ## John Cage and Sister Corita Kent: Immaculate Heart College Art Department Rules:
 
-<a href="https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/">https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/</a>
+[https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/](https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/)
 
 ## Bruce Mau: An Incomplete Manifesto for Growth:
 
-<a href="http://www.manifestoproject.it/bruce-mau/">http://www.manifestoproject.it/bruce-mau/</a>
+[http://www.manifestoproject.it/bruce-mau/](http://www.manifestoproject.it/bruce-mau/)
 
 ## Japanese Aesthetics:
 
-<a href="http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/">http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/</a>
+[http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/](http://coolerinsights.com/2012/12/9-elements-of-japanese-aesthetics/)
 
 (This isn't strictly a manifesto, as it isn't a claim - it is more a collection of observations on Japanese aesthetics. But, it has all the makings on one. If it had been written by an artist with the intention of defining the important aspects of their practice, it would be).
 
 ## The Futurist Manifesto:
 
-<a href="http://www.italianfuturism.org/manifestos/foundingmanifesto">http://www.italianfuturism.org/manifestos/foundingmanifesto</a>
+[http://www.italianfuturism.org/manifestos/foundingmanifesto](http://www.italianfuturism.org/manifestos/foundingmanifesto)
 
 This is the original art manifesto from 1909. Full of youth, machismo and violence it is a provocation and call to arms as much as statement of intent.
 
 **and Werner Herzog's Minnesota Declaration:**
 
-<a href="http://offscreen.com/view/herzog_documentary_fiction">http://offscreen.com/view/herzog_documentary_fiction</a>
+[http://offscreen.com/view/herzog_documentary_fiction](http://offscreen.com/view/herzog_documentary_fiction)
 
 Herzog is a documentary filmmaker who talks about different types of truth - the facts (which he calls the 'truth of accountants') and the poetic 'ecstatic truth'. The latter is a 'truth' which is not necessarily true to the facts but in Herzog's view has more value - is more 'true' - and is entirely justified, a position that was extremely controversial in the world of documentary cinema and which led him to write this manifesto.
 

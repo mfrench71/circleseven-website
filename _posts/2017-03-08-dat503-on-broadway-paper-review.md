@@ -13,15 +13,15 @@ featured_image: 05/top
 
 "Dr. Lev Manovich is one the leading theorists of digital culture worldwide, and a pioneer in the application of data science for analysis of contemporary culture."
 
-<p>(<a href="http://manovich.net/index.php/about">http://manovich.net/index.php/about</a>)</p>
+([http://manovich.net/index.php/about](http://manovich.net/index.php/about))
 
-<p>One of <a href="http://www.complex.com/style/2013/10/future-of-design/lev-manovich">"25 People Shaping the Future of Design"</a> (complex.com)</p>
+One of ["25 People Shaping the Future of Design"](http://www.complex.com/style/2013/10/future-of-design/lev-manovich) (complex.com)
 
 "Lev Manovich used his first computer in 1977, after two years of writing programs on paper for a programming class in Moscow. His code was impeccable, but when he typed it in, the machine spat back a failure message. He'd never used a computer keyboard before, and had typed O's instead of zeroes.
 
 In the 37 years since that keyboard failure, Manovich has become one of the smartest voices on the way we interact with computers. His landmark 2001 treatise *The Language of New Media* broke down central visual ideas like resizable windows and file menus in intricate detail, unpacking conventions that most had taken for granted."
 
-<p>(<a href="http://www.theverge.com/a/2014-verge-50">"50 Most Interesting People Building the Future"</a> (theverge.com))</p>
+(["50 Most Interesting People Building the Future"](http://www.theverge.com/a/2014-verge-50) (theverge.com))
 
 <h5>On Broadway</h5>
 
@@ -77,7 +77,7 @@ Manovich is using this project to highlight the fact that a massive amount of da
 
 By contrast, the data collected and analysed by social media (and other) networks is about individuals: their patterns of movement, opinions, and interactions with other people.
 
-<blockquote><p>"But ordinary people are not aware that the tweets, comments, images, and video they share are easily accessible to anybody via ... free API tools. While articles in popular media often note that individuals’ data is collected, aggregated and used for variety of purposes, including surveillance or customization of advertising, they typically don’t explain that this data is also available to individual researchers, artists or students."</p>
+<blockquote>"But ordinary people are not aware that the tweets, comments, images, and video they share are easily accessible to anybody via ... free API tools. While articles in popular media often note that individuals’ data is collected, aggregated and used for variety of purposes, including surveillance or customization of advertising, they typically don’t explain that this data is also available to individual researchers, artists or students."
 </blockquote>
 
 On Broadway, then, goes some way to educating the public about access and use of personal data and does so in an engaging and aesthetic way. It also prompts us to ask questions about our significance as individuals in the age of Big Data:
@@ -90,4 +90,4 @@ On Broadway, then, goes some way to educating the public about access and use of
 
 - And what will that tell us about the way we use social media and share our data?
 
-<p>Read the article: <a href="http://localhost/wp-content/uploads/2017/03/manovich_on_broadway.pdf">manovich_on_broadway</a> (PDF)</p>
+Read the article: [manovich_on_broadway](http://localhost/wp-content/uploads/2017/03/manovich_on_broadway.pdf) (PDF)

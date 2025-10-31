@@ -28,24 +28,24 @@ Using the class sessions you should develop your sound work and mix it appropria
 
 - The accompanying bibliography should incorporate information found through further research using the university library system
 
-- It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, etc.) in Harvard Referencing Style, guidance can be found here <a href="http://libweb.anglia.ac.uk/referencing/harvard.htm">http://libweb.anglia.ac.uk/referencing/harvard.htm</a>
+- It should be accompanied by a bibliography (Word document) that clearly credits your sources of information and sources of sounds (for example YouTube videos, etc.) in Harvard Referencing Style, guidance can be found here [http://libweb.anglia.ac.uk/referencing/harvard.htm](http://libweb.anglia.ac.uk/referencing/harvard.htm)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/sound-design-cover"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/sound-design-cover" width="204" height="300" alt="Sound Design &amp; Science Fiction book cover" loading="lazy"></a></figure>
 
-<p>The book excerpt that I studied was ‘<a href="https://books.google.co.uk/books/about/Sound_Design_and_Science_Fiction.html?id=vew3mQEACAAJ&amp;redir_esc=y">*Sound Design &amp; Science Fiction*</a>’ by William Whittington. This subject appealed to me because I enjoy the science fiction genre in general and the film-making process in particular, including sound design.</p>
+The book excerpt that I studied was ‘[*Sound Design &amp; Science Fiction*](https://books.google.co.uk/books/about/Sound_Design_and_Science_Fiction.html?id=vew3mQEACAAJ&amp;redir_esc=y)’ by William Whittington. This subject appealed to me because I enjoy the science fiction genre in general and the film-making process in particular, including sound design.
 
 Thematically, the areas of interest that stood out for me were the accounts of how sound design can be used to create an atmosphere, a sense of place or to illustrate a theme, as well as the use of sound and music to evoke a reaction or sensation and, as the author says, “both describe and transform subjectivity.”
 
-<p>From a technical standpoint, I enjoyed the accounts of <a href="https://en.wikipedia.org/wiki/Ben_Burtt">Ben Burtt's</a> work for George Lucas on the original *Star Wars* trilogy.</p>
+From a technical standpoint, I enjoyed the accounts of [Ben Burtt's](https://en.wikipedia.org/wiki/Ben_Burtt) work for George Lucas on the original *Star Wars* trilogy.
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/516px-Ben_Burtt_Celebration_Europe_II"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/04/516px-Ben_Burtt_Celebration_Europe_II" width="172" height="300" alt="" loading="lazy"></a></figure>
 
 Burtt:
 
-<blockquote><p>“When I started out, it was very unusual for someone to be employed to make specific sounds for a film . . . Then along came George Lucas, who instructed me, 'Here, take this microphone and Nagra, take a year and go out and collect all the interesting sounds you can think of.'”</p>
+<blockquote>“When I started out, it was very unusual for someone to be employed to make specific sounds for a film . . . Then along came George Lucas, who instructed me, 'Here, take this microphone and Nagra, take a year and go out and collect all the interesting sounds you can think of.'”
 </blockquote>
 
-<p><a href="https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption">https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption</a>]</p>
+[https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption](https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption)]
 
 Given free rein to assemble his own library of sound effects, Burtt was able to gather together a catalogue of sonic ideas that was unique to the film franchise.
 
@@ -95,7 +95,7 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 - LoBrutto, V. (1994) *Sound-on-film: Interviews with creators of film sound*. United States: Greenwood Publishing Group.
 
-- SA, K. (2016) *The group at a glance*. Available at: <a href="https://www.nagra.com/group/at-a-glance">https://www.nagra.com/group/at-a-glance</a> (Accessed: 11 May 2016).
+- SA, K. (2016) *The group at a glance*. Available at: [https://www.nagra.com/group/at-a-glance](https://www.nagra.com/group/at-a-glance) (Accessed: 11 May 2016).
 
 - Sobchack, V. C. (1997) *Screening space: The American science fiction film*. 2nd edn. New Brunswick, NJ: Rutgers University Press.
 
@@ -103,9 +103,9 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 ## Audio References
 
-- Coltsrock56 (2012) *John Williams - Star Wars main theme (full)*. Available at: <a href="https://www.youtube.com/watch?v=_D0ZQPqeJkk">https://www.youtube.com/watch?v=_D0ZQPqeJkk</a> (Accessed: 12 May 2016).
+- Coltsrock56 (2012) *John Williams - Star Wars main theme (full)*. Available at: [https://www.youtube.com/watch?v=_D0ZQPqeJkk](https://www.youtube.com/watch?v=_D0ZQPqeJkk) (Accessed: 12 May 2016).
 
-- Merhawk102 (2007) *Star wars- the imperial march (Darth Vader’s theme)*. Available at: <a href="https://www.youtube.com/watch?v=-bzWSJG93P8">https://www.youtube.com/watch?v=-bzWSJG93P8</a> (Accessed: 11 May 2016).
+- Merhawk102 (2007) *Star wars- the imperial march (Darth Vader’s theme)*. Available at: [https://www.youtube.com/watch?v=-bzWSJG93P8](https://www.youtube.com/watch?v=-bzWSJG93P8) (Accessed: 11 May 2016).
 
-- Yuri RR (2011) *Also Sprach Zarathustra, op. 30 - Strauss*. Available at: <a href="https://www.youtube.com/watch?v=dfe8tCcHnKY">https://www.youtube.com/watch?v=dfe8tCcHnKY</a> (Accessed: 11 May 2016).
+- Yuri RR (2011) *Also Sprach Zarathustra, op. 30 - Strauss*. Available at: [https://www.youtube.com/watch?v=dfe8tCcHnKY](https://www.youtube.com/watch?v=dfe8tCcHnKY) (Accessed: 11 May 2016).
 

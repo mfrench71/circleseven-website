@@ -17,7 +17,7 @@ Brief: Your task within your groups is to create an animation using Blender suit
 
 ## Multiverse - a definition:
 
-<blockquote><p>The multiverse (or meta-universe) is the hypothetical set of finite and infinite possible universes, including the universe we live in. Together, these universes comprise everything that exists: the entirety of space, time, matter, energy, and the physical laws and constants that describe them.</p>
+<blockquote>The multiverse (or meta-universe) is the hypothetical set of finite and infinite possible universes, including the universe we live in. Together, these universes comprise everything that exists: the entirety of space, time, matter, energy, and the physical laws and constants that describe them.
 <cite>https://en.wikipedia.org/wiki/Multiverse</cite></blockquote>
 
 ## Design Concept

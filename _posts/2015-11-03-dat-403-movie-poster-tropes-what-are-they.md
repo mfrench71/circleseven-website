@@ -10,10 +10,10 @@ tags:
 - DAT403
 featured_image: 05/featured-image
 ---
-<blockquote><p>"A literary trope is the use of figurative language – via word, phrase, or even an image – for artistic effect such as using a figure of speech. The word trope has also come to be used for describing commonly recurring literary and rhetorical devices, motifs or clichés in creative works."</p>
+<blockquote>"A literary trope is the use of figurative language – via word, phrase, or even an image – for artistic effect such as using a figure of speech. The word trope has also come to be used for describing commonly recurring literary and rhetorical devices, motifs or clichés in creative works."
 </blockquote>
 
-<p>(<a href="https://en.wikipedia.org/wiki/Trope_%28literature%29">https://en.wikipedia.org/wiki/Trope_%28literature%29</a>)</p>
+([https://en.wikipedia.org/wiki/Trope_%28literature%29](https://en.wikipedia.org/wiki/Trope_%28literature%29))
 
 The DAT403 Photomontage assignment states: "It should work as an original movie poster, including their traditional tropes..."
 

@@ -45,7 +45,7 @@ This encounter highlighted that fact that, despite the University campus premise
 
 ## Similar Interventions
 
-<p><a href="https://en.wikipedia.org/wiki/Street_piano" target="_blank" rel="noreferrer noopener">https://en.wikipedia.org/wiki/Street_piano</a></p>
+[https://en.wikipedia.org/wiki/Street_piano](https://en.wikipedia.org/wiki/Street_piano){:target="_blank"}
 
 ## What we would have changed/liked to have done
 
@@ -55,4 +55,4 @@ To create a real contrast between the objects and the environment, we would have
 
 ## Social Media
 
-<p>We publicised the presence of these items on social media (<a href="https://www.facebook.com/groups/expressyourselfplymouth/">Facebook</a>).</p>
+We publicised the presence of these items on social media ([Facebook](https://www.facebook.com/groups/expressyourselfplymouth/)).

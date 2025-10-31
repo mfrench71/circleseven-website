@@ -13,10 +13,10 @@ featured_image: 05/ersilia-e1488384536818
 ---
 ## Paul Klee - "Drawing is taking a line for a walk"
 
-<blockquote><p>"Whereas Picasso, Matisse, even Mondrian and Kandinsky concentrated on abstracting from perceived reality, Klee began with a point, extended it into a line and famously took it for a walk wherever it wished to go. The exact stage at which this abstract construct began to suggest an image was not premeditated."</p>
+<blockquote>"Whereas Picasso, Matisse, even Mondrian and Kandinsky concentrated on abstracting from perceived reality, Klee began with a point, extended it into a line and famously took it for a walk wherever it wished to go. The exact stage at which this abstract construct began to suggest an image was not premeditated."
 </blockquote>
 
-<p>(<a href="https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article">https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article</a>)</p>
+([https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article](https://www.timeshighereducation.com/books/taking-klees-line-for-a-walk/167355.article))
 
 <h5>The Exercise</h5>
 

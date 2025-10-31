@@ -15,7 +15,7 @@ Brief: Create a movie poster, using a composite of different images in Photoshop
 
 Must combine minimum of 5 images. Clear title and tag line. It must be 210x297 mm (A4), JPEG and optimised for web.
 
-<p>I wanted to combine my fondness for the unspoilt English countryside with my love of Shane Meadows' *This Is England* film and TV series. I spent some time looking at images of movie posters to <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">identify their common elements</a> and for inspiration.</p>
+I wanted to combine my fondness for the unspoilt English countryside with my love of Shane Meadows' *This Is England* film and TV series. I spent some time looking at images of movie posters to [identify their common elements]({{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/) and for inspiration.
 
 Once I had determined the requirements of a typical movie poster, I produced these rough pen and paper sketches as initial concepts.
 
@@ -26,7 +26,7 @@ Once I had determined the requirements of a typical movie poster, I produced the
 
 </div>
 
-<p>The main elements of the concept poster were to include images of past and present presidents of the Campaign to Protect Rural England (Andrew Motion, Bill Bryson and David Dimbleby). These would be combined with images of rural England, <a href="{{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/">movie poster tropes</a>: credits, star reviews and main 'cast member' names.</p>
+The main elements of the concept poster were to include images of past and present presidents of the Campaign to Protect Rural England (Andrew Motion, Bill Bryson and David Dimbleby). These would be combined with images of rural England, [movie poster tropes]({{ site.baseurl }}/dat-403-movie-poster-tropes-what-are-they/): credits, star reviews and main 'cast member' names.
 
 When I sat down to create the poster, I found the full title 'This is Rural England '15' was an odd size to fit on the poster. At about the same time, I also decided to focus the subject of my 'documentary' on the subject of fracking.
 

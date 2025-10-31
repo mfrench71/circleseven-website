@@ -45,15 +45,15 @@ Ultimately, the aim of t3X is to engage the audience. During the exhibition, I h
 
 ## References
 
-- Cage, J. (2017). *John Cage :: Official Website*. [online] Johncage.org. Available at: <a href="http://johncage.org/">http://johncage.org/</a> [Accessed 18 May 2017].
+- Cage, J. (2017). *John Cage :: Official Website*. [online] Johncage.org. Available at: [http://johncage.org/](http://johncage.org/) [Accessed 18 May 2017].
 
-- McCabe, J. (2017). *com*. [online] Jonathanmccabe.com. Available at: <a href="http://www.jonathanmccabe.com/">http://www.jonathanmccabe.com/</a> [Accessed 18 May 2017].
+- McCabe, J. (2017). *com*. [online] Jonathanmccabe.com. Available at: [http://www.jonathanmccabe.com/](http://www.jonathanmccabe.com/) [Accessed 18 May 2017].
 
-- Prudence, P. (2017). *Paul Prudence*. [online] Paulprudence.com. Available at: <a href="http://www.paulprudence.com/">http://www.paulprudence.com/</a> [Accessed 18 May 2017].
+- Prudence, P. (2017). *Paul Prudence*. [online] Paulprudence.com. Available at: [http://www.paulprudence.com/](http://www.paulprudence.com/) [Accessed 18 May 2017].
 
-- Raff, S. (2017). *Sabrina Raaf :: New Media Artist*. [online] Raaf.org. Available at: <a href="http://raaf.org/projects.php?pcat=2&amp;proj=4">http://raaf.org/projects.php?pcat=2&amp;proj=4</a> [Accessed 18 May 2017].
+- Raff, S. (2017). *Sabrina Raaf :: New Media Artist*. [online] Raaf.org. Available at: [http://raaf.org/projects.php?pcat=2&amp;proj=4](http://raaf.org/projects.php?pcat=2&amp;proj=4) [Accessed 18 May 2017].
 
-- Thorp, J. (2009). *Just Landed: Processing, Twitter, MetaCarta &amp; Hidden Data | blprnt.blg*. [online] Blog.blprnt.com. Available at: <a href="http://blog.blprnt.com/blog/blprnt/just-landed-processing-twitter-metacarta-hidden-data">http://blog.blprnt.com/blog/blprnt/just-landed-processing-twitter-metacarta-hidden-data</a> [Accessed 21 May 2017].
+- Thorp, J. (2009). *Just Landed: Processing, Twitter, MetaCarta &amp; Hidden Data | blprnt.blg*. [online] Blog.blprnt.com. Available at: [http://blog.blprnt.com/blog/blprnt/just-landed-processing-twitter-metacarta-hidden-data](http://blog.blprnt.com/blog/blprnt/just-landed-processing-twitter-metacarta-hidden-data) [Accessed 21 May 2017].
 
-- XZZ (2014). *XZZ - WeDay Twitter Visualization*. [online] Xzz.ca. Available at: <a href="http://www.xzz.ca/projects/weday/">http://www.xzz.ca/projects/weday/</a> [Accessed 21 May 2017].
+- XZZ (2014). *XZZ - WeDay Twitter Visualization*. [online] Xzz.ca. Available at: [http://www.xzz.ca/projects/weday/](http://www.xzz.ca/projects/weday/) [Accessed 21 May 2017].
 

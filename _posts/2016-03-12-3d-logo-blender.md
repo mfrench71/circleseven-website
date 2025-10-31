@@ -15,7 +15,7 @@ tags:
 - Web Development
 featured_image: 12/blender-feature
 ---
-<p>More learning and experimenting with my new favourite piece of software, Blender. Following Oliver Villar's <a href="http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo">Blendtuts.com tutorial</a>, I picked up some useful skills, particularly creating shapes using the bezier curve and handle types.The logo outline was created in Adobe Illustrator, set as a back ground image in Blender and then traced using bezier curves. You can draw squares by first drawing a circle and then changing the handle type to Vector - squaring the circle!</p>
+More learning and experimenting with my new favourite piece of software, Blender. Following Oliver Villar's [Blendtuts.com tutorial](http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo), I picked up some useful skills, particularly creating shapes using the bezier curve and handle types.The logo outline was created in Adobe Illustrator, set as a back ground image in Blender and then traced using bezier curves. You can draw squares by first drawing a circle and then changing the handle type to Vector - squaring the circle!
 
 Once the outline was created, it is then extruded and bevelled to create the final solid-looking logo. There was an issue with the 'm' where I extruded two bezier segments at the same time, causing the bevel to behave strangely.
 
@@ -25,9 +25,9 @@ Once the outline was created, it is then extruded and bevelled to create the fin
 
 ## Acknowledgements:
 
-- Oliver Villar for his comprehensive <a href="http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo">Blender tutorial</a>.
+- Oliver Villar for his comprehensive [Blender tutorial](http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo).
 
-- Paul Barnes for his Blender shaky cam effect <a href="https://www.youtube.com/watch?v=B1sTWSxtyXo">YouTube video</a>.
+- Paul Barnes for his Blender shaky cam effect [YouTube video](https://www.youtube.com/watch?v=B1sTWSxtyXo).
 
-- Andrew Price for his <a href="http://www.blenderguru.com/articles/7-ways-get-rid-fireflies/">article</a> on removing fireflies in Blender.
+- Andrew Price for his [article](http://www.blenderguru.com/articles/7-ways-get-rid-fireflies/) on removing fireflies in Blender.
 

@@ -38,7 +38,7 @@ Conceptual sketches and logo ideas:
 
 ## Data Sources
 
-<p>We were able to access bomb site location data for Plymouth via the City Council Archives. The '<a href="http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND">Bomb Book</a>' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:</p>
+We were able to access bomb site location data for Plymouth via the City Council Archives. The '[Bomb Book](http://web.plymouth.gov.uk/archivescatalogue?criteria=bomb+book&amp;operator=AND)' is a collection of around 60 pages detailing the location of bombs that fell over a period totalling approximately two months during World War 2:
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Page42"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Page42" width="1024" height="848" alt="" loading="lazy"></a><figcaption> Page from Plymouth Bomb Map, from Plymouth City Council Archives</figcaption></figure>
 
@@ -48,13 +48,13 @@ A small JavaScript application was developed using the Google Maps API to store 
 
 The second data source we accessed was bomb casualty information:
 
-<p><a href="http://www.devonheritage.org/Places/Plymouth/Plymouth5INDEXPAGE.htm">http://www.devonheritage.org/Places/Plymouth/Plymouth5INDEXPAGE.htm</a></p>
+[http://www.devonheritage.org/Places/Plymouth/Plymouth5INDEXPAGE.htm](http://www.devonheritage.org/Places/Plymouth/Plymouth5INDEXPAGE.htm)
 
 As we read through the accounts of those who had died during the bombing of Plymouth, it became clear that whole families had been killed and there were some quite affecting accounts of the victims. We thought this sort of information could be used within our application to lend the data a personal and emotional weight. We decided that if potential users of our application could find out about what happened where they lived or to relatives killed during the war, then this would add tremendous value to our project.
 
-<p>I had in mind the <a href="{{ site.baseurl }}/dat503-on-broadway-paper-review/">'On Broadway' paper by Manovich</a>. When Manovich was testing the application, he observed:</p>
+I had in mind the ['On Broadway' paper by Manovich]({{ site.baseurl }}/dat503-on-broadway-paper-review/). When Manovich was testing the application, he observed:
 
-<blockquote><p>"Interestingly, when ordinary New Yorkers interacted with the interface, they immediately located images which were meaningful to them – where they lived or where they were born, for instance. This is much the same as we might explore a more conventional map-based interface such as Google Street View; we tend to first focus on our own town, city, or street."</p>
+<blockquote>"Interestingly, when ordinary New Yorkers interacted with the interface, they immediately located images which were meaningful to them – where they lived or where they were born, for instance. This is much the same as we might explore a more conventional map-based interface such as Google Street View; we tend to first focus on our own town, city, or street."
 </blockquote>
 
 Again, we extracted this data and converted it to a JSON file. We wanted to associate casualty data with bomb location data, potentially linking the recorded place of death to a particular bomb. A second small JavaScript application was developed to leverage the Google Maps Geocoding API to take the street address of casualties and convert them to latitude and longitude coordinates. We collected data on approximately 1000 casualties.

@@ -17,10 +17,10 @@ Brief: Design your own brand identity marketing yourself. Imagine you are about 
 
 I decided to base my logo on a fictitious design company called 'Greenlight Design'. The reason I chose this name was that it conveyed a feeling of approval, of forward momentum and of 'getting things done'.
 
-<blockquote><p>"To **green-light** is to give permission or a go ahead to move forward with a project."</p>
+<blockquote>"To **green-light** is to give permission or a go ahead to move forward with a project."
 </blockquote>
 
-<p><a href="https://en.wikipedia.org/wiki/Green-light">https://en.wikipedia.org/wiki/Green-light</a></p>
+[https://en.wikipedia.org/wiki/Green-light](https://en.wikipedia.org/wiki/Green-light)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/mac-os-widget"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/mac-os-widget" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/mac-os-widget 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/mac-os-widget 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/mac-os-widget 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>Mac OS X widget</figcaption></figure>
 

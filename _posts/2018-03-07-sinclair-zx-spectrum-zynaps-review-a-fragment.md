@@ -9,9 +9,9 @@ tags:
 - Photoshop
 featured_image: 12/zynaps-e1520423607776
 ---
-<p>Zynaps is an arcade shoot-em-up computer game produced by <a href="http://www.hewsonconsultants.com/">Hewson Consultants</a> and released in 1987 for the Sinclair ZX Spectrum personal computer (and other platforms).</p>
+Zynaps is an arcade shoot-em-up computer game produced by [Hewson Consultants](http://www.hewsonconsultants.com/) and released in 1987 for the Sinclair ZX Spectrum personal computer (and other platforms).
 
-<p>As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, <a href="{{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/" data-type="post" data-id="121">'Arcade'</a>. The text below is a far as we got ...</p>
+As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, ['Arcade']({{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/). The text below is a far as we got ...
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/zynaps_original"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/zynaps_original" width="300" height="285" alt="" style="border-radius:6px" loading="lazy"></a><figcaption>The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
 
@@ -39,7 +39,7 @@ Destroying complete waves and individual aliens get you points. A bonus life is 
 
 Find out more about Zynaps on the Sinclair ZX Spectrum:
 
-- <a href="http://www.worldofspectrum.org/infoseekid.cgi?id=0005890">World of Spectrum</a>
+- [World of Spectrum](http://www.worldofspectrum.org/infoseekid.cgi?id=0005890)
 
-- <a href="http://www.crashonline.org.uk/42/zynaps.htm">Crash Magazine Review</a>
+- [Crash Magazine Review](http://www.crashonline.org.uk/42/zynaps.htm)
 

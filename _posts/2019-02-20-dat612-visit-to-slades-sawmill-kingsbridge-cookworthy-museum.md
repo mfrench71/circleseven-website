@@ -11,9 +11,9 @@ tags:
 - Photography
 featured_image: sawmill-south-pool-salcombe_46242181605_o
 ---
-<p>As part of my research for my final year project at Plymouth University, I contacted the <a href="http://www.plymarchsoc.org.uk/">Plymouth Archaeological Society</a> to see if their members had any suggestions for heritage sites that might potentially be appropriate for photogrammetry and digital restoration.</p>
+As part of my research for my final year project at Plymouth University, I contacted the [Plymouth Archaeological Society](http://www.plymarchsoc.org.uk/) to see if their members had any suggestions for heritage sites that might potentially be appropriate for photogrammetry and digital restoration.
 
-<p>A member of the Society suggested the now derelict saw mill that stands at the head of Waterhead Creek near South Pool in Devon. I was also advised that the <a href="http://www.kingsbridgemuseum.org.uk/">Kingsbridge Cookworthy Museum</a> held archive photographs of the mill when it was a going concern. Today, I decided to investigate further.</p>
+A member of the Society suggested the now derelict saw mill that stands at the head of Waterhead Creek near South Pool in Devon. I was also advised that the [Kingsbridge Cookworthy Museum](http://www.kingsbridgemuseum.org.uk/) held archive photographs of the mill when it was a going concern. Today, I decided to investigate further.
 
 <div class="leaflet-map" data-lat="50.2387026" data-lng="-3.7425225" data-zoom="14"></div>
 
@@ -39,4 +39,4 @@ Following my muddy visit to the saw mill site, I paid a visit to the resource ce
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/postcard"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/postcard" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/postcard 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/postcard 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/postcard 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
-<p>The lack of detailed photographs makes a digital restoration challenging. However, the staff at the museum provided me with the details of the <a href="http://www.devonruralarchive.com/" target="_blank" rel="noreferrer noopener">Devon Rural Archive</a> where there may be further material available - a visit for another day.</p>
+The lack of detailed photographs makes a digital restoration challenging. However, the staff at the museum provided me with the details of the [Devon Rural Archive](http://www.devonruralarchive.com/){:target="_blank"} where there may be further material available - a visit for another day.

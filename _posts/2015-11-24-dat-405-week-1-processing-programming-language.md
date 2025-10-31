@@ -10,7 +10,7 @@ tags:
 - JavaScript
 featured_image: 05/processing-featured-image
 ---
-Today we were introduced to the Processing programming language (<a href="http://www.processing.org">http://www.processing.org</a>).
+Today we were introduced to the Processing programming language ([http://www.processing.org](http://www.processing.org)).
 
 Working through six practical tasks, we became familiar with:
  	- Declaring variables names and their types e.g. String, int and float

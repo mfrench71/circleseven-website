@@ -34,6 +34,6 @@ As has been noted, the time that the story was written (the 1950s) was a period 
 
 Ultimately, the story ends in tragedy. Is this then a stark warning of the dangers of technology that we could apply to ubiquitous computing? The Happylife Home has infantilised George and Lydia, while the nursery has, to some extent, empowered their children so that it is they, not their parents who have control of the 'reality' created within the nursery. The children are addicted to the nursery, as we might be considered to be addicted to our mobile devices. They scream and throw tantrums, even breaking in when they are locked out. The parents are unable to deny the children the thing they want, and, in doing so, cede control to their children. By the end of the tale, when the children have effectively done away with their parents, they are chillingly cold and distant, enjoying a picnic, and seemingly oblivious to the fate of their parents.
 <h2>References</h2>
-'Ubiquitous Computing' (2018) *Wikipedia*. Available at: <a href="https://en.wikipedia.org/wiki/Ubiquitous_computing">https://en.wikipedia.org/wiki/Ubiquitous_computing</a> (Accessed: 27 September 2018).
+'Ubiquitous Computing' (2018) *Wikipedia*. Available at: [https://en.wikipedia.org/wiki/Ubiquitous_computing](https://en.wikipedia.org/wiki/Ubiquitous_computing) (Accessed: 27 September 2018).
 
-Pierce, D. (2009) *America in the Post War Period*.  Available at: <a href="http://www.inquiriesjournal.com/a?id=2">http://www.inquiriesjournal.com/a?id=2</a>  (Accessed: 27 September 2018).
+Pierce, D. (2009) *America in the Post War Period*.  Available at: [http://www.inquiriesjournal.com/a?id=2](http://www.inquiriesjournal.com/a?id=2)  (Accessed: 27 September 2018).

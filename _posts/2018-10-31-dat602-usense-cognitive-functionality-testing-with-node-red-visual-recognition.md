@@ -10,7 +10,7 @@ tags:
 - Photography
 featured_image: 05/visual_recognition_flow-e1540983848824
 ---
-<p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
+In my [previous post]({{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/), I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.
 
 Ultimately, I hope to use visual recognition for emotion detection.
 
@@ -22,7 +22,7 @@ For this testing, I will be using a Raspberry Pi, Pi Camera, and a local install
 
 <ol>- An *injection* node sends an empty string to the *execute* node.
 
-- The *execute* node runs the following script: <code>raspistill -o /home/pi/Pictures/image1.jpg -q 25</code> This uses the Pi camera to take a still image and save it in the specified directory with a JPEG quality of 25%.
+- The *execute* node runs the following script: `raspistill -o /home/pi/Pictures/image1.jpg -q 25` This uses the Pi camera to take a still image and save it in the specified directory with a JPEG quality of 25%.
 
 - A *template* node can optionally be used to output to the debug console.
 
@@ -52,4 +52,4 @@ In both tests, the results of the analysis of age and gender of the individual's
 
 The code for the above flow is available here:
 
-<p><a href="https://github.com/mfrench71/DAT602/blob/master/Node%20Red%20Flows/pi_face_detection.json" target="_blank" rel="noreferrer noopener">https://github.com/mfrench71/DAT602/blob/master/Node%20Red%20Flows/pi_face_detection.json</a></p>
+[https://github.com/mfrench71/DAT602/blob/master/Node%20Red%20Flows/pi_face_detection.json](https://github.com/mfrench71/DAT602/blob/master/Node%20Red%20Flows/pi_face_detection.json){:target="_blank"}

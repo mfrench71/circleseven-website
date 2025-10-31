@@ -52,7 +52,7 @@ Here is how the Boathouse and surrounding landscape looks today:
 </div>
 </figure>
 
-<p>These are the archive images that I have been able to source from the internet and from the very helpful staff at the <a href="http://www.devonruralarchive.com/" target="_blank" rel="noreferrer noopener">Devon Rural Archive:</a></p>
+These are the archive images that I have been able to source from the internet and from the very helpful staff at the [Devon Rural Archive:](http://www.devonruralarchive.com/){:target="_blank"}
 
 <div class="gallery">
 
@@ -82,7 +82,7 @@ A further ruin stands close by to St. Kevernes which is a limekiln built to look
 
 In the woods above the quay a quarried area exists which once contained a terraced walk and wooden summer house.
 
-<p>The following images are from the <a href="http://web.plymouth.gov.uk/archivecatalogue.htm" target="_blank" rel="noreferrer noopener">Plymouth City Council Archives catalogue</a>:</p>
+The following images are from the [Plymouth City Council Archives catalogue](http://web.plymouth.gov.uk/archivecatalogue.htm){:target="_blank"}:
 
 <div class="gallery">
 

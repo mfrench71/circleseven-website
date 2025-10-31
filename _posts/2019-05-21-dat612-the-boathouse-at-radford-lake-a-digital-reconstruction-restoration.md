@@ -44,17 +44,17 @@ My research was divided into two broad areas: (1) photogrammetry software and te
 
 ## Software
 
-<p>Having carried out some research on the various photogrammetry software packages available and the recommended shooting techniques and workflow, I decided to use RealityCapture. This seemed to combine speed of processing with an intuitive workflow. Below is a link to the, admittedly somewhat rough, result of my <a href="{{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test1/">first proper test</a>, carried out in my back garden.</p>
+Having carried out some research on the various photogrammetry software packages available and the recommended shooting techniques and workflow, I decided to use RealityCapture. This seemed to combine speed of processing with an intuitive workflow. Below is a link to the, admittedly somewhat rough, result of my [first proper test]({{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test1/), carried out in my back garden.
 
-<p><a href="https://skfb.ly/6HoAq">https://skfb.ly/6HoAq</a></p>
+[https://skfb.ly/6HoAq](https://skfb.ly/6HoAq)
 
 I took 72 photographs in RAW mode using my Nikon D3200 DSLR. RealityCapture processed the images, creating a 3D model in approximately 30 minutes. Photographs were taken from ground level, hence the missing shed roof (the camera didn’t see it). Also, reflective surfaces (such as windows) are difficult for the software to process, so these appear distorted.
 
 It was interesting to partially capture the interior of the shed (through the green door), and it seemed to pay to capture more images as I traversed around the corners of the house and shed. This technique would prove useful when photographing the interior areas of the buildings used in the final assets.
 
-<p>My <a href="{{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test2-the-armoury/">second test</a> was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne’s Quay, Radford Lake. While the circumstances of the photo shoot were not ideal (a blue-sky day with strong, low sunlight caused shadowing on the outside of the structure), I was satisfied with the result which can be seen at the link below.</p>
+My [second test]({{ site.baseurl }}/dat612-photogrammetry-with-realitycapture-test2-the-armoury/) was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne’s Quay, Radford Lake. While the circumstances of the photo shoot were not ideal (a blue-sky day with strong, low sunlight caused shadowing on the outside of the structure), I was satisfied with the result which can be seen at the link below.
 
-<p><a href="https://skfb.ly/6HNFv">https://skfb.ly/6HNFv</a></p>
+[https://skfb.ly/6HNFv](https://skfb.ly/6HNFv)
 
 The above model was created from approximately 400 photographs taken over two days. This number of photographs is probably excessive. However, I encountered a number of issues during the processing of the images in RealityCapture which led to missing portions of the structure (the chimney) and decided to repeat the photo shoot in an attempt to fill the gaps.
 

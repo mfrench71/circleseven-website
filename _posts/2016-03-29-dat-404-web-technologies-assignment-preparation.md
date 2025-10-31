@@ -17,19 +17,19 @@ My chosen professional practice is the field of visual effects and, to that end,
 
 <h2>Examples of professional practice web designs (visual effects):</h2>
 
-<p>**Industrial Light &amp; Magic** <a href="http://www.ilm.com">http://www.ilm.com</a></p>
+**Industrial Light &amp; Magic** [http://www.ilm.com](http://www.ilm.com)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ilm"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/ilm" width="300" height="212" alt="" loading="lazy"></a></figure>
 
-<p>**Double Negative** <a href="http://www.dneg.com">http://www.dneg.com</a></p>
+**Double Negative** [http://www.dneg.com](http://www.dneg.com)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dneg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/dneg" width="300" height="204" alt="" loading="lazy"></a></figure>
 
-<p>**Weta Digital** <a href="https://www.wetafx.co.nz">https://www.wetafx.co.nz</a></p>
+**Weta Digital** [https://www.wetafx.co.nz](https://www.wetafx.co.nz)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/weta"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/weta" width="300" height="277" alt="" loading="lazy"></a></figure>
 
-<p>**Framestore** <a href="http://www.framestore.com">http://www.framestore.com</a></p>
+**Framestore** [http://www.framestore.com](http://www.framestore.com)
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/framestore"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/framestore" width="300" height="275" alt="" loading="lazy"></a></figure>
 

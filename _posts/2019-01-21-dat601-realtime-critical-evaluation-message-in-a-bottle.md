@@ -84,12 +84,12 @@ Despite the lack of early testing of certain elements, ultimately, an original a
 
 ## References
 
-<p>Eliasson, O. (2014) *Ice Watch*. Available at: <a href="https://olafureliasson.net/archive/artwork/WEK109190/ice-watch">https://olafureliasson.net/archive/artwork/WEK109190/ice-watch</a> (Accessed: 8 January 2019)</p>
+Eliasson, O. (2014) *Ice Watch*. Available at: [https://olafureliasson.net/archive/artwork/WEK109190/ice-watch](https://olafureliasson.net/archive/artwork/WEK109190/ice-watch) (Accessed: 8 January 2019)
 
-<p>Liborion, M. (2014) *Sea Globes*. Available at: <a href="https://maxliboiron.com/2014/03/23/sea-globes/">https://maxliboiron.com/2014/03/23/sea-globes/</a> (Accessed: 8 January 2019).</p>
+Liborion, M. (2014) *Sea Globes*. Available at: [https://maxliboiron.com/2014/03/23/sea-globes/](https://maxliboiron.com/2014/03/23/sea-globes/) (Accessed: 8 January 2019).
 
-<p>National Geographic (2018) *The Great Pacific Garbage Patch Isn’t What You Think it Is*. Available at: <a href="https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/">https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/</a> (Accessed 8 January 2019).</p>
+National Geographic (2018) *The Great Pacific Garbage Patch Isn’t What You Think it Is*. Available at: [https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/](https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/) (Accessed 8 January 2019).
 
-<p>Raaf, S. (2006) *Sabrina Raaf :: Grower 2004-6*. Available at: <a href="http://raaf.org/projects.php?pcat=2&amp;proj=4">http://raaf.org/projects.php?pcat=2&amp;proj=4</a> (Accessed: 10 October 2018).</p>
+Raaf, S. (2006) *Sabrina Raaf :: Grower 2004-6*. Available at: [http://raaf.org/projects.php?pcat=2&amp;proj=4](http://raaf.org/projects.php?pcat=2&amp;proj=4) (Accessed: 10 October 2018).
 
-<p>RAW Design (2015) *Prismatica*. Available at: <a href="https://www.rawdesign.ca/projects/prismatica/">https://www.rawdesign.ca/projects/prismatica/</a> (Accessed: 8 January 2019).</p>
+RAW Design (2015) *Prismatica*. Available at: [https://www.rawdesign.ca/projects/prismatica/](https://www.rawdesign.ca/projects/prismatica/) (Accessed: 8 January 2019).

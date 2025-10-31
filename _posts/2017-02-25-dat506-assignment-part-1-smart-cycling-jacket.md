@@ -36,7 +36,7 @@ All these works explore the role of clothing and what happens when we use techno
 
 - A lot of existing cycling jackets featured thermal insulation and reflectors so we were hoping that our cycling jacket would shine a new light on technology in wearables.
 
-- A website which was useful for inspration was CyclingTips.com, mainly an article called ‘See and be Seen’ which gives tips on daytime lights and nighttime lights (<a href="https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/">https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/</a>)
+- A website which was useful for inspration was CyclingTips.com, mainly an article called ‘See and be Seen’ which gives tips on daytime lights and nighttime lights ([https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/](https://cyclingtips.com/2017/02/see-seen-every-cyclist-needs-know-daytime-running-lights/))
 
 ## Ideas
 

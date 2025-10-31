@@ -12,10 +12,10 @@ featured_image: 05/32657093133_0f78aa7d63_k-e1489868296989
 
 This workshop commenced with a standard Chinese Whispers activity.
 
-<blockquote><p>"Chinese whispers is an internationally popular game, in which one person whispers a message to the ear of the next person through a line of people until the last player announces the message to the entire group. Errors typically accumulate in the retellings, so the statement announced by the last player differs significantly from that of the first player, usually with amusing or humorous effect. Reasons for changes include anxiousness or impatience, erroneous corrections, the difficult-to-understand mechanism of whispering, and that some players may deliberately alter what is being said to guarantee a changed message by the end of the line."</p>
+<blockquote>"Chinese whispers is an internationally popular game, in which one person whispers a message to the ear of the next person through a line of people until the last player announces the message to the entire group. Errors typically accumulate in the retellings, so the statement announced by the last player differs significantly from that of the first player, usually with amusing or humorous effect. Reasons for changes include anxiousness or impatience, erroneous corrections, the difficult-to-understand mechanism of whispering, and that some players may deliberately alter what is being said to guarantee a changed message by the end of the line."
 </blockquote>
 
-<p><a href="https://en.wikipedia.org/wiki/Chinese_whispers">https://en.wikipedia.org/wiki/Chinese_whispers</a></p>
+[https://en.wikipedia.org/wiki/Chinese_whispers](https://en.wikipedia.org/wiki/Chinese_whispers)
 
 ## Chinese Whispers (Illustrated)
 
@@ -35,7 +35,7 @@ This exercise highlighted the value of clear communication and planning and how 
 
 For this part of the workshop, we were asked to just start writing. We were instructed not to think about what we were going to write, just to begin writing. Here is what I produced:
 
-<blockquote><p>"Nevertheless, it was something I couldn't see and all was darkness to me, washing at the shoes, lapping at my feet. The sun was above, in all honesty, it was all I could do to hold it together. The buttons had fallen from my coat, lost coins around someone bereft of money."</p>
+<blockquote>"Nevertheless, it was something I couldn't see and all was darkness to me, washing at the shoes, lapping at my feet. The sun was above, in all honesty, it was all I could do to hold it together. The buttons had fallen from my coat, lost coins around someone bereft of money."
 </blockquote>
 
 This technique can be used as a means to overcome creative block and to generate ideas. I am quite pleased with some of the imagery in the above paragraph and could, potentially, develop the piece into a longer work.

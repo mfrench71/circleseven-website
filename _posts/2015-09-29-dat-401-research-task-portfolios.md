@@ -13,9 +13,9 @@ featured_image: 09/6y7tez5wmDxe3NktQQAQxO9OGKP
 ---
 **Kylemcdonald.net – *Social Roulette***
 
-<p><a href="https://web.archive.org/web/20210119121445/http://www.socialroulette.net/" target="_blank" rel="noreferrer noopener">http://www.socialroulette.net/</a></p>
+[http://www.socialroulette.net/](https://web.archive.org/web/20210119121445/http://www.socialroulette.net/){:target="_blank"}
 
-<p>Kyle’s portfolio site (<a href="https://web.archive.org/web/20210119121445/http://kylemcdonald.net/" target="_blank" rel="noreferrer noopener">http://kylemcdonald.net/</a>) comprises a high-contrast grid layout with teaser images and text excerpts. A simple colour scheme serves to highlight different sections and links to project sites and contributors.</p>
+Kyle’s portfolio site ([http://kylemcdonald.net/](https://web.archive.org/web/20210119121445/http://kylemcdonald.net/){:target="_blank"}) comprises a high-contrast grid layout with teaser images and text excerpts. A simple colour scheme serves to highlight different sections and links to project sites and contributors.
 
 ## Social Roulette
 
@@ -31,8 +31,8 @@ The question of whether Social Roulette is an appropriate means to determine the
 
 ## Impact
 
-<p>“Facebook’s more than 1.44 billion monthly active users around the world spend an average of 20+ minutes per day on the social network, liking, commenting, and scrolling through status updates [which] accounts for nearly 20% of all time online.” (<a href="https://web.archive.org/web/20210119121445/http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T" target="_blank" rel="noreferrer noopener">http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T</a>)</p>
+“Facebook’s more than 1.44 billion monthly active users around the world spend an average of 20+ minutes per day on the social network, liking, commenting, and scrolling through status updates [which] accounts for nearly 20% of all time online.” ([http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T](https://web.archive.org/web/20210119121445/http://uk.businessinsider.com/how-much-time-people-spend-on-facebook-per-day-2015-7?r=US&amp;IR=T){:target="_blank"})
 
-<p>This investment of time and effort that Facebook users make, of course, increases the jeopardy of Social Roulette. However, there appears to be no corresponding benefit to not losing. Unlike Russian roulette, where you keep your winnings and your life, Social Roulette lets you keep your account which, depending on your attachment to your investment, is either a good thing or a relief – see the quote from FaltyDL: “I still can’t tell whether I won or not.” (<a href="https://web.archive.org/web/20210119121445/http://www.socialroulette.net/" target="_blank" rel="noreferrer noopener">http://www.socialroulette.net/</a>)</p>
+This investment of time and effort that Facebook users make, of course, increases the jeopardy of Social Roulette. However, there appears to be no corresponding benefit to not losing. Unlike Russian roulette, where you keep your winnings and your life, Social Roulette lets you keep your account which, depending on your attachment to your investment, is either a good thing or a relief – see the quote from FaltyDL: “I still can’t tell whether I won or not.” ([http://www.socialroulette.net/](https://web.archive.org/web/20210119121445/http://www.socialroulette.net/){:target="_blank"})
 
 There seems to be a theme in Kyle McDonald’s work involving identity, self-awareness and possible loss of identity. Social Roulette could be included within this theme as it deals with the possibility of loss of on-line identity. It’s interesting to consider the impact on those users of Facebook who ‘live’ through social media and those that project an identity through this medium, be it an extension of their actual identity or an alter ego.

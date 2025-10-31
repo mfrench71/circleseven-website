@@ -16,7 +16,7 @@ We were asked, in groups, to venture out to record our own sounds, voices and at
 
 This is the completed piece:
 
-<a href="https://soundcloud.com/matthew-french-602634074/dat503-workshop-2">https://soundcloud.com/matthew-french-602634074/dat503-workshop-2</a>
+[https://soundcloud.com/matthew-french-602634074/dat503-workshop-2](https://soundcloud.com/matthew-french-602634074/dat503-workshop-2)
 
 The sound is composed of real-world elements and imported raw data in the form of a PDF file and Photoshop images. Experimentation revealed that certain raw data files produce better results than others.
 
@@ -30,10 +30,10 @@ We attempted to assemble the sounds in such a way as to create an ambience and s
 
 During the course of this workshop, we viewed the following audio pieces:
 
-<a href="https://vimeo.com/6589827">https://vimeo.com/6589827</a>
+[https://vimeo.com/6589827](https://vimeo.com/6589827)
 
-<a href="https://vimeo.com/102065774">https://vimeo.com/102065774</a>
+[https://vimeo.com/102065774](https://vimeo.com/102065774)
 
-<a href="https://vimeo.com/34512943">https://vimeo.com/34512943</a>
+[https://vimeo.com/34512943](https://vimeo.com/34512943)
 
-<a href="https://vimeo.com/80739444">https://vimeo.com/80739444</a>
+[https://vimeo.com/80739444](https://vimeo.com/80739444)

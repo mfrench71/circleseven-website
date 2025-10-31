@@ -14,7 +14,7 @@ featured_image: 05/rc_feature_image
 ---
 My final year project will involve the use of photogrammetry to create a 3D model of an existing item of cultural heritage significance, for instance: the remains of a building, building interior, or individual objects.
 
-Having carried out some research on the various photogrammetry software packages available, I decided to use <a href="https://www.capturingreality.com/" target="_blank" rel="noopener">RealityCapture</a>. This seemed to combine speed of processing with an intuitive workflow.
+Having carried out some research on the various photogrammetry software packages available, I decided to use [RealityCapture](https://www.capturingreality.com/){:target="_blank"}. This seemed to combine speed of processing with an intuitive workflow.
 
 Below is the, admittedly somewhat rough, result of my first proper test, carried out in my back garden.
 

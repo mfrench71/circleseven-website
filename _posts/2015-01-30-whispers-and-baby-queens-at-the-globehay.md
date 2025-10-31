@@ -9,7 +9,7 @@ tags:
 - Photography
 featured_image: dsc0039_15790273984_o
 ---
-<p>The <a href="http://www.globeathay.org/">Globe@Hay</a> very kindly allowed me to photograph acoustic duo <a href="https://www.facebook.com/pages/Whispers/1452365364976478">*Whispers*</a> and *<a href="https://www.facebook.com/pages/Baby-Queens/523170581048847">Baby Queens</a>*. Here's a selection of images from the night... </p>
+The [Globe@Hay](http://www.globeathay.org/) very kindly allowed me to photograph acoustic duo [*Whispers*](https://www.facebook.com/pages/Whispers/1452365364976478) and *[Baby Queens](https://www.facebook.com/pages/Baby-Queens/523170581048847)*. Here's a selection of images from the night... 
 
 <div class="gallery">
 

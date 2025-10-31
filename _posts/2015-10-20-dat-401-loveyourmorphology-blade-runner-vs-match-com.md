@@ -12,7 +12,7 @@ tags:
 - Sound
 featured_image: 06/Blade-Runner1
 ---
-<p>Following on from the <a href="{{ site.baseurl }}/dat-401-assignment-week-4-remixes-mashups-and-the-readymade/">previous post</a>, I spent some time mashing up some clips from my favourite movie, *Blade Runner*, with the audio from the latest *match.com* television advert.</p>
+Following on from the [previous post]({{ site.baseurl }}/dat-401-assignment-week-4-remixes-mashups-and-the-readymade/), I spent some time mashing up some clips from my favourite movie, *Blade Runner*, with the audio from the latest *match.com* television advert.
 
 I find *match.com*'s adverts annoying upbeat and optimistic, but this was perfect to juxtapose with the gloomy distopian visuals of the film.
 

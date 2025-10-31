@@ -56,7 +56,7 @@ If you are feeling a bit more ambitious, you might like to add features to:
 
 </div>
 
-<p>Using <a href="http://phonegap.com">PhoneGap</a>, <a href="https://creator.ionic.io/">Ionic Creator</a> and <a href="http://brackets.io">Brackets</a>, I created a hand dryer ratings mobile app for deployment to the Android platform.</p>
+Using [PhoneGap](http://phonegap.com), [Ionic Creator](https://creator.ionic.io/) and [Brackets](http://brackets.io), I created a hand dryer ratings mobile app for deployment to the Android platform.
 
 The main features of the app are:
 

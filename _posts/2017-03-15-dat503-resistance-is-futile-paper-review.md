@@ -33,7 +33,7 @@ Science fiction uses "techniques of extrapolation and speculation ... in a narra
 
 The tropes of science fiction are seen as mirroring the way in which much design-oriented research is carried out: the extrapolation of current technological opportunities, together with the imaginative and speculative figuring of a world in which these technologies can be applied. It does so whilst operating at the confluence of science and society, just as design-oriented research, whilst techno-centric, is ultimately concerned with social and cultural considerations.
 
-<blockquote><p>"... for the purposes of this paper, we want to focus on television shows produced in a 25-year window, between 1963 and 1989—the ones that arguably played a role in shaping both the current science fiction offerings (as in, for example, the genealogy from Star Trek and Blake 7 to Babylon 5, Andromeda, Firefly) and also the current generation of researchers of which we are a part"</p>
+<blockquote>"... for the purposes of this paper, we want to focus on television shows produced in a 25-year window, between 1963 and 1989—the ones that arguably played a role in shaping both the current science fiction offerings (as in, for example, the genealogy from Star Trek and Blake 7 to Babylon 5, Andromeda, Firefly) and also the current generation of researchers of which we are a part"
 </blockquote>
 
 The authors chose the following selection of broadcasts because of their intersection with the emergence of the ubiquitous computing vision and their prominence in the background and memories of the authors.
@@ -71,20 +71,20 @@ This paper suggests that by referring to pervasive surveillance in science ficti
 
 ## Design Fiction
 
-<p>In 2009, <a href="https://en.wikipedia.org/wiki/Julian_Bleecker">Julian Bleecker</a>'s essay '<a href="http://drbfw5wfjlxon.cloudfront.net/writing/DesignFiction_WebEdition.pdf">Design Fiction: A short essay on design, science, fact and fiction</a> (PDF)' brought together the ideas propounded by Dourish, Bell, and Bruce Stirling's original coining of the phrase.</p>
+In 2009, [Julian Bleecker](https://en.wikipedia.org/wiki/Julian_Bleecker)'s essay '[Design Fiction: A short essay on design, science, fact and fiction](http://drbfw5wfjlxon.cloudfront.net/writing/DesignFiction_WebEdition.pdf) (PDF)' brought together the ideas propounded by Dourish, Bell, and Bruce Stirling's original coining of the phrase.
 
-<p>Subsequently, design fiction has taken hold as an established discipline, leading to the formation of agencies such as Design Friction ("We are a design practice producing speculative and critical scenarios for the upcoming presents"), <a href="http://nearfuturelaboratory.com/">The Near Future Laboratory</a> ("We explore futures, chart the unexpected and transform opportunities into new and tangible forms"), <a href="http://superflux.in/">Superflux</a> ("Translating future uncertainty into present day choices") and <a href="http://www.tomorrowsthoughtstoday.com">Tomorrow's Thoughts Today</a>.</p>
+Subsequently, design fiction has taken hold as an established discipline, leading to the formation of agencies such as Design Friction ("We are a design practice producing speculative and critical scenarios for the upcoming presents"), [The Near Future Laboratory](http://nearfuturelaboratory.com/) ("We explore futures, chart the unexpected and transform opportunities into new and tangible forms"), [Superflux](http://superflux.in/) ("Translating future uncertainty into present day choices") and [Tomorrow's Thoughts Today](http://www.tomorrowsthoughtstoday.com).
 
 ## Science Fiction Prototyping
 
-<blockquote><p>"Science fiction prototyping refers to the idea of using science fiction to describe and explore the implications of futuristic technologies and the social structures enabled by them."</p>
+<blockquote>"Science fiction prototyping refers to the idea of using science fiction to describe and explore the implications of futuristic technologies and the social structures enabled by them."
 
-<p>(<a href="https://en.wikipedia.org/wiki/Science_fiction_prototyping">https://en.wikipedia.org/wiki/Science_fiction_prototyping</a>)</p>
+([https://en.wikipedia.org/wiki/Science_fiction_prototyping](https://en.wikipedia.org/wiki/Science_fiction_prototyping))
 </blockquote>
 
 In contrast to the ideas explored in Dourish and Bell's paper, i.e. looking back at the canon of science fiction media to see how it has influenced the development of current technologies, science fiction prototyping takes the form of science fiction literature written for the explicit purpose of extrapolating a future for an intended technology outcome.
 
-<blockquote><p>"The main (but not exclusive) methodology is the use of science-fiction stories, grounded in existing practice which are written for the explicit purpose of acting as prototypes for people to explore a wide variety of futures."</p>
+<blockquote>"The main (but not exclusive) methodology is the use of science-fiction stories, grounded in existing practice which are written for the explicit purpose of acting as prototypes for people to explore a wide variety of futures."
 </blockquote>
 
 (ibid)
@@ -99,4 +99,4 @@ Similarly, those involved in science fiction prototyping today are providing a c
 
 - Thacker, E (2001) *The science fiction of technoscience: the politics of simulation and a challenge for new media art*. Leonardo 34(2):155–158.
 
-<p>**Read the full article (PDF):** <a href="http://localhost/wp-content/uploads/2017/03/dourish_Bell_Futile.pdf">dourish_Bell_Futile</a></p>
+**Read the full article (PDF):** [dourish_Bell_Futile](http://localhost/wp-content/uploads/2017/03/dourish_Bell_Futile.pdf)
