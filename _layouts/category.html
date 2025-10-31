@@ -28,7 +28,7 @@ layout: default
         <div class="post-card-content">
           <!-- Category Badge -->
           {% if post.categories.size > 0 %}
-            {% assign display_category = post.categories | last %}
+            {% assign display_category = post.categories | first %}
             <a href="{{ site.baseurl }}/category/{{ display_category | slugify }}/" class="category-badge badge-{{ display_category | slugify }}">
               {{ display_category }}
             </a>
