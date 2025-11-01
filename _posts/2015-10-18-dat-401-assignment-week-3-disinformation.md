@@ -10,7 +10,7 @@ tags:
 - DAT401
 - Photography
 - Web Development
-featured_image: 10/dignitas-scaled-1
+featured_image: dignitas-scaled-1
 ---
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 

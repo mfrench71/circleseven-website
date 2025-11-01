@@ -11,7 +11,7 @@ tags:
 - Photoshop
 - Sound
 - Video
-featured_image: 10/the-fresh-prince-of-Bel-Air
+featured_image: the-fresh-prince-of-Bel-Air
 ---
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.
 

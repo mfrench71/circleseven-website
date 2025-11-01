@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT401
 - Video
-featured_image: 10/assigment_week_01a-e1443776210378
+featured_image: assigment_week_01a-e1443776210378
 ---
 Brief: Produce an instructional illustration for a divergent use.
 

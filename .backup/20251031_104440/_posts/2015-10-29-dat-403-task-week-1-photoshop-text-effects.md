@@ -9,7 +9,7 @@ tags:
 - DAT403
 - Photoshop
 - Unity
-featured_image: 10/text-effects-finished-scaled-1
+featured_image: text-effects-finished-scaled-1
 ---
 Today's practical exercise focussed on text effects within Photoshop.
 
