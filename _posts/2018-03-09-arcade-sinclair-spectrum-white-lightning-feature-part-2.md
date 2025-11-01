@@ -7,7 +7,7 @@ categories:
 - Retro Computing
 tags:
 - Photoshop
-featured_image: 03/WhiteLightning-e1670345166147
+/featured_image: WhiteLightning-e1670345166147
 ---
 This is part two in a series of Spectrum White Lightning articles originally written in the late 1980s (when I was a teenager) for inclusion in our ZX Spectrum fanzine, 'Arcade'. Having re-read my scribblings almost 30 years later, I don't pretend to understand any of it. It might be useful. It might not. If you do find it useful or, at least, interesting, please leave a comment below.
 
@@ -45,7 +45,7 @@ Line 3: tests to see if SPACE or CAPS SHIFT are pressed and executes to words LE
 
 Line 4: Switches attributes off. Tests to see if SYMBOL SHIFT is pressed and stops if it is, other it executes TEST to continue the routine.
 
-Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), [here's the program again](http://www.circleseven.co.uk/2018/03/09/arcade-spectrum-white-lightning-feature-part-1/).
+Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), [here's the program again](http://www.circleseven.co.uk/2018/09/arcade-spectrum-white-lightning-feature-part-1/).
 
 Change line 0 to:
 

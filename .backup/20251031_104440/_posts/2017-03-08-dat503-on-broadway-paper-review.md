@@ -90,4 +90,4 @@ On Broadway, then, goes some way to educating the public about access and use of
 
 - And what will that tell us about the way we use social media and share our data?
 
-<p>Read the article: <a href="http://localhost/wp-content/uploads/2017/03/manovich_on_broadway.pdf">manovich_on_broadway</a> (PDF)</p>
+<p>Read the article: <a href="http://localhost/wp-content/uploads/2017/manovich_on_broadway.pdf">manovich_on_broadway</a> (PDF)</p>

@@ -86,9 +86,9 @@ Despite the lack of early testing of certain elements, ultimately, an original a
 
 <p>Eliasson, O. (2014) *Ice Watch*. Available at: <a href="https://olafureliasson.net/archive/artwork/WEK109190/ice-watch">https://olafureliasson.net/archive/artwork/WEK109190/ice-watch</a> (Accessed: 8 January 2019)</p>
 
-<p>Liborion, M. (2014) *Sea Globes*. Available at: <a href="https://maxliboiron.com/2014/03/23/sea-globes/">https://maxliboiron.com/2014/03/23/sea-globes/</a> (Accessed: 8 January 2019).</p>
+<p>Liborion, M. (2014) *Sea Globes*. Available at: <a href="https://maxliboiron.com/2014/23/sea-globes/">https://maxliboiron.com/2014/23/sea-globes/</a> (Accessed: 8 January 2019).</p>
 
-<p>National Geographic (2018) *The Great Pacific Garbage Patch Isn’t What You Think it Is*. Available at: <a href="https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/">https://news.nationalgeographic.com/2018/03/great-pacific-garbage-patch-plastics-environment/</a> (Accessed 8 January 2019).</p>
+<p>National Geographic (2018) *The Great Pacific Garbage Patch Isn’t What You Think it Is*. Available at: <a href="https://news.nationalgeographic.com/2018/great-pacific-garbage-patch-plastics-environment/">https://news.nationalgeographic.com/2018/great-pacific-garbage-patch-plastics-environment/</a> (Accessed 8 January 2019).</p>
 
 <p>Raaf, S. (2006) *Sabrina Raaf :: Grower 2004-6*. Available at: <a href="http://raaf.org/projects.php?pcat=2&amp;proj=4">http://raaf.org/projects.php?pcat=2&amp;proj=4</a> (Accessed: 10 October 2018).</p>
 

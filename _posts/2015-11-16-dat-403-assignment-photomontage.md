@@ -50,4 +50,4 @@ Fictitious movie poster tropes were added to the image, including prominent star
 
 Typefaces were chosen for readability, impact and to mirror the authentic look of genuine movie posters. For example 'Universal Accreditation' and 'Steel Tongs' fonts were employed for the credit block text.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/fracktured_finished_poster_image"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/03/fracktured_finished_poster_image" width="212" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_finished_poster_image"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_finished_poster_image" width="212" height="300" alt="" loading="lazy"></a></figure>
