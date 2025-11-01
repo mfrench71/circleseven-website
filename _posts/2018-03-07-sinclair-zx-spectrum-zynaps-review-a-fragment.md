@@ -13,7 +13,7 @@ Zynaps is an arcade shoot-em-up computer game produced by [Hewson Consultants](h
 
 As one of our favourite titles, we decided to include a review for Zynaps as part of one of the first issues of our Spectrum fanzine, ['Arcade']({{ site.baseurl }}/arcade-a-sinclair-zx-spectrum-fanzine/). The text below is a far as we got ...
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/zynaps_original"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/zynaps_original" width="300" height="285" alt="" style="border-radius:6px" loading="lazy"></a><figcaption>The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/zynaps_original"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/zynaps_original" width="300" height="285" alt="" style="border-radius:6px" loading="lazy"></a><figcaption>The original hard copy of our 'expertly' desk-top published review written as teenagers in the 1980s</figcaption></figure>
 
 <h2>Zynaps</h2>
 

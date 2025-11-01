@@ -9,7 +9,7 @@ tags:
   - Academic
   - DAT401
   - Photoshop
-featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760881627/12/dsc0073_small_22219352209_o.jpg
+featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760881627/dsc0073_small_22219352209_o.jpg
 ---
 
 Brief: Working individually or in your groups, produce an intervention/remix/readymade action that will be documented as a short film.
@@ -30,12 +30,12 @@ I was pleasantly surprised by the interest shown by passers by; eight performanc
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0073_small_22219352209_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0073_small_22219352209_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0034_small_22219376919_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0034_small_22219376919_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0076_small_22219348019_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0076_small_22219348019_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0051_small_22218215120_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0051_small_22218215120_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0064_small_22218473658_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0064_small_22218473658_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0032_small_22218229290_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/dsc0032_small_22218229290_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0073_small_22219352209_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0073_small_22219352209_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0034_small_22219376919_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0034_small_22219376919_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0076_small_22219348019_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0076_small_22219348019_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0051_small_22218215120_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0051_small_22218215120_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0064_small_22218473658_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0064_small_22218473658_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0032_small_22218229290_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/dsc0032_small_22218229290_o" width="681" height="1024" alt="" loading="lazy"></a></figure>
 
 </div>
 

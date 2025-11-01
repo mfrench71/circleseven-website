@@ -21,8 +21,8 @@ Once I had determined the requirements of a typical movie poster, I produced the
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101-e1445962906164"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16101-e1445962906164" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-e1445962964594-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/IMG_16111-e1445962964594-scaled-1" width="179" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_16101-e1445962906164"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_16101-e1445962906164" width="241" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_16111-e1445962964594-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_16111-e1445962964594-scaled-1" width="179" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>
 
@@ -34,17 +34,17 @@ When I sat down to create the poster, I found the full title 'This is Rural Engl
 
 This allowed me to use the short title 'Fracktured', which I felt conveyed more impact and also meant that I was able to use a large and suitable typeface (Alma Rough) for the main title. This was set against a contrasting yellow 'caution'-style tape background, to both highlight the title of the piece and to reflect the nature of the subject matter itself. This image was created in Photoshop using the Render Fibres command, combined with motion blur and gaussian blur effects. I duplicated the title text layer as this gave the text some needed clarity. Drop shadow and subtle glow were added as finishing touches to give some pop to this part of the composition.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_background"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_background" width="212" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_background"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_background" width="212" height="300" alt="" loading="lazy"></a></figure>
 
 I sourced two images to illustrate and contrast the two sides of the fracking industry argument: the ecologically-minded protesters versus the money-making capitalist industrialists. The 'industrial' image was enhanced slightly with Photoshop's Burn tool to increase the darkness of the clouds to create a more menacing appearance and to ensure the overlayed white text was easily readable. A soft blend between the images was created using the Erase tool.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/protester_silhouettes"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/protester_silhouettes" width="209" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/protester_silhouettes"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/protester_silhouettes" width="209" height="300" alt="" loading="lazy"></a></figure>
 
 Silhouettes of protesters wielding placards were superimposed on these background images. The placard messages used were taken from real-life images sourced from Google. The protesters were placed both physically and ideologically on the boundary between the two contrasting background images. I chose silhouettes as this gave a more striking and dramatic effect to the overall image, as well as conveying a sense of anonymity and 'everyman' aspect to the fracking protest movement. The silhouettes were scaled so as to give a feeling of depth and focus point to draw the viewer's eye the centre of the image.
 
 The silhouettes were creating using a combination of Photoshop and illustrator. Creative Commons licensed images were sourced from Flickr and individuals were isolated from the background using Photoshop's selection tools. The outlines were then created using both Illustrator's Image Trace functionality and manually tracing the image using the Pen tool.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/12/fracktured_movie_poster_tropes-scaled-1" width="212" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_movie_poster_tropes-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_movie_poster_tropes-scaled-1" width="212" height="300" alt="" loading="lazy"></a></figure>
 
 Fictitious movie poster tropes were added to the image, including prominent star reviews, a tag line, cinema release date, a hash tag call to action and credits, including cast, crew, website and industry logos.
 
