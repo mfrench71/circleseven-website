@@ -15,7 +15,7 @@ featured_image: 05/PalmyraArch_Destruction
 ---
 ## Outline of area of study/context
 
-My area of study/context is very much related to my <a href="http://www.circleseven.co.uk/2019/02/05/dat613-dissertation-proposal/">dissertation</a>; however, rather than looking at how artificial intelligence can be used in conjunction with the cultural heritage preservation applications of photogrammetry, I will looking at how software applications and my own skills can be used with photogrammetry to bring to life and restore gaps in an artefact, building or location that is part of our cultural heritage.
+My area of study/context is very much related to my <a href="http://www.circleseven.co.uk/2019/02/dat613-dissertation-proposal/">dissertation</a>; however, rather than looking at how artificial intelligence can be used in conjunction with the cultural heritage preservation applications of photogrammetry, I will looking at how software applications and my own skills can be used with photogrammetry to bring to life and restore gaps in an artefact, building or location that is part of our cultural heritage.
 
 ## Aims
 

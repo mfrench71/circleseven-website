@@ -11,7 +11,7 @@ tags:
   - Photography
   - Python
   - Web Development
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/matthew_result
+featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/matthew_result
 last_modified_at: 2025-10-31 10:44:09
 ---
 
@@ -106,7 +106,7 @@ I developed a basic HTML page with sections to display the live camera preview, 
 
 This renders as:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/face_login_html"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/face_login_html" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/face_login_html 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/face_login_html 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/face_login_html 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>HTML page</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/face_login_html"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/face_login_html" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/face_login_html 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/face_login_html 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/face_login_html 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a><figcaption>HTML page</figcaption></figure>
 
 ## Capturing a Live Image
 
@@ -217,7 +217,7 @@ function getName(personIdGlobal) {
 
 The final result looks like:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/matthew_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/05/matthew_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/05/matthew_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/05/matthew_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/05/matthew_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/matthew_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/matthew_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/matthew_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/matthew_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/matthew_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
 
 ## Bibliography
 

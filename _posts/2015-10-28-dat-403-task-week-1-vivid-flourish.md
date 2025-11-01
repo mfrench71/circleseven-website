@@ -13,7 +13,7 @@ featured_image: 05/Vivid-Effects1-e1446049275274
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Vivid-Effects-cutout"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Vivid-Effects-cutout" width="200" height="300" alt="" loading="lazy"></a><figcaption>Vivid Effects' original image</figcaption></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Vivid-Effects"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/Vivid-Effects" width="200" height="300" alt="" loading="lazy"></a><figcaption>'Vivid Effects' finished image</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects-cutout"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects-cutout" width="200" height="300" alt="" loading="lazy"></a><figcaption>Vivid Effects' original image</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Vivid-Effects" width="200" height="300" alt="" loading="lazy"></a><figcaption>'Vivid Effects' finished image</figcaption></figure>
 
 </div>

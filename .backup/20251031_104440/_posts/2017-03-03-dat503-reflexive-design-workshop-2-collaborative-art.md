@@ -56,10 +56,10 @@ The results are below:
 
 <div class="gallery">
 
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_1999_33087914500_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2001_32657092913_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2002_32657092573_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/05/img_2003_32657093133_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_1999_33087914500_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_2001_32657092913_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_2002_32657092573_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_2003_32657093133_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
 </div>
 
@@ -69,7 +69,7 @@ There are certainly some lessons to be learned about cooperation, coordination, 
 
 For the final activity, we were requested, in groups, to create and demonstrate a novel communication protocol. Here are some of the communication  technologies and techniques that we brainstormed:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/05/IMG_2005-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2005-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2005-scaled-1" width="1024" height="768" alt="" loading="lazy"></a><figcaption>Communication technologies and techniques</figcaption></figure>
 
 We had to demonstrate the protocol worked, so one member of our team walked to a destination that only they knew, taking a photograph of their current location every minute for fifteen minutes until they reached their destination. The photos were sent them back to the rest of the group via Facebook Messenger.
 
