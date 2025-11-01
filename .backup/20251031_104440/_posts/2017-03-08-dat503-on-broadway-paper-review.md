@@ -15,7 +15,7 @@ featured_image: 05/top
 
 <p>(<a href="http://manovich.net/index.php/about">http://manovich.net/index.php/about</a>)</p>
 
-<p>One of <a href="http://www.complex.com/style/2013/10/future-of-design/lev-manovich">"25 People Shaping the Future of Design"</a> (complex.com)</p>
+<p>One of <a href="http://www.complex.com/style/2013/future-of-design/lev-manovich">"25 People Shaping the Future of Design"</a> (complex.com)</p>
 
 "Lev Manovich used his first computer in 1977, after two years of writing programs on paper for a programming class in Moscow. His code was impeccable, but when he typed it in, the machine spat back a failure message. He'd never used a computer keyboard before, and had typed O's instead of zeroes.
 

@@ -29,4 +29,4 @@ The visuals of masculine activity overlaid with the feel-good, happy melody of t
 
 Both these examples interest me as they each use humour to alter the perception of the material presented to the viewer.
 
-<p>See <a href="http://www.circleseven.co.uk/2015/10/20/loveyourmorphology-blade-runner-vs-match-com/">this post</a> for a more finished video mashup.</p>
+<p>See <a href="http://www.circleseven.co.uk/2015/20/loveyourmorphology-blade-runner-vs-match-com/">this post</a> for a more finished video mashup.</p>

@@ -18,7 +18,7 @@ Read...
 
 ## John Cage and Sister Corita Kent: Immaculate Heart College Art Department Rules:
 
-<a href="https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/">https://www.brainpickings.org/2012/08/10/10-rules-for-students-and-teachers-john-cage-corita-kent/</a>
+<a href="https://www.brainpickings.org/2012/08/10-rules-for-students-and-teachers-john-cage-corita-kent/">https://www.brainpickings.org/2012/08/10-rules-for-students-and-teachers-john-cage-corita-kent/</a>
 
 ## Bruce Mau: An Incomplete Manifesto for Growth:
 

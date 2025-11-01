@@ -45,7 +45,7 @@ The *Pizza Jockey* takes a standard turntable (record player) and re-purposes it
 
 After discussion of a number of ideas for names and accessories, different models and marketing phrases, etc., the above features were incorporated into an instructional image:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/assigment_week_01a-e1443776210378"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/10/assigment_week_01a-e1443776210378" width="300" height="121" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/assigment_week_01a-e1443776210378"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/assigment_week_01a-e1443776210378" width="300" height="121" alt="" loading="lazy"></a></figure>
 
 *Pizza Jockey* can, potentially, still function as a perfectly good record player and so there are opportunities for a dual-purpose device (albeit with highly divergent uses). This is partly why I felt inclined to retain the RPM speeds on the size selector dial which has no relevance to the pizza base functionality of the technology.
 
