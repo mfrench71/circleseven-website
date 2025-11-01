@@ -7,7 +7,7 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT503
-featured_image: 05/top
+featured_image: top
 ---
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/5116459810_523ce620e5_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/5116459810_523ce620e5_o" width="1022" height="1024" alt="" loading="lazy"></a><figcaption>Lev Manovich</figcaption></figure>
 

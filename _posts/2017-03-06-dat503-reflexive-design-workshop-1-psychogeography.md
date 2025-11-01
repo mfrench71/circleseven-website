@@ -9,7 +9,7 @@ tags:
 - DAT503
 - Photography
 - Sound
-featured_image: 05/debord-guide1-e1684144506924
+featured_image: debord-guide1-e1684144506924
 ---
 ## Psychogeography
 

@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT405
 - JavaScript
-featured_image: 05/processing-featured-image
+featured_image: processing-featured-image
 ---
 Today we were introduced to the Processing programming language (<a href="http://www.processing.org">http://www.processing.org</a>).
 

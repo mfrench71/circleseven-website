@@ -10,7 +10,7 @@ tags:
 - Photoshop
 - Sound
 - Video
-featured_image: 05/FilterOut
+featured_image: FilterOut
 ---
 We were asked, in groups, to venture out to record our own sounds, voices and atmospheres and then assemble them into a creative soundscape. We were also encouraged to add raw data via Audacity software as a way of producing a sonification of data - to bring data out of the digital realm and into the physical via the medium of sound.
 

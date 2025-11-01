@@ -6,7 +6,7 @@ categories:
 - DAT503 - Reflexive Design
 tags:
 - DAT503
-featured_image: 05/32657093133_0f78aa7d63_k-e1489868296989
+featured_image: 32657093133_0f78aa7d63_k-e1489868296989
 ---
 ## Chinese Whispers
 

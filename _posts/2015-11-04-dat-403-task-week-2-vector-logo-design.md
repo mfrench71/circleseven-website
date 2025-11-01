@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT403
 - Illustrator
-featured_image: 05/vector-logo-2
+featured_image: vector-logo-2
 ---
 This lecture focussed on Illustrator's shape tools to create vector logo designs.
 

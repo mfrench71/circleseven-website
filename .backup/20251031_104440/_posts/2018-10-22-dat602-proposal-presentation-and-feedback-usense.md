@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT602
 - Tutorial
-featured_image: 05/usense-mockup-150-e1540204603760
+featured_image: usense-mockup-150-e1540204603760
 ---
 ## Presentation Guidelines
 

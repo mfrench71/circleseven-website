@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT404
 - Web Development
-featured_image: 05/mockup_feature
+featured_image: mockup_feature
 ---
 In preparation for completing the assignment for DAT 404 (Web Technologies), we were tasked with investigating web site design and splash page design for our chosen professional practice and then mocking up a number of our own designs.
 

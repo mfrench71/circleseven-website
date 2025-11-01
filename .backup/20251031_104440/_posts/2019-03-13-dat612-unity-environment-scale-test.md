@@ -8,7 +8,7 @@ categories:
 tags:
   - DAT612
   - Unity
-featured_image: 05/environment_01
+featured_image: environment_01
 ---
 Here is some text. It should appear in the post excerpt.
 

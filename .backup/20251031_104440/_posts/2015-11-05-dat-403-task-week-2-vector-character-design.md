@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT403
 - Illustrator
-featured_image: 05/character-design-featured
+featured_image: character-design-featured
 ---
 Today we were tasked with hand sketching our own character with the aim of placing this in Adobe Illustrator to convert to a vector character design by hand.
 

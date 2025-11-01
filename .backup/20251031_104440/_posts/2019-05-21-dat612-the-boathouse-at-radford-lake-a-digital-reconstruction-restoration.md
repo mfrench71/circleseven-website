@@ -12,7 +12,7 @@ tags:
 - Photography
 - Sound
 - Unity
-featured_image: 05/Unity-2018.3.8f1-Personal-SampleScene.unity-Final-Year-Project-PC-Mac-Linux-Standalone-_DX11_-16_05_2019-08_31_03
+featured_image: Unity-2018.3.8f1-Personal-SampleScene.unity-Final-Year-Project-PC-Mac-Linux-Standalone-_DX11_-16_05_2019-08_31_03
 ---
 ## Concept
 

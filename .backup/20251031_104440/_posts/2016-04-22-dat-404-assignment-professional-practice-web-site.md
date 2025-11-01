@@ -11,7 +11,7 @@ tags:
 - JavaScript
 - Photoshop
 - Web Development
-featured_image: 05/assignment_feature
+featured_image: assignment_feature
 ---
 Your task is to create a 'splash' webpage that self-promotes you and your professional practice. The web design must be built from scratch (i.e. not using a content management system) using:
 

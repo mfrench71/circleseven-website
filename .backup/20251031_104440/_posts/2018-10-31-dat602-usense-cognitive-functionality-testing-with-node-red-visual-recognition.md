@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT602
 - Photography
-featured_image: 05/visual_recognition_flow-e1540983848824
+featured_image: visual_recognition_flow-e1540983848824
 ---
 <p>In my <a href="{{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/">previous post</a>, I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.</p>
 

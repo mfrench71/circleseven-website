@@ -8,7 +8,7 @@ categories:
 tags:
 - Academic
 - DAT505
-featured_image: 05/dat505_dryer_feature
+featured_image: dat505_dryer_feature
 ---
 Brief: Using PhoneGap, you must create a "ratings" mobile app, focusing on a product or service of your choice. For example, you might choose: Hotels, Beers, Burgers, Restaurants, Shoe shops, or anything else that can be rated! Your mobile app should allow you to create a "rating card" for each item, with the following information:
 

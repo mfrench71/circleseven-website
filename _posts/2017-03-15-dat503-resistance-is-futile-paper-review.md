@@ -8,7 +8,7 @@ categories:
 tags:
 - DAT503
 - Unity
-featured_image: 05/5624b2201761298dfb59719b5525ebf1
+featured_image: 5624b2201761298dfb59719b5525ebf1
 ---
 **"Resistance is futile’": reading science fiction alongside ubiquitous computing**
 

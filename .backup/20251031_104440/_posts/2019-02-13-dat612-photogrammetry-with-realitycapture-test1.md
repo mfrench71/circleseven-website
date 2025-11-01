@@ -10,7 +10,7 @@ tags:
 - DAT612
 - Photogrammetry
 - Photography
-featured_image: 05/rc_feature_image
+featured_image: rc_feature_image
 ---
 My final year project will involve the use of photogrammetry to create a 3D model of an existing item of cultural heritage significance, for instance: the remains of a building, building interior, or individual objects.
 

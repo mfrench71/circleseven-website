@@ -10,7 +10,7 @@ tags:
 - DAT403
 - JavaScript
 - Photography
-featured_image: 05/character-animation-background-and-lighting
+featured_image: character-animation-background-and-lighting
 ---
 Following on from my [Character Animation Walk Cycle post]({{ site.baseurl }}/dat-403-task-week-3-character-animation-walk-cycle/), the character animation After Effects composition was placed as a layer in a new composition. This will be used to place the walking character in a 3D layered environment with a camera move and lighting effects.
 

@@ -11,7 +11,7 @@ tags:
 - JavaScript
 - Photography
 - Python
-featured_image: 05/face_detect-e1541676689943
+featured_image: face_detect-e1541676689943
 ---
 <p>Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Microsoft Azure Cognitive Services</a> (Microsoft, no date).</p>
 

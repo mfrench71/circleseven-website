@@ -9,7 +9,7 @@ tags:
 - Blender
 - DAT503
 - Photoshop
-featured_image: 05/ersilia-e1488384536818
+featured_image: ersilia-e1488384536818
 ---
 ## Paul Klee - "Drawing is taking a line for a walk"
 

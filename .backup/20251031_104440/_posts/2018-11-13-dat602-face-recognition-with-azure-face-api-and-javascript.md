@@ -11,7 +11,7 @@ tags:
 - Photography
 - Python
 - Web Development
-featured_image: 05/matthew_result
+featured_image: matthew_result
 ---
 <p>In my previous post, I developed some Python scripts which used Microsoft's Azure <a href="https://azure.microsoft.com/en-us/services/cognitive-services/face/">Face API</a> (Microsoft, no date) to train and recognise faces.</p>
 
