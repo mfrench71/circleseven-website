@@ -5,7 +5,6 @@ date: 2016-05-10 12:21:21 +0000
 categories:
 - DAT403 - Digital Media Design
 tags:
-- Academic
 - DAT403
 - Illustrator
 - Photoshop

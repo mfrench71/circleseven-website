@@ -7,7 +7,6 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT602
-- Tutorial
 featured_image: usense-mockup-150-e1540204603760
 ---
 ## Presentation Guidelines

@@ -7,7 +7,8 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT405
-- JavaScript
+- Programming
+- Processing
 featured_image: processing-featured-image
 ---
 Today we were introduced to the Processing programming language ([http://www.processing.org](http://www.processing.org)).

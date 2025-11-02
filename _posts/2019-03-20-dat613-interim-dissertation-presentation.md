@@ -6,7 +6,6 @@ categories:
 - DAT613 - Dissertation
 - Digital Art and Technology
 tags:
-- Academic
 - DAT613
 featured_image: dissertation_presentation_feature
 ---

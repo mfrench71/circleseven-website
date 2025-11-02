@@ -6,9 +6,8 @@ categories:
   - DAT401 - Strategies for Digital Art and Technology
   - Digital Art and Technology
 tags:
-  - Academic
   - DAT401
-  - Photoshop
+  - Video
 featured_image: dsc0073_small_22219352209_o.jpg
 ---
 

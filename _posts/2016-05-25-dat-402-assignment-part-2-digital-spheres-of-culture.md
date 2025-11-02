@@ -6,10 +6,8 @@ categories:
 - DAT402 - Digital Culture
 - Digital Art and Technology
 tags:
-- Academic
 - DAT402
 - Sound
-- Unity
 - Video
 featured_image: dat402-video-featured
 ---

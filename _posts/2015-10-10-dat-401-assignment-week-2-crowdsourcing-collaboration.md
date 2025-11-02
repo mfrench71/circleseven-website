@@ -6,10 +6,7 @@ categories:
 - DAT401 - Strategies for Digital Art and Technology
 - Digital Art and Technology
 tags:
-- Academic
 - DAT401
-- Photoshop
-- Sound
 - Video
 featured_image: the-fresh-prince-of-Bel-Air
 ---

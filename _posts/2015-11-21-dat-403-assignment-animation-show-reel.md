@@ -6,9 +6,9 @@ categories:
 - DAT403 - Digital Media Design
 - Digital Art and Technology
 tags:
-- Academic
 - DAT403
-- Photography
+- After Effects
+- Illustrator
 - Sound
 featured_image: animation-show-reel-featured-image
 ---

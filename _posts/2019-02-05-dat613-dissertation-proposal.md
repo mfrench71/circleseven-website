@@ -6,7 +6,6 @@ categories:
 - DAT613 - Dissertation
 - Digital Art and Technology
 tags:
-- Academic
 - DAT613
 - Photogrammetry
 featured_image: dissertation_cover

@@ -6,11 +6,8 @@ categories:
 - DAT406 - Digital Making
 - Digital Art and Technology
 tags:
-- Academic
 - Blender
 - DAT406
-- Photography
-- Photoshop
 featured_image: blender-ferature
 ---
 Brief: Your task within your groups is to create an animation using Blender suitable for easy playback within the Immersive Vision Theatre (IVT) exploring the theme of the multiverse.

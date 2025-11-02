@@ -9,6 +9,8 @@ tags:
   - DAT601
   - Sound
   - Video
+  - Arduino
+  - Programming
 featured_image: dsc0023_46699515701_o.jpg
 ---
 

@@ -6,7 +6,6 @@ categories:
   - DAT403 - Digital Media Design
   - Digital Art and Technology
 tags:
-  - Academic
   - DAT403
   - Photoshop
 featured_image: fracktured_title

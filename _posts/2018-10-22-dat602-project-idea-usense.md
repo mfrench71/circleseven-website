@@ -6,13 +6,7 @@ categories:
 - DAT602 - Everyware
 - Digital Art and Technology
 tags:
-- Academic
-- Arduino
 - DAT602
-- JavaScript
-- Photoshop
-- Unity
-- Web Development
 featured_image: usense-mockup-150-e1540204603760
 ---
 ## The Project Brief

@@ -6,11 +6,8 @@ categories:
 - DAT612 - Final Year Project
 - Digital Art and Technology
 tags:
-- Academic
-- Blender
 - DAT612
 - Photogrammetry
-- Photoshop
 featured_image: PalmyraArch_Destruction
 ---
 ## Outline of area of study/context

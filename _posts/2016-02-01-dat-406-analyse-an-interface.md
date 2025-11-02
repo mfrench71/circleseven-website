@@ -3,7 +3,7 @@ layout: post
 title: "DAT 406 - Analyse an interface"
 date: 2016-02-01 08:20:00 +0000
 categories: ["DAT406 - Digital Making", "Digital Art and Technology"]
-tags: ["DAT406", "Photoshop"]
+tags: ["DAT406"]
 
 ---
 ## Steering wheels and pedals of a car

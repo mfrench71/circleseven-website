@@ -6,15 +6,14 @@ categories:
 - DAT401 - Strategies for Digital Art and Technology
 - Digital Art and Technology
 tags:
-- Academic
 - DAT401
-- Photoshop
+- Video
 - Sound
 featured_image: Blade-Runner1
 ---
 Following on from the [previous post]({{ site.baseurl }}/dat-401-task-remix-workshop/), I spent some time mashing up some clips from my favourite movie, *Blade Runner*, with the audio from the latest *match.com* television advert.
 
-I find *match.com*'s adverts annoyinginly upbeat and optimistic, but this was perfect to juxtapose with the gloomy distopian visuals of the film.
+I find *match.com*'s adverts annoyingly upbeat and optimistic, but this was perfect to juxtapose with the gloomy distopian visuals of the film.
 
 And here's the result:
 

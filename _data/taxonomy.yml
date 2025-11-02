@@ -54,10 +54,6 @@ categories:
 tags:
   - item: Photography
     slug: photography
-  - item: Academic
-    slug: academic
-  - item: Tutorial
-    slug: tutorial
   - item: Web Development
     slug: web-development
   - item: JavaScript
@@ -78,6 +74,10 @@ tags:
     slug: arduino
   - item: Photogrammetry
     slug: photogrammetry
+  - item: Programming
+    slug: programming
+  - item: Processing
+    slug: processing
   - item: Video
     slug: video
   - item: Sound

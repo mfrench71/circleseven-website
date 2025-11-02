@@ -6,8 +6,9 @@ categories:
 - DAT504 - Advanced Web Technologies
 - Digital Art and Technology
 tags:
-- Academic
 - DAT504
+- Web Development
+- Programming
 featured_image: timebank_featured
 ---
 <h3>The Brief: Time Bank Web Application</h3>

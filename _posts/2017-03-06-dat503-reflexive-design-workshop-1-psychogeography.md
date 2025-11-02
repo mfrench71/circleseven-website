@@ -7,8 +7,6 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT503
-- Photography
-- Sound
 featured_image: debord-guide1-e1684144506924
 ---
 ## Psychogeography

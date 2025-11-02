@@ -8,7 +8,7 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT602
-- Sound
+- Programming
 featured_image: Screenshot-2018-10-27-at-12.48.21
 ---
 As part of the uSense project, we are intending that the device will be able to gauge a person's mood through the things they say, their facial features, and their social media postings. We can leverage IBM's Cognitive Services that are provided with IBM Watson.

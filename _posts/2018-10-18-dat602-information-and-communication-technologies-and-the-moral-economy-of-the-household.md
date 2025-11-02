@@ -7,9 +7,7 @@ categories:
 - DAT602 - Everyware
 - Digital Art and Technology
 tags:
-- Arduino
 - DAT602
-- Tutorial
 featured_image: houseplants-e1546866966913
 ---
 ## Homework

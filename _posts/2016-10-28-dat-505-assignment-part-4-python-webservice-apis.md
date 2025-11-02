@@ -6,9 +6,9 @@ categories:
 - DAT505 - Advanced Creative Coding
 - Digital Art and Technology
 tags:
-- Academic
 - DAT505
 - Python
+- Programming
 featured_image: python_tweet_feature
 ---
 Brief: For the next practical exercise you must create an auto-tweet agent. Your program should identify the most recent page viewed by your browser (by looking in either the "Current Session" or "History" file). It should then acquire the title of the page last viewed.

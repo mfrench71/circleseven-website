@@ -8,7 +8,7 @@ categories:
 tags:
 - Arduino
 - DAT406
-- JavaScript
+- Programming
 featured_image: IMG_1673-scaled-1
 ---
 This is the result of a practical task with [Arduino](http://www.arduino.cc) that uses a potentiometer to vary the flashing speed of an LED. The code listed in this article takes the analogue input from the potentiometer. This value is then used to vary the time between the LED being on and being off.

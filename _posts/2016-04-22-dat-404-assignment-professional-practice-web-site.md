@@ -6,9 +6,9 @@ categories:
 - DAT404 - Web Technologies
 - Digital Art and Technology
 tags:
-- Academic
 - DAT404
 - JavaScript
+- Programming
 - Photoshop
 - Web Development
 featured_image: assignment_feature

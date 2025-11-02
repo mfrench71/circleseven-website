@@ -6,9 +6,7 @@ categories:
 - DAT401 - Strategies for Digital Art and Technology
 - Digital Art and Technology
 tags:
-- After Effects
 - DAT401
-- Video
 featured_image: 6y7tez5wmDxe3NktQQAQxO9OGKP
 ---
 **Kylemcdonald.net – *Social Roulette***

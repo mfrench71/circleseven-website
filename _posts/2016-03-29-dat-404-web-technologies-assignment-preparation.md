@@ -6,7 +6,6 @@ categories:
 - DAT404 - Web Technologies
 - Digital Art and Technology
 tags:
-- Academic
 - DAT404
 - Web Development
 featured_image: mockup_feature

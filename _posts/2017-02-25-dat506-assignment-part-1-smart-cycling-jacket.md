@@ -6,11 +6,9 @@ categories:
 - DAT506 - Emerging Technologies
 - Digital Art and Technology
 tags:
-- Academic
 - Arduino
 - DAT506
-- Sound
-- Tutorial
+- Programming
 featured_image: IMG_1940-copy
 ---
 Brief: By embedding technology in items such as clothing and jewellery, the wearables movement aims to make smart clothes and devices that enhance everyday life. Working in groups, and using the fablab and workshop equipment and maker technologies we explore in the class, your task is to produce a piece of wearable technology which will be presented as part of a DAT fashion show.

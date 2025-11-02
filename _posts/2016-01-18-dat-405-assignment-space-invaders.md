@@ -6,8 +6,9 @@ categories:
 - DAT405 - Creative Coding
 - Digital Art and Technology
 tags:
-- Academic
 - DAT405
+- Programming
+- Processing
 featured_image: 0082
 ---
 >Brief: Your task in this final week of the module is to build a basic version of the classic Space Invaders Arcade game using the [Processing](http://www.processing.org) programming language.

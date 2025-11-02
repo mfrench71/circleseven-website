@@ -8,8 +8,7 @@ categories:
 tags:
   - DAT602
   - JavaScript
-  - Photography
-  - Python
+  - Programming
   - Web Development
 featured_image: matthew_result
 last_modified_at: 2025-10-31 10:44:09

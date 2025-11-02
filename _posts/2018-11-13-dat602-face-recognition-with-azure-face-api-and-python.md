@@ -6,10 +6,8 @@ categories:
 - DAT602 - Everyware
 - Digital Art and Technology
 tags:
-- Academic
 - DAT602
-- JavaScript
-- Photography
+- Programming
 - Python
 featured_image: face_detect-e1541676689943
 ---

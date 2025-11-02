@@ -6,7 +6,6 @@ categories:
 - DAT612 - Final Year Project
 - Digital Art and Technology
 tags:
-- Blender
 - DAT612
 - Photogrammetry
 - Photography

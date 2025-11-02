@@ -5,8 +5,6 @@ date: 2018-03-07 08:44:00 +0000
 categories:
 - Projects
 - Retro Computing
-tags:
-- Photoshop
 featured_image: 1280px-ZXSpectrum48k
 ---
 In the mid-1980s, I was a computer-obsessed teenager. The computer was Sir Clive Sinclair's rubber-keyed wonder, the [ZX Spectrum](https://en.wikipedia.org/wiki/ZX_Spectrum).

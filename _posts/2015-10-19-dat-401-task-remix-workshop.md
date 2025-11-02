@@ -7,9 +7,6 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT401
-- Photoshop
-- Python
-- Sound
 - Video
 featured_image: holygrail2
 ---

@@ -5,7 +5,8 @@ date: 2018-03-09T09:29:00.000Z
 categories:
   - Projects
   - Retro Computing
-tags: []
+tags:
+  - Programming
 featured_image: WhiteLightning-e1670345166147
 last_modified_at: 2025-11-01 16:47:00
 ---

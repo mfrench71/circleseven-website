@@ -6,12 +6,8 @@ categories:
 - Projects
 - Motion Graphics
 tags:
-- Academic
 - After Effects
 - Blender
-- Tutorial
-- Video
-- Web Development
 featured_image: blender-featured-image
 ---
 Some time ago, I was just starting out with Maxon's Cinema 4D application and followed along with [this tutorial](http://cgi.tutsplus.com/tutorials/create-a-powerful-groundbreaking-logo-reveal-cg-part--cg-27011), both as a learning exercise and because I liked the end result.

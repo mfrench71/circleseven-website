@@ -7,7 +7,6 @@ categories:
 - Digital Art and Technology
 tags:
 - DAT602
-- Sound
 featured_image: veldt
 ---
 ## Homework
