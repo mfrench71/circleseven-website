@@ -16,7 +16,7 @@ featured_image: blender-featured-image
 ---
 Some time ago, I was just starting out with Maxon's Cinema 4D application and followed along with [this tutorial](http://cgi.tutsplus.com/tutorials/create-a-powerful-groundbreaking-logo-reveal-cg-part--cg-27011), both as a learning exercise and because I liked the end result.
 
-Now having had a taste of [Blender](http://www.blender.org) as part of my [DAT406 university assignment](http://www.circleseven.co.uk/2016/02/27/dat-406-assignment-part-2-multiverse/), I was keen to repeat the learning process and so decided to use the same tutorial. This time I would apply the techniques, albeit it in a slightly less polished and refined form than in Joe's tutorial, to Blender. This is the result...
+Now having had a taste of [Blender](http://www.blender.org) as part of my [DAT406 university assignment]({{ site.baseurl }}/2016-02-27-dat-406-assignment-part-2-multiverse/), I was keen to repeat the learning process and so decided to use the same tutorial. This time I would apply the techniques, albeit it in a slightly less polished and refined form than in Joe's tutorial, to Blender. This is the result...
 
 <figure>
 <div class="embed-container">

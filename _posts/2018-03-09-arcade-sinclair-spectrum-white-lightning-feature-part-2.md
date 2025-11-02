@@ -46,7 +46,7 @@ Line 3: tests to see if SPACE or CAPS SHIFT are pressed and executes to words LE
 
 Line 4: Switches attributes off. Tests to see if SYMBOL SHIFT is pressed and stops if it is, other it executes TEST to continue the routine.
 
-Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), [here's the program again](http://www.circleseven.co.uk/arcade-sinclair-spectrum-white-lightning-feature-part-1/).
+Now the improvements on the program with the ball in last month's issue. For those who didn't get last month's issue (tsk, tsk!), [here's the program again]({{ site.baseurl }}/arcade-sinclair-spectrum-white-lightning-feature-part-1/).
 
 Change line 0 to:
 
