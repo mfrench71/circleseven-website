@@ -7,7 +7,7 @@ categories:
   - Photography
 tags:
   - Photography
-image: https://res.cloudinary.com/circleseven/image/upload/v1760720721/dsc_0025_16178123268_o.jpg
+featured_image: dsc_0025_16178123268_o
 ---
 A pair of images of a derelict black and white house on the Mordiford Loop walk in Mordiford, Herefordshire.
 

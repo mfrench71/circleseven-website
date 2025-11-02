@@ -9,7 +9,7 @@ tags:
   - Academic
   - DAT401
   - Photoshop
-featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760881627/dsc0073_small_22219352209_o.jpg
+featured_image: dsc0073_small_22219352209_o.jpg
 ---
 
 Brief: Working individually or in your groups, produce an intervention/remix/readymade action that will be documented as a short film.
