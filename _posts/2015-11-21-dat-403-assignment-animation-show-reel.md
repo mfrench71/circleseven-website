@@ -10,7 +10,7 @@ tags:
 - DAT403
 - Photography
 - Sound
-featured_image: 11/animation-show-reel-featured-image
+featured_image: animation-show-reel-featured-image
 ---
 Brief: Manufacture an animated show reel that displays the skills you have learnt from this module. This is the format for submitting your animation tests, experiments, graphics designs and After Effect's exploration in and out of the practical sessions. Each asset implemented must be your own work and individual to you. The show case of animated material should have an overarching theme or narrative. Focus is to be negotiated through discussion with the module leader. Add a description to the film describing and justifying the specific visual choices you have made. Break down the elements included and explain your theme/ narrative.
 
@@ -24,7 +24,7 @@ Brief: Manufacture an animated show reel that displays the skills you have lear
 
 The introductory title sequence consists of a 10 second animation to introduce the show reel. This was designed to be an eyecatching and dramatic opening moment, both visually and aurally.
 
-The background reflects my theme of red, amber and green: the colours used in my 'Greenlight Design' [corporate identity assets](http://www.circleseven.co.uk/2015/11/16/dat403-assignment-corporate-identity-design/), and provides a subtle background for the main part of the animation.
+The background reflects my theme of red, amber and green: the colours used in my 'Greenlight Design' [corporate identity assets](http://www.circleseven.co.uk/dat403-assignment-corporate-identity-design/), and provides a subtle background for the main part of the animation.
 
 Layered particle explosions are combined in a double explosion sequence. The first results in the 'DAT403 Show Reel' text emerging from the heart of the explosion. The follow-up detonation shatters and disperses the text title.
 

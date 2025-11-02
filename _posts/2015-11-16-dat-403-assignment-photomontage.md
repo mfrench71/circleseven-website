@@ -9,7 +9,7 @@ tags:
 - Academic
 - DAT403
 - Photoshop
-featured_image: 11/fracktured_title
+featured_image: fracktured_title
 ---
 Brief: Create a movie poster, using a composite of different images in Photoshop. Photos should be professionally cut-out, manipulated and blended together to create a carefully crafted and well justified design. The movie you're designing this marketing poster for is a documentary about a topical world issue that is important you. It should work as an original movie poster, including their traditional tropes but also work as a protest poster against something, activism art. Consider how this poster can benefit your portfolio.
 
@@ -30,7 +30,7 @@ The main elements of the concept poster were to include images of past and prese
 
 When I sat down to create the poster, I found the full title 'This is Rural England '15' was an odd size to fit on the poster. At about the same time, I also decided to focus the subject of my 'documentary' on the subject of fracking.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/11/fracktured_title"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/11/fracktured_title" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/11/fracktured_title 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/11/fracktured_title 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/11/fracktured_title 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_title"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/fracktured_title" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/fracktured_title 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/fracktured_title 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/fracktured_title 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" style="border-radius:6px" loading="lazy"></a></figure>
 
 This allowed me to use the short title 'Fracktured', which I felt conveyed more impact and also meant that I was able to use a large and suitable typeface (Alma Rough) for the main title. This was set against a contrasting yellow 'caution'-style tape background, to both highlight the title of the piece and to reflect the nature of the subject matter itself. This image was created in Photoshop using the Render Fibres command, combined with motion blur and gaussian blur effects. I duplicated the title text layer as this gave the text some needed clarity. Drop shadow and subtle glow were added as finishing touches to give some pop to this part of the composition.
 
