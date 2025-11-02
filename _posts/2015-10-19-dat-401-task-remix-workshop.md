@@ -11,7 +11,7 @@ tags:
 - Python
 - Sound
 - Video
-featured_image: 04/holygrail2
+featured_image: dmlogoholygrail2
 ---
 **Mashups and remixes** are a form of collage; placing found elements next to each other to create something new. They might be music mashups which (more or less) skilfully combine different songs into a new whole, comedy mashups of different videos or adbusts in which an advert is subverted by overlaying it with a new soundtrack.
 
@@ -29,4 +29,4 @@ My second effort utilised the Youtube Doubler website ([http://youtubedoubler.co
 
 Both these examples interest me as they each use humour to alter the perception of the material presented to the viewer.
 
-See [this post](http://www.circleseven.co.uk/2015/20/loveyourmorphology-blade-runner-vs-match-com/) for a more finished video mashup.
+See [this post](http://www.circleseven.co.uk/loveyourmorphology-blade-runner-vs-match-com/) for a more finished video mashup.

@@ -13,7 +13,7 @@ tags:
 - Tutorial
 - Video
 - Web Development
-featured_image: 12/blender-feature
+featured_image: blender-feature
 ---
 More learning and experimenting with my new favourite piece of software, Blender. Following Oliver Villar's [Blendtuts.com tutorial](http://blendtuts.com/tutorials-list/2015/2/15/how-to-create-a-3d-logo), I picked up some useful skills, particularly creating shapes using the bezier curve and handle types.The logo outline was created in Adobe Illustrator, set as a back ground image in Blender and then traced using bezier curves. You can draw squares by first drawing a circle and then changing the handle type to Vector - squaring the circle!
 

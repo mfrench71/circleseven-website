@@ -7,7 +7,7 @@ categories:
 - Retro Computing
 tags:
 - Photoshop
-featured_image: 12/zynaps-e1520423607776
+featured_image: zynaps-e1520423607776
 ---
 Zynaps is an arcade shoot-em-up computer game produced by [Hewson Consultants](http://www.hewsonconsultants.com/) and released in 1987 for the Sinclair ZX Spectrum personal computer (and other platforms).
 
