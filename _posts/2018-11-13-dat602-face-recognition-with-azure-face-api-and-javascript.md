@@ -11,7 +11,7 @@ tags:
   - Photography
   - Python
   - Web Development
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/matthew_result
+featured_image: matthew_result
 last_modified_at: 2025-10-31 10:44:09
 ---
 

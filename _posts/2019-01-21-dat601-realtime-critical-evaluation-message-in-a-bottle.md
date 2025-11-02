@@ -9,7 +9,7 @@ tags:
   - DAT601
   - Sound
   - Video
-featured_image: https://res.cloudinary.com/circleseven/image/upload/v1760879325/dsc0023_46699515701_o.jpg
+featured_image: dsc0023_46699515701_o.jpg
 ---
 
 ## Conception

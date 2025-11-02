@@ -10,7 +10,7 @@ tags:
 - DAT405
 featured_image: 0082
 ---
-<p class="brief">Brief: Your task in this final week of the module is to build a basic version of the classic Space Invaders Arcade game using the [Processing](http://www.processing.org) programming language.</p>
+>Brief: Your task in this final week of the module is to build a basic version of the classic Space Invaders Arcade game using the [Processing](http://www.processing.org) programming language.
 
 <figure>
 <div class="embed-container">

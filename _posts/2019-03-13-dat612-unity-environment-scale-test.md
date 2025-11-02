@@ -8,7 +8,7 @@ categories:
 tags:
   - DAT612
   - Unity
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/environment_01
+featured_image: environment_01
 last_modified_at: 2025-11-01 15:21:25
 ---
 

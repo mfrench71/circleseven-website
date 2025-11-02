@@ -9,7 +9,7 @@ tags:
   - Academic
   - DAT403
   - Photoshop
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_title
+featured_image: fracktured_title
 last_modified_at: 2025-11-02 11:26:01
 ---
 

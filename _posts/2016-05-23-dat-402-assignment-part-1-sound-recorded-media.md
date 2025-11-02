@@ -45,7 +45,7 @@ Burtt:
 <blockquote>“When I started out, it was very unusual for someone to be employed to make specific sounds for a film . . . Then along came George Lucas, who instructed me, 'Here, take this microphone and Nagra, take a year and go out and collect all the interesting sounds you can think of.'”
 </blockquote>
 
-[https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption](https://commons.wikimedia.org/w/index.php?curid=27478812)[/caption)]
+[https://commons.wikimedia.org/w/index.php?curid=27478812](https://commons.wikimedia.org/w/index.php?curid=27478812)
 
 Given free rein to assemble his own library of sound effects, Burtt was able to gather together a catalogue of sonic ideas that was unique to the film franchise.
 

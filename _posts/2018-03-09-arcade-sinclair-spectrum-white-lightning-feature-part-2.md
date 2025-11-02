@@ -6,7 +6,7 @@ categories:
   - Projects
   - Retro Computing
 tags: []
-featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/WhiteLightning-e1670345166147
+featured_image: WhiteLightning-e1670345166147
 last_modified_at: 2025-11-01 16:47:00
 ---
 
