@@ -10,7 +10,7 @@ tags:
   - DAT403
   - Photoshop
 featured_image: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_title
-last_modified_at: 2025-11-02 11:22:27
+last_modified_at: 2025-11-02 11:26:01
 ---
 
 Brief: Create a movie poster, using a composite of different images in Photoshop. Photos should be professionally cut-out, manipulated and blended together to create a carefully crafted and well justified design. The movie you're designing this marketing poster for is a documentary about a topical world issue that is important you. It should work as an original movie poster, including their traditional tropes but also work as a protest poster against something, activism art. Consider how this poster can benefit your portfolio.
@@ -47,9 +47,6 @@ Silhouettes of protesters wielding placards were superimposed on these backgroun
 The silhouettes were creating using a combination of Photoshop and illustrator. Creative Commons licensed images were sourced from Flickr and individuals were isolated from the background using Photoshop's selection tools. The outlines were then created using both Illustrator's Image Trace functionality and manually tracing the image using the Pen tool.
 
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_movie_poster_tropes-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/fracktured_movie_poster_tropes-scaled-1" width="212" height="300" alt="" loading="lazy"></a></figure>
-
-{% include cloudinary-image.html src="fracktured_movie_poster_tropes-scaled-1" alt="Description" %}
-
 
 Fictitious movie poster tropes were added to the image, including prominent star reviews, a tag line, cinema release date, a hash tag call to action and credits, including cast, crew, website and industry logos.
 
