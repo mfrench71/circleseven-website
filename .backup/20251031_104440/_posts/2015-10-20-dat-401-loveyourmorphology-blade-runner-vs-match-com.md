@@ -10,7 +10,7 @@ tags:
 - DAT401
 - Photoshop
 - Sound
-featured_image: 06/Blade-Runner1
+featured_image: Blade-Runner1
 ---
 <p>Following on from the <a href="{{ site.baseurl }}/dat-401-assignment-week-4-remixes-mashups-and-the-readymade/">previous post</a>, I spent some time mashing up some clips from my favourite movie, *Blade Runner*, with the audio from the latest *match.com* television advert.</p>
 
