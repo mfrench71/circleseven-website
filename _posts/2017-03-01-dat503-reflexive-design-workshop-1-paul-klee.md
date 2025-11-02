@@ -44,9 +44,9 @@ And here are the three interpretations:
 
 <div class="gallery">
 
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_1949_33170301305_o-768x1024.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o" width="768" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_1950_32787849760_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://www.circleseven.co.uk/wp-content/uploads/2023/img_1951_33170300335_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o-768x1024.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o" width="768" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
 </div>
 
