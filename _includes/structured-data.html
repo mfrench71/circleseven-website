@@ -1,4 +1,5 @@
 {% if page.layout == "post" %}
+{%- assign cloudinary_url = site.cloudinary_base_url -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -7,9 +8,17 @@
   "datePublished": "{{ page.date | date_to_xmlschema }}",
   "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
   {% if page.featured_image %}
+  {%- assign featured_img = page.featured_image | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
+  {%- if featured_img contains '/' -%}
+    {%- assign full_path = featured_img -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: featured_img -%}
+  {%- else -%}
+    {%- assign full_path = featured_img -%}
+  {%- endif -%}
   "image": {
     "@type": "ImageObject",
-    "url": "https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/{{ page.featured_image }}",
+    "url": "{{ cloudinary_url }}/q_auto,f_auto/{{ full_path }}",
     "width": 1200,
     "height": 630
   },

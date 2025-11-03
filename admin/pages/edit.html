@@ -464,7 +464,7 @@
 
     // Import modules for page editor functionality
     import { initNotifications, showError } from '/admin/js/ui/notifications.js';
-    import { loadSiteTitle } from '/admin/js/modules/settings.js';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js';
     import {
       editPage,
       showNewPageForm,
@@ -568,6 +568,9 @@
         // Initialize shared components with active page
         initHeader();
         initSidebar('pages');
+
+        // Load site config (needed for Cloudinary folder setting)
+        await loadSiteConfig();
 
         // Load site title
         await loadSiteTitle();

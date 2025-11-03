@@ -217,7 +217,7 @@
 
     // Import modules
     import { initNotifications } from '/admin/js/ui/notifications.js?v=1761218399';
-    import { loadSiteTitle } from '/admin/js/modules/settings.js?v=1761218399';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js?v=1761218399';
     import {
       loadMedia,
       renderMediaGrid,
@@ -273,6 +273,9 @@
         // Initialize shared components with active page
         initHeader();
         initSidebar('media');
+
+        // Load site config (needed for Cloudinary folder setting)
+        await loadSiteConfig();
 
         // Load site title
         await loadSiteTitle();

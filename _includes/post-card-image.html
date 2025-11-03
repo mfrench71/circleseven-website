@@ -50,14 +50,23 @@ Outputs thumbnail optimized for cards (300x200)
   {%- assign img_id = featured_img | remove: '.jpg' | remove: '.png' | remove: '.gif' | remove: '.webp' | remove: '.jpeg' -%}
   {%- assign loading_value = include.loading | default: "lazy" -%}
 
+  {%- comment -%} Prepend default folder if image doesn't already have a folder path {%- endcomment -%}
+  {%- if img_id contains '/' -%}
+    {%- assign full_path = img_id -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: img_id -%}
+  {%- else -%}
+    {%- assign full_path = img_id -%}
+  {%- endif -%}
+
   {%- if featured_img contains 'http' -%}
     <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
   {%- else -%}
     <img
-      src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ img_id }}"
-      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/{{ img_id }} 320w,
-              {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/{{ img_id }} 640w,
-              {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ img_id }} 960w"
+      src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ full_path }}"
+      srcset="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/{{ full_path }} 320w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/{{ full_path }} 640w,
+              {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ full_path }} 960w"
       sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
       alt="{{ include.post.title | escape }}"
       loading="{{ loading_value }}"

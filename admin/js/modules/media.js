@@ -467,7 +467,7 @@ export function openCloudinaryUpload() {
       sources: ['local', 'url', 'camera'],
       multiple: true,
       maxFiles: 10,
-      folder: '',
+      folder: window.siteConfig?.cloudinary_default_folder || '',
       resourceType: 'image',
       clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']
     }, (error, result) => {

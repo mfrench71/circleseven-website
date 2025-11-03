@@ -43,7 +43,8 @@ const EDITABLE_FIELDS = [
   'related_posts_count',
   'timezone',
   'lang',
-  'google_fonts'
+  'google_fonts',
+  'cloudinary_default_folder'
 ];
 
 /**

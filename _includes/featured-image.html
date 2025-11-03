@@ -56,17 +56,26 @@ Outputs image optimized for social sharing (1200x630)
   {%- comment -%} Featured images are typically above-fold, so default to eager loading for better LCP {%- endcomment -%}
   {%- assign loading_value = include.loading | default: "eager" -%}
 
+  {%- comment -%} Prepend default folder if image doesn't already have a folder path {%- endcomment -%}
+  {%- if img_id contains '/' -%}
+    {%- assign full_path = img_id -%}
+  {%- elsif site.cloudinary_default_folder and site.cloudinary_default_folder != '' -%}
+    {%- assign full_path = site.cloudinary_default_folder | append: '/' | append: img_id -%}
+  {%- else -%}
+    {%- assign full_path = img_id -%}
+  {%- endif -%}
+
   {%- comment -%} Check if it's already a full URL or just a filename {%- endcomment -%}
   {%- if featured_img contains 'http' -%}
     <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
   {%- else -%}
     <img
-      src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ img_id }}"
-      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto/{{ img_id }} 400w,
-              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto/{{ img_id }} 800w,
-              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto/{{ img_id }} 1200w,
-              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ img_id }} 1600w,
-              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ img_id }} 2400w"
+      src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ full_path }}"
+      srcset="{{ cloudinary_url }}/c_limit,w_400,h_300,q_auto,f_auto/{{ full_path }} 400w,
+              {{ cloudinary_url }}/c_limit,w_800,h_600,q_auto,f_auto/{{ full_path }} 800w,
+              {{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto/{{ full_path }} 1200w,
+              {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ full_path }} 1600w,
+              {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ full_path }} 2400w"
       sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
       alt="{{ page.title | escape }}"
       class="post-featured-image"

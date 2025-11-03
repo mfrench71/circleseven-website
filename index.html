@@ -19,7 +19,7 @@ layout: default-sidebar
             {% endif %}
           </a>
           <!-- Edit Button (only visible when logged in) -->
-          <a href="/admin-custom/posts/edit/{{ post.path | replace: '_posts/', '' }}"
+          <a href="/admin/posts/edit.html?file={{ post.path | replace: '_posts/', '' | uri_escape }}"
              class="edit-card-link"
              style="display: none;"
              title="Edit this post"

@@ -121,6 +121,39 @@ function updateTitleElements(title) {
 }
 
 /**
+ * Loads site configuration and stores it globally
+ *
+ * Fetches settings from the /settings API endpoint and stores them in window.siteConfig
+ * for use across all admin modules. This is a lightweight version that doesn't populate forms.
+ *
+ * @returns {Promise<Object>} Site configuration object
+ * @throws {Error} If settings load fails
+ *
+ * @example
+ * import { loadSiteConfig } from './modules/settings.js';
+ * const config = await loadSiteConfig();
+ * console.log(config.cloudinary_default_folder);
+ */
+export async function loadSiteConfig() {
+  try {
+    const response = await fetch(`${window.API_BASE}/settings`);
+    if (!response.ok) throw new Error('Failed to load site config');
+
+    const config = await response.json();
+
+    // Store globally for access by all modules
+    window.siteConfig = config;
+
+    return config;
+  } catch (error) {
+    logger.error('Failed to load site config:', error);
+    // Return empty object on error to prevent crashes
+    window.siteConfig = {};
+    return {};
+  }
+}
+
+/**
  * Loads site settings from the backend and populates form fields
  *
  * Fetches settings from the /settings API endpoint and populates all form inputs
@@ -153,8 +186,68 @@ export async function loadSettings() {
       localStorage.setItem('site_title', settings.title);
       updateTitleElements(settings.title);
     }
+
+    // Load Cloudinary folders after settings are loaded
+    await loadCloudinaryFolders();
   } catch (error) {
     showError('Failed to load settings: ' + error.message);
+  }
+}
+
+/**
+ * Loads Cloudinary folders and populates the folder dropdown
+ *
+ * Fetches the list of folders from Cloudinary via the cloudinary-folders API endpoint
+ * and populates the cloudinary_default_folder dropdown in the settings form.
+ *
+ * @throws {Error} If folders load fails
+ *
+ * @example
+ * import { loadCloudinaryFolders } from './modules/settings.js';
+ * await loadCloudinaryFolders();
+ */
+export async function loadCloudinaryFolders() {
+  try {
+    const dropdown = document.getElementById('setting-cloudinary_default_folder');
+    if (!dropdown) return; // Element doesn't exist on this page
+
+    // Fetch folders from Cloudinary API
+    const response = await fetch(`${window.API_BASE}/cloudinary-folders`);
+    if (!response.ok) {
+      throw new Error('Failed to load Cloudinary folders');
+    }
+
+    const data = await response.json();
+    const folders = data.folders || [];
+
+    // Clear existing options
+    dropdown.innerHTML = '';
+
+    // Add "Root (No Folder)" option
+    const rootOption = document.createElement('option');
+    rootOption.value = '';
+    rootOption.textContent = '(Root - No Folder)';
+    dropdown.appendChild(rootOption);
+
+    // Add each folder as an option
+    folders.forEach(folder => {
+      const option = document.createElement('option');
+      option.value = folder.path || folder.name;
+      option.textContent = folder.name || folder.path;
+      dropdown.appendChild(option);
+    });
+
+    // Get the current value from settings and set it
+    const response2 = await fetch(`${window.API_BASE}/settings`);
+    if (response2.ok) {
+      const settings = await response2.json();
+      if (settings.cloudinary_default_folder) {
+        dropdown.value = settings.cloudinary_default_folder;
+      }
+    }
+  } catch (error) {
+    logger.error('Failed to load Cloudinary folders:', error);
+    // Don't show error to user, just log it - the dropdown will show "Loading folders..." text
   }
 }
 

@@ -569,7 +569,7 @@
 
     // Import modules for post editor functionality
     import { initNotifications, showError } from '/admin/js/ui/notifications.js';
-    import { loadSiteTitle } from '/admin/js/modules/settings.js';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js';
     import { loadTaxonomy } from '/admin/js/modules/taxonomy.js';
     import {
       editPost,
@@ -679,6 +679,9 @@
         // Initialize shared components with active page
         initHeader();
         initSidebar('posts');
+
+        // Load site config (needed for Cloudinary folder setting)
+        await loadSiteConfig();
 
         // Load site title
         await loadSiteTitle();

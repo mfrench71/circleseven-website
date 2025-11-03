@@ -18,31 +18,55 @@
   // Hide links immediately
   hideAllEditLinks();
 
-  // Wait for Netlify Identity to be ready
-  if (window.netlifyIdentity) {
-    // Check current user immediately
-    const currentUser = netlifyIdentity.currentUser();
-    if (currentUser) {
-      updateEditLinks(currentUser);
+  // Initialize when Netlify Identity is ready
+  function initializeEditLinks() {
+    // Check for test mode first (used in admin for local development)
+    if (localStorage.getItem('TEST_MODE') === 'true') {
+      console.log('Edit links: Test mode enabled, showing edit links');
+      updateEditLinks({ email: 'test@playwright.dev' });
+      return;
     }
 
+    if (!window.netlifyIdentity) {
+      console.warn('Netlify Identity not loaded');
+      return;
+    }
+
+    // Check current user
+    const currentUser = netlifyIdentity.currentUser();
+    if (currentUser) {
+      console.log('Edit links: User is logged in', currentUser.email);
+      updateEditLinks(currentUser);
+    } else {
+      console.log('Edit links: No user logged in');
+    }
+
+    // Listen for auth events
     netlifyIdentity.on('init', user => {
+      console.log('Edit links: init event', user?.email);
       updateEditLinks(user);
     });
 
     netlifyIdentity.on('login', user => {
+      console.log('Edit links: login event', user?.email);
       updateEditLinks(user);
     });
 
     netlifyIdentity.on('logout', () => {
+      console.log('Edit links: logout event');
       updateEditLinks(null);
     });
+  }
 
-    // Check initial state when ready
-    netlifyIdentity.on('ready', () => {
-      const user = netlifyIdentity.currentUser();
-      updateEditLinks(user);
+  // Wait for both DOM and Netlify Identity to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Give Netlify Identity a moment to initialize
+      setTimeout(initializeEditLinks, 100);
     });
+  } else {
+    // DOM already loaded
+    setTimeout(initializeEditLinks, 100);
   }
 
   /**
@@ -51,10 +75,13 @@
   function updateEditLinks(user) {
     const editLinks = document.querySelectorAll('.edit-post-link, .edit-card-link');
 
+    console.log(`Edit links: Found ${editLinks.length} edit links, user: ${user ? 'logged in' : 'not logged in'}`);
+
     editLinks.forEach(link => {
       if (user) {
         link.style.display = '';
         link.classList.add('edit-link-visible');
+        console.log('Edit links: Showing link', link.href);
       } else {
         link.style.display = 'none';
         link.classList.remove('edit-link-visible');

@@ -232,6 +232,8 @@ function renderChooserGrid() {
 /**
  * Populates folder dropdown with unique folders from media
  *
+ * Pre-selects the default folder from site config if available.
+ *
  * @private
  */
 function populateFolderDropdown() {
@@ -252,9 +254,17 @@ function populateFolderDropdown() {
   // Sort folders alphabetically
   const sortedFolders = Array.from(folders).sort();
 
+  // Get default folder from site config
+  const defaultFolder = window.siteConfig?.cloudinary_default_folder || '';
+
   // Populate select options
   folderSelect.innerHTML = '<option value="">All Folders</option>' +
     sortedFolders.map(folder => `<option value="${escapeHtml(folder)}">${escapeHtml(folder)}</option>`).join('');
+
+  // Pre-select the default folder if it exists
+  if (defaultFolder && sortedFolders.includes(defaultFolder)) {
+    folderSelect.value = defaultFolder;
+  }
 }
 
 /**
