@@ -20,6 +20,24 @@
 import { escapeHtml } from '../core/utils.js';
 import logger from '../core/logger.js';
 
+/**
+ * Slugify a string to match Jekyll's default behavior
+ * Converts title to URL-safe slug
+ * @param {string} text - Text to slugify
+ * @returns {string} Slugified text
+ */
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '-')      // Replace non-word chars with -
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start
+    .replace(/-+$/, '');            // Trim - from end
+}
+
 // State
 let currentEditor = null;
 let currentSelection = null;
@@ -48,7 +66,7 @@ function populateContentItems() {
     contentItems = contentItems.concat(
       window.allPostsWithMetadata.map(post => ({
         title: post.frontmatter?.title || post.name,
-        url: `/${post.name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '')}/`,
+        url: post.frontmatter?.permalink || `/${slugify(post.frontmatter?.title || post.name)}/`,
         date: post.date,
         type: 'post'
       }))

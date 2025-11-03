@@ -15,7 +15,7 @@ Brief: In the next practical you must create a graphical visualisation of a text
 
 Rather than using Pygame to create your visualisation (which is powerful, but can be tricky to install), we will be using a library called graphics.py. This can just be dropped into your folder and used (no install needed).
 
-The data we were provided with were a list of our results from the [previous DAT 505 assignment]({{ site.baseurl }}/dat-505-assignment-part-1-mobile-app-development/):
+The data we were provided with were a list of our results from the [previous DAT 505 assignment]({{ site.baseurl }}/dat505-assignment-part-1-mobile-app-development/):
 
 52, 47, 57, 49, 59, 62, 44, 76, 52, 52, 44, 59, 59, 79, 59, 42, 57, 48, 80, 43, 72, 74, 59, 44, 57, 55, 49, 54, 54
 

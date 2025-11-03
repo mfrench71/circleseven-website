@@ -26,4 +26,4 @@ My second effort utilised the Youtube Doubler website ([http://youtubedoubler.co
 
 Both these examples interest me as they each use humour to alter the perception of the material presented to the viewer.
 
-See [this post]({{ site.baseurl }}/dat-401-loveyourmorphology-blade-runner-vs-match-com/) for a more finished video mashup.
+See [this post]({{ site.baseurl }}/dat401-loveyourmorphology-blade-runner-vs-match-com/) for a more finished video mashup.

@@ -30,4 +30,4 @@ The main functions of the completed web application are:
  	- Edit profile (skills)
  	- Site statistics
 
-[View the finished Time Bank web site]({{ site.baseurl }}/dat504).
+[View the finished Time Bank web site]({{ site.baseurl }}/dat504/).

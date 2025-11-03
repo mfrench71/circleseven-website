@@ -11,6 +11,6 @@ featured_image: dissertation_presentation_feature
 ---
 Below is the link to a Google slides document for my interim dissertation presentation based on the question:
 
-**Can artificial intelligence enhance the practice of digital cultural heritage?** ([Read more about my dissertation proposal]({{ site.baseurl }}/dat-613-dissertation-proposal/))
+**Can artificial intelligence enhance the practice of digital cultural heritage?** ([Read more about my dissertation proposal]({{ site.baseurl }}/dat613-dissertation-proposal/))
 
 **The presentation** [https://docs.google.com/presentation/d/1Z2iG8C_NDLF4Gp-oeAJUWACjDvxP8dKUuPr5KGvt08U/edit?usp=sharing](https://docs.google.com/presentation/d/1Z2iG8C_NDLF4Gp-oeAJUWACjDvxP8dKUuPr5KGvt08U/edit?usp=sharing){:target="_blank"}
