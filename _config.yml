@@ -52,6 +52,6 @@ exclude:
 email: mail@circleseven.co.uk
 baseurl: ''
 google_fonts:
-  enabled: true
+  enabled: false
   body_font: ''
   heading_font: ''
