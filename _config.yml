@@ -55,3 +55,4 @@ google_fonts:
   enabled: false
   body_font: Open Sans
   heading_font: Open Sans
+cloudinary_default_folder: circle-seven
