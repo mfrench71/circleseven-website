@@ -54,4 +54,4 @@ baseurl: ''
 google_fonts:
   enabled: true
   body_font: Open Sans
-  heading_font: ''
+  heading_font: Montserrat
