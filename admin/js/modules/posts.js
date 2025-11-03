@@ -1663,12 +1663,20 @@ export function updateImagePreview() {
   if (imageUrl) {
     // Construct full Cloudinary URL if it's a partial path
     let fullImageUrl = imageUrl;
+
+    // Get default folder from site config
+    const folder = window.siteConfig?.cloudinary_default_folder || '';
+    const folderPath = folder ? `${folder}/` : '';
+
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // Get default folder from site config
-      const folder = window.siteConfig?.cloudinary_default_folder || '';
-      const folderPath = folder ? `${folder}/` : '';
-      // Assume it's a partial Cloudinary path and construct full URL
+      // It's a partial path, construct full URL with folder
       fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
+    } else if (folderPath && imageUrl.includes('res.cloudinary.com/circleseven/image/upload/') && !imageUrl.includes(`/${folder}/`)) {
+      // It's a full Cloudinary URL but missing the folder, inject it
+      fullImageUrl = imageUrl.replace(
+        /\/image\/upload\/([^/]+\/)?/,
+        `/image/upload/$1${folderPath}`
+      );
     }
 
     // Show preview immediately
@@ -1703,11 +1711,20 @@ export function openImageModal() {
   if (imageUrl) {
     // Construct full Cloudinary URL if it's a partial path
     let fullImageUrl = imageUrl;
+
+    // Get default folder from site config
+    const folder = window.siteConfig?.cloudinary_default_folder || '';
+    const folderPath = folder ? `${folder}/` : '';
+
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // Get default folder from site config
-      const folder = window.siteConfig?.cloudinary_default_folder || '';
-      const folderPath = folder ? `${folder}/` : '';
+      // It's a partial path, construct full URL with folder
       fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
+    } else if (folderPath && imageUrl.includes('res.cloudinary.com/circleseven/image/upload/') && !imageUrl.includes(`/${folder}/`)) {
+      // It's a full Cloudinary URL but missing the folder, inject it
+      fullImageUrl = imageUrl.replace(
+        /\/image\/upload\/([^/]+\/)?/,
+        `/image/upload/$1${folderPath}`
+      );
     }
 
     // Reset image state
