@@ -107,6 +107,10 @@ protected: true
     const loadingText = document.getElementById('loading-text');
     const initialLoading = document.getElementById('initial-loading');
 
+    // Get default folder from site config
+    const defaultFolder = '{{ site.cloudinary_default_folder | default: "" }}';
+    const folderPath = defaultFolder ? `${defaultFolder}/` : '';
+
     let searchData = [];
     let idx;
     let currentResults = [];
@@ -266,10 +270,10 @@ protected: true
         } else {
           // It's a filename/public_id, construct Cloudinary URL
           const imgId = item.featured_image.replace(/\.(jpg|png|gif|webp|jpeg)$/i, '');
-          imageHtml = `<img src="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/${imgId}"
-                            srcset="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/${imgId} 320w,
-                                    {{ site.cloudinary_base_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/${imgId} 640w,
-                                    {{ site.cloudinary_base_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/${imgId} 960w"
+          imageHtml = `<img src="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/${folderPath}${imgId}"
+                            srcset="{{ site.cloudinary_base_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto/${folderPath}${imgId} 320w,
+                                    {{ site.cloudinary_base_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/${folderPath}${imgId} 640w,
+                                    {{ site.cloudinary_base_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/${folderPath}${imgId} 960w"
                             sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
                             alt="${item.title}"
                             loading="lazy"
