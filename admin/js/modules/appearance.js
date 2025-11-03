@@ -2,6 +2,9 @@
  * Appearance Module - Google Fonts Management
  */
 
+import { showError, showSuccess } from '../ui/notifications.js';
+import logger from '../core/logger.js';
+
 // Curated list of popular Google Fonts
 const GOOGLE_FONTS = [
   'Open Sans',
