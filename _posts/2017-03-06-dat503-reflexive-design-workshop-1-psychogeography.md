@@ -35,8 +35,8 @@ Dérive:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1953_33170312145_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1953_33170312145_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1957_33128679056_o-1024x768.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1957_33128679056_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1953_33170312145_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1953_33170312145_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1957_33128679056_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1957_33128679056_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
 
 </div>
 
