@@ -1664,8 +1664,11 @@ export function updateImagePreview() {
     // Construct full Cloudinary URL if it's a partial path
     let fullImageUrl = imageUrl;
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+      // Get default folder from site config
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
       // Assume it's a partial Cloudinary path and construct full URL
-      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
     }
 
     // Show preview immediately
@@ -1701,7 +1704,10 @@ export function openImageModal() {
     // Construct full Cloudinary URL if it's a partial path
     let fullImageUrl = imageUrl;
     if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+      // Get default folder from site config
+      const folder = window.siteConfig?.cloudinary_default_folder || '';
+      const folderPath = folder ? `${folder}/` : '';
+      fullImageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${folderPath}${imageUrl}`;
     }
 
     // Reset image state
