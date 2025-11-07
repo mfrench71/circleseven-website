@@ -42,24 +42,13 @@ permalink: /contact/
         <button type="submit" class="submit-btn">Send Message</button>
       </div>
     </form>
-
-    <div class="contact-info">
-      <h2>Connect With Me</h2>
-      <p>You can also find me on social media:</p>
-      <ul class="social-links-list">
-        <li><a href="https://twitter.com/matthewfrench71" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
-        <li><a href="https://github.com/mfrench71" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/matthew-french" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="https://www.youtube.com/@matthewfrench71" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-      </ul>
-    </div>
   </div>
 </div>
 
 <style>
 .contact-form {
   max-width: 600px;
-  margin: 0 auto 3rem;
+  margin: 0 auto;
 }
 
 .form-group {
@@ -111,35 +100,5 @@ permalink: /contact/
 
 .submit-btn:hover {
   background-color: #2980b9;
-}
-
-.contact-info {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-}
-
-.contact-info h2 {
-  margin-top: 0;
-}
-
-.social-links-list {
-  list-style: none;
-  padding: 0;
-}
-
-.social-links-list li {
-  margin-bottom: 0.5rem;
-}
-
-.social-links-list a {
-  color: #3498db;
-  text-decoration: none;
-}
-
-.social-links-list a:hover {
-  text-decoration: underline;
 }
 </style>
