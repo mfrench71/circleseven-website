@@ -16,11 +16,14 @@
 const https = require('https');
 
 // Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = 'circleseven';
-const CLOUDINARY_API_KEY = '732138267195618';
+const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
+const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 // Check for required environment variables
+if (!CLOUDINARY_API_KEY) {
+  console.error('CLOUDINARY_API_KEY environment variable is not set');
+}
 if (!CLOUDINARY_API_SECRET) {
   console.error('CLOUDINARY_API_SECRET environment variable is not set');
 }
@@ -77,14 +80,14 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Check if API secret is configured
-    if (!CLOUDINARY_API_SECRET) {
+    // Check if API credentials are configured
+    if (!CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
       return {
         statusCode: 500,
         headers,
         body: JSON.stringify({
           error: 'Configuration error',
-          message: 'CLOUDINARY_API_SECRET environment variable is not set. Please add it to Netlify environment variables.'
+          message: 'CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET environment variables must be set. Please add them to Netlify environment variables.'
         })
       };
     }
