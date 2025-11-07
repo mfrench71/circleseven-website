@@ -47,8 +47,7 @@ permalink: /contact/
 
 <style>
 .contact-form {
-  max-width: 600px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .form-group {
@@ -87,7 +86,7 @@ permalink: /contact/
 }
 
 .submit-btn {
-  background-color: #3498db;
+  background-color: #14b8a6;
   color: white;
   padding: 0.75rem 2rem;
   border: none;
@@ -99,6 +98,6 @@ permalink: /contact/
 }
 
 .submit-btn:hover {
-  background-color: #2980b9;
+  background-color: #0d9488;
 }
 </style>
