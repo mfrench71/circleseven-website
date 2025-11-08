@@ -738,6 +738,7 @@ describe('Posts Module', () => {
       it('updates existing post with sha', async () => {
         window.currentPost = {
           name: '2025-10-22-existing.md',
+          path: '_posts/2025-10-22-existing.md',
           sha: 'oldsha123',
           frontmatter: {}
         };
@@ -1010,7 +1011,17 @@ describe('Posts Module', () => {
         expect.stringContaining('.md')
       );
 
-      // Delete post
+      // Delete post - set currentPost in case it was cleared
+      window.currentPost = {
+        name: '2025-10-22-integration-test-post.md',
+        path: '_posts/2025-10-22-integration-test-post.md',
+        sha: 'update456',
+        frontmatter: {
+          title: 'Updated Post Title',
+          date: '2025-10-22 10:30:00'
+        }
+      };
+
       mockShowConfirm.mockResolvedValue(true);
       mockFetch.mockResolvedValueOnce({
         ok: true,
@@ -1019,9 +1030,11 @@ describe('Posts Module', () => {
 
       await deletePost();
 
-      expect(window.trackDeployment).toHaveBeenCalledWith(
+      expect(window.trackDeployment).toHaveBeenCalledTimes(3);
+      expect(window.trackDeployment).toHaveBeenNthCalledWith(
+        3,
         'delete789',
-        expect.stringContaining('Delete'),
+        expect.stringContaining('bin'),
         expect.stringContaining('.md')
       );
     });
