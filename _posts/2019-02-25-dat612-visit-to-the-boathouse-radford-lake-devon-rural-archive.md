@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT612
 - Photography
+leaflet: true
 featured_image: IMG_0135-e1550843072802-scaled-1
 ---
 Just 10 minutes walk from my home is Radford Lake, a picturesque body of water set amongst woodland and parkland. At one end of the lake, hidden amongst the trees stands the ruin of an old boathouse.
