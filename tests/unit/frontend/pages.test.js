@@ -583,7 +583,7 @@ describe('Pages Module', () => {
   describe('editPage', () => {
     it('fetches page content and populates form', async () => {
       const mockPage = {
-        content: '# About Us\n\nThis is the about page.',
+        body: '# About Us\n\nThis is the about page.',
         frontmatter: {
           title: 'About Us',
           permalink: '/about/',
@@ -602,6 +602,9 @@ describe('Pages Module', () => {
       });
 
       await editPage('about.md', false);
+
+      // Wait for requestAnimationFrame to complete
+      await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(mockFetch).toHaveBeenCalledWith(
         '/.netlify/functions/pages?path=about.md'
