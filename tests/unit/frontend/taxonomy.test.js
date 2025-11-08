@@ -66,6 +66,8 @@ describe('Taxonomy Module', () => {
     window.API_BASE = '/.netlify/functions';
     window.categories = [];
     window.tags = [];
+    window.categoriesTree = [];
+    window.tagsTree = [];
     window.lastSavedState = null;
     window.isDirty = false;
     window.sortableInstances = { categories: null, tags: null };
@@ -96,7 +98,9 @@ describe('Taxonomy Module', () => {
     it('fetches taxonomy from API and updates state', async () => {
       const mockData = {
         categories: ['Technology', 'Design', 'Development'],
-        tags: ['javascript', 'css', 'html']
+        tags: ['javascript', 'css', 'html'],
+        categoriesTree: [],
+        tagsTree: []
       };
 
       mockFetch.mockResolvedValue({
@@ -149,7 +153,9 @@ describe('Taxonomy Module', () => {
     it('renders categories and tags after loading', async () => {
       const mockData = {
         categories: ['Test Category'],
-        tags: ['test-tag']
+        tags: ['test-tag'],
+        categoriesTree: [],
+        tagsTree: []
       };
 
       mockFetch.mockResolvedValue({
@@ -711,7 +717,7 @@ describe('Taxonomy Module', () => {
       await saveTaxonomy();
 
       expect(window.lastSavedState).toBe(
-        JSON.stringify({ categories: ['Cat1'], tags: ['tag1'] })
+        JSON.stringify({ categories: ['Cat1'], tags: ['tag1'], categoriesTree: [], tagsTree: [] })
       );
       expect(window.isDirty).toBe(false);
     });
