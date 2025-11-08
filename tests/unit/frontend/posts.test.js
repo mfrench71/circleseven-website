@@ -214,7 +214,7 @@ describe('Posts Module', () => {
 
         const filename = generateFilename(title, date);
 
-        expect(filename).toMatch(/^2025-10-22-.+\.md$/);
+        expect(filename).toBe('2025-10-22-.md');
       });
 
       it('uses date from Date object', () => {
@@ -228,14 +228,15 @@ describe('Posts Module', () => {
     });
 
     describe('formatDateShort', () => {
-      it('formats date as DD MMM YYYY', () => {
+      it('formats date as DD MMM YYYY, HH:MM', () => {
         const date = new Date('2025-10-22T10:30:00');
 
         const formatted = formatDateShort(date);
 
-        expect(formatted).toMatch(/^\d{2} \w{3} \d{4}$/);
+        expect(formatted).toMatch(/^\d{2} \w{3} \d{4}, \d{2}:\d{2}$/);
         expect(formatted).toContain('Oct');
         expect(formatted).toContain('2025');
+        expect(formatted).toContain('10:30');
       });
 
       it('handles string dates', () => {
