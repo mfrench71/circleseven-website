@@ -54,7 +54,11 @@ function githubRequest(path, options = {}) {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
+          try {
+            resolve(JSON.parse(data));
+          } catch (error) {
+            reject(new Error(`Failed to parse GitHub API response: ${error.message}`));
+          }
         } else {
           reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
         }
@@ -175,20 +179,57 @@ exports.handler = async (event, context) => {
 
       const requestBody = JSON.parse(event.body);
 
-      // Accept either flat arrays (backwards compat) or hierarchical trees
-      const categoriesTree = requestBody.categoriesTree ||
-        (requestBody.categories || []).map(c => ({ item: c, slug: '', children: [] }));
-      const tagsTree = requestBody.tagsTree ||
-        (requestBody.tags || []).map(t => ({ item: t, slug: '' }));
-
-      // Validate input
-      if (!Array.isArray(categoriesTree) || !Array.isArray(tagsTree)) {
+      // Validate input first
+      if (requestBody.categories !== undefined && !Array.isArray(requestBody.categories)) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
         };
       }
+      if (requestBody.tags !== undefined && !Array.isArray(requestBody.tags)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
+        };
+      }
+      if (requestBody.categoriesTree !== undefined && !Array.isArray(requestBody.categoriesTree)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
+        };
+      }
+      if (requestBody.tagsTree !== undefined && !Array.isArray(requestBody.tagsTree)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
+        };
+      }
+
+      // Check required fields (either flat or tree format)
+      if (!requestBody.categories && !requestBody.categoriesTree) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Missing required field: categories or categoriesTree' })
+        };
+      }
+      if (!requestBody.tags && !requestBody.tagsTree) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Missing required field: tags or tagsTree' })
+        };
+      }
+
+      // Accept either flat arrays (backwards compat) or hierarchical trees
+      const categoriesTree = requestBody.categoriesTree ||
+        (requestBody.categories || []).map(c => ({ item: c, slug: '', children: [] }));
+      const tagsTree = requestBody.tagsTree ||
+        (requestBody.tags || []).map(t => ({ item: t, slug: '' }));
 
       // Get current file to get its SHA
       const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);

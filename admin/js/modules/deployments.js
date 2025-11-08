@@ -151,7 +151,7 @@ export function addToDeploymentHistory(deployment) {
     itemId: deployment.itemId,
     status: deployment.status,
     startedAt: deployment.startedAt,
-    completedAt: new Date(),
+    completedAt: deployment.completedAt || new Date(),
     duration: Math.floor((new Date() - new Date(deployment.startedAt)) / 1000)
   });
   saveDeploymentHistory(history);

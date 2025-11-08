@@ -10,7 +10,7 @@ import {
   renderBinList,
   restoreItem,
   permanentlyDeleteItem,
-  getBinedItems
+  getBinnedItems
 } from '../../../admin/js/modules/bin.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
@@ -22,11 +22,11 @@ describe('Bin Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
       <div id="bin-loading" class="">Loading...</div>
       <ul id="bin-list"></ul>
-      <div id="bin-empty" class="hidden">Bin is empty</div>
+      <div id="bin-empty" class="d-none">Bin is empty</div>
     `;
 
     // Initialize notifications
@@ -34,7 +34,7 @@ describe('Bin Module', () => {
 
     // Setup window globals
     window.API_BASE = '/.netlify/functions';
-    window.allBinedItems = [];
+    window.allBinnedItems = [];
     window.showConfirm = mockShowConfirm = vi.fn();
     window.trackDeployment = mockTrackDeployment = vi.fn();
 
@@ -48,7 +48,7 @@ describe('Bin Module', () => {
   });
 
   describe('loadBin', () => {
-    it('fetches bin items from API and updates window.allBinedItems', async () => {
+    it('fetches bin items from API and updates window.allBinnedItems', async () => {
       const mockBin = {
         items: [
           {
@@ -56,14 +56,14 @@ describe('Bin Module', () => {
             sha: 'abc123',
             type: 'post',
             size: 1024,
-            bined_at: '2025-10-20T10:00:00Z'
+            binned_at: '2025-10-20T10:00:00Z'
           },
           {
             name: 'deleted-page.md',
             sha: 'def456',
             type: 'page',
             size: 2048,
-            bined_at: '2025-10-19T14:30:00Z'
+            binned_at: '2025-10-19T14:30:00Z'
           }
         ]
       };
@@ -76,8 +76,8 @@ describe('Bin Module', () => {
       await loadBin();
 
       expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/bin');
-      expect(window.allBinedItems).toEqual(mockBin.items);
-      expect(window.allBinedItems.length).toBe(2);
+      expect(window.allBinnedItems).toEqual(mockBin.items);
+      expect(window.allBinnedItems.length).toBe(2);
     });
 
     it('handles empty items array', async () => {
@@ -88,7 +88,7 @@ describe('Bin Module', () => {
 
       await loadBin();
 
-      expect(window.allBinedItems).toEqual([]);
+      expect(window.allBinnedItems).toEqual([]);
     });
 
     it('handles missing items property', async () => {
@@ -99,7 +99,7 @@ describe('Bin Module', () => {
 
       await loadBin();
 
-      expect(window.allBinedItems).toEqual([]);
+      expect(window.allBinnedItems).toEqual([]);
     });
 
     it('shows error when API fetch fails', async () => {
@@ -111,7 +111,7 @@ describe('Bin Module', () => {
       await loadBin();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('Failed to load bin');
     });
 
@@ -121,7 +121,7 @@ describe('Bin Module', () => {
       await loadBin();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides loading indicator after load', async () => {
@@ -131,41 +131,41 @@ describe('Bin Module', () => {
       });
 
       const loadingEl = document.getElementById('bin-loading');
-      loadingEl.classList.remove('hidden');
+      loadingEl.classList.remove('d-none');
 
       await loadBin();
 
-      expect(loadingEl.classList.contains('hidden')).toBe(true);
+      expect(loadingEl.classList.contains('d-none')).toBe(true);
     });
 
     it('hides loading indicator even on error', async () => {
       mockFetch.mockRejectedValue(new Error('Network error'));
 
       const loadingEl = document.getElementById('bin-loading');
-      loadingEl.classList.remove('hidden');
+      loadingEl.classList.remove('d-none');
 
       await loadBin();
 
-      expect(loadingEl.classList.contains('hidden')).toBe(true);
+      expect(loadingEl.classList.contains('d-none')).toBe(true);
     });
   });
 
   describe('renderBinList', () => {
     beforeEach(() => {
-      window.allBinedItems = [
+      window.allBinnedItems = [
         {
           name: 'deleted-post.md',
           sha: 'abc123',
           type: 'post',
           size: 1024,
-          bined_at: '2025-10-20T10:00:00Z'
+          binned_at: '2025-10-20T10:00:00Z'
         },
         {
           name: 'deleted-page.md',
           sha: 'def456',
           type: 'page',
           size: 2048,
-          bined_at: '2025-10-19T14:30:00Z'
+          binned_at: '2025-10-19T14:30:00Z'
         }
       ];
     });
@@ -180,7 +180,7 @@ describe('Bin Module', () => {
     });
 
     it('shows empty state when no items in bin', () => {
-      window.allBinedItems = [];
+      window.allBinnedItems = [];
 
       renderBinList();
 
@@ -188,16 +188,16 @@ describe('Bin Module', () => {
       const emptyEl = document.getElementById('bin-empty');
 
       expect(listEl.innerHTML).toBe('');
-      expect(emptyEl.classList.contains('hidden')).toBe(false);
+      expect(emptyEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides empty state when items exist', () => {
       const emptyEl = document.getElementById('bin-empty');
-      emptyEl.classList.remove('hidden');
+      emptyEl.classList.remove('d-none');
 
       renderBinList();
 
-      expect(emptyEl.classList.contains('hidden')).toBe(true);
+      expect(emptyEl.classList.contains('d-none')).toBe(true);
     });
 
     it('displays correct type badges for posts and pages', () => {
@@ -206,12 +206,12 @@ describe('Bin Module', () => {
       const listEl = document.getElementById('bin-list');
       const html = listEl.innerHTML;
 
-      // Post should have blue badge
-      expect(html).toContain('bg-blue-100 text-blue-700');
+      // Post should have primary badge (Bootstrap)
+      expect(html).toContain('bg-primary bg-opacity-10 text-primary');
       expect(html).toContain('Post');
 
-      // Page should have purple badge
-      expect(html).toContain('bg-purple-100 text-purple-700');
+      // Page should have info badge (Bootstrap)
+      expect(html).toContain('bg-info bg-opacity-10 text-info');
       expect(html).toContain('Page');
     });
 
@@ -223,7 +223,7 @@ describe('Bin Module', () => {
       expect(listEl.innerHTML).toContain('2.0 KB'); // 2048 / 1024
     });
 
-    it('formats bined_at timestamp correctly', () => {
+    it('formats binned_at timestamp correctly', () => {
       renderBinList();
 
       const listEl = document.getElementById('bin-list');
@@ -231,13 +231,13 @@ describe('Bin Module', () => {
       expect(listEl.innerHTML).toContain('Deleted:');
     });
 
-    it('handles items without bined_at timestamp', () => {
-      window.allBinedItems = [{
+    it('handles items without binned_at timestamp', () => {
+      window.allBinnedItems = [{
         name: 'no-timestamp.md',
         sha: 'xyz789',
         type: 'post',
         size: 512
-        // No bined_at field
+        // No binned_at field
       }];
 
       renderBinList();
@@ -247,12 +247,12 @@ describe('Bin Module', () => {
     });
 
     it('escapes HTML in item names to prevent XSS', () => {
-      window.allBinedItems = [{
+      window.allBinnedItems = [{
         name: '<script>alert("XSS")</script>.md',
         sha: 'xss123',
         type: 'post',
         size: 1024,
-        bined_at: '2025-10-20T10:00:00Z'
+        binned_at: '2025-10-20T10:00:00Z'
       }];
 
       renderBinList();
@@ -343,7 +343,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true, commitSha: 'commit123' })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -371,7 +371,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true, commitSha: 'commit123' })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -390,14 +390,14 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
       await restoreItem('my-post.md', 'abc123', 'post');
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('Post restored');
     });
 
@@ -408,7 +408,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-page.md', sha: 'def456', type: 'page', size: 2048 }
       ];
 
@@ -425,15 +425,15 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 },
         { name: 'other-post.md', sha: 'xyz789', type: 'post', size: 512 }
       ];
 
       await restoreItem('my-post.md', 'abc123', 'post');
 
-      expect(window.allBinedItems.length).toBe(1);
-      expect(window.allBinedItems[0].name).toBe('other-post.md');
+      expect(window.allBinnedItems.length).toBe(1);
+      expect(window.allBinnedItems[0].name).toBe('other-post.md');
     });
 
     it('shows error when restore fails', async () => {
@@ -446,7 +446,7 @@ describe('Bin Module', () => {
       await restoreItem('my-post.md', 'abc123', 'post');
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('Failed to restore post');
     });
 
@@ -457,7 +457,7 @@ describe('Bin Module', () => {
       await restoreItem('my-post.md', 'abc123', 'post');
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
   });
 
@@ -487,7 +487,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true, commitSha: 'commit456' })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -515,7 +515,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true, commitSha: 'commit456' })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
@@ -534,14 +534,14 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 }
       ];
 
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('Post permanently deleted');
     });
 
@@ -552,7 +552,7 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-page.md', sha: 'def456', type: 'page', size: 2048 }
       ];
 
@@ -569,15 +569,15 @@ describe('Bin Module', () => {
         json: async () => ({ success: true })
       });
 
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'my-post.md', sha: 'abc123', type: 'post', size: 1024 },
         { name: 'other-post.md', sha: 'xyz789', type: 'post', size: 512 }
       ];
 
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
-      expect(window.allBinedItems.length).toBe(1);
-      expect(window.allBinedItems[0].name).toBe('other-post.md');
+      expect(window.allBinnedItems.length).toBe(1);
+      expect(window.allBinnedItems[0].name).toBe('other-post.md');
     });
 
     it('shows error when deletion fails', async () => {
@@ -590,7 +590,7 @@ describe('Bin Module', () => {
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('Failed to delete post');
     });
 
@@ -601,37 +601,37 @@ describe('Bin Module', () => {
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
   });
 
-  describe('getBinedItems', () => {
+  describe('getBinnedItems', () => {
     it('returns current bined items array', () => {
       const mockItems = [
         { name: 'item1.md', sha: 'abc', type: 'post', size: 1024 },
         { name: 'item2.md', sha: 'def', type: 'page', size: 2048 }
       ];
 
-      window.allBinedItems = mockItems;
+      window.allBinnedItems = mockItems;
 
-      const items = getBinedItems();
+      const items = getBinnedItems();
 
       expect(items).toEqual(mockItems);
       expect(items.length).toBe(2);
     });
 
     it('returns empty array when no items', () => {
-      window.allBinedItems = [];
+      window.allBinnedItems = [];
 
-      const items = getBinedItems();
+      const items = getBinnedItems();
 
       expect(items).toEqual([]);
     });
 
-    it('returns empty array when allBinedItems is undefined', () => {
-      window.allBinedItems = undefined;
+    it('returns empty array when allBinnedItems is undefined', () => {
+      window.allBinnedItems = undefined;
 
-      const items = getBinedItems();
+      const items = getBinnedItems();
 
       expect(items).toEqual([]);
     });
@@ -644,13 +644,13 @@ describe('Bin Module', () => {
         ok: true,
         json: async () => ({
           items: [
-            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, bined_at: '2025-10-20T10:00:00Z' }
+            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, binned_at: '2025-10-20T10:00:00Z' }
           ]
         })
       });
 
       await loadBin();
-      expect(window.allBinedItems.length).toBe(1);
+      expect(window.allBinnedItems.length).toBe(1);
 
       // Render list
       renderBinList();
@@ -666,7 +666,7 @@ describe('Bin Module', () => {
 
       await restoreItem('deleted-post.md', 'abc123', 'post');
 
-      expect(window.allBinedItems.length).toBe(0);
+      expect(window.allBinnedItems.length).toBe(0);
       expect(mockTrackDeployment).toHaveBeenCalled();
     });
 
@@ -676,13 +676,13 @@ describe('Bin Module', () => {
         ok: true,
         json: async () => ({
           items: [
-            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, bined_at: '2025-10-20T10:00:00Z' }
+            { name: 'deleted-post.md', sha: 'abc123', type: 'post', size: 1024, binned_at: '2025-10-20T10:00:00Z' }
           ]
         })
       });
 
       await loadBin();
-      expect(window.allBinedItems.length).toBe(1);
+      expect(window.allBinnedItems.length).toBe(1);
 
       // Permanently delete item
       mockShowConfirm.mockResolvedValue(true);
@@ -693,24 +693,24 @@ describe('Bin Module', () => {
 
       await permanentlyDeleteItem('deleted-post.md', 'abc123', 'post');
 
-      expect(window.allBinedItems.length).toBe(0);
+      expect(window.allBinnedItems.length).toBe(0);
       expect(mockTrackDeployment).toHaveBeenCalled();
     });
 
     it('handles cancelled operations gracefully', async () => {
-      window.allBinedItems = [
+      window.allBinnedItems = [
         { name: 'item.md', sha: 'abc', type: 'post', size: 1024 }
       ];
 
       // User cancels restore
       mockShowConfirm.mockResolvedValue(false);
       await restoreItem('item.md', 'abc', 'post');
-      expect(window.allBinedItems.length).toBe(1); // Still there
+      expect(window.allBinnedItems.length).toBe(1); // Still there
 
       // User cancels delete
       mockShowConfirm.mockResolvedValue(false);
       await permanentlyDeleteItem('item.md', 'abc', 'post');
-      expect(window.allBinedItems.length).toBe(1); // Still there
+      expect(window.allBinnedItems.length).toBe(1); // Still there
     });
   });
 });

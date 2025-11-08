@@ -1,51 +1,25 @@
 /**
+ * @vitest-environment node
+ *
  * Unit Tests for Deployment History Netlify Function
  *
  * Tests retrieval of recent GitHub Actions workflow runs.
  * Covers GET operation for deployment history dashboard display.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
-
-// Mock the https module
-vi.mock('https');
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
+import { mockWorkflowRuns, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/deployment-history.js';
 
 describe('Deployment History Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
-    // Mock environment variables
+  beforeEach(() => {
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
-
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      write: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/deployment-history.js');
-    handler = module.handler;
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    cleanMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -68,10 +42,7 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      mockWorkflowRuns([]);
 
       const response = await handler(event, {});
 
@@ -109,10 +80,7 @@ describe('Deployment History Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
 
@@ -163,10 +131,7 @@ describe('Deployment History Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -225,10 +190,7 @@ describe('Deployment History Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -277,10 +239,7 @@ describe('Deployment History Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -306,10 +265,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/1'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -333,10 +289,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/1'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -360,10 +313,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/1'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -387,10 +337,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/1'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -414,10 +361,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/999'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -449,10 +393,7 @@ describe('Deployment History Function', () => {
         html_url: 'https://github.com/actions/runs/1'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -465,10 +406,7 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      mockWorkflowRuns([]);
 
       const response = await handler(event, {});
 
@@ -482,21 +420,12 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      const scope = mockWorkflowRuns([]);
 
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.github.com');
-      expect(requestOptions.path).toContain('/repos/mfrench71/circleseven-website/actions/runs');
-      expect(requestOptions.path).toContain('per_page=20');
-      expect(requestOptions.path).toContain('branch=main');
-      expect(requestOptions.method).toBe('GET');
-      expect(requestOptions.headers['Authorization']).toBe('token test-github-token-12345');
+      // Verify nock intercepted the request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('returns 503 when GITHUB_TOKEN is missing', async () => {
@@ -519,10 +448,7 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Rate limit exceeded' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 403, 'Rate limit exceeded');
 
       const response = await handler(event, {});
 
@@ -553,10 +479,7 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -573,10 +496,7 @@ describe('Deployment History Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -586,27 +506,4 @@ describe('Deployment History Function', () => {
       delete process.env.NODE_ENV;
     });
   });
-
-  // Helper function
-  function setupGitHubMock({ statusCode, body }) {
-    mockResponse.statusCode = statusCode;
-
-    https.request.mockImplementation((options, callback) => {
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(body);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
 });

@@ -21,8 +21,8 @@ describe('Image Chooser Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
     `;
 
     // Initialize notifications
@@ -105,7 +105,7 @@ describe('Image Chooser Module', () => {
 
       const modal = document.getElementById('image-chooser-modal');
       expect(modal).toBeTruthy();
-      expect(modal.classList.contains('hidden')).toBe(false);
+      expect(modal.classList.contains('d-none')).toBe(false);
     });
 
     it('reuses existing modal element', async () => {
@@ -134,7 +134,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('hidden')).toBe(false);
+      expect(modal.classList.contains('d-none')).toBe(false);
     });
 
     it('stores callback function', async () => {
@@ -203,7 +203,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles network error gracefully', async () => {
@@ -212,7 +212,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles empty resources array', async () => {
@@ -224,7 +224,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const emptyEl = document.getElementById('chooser-empty');
-      expect(emptyEl?.classList.contains('hidden')).toBe(false);
+      expect(emptyEl?.classList.contains('d-none')).toBe(false);
     });
 
     it('handles missing resources property', async () => {
@@ -236,7 +236,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const emptyEl = document.getElementById('chooser-empty');
-      expect(emptyEl?.classList.contains('hidden')).toBe(false);
+      expect(emptyEl?.classList.contains('d-none')).toBe(false);
     });
 
     it('sorts images by most recent first', async () => {
@@ -448,7 +448,7 @@ describe('Image Chooser Module', () => {
       const emptyEl = document.getElementById('chooser-empty');
 
       expect(grid.innerHTML).toBe('');
-      expect(emptyEl?.classList.contains('hidden')).toBe(false);
+      expect(emptyEl?.classList.contains('d-none')).toBe(false);
     });
 
     it('shows all images when search is empty', () => {
@@ -504,7 +504,7 @@ describe('Image Chooser Module', () => {
       selectChooserImage(imageUrl);
 
       const modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('hidden')).toBe(true);
+      expect(modal.classList.contains('d-none')).toBe(true);
     });
   });
 
@@ -534,7 +534,7 @@ describe('Image Chooser Module', () => {
       closeImageChooser();
 
       const modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('hidden')).toBe(true);
+      expect(modal.classList.contains('d-none')).toBe(true);
     });
 
     it('removes keyboard event listener', () => {
@@ -605,7 +605,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const pagination = document.getElementById('chooser-pagination');
-      expect(pagination?.classList.contains('hidden')).toBe(true);
+      expect(pagination?.classList.contains('d-none')).toBe(true);
     });
 
     it('shows pagination when > 12 items', async () => {
@@ -629,7 +629,7 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
 
       const pagination = document.getElementById('chooser-pagination');
-      expect(pagination?.classList.contains('hidden')).toBe(false);
+      expect(pagination?.classList.contains('d-none')).toBe(false);
     });
 
     it('calculates total pages correctly', async () => {
@@ -680,7 +680,7 @@ describe('Image Chooser Module', () => {
       // Open chooser
       await openImageChooser(mockCallback);
       let modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('hidden')).toBe(false);
+      expect(modal.classList.contains('d-none')).toBe(false);
 
       // Verify first page shows 12 items
       let grid = document.getElementById('chooser-grid');
@@ -707,7 +707,7 @@ describe('Image Chooser Module', () => {
       // Verify callback was called and modal closed
       expect(mockCallback).toHaveBeenCalledWith(imageUrl);
       modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('hidden')).toBe(true);
+      expect(modal.classList.contains('d-none')).toBe(true);
     });
   });
 });

@@ -25,21 +25,28 @@ describe('Media Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
       <div id="media-loading" class="">Loading...</div>
       <div id="media-grid"></div>
-      <div id="media-empty" class="hidden">No media found</div>
+      <div id="media-empty" class="d-none">No media found</div>
       <input id="media-search" value="" />
       <select id="media-filter"><option value="all">All</option></select>
-      <div id="media-pagination" class="hidden">
+      <div id="media-pagination" class="d-none">
         <button id="media-prev-btn">Previous</button>
         <span id="media-current-page">1</span> / <span id="media-total-pages">1</span>
         <button id="media-next-btn">Next</button>
       </div>
       <div id="section-media"></div>
-      <div id="image-modal-overlay" class="hidden">
-        <img id="image-modal-img" src="" />
+      <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <div id="image-modal-loading" class="d-none">Loading...</div>
+              <img id="image-modal-img" src="" class="img-fluid" />
+            </div>
+          </div>
+        </div>
       </div>
     `;
 
@@ -74,6 +81,16 @@ describe('Media Module', () => {
         open: vi.fn(),
         close: vi.fn()
       }))
+    };
+
+    // Mock Bootstrap Modal
+    global.bootstrap = {
+      Modal: vi.fn(function(element) {
+        this.element = element;
+        this.show = vi.fn();
+        this.hide = vi.fn();
+        return this;
+      })
     };
 
     // Mock scrollIntoView
@@ -152,7 +169,7 @@ describe('Media Module', () => {
       await loadMedia();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles network error gracefully', async () => {
@@ -161,7 +178,7 @@ describe('Media Module', () => {
       await loadMedia();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides loading indicator after load', async () => {
@@ -171,22 +188,22 @@ describe('Media Module', () => {
       });
 
       const loadingEl = document.getElementById('media-loading');
-      loadingEl.classList.remove('hidden');
+      loadingEl.classList.remove('d-none');
 
       await loadMedia();
 
-      expect(loadingEl.classList.contains('hidden')).toBe(true);
+      expect(loadingEl.classList.contains('d-none')).toBe(true);
     });
 
     it('hides loading indicator even on error', async () => {
       mockFetch.mockRejectedValue(new Error('Network error'));
 
       const loadingEl = document.getElementById('media-loading');
-      loadingEl.classList.remove('hidden');
+      loadingEl.classList.remove('d-none');
 
       await loadMedia();
 
-      expect(loadingEl.classList.contains('hidden')).toBe(true);
+      expect(loadingEl.classList.contains('d-none')).toBe(true);
     });
   });
 
@@ -303,16 +320,16 @@ describe('Media Module', () => {
       const emptyEl = document.getElementById('media-empty');
 
       expect(grid.innerHTML).toBe('');
-      expect(emptyEl.classList.contains('hidden')).toBe(false);
+      expect(emptyEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides empty state when media exists', () => {
       const emptyEl = document.getElementById('media-empty');
-      emptyEl.classList.remove('hidden');
+      emptyEl.classList.remove('d-none');
 
       renderMediaGrid();
 
-      expect(emptyEl.classList.contains('hidden')).toBe(true);
+      expect(emptyEl.classList.contains('d-none')).toBe(true);
     });
 
     it('escapes HTML in filenames', () => {
@@ -393,11 +410,11 @@ describe('Media Module', () => {
   describe('updateMediaPagination', () => {
     it('hides pagination when only one page', () => {
       const paginationEl = document.getElementById('media-pagination');
-      paginationEl.classList.remove('hidden');
+      paginationEl.classList.remove('d-none');
 
       updateMediaPagination(1);
 
-      expect(paginationEl.classList.contains('hidden')).toBe(true);
+      expect(paginationEl.classList.contains('d-none')).toBe(true);
     });
 
     it('shows pagination when multiple pages', () => {
@@ -405,7 +422,7 @@ describe('Media Module', () => {
 
       updateMediaPagination(3);
 
-      expect(paginationEl.classList.contains('hidden')).toBe(false);
+      expect(paginationEl.classList.contains('d-none')).toBe(false);
     });
 
     it('updates page numbers', () => {
@@ -542,7 +559,7 @@ describe('Media Module', () => {
       await copyMediaUrl('https://cloudinary.com/image.jpg');
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('copied');
     });
 
@@ -552,7 +569,7 @@ describe('Media Module', () => {
       await copyMediaUrl('https://cloudinary.com/image.jpg');
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
   });
 
@@ -566,24 +583,19 @@ describe('Media Module', () => {
       expect(modalImg.src).toBe(url);
     });
 
-    it('shows modal overlay', () => {
-      const modalOverlay = document.getElementById('image-modal-overlay');
-      modalOverlay.classList.add('hidden');
-
+    it('shows Bootstrap modal', () => {
       viewMediaFull('https://cloudinary.com/image.jpg');
 
-      expect(modalOverlay.classList.contains('hidden')).toBe(false);
+      expect(bootstrap.Modal).toHaveBeenCalled();
+      const modalInstance = bootstrap.Modal.mock.results[0].value;
+      expect(modalInstance.show).toHaveBeenCalled();
     });
 
-    it('attaches keyboard escape handler', () => {
-      const addEventListenerSpy = vi.spyOn(document, 'addEventListener');
-
+    it('creates Bootstrap Modal with imageModal element', () => {
       viewMediaFull('https://cloudinary.com/image.jpg');
 
-      expect(addEventListenerSpy).toHaveBeenCalledWith(
-        'keydown',
-        window.handleImageModalEscape
-      );
+      const modalElement = document.getElementById('imageModal');
+      expect(bootstrap.Modal).toHaveBeenCalledWith(modalElement);
     });
   });
 
@@ -594,7 +606,7 @@ describe('Media Module', () => {
       openCloudinaryUpload();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('still loading');
     });
 

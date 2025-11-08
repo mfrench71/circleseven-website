@@ -3,12 +3,9 @@
  *
  * Tests CRUD operations for Jekyll post files via GitHub API integration.
  * Covers GET (list/single), POST (create), PUT (update), DELETE operations.
- *
- * @vitest-environment node
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import nock from 'nock';
 import { mockListContents, mockGetFile, mockPutFile, mockDeleteFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
 import { handler } from '../../../netlify/functions/posts.js';
 
@@ -117,7 +114,10 @@ describe('Posts Function', () => {
         }
       ];
 
-      mockListContents('_posts', mockFiles);
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify(mockFiles)
+      });
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -141,15 +141,34 @@ describe('Posts Function', () => {
       };
 
       // First call: list posts
-      mockListContents('_posts', [
-        { name: '2025-10-21-post.md', path: '_posts/2025-10-21-post.md', sha: 'sha1', size: 500 }
-      ]);
+      // Second call onwards: get each post's content
+      const mockCalls = [
+        // List posts response
+        JSON.stringify([
+          { name: '2025-10-21-post.md', path: '_posts/2025-10-21-post.md', sha: 'sha1', size: 500 }
+        ]),
+        // Individual post content
+        JSON.stringify({
+          name: '2025-10-21-post.md',
+          sha: 'sha1',
+          content: Buffer.from('---\ntitle: Test Post\ndate: 2025-10-21\n---\nPost content').toString('base64')
+        })
+      ];
 
-      // Second call: get individual post content
-      mockGetFile('_posts/2025-10-21-post.md', {
-        name: '2025-10-21-post.md',
-        sha: 'sha1',
-        content: Buffer.from('---\ntitle: Test Post\ndate: 2025-10-21\n---\nPost content').toString('base64')
+      let callIndex = 0;
+      https.request.mockImplementation((options, callback) => {
+        const responseData = mockCalls[callIndex++];
+        callback(mockResponse);
+
+        mockRequest.end.mockImplementation(() => {
+          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
+          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
+
+          if (dataCallback) dataCallback(responseData);
+          if (endCallback) endCallback();
+        });
+
+        return mockRequest;
       });
 
       const response = await handler(event, {});
@@ -159,6 +178,7 @@ describe('Posts Function', () => {
         title: 'Test Post',
         date: '2025-10-21'
       });
+      expect(https.request).toHaveBeenCalledTimes(2); // List + 1 individual post
     });
 
     it('handles metadata fetch errors gracefully', async () => {
@@ -167,19 +187,46 @@ describe('Posts Function', () => {
         queryStringParameters: { metadata: 'true' }
       };
 
-      // List posts
-      mockListContents('_posts', [
-        { name: 'post1.md', path: '_posts/post1.md', sha: 'sha1', size: 500 },
-        { name: 'post2.md', path: '_posts/post2.md', sha: 'sha2', size: 600 }
-      ]);
+      const mockCalls = [
+        // List posts
+        JSON.stringify([
+          { name: 'post1.md', path: '_posts/post1.md', sha: 'sha1', size: 500 },
+          { name: 'post2.md', path: '_posts/post2.md', sha: 'sha2', size: 600 }
+        ]),
+        // Post 1 succeeds
+        JSON.stringify({
+          content: Buffer.from('---\ntitle: Post 1\n---\nContent').toString('base64')
+        })
+        // Post 2 will fail (simulate error)
+      ];
 
-      // Post 1 succeeds
-      mockGetFile('_posts/post1.md', {
-        content: Buffer.from('---\ntitle: Post 1\n---\nContent').toString('base64')
+      let callIndex = 0;
+      https.request.mockImplementation((options, callback) => {
+        if (callIndex === 2) {
+          // Simulate error on second post
+          mockRequest.end.mockImplementation(() => {
+            const errorCallback = mockRequest.on.mock.calls.find(call => call[0] === 'error')?.[1];
+            if (errorCallback) {
+              setTimeout(() => errorCallback(new Error('Network error')), 0);
+            }
+          });
+          callIndex++;
+          return mockRequest;
+        }
+
+        const responseData = mockCalls[callIndex++];
+        callback(mockResponse);
+
+        mockRequest.end.mockImplementation(() => {
+          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
+          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
+
+          if (dataCallback) dataCallback(responseData);
+          if (endCallback) endCallback();
+        });
+
+        return mockRequest;
       });
-
-      // Post 2 fails with error
-      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_posts/post2.md?ref=main', 404, 'Not Found');
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -196,14 +243,17 @@ describe('Posts Function', () => {
         queryStringParameters: { metadata: 'false' }
       };
 
-      const scope = mockListContents('_posts', [
-        { name: 'post.md', path: '_posts/post.md', sha: 'sha1', size: 500 }
-      ]);
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify([
+          { name: 'post.md', path: '_posts/post.md', sha: 'sha1', size: 500 }
+        ])
+      });
 
       const response = await handler(event, {});
 
-      // Verify only 1 API call was made (list), no individual post fetches
-      expect(scope.isDone()).toBe(true);
+      // Only 1 call for listing, no individual post fetches
+      expect(https.request).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -225,10 +275,13 @@ tags:
 ---
 This is the post body content.`;
 
-      mockGetFile('_posts/2025-10-21-test-post.md', {
-        name: '2025-10-21-test-post.md',
-        sha: 'abc123',
-        content: Buffer.from(postContent).toString('base64')
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          name: '2025-10-21-test-post.md',
+          sha: 'abc123',
+          content: Buffer.from(postContent).toString('base64')
+        })
       });
 
       const response = await handler(event, {});
@@ -250,15 +303,19 @@ This is the post body content.`;
         queryStringParameters: { path: '2025-10-21-my-post.md' }
       };
 
-      const scope = mockGetFile('_posts/2025-10-21-my-post.md', {
-        content: Buffer.from('---\ntitle: Test\n---\nBody').toString('base64'),
-        sha: 'abc123'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from('---\ntitle: Test\n---\nBody').toString('base64'),
+          sha: 'abc123'
+        })
       });
 
       await handler(event, {});
 
-      // Verify the nock interceptor was called (correct path was used)
-      expect(scope.isDone()).toBe(true);
+      const requestOptions = https.request.mock.calls[0][0];
+      expect(requestOptions.path).toContain('/contents/_posts/2025-10-21-my-post.md');
+      expect(requestOptions.path).toContain('ref=main');
     });
 
     it('handles post with no frontmatter', async () => {
@@ -269,9 +326,12 @@ This is the post body content.`;
 
       const postContent = 'Just plain markdown content, no frontmatter.';
 
-      mockGetFile('_posts/simple-post.md', {
-        content: Buffer.from(postContent).toString('base64'),
-        sha: 'def456'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(postContent).toString('base64'),
+          sha: 'def456'
+        })
       });
 
       const response = await handler(event, {});
@@ -287,7 +347,10 @@ This is the post body content.`;
         queryStringParameters: { path: 'nonexistent-post.md' }
       };
 
-      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_posts/nonexistent-post.md?ref=main', 404, 'Not Found');
+      setupGitHubMock({
+        statusCode: 404,
+        body: JSON.stringify({ message: 'Not Found' })
+      });
 
       const response = await handler(event, {});
 
@@ -314,8 +377,11 @@ This is the post body content.`;
         })
       };
 
-      mockPutFile('_posts/2025-10-22-new-post.md', {
-        commit: { sha: 'commit-sha-123' }
+      setupGitHubMock({
+        statusCode: 201,
+        body: JSON.stringify({
+          commit: { sha: 'commit-sha-123' }
+        })
       });
 
       const response = await handler(event, {});
@@ -340,26 +406,28 @@ This is the post body content.`;
         })
       };
 
-      // Mock with a request body matcher to verify the sent data
-      const scope = nock('https://api.github.com')
-        .put('/repos/mfrench71/circleseven-website/contents/_posts/2025-10-22-test.md', (body) => {
-          // Verify request body structure
-          expect(body.message).toBe('Create post: 2025-10-22-test.md');
-          expect(body.branch).toBe('main');
-
-          // Verify content is base64 encoded markdown with frontmatter
-          const decodedContent = Buffer.from(body.content, 'base64').toString('utf8');
-          expect(decodedContent).toContain('---\ntitle: Test Post');
-          expect(decodedContent).toContain('Post body');
-
-          return true;
-        })
-        .reply(201, { commit: { sha: 'abc' } });
+      setupGitHubMock({
+        statusCode: 201,
+        body: JSON.stringify({ commit: { sha: 'abc' } })
+      });
 
       await handler(event, {});
 
-      // Verify the request was made
-      expect(scope.isDone()).toBe(true);
+      // Verify request details
+      const requestOptions = https.request.mock.calls[0][0];
+      expect(requestOptions.method).toBe('PUT'); // GitHub uses PUT for file creation
+      expect(requestOptions.path).toContain('/contents/_posts/2025-10-22-test.md');
+
+      // Verify request body
+      const writtenData = mockRequest.write.mock.calls[0][0];
+      const requestBody = JSON.parse(writtenData);
+      expect(requestBody.message).toBe('Create post: 2025-10-22-test.md');
+      expect(requestBody.branch).toBe('main');
+
+      // Verify content is base64 encoded markdown with frontmatter
+      const decodedContent = Buffer.from(requestBody.content, 'base64').toString('utf8');
+      expect(decodedContent).toContain('---\ntitle: Test Post');
+      expect(decodedContent).toContain('Post body');
     });
 
     it('builds frontmatter correctly with arrays', async () => {
@@ -376,19 +444,19 @@ This is the post body content.`;
         })
       };
 
-      // Mock with a request body matcher to verify frontmatter formatting
-      const scope = nock('https://api.github.com')
-        .put('/repos/mfrench71/circleseven-website/contents/_posts/test.md', (body) => {
-          const decodedContent = Buffer.from(body.content, 'base64').toString('utf8');
-          expect(decodedContent).toContain('categories:\n  - Tech\n  - JavaScript');
-          expect(decodedContent).toContain('tags: []');
-          return true;
-        })
-        .reply(201, { commit: { sha: 'abc' } });
+      setupGitHubMock({
+        statusCode: 201,
+        body: JSON.stringify({ commit: { sha: 'abc' } })
+      });
 
       await handler(event, {});
 
-      expect(scope.isDone()).toBe(true);
+      const writtenData = mockRequest.write.mock.calls[0][0];
+      const requestBody = JSON.parse(writtenData);
+      const decodedContent = Buffer.from(requestBody.content, 'base64').toString('utf8');
+
+      expect(decodedContent).toContain('categories:\n  - Tech\n  - JavaScript');
+      expect(decodedContent).toContain('tags: []');
     });
 
     it('returns 400 when filename is missing', async () => {
@@ -453,8 +521,9 @@ This is the post body content.`;
         })
       };
 
-      mockPutFile('_posts/test.md', {
-        commit: { sha: 'abc' }
+      setupGitHubMock({
+        statusCode: 201,
+        body: JSON.stringify({ commit: { sha: 'abc' } })
       });
 
       const response = await handler(event, {});
@@ -492,7 +561,10 @@ This is the post body content.`;
         })
       };
 
-      mockGitHubError('PUT', '/repos/mfrench71/circleseven-website/contents/_posts/test.md', 409, 'File already exists');
+      setupGitHubMock({
+        statusCode: 409,
+        body: JSON.stringify({ message: 'File already exists' })
+      });
 
       const response = await handler(event, {});
 
@@ -518,8 +590,11 @@ This is the post body content.`;
         })
       };
 
-      mockPutFile('_posts/2025-10-21-existing-post.md', {
-        commit: { sha: 'new-commit-sha-456' }
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          commit: { sha: 'new-commit-sha-456' }
+        })
       });
 
       const response = await handler(event, {});
@@ -542,18 +617,17 @@ This is the post body content.`;
         })
       };
 
-      // Mock with a request body matcher to verify SHA is sent
-      const scope = nock('https://api.github.com')
-        .put('/repos/mfrench71/circleseven-website/contents/_posts/test.md', (body) => {
-          expect(body.sha).toBe('original-sha-abc123');
-          expect(body.message).toBe('Update post: test.md');
-          return true;
-        })
-        .reply(200, { commit: { sha: 'new-sha' } });
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({ commit: { sha: 'new-sha' } })
+      });
 
       await handler(event, {});
 
-      expect(scope.isDone()).toBe(true);
+      const writtenData = mockRequest.write.mock.calls[0][0];
+      const requestBody = JSON.parse(writtenData);
+      expect(requestBody.sha).toBe('original-sha-abc123');
+      expect(requestBody.message).toBe('Update post: test.md');
     });
 
     it('returns 400 when path is missing', async () => {
@@ -624,7 +698,10 @@ This is the post body content.`;
         })
       };
 
-      mockGitHubError('PUT', '/repos/mfrench71/circleseven-website/contents/_posts/test.md', 409, 'SHA does not match');
+      setupGitHubMock({
+        statusCode: 409,
+        body: JSON.stringify({ message: 'SHA does not match' })
+      });
 
       const response = await handler(event, {});
 
@@ -644,8 +721,11 @@ This is the post body content.`;
         })
       };
 
-      mockDeleteFile('_posts/2025-10-21-old-post.md', {
-        commit: { sha: 'delete-commit-sha' }
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          commit: { sha: 'delete-commit-sha' }
+        })
       });
 
       const response = await handler(event, {});
@@ -666,17 +746,22 @@ This is the post body content.`;
         })
       };
 
-      // Mock DELETE request - use mockDeleteFile helper which handles the exact request
-      mockDeleteFile('_posts/test-post.md', {
-        commit: { sha: 'commit' }
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({ commit: { sha: 'commit' } })
       });
 
-      const response = await handler(event, {});
+      await handler(event, {});
 
-      // Verify successful deletion
-      expect(response.statusCode).toBe(200);
-      const body = JSON.parse(response.body);
-      expect(body.success).toBe(true);
+      const requestOptions = https.request.mock.calls[0][0];
+      expect(requestOptions.method).toBe('DELETE');
+      expect(requestOptions.path).toContain('/contents/_posts/test-post.md');
+
+      const writtenData = mockRequest.write.mock.calls[0][0];
+      const requestBody = JSON.parse(writtenData);
+      expect(requestBody.message).toBe('Delete post: test-post.md');
+      expect(requestBody.sha).toBe('sha-to-delete');
+      expect(requestBody.branch).toBe('main');
     });
 
     it('returns 400 when path is missing', async () => {
@@ -739,7 +824,10 @@ This is the post body content.`;
         })
       };
 
-      mockGitHubError('DELETE', '/repos/mfrench71/circleseven-website/contents/_posts/nonexistent.md', 404, 'Not Found');
+      setupGitHubMock({
+        statusCode: 404,
+        body: JSON.stringify({ message: 'Not Found' })
+      });
 
       const response = await handler(event, {});
 
@@ -763,9 +851,12 @@ author: John Doe
 ---
 Body content`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -793,9 +884,12 @@ tags:
 ---
 Body`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -818,9 +912,12 @@ tags: ['coding', 'tutorial']
 ---
 Body`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -843,9 +940,12 @@ description: "Value with: colon"
 ---
 Body`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -868,9 +968,12 @@ url: https://example.com:8080/path
 ---
 Body`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -894,9 +997,12 @@ Paragraph with content.
 
 More content here.`;
 
-      mockGetFile('_posts/test.md', {
-        content: Buffer.from(content).toString('base64'),
-        sha: 'abc'
+      setupGitHubMock({
+        statusCode: 200,
+        body: JSON.stringify({
+          content: Buffer.from(content).toString('base64'),
+          sha: 'abc'
+        })
       });
 
       const response = await handler(event, {});
@@ -927,10 +1033,15 @@ More content here.`;
         queryStringParameters: {}
       };
 
-      // Simulate a network error using nock
-      nock('https://api.github.com')
-        .get('/repos/mfrench71/circleseven-website/contents/_posts?ref=main')
-        .replyWithError('Network connection failed');
+      https.request.mockImplementation((options, callback) => {
+        mockRequest.end.mockImplementation(() => {
+          const errorCallback = mockRequest.on.mock.calls.find(call => call[0] === 'error')?.[1];
+          if (errorCallback) {
+            setTimeout(() => errorCallback(new Error('Network connection failed')), 0);
+          }
+        });
+        return mockRequest;
+      });
 
       const response = await handler(event, {});
 
@@ -948,10 +1059,9 @@ More content here.`;
         queryStringParameters: {}
       };
 
-      // Simulate an error
-      nock('https://api.github.com')
-        .get('/repos/mfrench71/circleseven-website/contents/_posts?ref=main')
-        .replyWithError(new Error('Test error with stack'));
+      https.request.mockImplementation(() => {
+        throw new Error('Test error with stack');
+      });
 
       const response = await handler(event, {});
 
@@ -969,10 +1079,9 @@ More content here.`;
         queryStringParameters: {}
       };
 
-      // Simulate an error
-      nock('https://api.github.com')
-        .get('/repos/mfrench71/circleseven-website/contents/_posts?ref=main')
-        .replyWithError(new Error('Test error'));
+      https.request.mockImplementation(() => {
+        throw new Error('Test error');
+      });
 
       const response = await handler(event, {});
 
@@ -996,4 +1105,26 @@ More content here.`;
     });
   });
 
+  // Helper function to setup GitHub API mock
+  function setupGitHubMock({ statusCode, body }) {
+    mockResponse.statusCode = statusCode;
+
+    https.request.mockImplementation((options, callback) => {
+      mockRequest.end.mockImplementation(() => {
+        // Call the callback to invoke the response handler
+        callback(mockResponse);
+
+        // Use setImmediate to ensure event listeners are registered before triggering events
+        setImmediate(() => {
+          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
+          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
+
+          if (dataCallback) dataCallback(body);
+          if (endCallback) endCallback();
+        });
+      });
+
+      return mockRequest;
+    });
+  }
 });

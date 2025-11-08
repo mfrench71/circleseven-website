@@ -15,19 +15,6 @@
 
 const https = require('https');
 
-// Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-
-// Check for required environment variables
-if (!CLOUDINARY_API_KEY) {
-  console.error('CLOUDINARY_API_KEY environment variable is not set');
-}
-if (!CLOUDINARY_API_SECRET) {
-  console.error('CLOUDINARY_API_SECRET environment variable is not set');
-}
-
 /**
  * Netlify Function Handler - Media Library
  *
@@ -80,6 +67,11 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Get env vars at runtime
+    const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+    const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+    const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
+
     // Check if API credentials are configured
     if (!CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
       return {
@@ -93,7 +85,7 @@ exports.handler = async (event, context) => {
     }
 
     // Fetch resources from Cloudinary Admin API
-    const resources = await fetchCloudinaryResources();
+    const resources = await fetchCloudinaryResources(CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET);
 
     return {
       statusCode: 200,
@@ -124,11 +116,14 @@ exports.handler = async (event, context) => {
  * Retrieves up to 500 image resources with metadata including URLs,
  * dimensions, format, and public IDs.
  *
+ * @param {string} cloudName - Cloudinary cloud name
+ * @param {string} apiKey - Cloudinary API key
+ * @param {string} apiSecret - Cloudinary API secret
  * @returns {Promise<Array>} Array of Cloudinary resource objects
  * @throws {Error} If Cloudinary API request fails or response cannot be parsed
  *
  * @example
- * const resources = await fetchCloudinaryResources();
+ * const resources = await fetchCloudinaryResources('mycloud', 'key', 'secret');
  * // Returns: [{
  * //   public_id: "sample",
  * //   format: "jpg",
@@ -143,13 +138,13 @@ exports.handler = async (event, context) => {
  * //   secure_url: "https://..."
  * // }, ...]
  */
-function fetchCloudinaryResources() {
+function fetchCloudinaryResources(cloudName, apiKey, apiSecret) {
   return new Promise((resolve, reject) => {
-    const auth = Buffer.from(`${CLOUDINARY_API_KEY}:${CLOUDINARY_API_SECRET}`).toString('base64');
+    const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
 
     const options = {
       hostname: 'api.cloudinary.com',
-      path: `/v1_1/${CLOUDINARY_CLOUD_NAME}/resources/image?max_results=500&type=upload`,
+      path: `/v1_1/${cloudName}/resources/image?max_results=500&type=upload`,
       method: 'GET',
       headers: {
         'Authorization': `Basic ${auth}`,

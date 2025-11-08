@@ -46,12 +46,12 @@ describe('Posts Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
 
       <!-- List View -->
       <div id="posts-list-view">
-        <div id="posts-loading" class="hidden">Loading...</div>
+        <div id="posts-loading" class="d-none">Loading...</div>
         <input id="posts-search" type="text" />
         <select id="posts-sort">
           <option value="date-desc">Date (Newest)</option>
@@ -59,10 +59,23 @@ describe('Posts Module', () => {
           <option value="title-asc">Title (A-Z)</option>
           <option value="title-desc">Title (Z-A)</option>
         </select>
+        <select id="posts-category-filter">
+          <option value="">All Categories</option>
+        </select>
+        <!-- Top Pagination -->
+        <div id="posts-pagination-top">
+          <button id="posts-prev-btn-top">Previous</button>
+          <span>
+            <span id="posts-range-start-top">1</span>-<span id="posts-range-end-top">10</span>
+            of <span id="posts-total-top">0</span>
+          </span>
+          <button id="posts-next-btn-top">Next</button>
+        </div>
         <table>
           <tbody id="posts-table-body"></tbody>
         </table>
-        <div id="posts-empty" class="hidden">No posts found</div>
+        <div id="posts-empty" class="d-none">No posts found</div>
+        <!-- Bottom Pagination -->
         <div id="posts-pagination">
           <button id="posts-prev-btn">Previous</button>
           <span>
@@ -74,7 +87,7 @@ describe('Posts Module', () => {
       </div>
 
       <!-- Editor View -->
-      <div id="posts-editor-view" class="hidden">
+      <div id="posts-editor-view" class="d-none">
         <h2 id="post-editor-title">New Post</h2>
         <form id="post-form">
           <input id="post-title" type="text" required />
@@ -85,12 +98,12 @@ describe('Posts Module', () => {
           <!-- Taxonomy -->
           <input id="post-categories" type="hidden" />
           <input id="categories-input" type="text" />
-          <div id="categories-suggestions" class="hidden"></div>
+          <div id="categories-suggestions" class="d-none"></div>
           <div id="categories-selected"></div>
 
           <input id="post-tags" type="hidden" />
           <input id="tags-input" type="text" />
-          <div id="tags-suggestions" class="hidden"></div>
+          <div id="tags-suggestions" class="d-none"></div>
           <div id="tags-selected"></div>
 
           <button id="save-post-btn" type="submit">Save Post</button>
@@ -98,13 +111,13 @@ describe('Posts Module', () => {
         </form>
 
         <!-- Image Preview -->
-        <div id="image-preview" class="hidden">
+        <div id="image-preview" class="d-none">
           <img id="image-preview-img" />
         </div>
       </div>
 
       <!-- Image Modal -->
-      <div id="image-modal-overlay" class="hidden">
+      <div id="image-modal-overlay" class="d-none">
         <img id="image-modal-img" />
       </div>
     `;
@@ -481,7 +494,7 @@ describe('Posts Module', () => {
         await loadPosts();
 
         const errorEl = document.getElementById('error');
-        expect(errorEl.classList.contains('hidden')).toBe(false);
+        expect(errorEl.classList.contains('d-none')).toBe(false);
       });
     });
 
@@ -518,7 +531,7 @@ describe('Posts Module', () => {
         renderPostsList();
 
         const emptyEl = document.getElementById('posts-empty');
-        expect(emptyEl.classList.contains('hidden')).toBe(false);
+        expect(emptyEl.classList.contains('d-none')).toBe(false);
       });
 
       it('displays post titles and dates', () => {
@@ -646,7 +659,7 @@ describe('Posts Module', () => {
         await editPost('nonexistent.md');
 
         const errorEl = document.getElementById('error');
-        expect(errorEl.classList.contains('hidden')).toBe(false);
+        expect(errorEl.classList.contains('d-none')).toBe(false);
       });
     });
 
@@ -755,7 +768,7 @@ describe('Posts Module', () => {
         await savePost(event);
 
         const errorEl = document.getElementById('error');
-        expect(errorEl.classList.contains('hidden')).toBe(false);
+        expect(errorEl.classList.contains('d-none')).toBe(false);
       });
 
       it('prevents default form submission', async () => {
@@ -887,8 +900,8 @@ describe('Posts Module', () => {
         const editorView = document.getElementById('posts-editor-view');
         const listView = document.getElementById('posts-list-view');
 
-        expect(editorView.classList.contains('hidden')).toBe(false);
-        expect(listView.classList.contains('hidden')).toBe(true);
+        expect(editorView.classList.contains('d-none')).toBe(false);
+        expect(listView.classList.contains('d-none')).toBe(true);
       });
     });
   });

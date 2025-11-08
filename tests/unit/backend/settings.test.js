@@ -3,20 +3,17 @@
  *
  * Tests Jekyll site configuration management (_config.yml).
  * Covers GET/PUT operations with security whitelist validation.
+ *
+ * @vitest-environment node
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
 import yaml from 'js-yaml';
-
-// Mock the https module
-vi.mock('https');
+import { mockGetFile, mockPutFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/settings.js';
 
 describe('Settings Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
   // Sample config for testing
   const sampleConfig = {
     title: 'Circle Seven Blog',
@@ -35,36 +32,17 @@ describe('Settings Function', () => {
     permalink: '/:categories/:year/:month/:day/:title:output_ext'
   };
 
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
+  beforeEach(() => {
     // Mock environment variables
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
 
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      write: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/settings.js');
-    handler = module.handler;
+    // Clean any previous mocks
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    // Clean up mocks
+    cleanMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -88,12 +66,9 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -110,12 +85,9 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -134,12 +106,9 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -163,23 +132,15 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      const scope = mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.github.com');
-      expect(requestOptions.path).toContain('/repos/mfrench71/circleseven-website/contents/_config.yml');
-      expect(requestOptions.path).toContain('ref=main');
-      expect(requestOptions.method).toBe('GET');
-      expect(requestOptions.headers['Authorization']).toBe('token test-github-token-12345');
+      // Verify the nock interceptor was called
+      expect(scope.isDone()).toBe(true);
     });
 
     it('handles missing editable fields gracefully', async () => {
@@ -194,12 +155,9 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(minimalConfig);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -215,14 +173,12 @@ describe('Settings Function', () => {
         httpMethod: 'GET'
       };
 
-      const invalidYaml = 'title: Test\ninvalid yaml:\n  - broken\n    - malformed';
+      // Truly invalid YAML - tabs and improper indentation that will cause parsing error
+      const invalidYaml = 'title:\n\t\t- Test\n  bad indentation:\n- broken';
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(invalidYaml).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_config.yml', {
+        content: Buffer.from(invalidYaml).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -237,10 +193,7 @@ describe('Settings Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 404,
-        body: JSON.stringify({ message: 'Not Found' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_config.yml?ref=main', 404, 'Not Found');
 
       const response = await handler(event, {});
 
@@ -263,20 +216,17 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      const mockCalls = [
-        // GET current file
-        JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'current-sha-123'
-        }),
-        // PUT updated file
-        JSON.stringify({
-          commit: { sha: 'new-commit-sha-456' }
-        })
-      ];
 
-      let callIndex = 0;
-      setupSequentialGitHubMock(mockCalls, callIndex);
+      // GET current file
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'current-sha-123'
+      });
+
+      // PUT updated file
+      mockPutFile('_config.yml', {
+        commit: { sha: 'new-commit-sha-456' }
+      });
 
       const response = await handler(event, {});
 
@@ -299,40 +249,19 @@ describe('Settings Function', () => {
       const yamlContent = yaml.dump(sampleConfig);
       let capturedContent = '';
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          // GET current file
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from(yamlContent).toString('base64'),
-              sha: 'current-sha'
-            }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          // PUT updated file - capture content
-          callback(mockResponse);
-          mockRequest.write.mockImplementation((data) => {
-            capturedContent = data;
-          });
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ commit: { sha: 'new' } }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET current file
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'current-sha'
       });
+
+      // PUT updated file - capture request body
+      nock('https://api.github.com')
+        .put('/repos/mfrench71/circleseven-website/contents/_config.yml', (body) => {
+          capturedContent = JSON.stringify(body);
+          return true;
+        })
+        .reply(200, { commit: { sha: 'new' } });
 
       await handler(event, {});
 
@@ -363,38 +292,19 @@ describe('Settings Function', () => {
       const yamlContent = yaml.dump(sampleConfig);
       let capturedContent = '';
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from(yamlContent).toString('base64'),
-              sha: 'sha'
-            }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          callback(mockResponse);
-          mockRequest.write.mockImplementation((data) => {
-            capturedContent = data;
-          });
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ commit: { sha: 'new' } }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET current file
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'sha'
       });
+
+      // PUT updated file - capture request body
+      nock('https://api.github.com')
+        .put('/repos/mfrench71/circleseven-website/contents/_config.yml', (body) => {
+          capturedContent = JSON.stringify(body);
+          return true;
+        })
+        .reply(200, { commit: { sha: 'new' } });
 
       await handler(event, {});
 
@@ -445,16 +355,17 @@ describe('Settings Function', () => {
       };
 
       const yamlContent = yaml.dump(sampleConfig);
-      const mockCalls = [
-        JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'sha'
-        }),
-        JSON.stringify({ commit: { sha: 'new' } })
-      ];
 
-      let callIndex = 0;
-      setupSequentialGitHubMock(mockCalls, callIndex);
+      // GET current file
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'sha'
+      });
+
+      // PUT updated file
+      mockPutFile('_config.yml', {
+        commit: { sha: 'new' }
+      });
 
       const response = await handler(event, {});
 
@@ -468,6 +379,19 @@ describe('Settings Function', () => {
         httpMethod: 'PUT',
         body: JSON.stringify({})
       };
+
+      const yamlContent = yaml.dump(sampleConfig);
+
+      // GET current file
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'sha'
+      });
+
+      // PUT updated file
+      mockPutFile('_config.yml', {
+        commit: { sha: 'new' }
+      });
 
       const response = await handler(event, {});
 
@@ -520,38 +444,14 @@ describe('Settings Function', () => {
 
       const yamlContent = yaml.dump(sampleConfig);
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          // GET succeeds
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from(yamlContent).toString('base64'),
-              sha: 'sha'
-            }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          // PUT fails
-          mockResponse.statusCode = 409;
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ message: 'SHA conflict' }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET succeeds
+      mockGetFile('_config.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'sha'
       });
+
+      // PUT fails
+      mockGitHubError('PUT', '/repos/mfrench71/circleseven-website/contents/_config.yml', 409, 'SHA conflict');
 
       const response = await handler(event, {});
 
@@ -606,10 +506,7 @@ describe('Settings Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Internal error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_config.yml?ref=main', 500, 'Internal error');
 
       const response = await handler(event, {});
 
@@ -626,10 +523,7 @@ describe('Settings Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Internal error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_config.yml?ref=main', 500, 'Internal error');
 
       const response = await handler(event, {});
 
@@ -664,16 +558,16 @@ describe('Settings Function', () => {
           })
         };
 
-        const mockCalls = [
-          JSON.stringify({
-            content: Buffer.from(yamlContent).toString('base64'),
-            sha: 'sha'
-          }),
-          JSON.stringify({ commit: { sha: 'new' } })
-        ];
+        // GET current file
+        mockGetFile('_config.yml', {
+          content: Buffer.from(yamlContent).toString('base64'),
+          sha: 'sha'
+        });
 
-        let callIndex = 0;
-        setupSequentialGitHubMock(mockCalls, callIndex);
+        // PUT updated file
+        mockPutFile('_config.yml', {
+          commit: { sha: 'new' }
+        });
 
         const response = await handler(event, {});
 
@@ -708,51 +602,4 @@ describe('Settings Function', () => {
       expect(body.message).toContain('plugins');
     });
   });
-
-  // Helper functions
-  function setupGitHubMock({ statusCode, body }) {
-    mockResponse.statusCode = statusCode;
-
-    https.request.mockImplementation((options, callback) => {
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(body);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
-
-  function setupSequentialGitHubMock(mockCalls, startIndex) {
-    let callIndex = startIndex;
-
-    https.request.mockImplementation((options, callback) => {
-      const responseData = mockCalls[callIndex++];
-
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(responseData);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
 });

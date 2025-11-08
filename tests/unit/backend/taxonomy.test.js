@@ -1,52 +1,26 @@
 /**
+ * @vitest-environment node
+ *
  * Unit Tests for Taxonomy Netlify Function
  *
  * Tests site-wide taxonomy management (categories and tags).
  * Covers GET/PUT operations for _data/taxonomy.yml.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
 import yaml from 'js-yaml';
-
-// Mock the https module
-vi.mock('https');
+import { mockGetFile, mockPutFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/taxonomy.js';
 
 describe('Taxonomy Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
-    // Mock environment variables
+  beforeEach(() => {
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
-
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      write: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/taxonomy.js');
-    handler = module.handler;
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    cleanMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -80,12 +54,9 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -114,12 +85,9 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64'),
-          sha: 'abc123'
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
       });
 
       const response = await handler(event, {});
@@ -146,11 +114,8 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -171,11 +136,8 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -203,11 +165,8 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -228,11 +187,8 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -253,11 +209,8 @@ describe('Taxonomy Function', () => {
       };
 
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -274,22 +227,14 @@ describe('Taxonomy Function', () => {
 
       const taxonomy = { categories: [], tags: [] };
       const yamlContent = yaml.dump(taxonomy);
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(yamlContent).toString('base64')
-        })
+      const scope = mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64')
       });
 
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.github.com');
-      expect(requestOptions.path).toContain('/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml');
-      expect(requestOptions.path).toContain('ref=main');
-      expect(requestOptions.method).toBe('GET');
-      expect(requestOptions.headers['Authorization']).toBe('token test-github-token-12345');
+      // Verify nock intercepted the request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('handles GitHub API errors', async () => {
@@ -297,10 +242,7 @@ describe('Taxonomy Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 404,
-        body: JSON.stringify({ message: 'Not Found' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml?ref=main', 404, 'Not Found');
 
       const response = await handler(event, {});
 
@@ -315,13 +257,11 @@ describe('Taxonomy Function', () => {
         httpMethod: 'GET'
       };
 
-      const invalidYaml = 'categories:\n  - item: Test\ninvalid:\n  - broken\n    - bad';
+      // Truly invalid YAML - tabs and improper indentation that will cause parsing error
+      const invalidYaml = 'categories:\n\t\t- item: Test\n  bad indentation:\n- broken';
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({
-          content: Buffer.from(invalidYaml).toString('base64')
-        })
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(invalidYaml).toString('base64')
       });
 
       const response = await handler(event, {});
@@ -342,20 +282,16 @@ describe('Taxonomy Function', () => {
         })
       };
 
-      const mockCalls = [
-        // GET current file for SHA
-        JSON.stringify({
-          content: Buffer.from('old content').toString('base64'),
-          sha: 'current-sha-123'
-        }),
-        // PUT updated file
-        JSON.stringify({
-          commit: { sha: 'new-commit-sha-456' }
-        })
-      ];
+      // GET current file for SHA
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('old content').toString('base64'),
+        sha: 'current-sha-123'
+      });
 
-      let callIndex = 0;
-      setupSequentialGitHubMock(mockCalls, callIndex);
+      // PUT updated file
+      mockPutFile('_data/taxonomy.yml', {
+        commit: { sha: 'new-commit-sha-456' }
+      });
 
       const response = await handler(event, {});
 
@@ -377,40 +313,19 @@ describe('Taxonomy Function', () => {
 
       let capturedContent = '';
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          // GET current file
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({
-              content: Buffer.from('old').toString('base64'),
-              sha: 'sha'
-            }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          // PUT updated file - capture content
-          callback(mockResponse);
-          mockRequest.write.mockImplementation((data) => {
-            capturedContent = data;
-          });
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ commit: { sha: 'new' } }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET current file for SHA
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('old').toString('base64'),
+        sha: 'sha'
       });
+
+      // PUT updated file - use nock to capture request body
+      nock('https://api.github.com')
+        .put('/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml', (body) => {
+          capturedContent = JSON.stringify(body);
+          return true;  // Accept any body
+        })
+        .reply(200, { commit: { sha: 'new' } });
 
       await handler(event, {});
 
@@ -437,37 +352,18 @@ describe('Taxonomy Function', () => {
 
       let capturedContent = '';
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({
-              sha: 'original-sha-789'
-            }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          callback(mockResponse);
-          mockRequest.write.mockImplementation((data) => {
-            capturedContent = data;
-          });
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ commit: { sha: 'new' } }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET current file for SHA
+      mockGetFile('_data/taxonomy.yml', {
+        sha: 'original-sha-789'
       });
+
+      // PUT updated file - capture request body
+      nock('https://api.github.com')
+        .put('/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml', (body) => {
+          capturedContent = JSON.stringify(body);
+          return true;
+        })
+        .reply(200, { commit: { sha: 'new' } });
 
       await handler(event, {});
 
@@ -486,13 +382,8 @@ describe('Taxonomy Function', () => {
         })
       };
 
-      const mockCalls = [
-        JSON.stringify({ sha: 'sha' }),
-        JSON.stringify({ commit: { sha: 'new' } })
-      ];
-
-      let callIndex = 0;
-      setupSequentialGitHubMock(mockCalls, callIndex);
+      mockGetFile('_data/taxonomy.yml', { sha: 'sha' });
+      mockPutFile('_data/taxonomy.yml', { commit: { sha: 'new' } });
 
       const response = await handler(event, {});
 
@@ -588,35 +479,13 @@ describe('Taxonomy Function', () => {
         })
       };
 
-      let callCount = 0;
-      https.request.mockImplementation((options, callback) => {
-        callCount++;
-
-        if (callCount === 1) {
-          // GET succeeds
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ sha: 'sha' }));
-            if (endCallback) endCallback();
-          });
-        } else {
-          // PUT fails
-          mockResponse.statusCode = 409;
-          callback(mockResponse);
-          mockRequest.end.mockImplementation(() => {
-            const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-            const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-            if (dataCallback) dataCallback(JSON.stringify({ message: 'Conflict' }));
-            if (endCallback) endCallback();
-          });
-        }
-
-        return mockRequest;
+      // GET succeeds
+      mockGetFile('_data/taxonomy.yml', {
+        sha: 'sha'
       });
+
+      // PUT fails with conflict
+      mockGitHubError('PUT', '/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml', 409, 'Conflict');
 
       const response = await handler(event, {});
 
@@ -671,10 +540,7 @@ describe('Taxonomy Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml?ref=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -691,10 +557,7 @@ describe('Taxonomy Function', () => {
         httpMethod: 'GET'
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_data/taxonomy.yml?ref=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -704,51 +567,4 @@ describe('Taxonomy Function', () => {
       delete process.env.NODE_ENV;
     });
   });
-
-  // Helper functions
-  function setupGitHubMock({ statusCode, body }) {
-    mockResponse.statusCode = statusCode;
-
-    https.request.mockImplementation((options, callback) => {
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(body);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
-
-  function setupSequentialGitHubMock(mockCalls, startIndex) {
-    let callIndex = startIndex;
-
-    https.request.mockImplementation((options, callback) => {
-      const responseData = mockCalls[callIndex++];
-
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(responseData);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
 });

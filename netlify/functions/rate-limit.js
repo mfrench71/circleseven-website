@@ -33,7 +33,11 @@ function fetchRateLimit() {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
+          try {
+            resolve(JSON.parse(data));
+          } catch (error) {
+            reject(new Error(`Failed to parse GitHub API response: ${error.message}`));
+          }
         } else {
           reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
         }

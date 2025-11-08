@@ -28,8 +28,8 @@ describe('Taxonomy Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
 
       <!-- Taxonomy tabs -->
       <button id="tab-categories" class="tab-button border-transparent text-gray-500"></button>
@@ -40,20 +40,20 @@ describe('Taxonomy Module', () => {
       <span id="tags-count-badge" class="bg-gray-100 text-gray-600">0</span>
 
       <!-- Tab content -->
-      <div id="taxonomy-categories-tab" class="taxonomy-tab hidden">
+      <div id="taxonomy-categories-tab" class="taxonomy-tab d-none">
         <table>
           <tbody id="categories-list"></tbody>
         </table>
       </div>
-      <div id="taxonomy-tags-tab" class="taxonomy-tab hidden">
+      <div id="taxonomy-tags-tab" class="taxonomy-tab d-none">
         <table>
           <tbody id="tags-list"></tbody>
         </table>
       </div>
 
       <!-- Add item inputs -->
-      <div id="taxonomy-add-category" class="taxonomy-add-item hidden"></div>
-      <div id="taxonomy-add-tag" class="taxonomy-add-item hidden"></div>
+      <div id="taxonomy-add-category" class="taxonomy-add-item d-none"></div>
+      <div id="taxonomy-add-tag" class="taxonomy-add-item d-none"></div>
 
       <!-- Save button -->
       <button id="save-btn">Save Changes</button>
@@ -134,7 +134,7 @@ describe('Taxonomy Module', () => {
       await loadTaxonomy();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles network errors gracefully', async () => {
@@ -143,7 +143,7 @@ describe('Taxonomy Module', () => {
       await loadTaxonomy();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('renders categories and tags after loading', async () => {
@@ -175,7 +175,7 @@ describe('Taxonomy Module', () => {
         btn.classList.add('border-transparent', 'text-gray-500');
       });
       document.querySelectorAll('.taxonomy-tab').forEach(tab => {
-        tab.classList.add('hidden');
+        tab.classList.add('d-none');
       });
     });
 
@@ -187,10 +187,10 @@ describe('Taxonomy Module', () => {
       expect(categoriesTab.classList.contains('text-teal-600')).toBe(true);
 
       const categoriesContent = document.getElementById('taxonomy-categories-tab');
-      expect(categoriesContent.classList.contains('hidden')).toBe(false);
+      expect(categoriesContent.classList.contains('d-none')).toBe(false);
 
       const addCategory = document.getElementById('taxonomy-add-category');
-      expect(addCategory.classList.contains('hidden')).toBe(false);
+      expect(addCategory.classList.contains('d-none')).toBe(false);
     });
 
     it('switches to tags tab', () => {
@@ -201,10 +201,10 @@ describe('Taxonomy Module', () => {
       expect(tagsTab.classList.contains('text-teal-600')).toBe(true);
 
       const tagsContent = document.getElementById('taxonomy-tags-tab');
-      expect(tagsContent.classList.contains('hidden')).toBe(false);
+      expect(tagsContent.classList.contains('d-none')).toBe(false);
 
       const addTag = document.getElementById('taxonomy-add-tag');
-      expect(addTag.classList.contains('hidden')).toBe(false);
+      expect(addTag.classList.contains('d-none')).toBe(false);
     });
 
     it('updates badge colors when switching tabs', () => {
@@ -223,11 +223,11 @@ describe('Taxonomy Module', () => {
     it('hides all other tabs when switching', () => {
       switchTaxonomyTab('categories');
       const tagsTab = document.getElementById('taxonomy-tags-tab');
-      expect(tagsTab.classList.contains('hidden')).toBe(true);
+      expect(tagsTab.classList.contains('d-none')).toBe(true);
 
       switchTaxonomyTab('tags');
       const categoriesTab = document.getElementById('taxonomy-categories-tab');
-      expect(categoriesTab.classList.contains('hidden')).toBe(true);
+      expect(categoriesTab.classList.contains('d-none')).toBe(true);
     });
   });
 
@@ -408,7 +408,7 @@ describe('Taxonomy Module', () => {
       await showAddCategoryModal();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('cannot be empty');
     });
 
@@ -498,7 +498,7 @@ describe('Taxonomy Module', () => {
 
       // Should not show error for same name
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(true);
+      expect(errorEl.classList.contains('d-none')).toBe(true);
     });
 
     it('does nothing when modal is cancelled', async () => {
@@ -683,7 +683,7 @@ describe('Taxonomy Module', () => {
       await saveTaxonomy();
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('successfully');
     });
 
@@ -696,7 +696,7 @@ describe('Taxonomy Module', () => {
       await saveTaxonomy();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('updates lastSavedState after successful save', async () => {
@@ -762,7 +762,7 @@ describe('Taxonomy Module', () => {
       await saveTaxonomy();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(errorEl.querySelector('p').textContent).toContain('Network error');
     });
   });

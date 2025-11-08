@@ -1,49 +1,24 @@
 /**
+ * @vitest-environment node
+ *
  * Unit Tests for Rate Limit Netlify Function
  *
  * Tests GitHub API rate limit checking functionality.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
-
-// Mock the https module
-vi.mock('https');
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
+import { mockRateLimit, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/rate-limit.js';
 
 describe('Rate Limit Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
-    // Mock environment variables
+  beforeEach(() => {
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
-
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/rate-limit.js');
-    handler = module.handler;
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    cleanMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -66,8 +41,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      // Mock successful GitHub response
-      const mockData = JSON.stringify({
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -76,25 +50,6 @@ describe('Rate Limit Function', () => {
             used: 150
           }
         }
-      });
-
-      // Setup mock response
-      mockRequest.on.mockImplementation((event, callback) => {
-        if (event === 'error') return mockRequest;
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
       });
 
       const response = await handler(event, {});
@@ -111,7 +66,8 @@ describe('Rate Limit Function', () => {
       };
 
       const resetTime = Math.floor(Date.now() / 1000) + 3600; // 1 hour from now
-      const mockData = JSON.stringify({
+
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -120,20 +76,6 @@ describe('Rate Limit Function', () => {
             used: 150
           }
         }
-      });
-
-      // Setup successful response
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -153,7 +95,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      const mockData = JSON.stringify({
+      const scope = mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -164,30 +106,10 @@ describe('Rate Limit Function', () => {
         }
       });
 
-      https.request.mockImplementation((options, callback) => {
-        // Verify request options
-        expect(options.hostname).toBe('api.github.com');
-        expect(options.path).toBe('/rate_limit');
-        expect(options.method).toBe('GET');
-        expect(options.headers['User-Agent']).toBe('Netlify-Function');
-        expect(options.headers['Authorization']).toBe('token test-github-token-12345');
-        expect(options.headers['Accept']).toBe('application/vnd.github.v3+json');
-
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
-      });
-
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
+      // Verify nock intercepted the request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('calculates usedPercent correctly', async () => {
@@ -195,7 +117,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      const mockData = JSON.stringify({
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -204,19 +126,6 @@ describe('Rate Limit Function', () => {
             used: 2000
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -231,7 +140,8 @@ describe('Rate Limit Function', () => {
       };
 
       const resetTime = Math.floor(Date.now() / 1000) + 1800; // 30 minutes from now
-      const mockData = JSON.stringify({
+
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -240,19 +150,6 @@ describe('Rate Limit Function', () => {
             used: 150
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -268,7 +165,8 @@ describe('Rate Limit Function', () => {
       };
 
       const resetTime = 1634567890;
-      const mockData = JSON.stringify({
+
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -277,19 +175,6 @@ describe('Rate Limit Function', () => {
             used: 150
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -333,21 +218,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      mockResponse.statusCode = 403;
-      const errorData = JSON.stringify({ message: 'Rate limit exceeded' });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(errorData);
-        if (endCallback) endCallback();
-      });
+      mockGitHubError('GET', '/rate_limit', 403, 'Rate limit exceeded');
 
       const response = await handler(event, {});
 
@@ -361,16 +232,9 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      https.request.mockImplementation((options, callback) => {
-        return mockRequest;
-      });
-
-      mockRequest.on.mockImplementation((event, callback) => {
-        if (event === 'error') {
-          setTimeout(() => callback(new Error('Network error')), 0);
-        }
-        return mockRequest;
-      });
+      nock('https://api.github.com')
+        .get('/rate_limit')
+        .replyWithError('Network error');
 
       const response = await handler(event, {});
 
@@ -385,20 +249,9 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      const invalidData = 'not valid json';
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(invalidData);
-        if (endCallback) endCallback();
-      });
+      nock('https://api.github.com')
+        .get('/rate_limit')
+        .reply(200, 'not valid json');
 
       const response = await handler(event, {});
 
@@ -415,7 +268,8 @@ describe('Rate Limit Function', () => {
       };
 
       const resetTime = Math.floor(Date.now() / 1000) - 60; // 1 minute ago
-      const mockData = JSON.stringify({
+
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -424,19 +278,6 @@ describe('Rate Limit Function', () => {
             used: 150
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -450,7 +291,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      const mockData = JSON.stringify({
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -459,19 +300,6 @@ describe('Rate Limit Function', () => {
             used: 5000
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});
@@ -486,7 +314,7 @@ describe('Rate Limit Function', () => {
         httpMethod: 'GET'
       };
 
-      const mockData = JSON.stringify({
+      mockRateLimit({
         resources: {
           core: {
             limit: 5000,
@@ -495,19 +323,6 @@ describe('Rate Limit Function', () => {
             used: 0
           }
         }
-      });
-
-      https.request.mockImplementation((options, callback) => {
-        callback(mockResponse);
-        return mockRequest;
-      });
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(mockData);
-        if (endCallback) endCallback();
       });
 
       const response = await handler(event, {});

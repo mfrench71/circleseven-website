@@ -32,19 +32,25 @@ describe('Pages Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
       <div id="pages-loading" class="">Loading...</div>
       <div id="pages-list-view" class="">
         <input id="pages-search" value="" />
+        <select id="pages-sort">
+          <option value="title-asc">Title (A-Z)</option>
+          <option value="title-desc">Title (Z-A)</option>
+          <option value="date-desc">Date (Newest)</option>
+          <option value="date-asc">Date (Oldest)</option>
+        </select>
         <div id="pages-table-wrapper">
           <table id="pages-table">
             <tbody id="pages-table-body"></tbody>
           </table>
         </div>
-        <div id="pages-empty" class="hidden">No pages found</div>
+        <div id="pages-empty" class="d-none">No pages found</div>
       </div>
-      <div id="page-editor-view" class="hidden">
+      <div id="pages-editor-view" class="d-none">
         <form id="page-form">
           <input id="page-title" name="title" value="" />
           <input id="page-permalink" name="permalink" value="" />
@@ -67,6 +73,8 @@ describe('Pages Module', () => {
     // Setup window globals
     window.API_BASE = '/.netlify/functions';
     window.allPages = [];
+    window.currentPage = 1;
+    window.pagesPerPage = 10;
     window.currentPage_pages = null;
     window.pageMarkdownEditor = null;
     window.pageHasUnsavedChanges = false;
@@ -169,7 +177,7 @@ describe('Pages Module', () => {
     it('fetches pages from API and updates window.allPages', async () => {
       const mockPages = [
         {
-          filename: 'about.md',
+          name: 'about.md',
           sha: 'abc123',
           size: 1024,
           frontmatter: {
@@ -180,7 +188,7 @@ describe('Pages Module', () => {
           }
         },
         {
-          filename: 'contact.md',
+          name: 'contact.md',
           sha: 'def456',
           size: 2048,
           frontmatter: {
@@ -205,7 +213,7 @@ describe('Pages Module', () => {
     });
 
     it('caches pages data in localStorage', async () => {
-      const mockPages = [{ filename: 'about.md', sha: 'abc', frontmatter: { title: 'About' } }];
+      const mockPages = [{ name: 'about.md', sha: 'abc', frontmatter: { title: 'About' } }];
 
       mockFetch.mockResolvedValue({
         ok: true,
@@ -220,7 +228,7 @@ describe('Pages Module', () => {
     });
 
     it('uses cached data if available and fresh', async () => {
-      const cachedPages = [{ filename: 'cached.md', sha: 'xyz', frontmatter: { title: 'Cached' } }];
+      const cachedPages = [{ name: 'cached.md', sha: 'xyz', frontmatter: { title: 'Cached' } }];
       const cacheData = {
         data: cachedPages,
         timestamp: Date.now() // Fresh cache
@@ -238,13 +246,13 @@ describe('Pages Module', () => {
     it('bypasses cache if expired (> 5 minutes)', async () => {
       const oldTimestamp = Date.now() - (6 * 60 * 1000); // 6 minutes ago
       const cacheData = {
-        data: [{ filename: 'old.md' }],
+        data: [{ name: 'old.md' }],
         timestamp: oldTimestamp
       };
 
       localStorage.setItem('admin_pages_cache', JSON.stringify(cacheData));
 
-      const freshPages = [{ filename: 'fresh.md', sha: 'abc', frontmatter: { title: 'Fresh' } }];
+      const freshPages = [{ name: 'fresh.md', sha: 'abc', frontmatter: { title: 'Fresh' } }];
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({ pages: freshPages })
@@ -265,7 +273,7 @@ describe('Pages Module', () => {
       await loadPages();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles network error gracefully', async () => {
@@ -274,7 +282,7 @@ describe('Pages Module', () => {
       await loadPages();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides loading indicator after load', async () => {
@@ -284,11 +292,11 @@ describe('Pages Module', () => {
       });
 
       const loadingEl = document.getElementById('pages-loading');
-      loadingEl.classList.remove('hidden');
+      loadingEl.classList.remove('d-none');
 
       await loadPages();
 
-      expect(loadingEl.classList.contains('hidden')).toBe(true);
+      expect(loadingEl.classList.contains('d-none')).toBe(true);
     });
   });
 
@@ -339,16 +347,16 @@ describe('Pages Module', () => {
       const emptyEl = document.getElementById('pages-empty');
 
       expect(tbody.innerHTML).toBe('');
-      expect(emptyEl.classList.contains('hidden')).toBe(false);
+      expect(emptyEl.classList.contains('d-none')).toBe(false);
     });
 
     it('hides empty state when pages exist', () => {
       const emptyEl = document.getElementById('pages-empty');
-      emptyEl.classList.remove('hidden');
+      emptyEl.classList.remove('d-none');
 
       renderPagesList();
 
-      expect(emptyEl.classList.contains('hidden')).toBe(true);
+      expect(emptyEl.classList.contains('d-none')).toBe(true);
     });
 
     it('filters pages by search term (title)', () => {
@@ -395,12 +403,13 @@ describe('Pages Module', () => {
       const html = tbody.innerHTML;
 
       // About page is not protected, should have bin link
-      expect(html).toContain('fa-trash');
+      expect(html).toContain('Bin');
+      expect(html).toContain('deletePageFromList');
     });
 
     it('escapes HTML in page titles to prevent XSS', () => {
       window.allPages = [{
-        filename: 'xss.md',
+        name: 'xss.md',
         sha: 'xss123',
         frontmatter: {
           title: '<script>alert("XSS")</script>',
@@ -427,7 +436,7 @@ describe('Pages Module', () => {
 
     it('handles pages without frontmatter', () => {
       window.allPages = [{
-        filename: 'no-frontmatter.md',
+        name: 'no-frontmatter.md',
         sha: 'xyz789'
         // No frontmatter
       }];
@@ -440,7 +449,7 @@ describe('Pages Module', () => {
 
     it('handles pages without title', () => {
       window.allPages = [{
-        filename: 'no-title.md',
+        name: 'no-title.md',
         sha: 'xyz789',
         frontmatter: {
           permalink: '/no-title/'
@@ -457,7 +466,7 @@ describe('Pages Module', () => {
   describe('filterPages', () => {
     beforeEach(() => {
       window.allPages = [
-        { filename: 'test.md', sha: 'abc', frontmatter: { title: 'Test' } }
+        { name: 'test.md', sha: 'abc', frontmatter: { title: 'Test' } }
       ];
     });
 
@@ -526,8 +535,8 @@ describe('Pages Module', () => {
 
       showNewPageForm(false);
 
-      expect(listView.classList.contains('hidden')).toBe(true);
-      expect(editorView.classList.contains('hidden')).toBe(false);
+      expect(listView.classList.contains('d-none')).toBe(true);
+      expect(editorView.classList.contains('d-none')).toBe(false);
     });
 
     it('resets form fields', () => {
@@ -541,7 +550,7 @@ describe('Pages Module', () => {
     });
 
     it('clears currentPage_pages', () => {
-      window.currentPage_pages = { filename: 'old.md' };
+      window.currentPage_pages = { name: 'old.md' };
 
       showNewPageForm(false);
 
@@ -590,11 +599,11 @@ describe('Pages Module', () => {
           layout: 'page',
           date: '2025-10-20T10:00:00Z'
         },
-        filename: 'about.md',
+        name: 'about.md',
         sha: 'abc123'
       };
 
-      window.allPages = [{ filename: 'about.md', sha: 'abc123' }];
+      window.allPages = [{ name: 'about.md', sha: 'abc123' }];
 
       mockFetch.mockResolvedValue({
         ok: true,
@@ -615,11 +624,11 @@ describe('Pages Module', () => {
       const mockPage = {
         content: 'Content',
         frontmatter: { title: 'Test' },
-        filename: 'test.md',
+        name: 'test.md',
         sha: 'abc'
       };
 
-      window.allPages = [{ filename: 'test.md', sha: 'abc' }];
+      window.allPages = [{ name: 'test.md', sha: 'abc' }];
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockPage
@@ -634,11 +643,11 @@ describe('Pages Module', () => {
       const mockPage = {
         content: '',
         frontmatter: {},
-        filename: 'test.md',
+        name: 'test.md',
         sha: 'abc'
       };
 
-      window.allPages = [{ filename: 'test.md', sha: 'abc' }];
+      window.allPages = [{ name: 'test.md', sha: 'abc' }];
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockPage
@@ -649,19 +658,19 @@ describe('Pages Module', () => {
 
       await editPage('test.md', false);
 
-      expect(listView.classList.contains('hidden')).toBe(true);
-      expect(editorView.classList.contains('hidden')).toBe(false);
+      expect(listView.classList.contains('d-none')).toBe(true);
+      expect(editorView.classList.contains('d-none')).toBe(false);
     });
 
     it('does not update URL (SPA routing removed)', async () => {
       const mockPage = {
         content: '',
         frontmatter: {},
-        filename: 'test.md',
+        name: 'test.md',
         sha: 'abc'
       };
 
-      window.allPages = [{ filename: 'test.md', sha: 'abc' }];
+      window.allPages = [{ name: 'test.md', sha: 'abc' }];
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockPage
@@ -679,11 +688,11 @@ describe('Pages Module', () => {
           title: 'Protected',
           protected: true
         },
-        filename: 'protected.md',
+        name: 'protected.md',
         sha: 'abc'
       };
 
-      window.allPages = [{ filename: 'protected.md', sha: 'abc' }];
+      window.allPages = [{ name: 'protected.md', sha: 'abc' }];
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockPage
@@ -704,7 +713,7 @@ describe('Pages Module', () => {
       await editPage('nonexistent.md', false);
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
   });
 
@@ -738,7 +747,7 @@ describe('Pages Module', () => {
 
     it('updates existing page when currentPage_pages exists', async () => {
       window.currentPage_pages = {
-        filename: 'existing.md',
+        name: 'existing.md',
         sha: 'oldsha'
       };
 
@@ -856,7 +865,7 @@ describe('Pages Module', () => {
       await savePage(event);
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('disables save button during save', async () => {
@@ -899,7 +908,7 @@ describe('Pages Module', () => {
   describe('deletePage', () => {
     beforeEach(() => {
       window.currentPage_pages = {
-        filename: 'test.md',
+        name: 'test.md',
         sha: 'abc123',
         frontmatter: { title: 'Test Page' }
       };
@@ -998,7 +1007,7 @@ describe('Pages Module', () => {
       await deletePage();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
   });
 
@@ -1071,7 +1080,7 @@ describe('Pages Module', () => {
 
       // Edit existing page
       window.currentPage_pages = {
-        filename: 'new.md',
+        name: 'new.md',
         sha: 'abc',
         frontmatter: { title: 'New Page' }
       };

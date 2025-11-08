@@ -7,6 +7,8 @@
  * @module core/utils
  */
 
+import logger from './logger.js';
+
 /**
  * Fetch timeout constant (30 seconds)
  * @constant {number}

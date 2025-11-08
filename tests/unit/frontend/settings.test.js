@@ -20,8 +20,8 @@ describe('Settings Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
 
       <!-- Site Settings Form -->
       <form id="settings-form">
@@ -98,7 +98,7 @@ describe('Settings Module', () => {
       await loadSettings();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('handles network error gracefully', async () => {
@@ -107,7 +107,7 @@ describe('Settings Module', () => {
       await loadSettings();
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('populates empty values for missing settings', async () => {
@@ -224,7 +224,7 @@ describe('Settings Module', () => {
       await saveSettings(event);
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
     });
 
     it('shows error message when save fails', async () => {
@@ -237,7 +237,7 @@ describe('Settings Module', () => {
       await saveSettings(event);
 
       const errorEl = document.getElementById('error');
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
     });
 
     it('disables button during save', async () => {
@@ -398,7 +398,7 @@ describe('Settings Module', () => {
       saveAdminSettings(event);
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('Admin settings saved');
     });
 
@@ -511,7 +511,7 @@ describe('Settings Module', () => {
       resetAdminSettings();
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(successEl.querySelector('p').textContent).toContain('Click "Save"');
     });
   });
@@ -539,7 +539,7 @@ describe('Settings Module', () => {
       await saveSettings(event);
 
       const successEl = document.getElementById('success');
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
     });
 
     it('can load, modify, and save admin settings', () => {

@@ -1,51 +1,25 @@
 /**
+ * @vitest-environment node
+ *
  * Unit Tests for Deployment Status Netlify Function
  *
  * Tests GitHub Actions workflow status monitoring.
  * Covers GET operation for checking deployment status by commit SHA.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
-
-// Mock the https module
-vi.mock('https');
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
+import { mockWorkflowRuns, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/deployment-status.js';
 
 describe('Deployment Status Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
-    // Mock environment variables
+  beforeEach(() => {
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
-
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      write: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/deployment-status.js');
-    handler = module.handler;
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    cleanMocks();
     delete process.env.GITHUB_TOKEN;
   });
 
@@ -69,10 +43,7 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'abc123' }
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      mockWorkflowRuns([]);
 
       const response = await handler(event, {});
 
@@ -88,10 +59,7 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'abc123def456' }
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      mockWorkflowRuns([]);
 
       const response = await handler(event, {});
 
@@ -118,10 +86,7 @@ describe('Deployment Status Function', () => {
         conclusion: null
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -148,10 +113,7 @@ describe('Deployment Status Function', () => {
         conclusion: null
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -176,10 +138,7 @@ describe('Deployment Status Function', () => {
         conclusion: null
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -206,10 +165,7 @@ describe('Deployment Status Function', () => {
         updated_at: '2025-10-21T10:05:00Z'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -235,10 +191,7 @@ describe('Deployment Status Function', () => {
         updated_at: '2025-10-21T10:03:00Z'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -264,10 +217,7 @@ describe('Deployment Status Function', () => {
         updated_at: '2025-10-21T10:01:00Z'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -292,10 +242,7 @@ describe('Deployment Status Function', () => {
         updated_at: '2025-10-21T10:00:30Z'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -320,10 +267,7 @@ describe('Deployment Status Function', () => {
         updated_at: '2025-10-21T10:15:00Z'
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [workflowRun] })
-      });
+      mockWorkflowRuns([workflowRun]);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -360,10 +304,7 @@ describe('Deployment Status Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -395,10 +336,7 @@ describe('Deployment Status Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -434,10 +372,7 @@ describe('Deployment Status Function', () => {
         }
       ];
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: workflowRuns })
-      });
+      mockWorkflowRuns(workflowRuns);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -454,21 +389,12 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'test-sha' }
       };
 
-      setupGitHubMock({
-        statusCode: 200,
-        body: JSON.stringify({ workflow_runs: [] })
-      });
+      const scope = mockWorkflowRuns([]);
 
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.github.com');
-      expect(requestOptions.path).toContain('/repos/mfrench71/circleseven-website/actions/runs');
-      expect(requestOptions.path).toContain('per_page=20');
-      expect(requestOptions.path).toContain('branch=main');
-      expect(requestOptions.method).toBe('GET');
-      expect(requestOptions.headers['Authorization']).toBe('token test-github-token-12345');
+      // Verify nock intercepted the request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('returns 400 when sha parameter is missing', async () => {
@@ -507,10 +433,7 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'test-sha' }
       };
 
-      setupGitHubMock({
-        statusCode: 403,
-        body: JSON.stringify({ message: 'Rate limit exceeded' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 403, 'Rate limit exceeded');
 
       const response = await handler(event, {});
 
@@ -542,10 +465,7 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'test' }
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -563,10 +483,7 @@ describe('Deployment Status Function', () => {
         queryStringParameters: { sha: 'test' }
       };
 
-      setupGitHubMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Error' })
-      });
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/actions/runs?per_page=20&branch=main', 500, 'Error');
 
       const response = await handler(event, {});
 
@@ -576,27 +493,4 @@ describe('Deployment Status Function', () => {
       delete process.env.NODE_ENV;
     });
   });
-
-  // Helper function
-  function setupGitHubMock({ statusCode, body }) {
-    mockResponse.statusCode = statusCode;
-
-    https.request.mockImplementation((options, callback) => {
-      mockRequest.end.mockImplementation(() => {
-        // Call the callback to invoke the response handler
-        callback(mockResponse);
-
-        // Use setImmediate to ensure event listeners are registered before triggering events
-        setImmediate(() => {
-          const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-          const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-          if (dataCallback) dataCallback(body);
-          if (endCallback) endCallback();
-        });
-      });
-
-      return mockRequest;
-    });
-  }
 });

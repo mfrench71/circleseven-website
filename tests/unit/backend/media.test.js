@@ -1,52 +1,29 @@
 /**
+ * @vitest-environment node
+ *
  * Unit Tests for Media Netlify Function
  *
  * Tests Cloudinary media library integration.
  * Covers GET operation for retrieving image resources.
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import https from 'https';
+// Set env vars BEFORE importing handler
+process.env.CLOUDINARY_API_KEY = 'test-cloudinary-key-732138267195618';
+process.env.CLOUDINARY_API_SECRET = 'test-cloudinary-secret-12345';
+process.env.CLOUDINARY_CLOUD_NAME = 'circleseven';
 
-// Mock the https module
-vi.mock('https');
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import nock from 'nock';
+import { mockCloudinaryResources, mockCloudinaryError, cleanMocks } from '../../utils/github-mock.js';
+import { handler } from '../../../netlify/functions/media.js';
 
 describe('Media Function', () => {
-  let handler;
-  let mockRequest;
-  let mockResponse;
-
-  beforeEach(async () => {
-    // Clear module cache and reimport
-    vi.resetModules();
-
-    // Mock environment variables
-    process.env.CLOUDINARY_API_SECRET = 'test-cloudinary-secret-12345';
-
-    // Setup mock request and response
-    mockRequest = {
-      on: vi.fn(),
-      write: vi.fn(),
-      end: vi.fn()
-    };
-
-    mockResponse = {
-      statusCode: 200,
-      on: vi.fn(),
-      setEncoding: vi.fn()
-    };
-
-    // Mock https.request
-    https.request = vi.fn().mockReturnValue(mockRequest);
-
-    // Import handler after mocking
-    const module = await import('../../../netlify/functions/media.js');
-    handler = module.handler;
+  beforeEach(() => {
+    cleanMocks();
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
-    delete process.env.CLOUDINARY_API_SECRET;
+    cleanMocks();
   });
 
   describe('CORS and OPTIONS', () => {
@@ -68,10 +45,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      mockCloudinaryResources([]);
 
       const response = await handler(event, {});
 
@@ -115,10 +89,7 @@ describe('Media Function', () => {
         }
       ];
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: cloudinaryResources })
-      });
+      mockCloudinaryResources(cloudinaryResources);
 
       const response = await handler(event, {});
 
@@ -141,10 +112,7 @@ describe('Media Function', () => {
         { public_id: 'img3', format: 'gif' }
       ];
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: cloudinaryResources })
-      });
+      mockCloudinaryResources(cloudinaryResources);
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -160,10 +128,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      mockCloudinaryResources([]);
 
       const response = await handler(event, {});
 
@@ -178,10 +143,9 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({}) // No resources field
-      });
+      nock('https://api.cloudinary.com')
+        .get(/\/v1_1\/[^\/]+\/resources\/image/)
+        .reply(200, {}); // No resources field
 
       const response = await handler(event, {});
       const body = JSON.parse(response.body);
@@ -195,22 +159,12 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      const scope = mockCloudinaryResources([]);
 
       await handler(event, {});
 
-      expect(https.request).toHaveBeenCalled();
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.cloudinary.com');
-      expect(requestOptions.path).toContain('/v1_1/circleseven/resources/image');
-      expect(requestOptions.path).toContain('max_results=500');
-      expect(requestOptions.method).toBe('GET');
-
-      // Verify Basic Auth header
-      expect(requestOptions.headers['Authorization']).toMatch(/^Basic /);
+      // Verify nock intercepted the request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('uses Basic Auth with API Key and Secret', async () => {
@@ -218,44 +172,49 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      const scope = nock('https://api.cloudinary.com', {
+        reqheaders: {
+          'authorization': (val) => {
+            // Verify Basic Auth format
+            if (!val.startsWith('Basic ')) return false;
+
+            // Decode and verify credentials
+            const base64Credentials = val.replace('Basic ', '');
+            const credentials = Buffer.from(base64Credentials, 'base64').toString('utf8');
+            return credentials.includes('732138267195618') && credentials.includes('test-cloudinary-secret-12345');
+          }
+        }
+      })
+        .get(/\/v1_1\/[^\/]+\/resources\/image/)
+        .reply(200, { resources: [] });
 
       await handler(event, {});
 
-      const requestOptions = https.request.mock.calls[0][0];
-      const authHeader = requestOptions.headers['Authorization'];
-
-      // Verify it's Basic Auth
-      expect(authHeader).toContain('Basic ');
-
-      // Decode and verify it contains API key (732138267195618)
-      const base64Credentials = authHeader.replace('Basic ', '');
-      const credentials = Buffer.from(base64Credentials, 'base64').toString('utf8');
-      expect(credentials).toContain('732138267195618'); // API Key
-      expect(credentials).toContain('test-cloudinary-secret-12345'); // Secret
+      // Verify nock intercepted with correct auth
+      expect(scope.isDone()).toBe(true);
     });
 
     it('returns 500 when CLOUDINARY_API_SECRET is missing', async () => {
-      delete process.env.CLOUDINARY_API_SECRET;
+      const savedKey = process.env.CLOUDINARY_API_KEY;
+      const savedSecret = process.env.CLOUDINARY_API_SECRET;
 
-      // Need to re-import after deleting env var
-      vi.resetModules();
-      const module = await import('../../../netlify/functions/media.js');
-      const handlerWithoutSecret = module.handler;
+      delete process.env.CLOUDINARY_API_KEY;
+      delete process.env.CLOUDINARY_API_SECRET;
 
       const event = {
         httpMethod: 'GET'
       };
 
-      const response = await handlerWithoutSecret(event, {});
+      const response = await handler(event, {});
 
       expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
       expect(body.error).toBe('Configuration error');
       expect(body.message).toContain('CLOUDINARY_API_SECRET');
+
+      // Restore env vars
+      process.env.CLOUDINARY_API_KEY = savedKey;
+      process.env.CLOUDINARY_API_SECRET = savedSecret;
     });
 
     it('handles Cloudinary API errors', async () => {
@@ -263,10 +222,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 401,
-        body: JSON.stringify({ error: { message: 'Invalid credentials' } })
-      });
+      mockCloudinaryError(401, 'Invalid credentials');
 
       const response = await handler(event, {});
 
@@ -281,10 +237,9 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: 'not valid json{{'
-      });
+      nock('https://api.cloudinary.com')
+        .get(/\/v1_1\/[^\/]+\/resources\/image/)
+        .reply(200, 'not valid json{{');
 
       const response = await handler(event, {});
 
@@ -299,15 +254,9 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      https.request.mockImplementation((options, callback) => {
-        mockRequest.end.mockImplementation(() => {
-          const errorCallback = mockRequest.on.mock.calls.find(call => call[0] === 'error')?.[1];
-          if (errorCallback) {
-            setTimeout(() => errorCallback(new Error('Network error')), 0);
-          }
-        });
-        return mockRequest;
-      });
+      nock('https://api.cloudinary.com')
+        .get(/\/v1_1\/[^\/]+\/resources\/image/)
+        .replyWithError('Network error');
 
       const response = await handler(event, {});
 
@@ -322,10 +271,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 500,
-        body: JSON.stringify({ message: 'Internal error' })
-      });
+      mockCloudinaryError(500, 'Internal error');
 
       const response = await handler(event, {});
 
@@ -390,17 +336,12 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      const scope = mockCloudinaryResources([]);
 
       await handler(event, {});
 
-      const requestOptions = https.request.mock.calls[0][0];
-      expect(requestOptions.hostname).toBe('api.cloudinary.com');
-      // Verify using https module (not http)
-      expect(https.request).toHaveBeenCalled();
+      // Verify nock intercepted HTTPS request
+      expect(scope.isDone()).toBe(true);
     });
 
     it('does not expose API secret in responses', async () => {
@@ -408,10 +349,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 200,
-        body: JSON.stringify({ resources: [] })
-      });
+      mockCloudinaryResources([]);
 
       const response = await handler(event, {});
       const responseBody = JSON.stringify(response);
@@ -425,10 +363,7 @@ describe('Media Function', () => {
         httpMethod: 'GET'
       };
 
-      setupCloudinaryMock({
-        statusCode: 401,
-        body: JSON.stringify({ error: 'Unauthorized' })
-      });
+      mockCloudinaryError(401, 'Unauthorized');
 
       const response = await handler(event, {});
       const responseBody = JSON.stringify(response);
@@ -436,23 +371,4 @@ describe('Media Function', () => {
       expect(responseBody).not.toContain('test-cloudinary-secret-12345');
     });
   });
-
-  // Helper function
-  function setupCloudinaryMock({ statusCode, body }) {
-    mockResponse.statusCode = statusCode;
-
-    https.request.mockImplementation((options, callback) => {
-      callback(mockResponse);
-
-      mockRequest.end.mockImplementation(() => {
-        const dataCallback = mockResponse.on.mock.calls.find(call => call[0] === 'data')?.[1];
-        const endCallback = mockResponse.on.mock.calls.find(call => call[0] === 'end')?.[1];
-
-        if (dataCallback) dataCallback(body);
-        if (endCallback) endCallback();
-      });
-
-      return mockRequest;
-    });
-  }
 });

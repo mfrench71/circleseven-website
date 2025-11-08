@@ -28,9 +28,9 @@ describe('Notifications Module', () => {
       // Simulate showError
       const messageEl = errorEl.querySelector('p');
       messageEl.textContent = 'Test error';
-      errorEl.classList.remove('hidden');
+      errorEl.classList.remove('d-none');
 
-      expect(errorEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
       expect(messageEl.textContent).toBe('Test error');
     });
 
@@ -50,12 +50,12 @@ describe('Notifications Module', () => {
 
       // Simulate auto-dismiss
       setTimeout(() => {
-        errorEl.classList.add('hidden');
+        errorEl.classList.add('d-none');
       }, 5000);
 
       vi.advanceTimersByTime(5000);
 
-      expect(errorEl.classList.contains('hidden')).toBe(true);
+      expect(errorEl.classList.contains('d-none')).toBe(true);
     });
 
     it('prevents XSS by escaping HTML', () => {
@@ -83,9 +83,9 @@ describe('Notifications Module', () => {
       // Simulate showSuccess
       const messageEl = successEl.querySelector('p');
       messageEl.textContent = 'Operation successful!';
-      successEl.classList.remove('hidden');
+      successEl.classList.remove('d-none');
 
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
       expect(messageEl.textContent).toBe('Operation successful!');
     });
 
@@ -104,12 +104,12 @@ describe('Notifications Module', () => {
 
       // Simulate auto-dismiss
       setTimeout(() => {
-        successEl.classList.add('hidden');
+        successEl.classList.add('d-none');
       }, 5000);
 
       vi.advanceTimersByTime(5000);
 
-      expect(successEl.classList.contains('hidden')).toBe(true);
+      expect(successEl.classList.contains('d-none')).toBe(true);
     });
   });
 
@@ -119,15 +119,15 @@ describe('Notifications Module', () => {
       const successEl = createNotificationElement('success', false);
 
       // Both visible initially
-      expect(errorEl.classList.contains('hidden')).toBe(false);
-      expect(successEl.classList.contains('hidden')).toBe(false);
+      expect(errorEl.classList.contains('d-none')).toBe(false);
+      expect(successEl.classList.contains('d-none')).toBe(false);
 
       // Simulate hideMessages
-      errorEl.classList.add('hidden');
-      successEl.classList.add('hidden');
+      errorEl.classList.add('d-none');
+      successEl.classList.add('d-none');
 
-      expect(errorEl.classList.contains('hidden')).toBe(true);
-      expect(successEl.classList.contains('hidden')).toBe(true);
+      expect(errorEl.classList.contains('d-none')).toBe(true);
+      expect(successEl.classList.contains('d-none')).toBe(true);
     });
   });
 

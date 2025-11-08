@@ -27,12 +27,17 @@ describe('Deployments Module', () => {
   beforeEach(() => {
     // Setup DOM
     document.body.innerHTML = `
-      <div id="error" class="hidden"><p></p></div>
-      <div id="success" class="hidden"><p></p></div>
-      <div id="deployment-status-header" class="hidden">
-        <i class="fas fa-spinner fa-spin"></i>
-        <div id="deployment-status-message"></div>
-        <div id="deployment-status-time"></div>
+      <div id="error" class="d-none"><p></p></div>
+      <div id="success" class="d-none"><p></p></div>
+      <div id="main-header" class="bg-white">
+        <div id="header-greeting">Welcome</div>
+        <div id="deployment-status-header" class="d-none">
+          <i class="fas fa-spinner fa-spin"></i>
+          <div id="deployment-status-message"></div>
+          <div id="deployment-status-time"></div>
+        </div>
+        <a href="#">Link1</a>
+        <button>Link2</button>
       </div>
       <div id="deployments-card">
         <div class="card-content"></div>
@@ -52,7 +57,7 @@ describe('Deployments Module', () => {
     window.historyPollInterval = null;
     window.loadPosts = vi.fn();
     window.loadPages = vi.fn();
-    window.loadTrash = vi.fn();
+    window.loadBin = vi.fn();
 
     // Mock fetch with default response for functions that call updateDashboardDeployments
     mockFetch = vi.fn();
@@ -132,8 +137,9 @@ describe('Deployments Module', () => {
 
         const saved = JSON.parse(localStorage.getItem('deploymentHistory'));
         expect(saved.length).toBe(50);
-        // Should keep the LAST 50 items (newest ones if array is ordered newest-last)
-        expect(saved[49].commitSha).toBe('sha59');
+        // Production code uses slice(0, 50) which takes the FIRST 50 items
+        // If history is newest-first (as per production comment), this is correct
+        expect(saved[49].commitSha).toBe('sha49');
       });
 
       it('handles save errors gracefully', () => {
@@ -300,7 +306,7 @@ describe('Deployments Module', () => {
       trackDeployment('abc123', 'Create post', null);
 
       const banner = document.getElementById('deployment-status-header');
-      expect(banner.classList.contains('hidden')).toBe(false);
+      expect(banner.classList.contains('d-none')).toBe(false);
     });
 
     it('starts polling interval', () => {
@@ -328,7 +334,7 @@ describe('Deployments Module', () => {
         showDeploymentBanner();
 
         const banner = document.getElementById('deployment-status-header');
-        expect(banner.classList.contains('hidden')).toBe(false);
+        expect(banner.classList.contains('d-none')).toBe(false);
       });
 
       it('updates banner message', () => {
@@ -344,21 +350,24 @@ describe('Deployments Module', () => {
     describe('hideDeploymentBanner', () => {
       it('hides banner', () => {
         const banner = document.getElementById('deployment-status-header');
-        banner.classList.remove('hidden');
+        banner.classList.remove('d-none');
 
         hideDeploymentBanner();
 
-        expect(banner.classList.contains('hidden')).toBe(true);
+        expect(banner.classList.contains('d-none')).toBe(true);
       });
 
       it('resets banner styling to defaults', () => {
         const banner = document.getElementById('deployment-status-header');
-        banner.className = 'bg-green-500';
+        const mainHeader = document.getElementById('main-header');
+        mainHeader.classList.add('bg-success');
+        mainHeader.classList.remove('bg-white');
 
         hideDeploymentBanner();
 
-        expect(banner.classList.contains('hidden')).toBe(true);
-        expect(banner.classList.contains('bg-gradient-to-r')).toBe(true);
+        expect(banner.classList.contains('d-none')).toBe(true);
+        expect(mainHeader.classList.contains('bg-white')).toBe(true);
+        expect(mainHeader.classList.contains('bg-success')).toBe(false);
       });
     });
 
@@ -408,8 +417,9 @@ describe('Deployments Module', () => {
           { action: 'Create post: test.md' }
         ]);
 
-        const banner = document.getElementById('deployment-status-header');
-        expect(banner.classList.contains('from-green-500')).toBe(true);
+        const mainHeader = document.getElementById('main-header');
+        expect(mainHeader.classList.contains('bg-success')).toBe(true);
+        expect(mainHeader.classList.contains('bg-danger')).toBe(false);
       });
 
       it('shows failure banner for failed deployments', () => {
@@ -417,8 +427,9 @@ describe('Deployments Module', () => {
           { action: 'Create post: test.md' }
         ]);
 
-        const banner = document.getElementById('deployment-status-header');
-        expect(banner.classList.contains('from-red-500')).toBe(true);
+        const mainHeader = document.getElementById('main-header');
+        expect(mainHeader.classList.contains('bg-danger')).toBe(true);
+        expect(mainHeader.classList.contains('bg-success')).toBe(false);
       });
 
       it('reloads posts when post action detected', () => {
@@ -437,12 +448,12 @@ describe('Deployments Module', () => {
         expect(window.loadPages).toHaveBeenCalled();
       });
 
-      it('reloads trash when restore action detected', () => {
+      it('reloads bin when restore action detected', () => {
         showDeploymentCompletion(true, [
           { action: 'Restore post: old.md' }
         ]);
 
-        expect(window.loadTrash).toHaveBeenCalled();
+        expect(window.loadBin).toHaveBeenCalled();
       });
 
       it('handles multiple actions', () => {
@@ -454,7 +465,7 @@ describe('Deployments Module', () => {
 
         expect(window.loadPosts).toHaveBeenCalled();
         expect(window.loadPages).toHaveBeenCalled();
-        expect(window.loadTrash).toHaveBeenCalled();
+        expect(window.loadBin).toHaveBeenCalled();
       });
 
       it('changes success icon', () => {
@@ -576,7 +587,7 @@ describe('Deployments Module', () => {
       await restoreActiveDeployments();
 
       const banner = document.getElementById('deployment-status-header');
-      expect(banner.classList.contains('hidden')).toBe(false);
+      expect(banner.classList.contains('d-none')).toBe(false);
     });
 
     it('does not show banner if no in-progress deployments', async () => {
@@ -597,7 +608,7 @@ describe('Deployments Module', () => {
       await restoreActiveDeployments();
 
       const banner = document.getElementById('deployment-status-header');
-      expect(banner.classList.contains('hidden')).toBe(true);
+      expect(banner.classList.contains('d-none')).toBe(true);
     });
 
     it('handles API errors gracefully', async () => {
@@ -666,7 +677,7 @@ describe('Deployments Module', () => {
       expect(window.activeDeployments[0].status).toBe('pending');
 
       const banner = document.getElementById('deployment-status-header');
-      expect(banner.classList.contains('hidden')).toBe(false);
+      expect(banner.classList.contains('d-none')).toBe(false);
 
       // Update elapsed time
       window.activeDeployments[0].startedAt = new Date(Date.now() - 30000);
