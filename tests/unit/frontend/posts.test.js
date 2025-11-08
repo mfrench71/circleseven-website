@@ -31,25 +31,30 @@ global.cloudinary = {
 };
 
 // Mock EasyMDE
-global.EasyMDE = vi.fn().mockImplementation((config) => {
-  let content = '';
-  return {
-    value: vi.fn((val) => {
+global.EasyMDE = class {
+  constructor(config) {
+    this.config = config;
+    this.content = '';
+    this.value = (val) => {
       if (val !== undefined) {
-        content = val;
+        this.content = val;
         // Also update the underlying textarea
-        if (config.element) {
+        if (config && config.element) {
           config.element.value = val;
         }
       }
-      return content;
-    }),
-    toTextArea: vi.fn(),
-    codemirror: {
-      on: vi.fn()
-    }
-  };
-});
+      return this.content;
+    };
+    this.toTextArea = vi.fn();
+    this.codemirror = {
+      on: vi.fn(),
+      off: vi.fn()
+    };
+  }
+};
+global.EasyMDE.toggleHeading1 = vi.fn();
+global.EasyMDE.toggleHeading2 = vi.fn();
+global.EasyMDE.toggleHeading3 = vi.fn();
 
 describe('Posts Module', () => {
   let mockFetch;
@@ -892,13 +897,16 @@ describe('Posts Module', () => {
 
   describe('Editor Workflow', () => {
     describe('showNewPostForm', () => {
-      it('clears all form fields', () => {
+      it('clears all form fields', async () => {
         // Pre-fill form
         document.getElementById('post-title').value = 'Old Title';
         document.getElementById('post-content').value = 'Old Content';
         document.getElementById('post-image').value = 'old-image.jpg';
 
         showNewPostForm();
+
+        // Wait for requestAnimationFrame to complete
+        await new Promise(resolve => requestAnimationFrame(resolve));
 
         expect(document.getElementById('post-title').value).toBe('');
         expect(document.getElementById('post-content').value).toBe('');
