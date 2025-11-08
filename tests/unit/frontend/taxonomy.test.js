@@ -154,7 +154,7 @@ describe('Taxonomy Module', () => {
       const mockData = {
         categories: ['Test Category'],
         tags: ['test-tag'],
-        categoriesTree: [],
+        categoriesTree: [{ item: 'Test Category', children: [] }],
         tagsTree: []
       };
 
@@ -177,8 +177,7 @@ describe('Taxonomy Module', () => {
     beforeEach(() => {
       // Reset tab state
       document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('border-teal-600', 'text-teal-600');
-        btn.classList.add('border-transparent', 'text-gray-500');
+        btn.classList.remove('active');
       });
       document.querySelectorAll('.taxonomy-tab').forEach(tab => {
         tab.classList.add('d-none');
@@ -189,8 +188,7 @@ describe('Taxonomy Module', () => {
       switchTaxonomyTab('categories');
 
       const categoriesTab = document.getElementById('tab-categories');
-      expect(categoriesTab.classList.contains('border-teal-600')).toBe(true);
-      expect(categoriesTab.classList.contains('text-teal-600')).toBe(true);
+      expect(categoriesTab.classList.contains('active')).toBe(true);
 
       const categoriesContent = document.getElementById('taxonomy-categories-tab');
       expect(categoriesContent.classList.contains('d-none')).toBe(false);
@@ -203,8 +201,7 @@ describe('Taxonomy Module', () => {
       switchTaxonomyTab('tags');
 
       const tagsTab = document.getElementById('tab-tags');
-      expect(tagsTab.classList.contains('border-teal-600')).toBe(true);
-      expect(tagsTab.classList.contains('text-teal-600')).toBe(true);
+      expect(tagsTab.classList.contains('active')).toBe(true);
 
       const tagsContent = document.getElementById('taxonomy-tags-tab');
       expect(tagsContent.classList.contains('d-none')).toBe(false);
@@ -213,17 +210,17 @@ describe('Taxonomy Module', () => {
       expect(addTag.classList.contains('d-none')).toBe(false);
     });
 
-    it('updates badge colors when switching tabs', () => {
-      const categoriesBadge = document.getElementById('categories-count-badge');
-      const tagsBadge = document.getElementById('tags-count-badge');
+    it('updates active tab state', () => {
+      const categoriesTab = document.getElementById('tab-categories');
+      const tagsTab = document.getElementById('tab-tags');
 
       switchTaxonomyTab('categories');
-      expect(categoriesBadge.classList.contains('bg-teal-100')).toBe(true);
-      expect(tagsBadge.classList.contains('bg-gray-100')).toBe(true);
+      expect(categoriesTab.classList.contains('active')).toBe(true);
+      expect(tagsTab.classList.contains('active')).toBe(false);
 
       switchTaxonomyTab('tags');
-      expect(tagsBadge.classList.contains('bg-teal-100')).toBe(true);
-      expect(categoriesBadge.classList.contains('bg-gray-100')).toBe(true);
+      expect(tagsTab.classList.contains('active')).toBe(true);
+      expect(categoriesTab.classList.contains('active')).toBe(false);
     });
 
     it('hides all other tabs when switching', () => {
@@ -417,6 +414,7 @@ describe('Taxonomy Module', () => {
       });
 
       window.categories = ['Existing'];
+      window.categoriesTree = [{ item: 'Existing', children: [] }];
       await showAddCategoryModal();
 
       expect(window.categories).toEqual(['Existing', 'New Category']);
@@ -683,6 +681,8 @@ describe('Taxonomy Module', () => {
     it('sends taxonomy data to API', async () => {
       window.categories = ['Cat1', 'Cat2'];
       window.tags = ['tag1', 'tag2'];
+      window.categoriesTree = [];
+      window.tagsTree = [];
 
       mockFetch.mockResolvedValue({
         ok: true,
@@ -700,7 +700,9 @@ describe('Taxonomy Module', () => {
           },
           body: JSON.stringify({
             categories: ['Cat1', 'Cat2'],
-            tags: ['tag1', 'tag2']
+            tags: ['tag1', 'tag2'],
+            categoriesTree: [],
+            tagsTree: []
           })
         }
       );
