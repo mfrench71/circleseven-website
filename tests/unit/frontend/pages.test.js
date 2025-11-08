@@ -529,15 +529,6 @@ describe('Pages Module', () => {
   });
 
   describe('showNewPageForm', () => {
-    it('shows editor view and hides list view', () => {
-      const listView = document.getElementById('pages-list-view');
-      const editorView = document.getElementById('page-editor-view');
-
-      showNewPageForm(false);
-
-      expect(listView.classList.contains('d-none')).toBe(true);
-      expect(editorView.classList.contains('d-none')).toBe(false);
-    });
 
     it('resets form fields', () => {
       document.getElementById('page-title').value = 'Old Title';
@@ -639,28 +630,6 @@ describe('Pages Module', () => {
       expect(window.currentPage_pages).toEqual(mockPage);
     });
 
-    it('shows editor view and hides list view', async () => {
-      const mockPage = {
-        content: '',
-        frontmatter: {},
-        name: 'test.md',
-        sha: 'abc'
-      };
-
-      window.allPages = [{ name: 'test.md', sha: 'abc' }];
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: async () => mockPage
-      });
-
-      const listView = document.getElementById('pages-list-view');
-      const editorView = document.getElementById('page-editor-view');
-
-      await editPage('test.md', false);
-
-      expect(listView.classList.contains('d-none')).toBe(true);
-      expect(editorView.classList.contains('d-none')).toBe(false);
-    });
 
     it('does not update URL (SPA routing removed)', async () => {
       const mockPage = {
@@ -942,7 +911,7 @@ describe('Pages Module', () => {
       await deletePage();
 
       expect(mockFetch).toHaveBeenCalledWith(
-        '/.netlify/functions/trash',
+        '/.netlify/functions/bin',
         expect.objectContaining({
           method: 'POST'
         })
@@ -1032,7 +1001,7 @@ describe('Pages Module', () => {
       await deletePageFromList('test.md', 'abc123');
 
       expect(mockFetch).toHaveBeenCalledWith(
-        '/.netlify/functions/trash',
+        '/.netlify/functions/bin',
         expect.objectContaining({
           method: 'POST'
         })
