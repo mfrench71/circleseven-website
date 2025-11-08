@@ -23,6 +23,31 @@ import {
 } from '../../../admin/js/modules/pages.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
+// Mock EasyMDE
+global.EasyMDE = class {
+  constructor(config) {
+    this.config = config;
+    this.content = '';
+    this.value = (val) => {
+      if (val !== undefined) {
+        this.content = val;
+        if (config && config.element) {
+          config.element.value = val;
+        }
+      }
+      return this.content;
+    };
+    this.toTextArea = vi.fn();
+    this.codemirror = {
+      on: vi.fn(),
+      off: vi.fn()
+    };
+  }
+};
+global.EasyMDE.toggleHeading1 = vi.fn();
+global.EasyMDE.toggleHeading2 = vi.fn();
+global.EasyMDE.toggleHeading3 = vi.fn();
+
 describe('Pages Module', () => {
   let mockFetch;
   let mockShowConfirm;
@@ -603,7 +628,8 @@ describe('Pages Module', () => {
 
       await editPage('about.md', false);
 
-      // Wait for requestAnimationFrame to complete
+      // Wait for requestAnimationFrame to complete (need two frames for editor initialization)
+      await new Promise(resolve => requestAnimationFrame(resolve));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       expect(mockFetch).toHaveBeenCalledWith(
@@ -720,7 +746,9 @@ describe('Pages Module', () => {
     it('updates existing page when currentPage_pages exists', async () => {
       window.currentPage_pages = {
         name: 'existing.md',
-        sha: 'oldsha'
+        path: '_pages/existing.md',
+        sha: 'oldsha',
+        frontmatter: { title: 'Test Page' }
       };
 
       mockFetch.mockResolvedValue({
@@ -782,7 +810,8 @@ describe('Pages Module', () => {
 
       expect(mockTrackDeployment).toHaveBeenCalledWith(
         'commit123',
-        expect.stringContaining('Test Page')
+        expect.stringContaining('Test Page'),
+        expect.any(String)
       );
     });
 
@@ -814,17 +843,21 @@ describe('Pages Module', () => {
     });
 
     it('clears pages cache after save', async () => {
-      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      const oldCache = JSON.stringify({ data: [], timestamp: Date.now() });
+      localStorage.setItem('admin_pages_cache', oldCache);
 
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => ({ success: true })
+        json: async () => ({ success: true, pages: [{ name: 'new.md', frontmatter: { title: 'New' } }] })
       });
 
       const event = new Event('submit');
       await savePage(event);
 
-      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
+      // Cache should be repopulated by loadPages after clear
+      const newCache = localStorage.getItem('admin_pages_cache');
+      expect(newCache).not.toBe(oldCache); // Should be different (repopulated)
+      expect(newCache).not.toBeNull(); // loadPages should have cached new data
     });
 
     it('shows error when save fails', async () => {
@@ -881,6 +914,7 @@ describe('Pages Module', () => {
     beforeEach(() => {
       window.currentPage_pages = {
         name: 'test.md',
+        path: '_pages/test.md',
         sha: 'abc123',
         frontmatter: { title: 'Test Page' }
       };
@@ -938,22 +972,27 @@ describe('Pages Module', () => {
 
       expect(mockTrackDeployment).toHaveBeenCalledWith(
         'commit456',
-        expect.stringContaining('Test Page')
+        expect.stringContaining('Test Page'),
+        'test.md'
       );
     });
 
     it('clears pages cache after delete', async () => {
-      localStorage.setItem('admin_pages_cache', JSON.stringify({ data: [], timestamp: Date.now() }));
+      const oldCache = JSON.stringify({ data: [], timestamp: Date.now() });
+      localStorage.setItem('admin_pages_cache', oldCache);
 
       mockShowConfirm.mockResolvedValue(true);
       mockFetch.mockResolvedValue({
         ok: true,
-        json: async () => ({ success: true })
+        json: async () => ({ success: true, pages: [{ name: 'other.md', frontmatter: { title: 'Other' } }] })
       });
 
       await deletePage();
 
-      expect(localStorage.getItem('admin_pages_cache')).toBeNull();
+      // Cache should be repopulated by loadPages after clear
+      const newCache = localStorage.getItem('admin_pages_cache');
+      expect(newCache).not.toBe(oldCache); // Should be different (repopulated)
+      expect(newCache).not.toBeNull(); // loadPages should have cached new data
     });
 
     it('shows success message after delete', async () => {
@@ -1019,16 +1058,12 @@ describe('Pages Module', () => {
         ok: true,
         json: async () => ({ success: true })
       });
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ pages: [] })
-      });
 
       await deletePageFromList('test.md', 'abc123');
 
       expect(localStorage.getItem('admin_pages_cache')).toBeNull();
-      // Should call loadPages which fetches pages
-      expect(mockFetch).toHaveBeenCalledTimes(2);
+      // deletePageFromList only calls delete endpoint, not loadPages
+      expect(mockFetch).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -1044,15 +1079,21 @@ describe('Pages Module', () => {
         ok: true,
         json: async () => ({ success: true, commitSha: 'commit1' })
       });
+      // Mock loadPages call after save
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ pages: [] })
+      });
 
       let event = new Event('submit');
       await savePage(event);
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith('commit1', expect.any(String));
+      expect(mockTrackDeployment).toHaveBeenCalledWith('commit1', expect.any(String), expect.any(String));
 
       // Edit existing page
       window.currentPage_pages = {
         name: 'new.md',
+        path: '_pages/new.md',
         sha: 'abc',
         frontmatter: { title: 'New Page' }
       };
@@ -1060,6 +1101,11 @@ describe('Pages Module', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, commitSha: 'commit2' })
+      });
+      // Mock loadPages call after save
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ pages: [] })
       });
 
       event = new Event('submit');
@@ -1070,16 +1116,28 @@ describe('Pages Module', () => {
         expect.objectContaining({ method: 'PUT' })
       );
 
-      // Delete page
+      // Delete page - need to set currentPage_pages again since savePage cleared it
+      window.currentPage_pages = {
+        name: 'new.md',
+        path: '_pages/new.md',
+        sha: 'abc',
+        frontmatter: { title: 'New Page' }
+      };
       mockShowConfirm.mockResolvedValue(true);
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({ success: true, commitSha: 'commit3' })
       });
+      // Mock loadPages call after delete
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ pages: [] })
+      });
 
       await deletePage();
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith('commit3', expect.any(String));
+      expect(mockTrackDeployment).toHaveBeenCalledTimes(3);
+      expect(mockTrackDeployment).toHaveBeenNthCalledWith(3, 'commit3', expect.any(String), expect.any(String));
     });
   });
 });
