@@ -240,6 +240,11 @@ describe('Taxonomy Module', () => {
   describe('renderCategories', () => {
     it('renders categories list', () => {
       window.categories = ['Technology', 'Design', 'Development'];
+      window.categoriesTree = [
+        { item: 'Technology', children: [] },
+        { item: 'Design', children: [] },
+        { item: 'Development', children: [] }
+      ];
 
       renderCategories();
 
@@ -252,6 +257,12 @@ describe('Taxonomy Module', () => {
 
     it('updates category count badge', () => {
       window.categories = ['Cat1', 'Cat2', 'Cat3', 'Cat4'];
+      window.categoriesTree = [
+        { item: 'Cat1', children: [] },
+        { item: 'Cat2', children: [] },
+        { item: 'Cat3', children: [] },
+        { item: 'Cat4', children: [] }
+      ];
 
       renderCategories();
 
@@ -261,15 +272,19 @@ describe('Taxonomy Module', () => {
 
     it('renders empty state when no categories', () => {
       window.categories = [];
+      window.categoriesTree = [];
 
       renderCategories();
 
       const tbody = document.getElementById('categories-list');
-      expect(tbody.innerHTML).toBe('');
+      expect(tbody.innerHTML).toContain('No categories yet');
     });
 
     it('escapes HTML in category names to prevent XSS', () => {
       window.categories = ['<script>alert("XSS")</script>'];
+      window.categoriesTree = [
+        { item: '<script>alert("XSS")</script>', children: [] }
+      ];
 
       renderCategories();
 
@@ -286,6 +301,10 @@ describe('Taxonomy Module', () => {
 
     it('initializes Sortable.js for drag-and-drop', () => {
       window.categories = ['Cat1', 'Cat2'];
+      window.categoriesTree = [
+        { item: 'Cat1', children: [] },
+        { item: 'Cat2', children: [] }
+      ];
 
       renderCategories();
 
@@ -295,6 +314,7 @@ describe('Taxonomy Module', () => {
 
     it('destroys previous Sortable instance before creating new one', () => {
       window.categories = ['Cat1'];
+      window.categoriesTree = [{ item: 'Cat1', children: [] }];
       window.sortableInstances.categories = mockSortable;
 
       renderCategories();
@@ -304,6 +324,7 @@ describe('Taxonomy Module', () => {
 
     it('renders edit and delete buttons for each category', () => {
       window.categories = ['Test Category'];
+      window.categoriesTree = [{ item: 'Test Category', children: [] }];
 
       renderCategories();
 
@@ -315,15 +336,20 @@ describe('Taxonomy Module', () => {
       expect(deleteBtn).not.toBeNull();
     });
 
-    it('adds correct data-index attribute to rows', () => {
+    it('adds correct data-parent-index attribute to rows', () => {
       window.categories = ['Cat1', 'Cat2', 'Cat3'];
+      window.categoriesTree = [
+        { item: 'Cat1', children: [] },
+        { item: 'Cat2', children: [] },
+        { item: 'Cat3', children: [] }
+      ];
 
       renderCategories();
 
       const rows = document.querySelectorAll('#categories-list tr');
-      expect(rows[0].getAttribute('data-index')).toBe('0');
-      expect(rows[1].getAttribute('data-index')).toBe('1');
-      expect(rows[2].getAttribute('data-index')).toBe('2');
+      expect(rows[0].getAttribute('data-parent-index')).toBe('0');
+      expect(rows[1].getAttribute('data-parent-index')).toBe('1');
+      expect(rows[2].getAttribute('data-parent-index')).toBe('2');
     });
   });
 
