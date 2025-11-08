@@ -301,39 +301,39 @@ describe('Posts Module', () => {
 
       it('sorts by date ascending (oldest first)', () => {
         const posts = [
-          { title: 'New Post', date: new Date('2025-12-31') },
-          { title: 'Old Post', date: new Date('2025-01-01') }
+          { name: 'new.md', frontmatter: { title: 'New Post' }, date: new Date('2025-12-31') },
+          { name: 'old.md', frontmatter: { title: 'Old Post' }, date: new Date('2025-01-01') }
         ];
 
         const sorted = sortPostsList(posts, 'date-asc');
 
-        expect(sorted[0].title).toBe('Old Post');
-        expect(sorted[1].title).toBe('New Post');
+        expect(sorted[0].frontmatter.title).toBe('Old Post');
+        expect(sorted[1].frontmatter.title).toBe('New Post');
       });
 
       it('sorts by title ascending (A-Z)', () => {
         const posts = [
-          { title: 'Zebra Post', date: new Date() },
-          { title: 'Apple Post', date: new Date() },
-          { title: 'Mango Post', date: new Date() }
+          { name: 'zebra.md', frontmatter: { title: 'Zebra Post' }, date: new Date() },
+          { name: 'apple.md', frontmatter: { title: 'Apple Post' }, date: new Date() },
+          { name: 'mango.md', frontmatter: { title: 'Mango Post' }, date: new Date() }
         ];
 
         const sorted = sortPostsList(posts, 'title-asc');
 
-        expect(sorted[0].title).toBe('Apple Post');
-        expect(sorted[2].title).toBe('Zebra Post');
+        expect(sorted[0].frontmatter.title).toBe('Apple Post');
+        expect(sorted[2].frontmatter.title).toBe('Zebra Post');
       });
 
       it('sorts by title descending (Z-A)', () => {
         const posts = [
-          { title: 'Apple Post', date: new Date() },
-          { title: 'Zebra Post', date: new Date() }
+          { name: 'apple.md', frontmatter: { title: 'Apple Post' }, date: new Date() },
+          { name: 'zebra.md', frontmatter: { title: 'Zebra Post' }, date: new Date() }
         ];
 
         const sorted = sortPostsList(posts, 'title-desc');
 
-        expect(sorted[0].title).toBe('Zebra Post');
-        expect(sorted[1].title).toBe('Apple Post');
+        expect(sorted[0].frontmatter.title).toBe('Zebra Post');
+        expect(sorted[1].frontmatter.title).toBe('Apple Post');
       });
 
       it('handles posts without titles (uses filename)', () => {
