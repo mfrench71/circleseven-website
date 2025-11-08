@@ -9,8 +9,7 @@ import {
   openImageChooser,
   changeChooserPage,
   filterChooserMedia,
-  selectChooserImage,
-  closeImageChooser
+  selectChooserImage
 } from '../../../admin/js/modules/image-chooser.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
@@ -19,10 +18,73 @@ describe('Image Chooser Module', () => {
   let mockCallback;
 
   beforeEach(() => {
-    // Setup DOM
+    // Mock Bootstrap Modal
+    global.bootstrap = {
+      Modal: class {
+        constructor(element) {
+          this.element = element;
+          this.isVisible = false;
+        }
+        show() {
+          // Only operate on elements still connected to DOM
+          if (this.element && this.element.isConnected) {
+            this.element.classList.remove('d-none');
+            this.isVisible = true;
+          }
+        }
+        hide() {
+          // Only operate on elements still connected to DOM
+          if (this.element && this.element.isConnected) {
+            this.element.classList.add('d-none');
+            this.isVisible = false;
+          }
+        }
+      }
+    };
+
+    // Setup DOM with modal structure
     document.body.innerHTML = `
       <div id="error" class="d-none"><p></p></div>
       <div id="success" class="d-none"><p></p></div>
+
+      <div class="modal fade" id="imageChooserModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Choose Featured Image</h5>
+            </div>
+            <div class="modal-body">
+              <div class="p-3">
+                <div class="row g-2">
+                  <div class="col-md-6">
+                    <input type="text" id="chooser-search" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <select id="chooser-folder" class="form-select">
+                      <option value="">All Folders</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="chooser-multi-controls" class="d-none mt-2">
+                  <span id="chooser-selection-count"></span>
+                </div>
+              </div>
+              <div id="chooser-grid" class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 p-3"></div>
+              <div id="chooser-empty" class="d-none text-center p-5">
+                <p class="text-muted">No images found</p>
+              </div>
+              <div id="chooser-pagination" class="d-none p-3">
+                <button id="chooser-prev" class="btn btn-sm btn-outline-secondary">Previous</button>
+                <span id="chooser-current-page">1</span> / <span id="chooser-total-pages">1</span>
+                <button id="chooser-next" class="btn btn-sm btn-outline-secondary">Next</button>
+              </div>
+            </div>
+            <div id="chooser-modal-footer" class="modal-footer d-none">
+              <button type="button" class="btn btn-primary">Insert Selected</button>
+            </div>
+          </div>
+        </div>
+      </div>
     `;
 
     // Initialize notifications
@@ -44,11 +106,7 @@ describe('Image Chooser Module', () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    // Clean up any modals created during tests
-    const modal = document.getElementById('image-chooser-modal');
-    if (modal) {
-      modal.remove();
-    }
+    delete global.bootstrap;
   });
 
   describe('openImageChooser', () => {
@@ -95,7 +153,7 @@ describe('Image Chooser Module', () => {
       expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/media');
     });
 
-    it('creates modal element if it does not exist', async () => {
+    it('shows modal when opened', async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockMediaResponse
@@ -103,7 +161,7 @@ describe('Image Chooser Module', () => {
 
       await openImageChooser(mockCallback);
 
-      const modal = document.getElementById('image-chooser-modal');
+      const modal = document.getElementById('imageChooserModal');
       expect(modal).toBeTruthy();
       expect(modal.classList.contains('d-none')).toBe(false);
     });
@@ -114,18 +172,18 @@ describe('Image Chooser Module', () => {
         json: async () => mockMediaResponse
       });
 
-      // First call creates modal
+      // First call uses modal
       await openImageChooser(mockCallback);
-      const firstModal = document.getElementById('image-chooser-modal');
+      const firstModal = document.getElementById('imageChooserModal');
 
-      // Second call should reuse
+      // Second call should reuse same modal
       await openImageChooser(mockCallback);
-      const secondModal = document.getElementById('image-chooser-modal');
+      const secondModal = document.getElementById('imageChooserModal');
 
       expect(firstModal).toBe(secondModal);
     });
 
-    it('shows modal when opened', async () => {
+    it('displays modal without d-none class', async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockMediaResponse
@@ -133,7 +191,7 @@ describe('Image Chooser Module', () => {
 
       await openImageChooser(mockCallback);
 
-      const modal = document.getElementById('image-chooser-modal');
+      const modal = document.getElementById('imageChooserModal');
       expect(modal.classList.contains('d-none')).toBe(false);
     });
 
@@ -489,75 +547,18 @@ describe('Image Chooser Module', () => {
       await openImageChooser(mockCallback);
     });
 
-    it('calls callback with selected image URL', () => {
+    it('calls callback with extracted public_id', () => {
       const imageUrl = 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/folder/test-image.jpg';
 
       selectChooserImage(imageUrl);
 
-      expect(mockCallback).toHaveBeenCalledWith(imageUrl);
+      // Should extract public_id from Cloudinary URL
+      expect(mockCallback).toHaveBeenCalledWith('folder/test-image');
       expect(mockCallback).toHaveBeenCalledTimes(1);
     });
 
-    it('closes modal after selection', () => {
-      const imageUrl = 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/folder/test-image.jpg';
-
-      selectChooserImage(imageUrl);
-
-      const modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('d-none')).toBe(true);
-    });
   });
 
-  describe('closeImageChooser', () => {
-    beforeEach(async () => {
-      const mockMedia = {
-        resources: [{
-          public_id: 'folder/test-image',
-          secure_url: 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/folder/test-image.jpg',
-          resource_type: 'image',
-          width: 800,
-          height: 600,
-          bytes: 102400,
-          created_at: new Date().toISOString()
-        }]
-      };
-
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: async () => mockMedia
-      });
-
-      await openImageChooser(mockCallback);
-    });
-
-    it('hides modal', () => {
-      closeImageChooser();
-
-      const modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('d-none')).toBe(true);
-    });
-
-    it('removes keyboard event listener', () => {
-      const removeEventListenerSpy = vi.spyOn(document, 'removeEventListener');
-
-      closeImageChooser();
-
-      expect(removeEventListenerSpy).toHaveBeenCalledWith(
-        'keydown',
-        expect.any(Function)
-      );
-    });
-
-    it('clears callback reference', () => {
-      closeImageChooser();
-
-      // Calling selectChooserImage after close should not trigger callback
-      mockCallback.mockClear();
-      selectChooserImage('https://test.com/image.jpg');
-
-      expect(mockCallback).not.toHaveBeenCalled();
-    });
-  });
 
   describe('Pagination', () => {
     it('shows 12 items per page', async () => {
@@ -679,7 +680,7 @@ describe('Image Chooser Module', () => {
 
       // Open chooser
       await openImageChooser(mockCallback);
-      let modal = document.getElementById('image-chooser-modal');
+      let modal = document.getElementById('imageChooserModal');
       expect(modal.classList.contains('d-none')).toBe(false);
 
       // Verify first page shows 12 items
@@ -704,10 +705,8 @@ describe('Image Chooser Module', () => {
       const imageUrl = 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/test-image-5.jpg';
       selectChooserImage(imageUrl);
 
-      // Verify callback was called and modal closed
-      expect(mockCallback).toHaveBeenCalledWith(imageUrl);
-      modal = document.getElementById('image-chooser-modal');
-      expect(modal.classList.contains('d-none')).toBe(true);
+      // Verify callback was called with public_id
+      expect(mockCallback).toHaveBeenCalledWith('test-image-5');
     });
   });
 });
