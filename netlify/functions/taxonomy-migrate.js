@@ -16,48 +16,10 @@
  * @module netlify/functions/taxonomy-migrate
  */
 
-const https = require('https');
 const yaml = require('js-yaml');
+const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 
-// GitHub API configuration
-const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
-const GITHUB_BRANCH = 'main';
 
-/**
- * Makes authenticated requests to the GitHub API
- */
-function githubRequest(path, options = {}) {
-  return new Promise((resolve, reject) => {
-    const req = https.request({
-      hostname: 'api.github.com',
-      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
-      method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Netlify-Function',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-        ...options.headers
-      }
-    }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
-        } else {
-          reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    if (options.body) {
-      req.write(JSON.stringify(options.body));
-    }
-    req.end();
-  });
-}
 
 /**
  * Parses front matter from markdown content

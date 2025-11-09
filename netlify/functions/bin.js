@@ -20,73 +20,13 @@
  * @module netlify/functions/bin
  */
 
-const https = require('https');
 const { binSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
+const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 
-// GitHub API configuration
-const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
-const GITHUB_BRANCH = 'main';
 const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
 const BIN_DIR = '_bin';
-
-/**
- * Makes authenticated requests to the GitHub API
- *
- * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
- * @param {Object} [options={}] - Request options
- * @param {string} [options.method='GET'] - HTTP method
- * @param {Object} [options.headers] - Additional headers
- * @param {Object} [options.body] - Request body (will be JSON stringified)
- * @returns {Promise<Object>} Parsed JSON response from GitHub API
- * @throws {Error} If the GitHub API returns a non-2xx status code
- */
-function githubRequest(path, options = {}) {
-  return new Promise((resolve, reject) => {
-    const bodyString = options.body ? JSON.stringify(options.body) : '';
-
-    const reqOptions = {
-      hostname: 'api.github.com',
-      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
-      method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Netlify-Function',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-        ...options.headers
-      }
-    };
-
-    // Add Content-Length header if there's a body
-    if (bodyString) {
-      reqOptions.headers['Content-Length'] = Buffer.byteLength(bodyString);
-    }
-
-    const req = https.request(reqOptions, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          try {
-            resolve(JSON.parse(data));
-          } catch (error) {
-            reject(new Error(`Failed to parse GitHub API response: ${error.message}`));
-          }
-        } else {
-          reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    if (bodyString) {
-      req.write(bodyString);
-    }
-    req.end();
-  });
-}
 
 /**
  * Netlify Function Handler - Bin Management
@@ -250,7 +190,6 @@ export const handler = async (event, context) => {
         };
       }
 
-
       const { filename, sha, type } = bodyValidation.data;
 
       // Determine source directory based on type (default to posts for backwards compatibility)
@@ -378,7 +317,6 @@ export const handler = async (event, context) => {
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
         };
       }
-
 
       const { filename, sha, type } = bodyValidation.data;
 
@@ -512,7 +450,6 @@ export const handler = async (event, context) => {
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
         };
       }
-
 
       const { filename, sha, type } = bodyValidation.data;
 

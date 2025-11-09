@@ -13,53 +13,10 @@
  * @module netlify/functions/deployment-status
  */
 
-const https = require('https');
+const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 
-// GitHub API configuration
-const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
 const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
 
-/**
- * Makes authenticated requests to the GitHub API
- *
- * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
- * @param {Object} [options={}] - Request options
- * @param {string} [options.method='GET'] - HTTP method
- * @param {Object} [options.headers] - Additional headers
- * @returns {Promise<Object>} Parsed JSON response from GitHub API
- * @throws {Error} If the GitHub API returns a non-2xx status code
- */
-function githubRequest(path, options = {}) {
-  return new Promise((resolve, reject) => {
-    const reqOptions = {
-      hostname: 'api.github.com',
-      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
-      method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Netlify-Function',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-        ...options.headers
-      }
-    };
-
-    const req = https.request(reqOptions, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
-        } else {
-          reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.end();
-  });
-}
 
 /**
  * Netlify Function Handler - Deployment Status
