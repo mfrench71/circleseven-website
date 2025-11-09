@@ -17,63 +17,12 @@
  * @module netlify/functions/taxonomy
  */
 
-const https = require('https');
 const yaml = require('js-yaml');
 const { taxonomySchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
+const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 
-// GitHub API configuration
-const GITHUB_OWNER = 'mfrench71';
-const GITHUB_REPO = 'circleseven-website';
-const GITHUB_BRANCH = 'main';
 const FILE_PATH = '_data/taxonomy.yml';
-
-/**
- * Makes authenticated requests to the GitHub API
- *
- * @param {string} path - GitHub API endpoint path (relative to /repos/{owner}/{repo})
- * @param {Object} [options={}] - Request options
- * @param {string} [options.method='GET'] - HTTP method
- * @param {Object} [options.headers] - Additional headers
- * @param {Object} [options.body] - Request body (will be JSON stringified)
- * @returns {Promise<Object>} Parsed JSON response from GitHub API
- * @throws {Error} If the GitHub API returns a non-2xx status code
- */
-function githubRequest(path, options = {}) {
-  return new Promise((resolve, reject) => {
-    const req = https.request({
-      hostname: 'api.github.com',
-      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
-      method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Netlify-Function',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-        ...options.headers
-      }
-    }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          try {
-            resolve(JSON.parse(data));
-          } catch (error) {
-            reject(new Error(`Failed to parse GitHub API response: ${error.message}`));
-          }
-        } else {
-          reject(new Error(`GitHub API error: ${res.statusCode} ${data}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    if (options.body) {
-      req.write(JSON.stringify(options.body));
-    }
-    req.end();
-  });
-}
 
 /**
  * Netlify Function Handler - Taxonomy Management
