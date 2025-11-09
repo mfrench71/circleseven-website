@@ -133,7 +133,7 @@ function githubRequest(path, options = {}) {
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',

@@ -100,7 +100,7 @@ function githubRequest(path, options = {}) {
  * //   ]
  * // }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',

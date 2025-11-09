@@ -236,7 +236,7 @@ function buildFrontmatter(frontmatter) {
  * // DELETE /.netlify/functions/pages
  * // Body: { path: 'about.md', sha: '...' }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',

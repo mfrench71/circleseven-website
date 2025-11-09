@@ -44,7 +44,7 @@ const { checkRateLimit } = require('../utils/rate-limiter.cjs');
  * //   total: 25
  * // }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',

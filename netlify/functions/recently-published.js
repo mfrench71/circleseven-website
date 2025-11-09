@@ -105,7 +105,7 @@ async function getRecentFiles(folder, type) {
 /**
  * Main handler function
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
     return {

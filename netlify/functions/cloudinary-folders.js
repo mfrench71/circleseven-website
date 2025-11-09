@@ -50,7 +50,7 @@ if (!CLOUDINARY_API_SECRET) {
  * //   ]
  * // }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',

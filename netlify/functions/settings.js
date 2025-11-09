@@ -136,7 +136,7 @@ function githubRequest(path, options = {}) {
  * // Body: { plugins: ["evil-plugin"] }
  * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
  */
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   // CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
