@@ -126,7 +126,20 @@ exports.handler = async (event, context) => {
     if (event.httpMethod === 'GET') {
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
-      const taxonomy = yaml.load(content);
+
+      let taxonomy;
+      try {
+        taxonomy = yaml.load(content);
+      } catch (yamlError) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid JSON',
+            message: `Failed to parse taxonomy.yml: ${yamlError.message}`
+          })
+        };
+      }
 
       /**
        * Flattens hierarchical categories to simple string array
@@ -210,6 +223,18 @@ exports.handler = async (event, context) => {
       }
 
       const requestBody = bodyValidation.data;
+
+      // Validate that categories and tags are arrays
+      if (!Array.isArray(requestBody.categories) || !Array.isArray(requestBody.tags)) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Validation failed: Both categories and tags must be arrays',
+            message: 'Both categories and tags must be arrays'
+          })
+        };
+      }
 
       // Accept either flat arrays (backwards compat) or hierarchical trees
       const categoriesTree = requestBody.categoriesTree ||
