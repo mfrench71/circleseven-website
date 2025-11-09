@@ -7,6 +7,12 @@
   RUBY_VERSION = "3.1.0"
   JEKYLL_ENV = "production"
 
+[dev]
+  command = "tail -f /dev/null"
+  targetPort = 4000
+  port = 8888
+  framework = "#custom"
+
 # Redirect old admin-custom path to new admin path
 [[redirects]]
   from = "/admin-custom/*"

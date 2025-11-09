@@ -311,8 +311,10 @@ export function renderCategories() {
   const tbody = document.getElementById('categories-list');
   const countBadge = document.getElementById('categories-count-badge');
 
+  // Silently return if not on taxonomy page - this is expected when
+  // loadTaxonomy() is called from other pages (e.g., posts/pages) to load
+  // category data for filters without rendering the taxonomy UI
   if (!tbody || !countBadge) {
-    logger.error('renderCategories: Missing tbody or countBadge elements');
     return;
   }
 
