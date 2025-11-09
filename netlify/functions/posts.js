@@ -368,28 +368,6 @@ export const handler = async (event, context) => {
         };
       }
 
-      // Manual validation for required fields (since Zod validation is disabled)
-      if (!requestData.path) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'path is required'
-          })
-        };
-      }
-      if (!requestData.sha) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'sha is required'
-          })
-        };
-      }
-
       const { path, frontmatter, body, sha } = bodyValidation.data;
 
       // Auto-update last_modified_at with current timestamp
@@ -458,38 +436,6 @@ export const handler = async (event, context) => {
           statusCode: 400,
           headers,
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
-      }
-
-      // Manual validation for required fields (since Zod validation is disabled)
-      if (!requestData.filename) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'filename is required'
-          })
-        };
-      }
-      if (!requestData.frontmatter) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'frontmatter is required'
-          })
-        };
-      }
-      if (requestData.body === undefined || requestData.body === null) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'body is required'
-          })
         };
       }
 
@@ -567,28 +513,6 @@ export const handler = async (event, context) => {
           statusCode: 400,
           headers,
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
-      }
-
-      // Manual validation for required fields (since Zod validation is disabled)
-      if (!requestData.path) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'path is required'
-          })
-        };
-      }
-      if (!requestData.sha) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: 'sha is required'
-          })
         };
       }
 

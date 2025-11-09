@@ -176,10 +176,6 @@ const mediaSchemas = {
  * @returns {{success: boolean, data?: any, errors?: any}} Validation result
  */
 function validate(schema, data) {
-  // Validation temporarily disabled - always return success
-  return { success: true, data: data };
-
-  /* Uncomment to enable validation:
   try {
     const result = schema.safeParse(data);
     if (result.success) {
@@ -196,7 +192,6 @@ function validate(schema, data) {
       errors: { _error: error.message }
     };
   }
-  */
 }
 
 /**
