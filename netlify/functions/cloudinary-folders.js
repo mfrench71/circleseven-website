@@ -14,6 +14,12 @@
  */
 
 const https = require('https');
+const {
+  successResponse,
+  methodNotAllowedResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 // Cloudinary configuration
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
@@ -51,62 +57,31 @@ if (!CLOUDINARY_API_SECRET) {
  * // }
  */
 export const handler = async (event, context) => {
-  // Set CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
   }
 
   try {
     // Check if API credentials are configured
     if (!CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({
-          error: 'Configuration error',
-          message: 'CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET environment variables must be set. Please add them to Netlify environment variables.'
-        })
-      };
+      return serverErrorResponse('CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET environment variables must be set. Please add them to Netlify environment variables.');
     }
 
     // Fetch folders from Cloudinary Admin API
     const folders = await fetchCloudinaryFolders();
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        folders: folders
-      })
-    };
+    return successResponse({
+      folders: folders
+    });
   } catch (error) {
     console.error('Cloudinary folders error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Failed to fetch folders from Cloudinary',
-        message: error.message,
-        details: error.stack
-      })
-    };
+    return serverErrorResponse(error, { includeStack: true });
   }
 };
 
