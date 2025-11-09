@@ -22,6 +22,9 @@ export default defineConfig({
         '_site/',
         '.jekyll-cache/',
         'admin/app.js', // Main app file - will be tested via integration
+        'admin/js/app-standalone-init.js', // Standalone build artifact
+        'admin/js/shared/layout.js', // Unused legacy code (no imports found)
+        'netlify/functions/taxonomy-migrate.js', // One-time migration script
       ],
       include: [
         'admin/js/**/*.js',
