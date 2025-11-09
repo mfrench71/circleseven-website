@@ -124,7 +124,7 @@ const settingsSchemas = {
 
   // PUT body (update settings) - accepts any key-value pairs
   // Actual field validation happens in the function via EDITABLE_FIELDS whitelist
-  update: z.record(z.unknown())
+  update: z.object({}).passthrough()
 };
 
 /**
