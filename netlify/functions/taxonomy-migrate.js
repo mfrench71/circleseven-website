@@ -18,6 +18,13 @@
 
 const yaml = require('js-yaml');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 
 
@@ -241,29 +248,15 @@ async function mergeTaxonomy(type, sourceTerms, targetTerm) {
  * Main handler
  */
 export const handler = async (event, context) => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   try {
     // Check for GitHub token
     if (!process.env.GITHUB_TOKEN) {
-      return {
-        statusCode: 503,
-        headers,
-        body: JSON.stringify({
-          error: 'GitHub integration not configured',
-          message: 'GITHUB_TOKEN environment variable is missing'
-        })
-      };
+      return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
     }
 
     const body = JSON.parse(event.body || '{}');
@@ -271,11 +264,7 @@ export const handler = async (event, context) => {
 
     // Validate type
     if (!['category', 'tag'].includes(type)) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: 'Invalid type. Must be "category" or "tag"' })
-      };
+      return badRequestResponse('Invalid type. Must be "category" or "tag"');
     }
 
     // Handle different operations
@@ -283,93 +272,56 @@ export const handler = async (event, context) => {
       case 'find':
         // Find all content using specified terms
         if (!terms || !Array.isArray(terms) || terms.length === 0) {
-          return {
-            statusCode: 400,
-            headers,
-            body: JSON.stringify({ error: 'Missing or invalid "terms" array' })
-          };
+          return badRequestResponse('Missing or invalid "terms" array');
         }
 
         const affected = await findContentWithTaxonomy(type, terms);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            operation: 'find',
-            type,
-            terms,
-            totalAffected: affected.length,
-            affected
-          })
-        };
+        return successResponse({
+          operation: 'find',
+          type,
+          terms,
+          totalAffected: affected.length,
+          affected
+        });
 
       case 'rename':
         // Rename a taxonomy term across all content
         if (!oldName || !newName) {
-          return {
-            statusCode: 400,
-            headers,
-            body: JSON.stringify({ error: 'Missing "oldName" or "newName"' })
-          };
+          return badRequestResponse('Missing "oldName" or "newName"');
         }
 
         const renameResult = await renameTaxonomy(type, oldName, newName);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            operation: 'rename',
-            type,
-            oldName,
-            newName,
-            ...renameResult
-          })
-        };
+        return successResponse({
+          operation: 'rename',
+          type,
+          oldName,
+          newName,
+          ...renameResult
+        });
 
       case 'merge':
         // Merge multiple terms into one
         if (!sourceTerms || !Array.isArray(sourceTerms) || !targetTerm) {
-          return {
-            statusCode: 400,
-            headers,
-            body: JSON.stringify({ error: 'Missing "sourceTerms" array or "targetTerm"' })
-          };
+          return badRequestResponse('Missing "sourceTerms" array or "targetTerm"');
         }
 
         const mergeResult = await mergeTaxonomy(type, sourceTerms, targetTerm);
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            operation: 'merge',
-            type,
-            sourceTerms,
-            targetTerm,
-            ...mergeResult
-          })
-        };
+        return successResponse({
+          operation: 'merge',
+          type,
+          sourceTerms,
+          targetTerm,
+          ...mergeResult
+        });
 
       default:
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid operation',
-            validOperations: ['find', 'rename', 'merge']
-          })
-        };
+        return badRequestResponse('Invalid operation', {
+          validOperations: ['find', 'rename', 'merge']
+        });
     }
 
   } catch (error) {
     console.error('Taxonomy migrate function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };
