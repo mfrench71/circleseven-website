@@ -1,14 +1,14 @@
 /**
  * Posts Management Netlify Function
  *
- * Provides CRUD operations for Jekyll post files stored in the _posts directory.
- * Integrates with GitHub API to manage blog post markdown files with frontmatter.
+ * Provides CRUD operations for Jekyll page files stored in the _posts directory.
+ * Integrates with GitHub API to manage page markdown files with frontmatter.
  *
  * Supported operations:
- * - GET: List all posts or retrieve a single post with frontmatter and body
- * - POST: Create a new post
- * - PUT: Update an existing post
- * - DELETE: Remove a post
+ * - GET: List all posts or retrieve a single page with frontmatter and body
+ * - POST: Create a new page
+ * - PUT: Update an existing page
+ * - DELETE: Remove a page
  *
  * @module netlify/functions/posts
  */
@@ -17,6 +17,14 @@ const { postsSchemas, validate, formatValidationError } = require('../utils/vali
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const { parseFrontmatter, buildFrontmatter } = require('../utils/frontmatter.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const POSTS_DIR = '_posts';
 
@@ -24,7 +32,7 @@ const POSTS_DIR = '_posts';
  * Netlify Function Handler - Posts Management
  *
  * Main entry point for the posts management function. Handles all CRUD operations
- * for Jekyll post files via REST API.
+ * for Jekyll page files via REST API.
  *
  * @param {Object} event - Netlify function event object
  * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
@@ -37,36 +45,25 @@ const POSTS_DIR = '_posts';
  * // GET all posts
  * // GET /.netlify/functions/posts
  *
- * // GET all posts with frontmatter metadata
- * // GET /.netlify/functions/posts?metadata=true
+ * // GET single page
+ * // GET /.netlify/functions/posts?path=about.md
  *
- * // GET single post
- * // GET /.netlify/functions/posts?path=2025-10-21-my-post.md
- *
- * // CREATE post
+ * // CREATE page
  * // POST /.netlify/functions/posts
- * // Body: { filename: '2025-10-21-new-post.md', frontmatter: {...}, body: '...' }
+ * // Body: { filename: 'contact.md', frontmatter: {...}, body: '...' }
  *
- * // UPDATE post
+ * // UPDATE page
  * // PUT /.netlify/functions/posts
- * // Body: { path: '2025-10-21-my-post.md', frontmatter: {...}, body: '...', sha: '...' }
+ * // Body: { path: 'about.md', frontmatter: {...}, body: '...', sha: '...' }
  *
- * // DELETE post
+ * // DELETE page
  * // DELETE /.netlify/functions/posts
- * // Body: { path: '2025-10-21-my-post.md', sha: '...' }
+ * // Body: { path: 'about.md', sha: '...' }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
-  // Handle preflight
+  // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -76,37 +73,30 @@ export const handler = async (event, context) => {
   }
 
   try {
-    // GET - List all posts or get single post
+    // GET - List all posts or get single page
     if (event.httpMethod === 'GET') {
       // Validate query parameters
       const queryValidation = validate(postsSchemas.getQuery, event.queryStringParameters || {});
       if (!queryValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(queryValidation.errors))
-        };
+        const formatted = formatValidationError(queryValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const pathParam = event.queryStringParameters?.path;
       const withMetadata = event.queryStringParameters?.metadata === 'true';
 
       if (pathParam) {
-        // Get single post
+        // Get single page with frontmatter and body
         const fileData = await githubRequest(`/contents/${POSTS_DIR}/${pathParam}?ref=${GITHUB_BRANCH}`);
         const content = Buffer.from(fileData.content, 'base64').toString('utf8');
         const { frontmatter, body } = parseFrontmatter(content);
 
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            path: pathParam,
-            frontmatter,
-            body,
-            sha: fileData.sha
-          })
-        };
+        return successResponse({
+          path: pathParam,
+          frontmatter,
+          body,
+          sha: fileData.sha
+        });
       } else {
         // List all posts
         const files = await githubRequest(`/contents/${POSTS_DIR}?ref=${GITHUB_BRANCH}`);
@@ -121,23 +111,23 @@ export const handler = async (event, context) => {
             size: file.size
           }));
 
-        // If metadata requested, fetch frontmatter for each post (no body to save bandwidth)
+        // If metadata requested, fetch frontmatter for each page (no body to save bandwidth)
         if (withMetadata) {
           const postsWithMetadata = await Promise.all(
-            posts.map(async (post) => {
+            posts.map(async (page) => {
               try {
-                const fileData = await githubRequest(`/contents/${POSTS_DIR}/${post.name}?ref=${GITHUB_BRANCH}`);
+                const fileData = await githubRequest(`/contents/${POSTS_DIR}/${page.name}?ref=${GITHUB_BRANCH}`);
                 const content = Buffer.from(fileData.content, 'base64').toString('utf8');
                 const { frontmatter } = parseFrontmatter(content);
 
                 return {
-                  ...post,
+                  ...page,
                   frontmatter
                 };
               } catch (error) {
-                console.error(`Failed to load metadata for ${post.name}:`, error);
-                // Return post without metadata if it fails
-                return post;
+                console.error(`Failed to load metadata for ${page.name}:`, error);
+                // Return page without metadata if it fails
+                return page;
               }
             })
           );
@@ -145,25 +135,14 @@ export const handler = async (event, context) => {
           posts = postsWithMetadata;
         }
 
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ posts })
-        };
+        return successResponse({ posts });
       }
     }
 
-    // PUT - Update existing post
+    // PUT - Update existing page
     if (event.httpMethod === 'PUT') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -171,23 +150,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(postsSchemas.update, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { path, frontmatter, body, sha } = bodyValidation.data;
@@ -213,28 +182,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Post updated successfully',
-          commitSha: updateResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Post updated successfully',
+        commitSha: updateResponse.commit?.sha
+      });
     }
 
-    // POST - Create new post
+    // POST - Create new page
     if (event.httpMethod === 'POST') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -242,23 +200,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(postsSchemas.create, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { filename, frontmatter, body } = bodyValidation.data;
@@ -290,28 +238,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Post created successfully',
-          commitSha: createResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Post created successfully',
+        commitSha: createResponse.commit?.sha
+      }, 201);
     }
 
-    // DELETE - Delete post
+    // DELETE - Delete page
     if (event.httpMethod === 'DELETE') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -319,23 +256,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(postsSchemas.delete, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { path, sha } = bodyValidation.data;
@@ -345,39 +272,24 @@ export const handler = async (event, context) => {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Delete post: ${path}`,
+          message: `Delete page: ${path}`,
           sha: sha,
           branch: GITHUB_BRANCH
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Post deleted successfully',
-          commitSha: deleteResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Post deleted successfully',
+        commitSha: deleteResponse.commit?.sha
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    // Method not allowed
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Posts function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };

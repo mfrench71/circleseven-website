@@ -477,7 +477,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
       expect(body.message).toContain('GITHUB_TOKEN');
     });
 
@@ -608,7 +608,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
     });
 
     it('handles SHA conflict (409)', async () => {
@@ -725,7 +725,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
     });
 
     it('handles post not found during delete', async () => {
@@ -989,7 +989,7 @@ More content here.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
+      expect(body.error).toBe('Bad Request');
     });
   });
 
