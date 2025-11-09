@@ -14,6 +14,14 @@
  */
 
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
 
@@ -57,17 +65,9 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  * // }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
-  // Handle preflight
+  // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   try {
@@ -75,25 +75,11 @@ export const handler = async (event, context) => {
       const commitSha = event.queryStringParameters?.sha;
 
       if (!commitSha) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Missing required parameter',
-            message: 'sha query parameter is required'
-          })
-        };
+        return badRequestResponse('sha query parameter is required', { error: 'Missing required parameter' });
       }
 
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Get workflow runs for this commit SHA
@@ -109,15 +95,11 @@ export const handler = async (event, context) => {
 
       if (matchingRuns.length === 0) {
         // No workflow run found yet - it may not have started
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            status: 'pending',
-            message: 'Waiting for deployment to start...',
-            commitSha: commitSha
-          })
-        };
+        return successResponse({
+          status: 'pending',
+          message: 'Waiting for deployment to start...',
+          commitSha: commitSha
+        });
       }
 
       // Get the most recent run for this commit
@@ -164,38 +146,21 @@ export const handler = async (event, context) => {
           message = `Unknown deployment status: ${workflowRun.status}`;
       }
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          status: deploymentStatus,
-          message: message,
-          commitSha: commitSha,
-          workflowUrl: workflowRun.html_url,
-          startedAt: workflowRun.created_at,
-          updatedAt: workflowRun.updated_at,
-          conclusion: workflowRun.conclusion
-        })
-      };
+      return successResponse({
+        status: deploymentStatus,
+        message: message,
+        commitSha: commitSha,
+        workflowUrl: workflowRun.html_url,
+        startedAt: workflowRun.created_at,
+        updatedAt: workflowRun.updated_at,
+        conclusion: workflowRun.conclusion
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Deployment status function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        details: error.toString(),
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };
