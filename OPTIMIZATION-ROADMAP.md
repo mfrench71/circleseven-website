@@ -151,9 +151,15 @@
   - Code changes: Refactored `cloudinary-folders.js` to read env vars at runtime for testability
 
 - [ ] **11. Add missing frontend tests**
-  - Status: Pending
+  - Status: **IN PROGRESS** (20% complete)
   - Effort: 3-4 days
-  - Files: `link-editor.js`, `sidebar.js`, `appearance.js`, `logger.js`, `header.js`
+  - Files completed:
+    - ✅ `logger.js` (admin/js/core/) - 27 tests added
+  - Files remaining:
+    - `link-editor.js` (admin/js/modules/) - 322 lines (COMPLEX)
+    - `appearance.js` (admin/js/modules/) - 155 lines
+    - `sidebar.js` (admin/js/components/) - 147 lines
+    - `header.js` (admin/js/components/) - 44 lines (SIMPLE)
 
 - [ ] **12. Achieve >80% code coverage**
   - Status: Blocked by test failures
