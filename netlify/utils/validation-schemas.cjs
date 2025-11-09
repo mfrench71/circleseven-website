@@ -209,9 +209,16 @@ function formatValidationError(errors) {
     }
   }
 
+  // Create a descriptive message that includes the field names
+  const fieldNames = Object.keys(fieldErrors);
+  let message = 'Request data does not match expected format';
+  if (fieldNames.length > 0) {
+    message = `Validation error${fieldNames.length > 1 ? 's' : ''} in field${fieldNames.length > 1 ? 's' : ''}: ${fieldNames.join(', ')}`;
+  }
+
   return {
     error: 'Validation failed',
-    message: 'Request data does not match expected format',
+    message: message,
     fields: fieldErrors,
     details: errors
   };
