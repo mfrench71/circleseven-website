@@ -141,10 +141,14 @@
     5. ✅ taxonomy-migrate.js
 
 #### ✅ Testing & Validation
-- [ ] **10. Add missing backend tests**
-  - Status: Pending
-  - Effort: 2-3 days
-  - Files: `cloudinary-folders.js`, `recently-published.js`
+- [x] **10. Add missing backend tests**
+  - Status: **COMPLETE** ✅
+  - Effort: 2 days (actual)
+  - Files completed:
+    - `cloudinary-folders.js` - 22 tests added (CORS, GET operations, method validation, security, rate limiting)
+    - `recently-published.js` - 14 tests added (CORS, GET operations, method validation, security, rate limiting)
+  - Total: 36 new tests for previously untested functions
+  - Code changes: Refactored `cloudinary-folders.js` to read env vars at runtime for testability
 
 - [ ] **11. Add missing frontend tests**
   - Status: Pending
