@@ -19,6 +19,14 @@ const yaml = require('js-yaml');
 const { settingsSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const FILE_PATH = '_config.yml';
 
@@ -86,17 +94,9 @@ const EDITABLE_FIELDS = [
  * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -115,14 +115,7 @@ export const handler = async (event, context) => {
       try {
         config = yaml.load(content);
       } catch (yamlError) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: `Failed to parse _config.yml: ${yamlError.message}`
-          })
-        };
+        return badRequestResponse(`Failed to parse _config.yml: ${yamlError.message}`);
       }
 
       // Extract only editable fields
@@ -133,25 +126,14 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(settings)
-      };
+      return successResponse(settings);
     }
 
     // PUT - Update settings in _config.yml
     if (event.httpMethod === 'PUT') {
       // Check for GitHub token
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -159,23 +141,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(settingsSchemas.update, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const updates = bodyValidation.data;
@@ -185,14 +157,7 @@ export const handler = async (event, context) => {
         field => !EDITABLE_FIELDS.includes(field)
       );
       if (invalidFields.length > 0) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed',
-            message: `Cannot update fields: ${invalidFields.join(', ')}`
-          })
-        };
+        return badRequestResponse(`Cannot update fields: ${invalidFields.join(', ')}`);
       }
 
       // Get current file
@@ -224,33 +189,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Settings updated successfully. Netlify will rebuild the site automatically in 1-2 minutes.',
-          commitSha: updateResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Settings updated successfully. Netlify will rebuild the site automatically in 1-2 minutes.',
+        commitSha: updateResponse.commit?.sha
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Settings function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };

@@ -185,7 +185,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
+      expect(body.error).toBe('Bad Request');
     });
 
     it('handles GitHub API errors', async () => {
@@ -332,7 +332,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Validation failed');
+      expect(body.error).toBe('Bad Request');
       expect(body.message).toContain('plugins');
       expect(body.message).toContain('theme');
     });
@@ -412,7 +412,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Validation failed');
+      expect(body.error).toBe('Bad Request');
     });
 
     it('returns 503 when GITHUB_TOKEN is missing', async () => {
@@ -429,7 +429,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
       expect(body.message).toContain('GITHUB_TOKEN');
     });
 
@@ -469,7 +469,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
+      expect(body.error).toBe('Bad Request');
     });
   });
 
@@ -597,7 +597,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Validation failed');
+      expect(body.error).toBe('Bad Request');
       expect(body.message).toContain('plugins');
     });
   });
