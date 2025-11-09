@@ -21,6 +21,14 @@ const yaml = require('js-yaml');
 const { taxonomySchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const FILE_PATH = '_data/taxonomy.yml';
 
@@ -51,17 +59,9 @@ const FILE_PATH = '_data/taxonomy.yml';
  * // Returns: { success: true, message: "...", commitSha: "..." }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -80,14 +80,7 @@ export const handler = async (event, context) => {
       try {
         taxonomy = yaml.load(content);
       } catch (yamlError) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: `Failed to parse taxonomy.yml: ${yamlError.message}`
-          })
-        };
+        return badRequestResponse(`Failed to parse taxonomy.yml: ${yamlError.message}`);
       }
 
       /**
@@ -118,33 +111,22 @@ export const handler = async (event, context) => {
         typeof item === 'string' ? item : (item.item || item)
       );
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          // Flat arrays for backwards compatibility
-          categories: flattenCategories(taxonomy.categories || []),
-          tags: extractStrings(taxonomy.tags || []),
+      return successResponse({
+        // Flat arrays for backwards compatibility
+        categories: flattenCategories(taxonomy.categories || []),
+        tags: extractStrings(taxonomy.tags || []),
 
-          // Hierarchical structure for new UI
-          categoriesTree: taxonomy.categories || [],
-          tagsTree: taxonomy.tags || []
-        })
-      };
+        // Hierarchical structure for new UI
+        categoriesTree: taxonomy.categories || [],
+        tagsTree: taxonomy.tags || []
+      });
     }
 
     // PUT - Update taxonomy via GitHub API
     if (event.httpMethod === 'PUT') {
       // Check for GitHub token
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -152,37 +134,20 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(taxonomySchemas.update, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const requestBody = bodyValidation.data;
 
       // Validate that categories and tags are arrays
       if (!Array.isArray(requestBody.categories) || !Array.isArray(requestBody.tags)) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Validation failed: Both categories and tags must be arrays',
-            message: 'Both categories and tags must be arrays'
-          })
-        };
+        return badRequestResponse('Both categories and tags must be arrays');
       }
 
       // Accept either flat arrays (backwards compat) or hierarchical trees
@@ -248,33 +213,17 @@ ${tagsTree.map(t => generateTagYAML(t)).join('')}
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.',
-          commitSha: updateResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.',
+        commitSha: updateResponse.commit?.sha
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Taxonomy function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };

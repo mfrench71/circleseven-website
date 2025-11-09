@@ -267,7 +267,7 @@ describe('Taxonomy Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
+      expect(body.error).toBe('Bad Request');
     });
   });
 
@@ -465,7 +465,7 @@ describe('Taxonomy Function', () => {
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
       expect(body.message).toContain('GITHUB_TOKEN');
     });
 
@@ -503,7 +503,7 @@ describe('Taxonomy Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
+      expect(body.error).toBe('Bad Request');
     });
   });
 
