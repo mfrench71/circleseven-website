@@ -36,7 +36,7 @@ describe('Media Function', () => {
 
       expect(response.statusCode).toBe(200);
       expect(response.headers['Access-Control-Allow-Origin']).toBe('*');
-      expect(response.headers['Access-Control-Allow-Methods']).toBe('GET, OPTIONS');
+      expect(response.headers['Access-Control-Allow-Methods']).toBe('GET, POST, PUT, DELETE, OPTIONS');
       expect(response.body).toBe('');
     });
 
@@ -209,8 +209,8 @@ describe('Media Function', () => {
 
       expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Configuration error');
-      expect(body.message).toContain('CLOUDINARY_API_SECRET');
+      expect(body.error).toBe('Internal server error');
+      expect(body.message).toContain('credentials');
 
       // Restore env vars
       process.env.CLOUDINARY_API_KEY = savedKey;
@@ -228,7 +228,7 @@ describe('Media Function', () => {
 
       expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Failed to fetch media');
+      expect(body.error).toBe('Internal server error');
       expect(body.message).toContain('401');
     });
 
@@ -245,7 +245,7 @@ describe('Media Function', () => {
 
       expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Failed to fetch media');
+      expect(body.error).toBe('Internal server error');
       expect(body.message).toContain('parse');
     });
 
@@ -262,7 +262,7 @@ describe('Media Function', () => {
 
       expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Failed to fetch media');
+      expect(body.error).toBe('Internal server error');
       expect(body.message).toContain('Network error');
     });
 
@@ -276,7 +276,7 @@ describe('Media Function', () => {
       const response = await handler(event, {});
 
       const body = JSON.parse(response.body);
-      expect(body).toHaveProperty('details');
+      expect(body).toHaveProperty('stack');
     });
   });
 

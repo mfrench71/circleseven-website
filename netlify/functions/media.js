@@ -15,6 +15,14 @@
 
 const https = require('https');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 /**
  * Netlify Function Handler - Media Library
@@ -45,17 +53,9 @@ const { checkRateLimit } = require('../utils/rate-limiter.cjs');
  * // }
  */
 export const handler = async (event, context) => {
-  // Set CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -66,11 +66,7 @@ export const handler = async (event, context) => {
 
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
   }
 
   try {
@@ -81,38 +77,19 @@ export const handler = async (event, context) => {
 
     // Check if API credentials are configured
     if (!CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({
-          error: 'Configuration error',
-          message: 'CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET environment variables must be set. Please add them to Netlify environment variables.'
-        })
-      };
+      return serverErrorResponse(new Error('Cloudinary API credentials are not configured. Please add them to Netlify environment variables.'));
     }
 
     // Fetch resources from Cloudinary Admin API
     const resources = await fetchCloudinaryResources(CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET);
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        resources: resources,
-        total: resources.length
-      })
-    };
+    return successResponse({
+      resources: resources,
+      total: resources.length
+    });
   } catch (error) {
     console.error('Media fetch error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Failed to fetch media',
-        message: error.message,
-        details: error.stack
-      })
-    };
+    return serverErrorResponse(error, { includeStack: true });
   }
 };
 
