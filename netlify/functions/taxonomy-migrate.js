@@ -17,6 +17,7 @@
  */
 
 const yaml = require('js-yaml');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const {
   successResponse,
@@ -251,6 +252,12 @@ export const handler = async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
+  }
+
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
   }
 
   try {
