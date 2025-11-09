@@ -8,6 +8,13 @@
  */
 
 const https = require('https');
+const {
+  successResponse,
+  serviceUnavailableResponse,
+  methodNotAllowedResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 /**
  * Makes authenticated request to GitHub rate_limit API
@@ -76,30 +83,15 @@ function fetchRateLimit() {
  * // }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   try {
     if (event.httpMethod === 'GET') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       const rateLimitData = await fetchRateLimit();
@@ -111,37 +103,21 @@ export const handler = async (event, context) => {
       const minutesUntilReset = Math.max(0, Math.ceil(secondsUntilReset / 60));
       const usedPercent = Math.round(((core.limit - core.remaining) / core.limit) * 100);
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          limit: core.limit,
-          remaining: core.remaining,
-          reset: core.reset,
-          used: core.used,
-          usedPercent: usedPercent,
-          resetDate: new Date(core.reset * 1000).toISOString(),
-          minutesUntilReset: minutesUntilReset
-        })
-      };
+      return successResponse({
+        limit: core.limit,
+        remaining: core.remaining,
+        reset: core.reset,
+        used: core.used,
+        usedPercent: usedPercent,
+        resetDate: new Date(core.reset * 1000).toISOString(),
+        minutesUntilReset: minutesUntilReset
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Rate limit function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        details: error.toString()
-      })
-    };
+    return serverErrorResponse(error, { includeStack: true });
   }
 };
