@@ -17,6 +17,14 @@ const { pagesSchemas, validate, formatValidationError } = require('../utils/vali
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const { parseFrontmatter, buildFrontmatter } = require('../utils/frontmatter.cjs');
+const {
+  successResponse,
+  badRequestResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const PAGES_DIR = '_pages';
 
@@ -53,17 +61,9 @@ const PAGES_DIR = '_pages';
  * // Body: { path: 'about.md', sha: '...' }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -78,11 +78,8 @@ export const handler = async (event, context) => {
       // Validate query parameters
       const queryValidation = validate(pagesSchemas.getQuery, event.queryStringParameters || {});
       if (!queryValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(queryValidation.errors))
-        };
+        const formatted = formatValidationError(queryValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const pathParam = event.queryStringParameters?.path;
@@ -94,16 +91,12 @@ export const handler = async (event, context) => {
         const content = Buffer.from(fileData.content, 'base64').toString('utf8');
         const { frontmatter, body } = parseFrontmatter(content);
 
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            path: pathParam,
-            frontmatter,
-            body,
-            sha: fileData.sha
-          })
-        };
+        return successResponse({
+          path: pathParam,
+          frontmatter,
+          body,
+          sha: fileData.sha
+        });
       } else {
         // List all pages
         const files = await githubRequest(`/contents/${PAGES_DIR}?ref=${GITHUB_BRANCH}`);
@@ -142,25 +135,14 @@ export const handler = async (event, context) => {
           pages = pagesWithMetadata;
         }
 
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ pages })
-        };
+        return successResponse({ pages });
       }
     }
 
     // PUT - Update existing page
     if (event.httpMethod === 'PUT') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -168,23 +150,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(pagesSchemas.update, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { path, frontmatter, body, sha } = bodyValidation.data;
@@ -210,28 +182,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Page updated successfully',
-          commitSha: updateResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Page updated successfully',
+        commitSha: updateResponse.commit?.sha
+      });
     }
 
     // POST - Create new page
     if (event.httpMethod === 'POST') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -239,23 +200,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(pagesSchemas.create, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { path, frontmatter, body } = bodyValidation.data;
@@ -287,28 +238,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Page created successfully',
-          commitSha: createResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Page created successfully',
+        commitSha: createResponse.commit?.sha
+      }, 201);
     }
 
     // DELETE - Delete page
     if (event.httpMethod === 'DELETE') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Parse and validate request body
@@ -316,23 +256,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Request body must be valid JSON');
       }
 
       const bodyValidation = validate(pagesSchemas.delete, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { path, sha } = bodyValidation.data;
@@ -348,34 +278,18 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Page deleted successfully',
-          commitSha: deleteResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: 'Page deleted successfully',
+        commitSha: deleteResponse.commit?.sha
+      });
     }
 
     // Method not allowed
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Pages function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };
