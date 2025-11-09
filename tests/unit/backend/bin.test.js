@@ -464,7 +464,7 @@ Content`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
     });
   });
 
@@ -648,7 +648,7 @@ Content`;
 
       expect(response.statusCode).toBe(409);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('File already exists');
+      expect(body.error).toBe('Conflict');
       expect(body.message).toContain('already exists');
     });
 
@@ -684,7 +684,7 @@ Content`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
     });
   });
 
@@ -783,7 +783,7 @@ Content`;
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
     });
   });
 

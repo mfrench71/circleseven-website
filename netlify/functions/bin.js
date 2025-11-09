@@ -24,6 +24,16 @@ const { binSchemas, validate, formatValidationError } = require('../utils/valida
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const { parseFrontmatter, buildFrontmatter } = require('../utils/frontmatter.cjs');
+const {
+  successResponse,
+  createdResponse,
+  badRequestResponse,
+  conflictResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
@@ -75,17 +85,9 @@ const BIN_DIR = '_bin';
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   // Check rate limit
@@ -136,19 +138,11 @@ export const handler = async (event, context) => {
 
         const trashedItems = await Promise.all(trashedItemsPromises);
 
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({ items: trashedItems })
-        };
+        return successResponse({ items: trashedItems });
       } catch (error) {
         // If _bin folder doesn't exist, return empty array
         if (error.message.includes('404')) {
-          return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify({ items: [] })
-          };
+          return successResponse({ items: [] });
         }
         throw error;
       }
@@ -157,14 +151,10 @@ export const handler = async (event, context) => {
     // POST - Move post or page to bin
     if (event.httpMethod === 'POST') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse(
+          'GitHub integration not configured',
+          'GITHUB_TOKEN environment variable is missing'
+        );
       }
 
       // Parse and validate request body
@@ -172,23 +162,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
 
       const bodyValidation = validate(binSchemas.operation, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { filename, sha, type } = bodyValidation.data;
@@ -271,28 +251,20 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to bin successfully`,
-          commitSha: trashResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} moved to bin successfully`,
+        commitSha: trashResponse.commit?.sha
+      });
     }
 
     // PUT - Restore post or page from bin
     if (event.httpMethod === 'PUT') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse(
+          'GitHub integration not configured',
+          'GITHUB_TOKEN environment variable is missing'
+        );
       }
 
       // Parse and validate request body
@@ -300,23 +272,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
 
       const bodyValidation = validate(binSchemas.operation, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { filename, sha, type } = bodyValidation.data;
@@ -345,14 +307,9 @@ export const handler = async (event, context) => {
       }
 
       if (existingFile) {
-        return {
-          statusCode: 409,
-          headers,
-          body: JSON.stringify({
-            error: 'File already exists',
-            message: `Cannot restore "${filename}" because a file with that name already exists in ${destDir}. Please delete or rename the existing file first.`
-          })
-        };
+        return conflictResponse(
+          `Cannot restore "${filename}" because a file with that name already exists in ${destDir}. Please delete or rename the existing file first.`
+        );
       }
 
       // Get trashed item content
@@ -404,28 +361,20 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully`,
-          commitSha: restoreResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored successfully`,
+        commitSha: restoreResponse.commit?.sha
+      });
     }
 
     // DELETE - Permanently delete item from bin
     if (event.httpMethod === 'DELETE') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse(
+          'GitHub integration not configured',
+          'GITHUB_TOKEN environment variable is missing'
+        );
       }
 
       // Parse and validate request body
@@ -433,23 +382,13 @@ export const handler = async (event, context) => {
       try {
         requestData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({
-            error: 'Invalid JSON',
-            message: 'Request body must be valid JSON'
-          })
-        };
+        return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
 
       const bodyValidation = validate(binSchemas.operation, requestData);
       if (!bodyValidation.success) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify(formatValidationError(bodyValidation.errors))
-        };
+        const formatted = formatValidationError(bodyValidation.errors);
+        return badRequestResponse(formatted.message, formatted);
       }
 
       const { filename, sha, type } = bodyValidation.data;
@@ -467,34 +406,17 @@ export const handler = async (event, context) => {
         }
       });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`,
-          commitSha: deleteResponse.commit?.sha
-        })
-      };
+      return successResponse({
+        success: true,
+        message: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted`,
+        commitSha: deleteResponse.commit?.sha
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Trash function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        details: error.toString(),
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };
