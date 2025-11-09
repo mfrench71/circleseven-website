@@ -14,6 +14,8 @@ describe('Link Editor Module', () => {
   let mockCodeMirror;
 
   beforeEach(async () => {
+    // Use fake timers to prevent setTimeout from running after test cleanup
+    vi.useFakeTimers();
     // Create DOM elements required by the module
     document.body.innerHTML = `
       <div class="modal" id="linkEditorModal">
@@ -101,6 +103,8 @@ describe('Link Editor Module', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    vi.clearAllTimers();
+    vi.useRealTimers();
     delete global.bootstrap;
     delete global.alert;
     delete global.window.allPostsWithMetadata;
