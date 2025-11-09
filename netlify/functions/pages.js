@@ -461,11 +461,11 @@ export const handler = async (event, context) => {
       const content = buildFrontmatter(frontmatter) + '\n' + body;
 
       // Create file via GitHub API
-      const createResponse = await githubRequest(`/contents/${PAGES_DIR}/${filename}`, {
+      const createResponse = await githubRequest(`/contents/${PAGES_DIR}/${path}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Create page: ${filename}`,
+          message: `Create page: ${path}`,
           content: Buffer.from(content).toString('base64'),
           branch: GITHUB_BRANCH
         }
