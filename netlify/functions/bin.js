@@ -23,6 +23,7 @@
 const { binSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const { parseFrontmatter, buildFrontmatter } = require('../utils/frontmatter.cjs');
 
 const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
