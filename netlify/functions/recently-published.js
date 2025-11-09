@@ -7,6 +7,11 @@
  */
 
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  methodNotAllowedResponse,
+  serverErrorResponse
+} = require('../utils/response-helpers.cjs');
 
 
 
@@ -71,10 +76,7 @@ async function getRecentFiles(folder, type) {
 export const handler = async (event, context) => {
   // Only allow GET requests
   if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
   }
 
   try {
@@ -91,19 +93,11 @@ export const handler = async (event, context) => {
     // Return top 10
     const recentFiles = allFiles.slice(0, 10);
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache, no-store, must-revalidate'
-      },
-      body: JSON.stringify(recentFiles)
-    };
+    return successResponse(recentFiles, 200, {
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
   } catch (error) {
     console.error('Error fetching recently published:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to fetch recently published content' })
-    };
+    return serverErrorResponse(error);
   }
 };
