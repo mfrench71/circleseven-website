@@ -26,7 +26,8 @@
   "author": "Matthew French",
   "license": "MIT",
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",

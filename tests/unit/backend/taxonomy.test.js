@@ -246,9 +246,9 @@ describe('Taxonomy Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
       expect(body.message).toContain('404');
     });
 
@@ -266,9 +266,9 @@ describe('Taxonomy Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
     });
   });
 
@@ -403,7 +403,7 @@ describe('Taxonomy Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toContain('Invalid input');
+      expect(body.error).toContain('Validation failed');
       expect(body.error).toContain('arrays');
     });
 
@@ -420,7 +420,7 @@ describe('Taxonomy Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toContain('Invalid input');
+      expect(body.error).toContain('Validation failed');
     });
 
     it('returns 400 when categories is missing', async () => {
@@ -489,7 +489,7 @@ describe('Taxonomy Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
       expect(body.message).toContain('409');
     });
@@ -502,9 +502,9 @@ describe('Taxonomy Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
     });
   });
 

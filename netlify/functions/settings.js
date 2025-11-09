@@ -17,6 +17,8 @@
 
 const https = require('https');
 const yaml = require('js-yaml');
+const { settingsSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -148,6 +150,12 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     // GET - Read settings from _config.yml
     if (event.httpMethod === 'GET') {
@@ -184,7 +192,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const updates = JSON.parse(event.body);
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
+          })
+        };
+      }
+
+      const bodyValidation = validate(settingsSchemas.update, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const updates = bodyValidation.data;
 
       // Validate that only editable fields are being updated
       const invalidFields = Object.keys(updates).filter(

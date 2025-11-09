@@ -21,6 +21,8 @@
  */
 
 const https = require('https');
+const { binSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -145,6 +147,12 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     // GET - List all binned items (posts and pages)
     if (event.httpMethod === 'GET') {
@@ -218,18 +226,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { filename, sha, type } = JSON.parse(event.body);
-
-      if (!filename || !sha) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'filename and sha are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(binSchemas.operation, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { filename, sha, type } = bodyValidation.data;
 
       // Determine source directory based on type (default to posts for backwards compatibility)
       const sourceDir = type === 'page' ? PAGES_DIR : POSTS_DIR;
@@ -333,18 +354,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { filename, sha, type } = JSON.parse(event.body);
-
-      if (!filename || !sha) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'filename and sha are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(binSchemas.operation, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { filename, sha, type } = bodyValidation.data;
 
       // Determine destination directory based on type
       // If type not provided, auto-detect: posts start with date pattern (YYYY-MM-DD)
@@ -453,18 +487,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { filename, sha, type } = JSON.parse(event.body);
-
-      if (!filename || !sha) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'filename and sha are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(binSchemas.operation, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { filename, sha, type } = bodyValidation.data;
 
       const itemType = type === 'page' ? 'page' : 'post';
 

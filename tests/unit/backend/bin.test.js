@@ -427,7 +427,7 @@ Content`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('filename');
     });
 

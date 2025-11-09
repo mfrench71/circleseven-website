@@ -407,9 +407,20 @@ function setupUnsavedChangesWarning() {
  * @listens netlifyIdentity#logout
  */
 function initAuth() {
-  // Test mode bypass for E2E tests
-  if (localStorage.getItem('TEST_MODE') === 'true') {
-    showMainApp({ email: 'test@playwright.dev', user_metadata: { full_name: 'Test User' } });
+  // Check for test mode via URL parameter or localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  const testMode = urlParams.get('test') === 'true' || localStorage.getItem('TEST_MODE') === 'true';
+
+  if (testMode) {
+    localStorage.setItem('TEST_MODE', 'true');
+    showMainApp({ email: 'test@localhost.dev', user_metadata: { full_name: 'Test User' } });
+    return;
+  }
+
+  // Guard against Netlify Identity not being loaded (CSP issues, etc.)
+  if (typeof netlifyIdentity === 'undefined') {
+    logger.error('Netlify Identity not loaded - cannot initialize auth');
+    showAuthGate();
     return;
   }
 
@@ -434,16 +445,27 @@ function initAuth() {
     showAuthGate();
   });
 
-  // Initialize the widget
-  netlifyIdentity.init();
+  // Initialize the widget (wrap in try-catch for CSP issues)
+  try {
+    netlifyIdentity.init();
+  } catch (error) {
+    logger.error('Failed to initialize Netlify Identity:', error);
+    showAuthGate();
+    return;
+  }
 
   // Fallback: if init event doesn't fire within 2 seconds, check currentUser manually
   setTimeout(() => {
     if (!initFired) {
-      const user = netlifyIdentity.currentUser();
-      if (user) {
-        showMainApp(user);
-      } else {
+      try {
+        const user = netlifyIdentity.currentUser();
+        if (user) {
+          showMainApp(user);
+        } else {
+          showAuthGate();
+        }
+      } catch (error) {
+        logger.error('Failed to check current user:', error);
         showAuthGate();
       }
     }

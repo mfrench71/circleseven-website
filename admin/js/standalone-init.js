@@ -11,9 +11,13 @@
  */
 export function waitForAuth() {
   return new Promise((resolve) => {
-    // Test mode bypass for E2E tests (same as dashboard)
-    if (localStorage.getItem('TEST_MODE') === 'true') {
-      resolve({ email: 'test@playwright.dev', user_metadata: { full_name: 'Test User' } });
+    // Test mode bypass - check URL parameter or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const testMode = urlParams.get('test') === 'true' || localStorage.getItem('TEST_MODE') === 'true';
+
+    if (testMode) {
+      localStorage.setItem('TEST_MODE', 'true');
+      resolve({ email: 'test@localhost.dev', user_metadata: { full_name: 'Test User' } });
       return;
     }
 

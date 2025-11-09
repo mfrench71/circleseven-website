@@ -291,9 +291,9 @@ This is the post body content.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
       expect(body.message).toContain('404');
     });
   });
@@ -405,7 +405,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('filename');
     });
 
@@ -423,7 +423,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
     });
 
     it('returns 400 when body is missing', async () => {
@@ -440,7 +440,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
     });
 
     it('allows empty string body', async () => {
@@ -496,9 +496,9 @@ This is the post body content.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
       expect(body.message).toContain('409');
     });
   });
@@ -571,7 +571,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('path');
     });
 
@@ -628,7 +628,7 @@ This is the post body content.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
       expect(body.message).toContain('409');
     });
@@ -692,7 +692,7 @@ This is the post body content.`;
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Missing required fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('path');
     });
 
@@ -743,7 +743,7 @@ This is the post body content.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
       expect(body.message).toContain('404');
     });
@@ -934,9 +934,9 @@ More content here.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
       expect(body.message).toContain('Network connection failed');
     });
 
@@ -990,9 +990,9 @@ More content here.`;
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
     });
   });
 

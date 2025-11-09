@@ -14,6 +14,8 @@
  */
 
 const https = require('https');
+const { pagesSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -248,9 +250,25 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     // GET - List all pages or get single page
     if (event.httpMethod === 'GET') {
+      // Validate query parameters
+      const queryValidation = validate(pagesSchemas.getQuery, event.queryStringParameters || {});
+      if (!queryValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(queryValidation.errors))
+        };
+      }
+
       const pathParam = event.queryStringParameters?.path;
       const withMetadata = event.queryStringParameters?.metadata === 'true';
 
@@ -329,18 +347,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { path, frontmatter, body, sha } = JSON.parse(event.body);
-
-      if (!path || !frontmatter || body === undefined || !sha) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'path, frontmatter, body, and sha are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(pagesSchemas.update, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { path, frontmatter, body, sha } = bodyValidation.data;
 
       // Auto-update last_modified_at with current timestamp
       const now = new Date();
@@ -387,18 +418,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { filename, frontmatter, body } = JSON.parse(event.body);
-
-      if (!filename || !frontmatter || body === undefined) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'filename, frontmatter, and body are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(pagesSchemas.create, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { path, frontmatter, body } = bodyValidation.data;
 
       // Auto-set last_modified_at to match published date for new pages
       // Parse the date field and use it as the initial last_modified_at
@@ -451,18 +495,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const { path, sha } = JSON.parse(event.body);
-
-      if (!path || !sha) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Missing required fields',
-            message: 'path and sha are required'
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
           })
         };
       }
+
+      const bodyValidation = validate(pagesSchemas.delete, requestData);
+      if (!bodyValidation.success) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      const { path, sha } = bodyValidation.data;
 
       // Delete file via GitHub API
       const deleteResponse = await githubRequest(`/contents/${PAGES_DIR}/${path}`, {

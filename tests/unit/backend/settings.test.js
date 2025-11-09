@@ -183,9 +183,9 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
     });
 
     it('handles GitHub API errors', async () => {
@@ -197,9 +197,9 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
       expect(body.message).toContain('404');
     });
   });
@@ -333,7 +333,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('plugins');
       expect(body.message).toContain('theme');
     });
@@ -413,7 +413,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid fields');
+      expect(body.error).toBe('Validation failed');
     });
 
     it('returns 503 when GITHUB_TOKEN is missing', async () => {
@@ -455,7 +455,7 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
       expect(body.message).toContain('409');
     });
@@ -468,9 +468,9 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Internal server error');
+      expect(body.error).toBe('Invalid JSON');
     });
   });
 
@@ -598,7 +598,7 @@ describe('Settings Function', () => {
 
       expect(response.statusCode).toBe(400);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid fields');
+      expect(body.error).toBe('Validation failed');
       expect(body.message).toContain('plugins');
     });
   });

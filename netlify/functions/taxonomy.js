@@ -19,6 +19,8 @@
 
 const https = require('https');
 const yaml = require('js-yaml');
+const { taxonomySchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 
 // GitHub API configuration
 const GITHUB_OWNER = 'mfrench71';
@@ -113,6 +115,12 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     // GET - Read taxonomy from GitHub
     if (event.httpMethod === 'GET') {
@@ -177,53 +185,31 @@ exports.handler = async (event, context) => {
         };
       }
 
-      const requestBody = JSON.parse(event.body);
-
-      // Validate input first
-      if (requestBody.categories !== undefined && !Array.isArray(requestBody.categories)) {
+      // Parse and validate request body
+      let requestData;
+      try {
+        requestData = JSON.parse(event.body);
+      } catch (error) {
         return {
           statusCode: 400,
           headers,
-          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
-        };
-      }
-      if (requestBody.tags !== undefined && !Array.isArray(requestBody.tags)) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
-        };
-      }
-      if (requestBody.categoriesTree !== undefined && !Array.isArray(requestBody.categoriesTree)) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
-        };
-      }
-      if (requestBody.tagsTree !== undefined && !Array.isArray(requestBody.tagsTree)) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ error: 'Invalid input: categories and tags must be arrays' })
+          body: JSON.stringify({
+            error: 'Invalid JSON',
+            message: 'Request body must be valid JSON'
+          })
         };
       }
 
-      // Check required fields (either flat or tree format)
-      if (!requestBody.categories && !requestBody.categoriesTree) {
+      const bodyValidation = validate(taxonomySchemas.update, requestData);
+      if (!bodyValidation.success) {
         return {
           statusCode: 400,
           headers,
-          body: JSON.stringify({ error: 'Missing required field: categories or categoriesTree' })
+          body: JSON.stringify(formatValidationError(bodyValidation.errors))
         };
       }
-      if (!requestBody.tags && !requestBody.tagsTree) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ error: 'Missing required field: tags or tagsTree' })
-        };
-      }
+
+      const requestBody = bodyValidation.data;
 
       // Accept either flat arrays (backwards compat) or hierarchical trees
       const categoriesTree = requestBody.categoriesTree ||
