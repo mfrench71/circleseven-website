@@ -161,7 +161,20 @@ exports.handler = async (event, context) => {
     if (event.httpMethod === 'GET') {
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
-      const config = yaml.load(content);
+
+      let config;
+      try {
+        config = yaml.load(content);
+      } catch (yamlError) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Invalid JSON',
+            message: `Failed to parse _config.yml: ${yamlError.message}`
+          })
+        };
+      }
 
       // Extract only editable fields
       const settings = {};
@@ -227,7 +240,7 @@ exports.handler = async (event, context) => {
           statusCode: 400,
           headers,
           body: JSON.stringify({
-            error: 'Invalid fields',
+            error: 'Validation failed',
             message: `Cannot update fields: ${invalidFields.join(', ')}`
           })
         };

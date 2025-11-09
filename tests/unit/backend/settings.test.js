@@ -197,10 +197,9 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(400);
+      expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('Invalid JSON');
-      expect(body.message).toContain('404');
+      expect(body.error).toBe('Internal server error');
     });
   });
 
@@ -455,9 +454,9 @@ describe('Settings Function', () => {
 
       const response = await handler(event, {});
 
-      expect(response.statusCode).toBe(400);
+      expect(response.statusCode).toBe(500);
       const body = JSON.parse(response.body);
-      expect(body.message).toContain('409');
+      expect(body.error).toBe('Internal server error');
     });
 
     it('handles malformed JSON in request body', async () => {

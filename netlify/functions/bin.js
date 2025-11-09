@@ -250,6 +250,28 @@ exports.handler = async (event, context) => {
         };
       }
 
+      // Manual validation for required fields (since Zod validation is disabled)
+      if (!requestData.filename) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Validation failed',
+            message: 'filename is required'
+          })
+        };
+      }
+      if (!requestData.sha) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Validation failed',
+            message: 'sha is required'
+          })
+        };
+      }
+
       const { filename, sha, type } = bodyValidation.data;
 
       // Determine source directory based on type (default to posts for backwards compatibility)
@@ -375,6 +397,18 @@ exports.handler = async (event, context) => {
           statusCode: 400,
           headers,
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      // Manual validation for required fields (since Zod validation is disabled)
+      if (!requestData.filename) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Validation failed',
+            message: 'filename is required'
+          })
         };
       }
 
@@ -508,6 +542,18 @@ exports.handler = async (event, context) => {
           statusCode: 400,
           headers,
           body: JSON.stringify(formatValidationError(bodyValidation.errors))
+        };
+      }
+
+      // Manual validation for required fields (since Zod validation is disabled)
+      if (!requestData.filename) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            error: 'Validation failed',
+            message: 'filename is required'
+          })
         };
       }
 

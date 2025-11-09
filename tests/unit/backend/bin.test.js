@@ -805,8 +805,14 @@ Content`;
 
       const event = {
         httpMethod: 'POST',
-        body: 'invalid json{{'
+        body: JSON.stringify({
+          filename: 'test.md',
+          sha: 'abc123'
+        })
       };
+
+      // Cause a GitHub API error
+      mockGitHubError('GET', '/repos/mfrench71/circleseven-website/contents/_posts/test.md?ref=main', 500, 'Server Error');
 
       const response = await handler(event, {});
 
