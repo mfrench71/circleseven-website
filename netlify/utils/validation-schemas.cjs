@@ -28,7 +28,7 @@ const commonSchemas = {
     .max(200, 'Filename too long'),
 
   // Frontmatter object (Jekyll YAML frontmatter)
-  frontmatter: z.record(z.unknown()),
+  frontmatter: z.any(),
 
   // Markdown body content
   body: z.string()
@@ -84,23 +84,23 @@ const pagesSchemas = {
   // POST body (create new page)
   create: z.object({
     path: commonSchemas.filePath,
-    frontmatter: commonSchemas.frontmatter,
+    frontmatter: z.any().refine(val => val !== undefined, 'frontmatter is required'),
     body: commonSchemas.body
-  }),
+  }).passthrough(),
 
   // PUT body (update existing page)
   update: z.object({
     path: commonSchemas.filePath,
-    frontmatter: commonSchemas.frontmatter,
+    frontmatter: z.any(),
     body: commonSchemas.body,
     sha: commonSchemas.sha
-  }),
+  }).passthrough(),
 
   // DELETE body
   delete: z.object({
     path: commonSchemas.filePath,
     sha: commonSchemas.sha
-  })
+  }).passthrough()
 };
 
 /**
