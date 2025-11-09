@@ -14,6 +14,13 @@
  */
 
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
+const {
+  successResponse,
+  methodNotAllowedResponse,
+  serviceUnavailableResponse,
+  serverErrorResponse,
+  corsPreflightResponse
+} = require('../utils/response-helpers.cjs');
 
 const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
 
@@ -58,30 +65,15 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  * // }
  */
 export const handler = async (event, context) => {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Content-Type': 'application/json'
-  };
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
+    return corsPreflightResponse();
   }
 
   try {
     if (event.httpMethod === 'GET') {
       if (!process.env.GITHUB_TOKEN) {
-        return {
-          statusCode: 503,
-          headers,
-          body: JSON.stringify({
-            error: 'GitHub integration not configured',
-            message: 'GITHUB_TOKEN environment variable is missing'
-          })
-        };
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
       // Get recent workflow runs (last 20)
@@ -133,32 +125,17 @@ export const handler = async (event, context) => {
           };
         });
 
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          deployments: deployments
-        })
-      };
+      return successResponse({
+        deployments: deployments
+      });
     }
 
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return methodNotAllowedResponse();
 
   } catch (error) {
     console.error('Deployment history function error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: 'Internal server error',
-        message: error.message,
-        details: error.toString(),
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      })
-    };
+    return serverErrorResponse(error, {
+      includeStack: process.env.NODE_ENV === 'development'
+    });
   }
 };

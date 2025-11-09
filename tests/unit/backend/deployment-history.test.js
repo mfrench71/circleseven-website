@@ -33,7 +33,7 @@ describe('Deployment History Function', () => {
 
       expect(response.statusCode).toBe(200);
       expect(response.headers['Access-Control-Allow-Origin']).toBe('*');
-      expect(response.headers['Access-Control-Allow-Methods']).toBe('GET, OPTIONS');
+      expect(response.headers['Access-Control-Allow-Methods']).toBe('GET, POST, PUT, DELETE, OPTIONS');
       expect(response.body).toBe('');
     });
 
@@ -439,7 +439,7 @@ describe('Deployment History Function', () => {
 
       expect(response.statusCode).toBe(503);
       const body = JSON.parse(response.body);
-      expect(body.error).toBe('GitHub integration not configured');
+      expect(body.error).toBe('Service unavailable');
       expect(body.message).toContain('GITHUB_TOKEN');
     });
 
