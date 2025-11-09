@@ -205,3 +205,30 @@ export function mockCloudinaryError(statusCode, message) {
       error: { message }
     });
 }
+
+/**
+ * Mock Cloudinary API folders response
+ * @param {Array} folders - Array of folder objects
+ * @returns {nock.Scope}
+ */
+export function mockCloudinaryFolders(folders) {
+  return nock(CLOUDINARY_API)
+    .get(/\/v1_1\/[^\/]+\/folders/)
+    .reply(200, {
+      folders
+    });
+}
+
+/**
+ * Mock Cloudinary API folders error response
+ * @param {number} statusCode - Error status code
+ * @param {string} message - Error message
+ * @returns {nock.Scope}
+ */
+export function mockCloudinaryFoldersError(statusCode, message) {
+  return nock(CLOUDINARY_API)
+    .get(/\/v1_1\/[^\/]+\/folders/)
+    .reply(statusCode, {
+      error: { message }
+    });
+}

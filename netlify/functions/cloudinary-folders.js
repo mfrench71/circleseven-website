@@ -22,19 +22,6 @@ const {
   corsPreflightResponse
 } = require('../utils/response-helpers.cjs');
 
-// Cloudinary configuration
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-
-// Check for required environment variables
-if (!CLOUDINARY_API_KEY) {
-  console.error('CLOUDINARY_API_KEY environment variable is not set');
-}
-if (!CLOUDINARY_API_SECRET) {
-  console.error('CLOUDINARY_API_SECRET environment variable is not set');
-}
-
 /**
  * Netlify Function Handler - Cloudinary Folders
  *
@@ -76,7 +63,7 @@ export const handler = async (event, context) => {
 
   try {
     // Check if API credentials are configured
-    if (!CLOUDINARY_API_KEY || !CLOUDINARY_API_SECRET) {
+    if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
       return serverErrorResponse('CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET environment variables must be set. Please add them to Netlify environment variables.');
     }
 
@@ -110,6 +97,10 @@ export const handler = async (event, context) => {
  */
 function fetchCloudinaryFolders() {
   return new Promise((resolve, reject) => {
+    const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'circleseven';
+    const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
+    const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
+
     const auth = Buffer.from(`${CLOUDINARY_API_KEY}:${CLOUDINARY_API_SECRET}`).toString('base64');
 
     const options = {
