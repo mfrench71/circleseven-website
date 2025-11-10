@@ -411,9 +411,30 @@ Location: pages.js:879 in showPagesList()
   - Scans _site/**/*.html and assets/js/dist/bundle.js
   - Safelists: Bootstrap, Font Awesome, GLightbox, Highlight.js, Leaflet
   - Preserves CSS variables and keyframes
-- **Impact:** Addresses Lighthouse's #1 optimization opportunity (360ms unused CSS)
-- **Expected Performance Gain:** ~360ms faster CSS parse/render time
-- **Commit:** `b2f1273`
+- **Measured Performance Impact (Lighthouse):**
+  - Performance Score: 69 → 71 (+2 points) ✅
+  - FCP: 3,952ms → 3,832ms (-120ms / -3%) ✅
+  - LCP: 4,861ms → 4,621ms (-240ms / -5%) ✅
+  - Unused CSS: 360ms → 350ms (-10ms remaining)
+  - Speed Index: 6,455ms → 6,069ms (-386ms / -6%) ✅
+- **Analysis:** Most custom CSS was already in use. Remaining 350ms is likely from Minima theme CSS. Further optimization would require replacing/removing Minima theme.
+- **Commits:** `b2f1273`, `f91c6d2`
+
+### Code Deduplication - Frontmatter Parser (2025-11-10):
+- **File:** netlify/functions/bin.js
+- **Lines Removed:** 21 lines (-39 duplicated, +18 refactored)
+- **Changes:**
+  - GET handler: Replaced manual regex parsing (lines 118-124) with parseFrontmatter()
+  - POST handler: Replaced manual frontmatter manipulation (lines 187-201) with parseFrontmatter() + buildFrontmatter()
+  - PUT handler (restore): Replaced manual regex filtering (lines 321-337) with parseFrontmatter() + buildFrontmatter()
+- **Benefits:**
+  - Single source of truth for frontmatter parsing (netlify/utils/frontmatter.cjs)
+  - More maintainable code
+  - Better error handling through centralized utility
+  - Cleaner code using modern JS destructuring
+- **Tests:** All 31 bin.js tests passing ✅
+- **Note:** posts.js and pages.js were already using the shared utilities
+- **Commit:** `5aa86f5`
 
 ### Code Quality (After Phase 2):
 - **Duplicate Code:** -400+ lines removed
@@ -436,11 +457,11 @@ Location: pages.js:879 in showPagesList()
 8. ⚠️ **No input validation** → Still pending (security hardening phase)
 
 ### Code Quality Issues:
-1. **Frontmatter parser:** 300-450 lines duplicated across 3 files
+1. ✅ **Frontmatter parser:** RESOLVED (2025-11-10) - bin.js refactored to use shared utilities
 2. **Image extraction:** 50+ lines duplicated in 2 includes
-3. **DOM ready checks:** 50 lines duplicated across 8 JS files
+3. **DOM ready checks:** INVESTIGATED - No significant duplication found in current codebase
 4. **Magic numbers** throughout (breakpoints, thresholds)
-5. **Monolithic admin/app.js:** 1,944 lines
+5. **Monolithic admin/app.js:** 1,966 lines (still large, but modularized via esbuild)
 
 ---
 
@@ -463,10 +484,11 @@ Location: pages.js:879 in showPagesList()
    - `/netlify/functions/bin.js` - Add validation
 
 4. **Deduplication:**
-   - `/netlify/functions/posts.js` - Extract parser (line 87-148)
-   - `/netlify/functions/pages.js` - Extract parser
-   - `/_includes/featured-image.html` - Extract image logic (line 21-49)
-   - `/_includes/post-card-image.html` - Extract image logic (line 21-45)
+   - ✅ `/netlify/functions/bin.js` - Now using shared frontmatter utilities ✅
+   - ℹ️ `/netlify/functions/posts.js` - Already using shared parser (netlify/utils/frontmatter.cjs)
+   - ℹ️ `/netlify/functions/pages.js` - Already using shared parser (netlify/utils/frontmatter.cjs)
+   - `/_includes/featured-image.html` - Extract image logic (line 21-49) - FUTURE WORK
+   - `/_includes/post-card-image.html` - Extract image logic (line 21-45) - FUTURE WORK
 
 ### CSS Files to Concatenate (17 total, 72KB):
 1. style.css
