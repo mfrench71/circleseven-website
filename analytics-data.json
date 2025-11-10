@@ -1,13 +1,16 @@
 {
   "pageViews": {
-    "/": 1
+    "/": 1,
+    "/about/": 1,
+    "/derelict-house-at-mordiford-herefordshire/": 1
   },
   "uniqueVisitors": [
-    "sess_1762807259821_9sng9xsb8pb"
+    "sess_1762807259821_9sng9xsb8pb",
+    "sess_1762806773674_newalv3l83"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 1
+    "Chrome": 3
   },
   "createdAt": "2025-11-10T20:30:00.000Z"
 }
