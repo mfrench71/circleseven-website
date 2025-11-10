@@ -93,7 +93,7 @@ const EDITABLE_FIELDS = [
  * // Body: { plugins: ["evil-plugin"] }
  * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

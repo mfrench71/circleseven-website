@@ -82,7 +82,7 @@ function fetchRateLimit() {
  * //   minutesUntilReset: 42
  * // }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

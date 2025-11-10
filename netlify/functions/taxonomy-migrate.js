@@ -248,7 +248,7 @@ async function mergeTaxonomy(type, sourceTerms, targetTerm) {
 /**
  * Main handler
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

@@ -60,7 +60,7 @@ const POSTS_DIR = '_posts';
  * // DELETE /.netlify/functions/posts
  * // Body: { path: 'about.md', sha: '...' }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

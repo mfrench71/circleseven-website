@@ -65,7 +65,7 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  * //   conclusion: "success"
  * // }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

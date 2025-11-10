@@ -60,7 +60,7 @@ const PAGES_DIR = '_pages';
  * // DELETE /.netlify/functions/pages
  * // Body: { path: 'about.md', sha: '...' }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

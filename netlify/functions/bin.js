@@ -84,7 +84,7 @@ const BIN_DIR = '_bin';
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
-export const handler = async (event, context) => {
+exports.handler = async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
