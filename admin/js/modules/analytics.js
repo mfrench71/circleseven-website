@@ -195,57 +195,6 @@ export function renderPostsWithIssues(data) {
 }
 
 /**
- * Renders Plausible analytics embed section
- */
-export function renderPlausibleStats() {
-  // Get plausible domain from site config
-  const plausibleDomain = window.siteConfig?.plausible_domain;
-
-  if (!plausibleDomain) {
-    return `
-      <div class="card mb-4">
-        <div class="card-header">
-          <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Website Analytics (Plausible)</h5>
-        </div>
-        <div class="card-body">
-          <div class="alert alert-info mb-0">
-            <i class="fas fa-info-circle me-2"></i>
-            Plausible analytics is not configured. Add <code>plausible_domain</code> to your <code>_config.yml</code> to enable website analytics.
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Website Analytics (Plausible)</h5>
-        <a href="https://plausible.io/${plausibleDomain}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
-          <i class="fas fa-external-link-alt me-1"></i>Open Full Dashboard
-        </a>
-      </div>
-      <div class="card-body">
-        <div class="alert alert-info">
-          <i class="fas fa-info-circle me-2"></i>
-          To embed live Plausible stats here, you need to generate a shared link in your Plausible dashboard:
-          <ol class="mb-0 mt-2">
-            <li>Go to <a href="https://plausible.io/${plausibleDomain}/settings/visibility" target="_blank" rel="noopener">Site Settings → Visibility</a></li>
-            <li>Generate a shared link (this makes stats publicly accessible but unindexed)</li>
-            <li>Copy the shared link and add it to your admin settings</li>
-          </ol>
-        </div>
-        <div class="text-center py-4">
-          <a href="https://plausible.io/${plausibleDomain}" target="_blank" rel="noopener" class="btn btn-primary">
-            <i class="fas fa-chart-bar me-2"></i>View Plausible Dashboard
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-/**
  * Main render function for the analytics page
  */
 export async function renderAnalytics(container) {
@@ -256,11 +205,7 @@ export async function renderAnalytics(container) {
 
     const html = `
       <div class="analytics-page">
-        <h2 class="mb-4">Analytics</h2>
-
-        ${renderPlausibleStats()}
-
-        <h3 class="h5 mb-3 mt-4">Content Health</h3>
+        <h2 class="mb-4">Content Health Analytics</h2>
         ${renderHealthOverview(data)}
         ${renderIssueStats(data)}
         ${renderPostsWithIssues(data)}
