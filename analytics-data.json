@@ -2,7 +2,8 @@
   "pageViews": {
     "/": 1,
     "/about/": 1,
-    "/derelict-house-at-mordiford-herefordshire/": 1
+    "/derelict-house-at-mordiford-herefordshire/": 1,
+    "/category/dat505-advanced-creative-coding/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -10,7 +11,7 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 3
+    "Chrome": 4
   },
   "createdAt": "2025-11-10T20:30:00.000Z"
 }
