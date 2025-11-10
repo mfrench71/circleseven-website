@@ -402,6 +402,19 @@ Location: pages.js:879 in showPagesList()
 - HTTP requests reduced from 25 to 3 files
 - Images already optimized with Cloudinary q_auto/f_auto + lazy loading
 
+### PurgeCSS Implementation (2025-11-10):
+- **Tool:** @fullhuman/postcss-purgecss v7.0.2
+- **critical.css:** 13KB → 11.6KB (-10.8% / -1.4KB) ✅
+- **main.css:** 35KB → 25.1KB (-28.3% / -9.9KB) ✅
+- **Total CSS Savings:** 48KB → 36.7KB (-23.5% / -11.3KB) ✅
+- **Configuration:**
+  - Scans _site/**/*.html and assets/js/dist/bundle.js
+  - Safelists: Bootstrap, Font Awesome, GLightbox, Highlight.js, Leaflet
+  - Preserves CSS variables and keyframes
+- **Impact:** Addresses Lighthouse's #1 optimization opportunity (360ms unused CSS)
+- **Expected Performance Gain:** ~360ms faster CSS parse/render time
+- **Commit:** `b2f1273`
+
 ### Code Quality (After Phase 2):
 - **Duplicate Code:** -400+ lines removed
 - **Maintainability:** +30%
