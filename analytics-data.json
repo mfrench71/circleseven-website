@@ -1,7 +1,13 @@
 {
-  "pageViews": {},
-  "uniqueVisitors": [],
+  "pageViews": {
+    "/": 1
+  },
+  "uniqueVisitors": [
+    "sess_1762807259821_9sng9xsb8pb"
+  ],
   "referrers": {},
-  "browsers": {},
+  "browsers": {
+    "Chrome": 1
+  },
   "createdAt": "2025-11-10T20:30:00.000Z"
 }
