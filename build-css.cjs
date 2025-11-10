@@ -47,15 +47,28 @@ const MAIN_FILES = [
   'edit-links.css'
 ];
 
+// Minima theme CSS file (will be purged alongside custom CSS)
+const MINIMA_FILE = '_site/assets/css/style.css';
+
 /**
  * Concatenates CSS files in the specified order
+ * Can optionally include a single additional file (like Minima theme CSS)
  */
-function concatenateFiles(files, outputPath) {
+function concatenateFiles(files, outputPath, additionalFile = null) {
   console.log(`\nConcatenating ${files.length} files into ${path.basename(outputPath)}...`);
 
   let combined = '';
   let totalSize = 0;
 
+  // Add Minima CSS FIRST (so custom CSS can override it)
+  if (additionalFile && fs.existsSync(additionalFile)) {
+    const content = fs.readFileSync(additionalFile, 'utf8');
+    totalSize += content.length;
+    combined += `\n/* ${path.basename(additionalFile)} (Minima theme - loaded first, will be overridden by custom CSS) */\n${content}\n`;
+    console.log(`  ✓ ${path.basename(additionalFile)} (${(content.length / 1024).toFixed(1)}KB)`);
+  }
+
+  // Add custom CSS files AFTER Minima (so they override Minima styles)
   files.forEach(file => {
     const filePath = path.join(CSS_DIR, file);
 
@@ -115,11 +128,11 @@ function build() {
   console.log('━'.repeat(50));
 
   try {
-    // Step 1: Concatenate critical CSS
+    // Step 1: Concatenate critical CSS (including Minima theme CSS)
     const criticalTemp = path.join(OUTPUT_DIR, 'critical.temp.css');
-    concatenateFiles(CRITICAL_FILES, criticalTemp);
+    concatenateFiles(CRITICAL_FILES, criticalTemp, MINIMA_FILE);
 
-    // Step 2: Concatenate main CSS
+    // Step 2: Concatenate main CSS (WITHOUT Minima - only in critical to avoid async override)
     const mainTemp = path.join(OUTPUT_DIR, 'main.temp.css');
     concatenateFiles(MAIN_FILES, mainTemp);
 

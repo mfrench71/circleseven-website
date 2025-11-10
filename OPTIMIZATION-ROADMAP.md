@@ -420,6 +420,61 @@ Location: pages.js:879 in showPagesList()
 - **Analysis:** Most custom CSS was already in use. Remaining 350ms is likely from Minima theme CSS. Further optimization would require replacing/removing Minima theme.
 - **Commits:** `b2f1273`, `f91c6d2`
 
+### Minima Theme CSS Elimination (2025-11-10):
+- **Problem:** Site loading BOTH Minima theme CSS (7.6KB unpurged) AND custom purged CSS, causing duplication and CSS regression
+- **Root Cause:** `_includes/head.html` had separate `<link>` tag for `style.css` (Minima theme)
+- **Impact Before Fix:**
+  - Unused CSS: 350ms → 540ms (+54% regression!) ❌
+  - Performance Score: 71 → 70 (-1 point) ❌
+  - CSS conflicts: Minima's black border overriding custom teal border
+  - Position conflicts: Minima's `position: relative` overriding `position: fixed` for sticky header
+- **Solution Implemented:**
+  1. Modified `build-css.cjs` to concatenate Minima CSS FIRST (base styles)
+  2. Custom CSS files loaded AFTER (override styles) - CSS cascade priority
+  3. Removed `<link rel="stylesheet" href="style.css">` from `_includes/head.html`
+  4. Applied PurgeCSS to combined Minima + custom CSS
+- **Results After Fix:**
+  - Unused CSS: 540ms → 350ms (-35.2% / -190ms) ✅
+  - Performance Score: 70 → 73 (+3 points) ✅
+  - FCP: 3,952ms → 3,832ms (-3%) ✅
+  - LCP: 5,010ms → 4,621ms (-7.8% / -389ms) ✅
+  - Speed Index: 6,455ms → 6,069ms (-6%) ✅
+  - CSS conflicts resolved: Header now properly fixed with teal border ✅
+- **CSS Cascade Fix:**
+  - Minima CSS loads FIRST with incorrect styles: `border-top: 5px solid #424242; position: relative;`
+  - Custom CSS (menu.css) loads AFTER and overrides: `border-bottom: 2px solid var(--teal-primary); position: fixed;`
+  - Final inlined critical CSS shows correct styles ✅
+- **File Changes:**
+  - `/build-css.cjs` - Added Minima CSS concatenation with correct order (lines 63-69)
+  - `/_includes/head.html` - Removed line 31 (`style.css` link)
+  - `/assets/css/dist/main.css` - Now includes purged Minima CSS (30.6KB final)
+- **Total Minima CSS Impact:**
+  - Before PurgeCSS: 7.6KB (Minima CSS loaded separately, unpurged)
+  - After integration: ~5.5KB (purged alongside custom CSS, ~2KB removed)
+  - Net result: Single CSS file, no duplication, proper cascade priority
+- **Commit:** [To be added]
+
+### Minima CSS Async Override Fix (2025-11-10):
+- **Problem:** After initial integration, `main.css` still contained Minima CSS and was loading asynchronously AFTER critical.css, causing late overrides
+- **Visual Regression:** Header losing sticky positioning and teal border when main.css finished loading
+- **Root Cause:** `build-css.cjs` was concatenating Minima CSS into BOTH critical.css AND main.css (line 137)
+- **CSS Cascade Issue:**
+  - Initial load: critical.css with correct styles (Minima → menu.css override) ✅
+  - After main.css loads: Minima CSS from main.css overrides everything ❌
+  - DevTools showed 3 `.site-header` rules with `main.css:1` winning
+- **Solution Implemented:**
+  1. Modified `build-css.cjs` line 137 to remove Minima from main.css concatenation
+  2. Changed: `concatenateFiles(MAIN_FILES, mainTemp, MINIMA_FILE)`
+  3. To: `concatenateFiles(MAIN_FILES, mainTemp)` (no Minima parameter)
+- **Results After Fix:**
+  - critical.css (17KB): Contains Minima + menu.css overrides (loads instantly)
+  - main.css (25KB): Only custom CSS, no Minima conflicts (loads async without override issues)
+  - Header now maintains correct sticky positioning and teal border ✅
+  - CSS cascade works properly: Minima base → menu.css overrides in critical.css only
+- **File Changes:**
+  - `/build-css.cjs` line 137 - Removed MINIMA_FILE from main.css concatenation
+- **Commit:** [To be added]
+
 ### Code Deduplication - Frontmatter Parser (2025-11-10):
 - **File:** netlify/functions/bin.js
 - **Lines Removed:** 21 lines (-39 duplicated, +18 refactored)
