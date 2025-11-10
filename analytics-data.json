@@ -12,7 +12,8 @@
     "/groundbreaking-logo-blender/": 1,
     "/tags/photoshop": 1,
     "/dat602-proposal-presentation-and-feedback-usense/": 1,
-    "/dat602-face-recognition-with-azure-face-api-and-javascript/": 1
+    "/dat602-face-recognition-with-azure-face-api-and-javascript/": 1,
+    "/dat404-assignment-professional-practice-web-site/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -32,25 +33,27 @@
     "sess_1762808237318_mw8otz5eyd",
     "sess_1762732800040_n0ja7c6z2v",
     "sess_1762808537532_qrlnf59isia",
-    "sess_1762732800030_n0ja7c6z2v"
+    "sess_1762732800030_n0ja7c6z2v",
+    "sess_1762813497789_ijq97e4fo"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 21,
+    "Chrome": 22,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 2,
+    "Desktop": 3,
     "Mobile": 3
   },
   "viewsByDay": {
-    "2025-11-10": 5
+    "2025-11-10": 6
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
     "2025-11-10 00": 3,
-    "2025-11-10 21": 1
+    "2025-11-10 21": 1,
+    "2025-11-10 22": 1
   },
   "pageViewDetails": {
     "/": [
@@ -97,6 +100,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/dat404-assignment-professional-practice-web-site/": [
+      {
+        "timestamp": "2025-11-10T22:24:57.789Z",
+        "sessionId": "sess_1762813497789_ijq97e4fo",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -131,6 +143,14 @@
       "pages": [
         "/dat602-proposal-presentation-and-feedback-usense/",
         "/dat602-face-recognition-with-azure-face-api-and-javascript/"
+      ]
+    },
+    "sess_1762813497789_ijq97e4fo": {
+      "firstSeen": "2025-11-10T22:24:57.789Z",
+      "lastSeen": "2025-11-10T22:24:57.789Z",
+      "pageViews": 1,
+      "pages": [
+        "/dat404-assignment-professional-practice-web-site/"
       ]
     }
   }
