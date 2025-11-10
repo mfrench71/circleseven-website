@@ -50,8 +50,7 @@ const EDITABLE_FIELDS = [
   'timezone',
   'lang',
   'google_fonts',
-  'cloudinary_default_folder',
-  'cloudflare_analytics_token'
+  'cloudinary_default_folder'
 ];
 
 /**
