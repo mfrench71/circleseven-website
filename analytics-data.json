@@ -11,7 +11,8 @@
     "/dat601-realtime-project-proposal/": 3,
     "/groundbreaking-logo-blender/": 1,
     "/tags/photoshop": 1,
-    "/dat602-proposal-presentation-and-feedback-usense/": 1
+    "/dat602-proposal-presentation-and-feedback-usense/": 1,
+    "/dat602-face-recognition-with-azure-face-api-and-javascript/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -35,20 +36,20 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 20,
+    "Chrome": 21,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 2,
-    "Mobile": 2
+    "Mobile": 3
   },
   "viewsByDay": {
-    "2025-11-10": 4
+    "2025-11-10": 5
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
-    "2025-11-10 00": 2,
+    "2025-11-10 00": 3,
     "2025-11-10 21": 1
   },
   "pageViewDetails": {
@@ -87,6 +88,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/dat602-face-recognition-with-azure-face-api-and-javascript/": [
+      {
+        "timestamp": "2025-11-10T00:00:00.031Z",
+        "sessionId": "sess_1762732800030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -117,9 +127,10 @@
     "sess_1762732800030_n0ja7c6z2v": {
       "firstSeen": "2025-11-10T00:00:00.031Z",
       "lastSeen": "2025-11-10T00:00:00.031Z",
-      "pageViews": 1,
+      "pageViews": 2,
       "pages": [
-        "/dat602-proposal-presentation-and-feedback-usense/"
+        "/dat602-proposal-presentation-and-feedback-usense/",
+        "/dat602-face-recognition-with-azure-face-api-and-javascript/"
       ]
     }
   }
