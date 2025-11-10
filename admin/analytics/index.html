@@ -68,7 +68,7 @@
 
     // Import modules
     import { initNotifications } from '/admin/js/ui/notifications.js';
-    import { loadSiteTitle } from '/admin/js/modules/settings.js';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js';
     import { renderAnalytics } from '/admin/js/modules/analytics.js';
 
     // Initialize notifications when DOM is ready
@@ -88,7 +88,10 @@
         initHeader();
         initSidebar('analytics');
 
-        // Load site title
+        // Load site configuration (includes plausible_domain)
+        await loadSiteConfig();
+
+        // Load site title for header
         await loadSiteTitle();
 
         // Render analytics

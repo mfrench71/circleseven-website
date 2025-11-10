@@ -56,3 +56,4 @@ google_fonts:
   body_font: Open Sans
   heading_font: Open Sans
 cloudinary_default_folder: circle-seven
+plausible_domain: circleseven.co.uk
