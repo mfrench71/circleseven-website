@@ -15,7 +15,8 @@
     "/dat602-face-recognition-with-azure-face-api-and-javascript/": 1,
     "/dat404-assignment-professional-practice-web-site/": 1,
     "/dat613-dissertation-proposal/": 1,
-    "/tags/after-effects": 1
+    "/tags/after-effects": 1,
+    "/category/dat601-realtime/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -37,26 +38,27 @@
     "sess_1762808537532_qrlnf59isia",
     "sess_1762732800030_n0ja7c6z2v",
     "sess_1762813497789_ijq97e4fo",
-    "sess_1762814758137_nh44cj3a51j"
+    "sess_1762814758137_nh44cj3a51j",
+    "sess_1762814780633_qv2jy8aee6"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 24,
+    "Chrome": 25,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 4,
+    "Desktop": 5,
     "Mobile": 4
   },
   "viewsByDay": {
-    "2025-11-10": 8
+    "2025-11-10": 9
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
     "2025-11-10 00": 4,
     "2025-11-10 21": 1,
-    "2025-11-10 22": 2
+    "2025-11-10 22": 3
   },
   "pageViewDetails": {
     "/": [
@@ -130,6 +132,15 @@
         "browser": "Chrome",
         "device": "Desktop"
       }
+    ],
+    "/category/dat601-realtime/": [
+      {
+        "timestamp": "2025-11-10T22:46:20.634Z",
+        "sessionId": "sess_1762814780633_qv2jy8aee6",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -181,6 +192,14 @@
       "pageViews": 1,
       "pages": [
         "/tags/after-effects"
+      ]
+    },
+    "sess_1762814780633_qv2jy8aee6": {
+      "firstSeen": "2025-11-10T22:46:20.634Z",
+      "lastSeen": "2025-11-10T22:46:20.634Z",
+      "pageViews": 1,
+      "pages": [
+        "/category/dat601-realtime/"
       ]
     }
   }
