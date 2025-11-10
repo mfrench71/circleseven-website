@@ -115,13 +115,8 @@ export const handler = async (event, context) => {
             try {
               const fileData = await githubRequest(`/contents/${BIN_DIR}/${file.name}?ref=${GITHUB_BRANCH}`);
               const content = Buffer.from(fileData.content, 'base64').toString('utf8');
-              const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-              if (frontmatterMatch) {
-                const trashedAtMatch = frontmatterMatch[1].match(/binned_at:\s*(.+)/);
-                if (trashedAtMatch) {
-                  trashedAt = trashedAtMatch[1].trim();
-                }
-              }
+              const { frontmatter } = parseFrontmatter(content);
+              trashedAt = frontmatter.binned_at || null;
             } catch (error) {
               console.error(`Failed to extract binned_at for ${file.name}:`, error);
             }
@@ -184,21 +179,16 @@ export const handler = async (event, context) => {
 
       // Decode content to add binned_at timestamp to frontmatter
       const content = Buffer.from(contentBase64, 'base64').toString('utf8');
-      const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
-      const match = content.match(frontmatterRegex);
+      const { frontmatter, body } = parseFrontmatter(content);
 
-      let modifiedContent;
-      if (match) {
-        const frontmatter = match[1];
-        const body = match[2];
-        const trashedAt = new Date().toISOString();
-        // Add binned_at to frontmatter
-        const modifiedFrontmatter = `${frontmatter}\nbinned_at: ${trashedAt}`;
-        modifiedContent = `---\n${modifiedFrontmatter}\n---\n${body}`;
-      } else {
-        // No frontmatter found, use original content
-        modifiedContent = content;
-      }
+      // Add binned_at to frontmatter
+      const trashedAt = new Date().toISOString();
+      const modifiedFrontmatter = {
+        ...frontmatter,
+        binned_at: trashedAt
+      };
+
+      const modifiedContent = buildFrontmatter(modifiedFrontmatter) + body;
 
       // Re-encode modified content
       const modifiedContentBase64 = Buffer.from(modifiedContent).toString('base64');
@@ -318,23 +308,12 @@ export const handler = async (event, context) => {
 
       // Decode content to remove binned_at timestamp from frontmatter
       const content = Buffer.from(contentBase64, 'base64').toString('utf8');
-      const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
-      const match = content.match(frontmatterRegex);
+      const { frontmatter, body } = parseFrontmatter(content);
 
-      let restoredContent;
-      if (match) {
-        const frontmatter = match[1];
-        const body = match[2];
-        // Remove binned_at line from frontmatter
-        const cleanedFrontmatter = frontmatter
-          .split('\n')
-          .filter(line => !line.match(/^\s*binned_at:\s*.+/))
-          .join('\n');
-        restoredContent = `---\n${cleanedFrontmatter}\n---\n${body}`;
-      } else {
-        // No frontmatter found, use original content
-        restoredContent = content;
-      }
+      // Remove binned_at from frontmatter
+      const { binned_at, ...cleanedFrontmatter } = frontmatter;
+
+      const restoredContent = buildFrontmatter(cleanedFrontmatter) + body;
 
       // Re-encode cleaned content
       const restoredContentBase64 = Buffer.from(restoredContent).toString('base64');
