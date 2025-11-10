@@ -813,7 +813,7 @@ export async function editPost(filename, updateUrl = true) {
     }
     // Ensure editor content is set (use requestAnimationFrame for reliable initialization)
     requestAnimationFrame(() => {
-      if (window.markdownEditor && window.markdownEditor.codemirror) {
+      if (window.markdownEditor && window.markdownEditor.codemirror && window.currentPost) {
         window.markdownEditor.value(window.currentPost.body || '');
       }
       // Clear dirty flag and end initialization AFTER editor content is set
