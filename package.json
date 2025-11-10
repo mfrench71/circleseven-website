@@ -30,6 +30,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@playwright/test": "^1.40.0",
     "@vitest/coverage-v8": "^1.0.4",
     "@vitest/ui": "^1.0.4",

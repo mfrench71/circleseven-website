@@ -76,13 +76,25 @@ function concatenateFiles(files, outputPath) {
 }
 
 /**
- * Minifies CSS using PostCSS with cssnano
+ * Minifies CSS using PostCSS with cssnano and PurgeCSS
+ *
+ * Note: PurgeCSS requires _site directory to exist (Jekyll must build first)
+ * If _site doesn't exist, PurgeCSS will be skipped (only cssnano will run)
  */
 function minifyCSS(inputPath, outputPath) {
   console.log(`\nMinifying ${path.basename(inputPath)}...`);
 
   try {
-    // Run PostCSS (uses postcss.config.cjs)
+    const siteDir = path.join(__dirname, '_site');
+    const siteExists = fs.existsSync(siteDir);
+
+    if (!siteExists) {
+      console.warn('⚠ Warning: _site directory not found. PurgeCSS will be skipped.');
+      console.warn('  Run "bundle exec jekyll build" first for optimal CSS purging.');
+      console.warn('  Proceeding with cssnano minification only...\n');
+    }
+
+    // Run PostCSS (uses postcss.config.cjs with PurgeCSS + cssnano)
     execSync(`npx postcss ${inputPath} -o ${outputPath}`, { stdio: 'inherit' });
 
     const minifiedSize = fs.statSync(outputPath).size;
