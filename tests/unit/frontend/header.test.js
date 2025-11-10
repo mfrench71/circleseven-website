@@ -61,7 +61,23 @@ describe('Header Component', () => {
       expect(html).toContain('href="/"');
       expect(html).toContain('target="_blank"');
       expect(html).toContain('rel="noopener"');
-      expect(html).toContain('Matt French');
+    });
+
+    it('uses default site title when siteConfig is not available', () => {
+      // Ensure no siteConfig exists
+      delete window.siteConfig;
+      const htmlWithoutConfig = renderHeader();
+      expect(htmlWithoutConfig).toContain('Site name');
+    });
+
+    it('uses site title from window.siteConfig when available', () => {
+      // Set up siteConfig
+      window.siteConfig = { title: 'Test Site' };
+      const htmlWithConfig = renderHeader();
+      expect(htmlWithConfig).toContain('Test Site');
+
+      // Clean up
+      delete window.siteConfig;
     });
 
     it('includes external link icon for site link', () => {

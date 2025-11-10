@@ -374,16 +374,7 @@
       init();
     }
 
-    // Setup Netlify Identity (only if loaded)
-    if (typeof netlifyIdentity !== 'undefined') {
-      netlifyIdentity.on('login', () => {
-        location.reload();
-      });
-
-      netlifyIdentity.on('logout', () => {
-        location.href = '/admin/';
-      });
-    }
+    // NO login/logout event handlers here - initStandalonePage handles authentication
 
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {

@@ -4,6 +4,9 @@
  */
 
 export function renderHeader() {
+  // Get site name from config, fallback to default
+  const siteTitle = window.siteConfig?.title || 'Site name';
+
   return `
     <!-- Full Width Header (above sidebar and content) -->
     <header id="main-header" class="bg-white border-bottom position-fixed top-0 start-0 end-0" style="z-index: 1030; transition: background-color 0.3s ease;">
@@ -20,7 +23,7 @@ export function renderHeader() {
           <div class="ms-auto d-flex align-items-center gap-3">
             <a href="/" class="btn btn-link text-primary text-decoration-none d-flex align-items-center gap-2" target="_blank" rel="noopener">
               <i class="fas fa-external-link-alt small"></i>
-              <span>Matt French</span>
+              <span>${siteTitle}</span>
             </a>
             <button onclick="netlifyIdentity.logout()" class="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
               <i class="fas fa-sign-out-alt"></i>
