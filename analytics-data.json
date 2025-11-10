@@ -14,7 +14,8 @@
     "/dat602-proposal-presentation-and-feedback-usense/": 1,
     "/dat602-face-recognition-with-azure-face-api-and-javascript/": 1,
     "/dat404-assignment-professional-practice-web-site/": 1,
-    "/dat613-dissertation-proposal/": 1
+    "/dat613-dissertation-proposal/": 1,
+    "/tags/after-effects": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -35,26 +36,27 @@
     "sess_1762732800040_n0ja7c6z2v",
     "sess_1762808537532_qrlnf59isia",
     "sess_1762732800030_n0ja7c6z2v",
-    "sess_1762813497789_ijq97e4fo"
+    "sess_1762813497789_ijq97e4fo",
+    "sess_1762814758137_nh44cj3a51j"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 23,
+    "Chrome": 24,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 3,
+    "Desktop": 4,
     "Mobile": 4
   },
   "viewsByDay": {
-    "2025-11-10": 7
+    "2025-11-10": 8
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
     "2025-11-10 00": 4,
     "2025-11-10 21": 1,
-    "2025-11-10 22": 1
+    "2025-11-10 22": 2
   },
   "pageViewDetails": {
     "/": [
@@ -119,6 +121,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/tags/after-effects": [
+      {
+        "timestamp": "2025-11-10T22:45:58.137Z",
+        "sessionId": "sess_1762814758137_nh44cj3a51j",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -162,6 +173,14 @@
       "pageViews": 1,
       "pages": [
         "/dat404-assignment-professional-practice-web-site/"
+      ]
+    },
+    "sess_1762814758137_nh44cj3a51j": {
+      "firstSeen": "2025-11-10T22:45:58.137Z",
+      "lastSeen": "2025-11-10T22:45:58.137Z",
+      "pageViews": 1,
+      "pages": [
+        "/tags/after-effects"
       ]
     }
   }
