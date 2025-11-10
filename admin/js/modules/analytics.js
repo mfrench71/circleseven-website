@@ -20,14 +20,14 @@ export async function loadCustomAnalytics() {
 }
 
 /**
- * Renders custom analytics overview
+ * Renders custom analytics overview - compact version
  */
 export function renderCustomAnalytics(data) {
   if (!data) {
     return `
-      <div class="alert alert-info mb-4">
+      <div class="alert alert-info mb-0">
         <i class="fas fa-info-circle me-2"></i>
-        Custom analytics tracking is enabled. Data will appear once visitors start viewing pages.
+        Analytics tracking is enabled. Data will appear once visitors view pages.
       </div>
     `;
   }
@@ -36,147 +36,169 @@ export function renderCustomAnalytics(data) {
 
   return `
     <div class="mb-4">
-      <!-- Summary Cards -->
-      <div class="row g-3 mb-4">
+      <!-- Summary Stats (Compact) -->
+      <div class="row g-3 mb-3">
         <div class="col-md-3">
-          <div class="card text-center h-100">
-            <div class="card-body">
-              <i class="fas fa-eye text-primary fa-2x mb-2"></i>
-              <h5 class="card-title mb-1">Page Views</h5>
-              <p class="display-6 mb-0">${summary.totalPageViews.toLocaleString()}</p>
+          <div class="card text-center">
+            <div class="card-body py-3">
+              <div class="text-primary mb-1"><i class="fas fa-eye"></i> Page Views</div>
+              <h4 class="mb-0">${summary.totalPageViews.toLocaleString()}</h4>
             </div>
           </div>
         </div>
         <div class="col-md-3">
-          <div class="card text-center h-100">
-            <div class="card-body">
-              <i class="fas fa-users text-success fa-2x mb-2"></i>
-              <h5 class="card-title mb-1">Visitors</h5>
-              <p class="display-6 mb-0">${summary.uniqueVisitors.toLocaleString()}</p>
+          <div class="card text-center">
+            <div class="card-body py-3">
+              <div class="text-success mb-1"><i class="fas fa-users"></i> Visitors</div>
+              <h4 class="mb-0">${summary.uniqueVisitors.toLocaleString()}</h4>
             </div>
           </div>
         </div>
         <div class="col-md-3">
-          <div class="card text-center h-100">
-            <div class="card-body">
-              <i class="fas fa-file-alt text-info fa-2x mb-2"></i>
-              <h5 class="card-title mb-1">Pages Tracked</h5>
-              <p class="display-6 mb-0">${summary.totalPages.toLocaleString()}</p>
+          <div class="card text-center">
+            <div class="card-body py-3">
+              <div class="text-info mb-1"><i class="fas fa-file-alt"></i> Pages</div>
+              <h4 class="mb-0">${summary.totalPages.toLocaleString()}</h4>
             </div>
           </div>
         </div>
         <div class="col-md-3">
-          <div class="card text-center h-100">
-            <div class="card-body">
-              <i class="fas fa-chart-line text-warning fa-2x mb-2"></i>
-              <h5 class="card-title mb-1">Avg Per Page</h5>
-              <p class="display-6 mb-0">${summary.totalPages > 0 ? Math.round(summary.totalPageViews / summary.totalPages) : 0}</p>
+          <div class="card text-center">
+            <div class="card-body py-3">
+              <div class="text-warning mb-1"><i class="fas fa-chart-line"></i> Avg/Page</div>
+              <h4 class="mb-0">${summary.totalPages > 0 ? Math.round(summary.totalPageViews / summary.totalPages) : 0}</h4>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Top Pages & Referrers -->
-      <div class="row g-4 mb-4">
-        <!-- Top Pages -->
+      <!-- Top Pages & Referrers (Compact) -->
+      <div class="row g-3 mb-3">
         <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header">
-              <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Pages</h5>
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Pages</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body p-2">
               ${topPages.length > 0 ? `
                 <div class="table-responsive">
-                  <table class="table table-sm table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th>Page</th>
-                        <th class="text-end">Views</th>
-                      </tr>
-                    </thead>
+                  <table class="table table-sm table-hover mb-0 small">
                     <tbody>
-                      ${topPages.map(page => `
+                      ${topPages.slice(0, 5).map(page => `
                         <tr>
-                          <td><a href="${page.path}" target="_blank" rel="noopener" class="text-decoration-none">${page.path}</a></td>
-                          <td class="text-end"><strong>${page.views.toLocaleString()}</strong></td>
+                          <td><a href="${page.path}" target="_blank" rel="noopener" class="text-decoration-none small">${page.path}</a></td>
+                          <td class="text-end"><span class="badge bg-primary">${page.views}</span></td>
                         </tr>
                       `).join('')}
                     </tbody>
                   </table>
                 </div>
-              ` : '<p class="text-muted mb-0">No page views yet</p>'}
+              ` : '<p class="text-muted mb-0 small">No data yet</p>'}
             </div>
           </div>
         </div>
 
-        <!-- Top Referrers -->
         <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header">
-              <h5 class="mb-0"><i class="fas fa-external-link-alt me-2"></i>Top Referrers</h5>
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-external-link-alt me-2"></i>Top Referrers</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body p-2">
               ${topReferrers.length > 0 ? `
                 <div class="table-responsive">
-                  <table class="table table-sm table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th>Source</th>
-                        <th class="text-end">Visits</th>
-                      </tr>
-                    </thead>
+                  <table class="table table-sm table-hover mb-0 small">
                     <tbody>
-                      ${topReferrers.map(ref => `
+                      ${topReferrers.slice(0, 5).map(ref => `
                         <tr>
-                          <td>${ref.referrer}</td>
-                          <td class="text-end"><strong>${ref.count.toLocaleString()}</strong></td>
+                          <td class="small">${ref.referrer}</td>
+                          <td class="text-end"><span class="badge bg-success">${ref.count}</span></td>
                         </tr>
                       `).join('')}
                     </tbody>
                   </table>
                 </div>
-              ` : '<p class="text-muted mb-0">No external referrers yet</p>'}
+              ` : '<p class="text-muted mb-0 small">No external referrers</p>'}
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Browser Stats -->
-      <div class="card mb-4">
-        <div class="card-header">
-          <h5 class="mb-0"><i class="fas fa-browser me-2"></i>Browsers</h5>
+      <!-- Browser Stats (Compact) -->
+      <div class="card mb-3">
+        <div class="card-header py-2">
+          <h6 class="mb-0"><i class="fas fa-browser me-2"></i>Browsers</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body p-2">
           ${browserStats.length > 0 ? `
-            <div class="row g-3">
+            <div class="d-flex gap-3 flex-wrap">
               ${browserStats.map(browser => {
                 const percentage = summary.totalPageViews > 0 ? Math.round((browser.count / summary.totalPageViews) * 100) : 0;
                 return `
-                  <div class="col-md-3">
-                    <div class="d-flex align-items-center justify-content-between mb-1">
+                  <div class="flex-fill" style="min-width: 100px;">
+                    <div class="d-flex justify-content-between small mb-1">
                       <span>${browser.browser}</span>
-                      <strong>${browser.count.toLocaleString()}</strong>
+                      <strong>${percentage}%</strong>
                     </div>
-                    <div class="progress" style="height: 10px;">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: ${percentage}%" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar bg-info" style="width: ${percentage}%"></div>
                     </div>
-                    <small class="text-muted">${percentage}%</small>
                   </div>
                 `;
               }).join('')}
             </div>
-          ` : '<p class="text-muted mb-0">No browser data yet</p>'}
+          ` : '<p class="text-muted mb-0 small">No browser data yet</p>'}
         </div>
       </div>
 
-      <div class="alert alert-info mb-0">
-        <i class="fas fa-info-circle me-2"></i>
-        <strong>Note:</strong> Analytics data is stored in memory and resets when the serverless function cold-starts (typically after periods of inactivity).
-        Data since: ${new Date(summary.lastReset).toLocaleString('en-GB')}
+      <!-- Purge & Info Row -->
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="text-muted small mb-0">
+          <i class="fas fa-info-circle me-1"></i>
+          Data stored in GitHub. Since: ${new Date(summary.lastReset).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+        </p>
+        <button onclick="purgeAnalytics()" class="btn btn-sm btn-outline-danger">
+          <i class="fas fa-trash-alt me-1"></i>Purge Data
+        </button>
       </div>
     </div>
   `;
 }
+
+/**
+ * Purge analytics data
+ */
+window.purgeAnalytics = async function() {
+  if (!confirm('Are you sure you want to permanently delete all analytics data? This cannot be undone.')) {
+    return;
+  }
+
+  try {
+    const response = await fetch('/.netlify/functions/analytics-track', {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to purge analytics data');
+    }
+
+    // Show success message
+    if (typeof window.showSuccess === 'function') {
+      window.showSuccess('Analytics data purged successfully!');
+    } else {
+      alert('Analytics data purged successfully!');
+    }
+
+    // Reload the page to show empty stats
+    setTimeout(() => window.location.reload(), 1000);
+  } catch (error) {
+    console.error('Failed to purge analytics:', error);
+    if (typeof window.showError === 'function') {
+      window.showError('Failed to purge analytics: ' + error.message);
+    } else {
+      alert('Failed to purge analytics: ' + error.message);
+    }
+  }
+};
 
 /**
  * Loads content health data from the API
@@ -384,17 +406,27 @@ export async function renderAnalytics(container) {
 
     const html = `
       <div class="analytics-page">
-        <h2 class="mb-4">Analytics</h2>
+        <!-- Website Analytics Section -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3 class="h5 mb-0"><i class="fas fa-chart-line me-2"></i>Website Analytics</h3>
+          </div>
+          <div class="card-body">
+            ${renderCustomAnalytics(customAnalytics)}
+          </div>
+        </div>
 
-        <!-- Website Analytics -->
-        <h3 class="h5 mb-3"><i class="fas fa-chart-line me-2"></i>Website Analytics</h3>
-        ${renderCustomAnalytics(customAnalytics)}
-
-        <!-- Content Health -->
-        <h3 class="h5 mb-3 mt-5"><i class="fas fa-heart-pulse me-2"></i>Content Health</h3>
-        ${renderHealthOverview(contentHealth)}
-        ${renderIssueStats(contentHealth)}
-        ${renderPostsWithIssues(contentHealth)}
+        <!-- Content Health Section -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="h5 mb-0"><i class="fas fa-heart-pulse me-2"></i>Content Health</h3>
+          </div>
+          <div class="card-body">
+            ${renderHealthOverview(contentHealth)}
+            ${renderIssueStats(contentHealth)}
+            ${renderPostsWithIssues(contentHealth)}
+          </div>
+        </div>
       </div>
     `;
 

@@ -1,9 +1,8 @@
 /**
  * Analytics Tracking Netlify Function
  *
- * Tracks page views, visitors, and referrers using localStorage for simple persistence.
- * Data is stored in memory and resets on function cold starts (suitable for basic tracking).
- * For production use, consider integrating with a database.
+ * Tracks page views, visitors, and referrers with persistent storage using GitHub.
+ * Data is stored in analytics-data.json in the repo root.
  *
  * Tracks:
  * - Page views per URL
@@ -15,22 +14,98 @@
  */
 
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
+const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const {
   successResponse,
   methodNotAllowedResponse,
   serverErrorResponse,
-  corsPreflightResponse
+  corsPreflightResponse,
+  badRequestResponse,
+  serviceUnavailableResponse
 } = require('../utils/response-helpers.cjs');
 
-// In-memory storage (resets on cold start - for demo/basic tracking)
-// For production, you'd want to use a database like MongoDB, DynamoDB, or FaunaDB
-let analyticsData = {
-  pageViews: {}, // { '/path': count }
-  uniqueVisitors: new Set(), // Set of session IDs
-  referrers: {}, // { 'referrer': count }
-  browsers: {}, // { 'browser': count }
-  lastReset: new Date().toISOString()
-};
+const DATA_FILE = 'analytics-data.json';
+
+// In-memory cache to reduce GitHub API calls
+let cachedData = null;
+let cacheTime = null;
+const CACHE_TTL = 60000; // 1 minute
+
+/**
+ * Load analytics data from GitHub
+ */
+async function loadData() {
+  // Return cached data if fresh
+  if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
+    return cachedData;
+  }
+
+  try {
+    const fileData = await githubRequest(`/contents/${DATA_FILE}?ref=${GITHUB_BRANCH}`);
+    const content = Buffer.from(fileData.content, 'base64').toString('utf8');
+    const data = JSON.parse(content);
+
+    // Convert uniqueVisitors array back to Set
+    data.uniqueVisitors = new Set(data.uniqueVisitors || []);
+
+    cachedData = { ...data, _sha: fileData.sha };
+    cacheTime = Date.now();
+    return cachedData;
+  } catch (error) {
+    // File doesn't exist yet, create default
+    if (error.status === 404) {
+      const defaultData = {
+        pageViews: {},
+        uniqueVisitors: new Set(),
+        referrers: {},
+        browsers: {},
+        createdAt: new Date().toISOString()
+      };
+      cachedData = defaultData;
+      cacheTime = Date.now();
+      return defaultData;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Save analytics data to GitHub
+ */
+async function saveData(data) {
+  // Convert Set to array for JSON serialization
+  const dataToSave = {
+    ...data,
+    uniqueVisitors: Array.from(data.uniqueVisitors)
+  };
+  delete dataToSave._sha;
+
+  const content = JSON.stringify(dataToSave, null, 2);
+  const base64Content = Buffer.from(content).toString('base64');
+
+  const payload = {
+    message: 'Update analytics data',
+    content: base64Content,
+    branch: GITHUB_BRANCH
+  };
+
+  // Include SHA if updating existing file
+  if (data._sha) {
+    payload.sha = data._sha;
+  }
+
+  const result = await githubRequest(`/contents/${DATA_FILE}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload
+  });
+
+  // Update cache
+  cachedData = { ...data, _sha: result.content.sha };
+  cacheTime = Date.now();
+
+  return result;
+}
 
 /**
  * Parse user agent to extract browser info
@@ -50,15 +125,17 @@ function parseBrowser(userAgent) {
 /**
  * Track a page view
  */
-function trackPageView(data) {
-  const { path, referrer, sessionId, userAgent } = data;
+async function trackPageView(trackData) {
+  const { path, referrer, sessionId, userAgent } = trackData;
+
+  const data = await loadData();
 
   // Track page view
-  analyticsData.pageViews[path] = (analyticsData.pageViews[path] || 0) + 1;
+  data.pageViews[path] = (data.pageViews[path] || 0) + 1;
 
   // Track unique visitor
   if (sessionId) {
-    analyticsData.uniqueVisitors.add(sessionId);
+    data.uniqueVisitors.add(sessionId);
   }
 
   // Track referrer (only external)
@@ -66,7 +143,7 @@ function trackPageView(data) {
     try {
       const refUrl = new URL(referrer);
       const refDomain = refUrl.hostname;
-      analyticsData.referrers[refDomain] = (analyticsData.referrers[refDomain] || 0) + 1;
+      data.referrers[refDomain] = (data.referrers[refDomain] || 0) + 1;
     } catch (e) {
       // Invalid URL, skip
     }
@@ -74,41 +151,71 @@ function trackPageView(data) {
 
   // Track browser
   const browser = parseBrowser(userAgent);
-  analyticsData.browsers[browser] = (analyticsData.browsers[browser] || 0) + 1;
+  data.browsers[browser] = (data.browsers[browser] || 0) + 1;
+
+  // Save to GitHub (async, don't wait)
+  saveData(data).catch(err => console.error('Failed to save analytics:', err));
+
+  return data;
 }
 
 /**
  * Get analytics statistics
  */
-function getStats() {
+function getStats(data) {
   // Get top pages
-  const topPages = Object.entries(analyticsData.pageViews)
+  const topPages = Object.entries(data.pageViews)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([path, views]) => ({ path, views }));
 
   // Get top referrers
-  const topReferrers = Object.entries(analyticsData.referrers)
+  const topReferrers = Object.entries(data.referrers)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([referrer, count]) => ({ referrer, count }));
 
   // Get browser stats
-  const browserStats = Object.entries(analyticsData.browsers)
+  const browserStats = Object.entries(data.browsers)
     .sort((a, b) => b[1] - a[1])
     .map(([browser, count]) => ({ browser, count }));
 
   return {
     summary: {
-      totalPageViews: Object.values(analyticsData.pageViews).reduce((sum, count) => sum + count, 0),
-      uniqueVisitors: analyticsData.uniqueVisitors.size,
-      totalPages: Object.keys(analyticsData.pageViews).length,
-      lastReset: analyticsData.lastReset
+      totalPageViews: Object.values(data.pageViews).reduce((sum, count) => sum + count, 0),
+      uniqueVisitors: data.uniqueVisitors.size,
+      totalPages: Object.keys(data.pageViews).length,
+      lastReset: data.createdAt || new Date().toISOString()
     },
     topPages,
     topReferrers,
     browserStats
   };
+}
+
+/**
+ * Purge all analytics data
+ */
+async function purgeData() {
+  const newData = {
+    pageViews: {},
+    uniqueVisitors: new Set(),
+    referrers: {},
+    browsers: {},
+    createdAt: new Date().toISOString()
+  };
+
+  // Get current SHA to update file
+  const currentData = await loadData();
+  newData._sha = currentData._sha;
+
+  await saveData(newData);
+
+  // Clear cache
+  cachedData = null;
+  cacheTime = null;
+
+  return newData;
 }
 
 /**
@@ -129,30 +236,39 @@ exports.handler = async (event, context) => {
   try {
     // POST - Track page view
     if (event.httpMethod === 'POST') {
-      let data;
+      let trackData;
       try {
-        data = JSON.parse(event.body);
+        trackData = JSON.parse(event.body);
       } catch (error) {
-        return {
-          statusCode: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-          },
-          body: JSON.stringify({ error: 'Invalid JSON' })
-        };
+        return badRequestResponse('Invalid JSON');
       }
 
-      trackPageView(data);
+      await trackPageView(trackData);
 
       return successResponse({ tracked: true });
     }
 
     // GET - Retrieve stats
     if (event.httpMethod === 'GET') {
-      const stats = getStats();
+      const data = await loadData();
+      const stats = getStats(data);
       return successResponse(stats, 200, {
         'Cache-Control': 'no-cache, no-store, must-revalidate'
+      });
+    }
+
+    // DELETE - Purge analytics data
+    if (event.httpMethod === 'DELETE') {
+      // Check for GitHub token
+      if (!process.env.GITHUB_TOKEN) {
+        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
+      }
+
+      await purgeData();
+
+      return successResponse({
+        success: true,
+        message: 'Analytics data purged successfully'
       });
     }
 
