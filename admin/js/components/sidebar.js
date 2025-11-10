@@ -77,6 +77,18 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
+          <!-- Analytics -->
+          <li class="mb-1">
+            <a
+              href="/admin/analytics/"
+              class="sidebar-nav-item ${isActive('analytics')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+              title="Analytics"
+            >
+              <i class="fas fa-chart-line fs-5" class="sidebar-icon"></i>
+              <span class="sidebar-nav-text">Analytics</span>
+            </a>
+          </li>
+
           <!-- Bin -->
           <li class="mb-1">
             <a

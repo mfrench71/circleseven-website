@@ -118,9 +118,7 @@
     } else {
       init();
     }
-
-    netlifyIdentity.on('login', () => location.reload());
-    netlifyIdentity.on('logout', () => location.href = '/admin/');
+    // NO login/logout event handlers here - initStandalonePage handles authentication
   </script>
 </body>
 </html>
