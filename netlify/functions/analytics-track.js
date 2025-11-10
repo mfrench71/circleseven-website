@@ -123,19 +123,108 @@ function parseBrowser(userAgent) {
 }
 
 /**
+ * Parse user agent to extract device type
+ */
+function parseDevice(userAgent) {
+  if (!userAgent) return 'Unknown';
+
+  const ua = userAgent.toLowerCase();
+
+  // Mobile devices
+  if (ua.includes('mobile') || ua.includes('android') || ua.includes('iphone') || ua.includes('ipod')) {
+    return 'Mobile';
+  }
+
+  // Tablets
+  if (ua.includes('tablet') || ua.includes('ipad')) {
+    return 'Tablet';
+  }
+
+  // Desktop
+  return 'Desktop';
+}
+
+/**
+ * Get date bucket (for time-series data)
+ * Returns YYYY-MM-DD format
+ */
+function getDateBucket(timestamp) {
+  const date = new Date(timestamp);
+  return date.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+/**
+ * Get hour bucket (for hourly data)
+ * Returns YYYY-MM-DD HH format
+ */
+function getHourBucket(timestamp) {
+  const date = new Date(timestamp);
+  const hour = date.getUTCHours().toString().padStart(2, '0');
+  return `${date.toISOString().split('T')[0]} ${hour}`;
+}
+
+/**
  * Track a page view
  */
 async function trackPageView(trackData) {
-  const { path, referrer, sessionId, userAgent } = trackData;
+  const { path, referrer, sessionId, userAgent, timestamp } = trackData;
+  const now = timestamp || new Date().toISOString();
 
   const data = await loadData();
 
-  // Track page view
+  // Initialize enhanced data structures if they don't exist
+  if (!data.devices) data.devices = {};
+  if (!data.viewsByDay) data.viewsByDay = {};
+  if (!data.viewsByHour) data.viewsByHour = {};
+  if (!data.pageViewDetails) data.pageViewDetails = {};
+  if (!data.sessions) data.sessions = {};
+
+  // Track page view (legacy counter)
   data.pageViews[path] = (data.pageViews[path] || 0) + 1;
+
+  // Track detailed page view with timestamp
+  if (!data.pageViewDetails[path]) {
+    data.pageViewDetails[path] = [];
+  }
+  data.pageViewDetails[path].push({
+    timestamp: now,
+    sessionId,
+    referrer: referrer || 'direct',
+    browser: parseBrowser(userAgent),
+    device: parseDevice(userAgent)
+  });
+
+  // Keep only last 1000 detailed views per page (prevent unbounded growth)
+  if (data.pageViewDetails[path].length > 1000) {
+    data.pageViewDetails[path] = data.pageViewDetails[path].slice(-1000);
+  }
+
+  // Track time-series data by day
+  const dateBucket = getDateBucket(now);
+  data.viewsByDay[dateBucket] = (data.viewsByDay[dateBucket] || 0) + 1;
+
+  // Track time-series data by hour
+  const hourBucket = getHourBucket(now);
+  data.viewsByHour[hourBucket] = (data.viewsByHour[hourBucket] || 0) + 1;
 
   // Track unique visitor
   if (sessionId) {
     data.uniqueVisitors.add(sessionId);
+
+    // Track session details
+    if (!data.sessions[sessionId]) {
+      data.sessions[sessionId] = {
+        firstSeen: now,
+        lastSeen: now,
+        pageViews: 0,
+        pages: []
+      };
+    }
+    data.sessions[sessionId].lastSeen = now;
+    data.sessions[sessionId].pageViews += 1;
+    if (!data.sessions[sessionId].pages.includes(path)) {
+      data.sessions[sessionId].pages.push(path);
+    }
   }
 
   // Track referrer (only external)
@@ -152,6 +241,25 @@ async function trackPageView(trackData) {
   // Track browser
   const browser = parseBrowser(userAgent);
   data.browsers[browser] = (data.browsers[browser] || 0) + 1;
+
+  // Track device type
+  const device = parseDevice(userAgent);
+  data.devices[device] = (data.devices[device] || 0) + 1;
+
+  // Clean up old hourly data (keep last 30 days = 720 hours)
+  const hourBuckets = Object.keys(data.viewsByHour).sort();
+  if (hourBuckets.length > 720) {
+    const toDelete = hourBuckets.slice(0, hourBuckets.length - 720);
+    toDelete.forEach(bucket => delete data.viewsByHour[bucket]);
+  }
+
+  // Clean up old sessions (keep active sessions from last 7 days)
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+  Object.keys(data.sessions).forEach(sid => {
+    if (data.sessions[sid].lastSeen < sevenDaysAgo) {
+      delete data.sessions[sid];
+    }
+  });
 
   // Save to GitHub (async, don't wait)
   saveData(data).catch(err => console.error('Failed to save analytics:', err));
@@ -170,26 +278,61 @@ function getStats(data) {
     .map(([path, views]) => ({ path, views }));
 
   // Get top referrers
-  const topReferrers = Object.entries(data.referrers)
+  const topReferrers = Object.entries(data.referrers || {})
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([referrer, count]) => ({ referrer, count }));
 
   // Get browser stats
-  const browserStats = Object.entries(data.browsers)
+  const browserStats = Object.entries(data.browsers || {})
     .sort((a, b) => b[1] - a[1])
     .map(([browser, count]) => ({ browser, count }));
+
+  // Get device stats
+  const deviceStats = Object.entries(data.devices || {})
+    .sort((a, b) => b[1] - a[1])
+    .map(([device, count]) => ({ device, count }));
+
+  // Get time-series data (last 30 days)
+  const viewsByDay = data.viewsByDay || {};
+  const sortedDays = Object.keys(viewsByDay).sort();
+  const last30Days = sortedDays.slice(-30);
+  const dailyViews = last30Days.map(day => ({
+    date: day,
+    views: viewsByDay[day]
+  }));
+
+  // Get time-series data (last 24 hours)
+  const viewsByHour = data.viewsByHour || {};
+  const sortedHours = Object.keys(viewsByHour).sort();
+  const last24Hours = sortedHours.slice(-24);
+  const hourlyViews = last24Hours.map(hour => ({
+    hour,
+    views: viewsByHour[hour]
+  }));
+
+  // Calculate average session length and pages per session
+  const sessions = data.sessions || {};
+  const sessionValues = Object.values(sessions);
+  const avgPagesPerSession = sessionValues.length > 0
+    ? sessionValues.reduce((sum, s) => sum + s.pageViews, 0) / sessionValues.length
+    : 0;
 
   return {
     summary: {
       totalPageViews: Object.values(data.pageViews).reduce((sum, count) => sum + count, 0),
       uniqueVisitors: data.uniqueVisitors.size,
       totalPages: Object.keys(data.pageViews).length,
+      avgPagesPerSession: Math.round(avgPagesPerSession * 10) / 10,
+      activeSessions: sessionValues.length,
       lastReset: data.createdAt || new Date().toISOString()
     },
     topPages,
     topReferrers,
-    browserStats
+    browserStats,
+    deviceStats,
+    dailyViews,
+    hourlyViews
   };
 }
 
@@ -202,6 +345,11 @@ async function purgeData() {
     uniqueVisitors: new Set(),
     referrers: {},
     browsers: {},
+    devices: {},
+    viewsByDay: {},
+    viewsByHour: {},
+    pageViewDetails: {},
+    sessions: {},
     createdAt: new Date().toISOString()
   };
 
