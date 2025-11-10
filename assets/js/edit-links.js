@@ -22,7 +22,6 @@
   function initializeEditLinks() {
     // Check for test mode first (used in admin for local development)
     if (localStorage.getItem('TEST_MODE') === 'true') {
-      console.log('Edit links: Test mode enabled, showing edit links');
       updateEditLinks({ email: 'test@playwright.dev' });
       return;
     }
@@ -35,25 +34,21 @@
     // Check current user
     const currentUser = netlifyIdentity.currentUser();
     if (currentUser) {
-      console.log('Edit links: User is logged in', currentUser.email);
       updateEditLinks(currentUser);
     } else {
-      console.log('Edit links: No user logged in');
+      updateEditLinks(null);
     }
 
     // Listen for auth events
     netlifyIdentity.on('init', user => {
-      console.log('Edit links: init event', user?.email);
       updateEditLinks(user);
     });
 
     netlifyIdentity.on('login', user => {
-      console.log('Edit links: login event', user?.email);
       updateEditLinks(user);
     });
 
     netlifyIdentity.on('logout', () => {
-      console.log('Edit links: logout event');
       updateEditLinks(null);
     });
   }
@@ -75,13 +70,10 @@
   function updateEditLinks(user) {
     const editLinks = document.querySelectorAll('.edit-post-link, .edit-card-link');
 
-    console.log(`Edit links: Found ${editLinks.length} edit links, user: ${user ? 'logged in' : 'not logged in'}`);
-
     editLinks.forEach(link => {
       if (user) {
         link.style.display = '';
         link.classList.add('edit-link-visible');
-        console.log('Edit links: Showing link', link.href);
       } else {
         link.style.display = 'none';
         link.classList.remove('edit-link-visible');
