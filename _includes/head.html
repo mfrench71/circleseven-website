@@ -102,6 +102,11 @@
   <!-- Edit Links (must load after Netlify Identity) -->
   <script src="{{ "/assets/js/edit-links.js" | relative_url }}" defer></script>
 
+  <!-- Cloudflare Web Analytics (privacy-friendly, free) -->
+  {%- if jekyll.environment == 'production' and site.cloudflare_analytics_token -%}
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ site.cloudflare_analytics_token }}"}'></script>
+  {%- endif -%}
+
   <!-- Structured Data -->
   {%- include structured-data.html -%}
 </head>
