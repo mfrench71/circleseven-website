@@ -64,6 +64,7 @@ function getAdminSettings() {
  * Fetches settings from the /settings API endpoint and updates the admin title
  * and dashboard welcome message. This is a lightweight version for initial page load.
  * Uses localStorage to cache the title and display it immediately on subsequent loads.
+ * Re-renders the header after loading to update the site name link.
  *
  * @throws {Error} If settings load fails
  *
@@ -76,6 +77,9 @@ export async function loadSiteTitle() {
   const cachedTitle = localStorage.getItem('site_title');
   if (cachedTitle) {
     updateTitleElements(cachedTitle);
+    // Also set window.siteConfig for header component
+    window.siteConfig = window.siteConfig || {};
+    window.siteConfig.title = cachedTitle;
   }
 
   try {
@@ -92,6 +96,14 @@ export async function loadSiteTitle() {
       // Cache the title for next time
       localStorage.setItem('site_title', settings.title);
       updateTitleElements(settings.title);
+      // Also set window.siteConfig for header component
+      window.siteConfig = window.siteConfig || {};
+      window.siteConfig.title = settings.title;
+
+      // Re-render header to update site name link
+      if (typeof window.updateHeaderSiteLink === 'function') {
+        window.updateHeaderSiteLink(settings.title);
+      }
     }
   } catch (error) {
     // Silently fail - not critical for app function

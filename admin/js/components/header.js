@@ -45,3 +45,19 @@ export function initHeader() {
     headerContainer.innerHTML = renderHeader();
   }
 }
+
+/**
+ * Update header site link with new title
+ * Called when site title is loaded after initial render
+ * @param {string} title - Site title to display
+ */
+window.updateHeaderSiteLink = function(title) {
+  // Find the site link span inside the header
+  const headerContainer = document.getElementById('header-container');
+  if (headerContainer) {
+    const siteLink = headerContainer.querySelector('a[href="/"] span');
+    if (siteLink) {
+      siteLink.textContent = title;
+    }
+  }
+};
