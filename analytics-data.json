@@ -1,6 +1,6 @@
 {
   "pageViews": {
-    "/": 6,
+    "/": 7,
     "/about/": 1,
     "/derelict-house-at-mordiford-herefordshire/": 1,
     "/category/dat505-advanced-creative-coding/": 1,
@@ -39,32 +39,40 @@
     "sess_1762732800030_n0ja7c6z2v",
     "sess_1762813497789_ijq97e4fo",
     "sess_1762814758137_nh44cj3a51j",
-    "sess_1762814780633_qv2jy8aee6"
+    "sess_1762814780633_qv2jy8aee6",
+    "sess_1762814873989_pq4ipbv5ytq"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 25,
+    "Chrome": 26,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 5,
+    "Desktop": 6,
     "Mobile": 4
   },
   "viewsByDay": {
-    "2025-11-10": 9
+    "2025-11-10": 10
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
     "2025-11-10 00": 4,
     "2025-11-10 21": 1,
-    "2025-11-10 22": 3
+    "2025-11-10 22": 4
   },
   "pageViewDetails": {
     "/": [
       {
         "timestamp": "2025-11-10T20:57:17.329Z",
         "sessionId": "sess_1762808237318_mw8otz5eyd",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      },
+      {
+        "timestamp": "2025-11-10T22:47:53.989Z",
+        "sessionId": "sess_1762814873989_pq4ipbv5ytq",
         "referrer": "direct",
         "browser": "Chrome",
         "device": "Desktop"
@@ -200,6 +208,14 @@
       "pageViews": 1,
       "pages": [
         "/category/dat601-realtime/"
+      ]
+    },
+    "sess_1762814873989_pq4ipbv5ytq": {
+      "firstSeen": "2025-11-10T22:47:53.989Z",
+      "lastSeen": "2025-11-10T22:47:53.989Z",
+      "pageViews": 1,
+      "pages": [
+        "/"
       ]
     }
   }
