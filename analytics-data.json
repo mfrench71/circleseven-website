@@ -1,6 +1,6 @@
 {
   "pageViews": {
-    "/": 5,
+    "/": 6,
     "/about/": 1,
     "/derelict-house-at-mordiford-herefordshire/": 1,
     "/category/dat505-advanced-creative-coding/": 1,
@@ -24,12 +24,43 @@
     "sess_1762807833240_n0ja7c6z2v",
     "sess_1762807859703_n0ja7c6z2v",
     "sess_1762807859691_n0ja7c6z2v",
-    "sess_1762807874688_lozjuunieqg"
+    "sess_1762807874688_lozjuunieqg",
+    "sess_1762808237318_mw8otz5eyd"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 16,
+    "Chrome": 17,
     "Safari": 5
   },
-  "createdAt": "2025-11-10T20:30:00.000Z"
+  "createdAt": "2025-11-10T20:30:00.000Z",
+  "devices": {
+    "Desktop": 1
+  },
+  "viewsByDay": {
+    "2025-11-10": 1
+  },
+  "viewsByHour": {
+    "2025-11-10 20": 1
+  },
+  "pageViewDetails": {
+    "/": [
+      {
+        "timestamp": "2025-11-10T20:57:17.329Z",
+        "sessionId": "sess_1762808237318_mw8otz5eyd",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
+    ]
+  },
+  "sessions": {
+    "sess_1762808237318_mw8otz5eyd": {
+      "firstSeen": "2025-11-10T20:57:17.329Z",
+      "lastSeen": "2025-11-10T20:57:17.329Z",
+      "pageViews": 1,
+      "pages": [
+        "/"
+      ]
+    }
+  }
 }
