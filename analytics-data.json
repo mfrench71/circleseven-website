@@ -10,7 +10,8 @@
     "/dat601-realtime-critical-evaluation-message-in-a-bottle/": 3,
     "/dat601-realtime-project-proposal/": 3,
     "/groundbreaking-logo-blender/": 1,
-    "/tags/photoshop": 1
+    "/tags/photoshop": 1,
+    "/dat602-proposal-presentation-and-feedback-usense/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -29,24 +30,25 @@
     "sess_1762807874688_lozjuunieqg",
     "sess_1762808237318_mw8otz5eyd",
     "sess_1762732800040_n0ja7c6z2v",
-    "sess_1762808537532_qrlnf59isia"
+    "sess_1762808537532_qrlnf59isia",
+    "sess_1762732800030_n0ja7c6z2v"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 19,
+    "Chrome": 20,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 2,
-    "Mobile": 1
+    "Mobile": 2
   },
   "viewsByDay": {
-    "2025-11-10": 3
+    "2025-11-10": 4
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
-    "2025-11-10 00": 1,
+    "2025-11-10 00": 2,
     "2025-11-10 21": 1
   },
   "pageViewDetails": {
@@ -76,6 +78,15 @@
         "browser": "Chrome",
         "device": "Desktop"
       }
+    ],
+    "/dat602-proposal-presentation-and-feedback-usense/": [
+      {
+        "timestamp": "2025-11-10T00:00:00.031Z",
+        "sessionId": "sess_1762732800030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -101,6 +112,14 @@
       "pageViews": 1,
       "pages": [
         "/tags/photoshop"
+      ]
+    },
+    "sess_1762732800030_n0ja7c6z2v": {
+      "firstSeen": "2025-11-10T00:00:00.031Z",
+      "lastSeen": "2025-11-10T00:00:00.031Z",
+      "pageViews": 1,
+      "pages": [
+        "/dat602-proposal-presentation-and-feedback-usense/"
       ]
     }
   }
