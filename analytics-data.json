@@ -9,7 +9,8 @@
     "/dat402-assignment-part-2-digital-spheres-of-culture/": 3,
     "/dat601-realtime-critical-evaluation-message-in-a-bottle/": 3,
     "/dat601-realtime-project-proposal/": 3,
-    "/groundbreaking-logo-blender/": 1
+    "/groundbreaking-logo-blender/": 1,
+    "/tags/photoshop": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -27,24 +28,26 @@
     "sess_1762807859691_n0ja7c6z2v",
     "sess_1762807874688_lozjuunieqg",
     "sess_1762808237318_mw8otz5eyd",
-    "sess_1762732800040_n0ja7c6z2v"
+    "sess_1762732800040_n0ja7c6z2v",
+    "sess_1762808537532_qrlnf59isia"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 18,
+    "Chrome": 19,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 1,
+    "Desktop": 2,
     "Mobile": 1
   },
   "viewsByDay": {
-    "2025-11-10": 2
+    "2025-11-10": 3
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
-    "2025-11-10 00": 1
+    "2025-11-10 00": 1,
+    "2025-11-10 21": 1
   },
   "pageViewDetails": {
     "/": [
@@ -64,6 +67,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/tags/photoshop": [
+      {
+        "timestamp": "2025-11-10T21:02:17.532Z",
+        "sessionId": "sess_1762808537532_qrlnf59isia",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -81,6 +93,14 @@
       "pageViews": 1,
       "pages": [
         "/groundbreaking-logo-blender/"
+      ]
+    },
+    "sess_1762808537532_qrlnf59isia": {
+      "firstSeen": "2025-11-10T21:02:17.532Z",
+      "lastSeen": "2025-11-10T21:02:17.532Z",
+      "pageViews": 1,
+      "pages": [
+        "/tags/photoshop"
       ]
     }
   }
