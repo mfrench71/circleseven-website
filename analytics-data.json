@@ -17,7 +17,8 @@
     "/dat613-dissertation-proposal/": 1,
     "/tags/after-effects": 1,
     "/category/dat601-realtime/": 1,
-    "/category/dat503-reflexive-design/": 1
+    "/category/dat503-reflexive-design/": 1,
+    "/category/retro-computing/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -46,20 +47,20 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 27,
+    "Chrome": 28,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 7,
-    "Mobile": 4
+    "Mobile": 5
   },
   "viewsByDay": {
-    "2025-11-10": 11
+    "2025-11-10": 12
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
-    "2025-11-10 00": 4,
+    "2025-11-10 00": 5,
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1
@@ -161,6 +162,15 @@
         "browser": "Chrome",
         "device": "Desktop"
       }
+    ],
+    "/category/retro-computing/": [
+      {
+        "timestamp": "2025-11-10T00:00:00.031Z",
+        "sessionId": "sess_1762732800030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -191,11 +201,12 @@
     "sess_1762732800030_n0ja7c6z2v": {
       "firstSeen": "2025-11-10T00:00:00.031Z",
       "lastSeen": "2025-11-10T00:00:00.031Z",
-      "pageViews": 3,
+      "pageViews": 4,
       "pages": [
         "/dat602-proposal-presentation-and-feedback-usense/",
         "/dat602-face-recognition-with-azure-face-api-and-javascript/",
-        "/dat613-dissertation-proposal/"
+        "/dat613-dissertation-proposal/",
+        "/category/retro-computing/"
       ]
     },
     "sess_1762813497789_ijq97e4fo": {
