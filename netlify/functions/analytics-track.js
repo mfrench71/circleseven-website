@@ -14,14 +14,16 @@
  * @module netlify/functions/analytics-track
  */
 
-let getStore;
+let getStore, connectLambda;
 try {
   const blobs = require('@netlify/blobs');
   getStore = blobs.getStore;
+  connectLambda = blobs.connectLambda;
   console.log('[Analytics] @netlify/blobs loaded successfully');
 } catch (error) {
   console.error('[Analytics] Failed to load @netlify/blobs:', error);
   getStore = null;
+  connectLambda = null;
 }
 
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
@@ -414,6 +416,12 @@ async function purgeData() {
  * Main handler function
  */
 exports.handler = async (event, context) => {
+  // Initialize Netlify Blobs for Lambda compatibility
+  if (connectLambda) {
+    connectLambda(event);
+    console.log('[Analytics] connectLambda() called');
+  }
+
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
