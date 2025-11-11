@@ -42,7 +42,8 @@
     "/category/inde601-netscapes/": 1,
     "/tag/dat602/": 1,
     "/page/4/": 1,
-    "/tag/javascript/": 1
+    "/tag/javascript/": 1,
+    "/category/projects/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -80,17 +81,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 59,
+    "Chrome": 60,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 15,
-    "Mobile": 28
+    "Mobile": 29
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 30
+    "2025-11-11": 31
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -98,7 +99,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 23,
+    "2025-11-11 00": 24,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -478,6 +479,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/category/projects/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -560,7 +570,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 22,
+      "pageViews": 23,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -583,7 +593,8 @@
         "/dat601-realtime-project-proposal/",
         "/page/4/",
         "/tag/javascript/",
-        "/"
+        "/",
+        "/category/projects/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
