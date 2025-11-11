@@ -277,8 +277,13 @@ async function trackPageView(trackData) {
     }
   });
 
-  // Save to Netlify Blobs (async, don't wait for response)
-  saveData(data).catch(err => console.error('Failed to save analytics:', err));
+  // Save to Netlify Blobs (await to catch errors)
+  try {
+    await saveData(data);
+  } catch (err) {
+    console.error('Failed to save analytics:', err);
+    // Don't throw - still return tracked response even if save fails
+  }
 
   return data;
 }
