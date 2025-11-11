@@ -20,7 +20,8 @@
     "/category/dat503-reflexive-design/": 1,
     "/category/retro-computing/": 1,
     "/category/dat602-everyware/": 1,
-    "/category/digital-art-and-technology/": 1
+    "/category/digital-art-and-technology/": 1,
+    "/tag/dat601/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -51,17 +52,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 31,
+    "Chrome": 32,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 8,
-    "Mobile": 7
+    "Mobile": 8
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 2
+    "2025-11-11": 3
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -69,7 +70,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 2
+    "2025-11-11 00": 3
   },
   "pageViewDetails": {
     "/": [
@@ -202,6 +203,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/tag/dat601/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -284,9 +294,10 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 1,
+      "pageViews": 2,
       "pages": [
-        "/category/digital-art-and-technology/"
+        "/category/digital-art-and-technology/",
+        "/tag/dat601/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
