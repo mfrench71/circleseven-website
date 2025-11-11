@@ -28,7 +28,8 @@
     "/category/dat501-strategies-for-digital-art-and-technology/": 1,
     "/tag/dat405/": 1,
     "/tag/dat401/": 1,
-    "/category/news/": 1
+    "/category/news/": 1,
+    "/dat403-assignment-photomontage/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -56,21 +57,22 @@
     "sess_1762816698510_0hml91leev2",
     "sess_1762819200030_n0ja7c6z2v",
     "sess_1762822559011_sh58y5z1cb",
-    "sess_1762825797634_0hast3xgam7"
+    "sess_1762825797634_0hast3xgam7",
+    "sess_1762829443932_o1fwge0126f"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 40,
+    "Chrome": 41,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 9,
+    "Desktop": 10,
     "Mobile": 15
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 11
+    "2025-11-11": 12
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -79,7 +81,8 @@
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
     "2025-11-11 00": 10,
-    "2025-11-11 01": 1
+    "2025-11-11 01": 1,
+    "2025-11-11 02": 1
   },
   "pageViewDetails": {
     "/": [
@@ -291,6 +294,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/dat403-assignment-photomontage/": [
+      {
+        "timestamp": "2025-11-11T02:50:43.932Z",
+        "sessionId": "sess_1762829443932_o1fwge0126f",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -400,6 +412,14 @@
       "pageViews": 1,
       "pages": [
         "/dat403-task-week-3-character-animation-walk-cycle/"
+      ]
+    },
+    "sess_1762829443932_o1fwge0126f": {
+      "firstSeen": "2025-11-11T02:50:43.932Z",
+      "lastSeen": "2025-11-11T02:50:43.932Z",
+      "pageViews": 1,
+      "pages": [
+        "/dat403-assignment-photomontage/"
       ]
     }
   }
