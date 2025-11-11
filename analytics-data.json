@@ -1,6 +1,6 @@
 {
   "pageViews": {
-    "/": 13,
+    "/": 14,
     "/about/": 1,
     "/derelict-house-at-mordiford-herefordshire/": 1,
     "/category/dat505-advanced-creative-coding/": 1,
@@ -78,21 +78,22 @@
     "sess_1762832944534_tdj83qqqros",
     "sess_1762836551109_ff2qt127mg",
     "sess_1762838981528_y3uudj9m0ns",
-    "sess_1762839891623_yogpqp0hadg"
+    "sess_1762839891623_yogpqp0hadg",
+    "sess_1762840718072_la6d0529itm"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 62,
+    "Chrome": 63,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 16,
+    "Desktop": 17,
     "Mobile": 30
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 33
+    "2025-11-11": 34
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -105,7 +106,7 @@
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
     "2025-11-11 04": 1,
-    "2025-11-11 05": 2
+    "2025-11-11 05": 3
   },
   "pageViewDetails": {
     "/": [
@@ -161,6 +162,13 @@
       {
         "timestamp": "2025-11-11T05:44:51.623Z",
         "sessionId": "sess_1762839891623_yogpqp0hadg",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      },
+      {
+        "timestamp": "2025-11-11T05:58:38.072Z",
+        "sessionId": "sess_1762840718072_la6d0529itm",
         "referrer": "direct",
         "browser": "Chrome",
         "device": "Desktop"
@@ -682,6 +690,14 @@
     "sess_1762839891623_yogpqp0hadg": {
       "firstSeen": "2025-11-11T05:44:51.623Z",
       "lastSeen": "2025-11-11T05:44:51.623Z",
+      "pageViews": 1,
+      "pages": [
+        "/"
+      ]
+    },
+    "sess_1762840718072_la6d0529itm": {
+      "firstSeen": "2025-11-11T05:58:38.072Z",
+      "lastSeen": "2025-11-11T05:58:38.072Z",
       "pageViews": 1,
       "pages": [
         "/"
