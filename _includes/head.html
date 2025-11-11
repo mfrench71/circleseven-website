@@ -99,6 +99,9 @@
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
+  <!-- Edit Links (must load after Netlify Identity) -->
+  <script src="{{ "/assets/js/edit-links.js" | relative_url }}" defer></script>
+
   <!-- Custom Analytics (privacy-focused, no cookies, respects DNT) -->
   {%- if jekyll.environment == 'production' -%}
   <script src="{{ "/assets/js/analytics-tracker.js" | relative_url }}" defer></script>
