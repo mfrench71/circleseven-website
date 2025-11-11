@@ -154,7 +154,7 @@ export function renderCustomAnalytics(data) {
       <div class="d-flex justify-content-between align-items-center">
         <p class="text-muted small mb-0">
           <i class="fas fa-info-circle me-1"></i>
-          Data stored in GitHub. Since: ${new Date(summary.lastReset).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+          Data stored in Netlify Blobs. Since: ${new Date(summary.lastReset).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
         </p>
         <button onclick="purgeAnalytics()" class="btn btn-sm btn-outline-danger">
           <i class="fas fa-trash-alt me-1"></i>Purge Data

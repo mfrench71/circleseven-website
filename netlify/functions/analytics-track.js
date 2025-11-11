@@ -1,38 +1,46 @@
 /**
  * Analytics Tracking Netlify Function
  *
- * Tracks page views, visitors, and referrers with persistent storage using GitHub.
- * Data is stored in analytics-data.json in the repo root.
+ * Tracks page views, visitors, and referrers with persistent storage using Netlify Blobs.
+ * Data is stored in Netlify's blob storage (does NOT trigger deploys).
  *
  * Tracks:
  * - Page views per URL
  * - Unique visitors (by session)
  * - Referrers
  * - User agents (browsers/devices)
+ * - Time-series data (hourly, daily)
  *
  * @module netlify/functions/analytics-track
  */
 
+const { getStore } = require('@netlify/blobs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const {
   successResponse,
   methodNotAllowedResponse,
   serverErrorResponse,
   corsPreflightResponse,
-  badRequestResponse,
-  serviceUnavailableResponse
+  badRequestResponse
 } = require('../utils/response-helpers.cjs');
 
-const DATA_FILE = 'analytics-data.json';
+const STORE_NAME = 'analytics';
+const DATA_KEY = 'analytics-data';
 
-// In-memory cache to reduce GitHub API calls
+// In-memory cache to reduce blob reads
 let cachedData = null;
 let cacheTime = null;
-const CACHE_TTL = 60000; // 1 minute
+const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub API limits)
 
 /**
- * Load analytics data from GitHub
+ * Get blob store
+ */
+function getBlobStore() {
+  return getStore(STORE_NAME);
+}
+
+/**
+ * Load analytics data from Netlify Blobs
  */
 async function loadData() {
   // Return cached data if fresh
@@ -41,70 +49,77 @@ async function loadData() {
   }
 
   try {
-    const fileData = await githubRequest(`/contents/${DATA_FILE}?ref=${GITHUB_BRANCH}`);
-    const content = Buffer.from(fileData.content, 'base64').toString('utf8');
-    const data = JSON.parse(content);
+    const store = getBlobStore();
+    const dataString = await store.get(DATA_KEY);
 
-    // Convert uniqueVisitors array back to Set
-    data.uniqueVisitors = new Set(data.uniqueVisitors || []);
-
-    cachedData = { ...data, _sha: fileData.sha };
-    cacheTime = Date.now();
-    return cachedData;
-  } catch (error) {
-    // File doesn't exist yet, create default
-    if (error.status === 404) {
+    if (!dataString) {
+      // No data yet, return default
       const defaultData = {
         pageViews: {},
-        uniqueVisitors: new Set(),
+        uniqueVisitors: [],
         referrers: {},
         browsers: {},
+        devices: {},
+        viewsByDay: {},
+        viewsByHour: {},
+        pageViewDetails: {},
+        sessions: {},
         createdAt: new Date().toISOString()
       };
       cachedData = defaultData;
       cacheTime = Date.now();
       return defaultData;
     }
-    throw error;
+
+    const data = JSON.parse(dataString);
+
+    // Convert uniqueVisitors array back to Set for easier manipulation
+    data.uniqueVisitors = new Set(data.uniqueVisitors || []);
+
+    cachedData = data;
+    cacheTime = Date.now();
+    return data;
+  } catch (error) {
+    console.error('Failed to load analytics data:', error);
+    // Return default on error
+    return {
+      pageViews: {},
+      uniqueVisitors: new Set(),
+      referrers: {},
+      browsers: {},
+      devices: {},
+      viewsByDay: {},
+      viewsByHour: {},
+      pageViewDetails: {},
+      sessions: {},
+      createdAt: new Date().toISOString()
+    };
   }
 }
 
 /**
- * Save analytics data to GitHub
+ * Save analytics data to Netlify Blobs
  */
 async function saveData(data) {
-  // Convert Set to array for JSON serialization
-  const dataToSave = {
-    ...data,
-    uniqueVisitors: Array.from(data.uniqueVisitors)
-  };
-  delete dataToSave._sha;
+  try {
+    // Convert Set to array for JSON serialization
+    const dataToSave = {
+      ...data,
+      uniqueVisitors: Array.from(data.uniqueVisitors || [])
+    };
 
-  const content = JSON.stringify(dataToSave, null, 2);
-  const base64Content = Buffer.from(content).toString('base64');
+    const store = getBlobStore();
+    await store.set(DATA_KEY, JSON.stringify(dataToSave));
 
-  const payload = {
-    message: 'Update analytics data',
-    content: base64Content,
-    branch: GITHUB_BRANCH
-  };
+    // Update cache
+    cachedData = data;
+    cacheTime = Date.now();
 
-  // Include SHA if updating existing file
-  if (data._sha) {
-    payload.sha = data._sha;
+    return true;
+  } catch (error) {
+    console.error('Failed to save analytics data:', error);
+    throw error;
   }
-
-  const result = await githubRequest(`/contents/${DATA_FILE}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: payload
-  });
-
-  // Update cache
-  cachedData = { ...data, _sha: result.content.sha };
-  cacheTime = Date.now();
-
-  return result;
 }
 
 /**
@@ -209,6 +224,7 @@ async function trackPageView(trackData) {
 
   // Track unique visitor
   if (sessionId) {
+    if (!data.uniqueVisitors) data.uniqueVisitors = new Set();
     data.uniqueVisitors.add(sessionId);
 
     // Track session details
@@ -261,7 +277,7 @@ async function trackPageView(trackData) {
     }
   });
 
-  // Save to GitHub (async, don't wait)
+  // Save to Netlify Blobs (async, don't wait for response)
   saveData(data).catch(err => console.error('Failed to save analytics:', err));
 
   return data;
@@ -318,10 +334,14 @@ function getStats(data) {
     ? sessionValues.reduce((sum, s) => sum + s.pageViews, 0) / sessionValues.length
     : 0;
 
+  const uniqueVisitors = data.uniqueVisitors instanceof Set
+    ? data.uniqueVisitors.size
+    : (Array.isArray(data.uniqueVisitors) ? data.uniqueVisitors.length : 0);
+
   return {
     summary: {
       totalPageViews: Object.values(data.pageViews).reduce((sum, count) => sum + count, 0),
-      uniqueVisitors: data.uniqueVisitors.size,
+      uniqueVisitors,
       totalPages: Object.keys(data.pageViews).length,
       avgPagesPerSession: Math.round(avgPagesPerSession * 10) / 10,
       activeSessions: sessionValues.length,
@@ -342,7 +362,7 @@ function getStats(data) {
 async function purgeData() {
   const newData = {
     pageViews: {},
-    uniqueVisitors: new Set(),
+    uniqueVisitors: [],
     referrers: {},
     browsers: {},
     devices: {},
@@ -352,10 +372,6 @@ async function purgeData() {
     sessions: {},
     createdAt: new Date().toISOString()
   };
-
-  // Get current SHA to update file
-  const currentData = await loadData();
-  newData._sha = currentData._sha;
 
   await saveData(newData);
 
@@ -407,11 +423,6 @@ exports.handler = async (event, context) => {
 
     // DELETE - Purge analytics data
     if (event.httpMethod === 'DELETE') {
-      // Check for GitHub token
-      if (!process.env.GITHUB_TOKEN) {
-        return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
-      }
-
       await purgeData();
 
       return successResponse({

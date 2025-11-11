@@ -4,8 +4,9 @@ This document describes the enhanced analytics data structure designed for futur
 
 ## Data Storage Location
 
-**File**: `analytics-data.json` (stored in GitHub repo root)
+**Storage**: Netlify Blobs (key-value store that doesn't trigger deploys)
 **Access**: Via `/.netlify/functions/analytics-track` API endpoint
+**Key**: `analytics-data` in `analytics` store
 
 ---
 
@@ -308,9 +309,10 @@ Returns processed statistics:
 - **No cookies**: Uses sessionStorage only
 - **No PII**: Only counts and aggregates
 - **Respects DNT**: Honors Do Not Track
-- **1-minute cache**: Reduces GitHub API calls
+- **30-second cache**: Reduces Netlify Blobs API calls
 - **Auto-cleanup**: Prevents unlimited growth
-- **GitHub storage**: Free, version-controlled
+- **Netlify Blobs storage**: Persistent, doesn't trigger deploys
+- **No rebuild triggers**: Page views don't cause site rebuilds
 
 ---
 

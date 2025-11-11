@@ -26,6 +26,7 @@
   "author": "Matthew French",
   "license": "MIT",
   "dependencies": {
+    "@netlify/blobs": "^10.3.3",
     "js-yaml": "^4.1.0",
     "zod": "^4.1.12"
   },
