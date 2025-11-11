@@ -309,6 +309,8 @@ Returns processed statistics:
 - **No cookies**: Uses sessionStorage only
 - **No PII**: Only counts and aggregates
 - **Respects DNT**: Honors Do Not Track
+- **Excludes logged-in users**: Netlify Identity authenticated users are not tracked
+- **Excludes admin area**: Admin pages (/admin/*) are never tracked
 - **30-second cache**: Reduces Netlify Blobs API calls
 - **Auto-cleanup**: Prevents unlimited growth
 - **Netlify Blobs storage**: Persistent, doesn't trigger deploys

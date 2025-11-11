@@ -23,6 +23,15 @@
     return;
   }
 
+  // Don't track logged-in users (Netlify Identity)
+  if (window.netlifyIdentity) {
+    const currentUser = window.netlifyIdentity.currentUser();
+    if (currentUser) {
+      console.debug('Analytics: Skipping tracking for logged-in user');
+      return;
+    }
+  }
+
   // Get or create session ID (stored in sessionStorage, expires when browser closes)
   function getSessionId() {
     let sessionId = sessionStorage.getItem('analytics_session');
