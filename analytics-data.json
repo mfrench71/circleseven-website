@@ -22,7 +22,8 @@
     "/category/dat602-everyware/": 1,
     "/category/digital-art-and-technology/": 1,
     "/tag/dat601/": 1,
-    "/tag/dat402/": 1
+    "/tag/dat402/": 1,
+    "/dat403-task-week-3-character-animation-walk-cycle/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -49,21 +50,22 @@
     "sess_1762814873989_pq4ipbv5ytq",
     "sess_1762816698510_0hml91leev2",
     "sess_1762819200030_n0ja7c6z2v",
-    "sess_1762822559011_sh58y5z1cb"
+    "sess_1762822559011_sh58y5z1cb",
+    "sess_1762825797634_0hast3xgam7"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 34,
+    "Chrome": 35,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 8,
+    "Desktop": 9,
     "Mobile": 10
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 5
+    "2025-11-11": 6
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -71,7 +73,8 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 5
+    "2025-11-11 00": 5,
+    "2025-11-11 01": 1
   },
   "pageViewDetails": {
     "/": [
@@ -229,6 +232,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/dat403-task-week-3-character-animation-walk-cycle/": [
+      {
+        "timestamp": "2025-11-11T01:49:57.634Z",
+        "sessionId": "sess_1762825797634_0hast3xgam7",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -325,6 +337,14 @@
       "pageViews": 1,
       "pages": [
         "/"
+      ]
+    },
+    "sess_1762825797634_0hast3xgam7": {
+      "firstSeen": "2025-11-11T01:49:57.634Z",
+      "lastSeen": "2025-11-11T01:49:57.634Z",
+      "pageViews": 1,
+      "pages": [
+        "/dat403-task-week-3-character-animation-walk-cycle/"
       ]
     }
   }
