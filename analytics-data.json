@@ -47,7 +47,8 @@
     "/tag/dat504/": 2,
     "/tag/dat613/": 1,
     "/tag/dat403/": 1,
-    "/tag/dat612/": 1
+    "/tag/dat612/": 1,
+    "/category/digital-art-technology/dat503/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -86,21 +87,22 @@
     "sess_1762840718072_la6d0529itm",
     "sess_1762842485030_n0ja7c6z2v",
     "sess_1762842703239_pkepii2xit",
-    "sess_1762843347462_uqquneibneb"
+    "sess_1762843347462_uqquneibneb",
+    "sess_1762848284679_agj8kiyetas"
   ],
   "referrers": {},
   "browsers": {
     "Chrome": 71,
-    "Safari": 5
+    "Safari": 6
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 20,
+    "Desktop": 21,
     "Mobile": 35
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 42
+    "2025-11-11": 43
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -114,7 +116,8 @@
     "2025-11-11 03": 3,
     "2025-11-11 04": 1,
     "2025-11-11 05": 3,
-    "2025-11-11 06": 3
+    "2025-11-11 06": 3,
+    "2025-11-11 08": 1
   },
   "pageViewDetails": {
     "/": [
@@ -589,6 +592,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/category/digital-art-technology/dat503/": [
+      {
+        "timestamp": "2025-11-11T08:04:44.679Z",
+        "sessionId": "sess_1762848284679_agj8kiyetas",
+        "referrer": "direct",
+        "browser": "Safari",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -806,6 +818,14 @@
       "pageViews": 1,
       "pages": [
         "/"
+      ]
+    },
+    "sess_1762848284679_agj8kiyetas": {
+      "firstSeen": "2025-11-11T08:04:44.679Z",
+      "lastSeen": "2025-11-11T08:04:44.679Z",
+      "pageViews": 1,
+      "pages": [
+        "/category/digital-art-technology/dat503/"
       ]
     }
   }
