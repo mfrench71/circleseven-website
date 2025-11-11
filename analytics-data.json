@@ -24,7 +24,8 @@
     "/tag/dat601/": 1,
     "/tag/dat402/": 1,
     "/dat403-task-week-3-character-animation-walk-cycle/": 1,
-    "/category/dat405-creative-coding/": 1
+    "/category/dat405-creative-coding/": 1,
+    "/category/dat501-strategies-for-digital-art-and-technology/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -56,17 +57,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 36,
+    "Chrome": 37,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 9,
-    "Mobile": 11
+    "Mobile": 12
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 7
+    "2025-11-11": 8
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -74,7 +75,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 6,
+    "2025-11-11 00": 7,
     "2025-11-11 01": 1
   },
   "pageViewDetails": {
@@ -251,6 +252,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/category/dat501-strategies-for-digital-art-and-technology/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -333,13 +343,14 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 5,
+      "pageViews": 6,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
         "/tag/dat402/",
         "/category/dat601-realtime/",
-        "/category/dat405-creative-coding/"
+        "/category/dat405-creative-coding/",
+        "/category/dat501-strategies-for-digital-art-and-technology/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
