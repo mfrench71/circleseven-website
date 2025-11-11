@@ -37,7 +37,8 @@
     "/category/dat613-dissertation/": 1,
     "/category/dat504-advanced-web-technologies/": 1,
     "/tag/dat503/": 1,
-    "/tag/photography/": 1
+    "/tag/photography/": 1,
+    "/category/dat404-web-technologies/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -74,17 +75,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 51,
+    "Chrome": 52,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 14,
-    "Mobile": 21
+    "Mobile": 22
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 22
+    "2025-11-11": 23
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -92,7 +93,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 16,
+    "2025-11-11 00": 17,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -403,6 +404,15 @@
         "browser": "Chrome",
         "device": "Desktop"
       }
+    ],
+    "/category/dat404-web-technologies/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -485,7 +495,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 15,
+      "pageViews": 16,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -501,7 +511,8 @@
         "/category/dat506-emerging-technologies/",
         "/category/dat613-dissertation/",
         "/category/dat504-advanced-web-technologies/",
-        "/tag/dat503/"
+        "/tag/dat503/",
+        "/category/dat404-web-technologies/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
