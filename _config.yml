@@ -8,7 +8,7 @@ include:
   - admin
 theme: minima
 gravatar_hash: c7c96a67607f30615596030dc2c3faf7
-author: Matthew French
+author: Administrator
 permalink: /:title/
 paginate_path: /page/:num/
 sass:
