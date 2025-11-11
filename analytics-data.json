@@ -8,7 +8,7 @@
     "/category/dat402-digital-culture/": 3,
     "/dat402-assignment-part-2-digital-spheres-of-culture/": 3,
     "/dat601-realtime-critical-evaluation-message-in-a-bottle/": 3,
-    "/dat601-realtime-project-proposal/": 3,
+    "/dat601-realtime-project-proposal/": 4,
     "/groundbreaking-logo-blender/": 1,
     "/tags/photoshop": 1,
     "/dat602-proposal-presentation-and-feedback-usense/": 1,
@@ -77,17 +77,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 54,
+    "Chrome": 55,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 14,
-    "Mobile": 24
+    "Mobile": 25
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 25
+    "2025-11-11": 26
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -95,7 +95,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 19,
+    "2025-11-11 00": 20,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -433,6 +433,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/dat601-realtime-project-proposal/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -515,7 +524,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 18,
+      "pageViews": 19,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -534,7 +543,8 @@
         "/tag/dat503/",
         "/category/dat404-web-technologies/",
         "/category/inde601-netscapes/",
-        "/tag/dat602/"
+        "/tag/dat602/",
+        "/dat601-realtime-project-proposal/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
