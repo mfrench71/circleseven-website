@@ -29,7 +29,8 @@
     "/tag/dat405/": 1,
     "/tag/dat401/": 1,
     "/category/news/": 1,
-    "/dat403-assignment-photomontage/": 1
+    "/dat403-assignment-photomontage/": 1,
+    "/arcade-sinclair-spectrum-white-lightning-feature-part-2/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -58,21 +59,22 @@
     "sess_1762819200030_n0ja7c6z2v",
     "sess_1762822559011_sh58y5z1cb",
     "sess_1762825797634_0hast3xgam7",
-    "sess_1762829443932_o1fwge0126f"
+    "sess_1762829443932_o1fwge0126f",
+    "sess_1762830539842_gof29vx1i9"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 41,
+    "Chrome": 42,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 10,
+    "Desktop": 11,
     "Mobile": 15
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 12
+    "2025-11-11": 13
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -82,7 +84,8 @@
     "2025-11-10 23": 1,
     "2025-11-11 00": 10,
     "2025-11-11 01": 1,
-    "2025-11-11 02": 1
+    "2025-11-11 02": 1,
+    "2025-11-11 03": 1
   },
   "pageViewDetails": {
     "/": [
@@ -303,6 +306,15 @@
         "browser": "Chrome",
         "device": "Desktop"
       }
+    ],
+    "/arcade-sinclair-spectrum-white-lightning-feature-part-2/": [
+      {
+        "timestamp": "2025-11-11T03:08:59.843Z",
+        "sessionId": "sess_1762830539842_gof29vx1i9",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -420,6 +432,14 @@
       "pageViews": 1,
       "pages": [
         "/dat403-assignment-photomontage/"
+      ]
+    },
+    "sess_1762830539842_gof29vx1i9": {
+      "firstSeen": "2025-11-11T03:08:59.843Z",
+      "lastSeen": "2025-11-11T03:08:59.843Z",
+      "pageViews": 1,
+      "pages": [
+        "/arcade-sinclair-spectrum-white-lightning-feature-part-2/"
       ]
     }
   }
