@@ -46,7 +46,8 @@
     "/category/projects/": 1,
     "/tag/dat504/": 2,
     "/tag/dat613/": 1,
-    "/tag/dat403/": 1
+    "/tag/dat403/": 1,
+    "/tag/dat612/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -89,17 +90,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 68,
+    "Chrome": 69,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 20,
-    "Mobile": 32
+    "Mobile": 33
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 39
+    "2025-11-11": 40
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -107,7 +108,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 27,
+    "2025-11-11 00": 28,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -561,6 +562,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/tag/dat612/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -643,7 +653,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 26,
+      "pageViews": 27,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -670,7 +680,8 @@
         "/category/projects/",
         "/category/dat402-digital-culture/",
         "/tag/dat504/",
-        "/tag/dat403/"
+        "/tag/dat403/",
+        "/tag/dat612/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
