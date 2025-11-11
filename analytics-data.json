@@ -19,7 +19,8 @@
     "/category/dat601-realtime/": 1,
     "/category/dat503-reflexive-design/": 1,
     "/category/retro-computing/": 1,
-    "/category/dat602-everyware/": 1
+    "/category/dat602-everyware/": 1,
+    "/category/digital-art-and-technology/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -44,27 +45,30 @@
     "sess_1762814758137_nh44cj3a51j",
     "sess_1762814780633_qv2jy8aee6",
     "sess_1762814873989_pq4ipbv5ytq",
-    "sess_1762816698510_0hml91leev2"
+    "sess_1762816698510_0hml91leev2",
+    "sess_1762819200030_n0ja7c6z2v"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 29,
+    "Chrome": 30,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 7,
-    "Mobile": 6
+    "Mobile": 7
   },
   "viewsByDay": {
-    "2025-11-10": 13
+    "2025-11-10": 13,
+    "2025-11-11": 1
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
     "2025-11-10 00": 6,
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
-    "2025-11-10 23": 1
+    "2025-11-10 23": 1,
+    "2025-11-11 00": 1
   },
   "pageViewDetails": {
     "/": [
@@ -181,6 +185,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/category/digital-art-and-technology/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -258,6 +271,14 @@
       "pageViews": 1,
       "pages": [
         "/category/dat503-reflexive-design/"
+      ]
+    },
+    "sess_1762819200030_n0ja7c6z2v": {
+      "firstSeen": "2025-11-11T00:00:00.031Z",
+      "lastSeen": "2025-11-11T00:00:00.031Z",
+      "pageViews": 1,
+      "pages": [
+        "/category/digital-art-and-technology/"
       ]
     }
   }
