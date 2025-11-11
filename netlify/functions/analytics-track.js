@@ -14,7 +14,16 @@
  * @module netlify/functions/analytics-track
  */
 
-const { getStore } = require('@netlify/blobs');
+let getStore;
+try {
+  const blobs = require('@netlify/blobs');
+  getStore = blobs.getStore;
+  console.log('[Analytics] @netlify/blobs loaded successfully');
+} catch (error) {
+  console.error('[Analytics] Failed to load @netlify/blobs:', error);
+  getStore = null;
+}
+
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const {
   successResponse,
@@ -36,6 +45,9 @@ const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub 
  * Get blob store
  */
 function getBlobStore() {
+  if (!getStore) {
+    throw new Error('Netlify Blobs not available');
+  }
   return getStore(STORE_NAME);
 }
 
