@@ -74,7 +74,7 @@ async function loadData() {
       console.log('[Analytics] No data found, returning defaults');
       const defaultData = {
         pageViews: {},
-        uniqueVisitors: [],
+        uniqueVisitors: new Set(),
         referrers: {},
         browsers: {},
         devices: {},
