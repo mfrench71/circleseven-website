@@ -43,7 +43,8 @@
     "/tag/dat602/": 1,
     "/page/4/": 1,
     "/tag/javascript/": 1,
-    "/category/projects/": 1
+    "/category/projects/": 1,
+    "/tag/dat504/": 1
   },
   "uniqueVisitors": [
     "sess_1762807259821_9sng9xsb8pb",
@@ -79,21 +80,22 @@
     "sess_1762836551109_ff2qt127mg",
     "sess_1762838981528_y3uudj9m0ns",
     "sess_1762839891623_yogpqp0hadg",
-    "sess_1762840718072_la6d0529itm"
+    "sess_1762840718072_la6d0529itm",
+    "sess_1762842485030_n0ja7c6z2v"
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 63,
+    "Chrome": 64,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
-    "Desktop": 17,
+    "Desktop": 18,
     "Mobile": 30
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 34
+    "2025-11-11": 35
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -106,7 +108,8 @@
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
     "2025-11-11 04": 1,
-    "2025-11-11 05": 3
+    "2025-11-11 05": 3,
+    "2025-11-11 06": 1
   },
   "pageViewDetails": {
     "/": [
@@ -513,6 +516,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/tag/dat504/": [
+      {
+        "timestamp": "2025-11-11T06:28:05.031Z",
+        "sessionId": "sess_1762842485030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Desktop"
+      }
     ]
   },
   "sessions": {
@@ -701,6 +713,14 @@
       "pageViews": 1,
       "pages": [
         "/"
+      ]
+    },
+    "sess_1762842485030_n0ja7c6z2v": {
+      "firstSeen": "2025-11-11T06:28:05.031Z",
+      "lastSeen": "2025-11-11T06:28:05.031Z",
+      "pageViews": 1,
+      "pages": [
+        "/tag/dat504/"
       ]
     }
   }
