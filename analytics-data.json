@@ -5,7 +5,7 @@
     "/derelict-house-at-mordiford-herefordshire/": 1,
     "/category/dat505-advanced-creative-coding/": 1,
     "/dat505-assignment-part-3-python-multimedia/": 1,
-    "/category/dat402-digital-culture/": 3,
+    "/category/dat402-digital-culture/": 4,
     "/dat402-assignment-part-2-digital-spheres-of-culture/": 3,
     "/dat601-realtime-critical-evaluation-message-in-a-bottle/": 3,
     "/dat601-realtime-project-proposal/": 4,
@@ -82,17 +82,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 61,
+    "Chrome": 62,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 16,
-    "Mobile": 29
+    "Mobile": 30
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 32
+    "2025-11-11": 33
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -100,7 +100,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 24,
+    "2025-11-11 00": 25,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -496,6 +496,15 @@
         "browser": "Chrome",
         "device": "Mobile"
       }
+    ],
+    "/category/dat402-digital-culture/": [
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
+      }
     ]
   },
   "sessions": {
@@ -578,7 +587,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 23,
+      "pageViews": 24,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -602,7 +611,8 @@
         "/page/4/",
         "/tag/javascript/",
         "/",
-        "/category/projects/"
+        "/category/projects/",
+        "/category/dat402-digital-culture/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
