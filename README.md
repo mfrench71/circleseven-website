@@ -158,10 +158,7 @@ circleseven-website/
 │   └── deployment-history.js# Deployment history tracking
 ├── _data/                   # Site data files
 │   └── taxonomy.yml         # Categories and tags definitions
-├── docs/                    # Documentation
-│   ├── EMAIL_MIGRATION_CLOUDFLARE.md
-│   ├── CLOUDINARY_MIGRATION.md
-│   └── RELATED_POSTS_IMPROVEMENT.md
+├── docs/                    # Documentation (archived)
 ├── scripts/                 # Maintenance and utility scripts
 │   ├── sync-taxonomy.js     # Sync taxonomy to CMS config
 │   ├── add-lazy-loading.py  # Add lazy loading to images
@@ -306,7 +303,7 @@ The Media Library requires this environment variable in Netlify:
 - **Modules:** 110 functions across 10 ES6 modules + 2 shared components
 - **Pattern:** Each page uses `standalone-init.js` for authentication, `initHeader()` and `initSidebar()` for shared UI
 
-See `admin/README.md` and `admin/js/README.md` for detailed documentation.
+See `admin/README.md` and `admin/js/README.md` for detailed technical documentation.
 
 ---
 
@@ -391,8 +388,6 @@ Email sent to `@circleseven.co.uk` is handled by Cloudflare Email Routing:
 - **Authentication:** SPF, DKIM, DMARC configured
 - **Catch-all:** Any address @circleseven.co.uk forwards
 - **Sending:** Use Gmail's "Send as" feature or SMTP service
-
-See `docs/EMAIL_MIGRATION_CLOUDFLARE.md` for setup details.
 
 ## Embedded Content
 
@@ -587,10 +582,8 @@ CLOUDINARY_API_SECRET=your_api_secret
 - `admin-decap/README.md` - Decap CMS setup and usage
 
 ### Technical Documentation
-- `docs/EMAIL_MIGRATION_CLOUDFLARE.md` - Email configuration guide
-- `docs/CLOUDINARY_MIGRATION.md` - Cloudinary migration details
-- `docs/RELATED_POSTS_IMPROVEMENT.md` - Related posts algorithm
 - `scripts/README.md` - Maintenance scripts documentation
+- `tests/README.md` - Testing setup and guidelines
 
 ### API Documentation
 All Netlify Functions and frontend JavaScript files include comprehensive JSDoc documentation:
