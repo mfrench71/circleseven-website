@@ -230,6 +230,7 @@
       startDeploymentHistoryPolling,
       stopDeploymentHistoryPolling
     } from '/admin/js/modules/deployments.js?v=1761218399';
+    import { updateRecentlyPublished } from '/admin/js/modules/recently-published.js?v=1761218399';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -341,7 +342,7 @@
 
         // Fetch last updated time from deployment history
         try {
-          const history = await window.getDeploymentHistory();
+          const history = await window.loadDeploymentHistory();
           const lastDeployment = history.find(d => d.status === 'completed');
 
           const lastUpdated = document.getElementById('last-updated');

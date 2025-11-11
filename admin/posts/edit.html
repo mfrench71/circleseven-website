@@ -736,14 +736,7 @@
       init();
     }
 
-    // Setup Netlify Identity
-    netlifyIdentity.on('login', () => {
-      location.reload();
-    });
-
-    netlifyIdentity.on('logout', () => {
-      location.href = '/admin/';
-    });
+    // NO login/logout event handlers here - initStandalonePage handles authentication
 
     // Warn user about unsaved changes
     window.addEventListener('beforeunload', (e) => {
