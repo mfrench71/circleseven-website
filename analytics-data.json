@@ -1,6 +1,6 @@
 {
   "pageViews": {
-    "/": 11,
+    "/": 12,
     "/about/": 1,
     "/derelict-house-at-mordiford-herefordshire/": 1,
     "/category/dat505-advanced-creative-coding/": 1,
@@ -80,17 +80,17 @@
   ],
   "referrers": {},
   "browsers": {
-    "Chrome": 58,
+    "Chrome": 59,
     "Safari": 5
   },
   "createdAt": "2025-11-10T20:30:00.000Z",
   "devices": {
     "Desktop": 15,
-    "Mobile": 27
+    "Mobile": 28
   },
   "viewsByDay": {
     "2025-11-10": 13,
-    "2025-11-11": 29
+    "2025-11-11": 30
   },
   "viewsByHour": {
     "2025-11-10 20": 1,
@@ -98,7 +98,7 @@
     "2025-11-10 21": 1,
     "2025-11-10 22": 4,
     "2025-11-10 23": 1,
-    "2025-11-11 00": 22,
+    "2025-11-11 00": 23,
     "2025-11-11 01": 1,
     "2025-11-11 02": 1,
     "2025-11-11 03": 3,
@@ -148,6 +148,13 @@
         "referrer": "direct",
         "browser": "Chrome",
         "device": "Desktop"
+      },
+      {
+        "timestamp": "2025-11-11T00:00:00.031Z",
+        "sessionId": "sess_1762819200030_n0ja7c6z2v",
+        "referrer": "direct",
+        "browser": "Chrome",
+        "device": "Mobile"
       }
     ],
     "/groundbreaking-logo-blender/": [
@@ -553,7 +560,7 @@
     "sess_1762819200030_n0ja7c6z2v": {
       "firstSeen": "2025-11-11T00:00:00.031Z",
       "lastSeen": "2025-11-11T00:00:00.031Z",
-      "pageViews": 21,
+      "pageViews": 22,
       "pages": [
         "/category/digital-art-and-technology/",
         "/tag/dat601/",
@@ -575,7 +582,8 @@
         "/tag/dat602/",
         "/dat601-realtime-project-proposal/",
         "/page/4/",
-        "/tag/javascript/"
+        "/tag/javascript/",
+        "/"
       ]
     },
     "sess_1762822559011_sh58y5z1cb": {
