@@ -45,15 +45,19 @@ function getBlobStore() {
 async function loadData() {
   // Return cached data if fresh
   if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
+    console.log('[Analytics] Returning cached data');
     return cachedData;
   }
 
   try {
+    console.log('[Analytics] Loading data from Blobs...');
     const store = getBlobStore();
     const dataString = await store.get(DATA_KEY);
+    console.log('[Analytics] Raw data from Blobs:', dataString ? 'Found' : 'Not found');
 
     if (!dataString) {
       // No data yet, return default
+      console.log('[Analytics] No data found, returning defaults');
       const defaultData = {
         pageViews: {},
         uniqueVisitors: [],
@@ -72,6 +76,7 @@ async function loadData() {
     }
 
     const data = JSON.parse(dataString);
+    console.log('[Analytics] Parsed data, page views:', Object.keys(data.pageViews).length);
 
     // Convert uniqueVisitors array back to Set for easier manipulation
     data.uniqueVisitors = new Set(data.uniqueVisitors || []);
@@ -80,7 +85,8 @@ async function loadData() {
     cacheTime = Date.now();
     return data;
   } catch (error) {
-    console.error('Failed to load analytics data:', error);
+    console.error('[Analytics] Failed to load analytics data:', error);
+    console.error('[Analytics] Error stack:', error.stack);
     // Return default on error
     return {
       pageViews: {},
@@ -102,14 +108,18 @@ async function loadData() {
  */
 async function saveData(data) {
   try {
+    console.log('[Analytics] Attempting to save data...');
     // Convert Set to array for JSON serialization
     const dataToSave = {
       ...data,
       uniqueVisitors: Array.from(data.uniqueVisitors || [])
     };
 
+    console.log('[Analytics] Getting blob store:', STORE_NAME);
     const store = getBlobStore();
+    console.log('[Analytics] Store obtained, setting key:', DATA_KEY);
     await store.set(DATA_KEY, JSON.stringify(dataToSave));
+    console.log('[Analytics] Data saved successfully');
 
     // Update cache
     cachedData = data;
@@ -117,7 +127,8 @@ async function saveData(data) {
 
     return true;
   } catch (error) {
-    console.error('Failed to save analytics data:', error);
+    console.error('[Analytics] Failed to save analytics data:', error);
+    console.error('[Analytics] Error stack:', error.stack);
     throw error;
   }
 }
