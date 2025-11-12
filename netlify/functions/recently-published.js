@@ -19,6 +19,11 @@ const {
 
 /**
  * Fetches recently modified files from a directory
+ *
+ * Optimized to reduce API calls:
+ * - For posts: Sort by filename date, only fetch commits for most recent 15
+ * - For pages: Fetch commits for all (usually only 5-10 pages)
+ * This reduces API usage from ~80+ calls to ~20 calls total.
  */
 async function getRecentFiles(folder, type) {
   try {
@@ -29,9 +34,22 @@ async function getRecentFiles(folder, type) {
     }
 
     // Filter markdown files
-    const mdFiles = contents.filter(f => f.name.endsWith('.md'));
+    let mdFiles = contents.filter(f => f.name.endsWith('.md'));
 
-    // Fetch commit date for each file
+    if (mdFiles.length === 0) {
+      return [];
+    }
+
+    // Optimization: For posts with date prefixes, sort by filename first
+    // This way we only need to fetch commits for the most recent files
+    if (folder === '_posts') {
+      // Sort by filename descending (YYYY-MM-DD makes this work)
+      mdFiles.sort((a, b) => b.name.localeCompare(a.name));
+      // Only fetch commits for the 15 most recent posts
+      mdFiles = mdFiles.slice(0, 15);
+    }
+
+    // Fetch commit date for each file (optimized list)
     const filesWithDates = await Promise.all(
       mdFiles.map(async (file) => {
         try {
