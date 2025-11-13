@@ -383,6 +383,9 @@ table .btn-link {
   border: 2px solid #d1d5db;
   background: white;
   transition: border-color 0.2s ease, transform 0.2s ease;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  display: block;
 }
 
 .chooser-image-btn:hover {
