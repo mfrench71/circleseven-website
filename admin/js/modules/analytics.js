@@ -1,7 +1,14 @@
 /**
- * Analytics Module
- * Displays both custom website analytics and content health metrics
+ * Enhanced Analytics Module
+ *
+ * Displays comprehensive website analytics with interactive charts and date filtering.
+ * Includes time-series visualization, geographic data, and device breakdowns.
  */
+
+// Module state
+let rawAnalyticsData = null;
+let currentDateRange = localStorage.getItem('analytics-date-range') || '30d';
+let charts = {}; // Store chart instances for updates
 
 /**
  * Loads custom analytics data from the tracking API
@@ -12,7 +19,8 @@ export async function loadCustomAnalytics() {
     if (!response.ok) {
       throw new Error(`Failed to load analytics: ${response.statusText}`);
     }
-    return await response.json();
+    rawAnalyticsData = await response.json();
+    return rawAnalyticsData;
   } catch (error) {
     console.error('Failed to load custom analytics:', error);
     return null;
@@ -20,7 +28,352 @@ export async function loadCustomAnalytics() {
 }
 
 /**
- * Renders custom analytics overview - compact version
+ * Filter data by date range
+ */
+function filterDataByDateRange(data, range) {
+  if (!data) return data;
+
+  const now = new Date();
+  let startDate;
+
+  switch (range) {
+    case 'today':
+      startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      break;
+    case 'yesterday':
+      startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+      const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      return filterByDateRange(data, startDate, endDate);
+    case '7d':
+      startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      break;
+    case '30d':
+      startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+      break;
+    case 'all':
+    default:
+      return data; // No filtering
+  }
+
+  return filterByDateRange(data, startDate, now);
+}
+
+/**
+ * Filter data between two dates
+ */
+function filterByDateRange(data, startDate, endDate) {
+  const filtered = { ...data };
+  const startISO = startDate.toISOString().split('T')[0];
+  const endISO = endDate.toISOString().split('T')[0];
+
+  // Filter dailyViews
+  if (filtered.dailyViews) {
+    filtered.dailyViews = filtered.dailyViews.filter(d => d.date >= startISO && d.date <= endISO);
+  }
+
+  // Filter hourlyViews
+  if (filtered.hourlyViews) {
+    filtered.hourlyViews = filtered.hourlyViews.filter(h => h.hour >= startISO && h.hour <= endISO);
+  }
+
+  return filtered;
+}
+
+/**
+ * Render daily views chart
+ */
+function renderDailyViewsChart(data) {
+  const canvas = document.getElementById('daily-views-chart');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const dailyViews = data.dailyViews || [];
+
+  // Destroy existing chart if it exists
+  if (charts.daily) {
+    charts.daily.destroy();
+  }
+
+  charts.daily = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: dailyViews.map(d => d.date),
+      datasets: [{
+        label: 'Daily Page Views',
+        data: dailyViews.map(d => d.views),
+        borderColor: '#0d6efd',
+        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        },
+        x: {
+          ticks: {
+            maxRotation: 45,
+            minRotation: 45
+          }
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Render hourly views chart
+ */
+function renderHourlyViewsChart(data) {
+  const canvas = document.getElementById('hourly-views-chart');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const hourlyViews = data.hourlyViews || [];
+
+  // Destroy existing chart if it exists
+  if (charts.hourly) {
+    charts.hourly.destroy();
+  }
+
+  charts.hourly = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: hourlyViews.map(h => h.hour.split(' ')[1] + ':00' || h.hour),
+      datasets: [{
+        label: 'Hourly Views',
+        data: hourlyViews.map(h => h.views),
+        backgroundColor: '#198754'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Render browser distribution chart
+ */
+function renderBrowserChart(data) {
+  const canvas = document.getElementById('browser-chart');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const browserStats = data.browserStats || [];
+
+  // Destroy existing chart if it exists
+  if (charts.browser) {
+    charts.browser.destroy();
+  }
+
+  const colors = ['#0d6efd', '#6610f2', '#6f42c1', '#d63384', '#dc3545', '#fd7e14', '#ffc107'];
+
+  charts.browser = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: browserStats.map(b => b.browser),
+      datasets: [{
+        data: browserStats.map(b => b.count),
+        backgroundColor: colors.slice(0, browserStats.length)
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Render device distribution chart
+ */
+function renderDeviceChart(data) {
+  const canvas = document.getElementById('device-chart');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const deviceStats = data.deviceStats || [];
+
+  // Destroy existing chart if it exists
+  if (charts.device) {
+    charts.device.destroy();
+  }
+
+  const colors = ['#198754', '#0dcaf0', '#ffc107'];
+
+  charts.device = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: deviceStats.map(d => d.device),
+      datasets: [{
+        data: deviceStats.map(d => d.count),
+        backgroundColor: colors.slice(0, deviceStats.length)
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Render all charts
+ */
+function renderAllCharts(data) {
+  renderDailyViewsChart(data);
+  renderHourlyViewsChart(data);
+  renderBrowserChart(data);
+  renderDeviceChart(data);
+}
+
+/**
+ * Render date range filter buttons
+ */
+function renderDateRangeFilter() {
+  const ranges = [
+    { value: 'today', label: 'Today' },
+    { value: 'yesterday', label: 'Yesterday' },
+    { value: '7d', label: 'Last 7 Days' },
+    { value: '30d', label: 'Last 30 Days' },
+    { value: 'all', label: 'All Time' }
+  ];
+
+  return `
+    <div class="btn-group btn-group-sm" role="group" aria-label="Date range filter">
+      ${ranges.map(range => `
+        <button
+          type="button"
+          class="btn ${currentDateRange === range.value ? 'btn-primary' : 'btn-outline-primary'}"
+          onclick="window.changeDateRange('${range.value}')"
+        >
+          ${range.label}
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+/**
+ * Change date range and update display
+ */
+window.changeDateRange = async function(range) {
+  currentDateRange = range;
+  localStorage.setItem('analytics-date-range', range);
+
+  // Re-render with filtered data
+  const filtered = filterDataByDateRange(rawAnalyticsData, range);
+
+  // Update charts
+  renderAllCharts(filtered);
+
+  // Update the filter buttons
+  const container = document.querySelector('.date-range-filter');
+  if (container) {
+    container.innerHTML = renderDateRangeFilter();
+  }
+};
+
+/**
+ * Render geographic data (countries and cities)
+ */
+function renderGeographicData(data) {
+  const countryStats = data.countryStats || [];
+  const cityStats = data.cityStats || [];
+
+  if (countryStats.length === 0 && cityStats.length === 0) {
+    return `
+      <div class="text-muted small">
+        <i class="fas fa-info-circle me-1"></i>
+        Geographic data will appear as visitors browse the site
+      </div>
+    `;
+  }
+
+  return `
+    <div class="row g-3">
+      ${countryStats.length > 0 ? `
+        <div class="col-md-6">
+          <h6 class="small text-uppercase text-muted mb-2">Top Countries</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0 small">
+              <tbody>
+                ${countryStats.slice(0, 10).map(country => `
+                  <tr>
+                    <td>${country.country}</td>
+                    <td class="text-end"><span class="badge bg-primary">${country.count}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ` : ''}
+
+      ${cityStats.length > 0 ? `
+        <div class="col-md-6">
+          <h6 class="small text-uppercase text-muted mb-2">Top Cities</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0 small">
+              <tbody>
+                ${cityStats.slice(0, 10).map(city => `
+                  <tr>
+                    <td>${city.city}</td>
+                    <td class="text-end"><span class="badge bg-success">${city.count}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+/**
+ * Renders enhanced custom analytics with charts
  */
 export function renderCustomAnalytics(data) {
   if (!data) {
@@ -32,12 +385,23 @@ export function renderCustomAnalytics(data) {
     `;
   }
 
-  const { summary, topPages, topReferrers, browserStats } = data;
+  const { summary, topPages, topReferrers, deviceStats } = data;
+
+  // Calculate views in last hour
+  const viewsLastHour = (data.hourlyViews || []).slice(-1)[0]?.views || 0;
 
   return `
     <div class="mb-4">
+      <!-- Date Range Filter -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0"><i class="fas fa-chart-line me-2"></i>Analytics Overview</h6>
+        <div class="date-range-filter">
+          ${renderDateRangeFilter()}
+        </div>
+      </div>
+
       <!-- Summary Stats (Compact) -->
-      <div class="row g-3 mb-3">
+      <div class="row g-3 mb-4">
         <div class="col-md-3">
           <div class="card text-center">
             <div class="card-body py-3">
@@ -65,10 +429,80 @@ export function renderCustomAnalytics(data) {
         <div class="col-md-3">
           <div class="card text-center">
             <div class="card-body py-3">
-              <div class="text-warning mb-1"><i class="fas fa-chart-line"></i> Avg/Page</div>
-              <h4 class="mb-0">${summary.totalPages > 0 ? Math.round(summary.totalPageViews / summary.totalPages) : 0}</h4>
+              <div class="text-warning mb-1"><i class="fas fa-clock"></i> Last Hour</div>
+              <h4 class="mb-0">${viewsLastHour}</h4>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="row g-3 mb-4">
+        <!-- Daily Views Chart -->
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-chart-area me-2"></i>Daily Page Views</h6>
+            </div>
+            <div class="card-body">
+              <div style="height: 250px;">
+                <canvas id="daily-views-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hourly Views Chart -->
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Hourly Pattern</h6>
+            </div>
+            <div class="card-body">
+              <div style="height: 250px;">
+                <canvas id="hourly-views-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Browser & Device Charts Row -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-browser me-2"></i>Browsers</h6>
+            </div>
+            <div class="card-body">
+              <div style="height: 200px;">
+                <canvas id="browser-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header py-2">
+              <h6 class="mb-0"><i class="fas fa-mobile-alt me-2"></i>Devices</h6>
+            </div>
+            <div class="card-body">
+              <div style="height: 200px;">
+                <canvas id="device-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Geographic Data -->
+      <div class="card mb-4">
+        <div class="card-header py-2">
+          <h6 class="mb-0"><i class="fas fa-globe me-2"></i>Geographic Data</h6>
+        </div>
+        <div class="card-body p-3">
+          ${renderGeographicData(data)}
         </div>
       </div>
 
@@ -84,7 +518,7 @@ export function renderCustomAnalytics(data) {
                 <div class="table-responsive">
                   <table class="table table-sm table-hover mb-0 small">
                     <tbody>
-                      ${topPages.slice(0, 5).map(page => `
+                      ${topPages.slice(0, 10).map(page => `
                         <tr>
                           <td><a href="${page.path}" target="_blank" rel="noopener" class="text-decoration-none small">${page.path}</a></td>
                           <td class="text-end"><span class="badge bg-primary">${page.views}</span></td>
@@ -108,7 +542,7 @@ export function renderCustomAnalytics(data) {
                 <div class="table-responsive">
                   <table class="table table-sm table-hover mb-0 small">
                     <tbody>
-                      ${topReferrers.slice(0, 5).map(ref => `
+                      ${topReferrers.slice(0, 10).map(ref => `
                         <tr>
                           <td class="small">${ref.referrer}</td>
                           <td class="text-end"><span class="badge bg-success">${ref.count}</span></td>
@@ -123,30 +557,27 @@ export function renderCustomAnalytics(data) {
         </div>
       </div>
 
-      <!-- Browser Stats (Compact) -->
-      <div class="card mb-3">
-        <div class="card-header py-2">
-          <h6 class="mb-0"><i class="fas fa-browser me-2"></i>Browsers</h6>
-        </div>
-        <div class="card-body p-2">
-          ${browserStats.length > 0 ? `
-            <div class="d-flex gap-3 flex-wrap">
-              ${browserStats.map(browser => {
-                const percentage = summary.totalPageViews > 0 ? Math.round((browser.count / summary.totalPageViews) * 100) : 0;
-                return `
-                  <div class="flex-fill" style="min-width: 100px;">
-                    <div class="d-flex justify-content-between small mb-1">
-                      <span>${browser.browser}</span>
-                      <strong>${percentage}%</strong>
-                    </div>
-                    <div class="progress" style="height: 6px;">
-                      <div class="progress-bar bg-info" style="width: ${percentage}%"></div>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
+      <!-- Session Stats & Info Row -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body py-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="small text-muted"><i class="fas fa-layer-group me-1"></i>Avg Pages/Session:</span>
+                <strong>${summary.avgPagesPerSession}</strong>
+              </div>
             </div>
-          ` : '<p class="text-muted mb-0 small">No browser data yet</p>'}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body py-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="small text-muted"><i class="fas fa-clock me-1"></i>Active Sessions:</span>
+                <strong>${summary.activeSessions}</strong>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -154,7 +585,7 @@ export function renderCustomAnalytics(data) {
       <div class="d-flex justify-content-between align-items-center">
         <p class="text-muted small mb-0">
           <i class="fas fa-info-circle me-1"></i>
-          Data stored in Netlify Blobs. Since: ${new Date(summary.lastReset).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
+          Privacy-friendly analytics. Since: ${new Date(summary.lastReset).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
         </p>
         <button onclick="purgeAnalytics()" class="btn btn-sm btn-outline-danger">
           <i class="fas fa-trash-alt me-1"></i>Purge Data
@@ -404,6 +835,9 @@ export async function renderAnalytics(container) {
       loadContentHealth()
     ]);
 
+    // Filter data by current date range
+    const filteredData = filterDataByDateRange(customAnalytics, currentDateRange);
+
     const html = `
       <div class="analytics-page">
         <!-- Website Analytics Section -->
@@ -412,7 +846,7 @@ export async function renderAnalytics(container) {
             <h3 class="h5 mb-0"><i class="fas fa-chart-line me-2"></i>Website Analytics</h3>
           </div>
           <div class="card-body">
-            ${renderCustomAnalytics(customAnalytics)}
+            ${renderCustomAnalytics(filteredData)}
           </div>
         </div>
 
@@ -431,6 +865,12 @@ export async function renderAnalytics(container) {
     `;
 
     container.innerHTML = html;
+
+    // Render charts after DOM is ready (need to wait for canvas elements)
+    setTimeout(() => {
+      renderAllCharts(filteredData);
+    }, 100);
+
   } catch (error) {
     console.error('Error rendering analytics:', error);
     container.innerHTML = `

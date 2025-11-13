@@ -78,6 +78,8 @@ async function loadData() {
         referrers: {},
         browsers: {},
         devices: {},
+        countries: {},
+        cities: {},
         viewsByDay: {},
         viewsByHour: {},
         pageViewDetails: {},
@@ -108,6 +110,8 @@ async function loadData() {
       referrers: {},
       browsers: {},
       devices: {},
+      countries: {},
+      cities: {},
       viewsByDay: {},
       viewsByHour: {},
       pageViewDetails: {},
@@ -207,13 +211,15 @@ function getHourBucket(timestamp) {
  * Track a page view
  */
 async function trackPageView(trackData) {
-  const { path, referrer, sessionId, userAgent, timestamp } = trackData;
+  const { path, referrer, sessionId, userAgent, timestamp, country, city } = trackData;
   const now = timestamp || new Date().toISOString();
 
   const data = await loadData();
 
   // Initialize enhanced data structures if they don't exist
   if (!data.devices) data.devices = {};
+  if (!data.countries) data.countries = {};
+  if (!data.cities) data.cities = {};
   if (!data.viewsByDay) data.viewsByDay = {};
   if (!data.viewsByHour) data.viewsByHour = {};
   if (!data.pageViewDetails) data.pageViewDetails = {};
@@ -231,7 +237,9 @@ async function trackPageView(trackData) {
     sessionId,
     referrer: referrer || 'direct',
     browser: parseBrowser(userAgent),
-    device: parseDevice(userAgent)
+    device: parseDevice(userAgent),
+    country: country || 'Unknown',
+    city: city || 'Unknown'
   });
 
   // Keep only last 1000 detailed views per page (prevent unbounded growth)
@@ -287,6 +295,14 @@ async function trackPageView(trackData) {
   const device = parseDevice(userAgent);
   data.devices[device] = (data.devices[device] || 0) + 1;
 
+  // Track geographic data
+  if (country && country !== 'Unknown') {
+    data.countries[country] = (data.countries[country] || 0) + 1;
+  }
+  if (city && city !== 'Unknown') {
+    data.cities[city] = (data.cities[city] || 0) + 1;
+  }
+
   // Clean up old hourly data (keep last 30 days = 720 hours)
   const hourBuckets = Object.keys(data.viewsByHour).sort();
   if (hourBuckets.length > 720) {
@@ -339,6 +355,17 @@ function getStats(data) {
     .sort((a, b) => b[1] - a[1])
     .map(([device, count]) => ({ device, count }));
 
+  // Get geographic stats
+  const countryStats = Object.entries(data.countries || {})
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([country, count]) => ({ country, count }));
+
+  const cityStats = Object.entries(data.cities || {})
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([city, count]) => ({ city, count }));
+
   // Get time-series data (last 30 days)
   const viewsByDay = data.viewsByDay || {};
   const sortedDays = Object.keys(viewsByDay).sort();
@@ -381,6 +408,8 @@ function getStats(data) {
     topReferrers,
     browserStats,
     deviceStats,
+    countryStats,
+    cityStats,
     dailyViews,
     hourlyViews
   };
@@ -396,6 +425,8 @@ async function purgeData() {
     referrers: {},
     browsers: {},
     devices: {},
+    countries: {},
+    cities: {},
     viewsByDay: {},
     viewsByHour: {},
     pageViewDetails: {},
@@ -442,6 +473,14 @@ exports.handler = async (event, context) => {
       } catch (error) {
         return badRequestResponse('Invalid JSON');
       }
+
+      // Extract geographic data from Netlify edge headers (privacy-friendly, no IP storage)
+      const country = event.headers['x-country-code'] || event.headers['X-Country-Code'];
+      const city = event.headers['x-city'] || event.headers['X-City'];
+
+      // Add geographic data to trackData
+      trackData.country = country;
+      trackData.city = city;
 
       await trackPageView(trackData);
 
