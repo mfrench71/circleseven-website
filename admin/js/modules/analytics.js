@@ -261,7 +261,7 @@ function renderDeviceChart(data) {
 /**
  * Render all charts
  */
-function renderAllCharts(data) {
+export function renderAllCharts(data) {
   renderDailyViewsChart(data);
   renderHourlyViewsChart(data);
   renderBrowserChart(data);

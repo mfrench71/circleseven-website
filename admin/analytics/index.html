@@ -72,7 +72,7 @@
     // Import modules
     import { initNotifications } from '/admin/js/ui/notifications.js';
     import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js';
-    import { renderAnalytics } from '/admin/js/modules/analytics.js';
+    import { loadCustomAnalytics, renderCustomAnalytics, renderAllCharts } from '/admin/js/modules/analytics.js';
 
     // Initialize notifications when DOM is ready
     if (document.readyState === 'loading') {
@@ -97,9 +97,15 @@
         // Load site title for header
         await loadSiteTitle();
 
-        // Render analytics
+        // Load and render visitor analytics only
         const mainContent = document.getElementById('main-content');
-        await renderAnalytics(mainContent);
+        const analyticsData = await loadCustomAnalytics();
+        mainContent.innerHTML = renderCustomAnalytics(analyticsData);
+
+        // Render charts after DOM is updated (need to wait for canvas elements)
+        setTimeout(() => {
+          renderAllCharts(analyticsData);
+        }, 100);
       });
     };
 
