@@ -27,7 +27,6 @@
     }
 
     if (!window.netlifyIdentity) {
-      console.warn('Netlify Identity not loaded');
       return;
     }
 

@@ -84,6 +84,40 @@ Before you commit:
 3. Is test coverage adequate?
 4. Are HTTP headers validated in mocks?
 
+## CSS Guidelines
+
+**Inline and embedded CSS should be avoided where possible and moved to relevant external stylesheet.**
+
+- ✅ **GOOD**: Define styles in external CSS files (`assets/css/`, `admin/admin.css`, etc.)
+- ❌ **BAD**: Inline `<style>` tags or `style=""` attributes in HTML/templates
+
+### Exceptions
+
+Inline/embedded CSS is acceptable only for:
+- Critical above-the-fold CSS (`_includes/critical.css`)
+- Page-specific styles that are truly unique to one template
+- Dynamic styles that require server-side variables
+
+### Examples
+
+**✅ GOOD - External stylesheet:**
+```html
+<!-- In template -->
+<div class="comment-form-container">
+
+<!-- In assets/css/comments.css -->
+.comment-form-container {
+  background: #f9f9f9;
+  padding: 2rem;
+}
+```
+
+**❌ BAD - Inline styles:**
+```html
+<div style="background: #f9f9f9; padding: 2rem;">
+<style>.comment-form { ... }</style>
+```
+
 ## Related Documentation
 
 - `TESTING_IMPROVEMENTS.md` - Comprehensive testing strategy
