@@ -12,6 +12,11 @@ import { createHash } from 'crypto';
 
 const STORE_NAME = 'comments';
 
+// Email configuration
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@circleseven.co.uk';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+
 function getCommentsStore() {
   return getStore(STORE_NAME);
 }
@@ -52,6 +57,58 @@ async function addToPendingList(commentId, postSlug) {
   const pendingList = await store.get('pending-comments', { type: 'json' }) || [];
   pendingList.push({ id: commentId, postSlug });
   await store.setJSON('pending-comments', pendingList);
+}
+
+// ===== Email Notification =====
+
+/**
+ * Send email notification to admin about new comment
+ */
+async function sendEmailNotification(comment) {
+  // Skip if no API key configured
+  if (!RESEND_API_KEY) {
+    console.log('[Comments] Email notifications disabled - no RESEND_API_KEY configured');
+    return;
+  }
+
+  try {
+    const emailData = {
+      from: `CircleSeven Comments <${FROM_EMAIL}>`,
+      to: [ADMIN_EMAIL],
+      subject: `New Comment on "${comment.postSlug}"`,
+      html: `
+        <h2>New Comment Awaiting Moderation</h2>
+        <p><strong>Post:</strong> ${comment.postSlug}</p>
+        <p><strong>Author:</strong> ${comment.name}</p>
+        <p><strong>Email:</strong> ${comment.email}</p>
+        <p><strong>Date:</strong> ${new Date(comment.date).toLocaleString()}</p>
+        <hr>
+        <p><strong>Message:</strong></p>
+        <p>${comment.message.replace(/\n/g, '<br>')}</p>
+        <hr>
+        <p><a href="https://circleseven.co.uk/admin/comments/">Moderate Comments</a></p>
+      `
+    };
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(emailData)
+    });
+
+    if (response.ok) {
+      console.log(`[Comments] Email notification sent for comment ${comment.id}`);
+    } else {
+      const error = await response.text();
+      console.error('[Comments] Failed to send email:', response.status, error);
+    }
+  } catch (error) {
+    // Don't fail the request if email fails - just log it
+    console.error('[Comments] Email notification error:', error.message);
+  }
 }
 
 // ===== Validation & Sanitization =====
@@ -267,6 +324,11 @@ export default async function handler(request, context) {
     const comment = await createComment(commentData);
 
     console.log(`[Comments] Comment stored with ID: ${comment.id}`);
+
+    // Send email notification (async, don't wait for it)
+    sendEmailNotification(comment).catch(err => {
+      console.error('[Comments] Email notification failed:', err);
+    });
 
     return successResponse({
       success: true,
