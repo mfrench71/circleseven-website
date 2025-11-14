@@ -14,16 +14,16 @@
  * @module netlify/functions/analytics-track
  */
 
-let getStore, connectLambda;
+let getStore, getDeployStore;
 try {
   const blobs = require('@netlify/blobs');
   getStore = blobs.getStore;
-  connectLambda = blobs.connectLambda;
+  getDeployStore = blobs.getDeployStore;
   console.log('[Analytics] @netlify/blobs loaded successfully');
 } catch (error) {
   console.error('[Analytics] Failed to load @netlify/blobs:', error);
   getStore = null;
-  connectLambda = null;
+  getDeployStore = null;
 }
 
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
@@ -45,22 +45,27 @@ const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub 
 
 /**
  * Get blob store
+ * Uses getDeployStore() in production, getStore() in local dev
  */
 function getBlobStore() {
-  if (!getStore) {
+  if (!getStore && !getDeployStore) {
     throw new Error('Netlify Blobs not available');
   }
 
-  // Check if we have explicit environment configuration
+  // In production Netlify Functions, use getDeployStore()
+  if (getDeployStore && process.env.NETLIFY) {
+    return getDeployStore(STORE_NAME);
+  }
+
+  // In local dev, use getStore() with explicit config if available
   const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
   const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
 
-  // If both are available, pass them explicitly
   if (siteID && token) {
     return getStore({ name: STORE_NAME, siteID, token });
   }
 
-  // Otherwise, let Netlify auto-configure (production functions)
+  // Fallback to getStore with just name
   return getStore(STORE_NAME);
 }
 
@@ -458,12 +463,6 @@ async function purgeData() {
  * Main handler function
  */
 exports.handler = async (event, context) => {
-  // Initialize Netlify Blobs for Lambda compatibility
-  if (connectLambda) {
-    connectLambda(event);
-    console.log('[Analytics] connectLambda() called');
-  }
-
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
