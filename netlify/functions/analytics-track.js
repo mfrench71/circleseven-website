@@ -34,15 +34,20 @@ const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub 
 
 /**
  * Get blob store
+ * Pass context from the handler to ensure proper environment detection
  */
-function getBlobStore() {
-  return getStore(STORE_NAME);
+function getBlobStore(context) {
+  return getStore({
+    name: STORE_NAME,
+    siteID: context?.site?.id || process.env.SITE_ID,
+    token: context?.token || process.env.NETLIFY_TOKEN
+  });
 }
 
 /**
  * Load analytics data from Netlify Blobs
  */
-async function loadData() {
+async function loadData(context) {
   // Return cached data if fresh
   if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
     console.log('[Analytics] Returning cached data');
@@ -51,7 +56,7 @@ async function loadData() {
 
   try {
     console.log('[Analytics] Loading data from Blobs...');
-    const store = getBlobStore();
+    const store = getBlobStore(context);
 
     // DEBUG: List all keys in the store
     try {
@@ -119,7 +124,7 @@ async function loadData() {
 /**
  * Save analytics data to Netlify Blobs
  */
-async function saveData(data) {
+async function saveData(data, context) {
   try {
     console.log('[Analytics] Attempting to save data...');
     // Convert Set to array for JSON serialization
@@ -129,7 +134,7 @@ async function saveData(data) {
     };
 
     console.log('[Analytics] Getting blob store:', STORE_NAME);
-    const store = getBlobStore();
+    const store = getBlobStore(context);
     console.log('[Analytics] Store obtained, setting key:', DATA_KEY);
     await store.set(DATA_KEY, JSON.stringify(dataToSave));
     console.log('[Analytics] Data saved successfully');
@@ -205,11 +210,11 @@ function getHourBucket(timestamp) {
 /**
  * Track a page view
  */
-async function trackPageView(trackData) {
+async function trackPageView(trackData, context) {
   const { path, referrer, sessionId, userAgent, timestamp, country, city } = trackData;
   const now = timestamp || new Date().toISOString();
 
-  const data = await loadData();
+  const data = await loadData(context);
 
   // Initialize enhanced data structures if they don't exist
   if (!data.devices) data.devices = {};
@@ -315,7 +320,7 @@ async function trackPageView(trackData) {
 
   // Save to Netlify Blobs (await to catch errors)
   try {
-    await saveData(data);
+    await saveData(data, context);
   } catch (err) {
     console.error('Failed to save analytics:', err);
     // Don't throw - still return tracked response even if save fails
@@ -413,7 +418,7 @@ function getStats(data) {
 /**
  * Purge all analytics data
  */
-async function purgeData() {
+async function purgeData(context) {
   const newData = {
     pageViews: {},
     uniqueVisitors: [],
@@ -429,7 +434,7 @@ async function purgeData() {
     createdAt: new Date().toISOString()
   };
 
-  await saveData(newData);
+  await saveData(newData, context);
 
   // Clear cache
   cachedData = null;
@@ -471,14 +476,14 @@ exports.handler = async (event, context) => {
       trackData.country = country;
       trackData.city = city;
 
-      await trackPageView(trackData);
+      await trackPageView(trackData, context);
 
       return successResponse({ tracked: true });
     }
 
     // GET - Retrieve stats
     if (event.httpMethod === 'GET') {
-      const data = await loadData();
+      const data = await loadData(context);
       const stats = getStats(data);
       return successResponse(stats, 200, {
         'Cache-Control': 'no-cache, no-store, must-revalidate'
@@ -487,7 +492,7 @@ exports.handler = async (event, context) => {
 
     // DELETE - Purge analytics data
     if (event.httpMethod === 'DELETE') {
-      await purgeData();
+      await purgeData(context);
 
       return successResponse({
         success: true,
