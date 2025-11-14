@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "bundle exec jekyll serve",
     "build": "bundle exec jekyll build",
+    "build:js": "esbuild assets/js/_bundle-entry.js --bundle --minify --outfile=assets/js/dist/bundle.js",
     "test": "npm run test:unit && npm run test:integration",
     "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
     "test:unit": "vitest run tests/unit",
