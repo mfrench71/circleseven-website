@@ -16,15 +16,236 @@
  * @module netlify/functions/analytics-track
  */
 
-const { loadAnalyticsData, saveAnalyticsData, purgeAnalyticsData } = require('../utils/analytics-blobs.cjs');
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const {
-  successResponse,
-  methodNotAllowedResponse,
-  serverErrorResponse,
-  corsPreflightResponse,
-  badRequestResponse
-} = require('../utils/response-helpers.cjs');
+import { getStore } from '@netlify/blobs';
+
+const STORE_NAME = 'analytics';
+const DATA_KEY = 'analytics-data';
+
+// In-memory cache to reduce blob reads
+let cachedData = null;
+let cacheTime = null;
+const CACHE_TTL = 30000; // 30 seconds
+
+function getAnalyticsStore() {
+  return getStore(STORE_NAME);
+}
+
+/**
+ * Load analytics data from Netlify Blobs
+ */
+async function loadAnalyticsData() {
+  // Return cached data if fresh
+  if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
+    console.log('[Analytics] Returning cached data');
+    return cachedData;
+  }
+
+  try {
+    console.log('[Analytics] Loading data from Blobs...');
+    const store = getAnalyticsStore();
+
+    // DEBUG: List all keys in the store
+    try {
+      const { blobs } = await store.list();
+      console.log('[Analytics] DEBUG: Keys in store:', blobs ? blobs.map(b => b.key).join(', ') : 'none');
+    } catch (listError) {
+      console.log('[Analytics] DEBUG: Could not list keys:', listError.message);
+    }
+
+    const dataString = await store.get(DATA_KEY);
+    console.log('[Analytics] Raw data from Blobs:', dataString ? `Found (${dataString.length} bytes)` : 'Not found');
+
+    if (!dataString) {
+      console.log('[Analytics] No data found, returning defaults');
+      const defaultData = {
+        pageViews: {},
+        uniqueVisitors: [],
+        referrers: {},
+        browsers: {},
+        devices: {},
+        countries: {},
+        cities: {},
+        viewsByDay: {},
+        viewsByHour: {},
+        pageViewDetails: {},
+        sessions: {},
+        createdAt: new Date().toISOString()
+      };
+      cachedData = defaultData;
+      cacheTime = Date.now();
+      return defaultData;
+    }
+
+    const data = JSON.parse(dataString);
+    console.log('[Analytics] Parsed data, page views:', Object.keys(data.pageViews).length);
+
+    // Convert uniqueVisitors array back to Set
+    if (Array.isArray(data.uniqueVisitors)) {
+      data.uniqueVisitors = new Set(data.uniqueVisitors);
+    } else if (!data.uniqueVisitors) {
+      data.uniqueVisitors = new Set();
+    }
+
+    cachedData = data;
+    cacheTime = Date.now();
+    return data;
+  } catch (error) {
+    console.error('[Analytics] Failed to load analytics data:', error);
+    console.error('[Analytics] Error stack:', error.stack);
+    return {
+      pageViews: {},
+      uniqueVisitors: new Set(),
+      referrers: {},
+      browsers: {},
+      devices: {},
+      countries: {},
+      cities: {},
+      viewsByDay: {},
+      viewsByHour: {},
+      pageViewDetails: {},
+      sessions: {},
+      createdAt: new Date().toISOString()
+    };
+  }
+}
+
+/**
+ * Save analytics data to Netlify Blobs
+ */
+async function saveAnalyticsData(data) {
+  try {
+    console.log('[Analytics] Attempting to save data...');
+    const dataToSave = {
+      ...data,
+      uniqueVisitors: Array.from(data.uniqueVisitors || [])
+    };
+
+    console.log('[Analytics] Getting blob store:', STORE_NAME);
+    const store = getAnalyticsStore();
+    console.log('[Analytics] Store obtained, setting key:', DATA_KEY);
+    await store.set(DATA_KEY, JSON.stringify(dataToSave));
+    console.log('[Analytics] Data saved successfully');
+
+    // Update cache
+    cachedData = data;
+    cacheTime = Date.now();
+
+    return true;
+  } catch (error) {
+    console.error('[Analytics] Failed to save analytics data:', error);
+    console.error('[Analytics] Error stack:', error.stack);
+    throw error;
+  }
+}
+
+/**
+ * Purge all analytics data
+ */
+async function purgeAnalyticsData() {
+  const newData = {
+    pageViews: {},
+    uniqueVisitors: [],
+    referrers: {},
+    browsers: {},
+    devices: {},
+    countries: {},
+    cities: {},
+    viewsByDay: {},
+    viewsByHour: {},
+    pageViewDetails: {},
+    sessions: {},
+    createdAt: new Date().toISOString()
+  };
+
+  await saveAnalyticsData(newData);
+
+  // Clear cache
+  cachedData = null;
+  cacheTime = null;
+
+  return newData;
+}
+
+// Rate limiting (inline simple version)
+const requestCounts = new Map();
+const RATE_LIMIT = 100;
+const RATE_WINDOW = 60000; // 1 minute
+
+function checkRateLimit(event) {
+  const clientIP = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
+  const now = Date.now();
+
+  if (!requestCounts.has(clientIP)) {
+    requestCounts.set(clientIP, []);
+  }
+
+  const requests = requestCounts.get(clientIP).filter(time => now - time < RATE_WINDOW);
+  requests.push(now);
+  requestCounts.set(clientIP, requests);
+
+  if (requests.length > RATE_LIMIT) {
+    return {
+      statusCode: 429,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Rate limit exceeded' })
+    };
+  }
+
+  return null;
+}
+
+// Response helpers (inline simple versions)
+function successResponse(data, statusCode = 200, additionalHeaders = {}) {
+  return {
+    statusCode,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      ...additionalHeaders
+    },
+    body: JSON.stringify(data)
+  };
+}
+
+function methodNotAllowedResponse() {
+  return {
+    statusCode: 405,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ error: 'Method not allowed' })
+  };
+}
+
+function serverErrorResponse(error, options = {}) {
+  return {
+    statusCode: 500,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      error: 'Internal server error',
+      message: error.message,
+      ...(options.includeStack && { stack: error.stack })
+    })
+  };
+}
+
+function corsPreflightResponse() {
+  return {
+    statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS'
+    },
+    body: ''
+  };
+}
+
+function badRequestResponse(message) {
+  return {
+    statusCode: 400,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ error: message })
+  };
+}
 
 /**
  * Parse user agent to extract browser info
