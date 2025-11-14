@@ -11,6 +11,8 @@
  * - User agents (browsers/devices)
  * - Time-series data (hourly, daily)
  *
+ * Updated to use utility pattern for Blobs access.
+ *
  * @module netlify/functions/analytics-track
  */
 
