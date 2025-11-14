@@ -799,10 +799,12 @@ export async function editPost(filename, updateUrl = true) {
     // If it's a full Cloudinary URL, extract just the filename
     if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
       // Extract filename from full Cloudinary URL
-      // Matches: /upload/(optional v123/)(optional folder/)filename.ext
-      const match = imageUrl.match(/\/upload\/(?:v\d+\/)?(?:[^/]+\/)?([^/]+\.\w+)$/);
+      // Handles: /upload/(optional v123/)(optional transformations/)(optional folder/)filename(.ext)
+      // Example: https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ivtt-1024x820-1
+      // Example: https://res.cloudinary.com/circleseven/image/upload/v1234/circleseven/image.jpg
+      const match = imageUrl.match(/\/upload\/(?:v\d+\/)?(?:[^/]*\/)?([^/]+?)(?:\.\w+)?$/);
       if (match) {
-        imageUrl = match[1]; // Just the filename with extension
+        imageUrl = match[1]; // Just the filename (with or without extension)
       }
     }
 
