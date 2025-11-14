@@ -155,7 +155,14 @@ circleseven-website/
 │   ├── media.js             # Cloudinary media library
 │   ├── trash.js             # Soft delete/restore system
 │   ├── deployment-status.js # GitHub Actions monitoring
-│   └── deployment-history.js# Deployment history tracking
+│   ├── deployment-history.js# Deployment history tracking
+│   ├── analytics-track.mjs  # Analytics tracking (Functions v2)
+│   ├── comments-*.js        # Comment system (uses Netlify Blobs)
+│   └── content-health.js    # Content quality analysis
+├── netlify/utils/           # Shared utilities for functions
+│   ├── analytics-blobs.cjs  # Analytics data storage
+│   ├── comments-blobs.cjs   # Comment storage
+│   └── response-helpers.cjs # Common response helpers
 ├── _data/                   # Site data files
 │   └── taxonomy.yml         # Categories and tags definitions
 ├── docs/                    # Documentation (archived)
@@ -176,6 +183,62 @@ circleseven-website/
 ├── robots.txt               # SEO crawler instructions
 └── netlify.toml             # Netlify build configuration
 ```
+
+## Netlify Functions
+
+This site uses Netlify serverless functions for backend functionality. Functions are split into two categories:
+
+### Functions v1 (Legacy)
+Standard Netlify Functions using the Lambda event/context model:
+- `exports.handler = async (event, context) => { ... }`
+- Uses `.js` extension with CommonJS (`require()`)
+- Returns `{statusCode, headers, body}` format
+
+### Functions v2 (Modern)
+**Required for Netlify Blobs support:**
+- Uses `export default async function handler(request, context) { ... }`
+- Requires `.mjs` extension with ES6 modules (`import`)
+- Uses Web Request API (`request.method`, `request.headers.get()`, `await request.text()`)
+- Returns Web Response API (`new Response(body, {status, headers})`)
+
+**Important:** Netlify Blobs (used for analytics and comments) **only works with Functions v2**. Functions v1 will throw `MissingBlobsEnvironmentError` when attempting to use `@netlify/blobs`.
+
+### Migration Example
+
+**Functions v1 (doesn't support Blobs):**
+```javascript
+const { getStore } = require('@netlify/blobs');
+
+exports.handler = async (event, context) => {
+  const method = event.httpMethod;
+  const body = event.body;
+  // Will fail: MissingBlobsEnvironmentError
+};
+```
+
+**Functions v2 (Blobs supported):**
+```javascript
+import { getStore } from '@netlify/blobs';
+
+export default async function handler(request, context) {
+  const method = request.method;
+  const body = await request.text();
+  // Works correctly
+}
+```
+
+### Current Status
+
+**Functions v2 (using Blobs):**
+- `analytics-track.mjs` - Analytics tracking with Netlify Blobs storage
+- `comments-api.mjs` - Serves approved comments from Netlify Blobs
+- `comments-submit.mjs` - Accepts comment submissions to Netlify Blobs
+- `comments-moderate.mjs` - Approves/rejects comments in Netlify Blobs
+
+**Functions v1 (no Blobs, can remain v1):**
+- `taxonomy.js`, `posts.js`, `pages.js`, `settings.js`, `media.js`, `trash.js`, `deployment-status.js`, `deployment-history.js`, `content-health.js`
+
+For more details on Functions v2 migration, see [Netlify Functions documentation](https://docs.netlify.com/functions/get-started/).
 
 ## Development Setup
 

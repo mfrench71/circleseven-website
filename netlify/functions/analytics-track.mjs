@@ -514,8 +514,6 @@ export default async function handler(request, context) {
   const method = request.method;
   const url = new URL(request.url);
 
-  console.log('[Analytics] Handler invoked, method:', method, 'path:', url.pathname);
-
   // Handle preflight
   if (method === 'OPTIONS') {
     return corsPreflightResponse();
