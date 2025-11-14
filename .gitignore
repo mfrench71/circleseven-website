@@ -17,8 +17,9 @@ wp_convert.py
 # Local Netlify folder
 .netlify
 
-# Environment variables (contains secrets)
+# Environment variables and local config (contains secrets)
 .env
+.claude/settings.local.json
 
 # Test output directories
 coverage/
