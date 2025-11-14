@@ -52,8 +52,17 @@ async function loadData() {
   try {
     console.log('[Analytics] Loading data from Blobs...');
     const store = getBlobStore();
+
+    // DEBUG: List all keys in the store
+    try {
+      const { blobs } = await store.list();
+      console.log('[Analytics] DEBUG: Keys in store:', blobs ? blobs.map(b => b.key).join(', ') : 'none');
+    } catch (listError) {
+      console.log('[Analytics] DEBUG: Could not list keys:', listError.message);
+    }
+
     const dataString = await store.get(DATA_KEY);
-    console.log('[Analytics] Raw data from Blobs:', dataString ? 'Found' : 'Not found');
+    console.log('[Analytics] Raw data from Blobs:', dataString ? `Found (${dataString.length} bytes)` : 'Not found');
 
     if (!dataString) {
       // No data yet, return default
