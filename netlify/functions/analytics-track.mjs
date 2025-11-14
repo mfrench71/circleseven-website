@@ -511,6 +511,8 @@ function getStats(data) {
  * Using Functions v2 format for Blobs support
  */
 export default async function handler(event, context) {
+  console.log('[Analytics] Handler invoked, method:', event.httpMethod, 'path:', event.path);
+
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
