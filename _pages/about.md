@@ -1,9 +1,9 @@
 ---
-layout: page
+layout: 
 title: About
 permalink: /about/
 date: 2025-10-22T20:11
-last_modified_at: 2025-10-24 09:22:56
+last_modified_at: 2025-11-14 08:18:43
 ---
 
 Welcome to my portfolio and blog documenting my journey through Digital Art and Technology, creative projects, and technical explorations.
@@ -25,4 +25,4 @@ Feel free to explore the categories and search functionality to discover content
 
 ## Contact
 
-For inquiries, please reach out via email: [{{ site.email }}](mailto:{{ site.email }})
+For inquiries, please reach out [here](/contact/).
