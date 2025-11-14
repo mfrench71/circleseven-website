@@ -1,3 +1,2 @@
-# Pre-commit hook - currently disabled until test mocking issues are resolved
-# npm run test:unit
-echo "Pre-commit hook: Tests temporarily disabled (see netlify/build.sh line 40)"
+# Pre-commit hook - runs unit tests before allowing commit
+npm run test:unit
