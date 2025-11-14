@@ -508,39 +508,59 @@ function getStats(data) {
 
 /**
  * Main handler function
- * Using Functions v2 format for Blobs support
+ * Using Functions v2 format for Blobs support with Web Request API
  */
-export default async function handler(event, context) {
-  console.log('[Analytics] Handler invoked, method:', event.httpMethod, 'path:', event.path);
+export default async function handler(request, context) {
+  const method = request.method;
+  const url = new URL(request.url);
+
+  console.log('[Analytics] Handler invoked, method:', method, 'path:', url.pathname);
 
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
+  // Check rate limit (simplified for Request API)
+  const clientIP = request.headers.get('x-nf-client-connection-ip') ||
+                   request.headers.get('client-ip') ||
+                   'unknown';
+  const now = Date.now();
+
+  if (!requestCounts.has(clientIP)) {
+    requestCounts.set(clientIP, []);
+  }
+
+  const requests = requestCounts.get(clientIP).filter(time => now - time < RATE_WINDOW);
+  requests.push(now);
+  requestCounts.set(clientIP, requests);
+
+  if (requests.length > RATE_LIMIT) {
+    return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   try {
     // POST - Track page view
-    if (event.httpMethod === 'POST') {
+    if (method === 'POST') {
       let trackData;
       try {
-        trackData = JSON.parse(event.body);
+        const body = await request.text();
+        trackData = JSON.parse(body);
       } catch (error) {
         return badRequestResponse('Invalid JSON');
       }
 
       // Extract geographic data from Netlify edge headers (privacy-friendly, no IP storage)
-      const country = event.headers['x-nf-country-code'] || event.headers['X-Nf-Country-Code'];
-      const city = event.headers['x-nf-city'] || event.headers['X-Nf-City'];
+      const country = request.headers.get('x-nf-country-code') || request.headers.get('X-Nf-Country-Code');
+      const city = request.headers.get('x-nf-city') || request.headers.get('X-Nf-City');
 
       // Add geographic data to trackData
       trackData.country = country;
       trackData.city = city;
+      trackData.userAgent = request.headers.get('user-agent');
 
       await trackPageView(trackData);
 
@@ -548,7 +568,7 @@ export default async function handler(event, context) {
     }
 
     // GET - Retrieve stats
-    if (event.httpMethod === 'GET') {
+    if (method === 'GET') {
       const data = await loadAnalyticsData();
       const stats = getStats(data);
       return successResponse(stats, 200, {
@@ -557,7 +577,7 @@ export default async function handler(event, context) {
     }
 
     // DELETE - Purge analytics data
-    if (event.httpMethod === 'DELETE') {
+    if (method === 'DELETE') {
       await purgeAnalyticsData();
 
       return successResponse({
