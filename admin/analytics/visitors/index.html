@@ -57,20 +57,7 @@
           </div>
 
           <!-- Visitors Section -->
-          <div id="section-visitors">
-            <h2 class="h5 fw-bold mb-4">Visitors</h2>
-
-            <!-- Visitor Stats Placeholder -->
-            <div class="card shadow-sm">
-              <div class="card-body">
-                <div class="text-center py-5 text-muted">
-                  <i class="fas fa-chart-bar fa-4x mb-3 opacity-25"></i>
-                  <p class="fs-5 fw-medium mb-2">Visitor Analytics</p>
-                  <p class="mb-0">Visitor tracking and analytics will be displayed here.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div id="main-content"></div>
         </main>
       </div>
     </div>
@@ -97,7 +84,8 @@
 
     // Import modules
     import { initNotifications } from '/admin/js/ui/notifications.js?v=1761218399';
-    import { loadSiteTitle } from '/admin/js/modules/settings.js?v=1761218399';
+    import { loadSiteTitle, loadSiteConfig } from '/admin/js/modules/settings.js?v=1761218399';
+    import { loadCustomAnalytics, renderCustomAnalytics, renderAllCharts } from '/admin/js/modules/analytics.js?v=1761218399';
     import {
       loadDeploymentHistory,
       restoreActiveDeployments,
@@ -134,14 +122,25 @@
         initHeader();
         initSidebar('visitors');
 
-        // Load site title
+        // Load site configuration (includes plausible_domain)
+        await loadSiteConfig();
+
+        // Load site title for header
         await loadSiteTitle();
 
         // Load deployment history and restore active deployments
         await loadDeploymentHistory();
         await restoreActiveDeployments();
 
-        // TODO: Load visitor analytics data
+        // Load and render visitor analytics
+        const mainContent = document.getElementById('main-content');
+        const analyticsData = await loadCustomAnalytics();
+        mainContent.innerHTML = renderCustomAnalytics(analyticsData);
+
+        // Render charts after DOM is updated (need to wait for canvas elements)
+        setTimeout(() => {
+          renderAllCharts(analyticsData);
+        }, 100);
       });
     };
 
