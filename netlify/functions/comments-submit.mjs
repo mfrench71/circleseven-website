@@ -325,10 +325,8 @@ export default async function handler(request, context) {
 
     console.log(`[Comments] Comment stored with ID: ${comment.id}`);
 
-    // Send email notification (async, don't wait for it)
-    sendEmailNotification(comment).catch(err => {
-      console.error('[Comments] Email notification failed:', err);
-    });
+    // Send email notification (must await to ensure it completes before function terminates)
+    await sendEmailNotification(comment);
 
     return successResponse({
       success: true,
