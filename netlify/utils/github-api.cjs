@@ -60,16 +60,24 @@ const GITHUB_BRANCH = 'main';
  */
 function githubRequest(path, options = {}) {
   return new Promise((resolve, reject) => {
+    const bodyString = options.body ? JSON.stringify(options.body) : null;
+    const headers = {
+      'User-Agent': 'Netlify-Function',
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': `token ${process.env.GITHUB_TOKEN}`,
+      ...options.headers
+    };
+
+    // Add Content-Length header if there's a body
+    if (bodyString) {
+      headers['Content-Length'] = Buffer.byteLength(bodyString);
+    }
+
     const req = https.request({
       hostname: 'api.github.com',
       path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}${path}`,
       method: options.method || 'GET',
-      headers: {
-        'User-Agent': 'Netlify-Function',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
-        ...options.headers
-      }
+      headers: headers
     }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -87,8 +95,8 @@ function githubRequest(path, options = {}) {
     });
 
     req.on('error', reject);
-    if (options.body) {
-      req.write(JSON.stringify(options.body));
+    if (bodyString) {
+      req.write(bodyString);
     }
     req.end();
   });
