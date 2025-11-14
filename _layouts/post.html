@@ -171,5 +171,8 @@ highlightjs: true
   </aside>
   {%- endif -%}
 
+  {%- comment -%} Comments Section {%- endcomment -%}
+  {%- include comments.html -%}
+
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>

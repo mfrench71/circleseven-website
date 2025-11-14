@@ -1,0 +1,372 @@
+<!-- Comments Section -->
+{% assign post_slug = page.slug | default: page.title | slugify %}
+
+<section class="comments-section" id="comments" data-post-slug="{{ post_slug }}">
+  <h3 class="comments-heading">
+    Comments
+    <span class="comments-count" id="comments-count" style="display:none;"></span>
+  </h3>
+
+  <!-- Existing Comments (loaded dynamically) -->
+  <div id="comments-loading" class="comments-loading">
+    <p>Loading comments...</p>
+  </div>
+  <div id="comments-list" class="comments-list" style="display:none;"></div>
+  <p id="no-comments" class="no-comments" style="display:none;">No comments yet. Be the first to comment!</p>
+
+  <!-- Comment Form -->
+  <div class="comment-form-container">
+    <h4>Leave a Comment</h4>
+    <form id="comment-form" class="comment-form" data-post-slug="{{ post_slug }}">
+      <div class="form-group">
+        <label for="comment-name">Name <span class="required">*</span></label>
+        <input
+          type="text"
+          id="comment-name"
+          name="name"
+          required
+          minlength="2"
+          maxlength="100"
+          placeholder="Your name"
+          autocomplete="name"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="comment-email">Email <span class="required">*</span></label>
+        <input
+          type="email"
+          id="comment-email"
+          name="email"
+          required
+          placeholder="your@email.com"
+          autocomplete="email"
+        >
+        <small class="form-help">Email is used for Gravatar only and will not be published.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="comment-message">Comment <span class="required">*</span></label>
+        <textarea
+          id="comment-message"
+          name="message"
+          required
+          minlength="10"
+          maxlength="5000"
+          rows="6"
+          placeholder="Write your comment here..."
+        ></textarea>
+        <small class="form-help character-count">0 / 5000 characters</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="comment-submit">
+          Post Comment
+        </button>
+        <span class="form-status" id="comment-status"></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+.comments-section {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e8e8e8;
+}
+
+.comments-heading {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.comments-count {
+  color: #666;
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+.no-comments {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.comments-list {
+  margin-bottom: 3rem;
+}
+
+.comment-form-container {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.comment-form-container h4 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.comment-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.comment-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.comment-form .required {
+  color: #e74c3c;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: #0d9488;
+}
+
+.comment-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-help {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.character-count {
+  text-align: right;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary {
+  background-color: #0d9488;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0f766e;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.form-status {
+  font-size: 0.875rem;
+}
+
+.form-status.success {
+  color: #27ae60;
+}
+
+.form-status.error {
+  color: #e74c3c;
+}
+
+.form-status.loading {
+  color: #666;
+}
+</style>
+
+<script>
+(function() {
+  const form = document.getElementById('comment-form');
+  if (!form) return;
+
+  const submitBtn = document.getElementById('comment-submit');
+  const statusEl = document.getElementById('comment-status');
+  const messageField = document.getElementById('comment-message');
+  const charCount = document.querySelector('.character-count');
+
+  // Character counter
+  if (messageField && charCount) {
+    messageField.addEventListener('input', function() {
+      const count = this.value.length;
+      charCount.textContent = `${count} / 5000 characters`;
+      if (count > 4800) {
+        charCount.style.color = '#e74c3c';
+      } else {
+        charCount.style.color = '#666';
+      }
+    });
+  }
+
+  // Form submission
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const postSlug = form.dataset.postSlug;
+    const formData = new FormData(form);
+
+    const data = {
+      postSlug: postSlug,
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    };
+
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Posting...';
+    statusEl.textContent = '';
+    statusEl.className = 'form-status loading';
+
+    try {
+      const response = await fetch('/.netlify/functions/comments-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        statusEl.textContent = '✓ Comment submitted! It will appear after moderation.';
+        statusEl.className = 'form-status success';
+        form.reset();
+        if (charCount) {
+          charCount.textContent = '0 / 5000 characters';
+          charCount.style.color = '#666';
+        }
+      } else {
+        throw new Error(result.message || 'Failed to submit comment');
+      }
+    } catch (error) {
+      statusEl.textContent = '✗ ' + error.message;
+      statusEl.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Post Comment';
+    }
+  });
+
+  // Load comments dynamically from API
+  async function loadComments() {
+    const section = document.getElementById('comments');
+    if (!section) return;
+
+    const postSlug = section.dataset.postSlug;
+    if (!postSlug) return;
+
+    const loadingEl = document.getElementById('comments-loading');
+    const listEl = document.getElementById('comments-list');
+    const noCommentsEl = document.getElementById('no-comments');
+    const countEl = document.getElementById('comments-count');
+
+    try {
+      const response = await fetch(`/.netlify/functions/comments-api?postSlug=${encodeURIComponent(postSlug)}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to load comments');
+      }
+
+      const data = await response.json();
+      const comments = data.comments || [];
+
+      // Hide loading
+      loadingEl.style.display = 'none';
+
+      // Update count
+      if (comments.length > 0) {
+        countEl.textContent = `(${comments.length})`;
+        countEl.style.display = 'inline';
+      }
+
+      if (comments.length === 0) {
+        noCommentsEl.style.display = 'block';
+      } else {
+        listEl.style.display = 'block';
+        renderComments(comments, listEl);
+      }
+    } catch (error) {
+      console.error('Failed to load comments:', error);
+      loadingEl.innerHTML = '<p class="error">Failed to load comments. Please try again later.</p>';
+    }
+  }
+
+  function renderComments(comments, container) {
+    container.innerHTML = comments.map(comment => {
+      const date = new Date(comment.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const gravatarUrl = `https://www.gravatar.com/avatar/${comment.emailHash}?s=80&d=retro`;
+
+      return `
+        <div class="comment-item">
+          <div class="comment-header">
+            <img src="${gravatarUrl}" alt="${escapeHtml(comment.name)}" class="comment-avatar">
+            <div class="comment-meta">
+              <strong class="comment-author">${escapeHtml(comment.name)}</strong>
+              <time class="comment-date">${date}</time>
+            </div>
+          </div>
+          <div class="comment-body">
+            ${escapeHtml(comment.message).replace(/\n/g, '<br>')}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Load comments on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadComments);
+  } else {
+    loadComments();
+  }
+})();
+</script>
