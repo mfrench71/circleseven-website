@@ -50,6 +50,17 @@ function getBlobStore() {
   if (!getStore) {
     throw new Error('Netlify Blobs not available');
   }
+
+  // Check if we have explicit environment configuration
+  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
+
+  // If both are available, pass them explicitly
+  if (siteID && token) {
+    return getStore({ name: STORE_NAME, siteID, token });
+  }
+
+  // Otherwise, let Netlify auto-configure (production functions)
   return getStore(STORE_NAME);
 }
 

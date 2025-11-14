@@ -7,19 +7,21 @@
 const { getStore } = require('@netlify/blobs');
 
 function getCommentsStore() {
-  // In Netlify Dev or production, getStore auto-configures
-  // Only pass siteID/token if explicitly set (e.g., for CI/CD)
-  const options = { name: 'comments' };
+  // In Netlify production, environment is auto-detected
+  // For local dev or CI/CD, need explicit configuration
+  const name = 'comments';
 
-  if (process.env.SITE_ID) {
-    options.siteID = process.env.SITE_ID;
+  // Check if we have explicit environment configuration
+  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
+
+  // If both are available, pass them explicitly
+  if (siteID && token) {
+    return getStore({ name, siteID, token });
   }
 
-  if (process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN) {
-    options.token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
-  }
-
-  return getStore(options);
+  // Otherwise, let Netlify auto-configure (production functions)
+  return getStore(name);
 }
 
 function generateCommentId() {
