@@ -184,67 +184,61 @@ function checkRateLimit(event) {
   requestCounts.set(clientIP, requests);
 
   if (requests.length > RATE_LIMIT) {
-    return {
-      statusCode: 429,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Rate limit exceeded' })
-    };
+    return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   return null;
 }
 
-// Response helpers (inline simple versions)
+// Response helpers (Functions v2 format - Web Response API)
 function successResponse(data, statusCode = 200, additionalHeaders = {}) {
-  return {
-    statusCode,
+  return new Response(JSON.stringify(data), {
+    status: statusCode,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       ...additionalHeaders
-    },
-    body: JSON.stringify(data)
-  };
+    }
+  });
 }
 
 function methodNotAllowedResponse() {
-  return {
-    statusCode: 405,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ error: 'Method not allowed' })
-  };
+  return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+    status: 405,
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
 
 function serverErrorResponse(error, options = {}) {
-  return {
-    statusCode: 500,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      error: 'Internal server error',
-      message: error.message,
-      ...(options.includeStack && { stack: error.stack })
-    })
-  };
+  return new Response(JSON.stringify({
+    error: 'Internal server error',
+    message: error.message,
+    ...(options.includeStack && { stack: error.stack })
+  }), {
+    status: 500,
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
 
 function corsPreflightResponse() {
-  return {
-    statusCode: 200,
+  return new Response('', {
+    status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS'
-    },
-    body: ''
-  };
+    }
+  });
 }
 
 function badRequestResponse(message) {
-  return {
-    statusCode: 400,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ error: message })
-  };
+  return new Response(JSON.stringify({ error: message }), {
+    status: 400,
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
 
 /**
