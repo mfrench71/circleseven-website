@@ -4,17 +4,21 @@
  * Stores comments in Netlify Blobs instead of Git for zero build consumption.
  */
 
-const { getStore, getDeployStore } = require('@netlify/blobs');
+const { getStore } = require('@netlify/blobs');
 
 const STORE_NAME = 'comments';
 
 function getCommentsStore() {
-  // In production Netlify Functions, use getDeployStore()
-  if (getDeployStore && process.env.NETLIFY) {
-    return getDeployStore(STORE_NAME);
+  // For production Netlify Functions, getStore auto-detects the environment
+  // For local dev, need to pass explicit config
+
+  // Check if running in production (Netlify sets these)
+  if (process.env.NETLIFY === 'true') {
+    // In production, just pass the name - auto-configures
+    return getStore(STORE_NAME);
   }
 
-  // In local dev, use getStore() with explicit config if available
+  // In local dev, need explicit siteID and token
   const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
   const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
 
@@ -22,7 +26,7 @@ function getCommentsStore() {
     return getStore({ name: STORE_NAME, siteID, token });
   }
 
-  // Fallback to getStore with just name
+  // Last fallback - try with just name (might work in some contexts)
   return getStore(STORE_NAME);
 }
 

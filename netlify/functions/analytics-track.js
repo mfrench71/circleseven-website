@@ -14,16 +14,14 @@
  * @module netlify/functions/analytics-track
  */
 
-let getStore, getDeployStore;
+let getStore;
 try {
   const blobs = require('@netlify/blobs');
   getStore = blobs.getStore;
-  getDeployStore = blobs.getDeployStore;
   console.log('[Analytics] @netlify/blobs loaded successfully');
 } catch (error) {
   console.error('[Analytics] Failed to load @netlify/blobs:', error);
   getStore = null;
-  getDeployStore = null;
 }
 
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
@@ -45,19 +43,20 @@ const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub 
 
 /**
  * Get blob store
- * Uses getDeployStore() in production, getStore() in local dev
+ * Uses getStore() which auto-detects production vs local dev
  */
 function getBlobStore() {
-  if (!getStore && !getDeployStore) {
+  if (!getStore) {
     throw new Error('Netlify Blobs not available');
   }
 
-  // In production Netlify Functions, use getDeployStore()
-  if (getDeployStore && process.env.NETLIFY) {
-    return getDeployStore(STORE_NAME);
+  // Check if running in production (Netlify sets NETLIFY=true)
+  if (process.env.NETLIFY === 'true') {
+    // In production, just pass the name - auto-configures
+    return getStore(STORE_NAME);
   }
 
-  // In local dev, use getStore() with explicit config if available
+  // In local dev, need explicit siteID and token
   const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
   const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
 
@@ -65,7 +64,7 @@ function getBlobStore() {
     return getStore({ name: STORE_NAME, siteID, token });
   }
 
-  // Fallback to getStore with just name
+  // Last fallback - try with just name
   return getStore(STORE_NAME);
 }
 
