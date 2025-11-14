@@ -548,11 +548,12 @@ describe('Media Module', () => {
 
   describe('copyMediaUrl', () => {
     it('copies URL to clipboard', async () => {
-      const url = 'https://cloudinary.com/image.jpg';
+      const publicId = 'folder/image.jpg';
 
-      await copyMediaUrl(url);
+      await copyMediaUrl(publicId);
 
-      expect(mockClipboard.writeText).toHaveBeenCalledWith(url);
+      // Should copy just the filename (without folder path)
+      expect(mockClipboard.writeText).toHaveBeenCalledWith('image.jpg');
     });
 
     it('shows success message after copying', async () => {
@@ -694,16 +695,17 @@ describe('Media Module', () => {
     });
 
     it('can copy URL and view full size', async () => {
-      const url = 'https://cloudinary.com/test.jpg';
+      const publicId = 'folder/test.jpg';
+      const url = 'https://cloudinary.com/folder/test.jpg';
 
-      // Copy URL
-      await copyMediaUrl(url);
-      expect(mockClipboard.writeText).toHaveBeenCalledWith(url);
+      // Copy URL (should copy just filename)
+      await copyMediaUrl(publicId);
+      expect(mockClipboard.writeText).toHaveBeenCalledWith('test.jpg');
 
       // View full size
       viewMediaFull(url);
       const modalImg = document.getElementById('image-modal-img');
-      expect(modalImg.src).toBe(url);
+      expect(modalImg.src).toContain('test.jpg'); // URL is optimized, so just check it contains the filename
     });
   });
 });

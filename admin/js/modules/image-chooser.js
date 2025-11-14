@@ -277,14 +277,34 @@ function updateChooserPagination(totalPages) {
   const prevBtn = document.getElementById('chooser-prev');
   const nextBtn = document.getElementById('chooser-next');
   const pageInfoEl = document.getElementById('chooser-page-info');
+  const currentPageEl = document.getElementById('chooser-current-page');
+  const totalPagesEl = document.getElementById('chooser-total-pages');
+  const paginationEl = document.getElementById('chooser-pagination');
+
+  // Show/hide pagination based on whether there are multiple pages
+  if (paginationEl) {
+    if (totalPages > 1) {
+      paginationEl.classList.remove('d-none');
+    } else {
+      paginationEl.classList.add('d-none');
+    }
+  }
 
   // Update pagination buttons
   if (prevBtn) prevBtn.disabled = chooserPage === 1;
   if (nextBtn) nextBtn.disabled = chooserPage === totalPages;
 
-  // Update page info text
+  // Update page info text (for backwards compatibility)
   if (pageInfoEl) {
     pageInfoEl.textContent = `Page ${chooserPage} of ${totalPages}`;
+  }
+
+  // Update individual page elements
+  if (currentPageEl) {
+    currentPageEl.textContent = String(chooserPage);
+  }
+  if (totalPagesEl) {
+    totalPagesEl.textContent = String(totalPages);
   }
 }
 

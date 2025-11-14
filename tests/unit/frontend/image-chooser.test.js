@@ -548,12 +548,12 @@ describe('Image Chooser Module', () => {
     });
 
     it('calls callback with extracted public_id', () => {
-      const imageUrl = 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/folder/test-image.jpg';
+      const publicId = 'folder/test-image.jpg';
 
-      selectChooserImage(imageUrl);
+      selectChooserImage(publicId);
 
-      // Should extract public_id from Cloudinary URL
-      expect(mockCallback).toHaveBeenCalledWith('folder/test-image');
+      // Should extract just the filename from public_id (without folder path)
+      expect(mockCallback).toHaveBeenCalledWith('test-image.jpg');
       expect(mockCallback).toHaveBeenCalledTimes(1);
     });
 
@@ -701,12 +701,12 @@ describe('Image Chooser Module', () => {
       grid = document.getElementById('chooser-grid');
       expect(grid.children.length).toBe(12);
 
-      // Select an image
-      const imageUrl = 'https://res.cloudinary.com/circleseven/image/upload/v1234567890/test-image-5.jpg';
-      selectChooserImage(imageUrl);
+      // Select an image (pass public_id directly, not URL)
+      const publicId = 'test-image-5.jpg';
+      selectChooserImage(publicId);
 
-      // Verify callback was called with public_id
-      expect(mockCallback).toHaveBeenCalledWith('test-image-5');
+      // Verify callback was called with just the filename
+      expect(mockCallback).toHaveBeenCalledWith('test-image-5.jpg');
     });
   });
 });
