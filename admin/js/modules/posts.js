@@ -796,10 +796,14 @@ export async function editPost(filename, updateUrl = true) {
     // Support both 'image' and 'featured_image' fields
     let imageUrl = window.currentPost.frontmatter.image || window.currentPost.frontmatter.featured_image || '';
 
-    // Convert relative paths to full URLs for HTML5 URL validation
-    if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
-      // Assume it's a partial Cloudinary path and construct full URL
-      imageUrl = `https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/${imageUrl}`;
+    // If it's a full Cloudinary URL, extract just the filename
+    if (imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'))) {
+      // Extract filename from full Cloudinary URL
+      // Matches: /upload/(optional v123/)(optional folder/)filename.ext
+      const match = imageUrl.match(/\/upload\/(?:v\d+\/)?(?:[^/]+\/)?([^/]+\.\w+)$/);
+      if (match) {
+        imageUrl = match[1]; // Just the filename with extension
+      }
     }
 
     document.getElementById('post-image').value = imageUrl;
