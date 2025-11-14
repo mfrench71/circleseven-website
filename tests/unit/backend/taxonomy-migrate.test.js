@@ -609,10 +609,4 @@ Content`;
     });
   });
 
-  describe('Rate Limiting', () => {
-    it.skip('applies rate limiting', async () => {
-      // Skip: This test times out due to GitHub API mocking delays
-      // Rate limiting is tested in dedicated rate-limiter.test.js
-    });
-  });
 });
