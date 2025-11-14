@@ -9,7 +9,6 @@ const { getStore } = require('@netlify/blobs');
 const STORE_NAME = 'comments';
 
 function getCommentsStore() {
-  // Just use getStore with the name - it auto-detects environment
   return getStore(STORE_NAME);
 }
 
