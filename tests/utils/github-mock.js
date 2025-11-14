@@ -65,28 +65,48 @@ export function mockGetFile(path, file) {
  * Mock PUT request to create/update file
  * @param {string} path - File path
  * @param {Object} response - Response object
+ * @param {Object} options - Additional options
+ * @param {boolean} options.validateHeaders - Validate Content-Length header (default: true)
  * @returns {nock.Scope}
  */
-export function mockPutFile(path, response) {
-  return mockGitHubAPI({
-    method: 'PUT',
-    path: `/repos/mfrench71/circleseven-website/contents/${path}`,
-    responseBody: response
-  });
+export function mockPutFile(path, response, options = {}) {
+  const { validateHeaders = true } = options;
+
+  const scope = nock(GITHUB_API)
+    .put(`/repos/mfrench71/circleseven-website/contents/${path}`);
+
+  if (validateHeaders) {
+    // Validate that Content-Length header is present and valid
+    scope.matchHeader('content-length', /^\d+$/);
+    // Validate that Content-Type is set for JSON
+    scope.matchHeader('content-type', 'application/json');
+  }
+
+  return scope.reply(200, response);
 }
 
 /**
  * Mock DELETE request to remove file
  * @param {string} path - File path
  * @param {Object} response - Response object
+ * @param {Object} options - Additional options
+ * @param {boolean} options.validateHeaders - Validate Content-Length header (default: true)
  * @returns {nock.Scope}
  */
-export function mockDeleteFile(path, response = { message: 'deleted' }) {
-  return mockGitHubAPI({
-    method: 'DELETE',
-    path: `/repos/mfrench71/circleseven-website/contents/${path}`,
-    responseBody: response
-  });
+export function mockDeleteFile(path, response = { message: 'deleted' }, options = {}) {
+  const { validateHeaders = true } = options;
+
+  const scope = nock(GITHUB_API)
+    .delete(`/repos/mfrench71/circleseven-website/contents/${path}`);
+
+  if (validateHeaders) {
+    // Validate that Content-Length header is present and valid
+    scope.matchHeader('content-length', /^\d+$/);
+    // Validate that Content-Type is set for JSON
+    scope.matchHeader('content-type', 'application/json');
+  }
+
+  return scope.reply(200, response);
 }
 
 /**
