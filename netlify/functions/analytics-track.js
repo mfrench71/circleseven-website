@@ -14,7 +14,7 @@
  * @module netlify/functions/analytics-track
  */
 
-const { getStore } = require('@netlify/blobs');
+const { loadAnalyticsData, saveAnalyticsData, purgeAnalyticsData } = require('../utils/analytics-blobs.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const {
   successResponse,
@@ -23,129 +23,6 @@ const {
   corsPreflightResponse,
   badRequestResponse
 } = require('../utils/response-helpers.cjs');
-
-const STORE_NAME = 'analytics';
-const DATA_KEY = 'analytics-data';
-
-// In-memory cache to reduce blob reads
-let cachedData = null;
-let cacheTime = null;
-const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub API limits)
-
-/**
- * Get blob store
- * Uses simple string approach for auto-detection
- */
-function getBlobStore() {
-  return getStore(STORE_NAME);
-}
-
-/**
- * Load analytics data from Netlify Blobs
- */
-async function loadData() {
-  // Return cached data if fresh
-  if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
-    console.log('[Analytics] Returning cached data');
-    return cachedData;
-  }
-
-  try {
-    console.log('[Analytics] Loading data from Blobs...');
-    const store = getBlobStore();
-
-    // DEBUG: List all keys in the store
-    try {
-      const { blobs } = await store.list();
-      console.log('[Analytics] DEBUG: Keys in store:', blobs ? blobs.map(b => b.key).join(', ') : 'none');
-    } catch (listError) {
-      console.log('[Analytics] DEBUG: Could not list keys:', listError.message);
-    }
-
-    const dataString = await store.get(DATA_KEY);
-    console.log('[Analytics] Raw data from Blobs:', dataString ? `Found (${dataString.length} bytes)` : 'Not found');
-
-    if (!dataString) {
-      // No data yet, return default
-      console.log('[Analytics] No data found, returning defaults');
-      const defaultData = {
-        pageViews: {},
-        uniqueVisitors: new Set(),
-        referrers: {},
-        browsers: {},
-        devices: {},
-        countries: {},
-        cities: {},
-        viewsByDay: {},
-        viewsByHour: {},
-        pageViewDetails: {},
-        sessions: {},
-        createdAt: new Date().toISOString()
-      };
-      cachedData = defaultData;
-      cacheTime = Date.now();
-      return defaultData;
-    }
-
-    const data = JSON.parse(dataString);
-    console.log('[Analytics] Parsed data, page views:', Object.keys(data.pageViews).length);
-
-    // Convert uniqueVisitors array back to Set for easier manipulation
-    data.uniqueVisitors = new Set(data.uniqueVisitors || []);
-
-    cachedData = data;
-    cacheTime = Date.now();
-    return data;
-  } catch (error) {
-    console.error('[Analytics] Failed to load analytics data:', error);
-    console.error('[Analytics] Error stack:', error.stack);
-    // Return default on error
-    return {
-      pageViews: {},
-      uniqueVisitors: new Set(),
-      referrers: {},
-      browsers: {},
-      devices: {},
-      countries: {},
-      cities: {},
-      viewsByDay: {},
-      viewsByHour: {},
-      pageViewDetails: {},
-      sessions: {},
-      createdAt: new Date().toISOString()
-    };
-  }
-}
-
-/**
- * Save analytics data to Netlify Blobs
- */
-async function saveData(data) {
-  try {
-    console.log('[Analytics] Attempting to save data...');
-    // Convert Set to array for JSON serialization
-    const dataToSave = {
-      ...data,
-      uniqueVisitors: Array.from(data.uniqueVisitors || [])
-    };
-
-    console.log('[Analytics] Getting blob store:', STORE_NAME);
-    const store = getBlobStore();
-    console.log('[Analytics] Store obtained, setting key:', DATA_KEY);
-    await store.set(DATA_KEY, JSON.stringify(dataToSave));
-    console.log('[Analytics] Data saved successfully');
-
-    // Update cache
-    cachedData = data;
-    cacheTime = Date.now();
-
-    return true;
-  } catch (error) {
-    console.error('[Analytics] Failed to save analytics data:', error);
-    console.error('[Analytics] Error stack:', error.stack);
-    throw error;
-  }
-}
 
 /**
  * Parse user agent to extract browser info
@@ -210,7 +87,7 @@ async function trackPageView(trackData) {
   const { path, referrer, sessionId, userAgent, timestamp, country, city } = trackData;
   const now = timestamp || new Date().toISOString();
 
-  const data = await loadData();
+  const data = await loadAnalyticsData();
 
   // Initialize enhanced data structures if they don't exist
   if (!data.devices) data.devices = {};
@@ -316,7 +193,7 @@ async function trackPageView(trackData) {
 
   // Save to Netlify Blobs (await to catch errors)
   try {
-    await saveData(data);
+    await saveAnalyticsData(data);
   } catch (err) {
     console.error('Failed to save analytics:', err);
     // Don't throw - still return tracked response even if save fails
@@ -411,33 +288,6 @@ function getStats(data) {
   };
 }
 
-/**
- * Purge all analytics data
- */
-async function purgeData() {
-  const newData = {
-    pageViews: {},
-    uniqueVisitors: [],
-    referrers: {},
-    browsers: {},
-    devices: {},
-    countries: {},
-    cities: {},
-    viewsByDay: {},
-    viewsByHour: {},
-    pageViewDetails: {},
-    sessions: {},
-    createdAt: new Date().toISOString()
-  };
-
-  await saveData(newData);
-
-  // Clear cache
-  cachedData = null;
-  cacheTime = null;
-
-  return newData;
-}
 
 /**
  * Main handler function
@@ -479,7 +329,7 @@ exports.handler = async (event, context) => {
 
     // GET - Retrieve stats
     if (event.httpMethod === 'GET') {
-      const data = await loadData();
+      const data = await loadAnalyticsData();
       const stats = getStats(data);
       return successResponse(stats, 200, {
         'Cache-Control': 'no-cache, no-store, must-revalidate'
@@ -488,7 +338,7 @@ exports.handler = async (event, context) => {
 
     // DELETE - Purge analytics data
     if (event.httpMethod === 'DELETE') {
-      await purgeData();
+      await purgeAnalyticsData();
 
       return successResponse({
         success: true,
