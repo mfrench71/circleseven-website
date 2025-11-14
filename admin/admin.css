@@ -492,6 +492,10 @@ table .btn-link {
 
 .modal-image-preview {
   max-height: 85vh;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .modal-scrollable-content {

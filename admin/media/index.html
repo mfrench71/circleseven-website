@@ -65,9 +65,9 @@
                   <i class="fas fa-times fa-lg"></i>
                 </button>
               </div>
-              <div class="modal-body p-0 position-relative min-vh-50">
+              <div class="modal-body p-0 position-relative" style="max-height: 85vh;">
                 <!-- Loading Spinner -->
-                <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                <div id="image-modal-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="z-index: 10;">
                   <div class="text-center">
                     <div class="spinner-border text-primary mb-3 spinner-lg" role="status">
                       <span class="visually-hidden">Loading...</span>
@@ -76,8 +76,8 @@
                   </div>
                 </div>
                 <!-- Image Container -->
-                <div class="d-flex align-items-center justify-content-center p-4">
-                  <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg img-fluid" class="modal-image-preview" />
+                <div class="d-flex align-items-center justify-content-center p-4" style="max-height: 85vh;">
+                  <img id="image-modal-img" src="" alt="Full size preview" class="d-none rounded shadow-lg modal-image-preview" />
                 </div>
               </div>
             </div>
