@@ -455,6 +455,7 @@ export function viewMediaFull(url) {
   const modalElement = document.getElementById('imageModal');
   const modalImg = document.getElementById('image-modal-img');
   const modalLoading = document.getElementById('image-modal-loading');
+  const modalContent = document.getElementById('image-modal-content');
 
   if (modalImg) {
     // Apply Cloudinary optimization: auto quality, auto format, max 2000px width for full-size viewing
@@ -464,9 +465,12 @@ export function viewMediaFull(url) {
     modalImg.classList.add('d-none');
     modalImg.src = '';
 
-    // Show loading spinner
+    // Show loading spinner, hide modal content
     if (modalLoading) {
       modalLoading.classList.remove('d-none');
+    }
+    if (modalContent) {
+      modalContent.classList.add('d-none');
     }
 
     // Load the image
@@ -474,6 +478,10 @@ export function viewMediaFull(url) {
       // Hide loading spinner
       if (modalLoading) {
         modalLoading.classList.add('d-none');
+      }
+      // Show modal content
+      if (modalContent) {
+        modalContent.classList.remove('d-none');
       }
       // Show image
       modalImg.classList.remove('d-none');
@@ -483,6 +491,10 @@ export function viewMediaFull(url) {
       // Hide loading spinner on error
       if (modalLoading) {
         modalLoading.classList.add('d-none');
+      }
+      // Show modal content even on error
+      if (modalContent) {
+        modalContent.classList.remove('d-none');
       }
       // Try to show the image anyway (fallback)
       modalImg.classList.remove('d-none');
