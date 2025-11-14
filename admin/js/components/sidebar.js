@@ -29,28 +29,41 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
-          <!-- Posts -->
+          <!-- Posts (with accordion submenu) -->
           <li class="mb-1">
-            <a
-              href="/admin/posts/"
-              class="sidebar-nav-item ${isActive('posts')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+            <button
+              onclick="togglePostsMenu()"
+              class="sidebar-nav-item ${isActive('posts') || isActive('taxonomy') || isActive('comments') ? 'active' : ''} d-flex align-items-center justify-content-between w-100 px-3 py-2 text-decoration-none border-0 ${isActive('posts') || isActive('taxonomy') || isActive('comments') ? '' : 'bg-transparent'}"
+              style="color: ${isActive('posts') || isActive('taxonomy') || isActive('comments') ? 'white' : '#6b7280'};"
               title="Posts"
             >
-              <i class="fas fa-file-alt fs-5" class="sidebar-icon"></i>
-              <span class="sidebar-nav-text">Posts</span>
-            </a>
-          </li>
-
-          <!-- Taxonomy -->
-          <li class="mb-1">
-            <a
-              href="/admin/taxonomy/"
-              class="sidebar-nav-item ${isActive('taxonomy')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
-              title="Taxonomy"
-            >
-              <i class="fas fa-tags fs-5" class="sidebar-icon"></i>
-              <span class="sidebar-nav-text">Taxonomy</span>
-            </a>
+              <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-file-alt fs-5" class="sidebar-icon"></i>
+                <span class="sidebar-nav-text">Posts</span>
+              </div>
+              <i class="fas fa-chevron-down sidebar-accordion-icon ${isActive('posts') || isActive('taxonomy') || isActive('comments') ? 'expanded' : ''}" id="posts-accordion-icon"></i>
+            </button>
+            <!-- Accordion Submenu -->
+            <ul class="sidebar-submenu ${isActive('posts') || isActive('taxonomy') || isActive('comments') ? 'show' : ''}" id="posts-submenu">
+              <li>
+                <a href="/admin/posts/" class="sidebar-submenu-item ${isActive('posts')}" title="All Posts">
+                  <i class="fas fa-list"></i>
+                  <span>All Posts</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/taxonomy/" class="sidebar-submenu-item ${isActive('taxonomy')}" title="Taxonomy">
+                  <i class="fas fa-tags"></i>
+                  <span>Taxonomy</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/comments/" class="sidebar-submenu-item ${isActive('comments')}" title="Comments">
+                  <i class="fas fa-comments"></i>
+                  <span>Comments</span>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <!-- Pages -->
@@ -77,16 +90,35 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
-          <!-- Analytics -->
+          <!-- Analytics (with accordion submenu) -->
           <li class="mb-1">
-            <a
-              href="/admin/analytics/"
-              class="sidebar-nav-item ${isActive('analytics')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+            <button
+              onclick="toggleAnalyticsMenu()"
+              class="sidebar-nav-item ${isActive('visitors') || isActive('content-health') ? 'active' : ''} d-flex align-items-center justify-content-between w-100 px-3 py-2 text-decoration-none border-0 ${isActive('visitors') || isActive('content-health') ? '' : 'bg-transparent'}"
+              style="color: ${isActive('visitors') || isActive('content-health') ? 'white' : '#6b7280'};"
               title="Analytics"
             >
-              <i class="fas fa-chart-line fs-5" class="sidebar-icon"></i>
-              <span class="sidebar-nav-text">Analytics</span>
-            </a>
+              <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-chart-line fs-5" class="sidebar-icon"></i>
+                <span class="sidebar-nav-text">Analytics</span>
+              </div>
+              <i class="fas fa-chevron-down sidebar-accordion-icon ${isActive('visitors') || isActive('content-health') ? 'expanded' : ''}" id="analytics-accordion-icon"></i>
+            </button>
+            <!-- Accordion Submenu -->
+            <ul class="sidebar-submenu ${isActive('visitors') || isActive('content-health') ? 'show' : ''}" id="analytics-submenu">
+              <li>
+                <a href="/admin/analytics/visitors/" class="sidebar-submenu-item ${isActive('visitors')}" title="Visitors">
+                  <i class="fas fa-users"></i>
+                  <span>Visitors</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/analytics/content-health/" class="sidebar-submenu-item ${isActive('content-health')}" title="Content Health">
+                  <i class="fas fa-heartbeat"></i>
+                  <span>Content Health</span>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <!-- Bin -->
@@ -148,6 +180,53 @@ export function initSidebar(activePage = 'dashboard') {
     sidebarContainer.innerHTML = renderSidebar(activePage);
   }
 }
+
+/**
+ * Close all accordion menus
+ */
+function closeAllAccordions() {
+  const allSubmenus = document.querySelectorAll('.sidebar-submenu');
+  const allIcons = document.querySelectorAll('.sidebar-accordion-icon');
+
+  allSubmenus.forEach(submenu => submenu.classList.remove('show'));
+  allIcons.forEach(icon => icon.classList.remove('expanded'));
+}
+
+/**
+ * Toggle Posts accordion menu
+ */
+window.togglePostsMenu = function() {
+  const submenu = document.getElementById('posts-submenu');
+  const icon = document.getElementById('posts-accordion-icon');
+  const isOpen = submenu && submenu.classList.contains('show');
+
+  // Close all accordions first
+  closeAllAccordions();
+
+  // If this menu wasn't open, open it
+  if (!isOpen && submenu && icon) {
+    submenu.classList.add('show');
+    icon.classList.add('expanded');
+  }
+};
+
+/**
+ * Toggle Analytics accordion menu
+ */
+window.toggleAnalyticsMenu = function() {
+  const submenu = document.getElementById('analytics-submenu');
+  const icon = document.getElementById('analytics-accordion-icon');
+  const isOpen = submenu && submenu.classList.contains('show');
+
+  // Close all accordions first
+  closeAllAccordions();
+
+  // If this menu wasn't open, open it
+  if (!isOpen && submenu && icon) {
+    submenu.classList.add('show');
+    icon.classList.add('expanded');
+  }
+};
 
 /**
  * Toggle sidebar collapse/expand

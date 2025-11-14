@@ -78,6 +78,27 @@ body.sidebar-collapsed #main-content-wrapper {
   border-radius: 0.375rem;
 }
 
+/* Button variant of nav items - override Bootstrap defaults */
+button.sidebar-nav-item {
+  text-align: left;
+  cursor: pointer;
+  color: #6b7280 !important;
+  font-weight: 400;
+}
+
+button.sidebar-nav-item i {
+  color: #6b7280;
+}
+
+button.sidebar-nav-item:hover:not(.active) {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+button.sidebar-nav-item:hover:not(.active) i {
+  color: #111827;
+}
+
 .sidebar-nav-item:hover {
   background-color: #f3f4f6;
   color: #111827;
@@ -110,34 +131,62 @@ body.sidebar-collapsed .sidebar-collapse-icon {
   transform: rotate(180deg);
 }
 
-/* Sidebar flyout menu */
-.sidebar-nav-item-with-flyout {
-  position: relative;
+/* Sidebar accordion menu */
+.sidebar-accordion-icon {
+  transition: transform 0.2s ease;
+  font-size: 0.875rem;
 }
 
-.sidebar-flyout-menu {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  min-width: 200px;
-  margin-left: 0.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0.15s ease;
-  z-index: 1040;
+.sidebar-accordion-icon.expanded {
+  transform: rotate(180deg);
 }
 
-.sidebar-nav-item-with-flyout:hover .sidebar-flyout-menu {
-  opacity: 1;
-  visibility: visible;
+.sidebar-submenu {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
-.sidebar-flyout-menu a.active {
-  background-color: #0d9488;
-  color: white;
+.sidebar-submenu.show {
+  max-height: 300px;
 }
 
-body.sidebar-collapsed .sidebar-flyout-menu {
+.sidebar-submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 3rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-submenu-item:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.sidebar-submenu-item.active {
+  background-color: #e0f2f1;
+  color: #0d9488;
+  font-weight: 500;
+}
+
+.sidebar-submenu-item i {
+  width: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* Hide submenu text when sidebar is collapsed */
+body.sidebar-collapsed .sidebar-submenu {
+  display: none;
+}
+
+body.sidebar-collapsed .sidebar-accordion-icon {
   display: none;
 }
 
