@@ -475,8 +475,8 @@ exports.handler = async (event, context) => {
       }
 
       // Extract geographic data from Netlify edge headers (privacy-friendly, no IP storage)
-      const country = event.headers['x-country-code'] || event.headers['X-Country-Code'];
-      const city = event.headers['x-city'] || event.headers['X-City'];
+      const country = event.headers['x-nf-country-code'] || event.headers['X-Nf-Country-Code'];
+      const city = event.headers['x-nf-city'] || event.headers['X-Nf-City'];
 
       // Add geographic data to trackData
       trackData.country = country;
