@@ -37,15 +37,13 @@ find admin -name "*.bak" -type f -delete
 
 echo "Cache busting complete. Updated to version: $CACHE_BUST"
 
-# TODO: Re-enable tests before building once test suite is fixed
-# Currently disabled due to pre-existing test failures that need to be resolved
-# echo "Running tests..."
-# npm run test
-# if [ $? -ne 0 ]; then
-#   echo "Tests failed! Build aborted."
-#   exit 1
-# fi
-# echo "Tests passed!"
+echo "Running tests..."
+npm run test
+if [ $? -ne 0 ]; then
+  echo "Tests failed! Build aborted."
+  exit 1
+fi
+echo "Tests passed!"
 
 # Run Jekyll build
 bundle exec jekyll build
