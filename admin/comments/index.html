@@ -55,28 +55,46 @@
 
           <h2 class="h5 fw-bold mb-4">Comments</h2>
 
-          <!-- Pending Comments Section -->
+          <!-- Filter Tabs -->
+          <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pending-tab" onclick="switchFilter('pending')" type="button">
+                <i class="fas fa-clock me-1"></i>
+                Pending
+                <span id="pending-count" class="badge bg-warning ms-1">0</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="approved-tab" onclick="switchFilter('approved')" type="button">
+                <i class="fas fa-check-circle me-1"></i>
+                Approved
+                <span id="approved-count" class="badge bg-success ms-1">0</span>
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="all-tab" onclick="switchFilter('all')" type="button">
+                <i class="fas fa-comments me-1"></i>
+                All
+                <span id="all-count" class="badge bg-secondary ms-1">0</span>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Comments Section -->
           <div class="card shadow-sm mb-4">
-            <div class="card-header bg-warning bg-opacity-10">
-              <h2 class="h6 mb-0">
-                <i class="fas fa-clock text-warning me-2"></i>
-                Pending Comments
-                <span id="pending-count" class="badge bg-warning ms-2">0</span>
-              </h2>
-            </div>
             <div class="card-body">
-              <div id="pending-comments-loading" class="text-center py-5 text-muted">
+              <div id="comments-loading" class="text-center py-5 text-muted">
                 <div class="spinner-border text-primary mb-2" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
-                <p class="mb-0">Loading pending comments...</p>
+                <p class="mb-0">Loading comments...</p>
               </div>
-              <div id="pending-comments-list" class="d-none">
-                <!-- Pending comments will be rendered here -->
+              <div id="comments-list" class="d-none">
+                <!-- Comments will be rendered here -->
               </div>
-              <div id="pending-comments-empty" class="d-none text-center py-4 text-muted">
+              <div id="comments-empty" class="d-none text-center py-4 text-muted">
                 <i class="fas fa-check-circle fa-3x mb-2"></i>
-                <p class="mb-0">No pending comments. All caught up!</p>
+                <p class="mb-0">No comments found.</p>
               </div>
             </div>
           </div>
@@ -155,12 +173,26 @@
       });
     };
 
+    // Current filter state
+    let currentFilter = 'pending';
+
+    // Switch filter tab
+    window.switchFilter = function(filter) {
+      currentFilter = filter;
+
+      // Update tab states
+      document.querySelectorAll('.nav-link').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(`${filter}-tab`).classList.add('active');
+
+      // Reload comments with new filter
+      loadComments(filter);
+    };
+
     // Load comments from API
-    window.loadComments = async function() {
-      const loadingEl = document.getElementById('pending-comments-loading');
-      const listEl = document.getElementById('pending-comments-list');
-      const emptyEl = document.getElementById('pending-comments-empty');
-      const countEl = document.getElementById('pending-count');
+    window.loadComments = async function(filter = 'pending') {
+      const loadingEl = document.getElementById('comments-loading');
+      const listEl = document.getElementById('comments-list');
+      const emptyEl = document.getElementById('comments-empty');
 
       // Show loading state
       loadingEl.classList.remove('d-none');
@@ -168,17 +200,37 @@
       emptyEl.classList.add('d-none');
 
       try {
-        const response = await fetch('/.netlify/functions/comments-moderate');
+        // Fetch all comments to get counts for all tabs
+        const [pendingRes, approvedRes, allRes] = await Promise.all([
+          fetch('/.netlify/functions/comments-moderate?filter=pending'),
+          fetch('/.netlify/functions/comments-moderate?filter=approved'),
+          fetch('/.netlify/functions/comments-moderate?filter=all')
+        ]);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (!pendingRes.ok || !approvedRes.ok || !allRes.ok) {
+          throw new Error('Failed to load comments');
         }
 
-        const data = await response.json();
-        const comments = data.comments || [];
+        const [pendingData, approvedData, allData] = await Promise.all([
+          pendingRes.json(),
+          approvedRes.json(),
+          allRes.json()
+        ]);
 
-        // Update count
-        countEl.textContent = comments.length;
+        // Update all counts
+        document.getElementById('pending-count').textContent = pendingData.count || 0;
+        document.getElementById('approved-count').textContent = approvedData.count || 0;
+        document.getElementById('all-count').textContent = allData.count || 0;
+
+        // Get comments for current filter
+        let comments = [];
+        if (filter === 'pending') {
+          comments = pendingData.comments || [];
+        } else if (filter === 'approved') {
+          comments = approvedData.comments || [];
+        } else {
+          comments = allData.comments || [];
+        }
 
         // Hide loading
         loadingEl.classList.add('d-none');
@@ -203,38 +255,53 @@
 
     // Render comments list
     function renderComments(comments, container) {
-      container.innerHTML = comments.map(comment => `
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-start mb-2">
-              <div>
-                <h5 class="h6 fw-bold mb-1">Comment on: ${escapeHtml(comment.postSlug)}</h5>
-                <p class="text-muted small mb-0">
-                  <i class="fas fa-user me-1"></i>
-                  By ${escapeHtml(comment.name)}
-                  <span class="mx-2">•</span>
-                  <i class="fas fa-clock me-1"></i>
-                  ${new Date(comment.date).toLocaleString()}
-                </p>
+      container.innerHTML = comments.map(comment => {
+        const isApproved = comment.approved === true;
+        const statusBadge = isApproved
+          ? '<span class="badge bg-success">Approved</span>'
+          : '<span class="badge bg-warning">Pending</span>';
+
+        const actions = isApproved
+          ? `<button onclick="deleteComment('${comment.id}', '${comment.postSlug}')" class="btn btn-danger btn-sm">
+               <i class="fas fa-trash me-1"></i>
+               Delete
+             </button>`
+          : `<button onclick="approveComment('${comment.id}', '${comment.postSlug}')" class="btn btn-success btn-sm">
+               <i class="fas fa-check me-1"></i>
+               Approve
+             </button>
+             <button onclick="rejectComment('${comment.id}', '${comment.postSlug}')" class="btn btn-danger btn-sm">
+               <i class="fas fa-times me-1"></i>
+               Reject
+             </button>`;
+
+        return `
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="h6 fw-bold mb-1">Comment on: ${escapeHtml(comment.postSlug)}</h5>
+                  <p class="text-muted small mb-0">
+                    <i class="fas fa-user me-1"></i>
+                    By ${escapeHtml(comment.name)}
+                    <span class="mx-2">•</span>
+                    <i class="fas fa-clock me-1"></i>
+                    ${new Date(comment.date).toLocaleString()}
+                    ${isApproved ? `<span class="mx-2">•</span><i class="fas fa-check-circle me-1"></i>${new Date(comment.approvedAt).toLocaleString()}` : ''}
+                  </p>
+                </div>
+                ${statusBadge}
               </div>
-              <span class="badge bg-warning">Pending</span>
-            </div>
-            <div class="bg-light p-3 rounded mb-3">
-              <p class="mb-0 text-break">${escapeHtml(comment.message).replace(/\n/g, '<br>')}</p>
-            </div>
-            <div class="d-flex gap-2">
-              <button onclick="approveComment('${comment.id}', '${comment.postSlug}')" class="btn btn-success btn-sm">
-                <i class="fas fa-check me-1"></i>
-                Approve
-              </button>
-              <button onclick="rejectComment('${comment.id}', '${comment.postSlug}')" class="btn btn-danger btn-sm">
-                <i class="fas fa-times me-1"></i>
-                Reject
-              </button>
+              <div class="bg-light p-3 rounded mb-3">
+                <p class="mb-0 text-break">${escapeHtml(comment.message).replace(/\n/g, '<br>')}</p>
+              </div>
+              <div class="d-flex gap-2">
+                ${actions}
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     // Approve comment
@@ -261,8 +328,8 @@
         successEl.classList.remove('d-none');
         setTimeout(() => successEl.classList.add('d-none'), 3000);
 
-        // Reload comments
-        await loadComments();
+        // Reload comments with current filter
+        await loadComments(currentFilter);
       } catch (error) {
         const errorEl = document.getElementById('error');
         errorEl.querySelector('p').textContent = error.message;
@@ -295,8 +362,40 @@
         successEl.classList.remove('d-none');
         setTimeout(() => successEl.classList.add('d-none'), 3000);
 
-        // Reload comments
-        await loadComments();
+        // Reload comments with current filter
+        await loadComments(currentFilter);
+      } catch (error) {
+        const errorEl = document.getElementById('error');
+        errorEl.querySelector('p').textContent = error.message;
+        errorEl.classList.remove('d-none');
+        setTimeout(() => errorEl.classList.add('d-none'), 5000);
+      }
+    };
+
+    // Delete comment (for approved comments)
+    window.deleteComment = async function(commentId, postSlug) {
+      if (!confirm('Delete this comment permanently? This action cannot be undone.')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/.netlify/functions/comments-moderate?commentId=${encodeURIComponent(commentId)}&postSlug=${encodeURIComponent(postSlug)}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || 'Failed to delete comment');
+        }
+
+        // Show success message
+        const successEl = document.getElementById('success');
+        successEl.querySelector('p').textContent = '✓ Comment deleted successfully.';
+        successEl.classList.remove('d-none');
+        setTimeout(() => successEl.classList.add('d-none'), 3000);
+
+        // Reload comments with current filter
+        await loadComments(currentFilter);
       } catch (error) {
         const errorEl = document.getElementById('error');
         errorEl.querySelector('p').textContent = error.message;

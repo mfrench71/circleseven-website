@@ -40,6 +40,57 @@ async function getPendingComments() {
   }
 }
 
+async function getApprovedComments() {
+  const store = getCommentsStore();
+
+  try {
+    // List all blobs to find approved-comments-* keys
+    const { blobs } = await store.list();
+    const approvedKeys = blobs
+      .filter(b => b.key.startsWith('approved-comments-'))
+      .map(b => b.key);
+
+    // Get all approved comment IDs from all posts
+    const approvedListsPromises = approvedKeys.map(async (key) => {
+      const postSlug = key.replace('approved-comments-', '');
+      const list = await store.get(key, { type: 'json' }) || [];
+      return list.map(id => ({ id, postSlug }));
+    });
+
+    const approvedLists = await Promise.all(approvedListsPromises);
+    const allApprovedItems = approvedLists.flat();
+
+    // Fetch actual comment data
+    const comments = await Promise.all(
+      allApprovedItems.map(async ({ id, postSlug }) => {
+        try {
+          const comment = await store.get(postSlug + '/' + id, { type: 'json' });
+          return comment;
+        } catch (error) {
+          console.warn('Failed to load approved comment ' + id + ':', error.message);
+          return null;
+        }
+      })
+    );
+
+    return comments.filter(c => c !== null);
+  } catch (error) {
+    console.error('Error getting approved comments:', error);
+    return [];
+  }
+}
+
+async function getAllComments() {
+  const [pending, approved] = await Promise.all([
+    getPendingComments(),
+    getApprovedComments()
+  ]);
+
+  return [...pending, ...approved].sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+}
+
 async function approveComment(commentId, postSlug) {
   const store = getCommentsStore();
   const key = postSlug + '/' + commentId;
@@ -136,7 +187,7 @@ function corsPreflightResponse() {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+      'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS'
     }
   });
 }
@@ -205,13 +256,24 @@ export default async function handler(request, context) {
   }
 
   try {
-    // GET - List pending comments
+    // GET - List comments (supports filter parameter: all, pending, approved)
     if (method === 'GET') {
-      const pendingComments = await getPendingComments();
+      const url = new URL(request.url);
+      const filter = url.searchParams.get('filter') || 'pending'; // Default to pending for backward compatibility
+
+      let comments;
+      if (filter === 'all') {
+        comments = await getAllComments();
+      } else if (filter === 'approved') {
+        comments = await getApprovedComments();
+      } else {
+        comments = await getPendingComments();
+      }
 
       return successResponse({
-        comments: pendingComments,
-        count: pendingComments.length
+        comments,
+        count: comments.length,
+        filter
       }, 200, {
         'Cache-Control': 'no-cache, no-store, must-revalidate'
       });
@@ -252,6 +314,26 @@ export default async function handler(request, context) {
         success: true,
         action,
         ...result
+      });
+    }
+
+    // DELETE - Delete a comment (works for both pending and approved)
+    if (method === 'DELETE') {
+      const url = new URL(request.url);
+      const commentId = url.searchParams.get('commentId');
+      const postSlug = url.searchParams.get('postSlug');
+
+      if (!commentId || !postSlug) {
+        return badRequestResponse('Missing required parameters: commentId, postSlug');
+      }
+
+      console.log(`[Comments] Deleting comment ${commentId} on ${postSlug}`);
+      await deleteComment(commentId, postSlug);
+
+      return successResponse({
+        success: true,
+        message: 'Comment deleted successfully',
+        commentId
       });
     }
 

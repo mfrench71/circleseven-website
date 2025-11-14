@@ -215,7 +215,18 @@ export default async function handler(request, context) {
     }
 
     // Validate required fields
-    const { postSlug, name, email, message, replyTo } = data;
+    const { postSlug, name, email, message, replyTo, website } = data;
+
+    // Honeypot check - 'website' field should be empty (bots fill it, humans don't see it)
+    if (website) {
+      console.log('[Comments] Honeypot triggered - spam detected');
+      // Return success to fool bots, but don't actually store the comment
+      return successResponse({
+        success: true,
+        message: 'Comment submitted successfully and is awaiting moderation',
+        commentId: 'spam-' + Date.now()
+      }, 201);
+    }
 
     if (!postSlug || !name || !email || !message) {
       return badRequestResponse('Missing required fields: postSlug, name, email, message');

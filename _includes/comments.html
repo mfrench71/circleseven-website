@@ -59,6 +59,19 @@
         <small class="form-help character-count">0 / 5000 characters</small>
       </div>
 
+      <!-- Honeypot field - hidden from humans, filled by bots -->
+      <div class="honeypot-field">
+        <label for="comment-website">Website</label>
+        <input
+          type="text"
+          id="comment-website"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          placeholder="Your website URL"
+        >
+      </div>
+
       <div class="form-actions">
         <button type="submit" class="btn btn-primary" id="comment-submit">
           Post Comment
@@ -160,6 +173,16 @@
   text-align: right;
 }
 
+/* Honeypot field - hidden from humans, visible to bots */
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-actions {
   display: flex;
   align-items: center;
@@ -245,7 +268,8 @@
       postSlug: postSlug,
       name: formData.get('name'),
       email: formData.get('email'),
-      message: formData.get('message')
+      message: formData.get('message'),
+      website: formData.get('website') || '' // Honeypot field
     };
 
     // Disable submit button
