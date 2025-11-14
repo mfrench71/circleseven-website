@@ -9,24 +9,7 @@ const { getStore } = require('@netlify/blobs');
 const STORE_NAME = 'comments';
 
 function getCommentsStore() {
-  // For production Netlify Functions, getStore auto-detects the environment
-  // For local dev, need to pass explicit config
-
-  // Check if running in production (Netlify sets these)
-  if (process.env.NETLIFY === 'true') {
-    // In production, just pass the name - auto-configures
-    return getStore(STORE_NAME);
-  }
-
-  // In local dev, need explicit siteID and token
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
-
-  if (siteID && token) {
-    return getStore({ name: STORE_NAME, siteID, token });
-  }
-
-  // Last fallback - try with just name (might work in some contexts)
+  // Just use getStore with the name - it auto-detects environment
   return getStore(STORE_NAME);
 }
 

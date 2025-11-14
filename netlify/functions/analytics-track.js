@@ -42,29 +42,13 @@ let cacheTime = null;
 const CACHE_TTL = 30000; // 30 seconds (more aggressive caching since no GitHub API limits)
 
 /**
- * Get blob store
- * Uses getStore() which auto-detects production vs local dev
+ * Get blob store - auto-detects environment
  */
 function getBlobStore() {
   if (!getStore) {
     throw new Error('Netlify Blobs not available');
   }
-
-  // Check if running in production (Netlify sets NETLIFY=true)
-  if (process.env.NETLIFY === 'true') {
-    // In production, just pass the name - auto-configures
-    return getStore(STORE_NAME);
-  }
-
-  // In local dev, need explicit siteID and token
-  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
-  const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_AUTH_TOKEN;
-
-  if (siteID && token) {
-    return getStore({ name: STORE_NAME, siteID, token });
-  }
-
-  // Last fallback - try with just name
+  // Just use getStore with the name - it auto-detects environment
   return getStore(STORE_NAME);
 }
 
