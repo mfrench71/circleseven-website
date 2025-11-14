@@ -293,8 +293,9 @@ function getStats(data) {
 
 /**
  * Main handler function
+ * Using Functions v2 format for Blobs support
  */
-exports.handler = async (event, context) => {
+export default async function handler(event, context) {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
@@ -354,4 +355,4 @@ exports.handler = async (event, context) => {
     console.error('Analytics tracking error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
-};
+}
