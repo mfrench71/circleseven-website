@@ -10,7 +10,11 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import { mockWorkflowRuns, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/deployment-history.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/deployment-history.mjs';
+
+// Wrap v2 handler to accept v1 event objects (for test compatibility)
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Deployment History Function', () => {
   beforeEach(() => {
