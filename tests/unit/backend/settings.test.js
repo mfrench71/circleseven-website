@@ -601,4 +601,105 @@ describe('Settings Function', () => {
       expect(body.message).toContain('plugins');
     });
   });
+
+  describe('Blob Cache Integration', () => {
+    it('GET works correctly with Blob cache (graceful fallback)', async () => {
+      const event = {
+        httpMethod: 'GET'
+      };
+
+      // Blob cache will fail to initialize in test environment
+      // Function should gracefully fall back to GitHub
+      const configYaml = `
+title: Circle Seven
+description: Tech blog
+author: Matthew French
+email: test@example.com
+paginate: 12
+      `;
+
+      mockGetFile('_config.yml', {
+        content: Buffer.from(configYaml).toString('base64'),
+        sha: 'abc123'
+      });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+      expect(body.title).toBe('Circle Seven');
+      expect(body.description).toBe('Tech blog');
+      expect(body.author).toBe('Matthew French');
+      expect(body.email).toBe('test@example.com');
+      expect(body.paginate).toBe(12);
+    });
+
+    it('PUT works correctly with Blob cache (graceful fallback)', async () => {
+      const event = {
+        httpMethod: 'PUT',
+        body: JSON.stringify({
+          title: 'Updated Title',
+          description: 'Updated Description'
+        })
+      };
+
+      // GET current file for SHA
+      const configYaml = `title: Old Title\ndescription: Old Description\nauthor: Test`;
+      mockGetFile('_config.yml', {
+        content: Buffer.from(configYaml).toString('base64'),
+        sha: 'current-sha-123'
+      });
+
+      // PUT updated file
+      mockPutFile('_config.yml', {
+        commit: { sha: 'new-commit-sha-456' }
+      });
+
+      const response = await handler(event, {});
+
+      // Should succeed even if Blob cache fails to write
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+      expect(body.success).toBe(true);
+      expect(body.commitSha).toBe('new-commit-sha-456');
+      expect(body.message).toContain('Settings updated successfully');
+    });
+
+    it('GET only returns whitelisted fields', async () => {
+      const event = {
+        httpMethod: 'GET'
+      };
+
+      // Config includes both safe and dangerous fields
+      const configYaml = `
+title: Circle Seven
+description: Tech blog
+author: Matthew French
+plugins:
+  - evil-plugin
+destination: /etc/passwd
+theme: malicious
+      `;
+
+      mockGetFile('_config.yml', {
+        content: Buffer.from(configYaml).toString('base64'),
+        sha: 'abc123'
+      });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+
+      // Should only include whitelisted fields
+      expect(body.title).toBe('Circle Seven');
+      expect(body.description).toBe('Tech blog');
+      expect(body.author).toBe('Matthew French');
+
+      // Should NOT include dangerous fields
+      expect(body.plugins).toBeUndefined();
+      expect(body.destination).toBeUndefined();
+      expect(body.theme).toBeUndefined();
+    });
+  });
 });

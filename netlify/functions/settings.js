@@ -16,6 +16,7 @@
  */
 
 const yaml = require('js-yaml');
+const { getStore } = require('@netlify/blobs');
 const { settingsSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
@@ -29,6 +30,8 @@ const {
 } = require('../utils/response-helpers.cjs');
 
 const FILE_PATH = '_config.yml';
+const BLOB_CACHE_KEY = 'settings.json';
+const CACHE_TTL_HOURS = 24;
 
 /**
  * Editable settings whitelist for security
@@ -52,6 +55,54 @@ const EDITABLE_FIELDS = [
   'google_fonts',
   'cloudinary_default_folder'
 ];
+
+/**
+ * Reads settings from Blob cache
+ * @returns {Promise<Object|null>} Cached settings data or null if not available/expired
+ */
+async function readSettingsFromBlob() {
+  try {
+    const store = getStore('cache');
+    const cached = await store.get(BLOB_CACHE_KEY, { type: 'json' });
+
+    if (!cached) {
+      return null;
+    }
+
+    // Check if cache is still valid
+    const cacheAge = Date.now() - cached.timestamp;
+    const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
+
+    if (cacheAge > maxAge) {
+      console.log('[Settings] Blob cache expired');
+      return null;
+    }
+
+    console.log('[Settings] Serving from Blob cache');
+    return cached.data;
+  } catch (error) {
+    console.error('[Settings] Error reading from Blob:', error);
+    return null;
+  }
+}
+
+/**
+ * Writes settings to Blob cache
+ * @param {Object} settingsData - Settings data to cache
+ */
+async function writeSettingsToBlob(settingsData) {
+  try {
+    const store = getStore('cache');
+    await store.setJSON(BLOB_CACHE_KEY, {
+      timestamp: Date.now(),
+      data: settingsData
+    });
+    console.log('[Settings] Written to Blob cache');
+  } catch (error) {
+    console.error('[Settings] Error writing to Blob:', error);
+    // Don't throw - cache write failure shouldn't break the request
+  }
+}
 
 /**
  * Netlify Function Handler - Settings Management
@@ -106,8 +157,17 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // GET - Read settings from _config.yml
+    // GET - Read settings from Blob cache or _config.yml
     if (event.httpMethod === 'GET') {
+      // Try to read from Blob cache first
+      let cachedSettings = await readSettingsFromBlob();
+
+      if (cachedSettings) {
+        return successResponse(cachedSettings);
+      }
+
+      // Cache miss - read from GitHub
+      console.log('[Settings] Cache miss, reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 
@@ -125,6 +185,9 @@ exports.handler = async (event, context) => {
           settings[field] = config[field];
         }
       });
+
+      // Write to Blob cache for future requests
+      await writeSettingsToBlob(settings);
 
       return successResponse(settings);
     }
@@ -188,6 +251,15 @@ exports.handler = async (event, context) => {
           branch: GITHUB_BRANCH
         }
       });
+
+      // Update Blob cache with new settings
+      const updatedSettings = {};
+      EDITABLE_FIELDS.forEach(field => {
+        if (config.hasOwnProperty(field)) {
+          updatedSettings[field] = config[field];
+        }
+      });
+      await writeSettingsToBlob(updatedSettings);
 
       return successResponse({
         success: true,

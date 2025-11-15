@@ -566,4 +566,105 @@ describe('Taxonomy Function', () => {
       delete process.env.NODE_ENV;
     });
   });
+
+  describe('Blob Cache Integration', () => {
+    it('GET works correctly with Blob cache (graceful fallback)', async () => {
+      const event = {
+        httpMethod: 'GET'
+      };
+
+      // Blob cache will fail to initialize in test environment
+      // Function should gracefully fall back to GitHub
+      const taxonomy = {
+        categories: [
+          { item: 'Technology' },
+          { item: 'Life' }
+        ],
+        tags: [
+          { item: 'JavaScript' }
+        ]
+      };
+
+      const yamlContent = yaml.dump(taxonomy);
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(yamlContent).toString('base64'),
+        sha: 'abc123'
+      });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+      expect(body.categories).toEqual(['Technology', 'Life']);
+      expect(body.tags).toEqual(['JavaScript']);
+      expect(body.categoriesTree).toBeDefined();
+      expect(body.tagsTree).toBeDefined();
+    });
+
+    it('PUT works correctly with Blob cache (graceful fallback)', async () => {
+      const event = {
+        httpMethod: 'PUT',
+        body: JSON.stringify({
+          categories: ['New Tech', 'New Life'],
+          tags: ['TypeScript', 'Rust']
+        })
+      };
+
+      // GET current file for SHA
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('old content').toString('base64'),
+        sha: 'current-sha-123'
+      });
+
+      // PUT updated file
+      mockPutFile('_data/taxonomy.yml', {
+        commit: { sha: 'new-commit-sha-456' }
+      });
+
+      const response = await handler(event, {});
+
+      // Should succeed even if Blob cache fails to write
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+      expect(body.success).toBe(true);
+      expect(body.commitSha).toBe('new-commit-sha-456');
+      expect(body.message).toContain('Taxonomy updated successfully');
+    });
+
+    it('PUT with hierarchical structure works correctly', async () => {
+      const event = {
+        httpMethod: 'PUT',
+        body: JSON.stringify({
+          categories: ['Parent Category'],
+          tags: ['Tag1'],
+          categoriesTree: [
+            {
+              item: 'Parent Category',
+              slug: 'parent',
+              children: [
+                { item: 'Child Category', slug: 'child' }
+              ]
+            }
+          ],
+          tagsTree: [
+            { item: 'Tag1', slug: 'tag1' }
+          ]
+        })
+      };
+
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('old').toString('base64'),
+        sha: 'sha123'
+      });
+
+      mockPutFile('_data/taxonomy.yml', {
+        commit: { sha: 'new-sha-789' }
+      });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(200);
+      expect(JSON.parse(response.body).success).toBe(true);
+    });
+  });
 });
