@@ -164,10 +164,10 @@ export default async function handler(request, context) {
           );
 
           posts = postsWithMetadata;
-        } else {
-          // Write to Blob cache only for list without metadata
-          await writePostsToBlob(posts);
         }
+
+        // Always write to Blob cache (with or without metadata)
+        await writePostsToBlob(posts);
 
         return successResponse({ posts });
       }

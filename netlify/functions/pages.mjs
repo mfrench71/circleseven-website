@@ -164,10 +164,10 @@ export default async function handler(request, context) {
           );
 
           pages = pagesWithMetadata;
-        } else {
-          // Write to Blob cache only for list without metadata
-          await writePagesToBlob(pages);
         }
+
+        // Always write to Blob cache (with or without metadata)
+        await writePagesToBlob(pages);
 
         return successResponse({ pages });
       }
