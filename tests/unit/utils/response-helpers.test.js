@@ -165,7 +165,7 @@ describe('Response Helpers Utility', () => {
 
   describe('notFoundResponse()', () => {
     it('creates 404 Not Found response with default message', async () => {
-      const response = notFoundResponse();
+      const response = await toTestResponse(notFoundResponse());
 
       expect(response.statusCode).toBe(404);
 
@@ -186,7 +186,7 @@ describe('Response Helpers Utility', () => {
 
   describe('methodNotAllowedResponse()', () => {
     it('creates 405 Method Not Allowed response', async () => {
-      const response = methodNotAllowedResponse();
+      const response = await toTestResponse(methodNotAllowedResponse());
 
       expect(response.statusCode).toBe(405);
 
@@ -271,7 +271,7 @@ describe('Response Helpers Utility', () => {
 
   describe('corsPreflightResponse()', () => {
     it('creates 200 response for OPTIONS requests', async () => {
-      const response = corsPreflightResponse();
+      const response = await toTestResponse(corsPreflightResponse());
 
       expect(response.statusCode).toBe(200);
       expect(response.headers).toMatchObject(CORS_HEADERS);

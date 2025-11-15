@@ -73,6 +73,7 @@ export async function callV2Handler(handler, event, context = {}) {
                          key === 'access-control-allow-headers' ? 'Access-Control-Allow-Headers' :
                          key === 'access-control-allow-methods' ? 'Access-Control-Allow-Methods' :
                          key === 'content-type' ? 'Content-Type' :
+                         key === 'cache-control' ? 'Cache-Control' :
                          key;
       headers[originalKey] = value;
     }

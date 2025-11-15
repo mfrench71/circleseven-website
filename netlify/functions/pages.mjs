@@ -177,24 +177,9 @@ export default async function handler(request, context) {
         }
 
         // Always write to Blob cache (with or without metadata)
-        let blobWriteStatus = 'not_attempted';
-        try {
-          await writePagesToBlob(pages);
-          blobWriteStatus = 'success';
-        } catch (err) {
-          blobWriteStatus = `error: ${err.message}`;
-        }
+        await writePagesToBlob(pages);
 
-        return successResponse({
-          pages,
-          _debug: {
-            blobCacheAttempted: true,
-            blobWriteStatus,
-            cacheKey: BLOB_CACHE_KEY,
-            pagesCount: pages.length,
-            withMetadata
-          }
-        });
+        return successResponse({ pages });
       }
     }
 
@@ -235,7 +220,7 @@ export default async function handler(request, context) {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Update post: ${path}`,
+          message: `Update page: ${path}`,
           content: Buffer.from(content).toString('base64'),
           sha: sha,
           branch: GITHUB_BRANCH
@@ -253,7 +238,7 @@ export default async function handler(request, context) {
 
       return successResponse({
         success: true,
-        message: 'Post updated successfully',
+        message: 'Page updated successfully',
         commitSha: updateResponse.commit?.sha
       });
     }
@@ -279,7 +264,7 @@ export default async function handler(request, context) {
         return badRequestResponse(formatted.message, formatted);
       }
 
-      const { filename, frontmatter, body } = bodyValidation.data;
+      const { path: filename, frontmatter, body } = bodyValidation.data;
 
       // Auto-set last_modified_at to match published date for new pages
       // Parse the date field and use it as the initial last_modified_at
@@ -302,7 +287,7 @@ export default async function handler(request, context) {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: {
-          message: `Create post: ${filename}`,
+          message: `Create page: ${filename}`,
           content: Buffer.from(content).toString('base64'),
           branch: GITHUB_BRANCH
         }
@@ -319,7 +304,7 @@ export default async function handler(request, context) {
 
       return successResponse({
         success: true,
-        message: 'Post created successfully',
+        message: 'Page created successfully',
         commitSha: createResponse.commit?.sha
       }, 201);
     }
@@ -369,7 +354,7 @@ export default async function handler(request, context) {
 
       return successResponse({
         success: true,
-        message: 'Post deleted successfully',
+        message: 'Page deleted successfully',
         commitSha: deleteResponse.commit?.sha
       });
     }
