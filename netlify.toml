@@ -16,6 +16,13 @@
   port = 8888
   framework = "#custom"
 
+# Redirect root and static content to GitHub Pages (functions excluded via pattern)
+[[redirects]]
+  from = "/*"
+  to = "https://circleseven.co.uk/:splat"
+  status = 301
+  force = false
+
 # Redirect old admin-custom path to new admin path
 [[redirects]]
   from = "/admin-custom/*"
