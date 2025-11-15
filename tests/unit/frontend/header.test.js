@@ -84,8 +84,8 @@ describe('Header Component', () => {
       expect(html).toContain('fa-external-link-alt');
     });
 
-    it('includes logout button with onclick handler', () => {
-      expect(html).toContain('onclick="netlifyIdentity.logout()"');
+    it('includes logout button with safe onclick handler', () => {
+      expect(html).toContain('if (window.netlifyIdentity) netlifyIdentity.logout()');
       expect(html).toContain('Log Out');
     });
 
