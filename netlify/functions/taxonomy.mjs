@@ -17,9 +17,13 @@
  * @module netlify/functions/taxonomy
  */
 
-const yaml = require('js-yaml');
+import yaml from 'js-yaml';
+import { getStore } from '@netlify/blobs';
+import { createRequire } from 'module';
+
+// Import CommonJS modules using createRequire
+const require = createRequire(import.meta.url);
 const { taxonomySchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const {
   successResponse,
@@ -31,6 +35,82 @@ const {
 } = require('../utils/response-helpers.cjs');
 
 const FILE_PATH = '_data/taxonomy.yml';
+const BLOB_CACHE_KEY = 'taxonomy.json';
+const CACHE_TTL_HOURS = 24;
+
+/**
+ * Reads taxonomy from Blob cache
+ * @returns {Promise<Object|null>} Cached taxonomy data or null if not available/expired
+ */
+async function readTaxonomyFromBlob() {
+  try {
+    const store = getStore('cache');
+    const cached = await store.get(BLOB_CACHE_KEY, { type: 'json' });
+
+    if (!cached) {
+      return null;
+    }
+
+    // Check if cache is still valid
+    const cacheAge = Date.now() - cached.timestamp;
+    const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
+
+    if (cacheAge > maxAge) {
+      console.log('[Taxonomy] Blob cache expired');
+      return null;
+    }
+
+    console.log('[Taxonomy] Serving from Blob cache');
+    return cached.data;
+  } catch (error) {
+    console.error('[Taxonomy] Error reading from Blob:', error);
+    return null;
+  }
+}
+
+/**
+ * Writes taxonomy to Blob cache
+ * @param {Object} taxonomyData - Processed taxonomy data to cache
+ */
+async function writeTaxonomyToBlob(taxonomyData) {
+  try {
+    const store = getStore('cache');
+    await store.setJSON(BLOB_CACHE_KEY, {
+      timestamp: Date.now(),
+      data: taxonomyData
+    });
+    console.log('[Taxonomy] Written to Blob cache');
+  } catch (error) {
+    console.error('[Taxonomy] Error writing to Blob:', error);
+    // Don't throw - cache write failure shouldn't break the request
+  }
+}
+
+/**
+ * Flattens hierarchical categories to simple string array
+ */
+function flattenCategories(categories) {
+  const flat = [];
+  categories.forEach(cat => {
+    const name = typeof cat === 'string' ? cat : cat.item;
+    flat.push(name);
+    if (cat.children && Array.isArray(cat.children)) {
+      cat.children.forEach(child => {
+        flat.push(typeof child === 'string' ? child : child.item);
+      });
+    }
+  });
+  return flat;
+}
+
+/**
+ * Extracts strings from flat tag array
+ */
+function extractStrings(arr) {
+  return arr.map(item =>
+    typeof item === 'string' ? item : (item.item || item)
+  );
+}
 
 /**
  * Netlify Function Handler - Taxonomy Management
@@ -58,21 +138,28 @@ const FILE_PATH = '_data/taxonomy.yml';
  * // }
  * // Returns: { success: true, message: "...", commitSha: "..." }
  */
-exports.handler = async (event, context) => {
+/**
+ * Main handler using Functions v2 format for Blobs support
+ */
+export default async (request, context) => {
+  const method = request.method;
+
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
-
   try {
-    // GET - Read taxonomy from GitHub
-    if (event.httpMethod === 'GET') {
+    // GET - Read taxonomy from Blob cache or GitHub
+    if (method === 'GET') {
+      // Try Blob cache first
+      let cachedData = await readTaxonomyFromBlob();
+      if (cachedData) {
+        return successResponse(cachedData);
+      }
+
+      // Cache miss - read from GitHub
+      console.log('[Taxonomy] Cache miss, reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 
@@ -83,58 +170,32 @@ exports.handler = async (event, context) => {
         return badRequestResponse(`Failed to parse taxonomy.yml: ${yamlError.message}`);
       }
 
-      /**
-       * Flattens hierarchical categories to simple string array
-       * Maintains backwards compatibility with existing code
-       */
-      const flattenCategories = (categories) => {
-        const flat = [];
-        categories.forEach(cat => {
-          // Add parent
-          const name = typeof cat === 'string' ? cat : cat.item;
-          flat.push(name);
-
-          // Add children if they exist
-          if (cat.children && Array.isArray(cat.children)) {
-            cat.children.forEach(child => {
-              flat.push(typeof child === 'string' ? child : child.item);
-            });
-          }
-        });
-        return flat;
-      };
-
-      /**
-       * Extracts strings from flat tag array
-       */
-      const extractStrings = (arr) => arr.map(item =>
-        typeof item === 'string' ? item : (item.item || item)
-      );
-
-      return successResponse({
-        // Flat arrays for backwards compatibility
+      const responseData = {
         categories: flattenCategories(taxonomy.categories || []),
         tags: extractStrings(taxonomy.tags || []),
-
-        // Hierarchical structure for new UI
         categoriesTree: taxonomy.categories || [],
         tagsTree: taxonomy.tags || []
-      });
+      };
+
+      // Write to Blob cache
+      await writeTaxonomyToBlob(responseData);
+
+      return successResponse(responseData);
     }
 
-    // PUT - Update taxonomy via GitHub API
-    if (event.httpMethod === 'PUT') {
+    // PUT - Update taxonomy
+    if (method === 'PUT') {
       // Check for GitHub token
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
 
-      // Parse and validate request body
       let requestData;
       try {
-        requestData = JSON.parse(event.body);
+        const body = await request.text();
+        requestData = JSON.parse(body);
       } catch (error) {
-        return badRequestResponse('Request body must be valid JSON');
+        return badRequestResponse('Invalid JSON');
       }
 
       const bodyValidation = validate(taxonomySchemas.update, requestData);
@@ -145,23 +206,18 @@ exports.handler = async (event, context) => {
 
       const requestBody = bodyValidation.data;
 
-      // Validate that categories and tags are arrays
       if (!Array.isArray(requestBody.categories) || !Array.isArray(requestBody.tags)) {
         return badRequestResponse('Both categories and tags must be arrays');
       }
 
-      // Accept either flat arrays (backwards compat) or hierarchical trees
       const categoriesTree = requestBody.categoriesTree ||
         (requestBody.categories || []).map(c => ({ item: c, slug: '', children: [] }));
       const tagsTree = requestBody.tagsTree ||
         (requestBody.tags || []).map(t => ({ item: t, slug: '' }));
 
-      // Get current file to get its SHA
+      // Get current file SHA
       const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
 
-      /**
-       * Generates YAML for a category with optional children
-       */
       const generateCategoryYAML = (cat, indent = 2) => {
         const spaces = ' '.repeat(indent);
         let yaml = `${spaces}- item: ${cat.item}\n`;
@@ -180,14 +236,10 @@ exports.handler = async (event, context) => {
         return yaml;
       };
 
-      /**
-       * Generates YAML for a tag
-       */
       const generateTagYAML = (tag) => {
         return `  - item: ${tag.item}\n    slug: ${tag.slug || ''}\n`;
       };
 
-      // Create YAML with comments and hierarchy
       const yamlContent = `# Site Taxonomy - Manage categories and tags used across the site
 # Edit these lists in CMS Settings > Taxonomy (Categories & Tags)
 #
@@ -213,6 +265,15 @@ ${tagsTree.map(t => generateTagYAML(t)).join('')}
         }
       });
 
+      // Update Blob cache
+      const updatedData = {
+        categories: flattenCategories(categoriesTree),
+        tags: extractStrings(tagsTree),
+        categoriesTree: categoriesTree,
+        tagsTree: tagsTree
+      };
+      await writeTaxonomyToBlob(updatedData);
+
       return successResponse({
         success: true,
         message: 'Taxonomy updated successfully. Netlify will rebuild the site automatically.',
@@ -223,7 +284,7 @@ ${tagsTree.map(t => generateTagYAML(t)).join('')}
     return methodNotAllowedResponse();
 
   } catch (error) {
-    console.error('Taxonomy function error:', error);
+    console.error('Taxonomy error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };
