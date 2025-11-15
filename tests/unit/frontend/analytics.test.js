@@ -68,7 +68,7 @@ describe('Analytics Module', () => {
 
       // Should contain geographic section even with no data
       expect(html).toContain('Geographic Data');
-      expect(html).toContain('Geographic data will appear');
+      expect(html).toContain('Geographic data unavailable');
     });
 
     it('renders geodata when countryStats and cityStats are present', () => {
@@ -114,8 +114,8 @@ describe('Analytics Module', () => {
       expect(html).toContain('New York');
       expect(html).toContain('Toronto');
 
-      // Should NOT show placeholder message when data exists
-      expect(html).not.toContain('Geographic data will appear');
+      // Should NOT show limitation message when data exists
+      expect(html).not.toContain('Geographic data unavailable');
 
       // Should have proper table structure
       expect(html).toContain('Top Countries');
@@ -142,8 +142,9 @@ describe('Analytics Module', () => {
 
       const html = renderCustomAnalytics(data);
 
-      // Should show placeholder when no geodata
-      expect(html).toContain('Geographic data will appear');
+      // Should show message explaining geo limitation
+      expect(html).toContain('Geographic data unavailable');
+      expect(html).toContain('Netlify Pro plan');
 
       // Should NOT show country/city tables
       expect(html).not.toContain('Top Countries');
@@ -179,8 +180,8 @@ describe('Analytics Module', () => {
       // Should NOT show cities table
       expect(html).not.toContain('Top Cities');
 
-      // Should NOT show placeholder
-      expect(html).not.toContain('Geographic data will appear');
+      // Should NOT show limitation message
+      expect(html).not.toContain('Geographic data unavailable');
     });
 
     it('handles partial geodata (only cities)', () => {
@@ -212,8 +213,8 @@ describe('Analytics Module', () => {
       // Should NOT show countries table
       expect(html).not.toContain('Top Countries');
 
-      // Should NOT show placeholder
-      expect(html).not.toContain('Geographic data will appear');
+      // Should NOT show limitation message
+      expect(html).not.toContain('Geographic data unavailable');
     });
 
     it('limits geodata to top 10 entries', () => {

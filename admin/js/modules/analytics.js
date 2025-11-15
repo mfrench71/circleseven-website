@@ -322,15 +322,12 @@ function renderGeographicData(data) {
   const countryStats = data.countryStats || [];
   const cityStats = data.cityStats || [];
 
-  // DEBUG: Check what renderGeographicData is receiving
-  console.log('[GeographicData] countryStats:', countryStats);
-  console.log('[GeographicData] cityStats:', cityStats);
-
   if (countryStats.length === 0 && cityStats.length === 0) {
     return `
-      <div class="text-muted small">
-        <i class="fas fa-info-circle me-1"></i>
-        Geographic data will appear as visitors browse the site
+      <div class="alert alert-warning mb-0">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Geographic data unavailable</strong><br>
+        <small>Geographic tracking requires Netlify Pro plan or higher. Your current plan does not provide geo-location headers.</small>
       </div>
     `;
   }
@@ -388,11 +385,6 @@ export function renderCustomAnalytics(data) {
       </div>
     `;
   }
-
-  // DEBUG: Check what we're receiving
-  console.log('[Analytics] Received data keys:', Object.keys(data));
-  console.log('[Analytics] countryStats:', data.countryStats);
-  console.log('[Analytics] cityStats:', data.cityStats);
 
   const { summary, topPages, topReferrers, deviceStats, countryStats, cityStats } = data;
 
