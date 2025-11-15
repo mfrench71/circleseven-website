@@ -15,13 +15,9 @@
  * @module netlify/functions/settings
  */
 
-import yaml from 'js-yaml';
-import { getStore } from '@netlify/blobs';
-import { createRequire } from 'module';
-
-// Import CommonJS modules using createRequire
-const require = createRequire(import.meta.url);
+const yaml = require('js-yaml');
 const { settingsSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
+const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
 const {
   successResponse,
@@ -33,8 +29,6 @@ const {
 } = require('../utils/response-helpers.cjs');
 
 const FILE_PATH = '_config.yml';
-const BLOB_CACHE_KEY = 'settings.json';
-const CACHE_TTL_HOURS = 24;
 
 /**
  * Editable settings whitelist for security
@@ -58,54 +52,6 @@ const EDITABLE_FIELDS = [
   'google_fonts',
   'cloudinary_default_folder'
 ];
-
-/**
- * Reads settings from Blob cache
- * @returns {Promise<Object|null>} Cached settings data or null if not available/expired
- */
-async function readSettingsFromBlob() {
-  try {
-    const store = getStore('cache');
-    const cached = await store.get(BLOB_CACHE_KEY, { type: 'json' });
-
-    if (!cached) {
-      return null;
-    }
-
-    // Check if cache is still valid
-    const cacheAge = Date.now() - cached.timestamp;
-    const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
-
-    if (cacheAge > maxAge) {
-      console.log('[Settings] Blob cache expired');
-      return null;
-    }
-
-    console.log('[Settings] Serving from Blob cache');
-    return cached.data;
-  } catch (error) {
-    console.error('[Settings] Error reading from Blob:', error);
-    return null;
-  }
-}
-
-/**
- * Writes settings to Blob cache
- * @param {Object} settingsData - Settings data to cache
- */
-async function writeSettingsToBlob(settingsData) {
-  try {
-    const store = getStore('cache');
-    await store.setJSON(BLOB_CACHE_KEY, {
-      timestamp: Date.now(),
-      data: settingsData
-    });
-    console.log('[Settings] Written to Blob cache');
-  } catch (error) {
-    console.error('[Settings] Error writing to Blob:', error);
-    // Don't throw - cache write failure shouldn't break the request
-  }
-}
 
 /**
  * Netlify Function Handler - Settings Management
@@ -147,28 +93,21 @@ async function writeSettingsToBlob(settingsData) {
  * // Body: { plugins: ["evil-plugin"] }
  * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
  */
-/**
- * Main handler using Functions v2 format for Blobs support
- */
-export default async (request, context) => {
-  const method = request.method;
-
+exports.handler = async (event, context) => {
   // Handle preflight
-  if (method === 'OPTIONS') {
+  if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  try {
-    // GET - Read settings from Blob cache or _config.yml
-    if (method === 'GET') {
-      // Try Blob cache first
-      let cachedSettings = await readSettingsFromBlob();
-      if (cachedSettings) {
-        return successResponse(cachedSettings);
-      }
+  // Check rate limit
+  const rateLimitResponse = checkRateLimit(event);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
 
-      // Cache miss - read from GitHub
-      console.log('[Settings] Cache miss, reading from GitHub');
+  try {
+    // GET - Read settings from _config.yml
+    if (event.httpMethod === 'GET') {
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 
@@ -187,14 +126,11 @@ export default async (request, context) => {
         }
       });
 
-      // Write to Blob cache
-      await writeSettingsToBlob(settings);
-
       return successResponse(settings);
     }
 
     // PUT - Update settings in _config.yml
-    if (method === 'PUT') {
+    if (event.httpMethod === 'PUT') {
       // Check for GitHub token
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
@@ -203,8 +139,7 @@ export default async (request, context) => {
       // Parse and validate request body
       let requestData;
       try {
-        const body = await request.text();
-        requestData = JSON.parse(body);
+        requestData = JSON.parse(event.body);
       } catch (error) {
         return badRequestResponse('Request body must be valid JSON');
       }
@@ -235,7 +170,7 @@ export default async (request, context) => {
         config[field] = updates[field];
       });
 
-      // Convert back to YAML
+      // Convert back to YAML, preserving structure
       const yamlContent = yaml.dump(config, {
         lineWidth: -1,
         noRefs: true,
@@ -254,15 +189,6 @@ export default async (request, context) => {
         }
       });
 
-      // Update Blob cache with new settings
-      const updatedSettings = {};
-      EDITABLE_FIELDS.forEach(field => {
-        if (config.hasOwnProperty(field)) {
-          updatedSettings[field] = config[field];
-        }
-      });
-      await writeSettingsToBlob(updatedSettings);
-
       return successResponse({
         success: true,
         message: 'Settings updated successfully. Netlify will rebuild the site automatically in 1-2 minutes.',
@@ -273,7 +199,7 @@ export default async (request, context) => {
     return methodNotAllowedResponse();
 
   } catch (error) {
-    console.error('Settings error:', error);
+    console.error('Settings function error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
 };

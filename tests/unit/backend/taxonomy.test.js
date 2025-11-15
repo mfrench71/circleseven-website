@@ -11,11 +11,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import yaml from 'js-yaml';
 import { mockGetFile, mockPutFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import { callV2Handler } from '../../utils/request-mock.js';
-import handlerFn from '../../../netlify/functions/taxonomy.mjs';
-
-// Wrap v2 handler to accept v1 event objects (for test compatibility)
-const handler = (event, context) => callV2Handler(handlerFn, event, context);
+import { handler } from '../../../netlify/functions/taxonomy.js';
 
 describe('Taxonomy Function', () => {
   beforeEach(() => {
