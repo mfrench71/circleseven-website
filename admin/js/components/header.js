@@ -25,7 +25,7 @@ export function renderHeader() {
               <i class="fas fa-external-link-alt small"></i>
               <span>${siteTitle}</span>
             </a>
-            <button onclick="if (window.netlifyIdentity) netlifyIdentity.logout(); else console.error('Netlify Identity not loaded');" class="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
+            <button onclick="console.log('[Auth] Logout button clicked'); if (window.netlifyIdentity) { console.log('[Auth] Calling netlifyIdentity.logout()'); netlifyIdentity.logout(); } else console.error('Netlify Identity not loaded');" class="btn btn-link text-secondary text-decoration-none d-flex align-items-center gap-2">
               <i class="fas fa-sign-out-alt"></i>
               Log Out
             </button>

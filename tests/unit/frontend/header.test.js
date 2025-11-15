@@ -85,7 +85,8 @@ describe('Header Component', () => {
     });
 
     it('includes logout button with safe onclick handler', () => {
-      expect(html).toContain('if (window.netlifyIdentity) netlifyIdentity.logout()');
+      expect(html).toContain('if (window.netlifyIdentity)');
+      expect(html).toContain('netlifyIdentity.logout()');
       expect(html).toContain('Log Out');
     });
 

@@ -102,7 +102,9 @@ export async function initStandalonePage(pageName, initCallback) {
 
     // Set up logout event handler (only once)
     if (window.netlifyIdentity && !window._logoutHandlerAdded) {
+      console.log('[Auth] Registering logout event handler');
       window.netlifyIdentity.on('logout', () => {
+        console.log('[Auth] Logout event received, reloading page...');
         window.location.reload();
       });
       window._logoutHandlerAdded = true;
