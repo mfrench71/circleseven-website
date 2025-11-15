@@ -26,7 +26,6 @@ import { githubRequest, GITHUB_BRANCH } from '../utils/github-api.mjs';
 import { parseFrontmatter, buildFrontmatter } from '../utils/frontmatter.mjs';
 import {
   successResponse,
-  createdResponse,
   badRequestResponse,
   conflictResponse,
   methodNotAllowedResponse,
