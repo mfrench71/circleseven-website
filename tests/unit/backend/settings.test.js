@@ -11,7 +11,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import yaml from 'js-yaml';
 import { mockGetFile, mockPutFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import handler from '../../../netlify/functions/settings.mjs';
+import { handler } from '../../../netlify/functions/settings.js';
 
 describe('Settings Function', () => {
   // Sample config for testing

@@ -11,7 +11,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import yaml from 'js-yaml';
 import { mockGetFile, mockPutFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import handler from '../../../netlify/functions/taxonomy.mjs';
+import { handler } from '../../../netlify/functions/taxonomy.js';
 
 describe('Taxonomy Function', () => {
   beforeEach(() => {
