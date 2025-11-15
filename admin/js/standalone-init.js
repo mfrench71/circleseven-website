@@ -100,6 +100,14 @@ export async function initStandalonePage(pageName, initCallback) {
       window.DEPLOYMENT_TIMEOUT = 300; // 5 minutes in seconds
     }
 
+    // Set up logout event handler (only once)
+    if (window.netlifyIdentity && !window._logoutHandlerAdded) {
+      window.netlifyIdentity.on('logout', () => {
+        window.location.reload();
+      });
+      window._logoutHandlerAdded = true;
+    }
+
     // Wait for auth to initialize
     const user = await waitForAuth();
 
