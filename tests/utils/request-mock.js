@@ -42,12 +42,30 @@ export function eventToRequest(event) {
 
 /**
  * Wrapper to call v2 handlers with v1 event syntax
+ * Converts Response objects back to v1 format for test compatibility
  * @param {Function} handler - v2 handler function
  * @param {Object} event - v1-style event object
  * @param {Object} [context] - Function context
- * @returns {Promise<Object>} Handler response
+ * @returns {Promise<Object>} Handler response in v1 format
  */
 export async function callV2Handler(handler, event, context = {}) {
   const request = eventToRequest(event);
-  return await handler(request, context);
+  const response = await handler(request, context);
+
+  // Convert Response object to v1 format
+  if (response instanceof Response) {
+    const body = await response.text();
+    const headers = {};
+    response.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
+    return {
+      statusCode: response.status,
+      headers: headers,
+      body: body
+    };
+  }
+
+  // Already in v1 format (shouldn't happen with v2 functions)
+  return response;
 }

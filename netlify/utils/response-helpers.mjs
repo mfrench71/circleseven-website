@@ -24,7 +24,7 @@ export const CORS_HEADERS = {
  * @param {Object} data - Response data to send to client
  * @param {number} [statusCode=200] - HTTP status code
  * @param {Object} [additionalHeaders={}] - Additional headers to merge
- * @returns {Object} Netlify function response object
+ * @returns {Response} Web standard Response object
  *
  * @example
  * return successResponse({ posts: [...] });
@@ -33,11 +33,10 @@ export const CORS_HEADERS = {
  * return successResponse({ message: 'Created successfully' }, 201);
  */
 export function successResponse(data, statusCode = 200, additionalHeaders = {}) {
-  return {
-    statusCode,
-    headers: { ...CORS_HEADERS, ...additionalHeaders },
-    body: JSON.stringify(data)
-  };
+  return new Response(JSON.stringify(data), {
+    status: statusCode,
+    headers: { ...CORS_HEADERS, ...additionalHeaders }
+  });
 }
 
 /**
@@ -47,7 +46,7 @@ export function successResponse(data, statusCode = 200, additionalHeaders = {}) 
  * @param {string} message - Detailed error message for the user
  * @param {number} [statusCode=400] - HTTP status code
  * @param {Object} [additionalData={}] - Additional error context data
- * @returns {Object} Netlify function response object
+ * @returns {Response} Web standard Response object
  *
  * @example
  * return errorResponse('Invalid JSON', 'Request body must be valid JSON', 400);
@@ -56,15 +55,14 @@ export function successResponse(data, statusCode = 200, additionalHeaders = {}) 
  * return errorResponse('Validation failed', 'Email is required', 400, { field: 'email' });
  */
 export function errorResponse(error, message, statusCode = 400, additionalData = {}) {
-  return {
-    statusCode,
-    headers: CORS_HEADERS,
-    body: JSON.stringify({
-      error,
-      message,
-      ...additionalData
-    })
-  };
+  return new Response(JSON.stringify({
+    error,
+    message,
+    ...additionalData
+  }), {
+    status: statusCode,
+    headers: CORS_HEADERS
+  });
 }
 
 /**
@@ -159,7 +157,7 @@ export function serviceUnavailableResponse(message) {
 /**
  * Creates a 200 OK CORS preflight response
  *
- * @returns {Object} Netlify function response object
+ * @returns {Response} Web standard Response object
  *
  * @example
  * if (event.httpMethod === 'OPTIONS') {
@@ -167,9 +165,8 @@ export function serviceUnavailableResponse(message) {
  * }
  */
 export function corsPreflightResponse() {
-  return {
-    statusCode: 200,
-    headers: CORS_HEADERS,
-    body: ''
-  };
+  return new Response('', {
+    status: 200,
+    headers: CORS_HEADERS
+  });
 }
