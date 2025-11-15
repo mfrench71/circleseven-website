@@ -15,8 +15,12 @@
  * @module netlify/functions/settings
  */
 
-const yaml = require('js-yaml');
-const { getStore } = require('@netlify/blobs');
+import yaml from 'js-yaml';
+import { getStore } from '@netlify/blobs';
+import { createRequire } from 'module';
+
+// Import CommonJS modules
+const require = createRequire(import.meta.url);
 const { settingsSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
@@ -144,7 +148,7 @@ async function writeSettingsToBlob(settingsData) {
  * // Body: { plugins: ["evil-plugin"] }
  * // Returns: { error: "Invalid fields", message: "Cannot update fields: plugins" }
  */
-exports.handler = async (event, context) => {
+export default async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();

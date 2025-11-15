@@ -17,8 +17,12 @@
  * @module netlify/functions/taxonomy
  */
 
-const yaml = require('js-yaml');
-const { getStore } = require('@netlify/blobs');
+import yaml from 'js-yaml';
+import { getStore } from '@netlify/blobs';
+import { createRequire } from 'module';
+
+// Import CommonJS modules
+const require = createRequire(import.meta.url);
 const { taxonomySchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
 const { checkRateLimit } = require('../utils/rate-limiter.cjs');
 const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
@@ -139,7 +143,7 @@ function extractStrings(arr) {
  * // }
  * // Returns: { success: true, message: "...", commitSha: "..." }
  */
-exports.handler = async (event, context) => {
+export default async (event, context) => {
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
     return corsPreflightResponse();
