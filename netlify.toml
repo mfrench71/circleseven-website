@@ -1,7 +1,5 @@
 [build]
-  # Skip Jekyll build - static site deployed via GitHub Pages
-  # This only deploys Netlify Functions, saving build minutes
-  command = "mkdir -p _site && echo 'Netlify Functions only - site hosted on GitHub Pages' > _site/index.html"
+  command = "bash netlify/build.sh"
   publish = "_site"
   functions = "netlify/functions"
 
