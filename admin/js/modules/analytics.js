@@ -385,7 +385,7 @@ export function renderCustomAnalytics(data) {
     `;
   }
 
-  const { summary, topPages, topReferrers, deviceStats } = data;
+  const { summary, topPages, topReferrers, deviceStats, countryStats, cityStats } = data;
 
   // Calculate views in last hour
   const viewsLastHour = (data.hourlyViews || []).slice(-1)[0]?.views || 0;
@@ -827,7 +827,7 @@ export function renderPostsWithIssues(data) {
  */
 export async function renderAnalytics(container) {
   try {
-    container.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"></div><p class="mt-2">Loading analytics...</p></div>';
+    container.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading analytics...</p></div>';
 
     // Load both custom analytics and content health in parallel
     const [customAnalytics, contentHealth] = await Promise.all([
