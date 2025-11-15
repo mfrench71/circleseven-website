@@ -100,14 +100,22 @@ export async function initStandalonePage(pageName, initCallback) {
       window.DEPLOYMENT_TIMEOUT = 300; // 5 minutes in seconds
     }
 
-    // Set up logout event handler (only once)
-    if (window.netlifyIdentity && !window._logoutHandlerAdded) {
-      console.log('[Auth] Registering logout event handler');
+    // Set up login/logout event handlers (only once)
+    if (window.netlifyIdentity && !window._authHandlersAdded) {
+      console.log('[Auth] Registering auth event handlers');
+
+      window.netlifyIdentity.on('login', () => {
+        console.log('[Auth] Login event received, closing modal and reloading...');
+        window.netlifyIdentity.close();
+        window.location.reload();
+      });
+
       window.netlifyIdentity.on('logout', () => {
         console.log('[Auth] Logout event received, reloading page...');
         window.location.reload();
       });
-      window._logoutHandlerAdded = true;
+
+      window._authHandlersAdded = true;
     }
 
     // Wait for auth to initialize
