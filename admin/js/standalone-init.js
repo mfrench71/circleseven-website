@@ -115,13 +115,17 @@ export async function initStandalonePage(pageName, initCallback) {
 
     if (!user) {
       // Not authenticated - show auth gate
-      document.getElementById('auth-gate')?.classList.remove('d-none');
+      const authGate = document.getElementById('auth-gate');
+      authGate?.classList.remove('d-none');
+      authGate?.classList.add('show-auth');
       document.getElementById('main-app')?.classList.add('d-none');
       return;
     }
 
     // User is authenticated - show main app
-    document.getElementById('auth-gate')?.classList.add('d-none');
+    const authGate = document.getElementById('auth-gate');
+    authGate?.classList.add('d-none');
+    authGate?.classList.remove('show-auth');
     document.getElementById('main-app')?.classList.remove('d-none');
 
     // Run the page-specific initialization
