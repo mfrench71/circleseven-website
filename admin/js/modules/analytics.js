@@ -322,6 +322,10 @@ function renderGeographicData(data) {
   const countryStats = data.countryStats || [];
   const cityStats = data.cityStats || [];
 
+  // DEBUG: Check what renderGeographicData is receiving
+  console.log('[GeographicData] countryStats:', countryStats);
+  console.log('[GeographicData] cityStats:', cityStats);
+
   if (countryStats.length === 0 && cityStats.length === 0) {
     return `
       <div class="text-muted small">
@@ -384,6 +388,11 @@ export function renderCustomAnalytics(data) {
       </div>
     `;
   }
+
+  // DEBUG: Check what we're receiving
+  console.log('[Analytics] Received data keys:', Object.keys(data));
+  console.log('[Analytics] countryStats:', data.countryStats);
+  console.log('[Analytics] cityStats:', data.cityStats);
 
   const { summary, topPages, topReferrers, deviceStats, countryStats, cityStats } = data;
 
