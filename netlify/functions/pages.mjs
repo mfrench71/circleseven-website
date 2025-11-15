@@ -64,14 +64,24 @@ async function readPagesFromBlob() {
  */
 async function writePagesToBlob(pagesData) {
   try {
+    console.log(`[Pages] Attempting to write ${pagesData.length} pages to Blob cache with key: ${BLOB_CACHE_KEY}`);
     const store = getStore('cache');
-    await store.setJSON(BLOB_CACHE_KEY, {
+    const payload = {
       timestamp: Date.now(),
       data: pagesData
-    });
-    console.log('[Pages] Written to Blob cache');
+    };
+    const payloadSize = JSON.stringify(payload).length;
+    console.log(`[Pages] Payload size: ${payloadSize} bytes`);
+
+    await store.setJSON(BLOB_CACHE_KEY, payload);
+    console.log('[Pages] ✓ Successfully written to Blob cache');
   } catch (error) {
-    console.error('[Pages] Error writing to Blob:', error);
+    console.error('[Pages] ✗ Error writing to Blob:', error);
+    console.error('[Pages] Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
   }
 }
 

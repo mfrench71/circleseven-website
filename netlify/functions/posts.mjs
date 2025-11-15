@@ -64,14 +64,24 @@ async function readPostsFromBlob() {
  */
 async function writePostsToBlob(postsData) {
   try {
+    console.log(`[Posts] Attempting to write ${postsData.length} posts to Blob cache with key: ${BLOB_CACHE_KEY}`);
     const store = getStore('cache');
-    await store.setJSON(BLOB_CACHE_KEY, {
+    const payload = {
       timestamp: Date.now(),
       data: postsData
-    });
-    console.log('[Posts] Written to Blob cache');
+    };
+    const payloadSize = JSON.stringify(payload).length;
+    console.log(`[Posts] Payload size: ${payloadSize} bytes`);
+
+    await store.setJSON(BLOB_CACHE_KEY, payload);
+    console.log('[Posts] ✓ Successfully written to Blob cache');
   } catch (error) {
-    console.error('[Posts] Error writing to Blob:', error);
+    console.error('[Posts] ✗ Error writing to Blob:', error);
+    console.error('[Posts] Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
   }
 }
 
