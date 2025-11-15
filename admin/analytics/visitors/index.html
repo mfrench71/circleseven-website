@@ -134,6 +134,10 @@
 
         // Load and render visitor analytics
         const mainContent = document.getElementById('main-content');
+
+        // Show loading state
+        mainContent.innerHTML = '<div class="text-center"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Loading analytics...</p></div>';
+
         const analyticsData = await loadCustomAnalytics();
         mainContent.innerHTML = renderCustomAnalytics(analyticsData);
 
