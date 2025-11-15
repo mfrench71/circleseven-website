@@ -32,9 +32,9 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  *
  * @param {Object} request - Netlify Functions v2 request object
  * @param {Object} context - Netlify function context
- * @returns {Promise<Object>} Response object with statusCode, headers, and body
+ * @returns {Promise<Response>} Web standard Response object
  */
-export default async (request, context) => {
+export default async function handler(request, context) {
   const method = request.method;
 
   // Handle preflight
