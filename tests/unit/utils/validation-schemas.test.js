@@ -19,7 +19,7 @@ const {
   mediaSchemas,
   validate,
   formatValidationError
-} = await import('../../../netlify/utils/validation-schemas.cjs');
+} = await import('../../../netlify/utils/validation-schemas.mjs');
 
 describe('Validation Schemas Utility', () => {
   describe('validate()', () => {

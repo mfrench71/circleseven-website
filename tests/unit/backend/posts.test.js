@@ -10,7 +10,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import { mockListContents, mockGetFile, mockPutFile, mockDeleteFile, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/posts.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/posts.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Posts Function', () => {
   beforeEach(() => {

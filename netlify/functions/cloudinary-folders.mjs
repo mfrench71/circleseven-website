@@ -14,13 +14,13 @@
  */
 
 const https = require('https');
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const {
+import { checkRateLimit } from '../utils/rate-limiter.mjs';
+import {
   successResponse,
   methodNotAllowedResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 /**
  * Netlify Function Handler - Cloudinary Folders
@@ -29,7 +29,7 @@ const {
  * Returns a list of all folders in the Cloudinary account.
  *
  * @param {Object} event - Netlify function event object
- * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {string} request.method - HTTP method (GET, OPTIONS)
  * @param {Object} context - Netlify function context
  * @returns {Promise<Object>} Response object with statusCode, headers, and body
  *
@@ -44,20 +44,15 @@ const {
  * //   ]
  * // }
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
 
   // Only allow GET requests
-  if (event.httpMethod !== 'GET') {
+  if (request.method !== 'GET') {
     return methodNotAllowedResponse();
   }
 
@@ -77,7 +72,7 @@ exports.handler = async (event, context) => {
     console.error('Cloudinary folders error:', error);
     return serverErrorResponse(error, { includeStack: true });
   }
-};
+}
 
 /**
  * Fetches folder list from Cloudinary Admin API

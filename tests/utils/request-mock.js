@@ -8,12 +8,20 @@
  * @param {string} method - HTTP method (GET, POST, PUT, DELETE, etc.)
  * @param {string} [body] - Request body (for POST/PUT)
  * @param {Object} [headers] - Request headers
+ * @param {Object} [queryParams] - Query parameters
  * @returns {Object} Mock request object
  */
-export function createMockRequest(method, body = null, headers = {}) {
+export function createMockRequest(method, body = null, headers = {}, queryParams = {}) {
+  // Build URL with query parameters
+  let url = 'http://localhost/.netlify/functions/test';
+  if (queryParams && Object.keys(queryParams).length > 0) {
+    const searchParams = new URLSearchParams(queryParams);
+    url += '?' + searchParams.toString();
+  }
+
   return {
     method,
-    url: 'http://localhost/.netlify/functions/test',
+    url,
     headers: {
       get: (name) => headers[name] || null,
       ...headers
@@ -36,7 +44,8 @@ export function eventToRequest(event) {
   return createMockRequest(
     event.httpMethod,
     event.body || null,
-    event.headers || {}
+    event.headers || {},
+    event.queryStringParameters || {}
   );
 }
 

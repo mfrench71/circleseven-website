@@ -10,7 +10,7 @@
 import { describe, it, expect } from 'vitest';
 
 // Import the actual implementation
-const { parseFrontmatter, buildFrontmatter } = await import('../../../netlify/utils/frontmatter.cjs');
+const { parseFrontmatter, buildFrontmatter } = await import('../../../netlify/utils/frontmatter.mjs');
 
 describe('Frontmatter Utility', () => {
   describe('parseFrontmatter()', () => {

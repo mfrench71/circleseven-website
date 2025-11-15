@@ -13,7 +13,10 @@ process.env.GITHUB_REPO = 'mfrench71/circleseven-website';
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { mockGitHubAPI, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/recently-published.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/recently-published.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Recently Published Function', () => {
   beforeEach(() => {

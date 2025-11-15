@@ -11,7 +11,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 
 // Import the actual implementation
-const { githubRequest } = await import('../../../netlify/utils/github-api.cjs');
+const { githubRequest } = await import('../../../netlify/utils/github-api.mjs');
 
 describe('GitHub API Utility', () => {
   beforeEach(() => {

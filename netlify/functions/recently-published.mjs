@@ -6,14 +6,14 @@
  * @module netlify/functions/recently-published
  */
 
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
-const {
+import { checkRateLimit } from '../utils/rate-limiter.mjs';
+import { githubRequest, GITHUB_BRANCH } from '../utils/github-api.mjs';
+import {
   successResponse,
   methodNotAllowedResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 
 
@@ -93,20 +93,15 @@ async function getRecentFiles(folder, type) {
 /**
  * Main handler function
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
 
   // Only allow GET requests
-  if (event.httpMethod !== 'GET') {
+  if (request.method !== 'GET') {
     return methodNotAllowedResponse();
   }
 
@@ -131,4 +126,4 @@ exports.handler = async (event, context) => {
     console.error('Error fetching recently published:', error);
     return serverErrorResponse(error);
   }
-};
+}

@@ -8,13 +8,13 @@
  */
 
 const https = require('https');
-const {
+import {
   successResponse,
   serviceUnavailableResponse,
   methodNotAllowedResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 /**
  * Makes authenticated request to GitHub rate_limit API
@@ -66,7 +66,7 @@ function fetchRateLimit() {
  * - Time until reset
  *
  * @param {Object} event - Netlify function event object
- * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {string} request.method - HTTP method (GET, OPTIONS)
  * @returns {Promise<Object>} Response object with statusCode, headers, and body
  *
  * @example
@@ -82,14 +82,14 @@ function fetchRateLimit() {
  * //   minutesUntilReset: 42
  * // }
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
   try {
-    if (event.httpMethod === 'GET') {
+    if (request.method === 'GET') {
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse('GITHUB_TOKEN environment variable is missing');
       }
@@ -120,4 +120,4 @@ exports.handler = async (event, context) => {
     console.error('Rate limit function error:', error);
     return serverErrorResponse(error, { includeStack: true });
   }
-};
+}

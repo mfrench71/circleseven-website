@@ -10,7 +10,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import { mockWorkflowRuns, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/deployment-status.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/deployment-status.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Deployment Status Function', () => {
   beforeEach(() => {

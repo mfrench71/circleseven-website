@@ -15,7 +15,10 @@ process.env.CLOUDINARY_CLOUD_NAME = 'circleseven';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import { mockCloudinaryResources, mockCloudinaryError, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/media.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/media.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Media Function', () => {
   beforeEach(() => {

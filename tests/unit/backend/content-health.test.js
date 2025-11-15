@@ -12,7 +12,10 @@ process.env.GITHUB_REPO = 'mfrench71/circleseven-website';
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { mockGitHubAPI, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/content-health.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/content-health.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Content Health Function', () => {
   beforeEach(() => {

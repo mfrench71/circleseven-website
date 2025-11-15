@@ -20,11 +20,11 @@
  * @module netlify/functions/bin
  */
 
-const { binSchemas, validate, formatValidationError } = require('../utils/validation-schemas.cjs');
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
-const { parseFrontmatter, buildFrontmatter } = require('../utils/frontmatter.cjs');
-const {
+import { binSchemas, validate, formatValidationError } from '../utils/validation-schemas.mjs';
+import { checkRateLimit } from '../utils/rate-limiter.mjs';
+import { githubRequest, GITHUB_BRANCH } from '../utils/github-api.mjs';
+import { parseFrontmatter, buildFrontmatter } from '../utils/frontmatter.mjs';
+import {
   successResponse,
   createdResponse,
   badRequestResponse,
@@ -33,7 +33,7 @@ const {
   serviceUnavailableResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 const POSTS_DIR = '_posts';
 const PAGES_DIR = '_pages';
@@ -46,7 +46,7 @@ const BIN_DIR = '_bin';
  * including listing, moving to bin, restoring, and permanent deletion.
  *
  * @param {Object} event - Netlify function event object
- * @param {string} event.httpMethod - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
+ * @param {string} request.method - HTTP method (GET, POST, PUT, DELETE, OPTIONS)
  * @param {string} event.body - Request body (JSON string)
  * @param {Object} context - Netlify function context
  * @returns {Promise<Object>} Response object with statusCode, headers, and body
@@ -84,21 +84,16 @@ const BIN_DIR = '_bin';
  * // Body: { filename: "2025-10-21-my-post.md", sha: "abc123", type: "post" }
  * // Returns: { success: true, message: "Post permanently deleted" }
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
 
   try {
     // GET - List all binned items (posts and pages)
-    if (event.httpMethod === 'GET') {
+    if (request.method === 'GET') {
       try {
         const files = await githubRequest(`/contents/${BIN_DIR}?ref=${GITHUB_BRANCH}`);
 
@@ -144,7 +139,7 @@ exports.handler = async (event, context) => {
     }
 
     // POST - Move post or page to bin
-    if (event.httpMethod === 'POST') {
+    if (request.method === 'POST') {
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse(
           'GitHub integration not configured',
@@ -155,7 +150,7 @@ exports.handler = async (event, context) => {
       // Parse and validate request body
       let requestData;
       try {
-        requestData = JSON.parse(event.body);
+        requestData = JSON.parse(await request.text());
       } catch (error) {
         return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
@@ -249,7 +244,7 @@ exports.handler = async (event, context) => {
     }
 
     // PUT - Restore post or page from bin
-    if (event.httpMethod === 'PUT') {
+    if (request.method === 'PUT') {
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse(
           'GitHub integration not configured',
@@ -260,7 +255,7 @@ exports.handler = async (event, context) => {
       // Parse and validate request body
       let requestData;
       try {
-        requestData = JSON.parse(event.body);
+        requestData = JSON.parse(await request.text());
       } catch (error) {
         return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
@@ -348,7 +343,7 @@ exports.handler = async (event, context) => {
     }
 
     // DELETE - Permanently delete item from bin
-    if (event.httpMethod === 'DELETE') {
+    if (request.method === 'DELETE') {
       if (!process.env.GITHUB_TOKEN) {
         return serviceUnavailableResponse(
           'GitHub integration not configured',
@@ -359,7 +354,7 @@ exports.handler = async (event, context) => {
       // Parse and validate request body
       let requestData;
       try {
-        requestData = JSON.parse(event.body);
+        requestData = JSON.parse(await request.text());
       } catch (error) {
         return badRequestResponse('Invalid JSON', 'Request body must be valid JSON');
       }
@@ -398,4 +393,4 @@ exports.handler = async (event, context) => {
     console.error('Trash function error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
-};
+}

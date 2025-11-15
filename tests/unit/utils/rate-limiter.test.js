@@ -10,7 +10,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Import the actual implementation
-const { checkRateLimit, getRateLimitStatus } = await import('../../../netlify/utils/rate-limiter.cjs');
+const { checkRateLimit, getRateLimitStatus } = await import('../../../netlify/utils/rate-limiter.mjs');
 
 describe('Rate Limiter Utility', () => {
   beforeEach(() => {

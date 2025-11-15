@@ -21,11 +21,34 @@ const {
   serviceUnavailableResponse,
   corsPreflightResponse,
   CORS_HEADERS
-} = await import('../../../netlify/utils/response-helpers.cjs');
+} = await import('../../../netlify/utils/response-helpers.mjs');
+
+/**
+ * Helper to convert Web Response to test-friendly format
+ */
+async function toTestResponse(response) {
+  const headers = {};
+  response.headers.forEach((value, key) => {
+    // Map lowercased headers to proper casing for test compatibility
+    const originalKey = key === 'access-control-allow-origin' ? 'Access-Control-Allow-Origin' :
+                       key === 'access-control-allow-headers' ? 'Access-Control-Allow-Headers' :
+                       key === 'access-control-allow-methods' ? 'Access-Control-Allow-Methods' :
+                       key === 'content-type' ? 'Content-Type' :
+                       key === 'cache-control' ? 'Cache-Control' :
+                       key;
+    headers[originalKey] = value;
+  });
+
+  return {
+    statusCode: response.status,
+    headers,
+    body: await response.text()
+  };
+}
 
 describe('Response Helpers Utility', () => {
   describe('CORS_HEADERS', () => {
-    it('exports standard CORS headers', () => {
+    it('exports standard CORS headers', async () => {
       expect(CORS_HEADERS).toBeDefined();
       expect(CORS_HEADERS['Access-Control-Allow-Origin']).toBe('*');
       expect(CORS_HEADERS['Access-Control-Allow-Headers']).toBe('Content-Type, Authorization');
@@ -35,35 +58,35 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('successResponse()', () => {
-    it('creates basic success response with 200 status', () => {
+    it('creates basic success response with 200 status', async () => {
       const data = { message: 'Success' };
-      const response = successResponse(data);
+      const response = await toTestResponse(successResponse(data));
 
       expect(response.statusCode).toBe(200);
       expect(response.headers).toMatchObject(CORS_HEADERS);
       expect(JSON.parse(response.body)).toEqual(data);
     });
 
-    it('creates success response with custom status code', () => {
+    it('creates success response with custom status code', async () => {
       const data = { id: 123 };
-      const response = successResponse(data, 201);
+      const response = await toTestResponse(successResponse(data, 201));
 
       expect(response.statusCode).toBe(201);
       expect(JSON.parse(response.body)).toEqual(data);
     });
 
-    it('includes additional headers when provided', () => {
+    it('includes additional headers when provided', async () => {
       const data = { message: 'Cached' };
       const additionalHeaders = {
         'Cache-Control': 'public, max-age=300'
       };
-      const response = successResponse(data, 200, additionalHeaders);
+      const response = await toTestResponse(successResponse(data, 200, additionalHeaders));
 
       expect(response.headers['Cache-Control']).toBe('public, max-age=300');
       expect(response.headers['Content-Type']).toBe('application/json'); // CORS headers still present
     });
 
-    it('serializes complex data structures', () => {
+    it('serializes complex data structures', async () => {
       const data = {
         posts: [
           { id: 1, title: 'Post 1' },
@@ -71,13 +94,13 @@ describe('Response Helpers Utility', () => {
         ],
         meta: { total: 2 }
       };
-      const response = successResponse(data);
+      const response = await toTestResponse(successResponse(data));
 
       expect(JSON.parse(response.body)).toEqual(data);
     });
 
-    it('handles empty object', () => {
-      const response = successResponse({});
+    it('handles empty object', async () => {
+      const response = await toTestResponse(successResponse({}));
 
       expect(response.statusCode).toBe(200);
       expect(JSON.parse(response.body)).toEqual({});
@@ -85,8 +108,8 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('errorResponse()', () => {
-    it('creates error response with default 400 status', () => {
-      const response = errorResponse('Test error', 'Error message');
+    it('creates error response with default 400 status', async () => {
+      const response = await toTestResponse(errorResponse('Test error', 'Error message'));
 
       expect(response.statusCode).toBe(400);
       expect(response.headers).toMatchObject(CORS_HEADERS);
@@ -96,8 +119,8 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Error message');
     });
 
-    it('creates error response with custom status code', () => {
-      const response = errorResponse('Server error', 'Something went wrong', 500);
+    it('creates error response with custom status code', async () => {
+      const response = await toTestResponse(errorResponse('Server error', 'Something went wrong', 500));
 
       expect(response.statusCode).toBe(500);
 
@@ -106,12 +129,12 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Something went wrong');
     });
 
-    it('includes additional data when provided', () => {
+    it('includes additional data when provided', async () => {
       const additionalData = {
         field: 'email',
         code: 'INVALID_EMAIL'
       };
-      const response = errorResponse('Validation error', 'Invalid email', 400, additionalData);
+      const response = await toTestResponse(errorResponse('Validation error', 'Invalid email', 400, additionalData));
 
       const body = JSON.parse(response.body);
       expect(body.error).toBe('Validation error');
@@ -122,8 +145,8 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('badRequestResponse()', () => {
-    it('creates 400 Bad Request response', () => {
-      const response = badRequestResponse('Missing required field');
+    it('creates 400 Bad Request response', async () => {
+      const response = await toTestResponse(badRequestResponse('Missing required field'));
 
       expect(response.statusCode).toBe(400);
 
@@ -132,8 +155,8 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Missing required field');
     });
 
-    it('includes additional data', () => {
-      const response = badRequestResponse('Invalid input', { field: 'username' });
+    it('includes additional data', async () => {
+      const response = await toTestResponse(badRequestResponse('Invalid input', { field: 'username' }));
 
       const body = JSON.parse(response.body);
       expect(body.field).toBe('username');
@@ -141,7 +164,7 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('notFoundResponse()', () => {
-    it('creates 404 Not Found response with default message', () => {
+    it('creates 404 Not Found response with default message', async () => {
       const response = notFoundResponse();
 
       expect(response.statusCode).toBe(404);
@@ -151,8 +174,8 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Resource not found');
     });
 
-    it('creates 404 response with custom message', () => {
-      const response = notFoundResponse('Post not found');
+    it('creates 404 response with custom message', async () => {
+      const response = await toTestResponse(notFoundResponse('Post not found'));
 
       expect(response.statusCode).toBe(404);
 
@@ -162,7 +185,7 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('methodNotAllowedResponse()', () => {
-    it('creates 405 Method Not Allowed response', () => {
+    it('creates 405 Method Not Allowed response', async () => {
       const response = methodNotAllowedResponse();
 
       expect(response.statusCode).toBe(405);
@@ -174,8 +197,8 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('conflictResponse()', () => {
-    it('creates 409 Conflict response', () => {
-      const response = conflictResponse('File already exists');
+    it('creates 409 Conflict response', async () => {
+      const response = await toTestResponse(conflictResponse('File already exists'));
 
       expect(response.statusCode).toBe(409);
 
@@ -186,9 +209,9 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('serverErrorResponse()', () => {
-    it('creates 500 response from Error object', () => {
+    it('creates 500 response from Error object', async () => {
       const error = new Error('Database connection failed');
-      const response = serverErrorResponse(error);
+      const response = await toTestResponse(serverErrorResponse(error));
 
       expect(response.statusCode).toBe(500);
 
@@ -197,8 +220,8 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Database connection failed');
     });
 
-    it('creates 500 response from string', () => {
-      const response = serverErrorResponse('Something went wrong');
+    it('creates 500 response from string', async () => {
+      const response = await toTestResponse(serverErrorResponse('Something went wrong'));
 
       expect(response.statusCode).toBe(500);
 
@@ -206,9 +229,9 @@ describe('Response Helpers Utility', () => {
       expect(body.message).toBe('Something went wrong');
     });
 
-    it('includes stack trace when includeStack is true', () => {
+    it('includes stack trace when includeStack is true', async () => {
       const error = new Error('Test error');
-      const response = serverErrorResponse(error, { includeStack: true });
+      const response = await toTestResponse(serverErrorResponse(error, { includeStack: true }));
 
       const body = JSON.parse(response.body);
       expect(body.stack).toBeDefined();
@@ -216,18 +239,18 @@ describe('Response Helpers Utility', () => {
       expect(body.details).toBeDefined();
     });
 
-    it('excludes stack trace when includeStack is false', () => {
+    it('excludes stack trace when includeStack is false', async () => {
       const error = new Error('Test error');
-      const response = serverErrorResponse(error, { includeStack: false });
+      const response = await toTestResponse(serverErrorResponse(error, { includeStack: false }));
 
       const body = JSON.parse(response.body);
       expect(body.stack).toBeUndefined();
       expect(body.details).toBeUndefined();
     });
 
-    it('excludes stack trace by default', () => {
+    it('excludes stack trace by default', async () => {
       const error = new Error('Test error');
-      const response = serverErrorResponse(error);
+      const response = await toTestResponse(serverErrorResponse(error));
 
       const body = JSON.parse(response.body);
       expect(body.stack).toBeUndefined();
@@ -235,8 +258,8 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('serviceUnavailableResponse()', () => {
-    it('creates 503 Service Unavailable response', () => {
-      const response = serviceUnavailableResponse('Database is down');
+    it('creates 503 Service Unavailable response', async () => {
+      const response = await toTestResponse(serviceUnavailableResponse('Database is down'));
 
       expect(response.statusCode).toBe(503);
 
@@ -247,7 +270,7 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('corsPreflightResponse()', () => {
-    it('creates 200 response for OPTIONS requests', () => {
+    it('creates 200 response for OPTIONS requests', async () => {
       const response = corsPreflightResponse();
 
       expect(response.statusCode).toBe(200);
@@ -257,18 +280,18 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('Response consistency', () => {
-    it('all responses include CORS headers', () => {
-      const responses = [
-        successResponse({ data: 'test' }),
-        errorResponse('Error', 'Message'),
-        badRequestResponse('Bad'),
-        notFoundResponse(),
-        methodNotAllowedResponse(),
-        conflictResponse('Conflict'),
-        serverErrorResponse('Error'),
-        serviceUnavailableResponse('Unavailable'),
-        corsPreflightResponse()
-      ];
+    it('all responses include CORS headers', async () => {
+      const responses = await Promise.all([
+        toTestResponse(successResponse({ data: 'test' })),
+        toTestResponse(errorResponse('Error', 'Message')),
+        toTestResponse(badRequestResponse('Bad')),
+        toTestResponse(notFoundResponse()),
+        toTestResponse(methodNotAllowedResponse()),
+        toTestResponse(conflictResponse('Conflict')),
+        toTestResponse(serverErrorResponse('Error')),
+        toTestResponse(serviceUnavailableResponse('Unavailable')),
+        toTestResponse(corsPreflightResponse())
+      ]);
 
       responses.forEach(response => {
         expect(response.headers['Access-Control-Allow-Origin']).toBe('*');
@@ -276,15 +299,15 @@ describe('Response Helpers Utility', () => {
       });
     });
 
-    it('all error responses have consistent structure', () => {
-      const errorResponses = [
-        badRequestResponse('Bad'),
-        notFoundResponse('Not found'),
-        methodNotAllowedResponse(),
-        conflictResponse('Conflict'),
-        serverErrorResponse('Error'),
-        serviceUnavailableResponse('Unavailable')
-      ];
+    it('all error responses have consistent structure', async () => {
+      const errorResponses = await Promise.all([
+        toTestResponse(badRequestResponse('Bad')),
+        toTestResponse(notFoundResponse('Not found')),
+        toTestResponse(methodNotAllowedResponse()),
+        toTestResponse(conflictResponse('Conflict')),
+        toTestResponse(serverErrorResponse('Error')),
+        toTestResponse(serviceUnavailableResponse('Unavailable'))
+      ]);
 
       errorResponses.forEach(response => {
         const body = JSON.parse(response.body);
@@ -295,16 +318,16 @@ describe('Response Helpers Utility', () => {
       });
     });
 
-    it('all responses have valid JSON bodies', () => {
-      const allResponses = [
-        successResponse({ data: 'test' }),
-        badRequestResponse('Bad'),
-        notFoundResponse(),
-        methodNotAllowedResponse(),
-        conflictResponse('Conflict'),
-        serverErrorResponse('Error'),
-        serviceUnavailableResponse('Unavailable')
-      ];
+    it('all responses have valid JSON bodies', async () => {
+      const allResponses = await Promise.all([
+        toTestResponse(successResponse({ data: 'test' })),
+        toTestResponse(badRequestResponse('Bad')),
+        toTestResponse(notFoundResponse()),
+        toTestResponse(methodNotAllowedResponse()),
+        toTestResponse(conflictResponse('Conflict')),
+        toTestResponse(serverErrorResponse('Error')),
+        toTestResponse(serviceUnavailableResponse('Unavailable'))
+      ]);
 
       allResponses.forEach(response => {
         if (response.body !== '') {
@@ -315,46 +338,46 @@ describe('Response Helpers Utility', () => {
   });
 
   describe('Special characters and edge cases', () => {
-    it('handles special characters in messages', () => {
+    it('handles special characters in messages', async () => {
       const message = 'Error: "quotes" and \'apostrophes\' and \n newlines';
-      const response = errorResponse('Error', message);
+      const response = await toTestResponse(errorResponse('Error', message));
 
       const body = JSON.parse(response.body);
       expect(body.message).toBe(message);
     });
 
-    it('handles Unicode characters', () => {
+    it('handles Unicode characters', async () => {
       const data = { message: '日本語 émojis 🎉' };
-      const response = successResponse(data);
+      const response = await toTestResponse(successResponse(data));
 
       const body = JSON.parse(response.body);
       expect(body.message).toBe('日本語 émojis 🎉');
     });
 
-    it('handles null in additional data', () => {
-      const response = errorResponse('Error', 'Message', 400, { value: null });
+    it('handles null in additional data', async () => {
+      const response = await toTestResponse(errorResponse('Error', 'Message', 400, { value: null }));
 
       const body = JSON.parse(response.body);
       expect(body.value).toBeNull();
     });
 
-    it('handles undefined in additional data', () => {
-      const response = errorResponse('Error', 'Message', 400, { value: undefined });
+    it('handles undefined in additional data', async () => {
+      const response = await toTestResponse(errorResponse('Error', 'Message', 400, { value: undefined }));
 
       const body = JSON.parse(response.body);
       expect(body.value).toBeUndefined();
     });
 
-    it('handles empty string message', () => {
-      const response = errorResponse('Error', '');
+    it('handles empty string message', async () => {
+      const response = await toTestResponse(errorResponse('Error', ''));
 
       const body = JSON.parse(response.body);
       expect(body.message).toBe('');
     });
 
-    it('handles very long messages', () => {
+    it('handles very long messages', async () => {
       const longMessage = 'A'.repeat(10000);
-      const response = errorResponse('Error', longMessage);
+      const response = await toTestResponse(errorResponse('Error', longMessage));
 
       const body = JSON.parse(response.body);
       expect(body.message).toBe(longMessage);

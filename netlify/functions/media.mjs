@@ -14,15 +14,15 @@
  */
 
 const https = require('https');
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const {
+import { checkRateLimit } from '../utils/rate-limiter.mjs';
+import {
   successResponse,
   badRequestResponse,
   methodNotAllowedResponse,
   serviceUnavailableResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 /**
  * Netlify Function Handler - Media Library
@@ -31,7 +31,7 @@ const {
  * Cloudinary Admin API with pagination support (max 500 results).
  *
  * @param {Object} event - Netlify function event object
- * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {string} request.method - HTTP method (GET, OPTIONS)
  * @param {Object} context - Netlify function context
  * @returns {Promise<Object>} Response object with statusCode, headers, and body
  *
@@ -52,20 +52,15 @@ const {
  * //   total: 25
  * // }
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
 
   // Only allow GET requests
-  if (event.httpMethod !== 'GET') {
+  if (request.method !== 'GET') {
     return methodNotAllowedResponse();
   }
 
@@ -91,7 +86,7 @@ exports.handler = async (event, context) => {
     console.error('Media fetch error:', error);
     return serverErrorResponse(error, { includeStack: true });
   }
-};
+}
 
 /**
  * Fetches media resources from Cloudinary Admin API

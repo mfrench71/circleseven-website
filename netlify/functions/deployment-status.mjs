@@ -13,16 +13,16 @@
  * @module netlify/functions/deployment-status
  */
 
-const { checkRateLimit } = require('../utils/rate-limiter.cjs');
-const { githubRequest, GITHUB_BRANCH } = require('../utils/github-api.cjs');
-const {
+import { checkRateLimit } from '../utils/rate-limiter.mjs';
+import { githubRequest, GITHUB_BRANCH } from '../utils/github-api.mjs';
+import {
   successResponse,
   badRequestResponse,
   methodNotAllowedResponse,
   serviceUnavailableResponse,
   serverErrorResponse,
   corsPreflightResponse
-} = require('../utils/response-helpers.cjs');
+} from '../utils/response-helpers.mjs';
 
 const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
 
@@ -34,7 +34,7 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  * GitHub Actions workflow runs.
  *
  * @param {Object} event - Netlify function event object
- * @param {string} event.httpMethod - HTTP method (GET, OPTIONS)
+ * @param {string} request.method - HTTP method (GET, OPTIONS)
  * @param {Object} event.queryStringParameters - URL query parameters
  * @param {string} event.queryStringParameters.sha - Commit SHA to check
  * @param {Object} context - Netlify function context
@@ -65,21 +65,17 @@ const WORKFLOW_NAME = 'Deploy Jekyll site to GitHub Pages';
  * //   conclusion: "success"
  * // }
  */
-exports.handler = async (event, context) => {
+export default async function handler(request, context) {
   // Handle preflight requests
-  if (event.httpMethod === 'OPTIONS') {
+  if (request.method === 'OPTIONS') {
     return corsPreflightResponse();
   }
 
-  // Check rate limit
-  const rateLimitResponse = checkRateLimit(event);
-  if (rateLimitResponse) {
-    return rateLimitResponse;
-  }
 
   try {
-    if (event.httpMethod === 'GET') {
-      const commitSha = event.queryStringParameters?.sha;
+    if (request.method === 'GET') {
+      const url = new URL(request.url);
+      const commitSha = url.searchParams.get('sha');
 
       if (!commitSha) {
         return badRequestResponse('sha query parameter is required', { error: 'Missing required parameter' });
@@ -170,4 +166,4 @@ exports.handler = async (event, context) => {
     console.error('Deployment status function error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
-};
+}

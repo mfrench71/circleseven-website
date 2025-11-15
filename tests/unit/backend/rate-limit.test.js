@@ -9,7 +9,10 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import nock from 'nock';
 import { mockRateLimit, mockGitHubError, cleanMocks } from '../../utils/github-mock.js';
-import { handler } from '../../../netlify/functions/rate-limit.js';
+import { callV2Handler } from '../../utils/request-mock.js';
+import handlerFn from '../../../netlify/functions/rate-limit.mjs';
+
+const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
 describe('Rate Limit Function', () => {
   beforeEach(() => {
