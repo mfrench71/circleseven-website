@@ -177,9 +177,24 @@ export default async function handler(request, context) {
         }
 
         // Always write to Blob cache (with or without metadata)
-        await writePostsToBlob(posts);
+        let blobWriteStatus = 'not_attempted';
+        try {
+          await writePostsToBlob(posts);
+          blobWriteStatus = 'success';
+        } catch (err) {
+          blobWriteStatus = `error: ${err.message}`;
+        }
 
-        return successResponse({ posts });
+        return successResponse({
+          posts,
+          _debug: {
+            blobCacheAttempted: true,
+            blobWriteStatus,
+            cacheKey: BLOB_CACHE_KEY,
+            postsCount: posts.length,
+            withMetadata
+          }
+        });
       }
     }
 

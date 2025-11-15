@@ -177,9 +177,24 @@ export default async function handler(request, context) {
         }
 
         // Always write to Blob cache (with or without metadata)
-        await writePagesToBlob(pages);
+        let blobWriteStatus = 'not_attempted';
+        try {
+          await writePagesToBlob(pages);
+          blobWriteStatus = 'success';
+        } catch (err) {
+          blobWriteStatus = `error: ${err.message}`;
+        }
 
-        return successResponse({ pages });
+        return successResponse({
+          pages,
+          _debug: {
+            blobCacheAttempted: true,
+            blobWriteStatus,
+            cacheKey: BLOB_CACHE_KEY,
+            pagesCount: pages.length,
+            withMetadata
+          }
+        });
       }
     }
 
