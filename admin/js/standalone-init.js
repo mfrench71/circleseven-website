@@ -100,16 +100,11 @@ export async function initStandalonePage(pageName, initCallback) {
       window.DEPLOYMENT_TIMEOUT = 300; // 5 minutes in seconds
     }
 
-    // Set up login/logout event handlers (only once)
+    // Set up logout event handler (only once)
     if (window.netlifyIdentity && !window._authHandlersAdded) {
       console.log('[Auth] Registering auth event handlers');
 
-      window.netlifyIdentity.on('login', () => {
-        console.log('[Auth] Login event received, closing modal and reloading...');
-        window.netlifyIdentity.close();
-        window.location.reload();
-      });
-
+      // Only handle logout - login will be handled by reloading after modal closes
       window.netlifyIdentity.on('logout', () => {
         console.log('[Auth] Logout event received, reloading page...');
         window.location.reload();
@@ -122,11 +117,22 @@ export async function initStandalonePage(pageName, initCallback) {
     const user = await waitForAuth();
 
     if (!user) {
-      // Not authenticated - show auth gate
+      // Not authenticated - show auth gate and set up one-time login handler
       const authGate = document.getElementById('auth-gate');
       authGate?.classList.remove('d-none');
       authGate?.classList.add('show-auth');
       document.getElementById('main-app')?.classList.add('d-none');
+
+      // Set up one-time login handler to reload page after successful login
+      if (window.netlifyIdentity) {
+        const loginHandler = () => {
+          console.log('[Auth] Login successful, closing modal and reloading...');
+          window.netlifyIdentity.close();
+          window.location.reload();
+        };
+        window.netlifyIdentity.on('login', loginHandler);
+      }
+
       return;
     }
 
