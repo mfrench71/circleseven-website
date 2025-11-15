@@ -68,7 +68,7 @@ describe('Analytics Module', () => {
 
       // Should contain geographic section even with no data
       expect(html).toContain('Geographic Data');
-      expect(html).toContain('Geographic data unavailable');
+      expect(html).toContain('Geographic data will appear');
     });
 
     it('renders geodata when countryStats and cityStats are present', () => {
@@ -115,7 +115,7 @@ describe('Analytics Module', () => {
       expect(html).toContain('Toronto');
 
       // Should NOT show limitation message when data exists
-      expect(html).not.toContain('Geographic data unavailable');
+      expect(html).not.toContain('Geographic data will appear');
 
       // Should have proper table structure
       expect(html).toContain('Top Countries');
@@ -142,9 +142,8 @@ describe('Analytics Module', () => {
 
       const html = renderCustomAnalytics(data);
 
-      // Should show message explaining geo limitation
-      expect(html).toContain('Geographic data unavailable');
-      expect(html).toContain('Netlify Pro plan');
+      // Should show placeholder when no geodata
+      expect(html).toContain('Geographic data will appear');
 
       // Should NOT show country/city tables
       expect(html).not.toContain('Top Countries');
@@ -181,7 +180,7 @@ describe('Analytics Module', () => {
       expect(html).not.toContain('Top Cities');
 
       // Should NOT show limitation message
-      expect(html).not.toContain('Geographic data unavailable');
+      expect(html).not.toContain('Geographic data will appear');
     });
 
     it('handles partial geodata (only cities)', () => {
@@ -214,7 +213,7 @@ describe('Analytics Module', () => {
       expect(html).not.toContain('Top Countries');
 
       // Should NOT show limitation message
-      expect(html).not.toContain('Geographic data unavailable');
+      expect(html).not.toContain('Geographic data will appear');
     });
 
     it('limits geodata to top 10 entries', () => {

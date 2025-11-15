@@ -505,6 +505,41 @@ function getStats(data) {
   };
 }
 
+/**
+ * Fetch geo data from ipapi.co as fallback when Netlify headers unavailable
+ * Free tier: 30k requests/month, no API key needed
+ */
+async function fetchGeoData(clientIP) {
+  // Don't fetch for localhost/private IPs
+  if (!clientIP || clientIP === 'unknown' || clientIP.startsWith('192.168.') || clientIP.startsWith('10.') || clientIP === '127.0.0.1') {
+    return { country: null, city: null };
+  }
+
+  try {
+    const response = await fetch(`https://ipapi.co/${clientIP}/json/`, {
+      headers: {
+        'User-Agent': 'circleseven-analytics/1.0'
+      },
+      signal: AbortSignal.timeout(3000) // 3 second timeout
+    });
+
+    if (!response.ok) {
+      console.log(`[Analytics] ipapi.co returned ${response.status} for IP ${clientIP}`);
+      return { country: null, city: null };
+    }
+
+    const data = await response.json();
+
+    // ipapi.co returns country_code (US, GB, etc) and city
+    return {
+      country: data.country_code || null,
+      city: data.city || null
+    };
+  } catch (error) {
+    console.log(`[Analytics] Failed to fetch geo data from ipapi.co: ${error.message}`);
+    return { country: null, city: null };
+  }
+}
 
 /**
  * Main handler function
@@ -552,8 +587,16 @@ export default async function handler(request, context) {
       }
 
       // Extract geographic data from Netlify edge headers (privacy-friendly, no IP storage)
-      const country = request.headers.get('x-nf-country-code') || request.headers.get('X-Nf-Country-Code');
-      const city = request.headers.get('x-nf-city') || request.headers.get('X-Nf-City');
+      let country = request.headers.get('x-nf-country-code') || request.headers.get('X-Nf-Country-Code');
+      let city = request.headers.get('x-nf-city') || request.headers.get('X-Nf-City');
+
+      // Fallback to ipapi.co if Netlify headers not available (free tier)
+      if (!country || !city) {
+        console.log('[Analytics] Netlify geo headers not available, using ipapi.co');
+        const geoData = await fetchGeoData(clientIP);
+        country = country || geoData.country;
+        city = city || geoData.city;
+      }
 
       // Add geographic data to trackData
       trackData.country = country;
