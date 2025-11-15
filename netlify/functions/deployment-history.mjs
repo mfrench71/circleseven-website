@@ -110,4 +110,4 @@ export default async function handler(request, context) {
       includeStack: process.env.NODE_ENV === 'development'
     });
   }
-};
+}

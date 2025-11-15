@@ -239,4 +239,4 @@ export default async function handler(request, context) {
     console.error('Settings error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
-};
+}

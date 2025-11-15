@@ -264,4 +264,4 @@ ${tagsTree.map(t => generateTagYAML(t)).join('')}
     console.error('Taxonomy error:', error);
     return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
   }
-};
+}
