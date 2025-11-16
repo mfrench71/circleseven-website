@@ -16,7 +16,7 @@ highlightjs: true
          style="display: none;"
          title="Edit this post"
          aria-label="Edit this post">
-        <svg class="icon icon-edit" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg>
+        <i class="fas fa-edit" aria-hidden="true"></i>
       </a>
     </h1>
     <p class="post-meta">
@@ -122,7 +122,7 @@ highlightjs: true
              style="display: none;"
              title="Edit this post"
              aria-label="Edit {{ post.title }}">
-            <svg class="icon icon-edit" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg>
+            <i class="fas fa-edit" aria-hidden="true"></i>
           </a>
         </div>
 
@@ -156,7 +156,7 @@ highlightjs: true
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>
               <span class="post-date-reading">
-                <svg class="icon icon-calendar calendar-icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg>
+                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
                 {{ post.date | date: "%b %-d, %Y" }}
                 {%- if post.content -%}
                   · {%- include reading-time.html -%}

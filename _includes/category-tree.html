@@ -32,14 +32,14 @@
             <button class="category-tree-toggle {% if collapse_children %}collapsed{% endif %}"
                     aria-expanded="{% if collapse_children %}false{% else %}true{% endif %}"
                     aria-controls="children-{{ parent_slug }}">
-              <svg class="icon icon-chevron-down category-chevron" aria-hidden="true"><use xlink:href="#icon-chevron-down"></use></svg>
+              <i class="fas fa-chevron-down category-chevron" aria-hidden="true"></i>
             </button>
           {%- endif -%}
 
           {%- if link_categories -%}
             <a href="{{ site.baseurl }}/category/{{ parent_slug }}/"
                class="category-tree-link parent-category">
-              <svg class="icon icon-folder category-icon" aria-hidden="true"><use xlink:href="#icon-folder"></use></svg>
+              <i class="fas fa-folder category-icon" aria-hidden="true"></i>
               <span class="category-name">{{ parent.item }}</span>
               {%- if show_counts -%}
                 <span class="category-count">({{ parent_posts }})</span>
@@ -47,7 +47,7 @@
             </a>
           {%- else -%}
             <span class="category-tree-text parent-category">
-              <svg class="icon icon-folder category-icon" aria-hidden="true"><use xlink:href="#icon-folder"></use></svg>
+              <i class="fas fa-folder category-icon" aria-hidden="true"></i>
               <span class="category-name">{{ parent.item }}</span>
               {%- if show_counts -%}
                 <span class="category-count">({{ parent_posts }})</span>
@@ -66,7 +66,7 @@
                   {%- if link_categories -%}
                     <a href="{{ site.baseurl }}/category/{{ child_slug }}/"
                        class="category-tree-link">
-                      <svg class="icon icon-folder-open category-icon" aria-hidden="true"><use xlink:href="#icon-folder-open"></use></svg>
+                      <i class="fas fa-folder-open category-icon" aria-hidden="true"></i>
                       <span class="category-name">{{ child.item }}</span>
                       {%- if show_counts -%}
                         <span class="category-count">({{ child_posts }})</span>
@@ -74,7 +74,7 @@
                     </a>
                   {%- else -%}
                     <span class="category-tree-text">
-                      <svg class="icon icon-folder-open category-icon" aria-hidden="true"><use xlink:href="#icon-folder-open"></use></svg>
+                      <i class="fas fa-folder-open category-icon" aria-hidden="true"></i>
                       <span class="category-name">{{ child.item }}</span>
                       {%- if show_counts -%}
                         <span class="category-count">({{ child_posts }})</span>

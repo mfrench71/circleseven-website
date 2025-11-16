@@ -10,3 +10,20 @@
   width: 32px;
   height: 32px;
 }
+
+/* Prevent mega menu and mobile menu flash on page load */
+.mega-menu {
+  display: none !important;
+}
+
+.mobile-drawer-overlay {
+  display: none !important;
+}
+
+.mobile-drawer {
+  display: none !important;
+}
+
+.mobile-accordion-content {
+  display: none !important;
+}
