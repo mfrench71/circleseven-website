@@ -60,7 +60,7 @@ Outputs thumbnail optimized for cards (300x200)
   {%- endif -%}
 
   {%- if featured_img contains 'http' -%}
-    <img src="{{ featured_img }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
+    <img src="{{ featured_img }}" width="320" height="213" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}" decoding="async">
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_fill,g_auto,w_320,h_213,q_auto,f_auto,dpr_auto/{{ full_path }}"
@@ -68,11 +68,14 @@ Outputs thumbnail optimized for cards (300x200)
               {{ cloudinary_url }}/c_fill,g_auto,w_640,h_427,q_auto,f_auto/{{ full_path }} 640w,
               {{ cloudinary_url }}/c_fill,g_auto,w_960,h_640,q_auto,f_auto/{{ full_path }} 960w"
       sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 320px"
+      width="320"
+      height="213"
       alt="{{ include.post.title | escape }}"
       loading="{{ loading_value }}"
+      decoding="async"
     >
   {%- endif -%}
 {%- else -%}
   {%- assign loading_value = include.loading | default: "lazy" -%}
-  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}">
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" width="320" height="213" alt="{{ include.post.title | escape }}" loading="{{ loading_value }}" decoding="async">
 {%- endif -%}

@@ -8,6 +8,8 @@ Usage:
    transformation="c_fill,w_800,h_600"
    caption="Optional caption"
    sizes="(max-width: 768px) 100vw, 800px"
+   width="800"
+   height="600"
 %}
 
 Parameters:
@@ -17,6 +19,8 @@ Parameters:
 - caption: Optional caption text
 - sizes: Responsive sizes attribute (optional)
 - loading: lazy or eager (optional, defaults to lazy)
+- width: Image width in pixels (optional, defaults to 800)
+- height: Image height in pixels (optional, defaults to 600)
 {%- endcomment -%}
 
 {%- assign cloudinary_url = site.cloudinary_base_url -%}
@@ -43,4 +47,8 @@ Parameters:
   {%- assign loading = "lazy" -%}
 {%- endif -%}
 
-{%- if include.caption -%}<figure>{%- endif -%}<img src="{{ cloudinary_url }}/{{ transform }}/{{ full_path }}"{%- if include.sizes %} srcset="{{ cloudinary_url }}/c_limit,w_400,q_auto,f_auto/{{ full_path }} 400w, {{ cloudinary_url }}/c_limit,w_800,q_auto,f_auto/{{ full_path }} 800w, {{ cloudinary_url }}/c_limit,w_1200,q_auto,f_auto/{{ full_path }} 1200w, {{ cloudinary_url }}/c_limit,w_1600,q_auto,f_auto/{{ full_path }} 1600w" sizes="{{ include.sizes }}"{%- endif %} alt="{{ include.alt | escape }}" loading="{{ loading }}">{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption></figure>{%- endif -%}
+{%- comment -%} Set default width/height with ability to override via include parameters {%- endcomment -%}
+{%- assign img_width = include.width | default: 800 -%}
+{%- assign img_height = include.height | default: 600 -%}
+
+{%- if include.caption -%}<figure>{%- endif -%}<img src="{{ cloudinary_url }}/{{ transform }}/{{ full_path }}"{%- if include.sizes %} srcset="{{ cloudinary_url }}/c_limit,w_400,q_auto,f_auto/{{ full_path }} 400w, {{ cloudinary_url }}/c_limit,w_800,q_auto,f_auto/{{ full_path }} 800w, {{ cloudinary_url }}/c_limit,w_1200,q_auto,f_auto/{{ full_path }} 1200w, {{ cloudinary_url }}/c_limit,w_1600,q_auto,f_auto/{{ full_path }} 1600w" sizes="{{ include.sizes }}"{%- endif %} width="{{ img_width }}" height="{{ img_height }}" alt="{{ include.alt | escape }}" loading="{{ loading }}" decoding="async">{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption></figure>{%- endif -%}

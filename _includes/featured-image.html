@@ -67,7 +67,7 @@ Outputs image optimized for social sharing (1200x630)
 
   {%- comment -%} Check if it's already a full URL or just a filename {%- endcomment -%}
   {%- if featured_img contains 'http' -%}
-    <img src="{{ featured_img }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
+    <img src="{{ featured_img }}" width="1200" height="600" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
   {%- else -%}
     <img
       src="{{ cloudinary_url }}/c_limit,w_1200,h_600,q_auto,f_auto,dpr_auto/{{ full_path }}"
@@ -77,6 +77,8 @@ Outputs image optimized for social sharing (1200x630)
               {{ cloudinary_url }}/c_limit,w_1600,h_600,q_auto,f_auto/{{ full_path }} 1600w,
               {{ cloudinary_url }}/c_limit,w_2400,h_600,q_auto,f_auto/{{ full_path }} 2400w"
       sizes="(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+      width="1200"
+      height="600"
       alt="{{ page.title | escape }}"
       class="post-featured-image"
       loading="{{ loading_value }}"
@@ -85,5 +87,5 @@ Outputs image optimized for social sharing (1200x630)
   {%- endif -%}
 {%- else -%}
   {%- assign loading_value = include.loading | default: "eager" -%}
-  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
+  <img src="{{ '/assets/images/default-post.svg' | relative_url }}" width="1200" height="600" alt="{{ page.title | escape }}" class="post-featured-image" loading="{{ loading_value }}">
 {%- endif -%}
