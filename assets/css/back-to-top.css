@@ -9,10 +9,10 @@
   height: 50px;
   border: none;
   border-radius: 50%;
-  background: var(--color-primary, #0084b4);
+  background: var(--teal-primary, #20b2aa);
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.2);
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
@@ -24,13 +24,13 @@
 }
 
 #back-to-top:hover {
-  background: var(--color-primary-dark, #005580);
+  background: var(--teal-hover, #1a9690);
   transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(32, 178, 170, 0.3);
 }
 
 #back-to-top:focus {
-  outline: 2px solid var(--color-primary, #0084b4);
+  outline: 2px solid var(--teal-primary, #20b2aa);
   outline-offset: 3px;
 }
 
