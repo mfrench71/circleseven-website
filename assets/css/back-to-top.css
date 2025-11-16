@@ -24,7 +24,7 @@
 }
 
 #back-to-top:hover {
-  background: var(--teal-hover, #1a9690);
+  background: var(--teal-dark, #1a9991);
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(32, 178, 170, 0.3);
 }
