@@ -156,7 +156,7 @@ highlightjs: true
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>
               <span class="post-date-reading">
-                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                <svg class="icon icon-calendar calendar-icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg>
                 {{ post.date | date: "%b %-d, %Y" }}
                 {%- if post.content -%}
                   · {%- include reading-time.html -%}

@@ -1,0 +1,36 @@
+/* SVG Icon Sprites - Replaces Font Awesome for public pages */
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+.icon-calendar,
+.icon-clock {
+  width: 0.875em; /* Slightly smaller to match Font Awesome sizing */
+}
+
+/* Icon sizing utilities */
+.icon-sm {
+  width: 0.875em;
+  height: 0.875em;
+}
+
+.icon-lg {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.icon-xl {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* Specific context adjustments */
+.calendar-icon,
+.reading-time-icon {
+  margin-right: 0.25em;
+}

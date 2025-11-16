@@ -9,4 +9,4 @@
 {% if minutes == 0 %}
   {% assign minutes = 1 %}
 {% endif %}
-<i class="far fa-clock reading-time-icon" aria-hidden="true" title="{{ words }} words"></i> {{ minutes }} min read
+<svg class="icon icon-clock reading-time-icon" aria-hidden="true" title="{{ words }} words"><use xlink:href="#icon-clock"></use></svg> {{ minutes }} min read

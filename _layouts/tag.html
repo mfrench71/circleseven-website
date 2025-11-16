@@ -4,7 +4,7 @@ layout: default
 <div class="tag-page">
   <header class="page-header">
     <h1 class="page-heading">
-      <i class="fas fa-tag tag-icon"></i>
+      <svg class="icon icon-tag tag-icon" aria-hidden="true"><use xlink:href="#icon-tag"></use></svg>
       Tag: {{ page.tag }}
     </h1>
     <p class="tag-description">{{ site.tags[page.tag].size | default: page.posts.size }} post{% if page.posts.size != 1 %}s{% endif %} tagged with "{{ page.tag }}"</p>
@@ -51,7 +51,7 @@ layout: default
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>
               <span class="post-date-reading">
-                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                <svg class="icon icon-calendar calendar-icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg>
                 {{ post.date | date: "%b %-d, %Y" }}
                 {%- if post.content -%}
                   · {% include reading-time.html %}

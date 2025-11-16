@@ -23,15 +23,17 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 
 // Critical CSS files (above-the-fold, essential for first paint)
 // Note: google-fonts.css excluded because it contains Jekyll/Liquid syntax
+// Note: menu.css is large (15KB) - only basics in critical, enhanced features async-loaded
 const CRITICAL_FILES = [
   'variables.css',
   'layout.css',
-  'menu.css',
   'font-optimization.css'
 ];
 
 // Main CSS files (below-the-fold, can load async)
 const MAIN_FILES = [
+  'menu.css',
+  'menu-enhanced.css',
   'cards.css',
   'post-layouts.css',
   'embeds.css',
@@ -39,6 +41,7 @@ const MAIN_FILES = [
   'contact.css',
   'footer.css',
   'gallery.css',
+  'icons.css',
   'mobile-enhancements.css',
   'breadcrumbs.css',
   'back-to-top.css',

@@ -7,7 +7,7 @@ layout: default
   {% include category-breadcrumbs.html category=page.category %}
 
   <h1 class="page-heading">
-    <i class="fas fa-folder category-icon"></i>
+    <svg class="icon icon-folder category-icon" aria-hidden="true"><use xlink:href="#icon-folder"></use></svg>
     {{ page.title }}
   </h1>
 
@@ -31,8 +31,8 @@ layout: default
   {%- if has_children -%}
   <details class="subcategories-collapsible">
     <summary class="subcategories-summary">
-      <i class="fas fa-folder-tree"></i> Subcategories ({{ child_categories.size }})
-      <i class="fas fa-chevron-down chevron-icon"></i>
+      <svg class="icon icon-folder-tree" aria-hidden="true"><use xlink:href="#icon-folder-tree"></use></svg> Subcategories ({{ child_categories.size }})
+      <svg class="icon icon-chevron-down chevron-icon" aria-hidden="true"><use xlink:href="#icon-chevron-down"></use></svg>
     </summary>
     <div class="subcategories-content">
       <ul class="subcategories-list">
@@ -93,7 +93,7 @@ layout: default
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>
               <span class="post-date-reading">
-                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                <svg class="icon icon-calendar calendar-icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg>
                 {{ post.date | date: "%b %-d, %Y" }}
                 {%- if post.content -%}
                   · {% include reading-time.html %}
