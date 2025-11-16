@@ -1,5 +1,6 @@
 // Bundle entry point - imports all frontend scripts
 import './lazy-cards.js';
+import './lazy-gallery.js';
 import './gallery-fix.js';
 import './embeds.js';
 import './menu.js';

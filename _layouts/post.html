@@ -36,7 +36,7 @@ highlightjs: true
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    {{ content | inject_cloudinary_folder | auto_gallery }}
+    {{ content | inject_cloudinary_folder | auto_gallery | optimize_gallery_images }}
   </div>
 
   <div class="post-meta-footer">

@@ -1,16 +1,22 @@
 /**
  * GLightbox Initialization
  * Enables lightbox for all image links in posts
+ * Deferred initialization for better performance
  */
 
 (function() {
   'use strict';
 
+  let lightboxInitialized = false;
+  let lightboxInstance = null;
+
   // Wait for DOM and GLightbox to be ready
   function initLightbox() {
-    if (typeof GLightbox === 'undefined') {
+    if (typeof GLightbox === 'undefined' || lightboxInitialized) {
       return;
     }
+
+    console.log('[Lightbox] Initializing GLightbox');
 
     // Add glightbox class to image links, excluding video embeds
     const imageLinks = document.querySelectorAll('figure a');
@@ -23,6 +29,13 @@
         link.classList.add('glightbox');
         // Force GLightbox to treat this as an image, not external content
         link.setAttribute('data-type', 'image');
+
+        // Use data-full-src if available (for lazy-loaded thumbnails)
+        const img = link.querySelector('img');
+        const fullSrc = img.getAttribute('data-full-src');
+        if (fullSrc) {
+          link.setAttribute('href', fullSrc);
+        }
       }
     });
 
@@ -30,7 +43,7 @@
     groupGalleryImages();
 
     // Initialize GLightbox - use simple selector
-    const lightbox = GLightbox({
+    lightboxInstance = GLightbox({
       selector: '.glightbox',
       touchNavigation: true,
       loop: true,
@@ -50,14 +63,67 @@
         document.body.classList.remove('glightbox-open');
       }
     });
+
+    lightboxInitialized = true;
+    console.log('[Lightbox] Initialization complete');
   }
 
-  // Initialize on DOMContentLoaded
+  /**
+   * Defer lightbox initialization until first gallery interaction
+   * or gallery enters viewport
+   */
+  function deferredInit() {
+    const galleries = document.querySelectorAll('.gallery, .wp-block-gallery');
+
+    if (!galleries.length) {
+      // No galleries, just initialize normally
+      initLightbox();
+      return;
+    }
+
+    // Initialize on first click on any gallery image
+    document.addEventListener('click', function handleFirstClick(e) {
+      if (e.target.closest('.gallery figure a, figure a')) {
+        console.log('[Lightbox] First gallery click detected, initializing...');
+        if (!lightboxInitialized) {
+          e.preventDefault();
+          initLightbox();
+          // Re-trigger the click after initialization
+          setTimeout(() => {
+            e.target.closest('a').click();
+          }, 100);
+          document.removeEventListener('click', handleFirstClick);
+        }
+      }
+    });
+
+    // Or initialize when first gallery enters viewport
+    if ('IntersectionObserver' in window) {
+      const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !lightboxInitialized) {
+            console.log('[Lightbox] Gallery in viewport, initializing...');
+            initLightbox();
+            galleryObserver.disconnect();
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      galleries.forEach(gallery => {
+        galleryObserver.observe(gallery);
+      });
+    } else {
+      // Fallback: initialize immediately if no IntersectionObserver
+      initLightbox();
+    }
+  }
+
+  // Start deferred initialization on DOM ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLightbox);
+    document.addEventListener('DOMContentLoaded', deferredInit);
   } else {
     // DOM already loaded
-    initLightbox();
+    deferredInit();
   }
 
   /**

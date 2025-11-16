@@ -1,5 +1,10 @@
 # Claude Code Instructions
 
+## Terminology
+
+- **"frontend"** = Public-facing Jekyll site (non-admin)
+- **"admin"** = Admin interface at `/admin/`
+
 ## Testing Policy
 
 **CRITICAL**: After implementing ANY new feature or fixing ANY bug, you MUST:

@@ -19,15 +19,21 @@
   position: relative;
   overflow: hidden;
   border-radius: 2px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
   aspect-ratio: 1 / 1;
+
+  /* Performance optimizations */
+  contain: layout style paint; /* Isolate layout calculations */
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden; /* Prevent flickering */
+  will-change: transform; /* Hint browser for optimization */
 }
 
 .gallery figure:hover,
 .wp-block-gallery figure:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale3d(1.02, 1.02, 1) translateZ(0); /* Use 3D transform for GPU */
   z-index: 1;
+  /* Removed box-shadow - expensive rendering operation */
 }
 
 /* Gallery Images - Only within gallery containers */
@@ -304,6 +310,7 @@ body.glightbox-open {
 }
 
 /* Loading State for Images */
+.gallery img.lazy-gallery-image,
 .gallery img[loading="lazy"],
 .post-content img[loading="lazy"],
 .page-content img[loading="lazy"] {
@@ -312,12 +319,26 @@ body.glightbox-open {
   animation: shimmer 1.5s infinite;
 }
 
+/* Loaded state - fade in smoothly */
+.gallery img.lazy-gallery-image.loaded {
+  animation: fadeIn 0.3s ease-in;
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
