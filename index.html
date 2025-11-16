@@ -24,7 +24,7 @@ layout: default-sidebar
              style="display: none;"
              title="Edit this post"
              aria-label="Edit {{ post.title }}">
-            <i class="fas fa-edit" aria-hidden="true"></i>
+            <svg class="icon icon-edit" aria-hidden="true"><use xlink:href="#icon-edit"></use></svg>
           </a>
         </div>
 
@@ -58,7 +58,7 @@ layout: default-sidebar
             <div class="post-meta-info">
               <span class="post-author-name">{{ site.author | escape }}</span>
               <span class="post-date-reading">
-                <i class="far fa-calendar calendar-icon" aria-hidden="true"></i>
+                <svg class="icon icon-calendar calendar-icon" aria-hidden="true"><use xlink:href="#icon-calendar"></use></svg>
                 {{ post.date | date: "%b %-d, %Y" }}
                 {%- if post.content -%}
                   · {% include reading-time.html %}

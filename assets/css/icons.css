@@ -8,9 +8,26 @@
   fill: currentColor;
 }
 
+/* Ensure all icons have explicit sizing */
+.icon-calendar,
+.icon-chevron-down,
+.icon-clock,
+.icon-edit,
+.icon-folder,
+.icon-folder-open,
+.icon-folder-tree,
+.icon-graduation-cap,
+.icon-laptop-code,
+.icon-rocket,
+.icon-tag {
+  width: 1em;
+  height: 1em;
+}
+
 .icon-calendar,
 .icon-clock {
   width: 0.875em; /* Slightly smaller to match Font Awesome sizing */
+  height: 0.875em;
 }
 
 /* Icon sizing utilities */
