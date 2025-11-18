@@ -82,7 +82,11 @@ describe('Taxonomy Module', () => {
       option: vi.fn(),
     };
 
-    global.Sortable = vi.fn(() => mockSortable);
+    // Create a proper constructor mock for Vitest 4.x
+    const MockSortable = function() {
+      return mockSortable;
+    };
+    global.Sortable = MockSortable;
 
     // Mock window functions
     window.showModal = vi.fn();
@@ -305,8 +309,9 @@ describe('Taxonomy Module', () => {
 
       renderCategories();
 
-      expect(global.Sortable).toHaveBeenCalled();
+      // Verify Sortable was initialized by checking the instance was created
       expect(window.sortableInstances.categories).toBeDefined();
+      expect(window.sortableInstances.categories).toBe(mockSortable);
     });
 
     it('destroys previous Sortable instance before creating new one', () => {
@@ -400,8 +405,9 @@ describe('Taxonomy Module', () => {
 
       renderTags();
 
-      expect(global.Sortable).toHaveBeenCalled();
+      // Verify Sortable was initialized by checking the instance was created
       expect(window.sortableInstances.tags).toBeDefined();
+      expect(window.sortableInstances.tags).toBe(mockSortable);
     });
   });
 
