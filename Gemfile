@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-# Jekyll - using 4.3.x to avoid sass-embedded build issues on Netlify
-gem "jekyll", "~> 4.3.0"
+# Jekyll 4.4.x
+gem "jekyll", "~> 4.4"
 gem "minima", "~> 2.5"
 
 # Use sassc instead of sass-embedded for better Netlify compatibility
