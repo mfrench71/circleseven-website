@@ -30,8 +30,7 @@ Modern, performant static site built on free, enterprise-grade services:
 | **[Cloudflare](https://cloudflare.com)** | DNS & Email Routing | Free |
 | **[Cloudinary](https://cloudinary.com)** | Image CDN & Optimization | Free (25GB storage) |
 | **[GitHub](https://github.com)** | Source Control & CI/CD | Free |
-| **[Decap CMS](https://decapcms.org)** | Content Management (Alternative) | Free |
-| **Custom Admin** | Advanced Multi-Page CMS (Jekyll-native) | Free |
+| **Custom Admin** | Multi-Page CMS (Jekyll-native) | Free |
 
 ### Architecture Flow
 
@@ -68,7 +67,7 @@ Modern, performant static site built on free, enterprise-grade services:
 - **DNS:** Cloudflare (circleseven.co.uk)
 - **Email:** Cloudflare Email Routing → Gmail
 - **Images:** Cloudinary CDN with automatic optimization
-- **CMS:** Decap CMS + Custom Admin (GitHub-powered)
+- **CMS:** Custom Admin (GitHub-powered)
 - **Theme:** Minima (heavily customized)
 - **Content:** 78 blog posts across 21 categories
 
@@ -106,7 +105,7 @@ circleseven-website/
 │   ├── page.html            # Static page layout
 │   ├── category.html        # Category archive layout
 │   └── tag.html             # Tag archive layout
-├── _posts/                  # Blog posts (79 markdown files)
+├── _posts/                  # Blog posts (78 markdown files)
 ├── assets/
 │   ├── css/
 │   │   ├── variables.css    # CSS custom properties (teal theme)
@@ -142,11 +141,6 @@ circleseven-website/
 │   ├── styles.css           # Shared styles (Tailwind-inspired utilities)
 │   ├── sw.js                # Service Worker for offline capability
 │   └── README.md            # Custom Admin documentation
-├── admin-decap/             # Decap CMS (alternative, visual editor)
-│   ├── index.html           # CMS entry point
-│   ├── config.yml           # CMS configuration
-│   ├── cms.js               # Custom editor components
-│   └── README.md            # CMS documentation
 ├── netlify/functions/       # Serverless API endpoints
 │   ├── taxonomy.js          # Categories and tags CRUD
 │   ├── posts.js             # Blog posts management
@@ -288,9 +282,7 @@ bundle exec jekyll clean
 
 ## Content Management
 
-The site offers two CMS options:
-
-### Custom Admin (Recommended) ⭐
+### Custom Admin
 
 A GitHub-powered, WordPress-style CMS built specifically for Jekyll with a modern multi-page architecture:
 
@@ -367,33 +359,6 @@ The Media Library requires this environment variable in Netlify:
 - **Pattern:** Each page uses `standalone-init.js` for authentication, `initHeader()` and `initSidebar()` for shared UI
 
 See `admin/README.md` and `admin/js/README.md` for detailed technical documentation.
-
----
-
-### Decap CMS (Alternative)
-
-Original CMS interface with visual editing:
-
-**Access:** [https://circleseven.co.uk/admin-decap/](https://circleseven.co.uk/admin-decap/)
-
-1. Authenticate with Netlify Identity
-2. Create/edit posts visually with rich editor
-3. Use custom components:
-   - 📍 **Leaflet Map** - Insert interactive maps
-   - 🖼️ **Image Gallery** - Create lightbox galleries
-   - 🎬 **Vimeo/YouTube** - Embed videos
-4. Publish changes (auto-deploys to Netlify)
-
-#### Custom Editor Components
-
-The CMS includes specialized components for rich content:
-
-- **Leaflet Maps:** Insert maps with lat/lng/zoom controls
-- **Galleries:** Multi-image galleries with alt text and dimensions
-- **Video Embeds:** Vimeo and YouTube with responsive containers
-- **Preview Templates:** Live preview styled to match production site
-
----
 
 ### Manual Markdown Editing
 
@@ -535,7 +500,6 @@ WCAG AA compliant features:
 - **DNS:** $0 (Cloudflare)
 - **Email:** $0 (Cloudflare Email Routing)
 - **Images:** $0 (Cloudinary free tier)
-- **CMS:** $0 (Decap CMS)
 - **Domain:** ~£10/year (123-reg)
 - **Total:** ~£10/year
 
@@ -548,42 +512,27 @@ WCAG AA compliant features:
 
 ## Configuration
 
-### CMS Settings
+### Site Settings
 
-Access **Settings** in the Decap CMS admin at `/admin/#/collections/settings` to configure:
+Access **Settings** in the Custom Admin at `/admin/settings/` to configure:
 
-#### Site Configuration
 - **Site Title** - Displayed in browser titles and headers
 - **Description** - Used in meta tags and SEO
 - **Email** - Contact email address
 - **URL** - Production site URL (https://circleseven.co.uk)
 - **Related Posts Count** - Number of related posts shown (1-10, default: 4)
 
-#### Taxonomy (Categories & Tags)
-Manage the list of available categories and tags used throughout the site:
+### Taxonomy (Categories & Tags)
 
-1. Go to **Settings** → **Taxonomy (Categories & Tags)**
-2. Add/edit/remove categories and tags using the list interface
-3. After saving, run the sync script to update CMS checkboxes:
-   ```bash
-   npm run sync-taxonomy
-   ```
-4. Commit and push the updated `admin/config.yml`
+Manage categories and tags at `/admin/categories/` and `/admin/tags/`:
+
+- Drag-and-drop reordering
+- Add, edit, or delete items
+- Changes saved to `_data/taxonomy.yml`
 
 **Current Taxonomy:**
 - **21 Categories**: Projects, Photography, Retro Computing, Digital Art courses (DAT401-DAT613), INDE601
-- **31 Tags**: Photography, Academic, Tutorial, software tools (Photoshop, Blender, Unity), course tags
-
-### Admin Pagination
-
-Control how many posts appear per page in the CMS admin:
-
-1. Edit `admin/config.yml`
-2. Find the `pagination:` section under `blog` collection
-3. Change `size:` value (recommended: 10-50, current: 20)
-4. Commit and push changes
-
-**Note**: Due to Decap CMS limitations, this cannot be configured through the Settings UI.
+- **31 Tags**: Photography, Web Development, JavaScript, Python, software tools (Photoshop, Blender, Unity), course tags
 
 ### Maintenance Scripts
 
@@ -640,9 +589,8 @@ CLOUDINARY_API_SECRET=your_api_secret
 ## Documentation
 
 ### CMS Documentation
-- `admin/README.md` - **Custom Admin** setup and usage guide
-- `admin/js/README.md` - ES6 modules architecture documentation (110 functions)
-- `admin-decap/README.md` - Decap CMS setup and usage
+- `admin/README.md` - Custom Admin setup and usage guide
+- `admin/js/README.md` - ES6 modules architecture documentation (169 functions)
 
 ### Technical Documentation
 - `scripts/README.md` - Maintenance scripts documentation

@@ -87,14 +87,14 @@ The Media Library requires the following environment variable in Netlify:
 - Drag and drop to reorder categories
 - Click **Add Category** to create new categories
 - Edit or delete existing categories
-- Changes are saved immediately to `_data/categories.yml`
+- Changes are saved immediately to `_data/taxonomy.yml`
 
 ### Tags (`/admin/tags/`)
 - View and manage all post tags
 - Drag and drop to reorder tags
 - Click **Add Tag** to create new tags
 - Edit or delete existing tags
-- Changes are saved immediately to `_data/tags.yml`
+- Changes are saved immediately to `_data/taxonomy.yml`
 
 ### Bin (`/admin/bin/`)
 - View all soft-deleted posts and pages
