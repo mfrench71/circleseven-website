@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/96601e8b-600c-4aa5-acd1-e91aa68cafad/deploy-status)](https://app.netlify.com/sites/prismatic-donut-15ed74/deploys)
 [![Hosted on Cloudflare](https://img.shields.io/badge/DNS-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
 [![Images on Cloudinary](https://img.shields.io/badge/Images-Cloudinary-3448C5?logo=cloudinary&logoColor=white)](https://cloudinary.com/)
-[![Jekyll](https://img.shields.io/badge/Jekyll-3.9+-CC0000?logo=jekyll&logoColor=white)](https://jekyllrb.com/)
+[![Jekyll](https://img.shields.io/badge/Jekyll-4.4+-CC0000?logo=jekyll&logoColor=white)](https://jekyllrb.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Portfolio and blog documenting Digital Art and Technology projects, academic work, and creative coding experiments from Plymouth University.
@@ -63,7 +63,7 @@ Modern, performant static site built on free, enterprise-grade services:
 
 ## Technical Stack
 
-- **Generator:** Jekyll 3.9+ static site generator
+- **Generator:** Jekyll 4.4+ static site generator
 - **Hosting:** Netlify with automated deployments
 - **DNS:** Cloudflare (circleseven.co.uk)
 - **Email:** Cloudflare Email Routing → Gmail
@@ -244,7 +244,7 @@ For more details on Functions v2 migration, see [Netlify Functions documentation
 
 ### Prerequisites
 
-- Ruby 2.7+ (check with `ruby -v`)
+- Ruby 3.1+ (check with `ruby -v`)
 - Bundler (`gem install bundler`)
 - Git
 
