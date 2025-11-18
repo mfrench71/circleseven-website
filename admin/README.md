@@ -22,7 +22,7 @@ This custom admin provides a WordPress-style interface for managing your Jekyll 
 - ✅ **WordPress-style UX** - Autocomplete taxonomy, collapsible categories, unsaved changes protection
 - ✅ **Shared Components** - Reusable header and sidebar across all pages
 - ✅ **Mobile Responsive** - Works on all devices
-- ✅ **ES6 Modules** - Clean, modular JavaScript architecture with 110 functions across 10 modules + 2 components
+- ✅ **ES6 Modules** - Clean, modular JavaScript architecture with 169 functions across 12 modules + 2 components
 
 ---
 
@@ -161,7 +161,7 @@ The admin uses a **multi-page standalone architecture**:
 - Shared components (header, sidebar) are loaded via ES6 modules
 - Authentication is handled by `standalone-init.js` which wraps Netlify Identity
 - All pages use the same base styles from `styles.css`
-- ES6 modules provide clean separation of concerns (110 functions across 10 modules + 2 components)
+- ES6 modules provide clean separation of concerns (169 functions across 12 modules + 2 components)
 
 ---
 
@@ -233,4 +233,4 @@ localStorage.setItem('TEST_MODE', 'true');
 ---
 
 **Version**: 2.0.0 | **Status**: Production Ready ✅
-**Architecture**: Multi-page standalone | **Modules**: 110 functions across 10 ES6 modules + 2 components
+**Architecture**: Multi-page standalone | **Modules**: 169 functions across 12 ES6 modules + 2 components

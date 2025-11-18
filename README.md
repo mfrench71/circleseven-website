@@ -70,7 +70,7 @@ Modern, performant static site built on free, enterprise-grade services:
 - **Images:** Cloudinary CDN with automatic optimization
 - **CMS:** Decap CMS + Custom Admin (GitHub-powered)
 - **Theme:** Minima (heavily customized)
-- **Content:** 79 blog posts across 22 categories
+- **Content:** 78 blog posts across 21 categories
 
 ### Key Features
 
@@ -132,7 +132,7 @@ circleseven-website/
 │   ├── tags/index.html      # Tags management page
 │   ├── bin/index.html       # Bin (soft-deleted items) page
 │   ├── settings/index.html  # Settings editor page
-│   ├── js/                  # ES6 modules (110 functions across 10 modules)
+│   ├── js/                  # ES6 modules (169 functions across 12 modules)
 │   │   ├── standalone-init.js    # Auth helper for standalone pages
 │   │   ├── components/           # Shared header and sidebar
 │   │   ├── core/                 # Utilities (debounce, escapeHtml, etc.)
@@ -309,7 +309,7 @@ A GitHub-powered, WordPress-style CMS built specifically for Jekyll with a moder
 - **Bin System** (`/admin/bin/`) - Soft delete with restore capability for posts and pages
 - **Deployment Tracking** - Real-time GitHub Actions workflow monitoring with live status banners
 - **Protected Pages** - Lock indicator for system pages that cannot be deleted
-- **ES6 Modules** - Clean, modular architecture with 110 functions across 10 modules + 2 components
+- **ES6 Modules** - Clean, modular architecture with 169 functions across 12 modules + 2 components
 - **WordPress-style UX** - Autocomplete taxonomy, collapsible categories, hover actions
 - **Offline Capable** - Service Worker caching for faster repeat visits
 - **Mobile Responsive** - Works on all devices
@@ -363,7 +363,7 @@ The Media Library requires this environment variable in Netlify:
 - **Images:** Cloudinary (CDN with automatic optimization)
 - **Auth:** Netlify Identity with TEST_MODE support for E2E testing
 - **Deployment:** GitHub Actions with real-time status tracking
-- **Modules:** 110 functions across 10 ES6 modules + 2 shared components
+- **Modules:** 169 functions across 12 ES6 modules + 2 shared components
 - **Pattern:** Each page uses `standalone-init.js` for authentication, `initHeader()` and `initSidebar()` for shared UI
 
 See `admin/README.md` and `admin/js/README.md` for detailed technical documentation.
@@ -653,7 +653,7 @@ All Netlify Functions and frontend JavaScript files include comprehensive JSDoc 
 - `netlify/functions/*.js` - Serverless API endpoints with full JSDoc annotations
 - `assets/js/*.js` - Frontend JavaScript with JSDoc documentation
 - `admin/app.js` - Dashboard logic (fully documented)
-- `admin/js/modules/*.js` - 110 functions across 10 ES6 modules with full JSDoc
+- `admin/js/modules/*.js` - 169 functions across 12 ES6 modules with full JSDoc
 
 ## Contributing
 
