@@ -148,9 +148,7 @@ The Media Library requires the following environment variable in Netlify:
 ├── app.js                          # Legacy application logic (dashboard only)
 ├── styles.css                      # Shared styles (Tailwind-inspired utilities)
 ├── sw.js                           # Service Worker (caching)
-├── README.md                       # This file
-├── OPTIMIZATION-GUIDE.md           # Performance documentation
-└── FEATURES-ROADMAP.md             # Future features roadmap
+└── README.md                       # This file
 ```
 
 ### Architecture
@@ -227,8 +225,6 @@ localStorage.setItem('TEST_MODE', 'true');
 
 - **Main Guide**: This README
 - **JS Modules**: [js/README.md](./js/README.md) - Detailed ES6 module documentation
-- **Optimizations**: [OPTIMIZATION-GUIDE.md](./OPTIMIZATION-GUIDE.md)
-- **Future Features**: [FEATURES-ROADMAP.md](./FEATURES-ROADMAP.md)
 
 ---
 
