@@ -6,8 +6,11 @@ Sitemap: https://circleseven.co.uk/sitemap.xml
 
 # Disallow admin and config
 Disallow: /admin/
+Disallow: /admin-custom/
+Disallow: /.netlify/
 Disallow: /.git/
 Disallow: /_site/
+Disallow: /node_modules/
 
 # Allow CSS and JS for better indexing
 Allow: /assets/css/
