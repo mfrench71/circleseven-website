@@ -33,11 +33,6 @@
    WCAG 2.1 AA compliance for keyboard navigation
    ============================================ */
 
-/* Remove default outline and add custom focus styles */
-*:focus {
-  outline: none;
-}
-
 /* Visible focus indicator for all interactive elements */
 a:focus-visible,
 button:focus-visible,
@@ -51,6 +46,16 @@ select:focus-visible,
   outline: 3px solid #20b2aa;
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Remove default outline only when we have custom focus-visible styles */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Navigation links */
