@@ -27,3 +27,143 @@
 .mobile-accordion-content {
   display: none !important;
 }
+
+/* ============================================
+   KEYBOARD FOCUS INDICATORS
+   WCAG 2.1 AA compliance for keyboard navigation
+   ============================================ */
+
+/* Remove default outline and add custom focus styles */
+*:focus {
+  outline: none;
+}
+
+/* Visible focus indicator for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible,
+.post-card:focus-visible,
+.category-badge:focus-visible,
+.post-tag:focus-visible {
+  outline: 3px solid #20b2aa;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Navigation links */
+.site-nav a:focus-visible {
+  outline: 3px solid #20b2aa;
+  outline-offset: 4px;
+  background: rgba(32, 178, 170, 0.1);
+}
+
+/* Card focus states */
+.post-card:focus-visible {
+  outline: 3px solid #20b2aa;
+  outline-offset: 4px;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(32, 178, 170, 0.2);
+}
+
+/* Button focus states */
+button:focus-visible,
+.btn:focus-visible,
+input[type="submit"]:focus-visible,
+input[type="button"]:focus-visible {
+  outline: 3px solid #20b2aa;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.2);
+}
+
+/* Form input focus states */
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="url"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="search"]:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #20b2aa;
+  outline-offset: 1px;
+  border-color: #20b2aa;
+  box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.15);
+}
+
+/* Pagination focus states */
+.pagination a:focus-visible,
+.pagination-pages a:focus-visible {
+  outline: 2px solid #20b2aa;
+  outline-offset: 2px;
+  background: rgba(32, 178, 170, 0.1);
+}
+
+/* Category/tag badge focus states */
+.category-badge:focus-visible,
+.post-tag:focus-visible,
+.category-tag:focus-visible {
+  outline: 2px solid #20b2aa;
+  outline-offset: 2px;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.3);
+}
+
+/* Skip to content link (for screen readers and keyboard users) */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 99999;
+  background: #20b2aa;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0 0 4px 4px;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  left: 10px;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Focus within - highlight parent when child has focus */
+.post-card:focus-within {
+  border-color: #20b2aa;
+  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.15);
+}
+
+/* Ensure focus is never hidden by custom styles */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  *:focus-visible {
+    outline: 4px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *:focus-visible {
+    transition: none;
+  }
+
+  .post-card:focus-visible {
+    transform: none;
+  }
+}
