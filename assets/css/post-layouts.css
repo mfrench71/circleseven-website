@@ -49,7 +49,7 @@
 /* Post Metadata (date) */
 .post-meta {
   font-size: 14px;
-  color: #828282;
+  color: #666; /* Improved contrast: 5.74:1 (was #828282 at 3.97:1) */
   display: block;
   margin-bottom: 5px;
 }
@@ -93,7 +93,7 @@ a.category:hover {
 .post-breadcrumb {
   display: block;
   font-size: 12px;
-  color: #999;
+  color: #666; /* Improved contrast: 5.74:1 (was #999 at 2.85:1) */
   margin-top: 10px;
   font-style: italic;
 }
