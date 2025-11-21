@@ -197,16 +197,16 @@ Sitemap: https://circleseven.co.uk/sitemap.xml
 
 ---
 
-#### 5. Add Pagination SEO Links (1 hour)
-- [ ] **Status**: Not Started
-- [ ] **Files to modify**: `_layouts/home.html` or wherever pagination is used
-- [ ] **Changes needed**:
-  - [ ] Add rel="prev" link tag
-  - [ ] Add rel="next" link tag
-  - [ ] Test on paginated pages
-- [ ] **Testing required**: Yes - Check HTML source on page 2+
-- [ ] **Tests to write**: None (manual verification)
-- [ ] **Commit message**: "feat(seo): add rel=prev/next links for paginated pages"
+#### 5. Add Pagination SEO Links (1 hour) ✅
+- [x] **Status**: ✅ COMPLETED
+- [x] **Files modified**: `_includes/head.html`
+- [x] **Changes implemented**:
+  - [x] Added rel="prev" link tag for previous pages
+  - [x] Added rel="next" link tag for next pages
+  - [x] Tested on pages 1, 2, and 3
+- [x] **Testing completed**: Manual verification on paginated pages
+- [x] **Commit**: Ready to commit
+- [x] **Commit message**: "feat(seo): add rel=prev/next links for paginated pages"
 
 **Implementation**:
 ```liquid

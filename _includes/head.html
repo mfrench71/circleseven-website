@@ -4,6 +4,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- seo -%}
 
+  <!-- Pagination SEO Links for Crawlers -->
+  {%- if paginator -%}
+    {%- if paginator.previous_page -%}
+      <link rel="prev" href="{{ paginator.previous_page_path | absolute_url }}" />
+    {%- endif -%}
+    {%- if paginator.next_page -%}
+      <link rel="next" href="{{ paginator.next_page_path | absolute_url }}" />
+    {%- endif -%}
+  {%- endif -%}
+
   <!-- Open Graph & Twitter Card Meta Tags for Social Sharing -->
   {%- if page.layout == "post" or page.layout == "page" -%}
     {%- assign og_image = page.featured_image | default: page.image -%}
