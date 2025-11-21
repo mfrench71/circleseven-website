@@ -326,7 +326,14 @@
       const response = await fetch(`/.netlify/functions/comments-api?postSlug=${encodeURIComponent(postSlug)}`);
 
       if (!response.ok) {
-        throw new Error('Failed to load comments');
+        // In local development, Netlify Functions don't exist - silently show no comments
+        if (response.status === 404 && window.location.hostname === 'localhost') {
+          console.info('[Comments] API not available in local development');
+          loadingEl.style.display = 'none';
+          noCommentsEl.style.display = 'block';
+          return;
+        }
+        throw new Error(`Failed to load comments: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
@@ -348,8 +355,10 @@
         renderComments(comments, listEl);
       }
     } catch (error) {
-      console.error('Failed to load comments:', error);
+      console.error('[Comments] Failed to load comments:', error);
+      loadingEl.style.display = 'none';
       loadingEl.innerHTML = '<p class="error">Failed to load comments. Please try again later.</p>';
+      loadingEl.style.display = 'block';
     }
   }
 
