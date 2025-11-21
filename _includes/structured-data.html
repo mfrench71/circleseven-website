@@ -42,6 +42,12 @@
     }
   },
   "description": "{{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}",
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "{{ site.url }}{{ site.baseurl }}/#blog",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}{{ site.baseurl }}"
+  },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
