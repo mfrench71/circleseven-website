@@ -36,7 +36,7 @@ Thematically, the areas of interest that stood out for me were the accounts of h
 
 From a technical standpoint, I enjoyed the accounts of [Ben Burtt's](https://en.wikipedia.org/wiki/Ben_Burtt) work for George Lucas on the original *Star Wars* trilogy.
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/516px-Ben_Burtt_Celebration_Europe_II"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/516px-Ben_Burtt_Celebration_Europe_II" width="172" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/516px-Ben_Burtt_Celebration_Europe_II"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/516px-Ben_Burtt_Celebration_Europe_II" width="172" height="300" alt="Ben Burtt, legendary Star Wars sound designer" loading="lazy"></a></figure>
 
 Burtt:
 
@@ -71,13 +71,13 @@ I recorded the sound of primary school children playing outside at a school that
 
 ## Part 2
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-02-29-08.50.53-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-02-29-08.50.53-scaled-1" width="225" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-02-29-08.50.53-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-02-29-08.50.53-scaled-1" width="225" height="300" alt="Recording equipment setup for field sound recording" loading="lazy"></a></figure>
 
 This sequence is an attempt to emulate Ben Burtt's sound design for the cantina sequence in *Star Wars*. The recording is an assembly of street sounds and music and traffic combined with recordings of our dog (at both the original pitch and a raised pitch) and birdsong during a dawn chorus. The animal sounds are shifted in the stereo field to give an impression of space and immersion within the created audio environment.
 
 ## Part 3
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-05-09-12.39.08-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-05-09-12.39.08-scaled-1" width="300" height="225" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-05-09-12.39.08-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/2016-05-09-12.39.08-scaled-1" width="300" height="225" alt="Metal well cover used for industrial sound effects" loading="lazy"></a></figure>
 
 My aim for this part of the piece was to create an industrial, dystopian atmosphere. A recording of school children playing was lowered in pitch to sound like an ominous moaning. The sound of an idling bus engine is lowered in pitch to create a mechanical-sounding background. The thumping percussive effects are created from the sound of me thumping a metal well cover with my hand and also with a stone. Reverberation is added to give a boom to the impact and to evoke the sound of massive machinery at work. The various screams were my own screams, changed in pitch and with added reverberation as well as being panned left and right in the stereo field. A voiceover with telephone voice effect is used to maintain the feeling of a mechanical/technological atmosphere.
 
@@ -87,7 +87,7 @@ I wanted to experiment with some vocalisation effects to achieve my own version 
 
 <h3>Further Reading/References</h3>
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1785-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1785-scaled-1" width="300" height="225" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1785-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_1785-scaled-1" width="300" height="225" alt="Reference books on sound design and science fiction" loading="lazy"></a></figure>
 
 ## Literary References
 

@@ -56,10 +56,10 @@ The results are below:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1999_33087914500_o" width="1024" height="768" alt="First collaborative drawing with partial contributions" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2001_32657092913_o" width="1024" height="768" alt="Second collaborative drawing with shared pen" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2002_32657092573_o" width="1024" height="768" alt="Third collaborative drawing without predetermined subject" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_2003_32657093133_o" width="1024" height="768" alt="Whiteboard drawing created with string-bound wrists exercise" loading="lazy"></a></figure>
 
 </div>
 

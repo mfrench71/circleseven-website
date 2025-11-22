@@ -27,7 +27,7 @@ Basic content for the webpage (text and imagery) will be provided by yourself. H
 
 Following on from my [investigation into visual effects provider web sites]({{ site.baseurl }}/dat404-web-technologies-assignment-preparation/) and the creation of three alternative web designs based on these web sites, I decided to turn the following Photoshop mockup into a completed smash page web design for my chosen professional practice of broadcast visual effects:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/website_mockup"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/website_mockup" width="755" height="1024" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/website_mockup"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/website_mockup" width="755" height="1024" alt="Professional practice website Photoshop mockup design" loading="lazy"></a></figure>
 
 The [completed web site]({{ site.baseurl }}/dat404/){:target="_blank"} site comprises:
 

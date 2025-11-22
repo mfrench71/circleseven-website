@@ -33,7 +33,7 @@ ENTER and SPACE for left and right. CAPS SHIFT and Z for up and down. SYMBOL SHI
 
 If you want to use your own keys, then here are the keyboard numbers (what a service!)
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2236-e1520947600686"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2236-e1520947600686" width="300" height="225" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2236-e1520947600686"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2236-e1520947600686" width="300" height="225" alt="ZX Spectrum keyboard number reference chart for White Lightning" style="border-radius:6px" loading="lazy"></a></figure>
 
 ## Notes on conversion:
 
@@ -55,5 +55,5 @@ Matthew F.
 
 ## The Originals
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2234"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2234" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2235"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2235" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2234"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2234" width="225" height="300" alt="Original handwritten White Lightning part 3 tutorial page one" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2235"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2235" width="225" height="300" alt="Original handwritten White Lightning part 3 tutorial page two" style="border-radius:6px" loading="lazy"></a></figure>

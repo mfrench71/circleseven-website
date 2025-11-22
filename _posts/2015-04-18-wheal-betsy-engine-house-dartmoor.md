@@ -14,7 +14,7 @@ The Wheal Betsy engine house is located just off the A386 Okehampton to Tavistoc
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0174"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0174" width="199" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0171"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0171" width="199" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0174"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0174" width="199" height="300" alt="Wheal Betsy engine house with curved chimney on Dartmoor" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0171"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/DSC0171" width="199" height="300" alt="Wheal Betsy tin mine engine house ruins" loading="lazy"></a></figure>
 
 </div>

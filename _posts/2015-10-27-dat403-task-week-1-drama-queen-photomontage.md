@@ -16,12 +16,12 @@ The original images:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Background-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Background-scaled-1" width="300" height="202" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Sky-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Sky-scaled-1" width="300" height="200" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Model-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Model-scaled-1" width="192" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Background-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Background-scaled-1" width="300" height="202" alt="Original background image showing a dark landscape" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Sky-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Sky-scaled-1" width="300" height="200" alt="Original sky image with dramatic clouds" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Model-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/Model-scaled-1" width="192" height="300" alt="Original model photograph used for compositing" loading="lazy"></a></figure>
 
 </div>
 
 These were modified, combined and enhanced to produce the final image:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/drama_queen-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/drama_queen-scaled-1" width="1024" height="690" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/drama_queen-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/drama_queen-scaled-1" width="1024" height="690" alt="Final Drama Queen photomontage combining model, sky and background with dramatic lighting effects" loading="lazy"></a></figure>

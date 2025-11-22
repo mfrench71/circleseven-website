@@ -52,7 +52,7 @@ Matthew F.
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2230-e1520611800537"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2230-e1520611800537" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2231-e1520611813740"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2231-e1520611813740" width="225" height="300" alt="" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2230-e1520611800537"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2230-e1520611800537" width="225" height="300" alt="Original handwritten White Lightning part 1 tutorial page one" style="border-radius:6px" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2231-e1520611813740"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/IMG_2231-e1520611813740" width="225" height="300" alt="Original handwritten White Lightning part 1 tutorial page two" style="border-radius:6px" loading="lazy"></a></figure>
 
 </div>

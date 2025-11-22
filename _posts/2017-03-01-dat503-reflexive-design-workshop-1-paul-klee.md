@@ -42,9 +42,9 @@ And here are the three interpretations:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o" width="768" height="1024" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o" width="1024" height="768" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1949_33170301305_o" width="768" height="1024" alt="First Paul Klee style line drawing interpretation of Ersilia text" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1950_32787849760_o" width="1024" height="768" alt="Second Paul Klee style line drawing interpretation of Ersilia text" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o.jpg"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/img_1951_33170300335_o" width="1024" height="768" alt="Third Paul Klee style line drawing interpretation of Ersilia text" loading="lazy"></a></figure>
 
 </div>
 

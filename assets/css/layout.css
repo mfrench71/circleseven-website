@@ -36,9 +36,6 @@
 /* Visible focus indicator for all interactive elements */
 a:focus-visible,
 button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
 [tabindex]:focus-visible,
 .post-card:focus-visible,
 .category-badge:focus-visible,
@@ -51,9 +48,6 @@ select:focus-visible,
 /* Remove default outline only when we have custom focus-visible styles */
 a:focus:not(:focus-visible),
 button:focus:not(:focus-visible),
-input:focus:not(:focus-visible),
-textarea:focus:not(:focus-visible),
-select:focus:not(:focus-visible),
 [tabindex]:focus:not(:focus-visible) {
   outline: none;
 }
@@ -81,20 +75,6 @@ input[type="button"]:focus-visible {
   outline: 3px solid #20b2aa;
   outline-offset: 3px;
   box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.2);
-}
-
-/* Form input focus states */
-input[type="text"]:focus-visible,
-input[type="email"]:focus-visible,
-input[type="url"]:focus-visible,
-input[type="password"]:focus-visible,
-input[type="search"]:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid #20b2aa;
-  outline-offset: 1px;
-  border-color: #20b2aa;
-  box-shadow: 0 0 0 3px rgba(32, 178, 170, 0.15);
 }
 
 /* Pagination focus states */

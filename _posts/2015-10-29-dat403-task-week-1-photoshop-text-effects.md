@@ -16,8 +16,8 @@ I created the following from a high contrast photo:
 
 <div class="gallery">
 
-<div><div style="flex-basis:100%"><figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-original-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-original-scaled-1" width="230" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-finished-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-finished-scaled-1" width="230" height="300" alt="" loading="lazy"></a></figure>
+<div><div style="flex-basis:100%"><figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-original-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-original-scaled-1" width="230" height="300" alt="Original high contrast photograph used as base for text effect" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-finished-scaled-1"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/text-effects-finished-scaled-1" width="230" height="300" alt="Finished Photoshop text effect with typography masked to shadows and midtones" loading="lazy"></a></figure>
 
 </div>
 

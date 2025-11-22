@@ -48,11 +48,11 @@ If you are feeling a bit more ambitious, you might like to add features to:
 
 <div class="gallery">
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-01_30267168656_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-01_30267168656_o" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-02_30267169016_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-02_30267169016_o" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-03_30216439431_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-03_30216439431_o" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-04_29671872384_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-04_29671872384_o" width="176" height="300" alt="" loading="lazy"></a></figure>
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-05_30267169786_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-05_30267169786_o" width="176" height="300" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-01_30267168656_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-01_30267168656_o" width="176" height="300" alt="Rate My Dryer app home screen" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-02_30267169016_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-02_30267169016_o" width="176" height="300" alt="Rate My Dryer app rating card view" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-03_30216439431_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-03_30216439431_o" width="176" height="300" alt="Rate My Dryer app create rating screen" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-04_29671872384_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-04_29671872384_o" width="176" height="300" alt="Rate My Dryer app map view with dryer locations" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-05_30267169786_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/ratemydryer-05_30267169786_o" width="176" height="300" alt="Rate My Dryer app settings and data management screen" loading="lazy"></a></figure>
 
 </div>
 

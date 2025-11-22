@@ -216,7 +216,7 @@ function getName(personIdGlobal) {
 
 The final result looks like:
 
-<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/matthew_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/matthew_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/matthew_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/matthew_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/matthew_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="" loading="lazy"></a></figure>
+<figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/matthew_result"><img src="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,h_800,q_auto,f_auto/matthew_result" srcset="https://res.cloudinary.com/circleseven/image/upload/c_limit,w_400,q_auto,f_auto/matthew_result 400w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_800,q_auto,f_auto/matthew_result 800w, https://res.cloudinary.com/circleseven/image/upload/c_limit,w_1200,q_auto,f_auto/matthew_result 1200w" sizes="(max-width: 768px) 100vw, 800px" alt="Face recognition result showing detected face with identified user name" loading="lazy"></a></figure>
 
 ## Bibliography
 
