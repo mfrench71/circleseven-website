@@ -47,7 +47,8 @@ const MAIN_FILES = [
   'back-to-top.css',
   'code-blocks.css',
   'featured-image.css',
-  'edit-links.css'
+  'edit-links.css',
+  'comments.css'
 ];
 
 // Minima theme CSS file (will be purged alongside custom CSS)
