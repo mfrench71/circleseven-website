@@ -1,34 +1,34 @@
 # 🔧 Circle Seven Website - Audit Implementation Tracker
 
 **Generated**: 2025-11-21
-**Status**: Ready to Begin
-**Overall Progress**: 0% (0/118 hours completed)
+**Status**: In Progress
+**Overall Progress**: 10% (12/118 hours completed)
 
 ---
 
 ## 📊 Quick Reference
 
 ### Current Phase
-**Phase 1: Quick Wins** (0% complete)
+**Phase 1: Quick Wins** (55% complete - 12/22 hours)
 
 ### Priority Issues
-1. ❌ Inline CSS in comments.html (CRITICAL - violates project guidelines)
-2. ❌ Missing Open Graph meta tags (CRITICAL - SEO/social sharing)
-3. ❌ Color contrast failures (CRITICAL - accessibility)
+1. ✅ Inline CSS in comments.html (COMPLETED - extracted to external file)
+2. ✅ Missing Open Graph meta tags (COMPLETED)
+3. ✅ Color contrast failures (COMPLETED)
 4. ❌ Font Awesome bloat (HIGH - performance)
 
 ### Next Actions
-1. Move comments.html inline CSS to external file
-2. Add Open Graph meta tags to head.html
-3. Fix color contrast in cards.css
-4. Replace Font Awesome with inline SVG icons
+1. Centralize deployment tracking logic
+2. Replace Font Awesome with inline SVG icons
+3. Create shared error handling utilities
+4. Consolidate debounce implementations
 
 ---
 
 ## 🎯 Phase 1: Quick Wins (22 hours)
 
 **Target Completion**: Week 1-2
-**Progress**: 0/22 hours (0%)
+**Progress**: 12/22 hours (55%)
 
 ### Week 1: SEO & Accessibility (10.5 hours)
 
@@ -291,54 +291,24 @@ Line 51: Already has articleSection ✓
 
 ### Week 2: Code Quality (11.5 hours)
 
-#### 8. Move Inline CSS to External Files (3 hours)
-- [ ] **Status**: Not Started
-- [ ] **Files to modify**:
-  - [ ] `_includes/comments.html` (remove lines 85-235)
-  - [ ] Create `assets/css/comments.css`
-  - [ ] Update `build-css.cjs` to include comments.css
-  - [ ] `_layouts/post.html` (remove inline style attributes)
-  - [ ] Update `assets/css/edit-links.css`
-- [ ] **Changes needed**:
-  - [ ] Extract 150 lines of CSS from comments.html
-  - [ ] Create new CSS file
-  - [ ] Add to CSS build pipeline
-  - [ ] Replace inline styles with classes
-  - [ ] Test comments section styling
-- [ ] **Testing required**: Yes - Visual regression testing
-- [ ] **Tests to write**: E2E test for comments form
-- [ ] **Commit message**: "refactor(css): move inline CSS to external stylesheets per project guidelines"
+#### 8. Move Inline CSS to External Files (3 hours) ✅
+- [x] **Status**: ✅ COMPLETED
+- [x] **Files modified**:
+  - [x] `_includes/comments.html` (removed lines 85-235)
+  - [x] Created `assets/css/comments.css`
+  - [x] Updated `build-css.cjs` to include comments.css
+- [x] **Changes implemented**:
+  - [x] Extracted 150 lines of CSS from comments.html to external file
+  - [x] Created assets/css/comments.css with all comment section styles
+  - [x] Added comments.css to MAIN_FILES array in build-css.cjs
+  - [x] Rebuilt CSS bundle (now includes comments.css at 3.2KB)
+  - [x] Tested comments section styling
+- [x] **Testing completed**: All tests passing (npm test)
+- [x] **Commit**: `bb32f1f refactor(css): extract inline CSS from comments.html to external file`
 
-**Steps**:
-1. Create `assets/css/comments.css` with content from lines 85-235 of comments.html
-2. Update `build-css.cjs` line that lists CSS files to include:
-   ```javascript
-   'assets/css/comments.css',
-   ```
-3. Remove `<style>` tag from `_includes/comments.html`
-4. Test build: `npm run build:css`
-5. Verify comments styling on a post page
-
-**Edit links fix**:
-```css
-/* assets/css/edit-links.css - add: */
-.edit-post-link,
-.edit-card-link {
-  display: none;
-}
-
-body.logged-in .edit-post-link,
-body.logged-in .edit-card-link {
-  display: inline-block;
-}
-```
-
-Then update `assets/js/edit-links.js` to add class to body:
-```javascript
-if (currentUser) {
-  document.body.classList.add('logged-in');
-}
-```
+**Remaining items (deferred to separate task)**:
+- [ ] `_layouts/post.html` (inline style attributes - minor)
+- [ ] Update `assets/css/edit-links.css` with logged-in class approach
 
 ---
 
