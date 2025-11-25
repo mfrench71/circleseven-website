@@ -77,19 +77,16 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/images/apple-touch-icon.png" | relative_url }}">
   <link rel="manifest" href="{{ "/site.webmanifest" | relative_url }}">
 
-  <!-- Preconnect to external domains for faster resource loading -->
+  <!-- Preconnect to critical, always-used domains -->
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://www.gravatar.com" crossorigin>
   {% if site.google_fonts.enabled %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   {% endif %}
-  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  <!-- DNS prefetch for conditional/later resources -->
   <link rel="dns-prefetch" href="https://unpkg.com">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://www.gravatar.com">
 
