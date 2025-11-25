@@ -92,6 +92,46 @@
   const messageField = document.getElementById('comment-message');
   const charCount = document.querySelector('.character-count');
 
+  // Make status element a live region for screen reader announcements
+  statusEl.setAttribute('role', 'status');
+  statusEl.setAttribute('aria-live', 'polite');
+  statusEl.setAttribute('aria-atomic', 'true');
+
+  // Form field error handling
+  function showFieldError(field, message, shouldFocus = false) {
+    const errorId = field.id + '-error';
+
+    // Create error message if doesn't exist
+    let errorEl = document.getElementById(errorId);
+    if (!errorEl) {
+      errorEl = document.createElement('span');
+      errorEl.id = errorId;
+      errorEl.className = 'field-error';
+      errorEl.setAttribute('role', 'alert');
+      field.parentElement.appendChild(errorEl);
+    }
+
+    errorEl.textContent = message;
+    field.setAttribute('aria-invalid', 'true');
+    field.setAttribute('aria-describedby', errorId);
+
+    if (shouldFocus) {
+      field.focus(); // Focus the first invalid field only
+    }
+  }
+
+  function clearFieldError(field) {
+    const errorId = field.id + '-error';
+    const errorEl = document.getElementById(errorId);
+
+    if (errorEl) {
+      errorEl.remove();
+    }
+
+    field.setAttribute('aria-invalid', 'false');
+    field.removeAttribute('aria-describedby');
+  }
+
   // Character counter
   if (messageField && charCount) {
     messageField.addEventListener('input', function() {
@@ -112,11 +152,53 @@
     const postSlug = form.dataset.postSlug;
     const formData = new FormData(form);
 
+    // Clear previous errors
+    const nameField = document.getElementById('comment-name');
+    const emailField = document.getElementById('comment-email');
+    const messageFieldElement = document.getElementById('comment-message');
+
+    [nameField, emailField, messageFieldElement].forEach(clearFieldError);
+
+    // Client-side validation
+    let valid = true;
+    let firstInvalidField = null;
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+
+    if (!name || name.trim().length < 2) {
+      showFieldError(nameField, 'Name must be at least 2 characters');
+      if (!firstInvalidField) firstInvalidField = nameField;
+      valid = false;
+    }
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError(emailField, 'Please enter a valid email address');
+      if (!firstInvalidField) firstInvalidField = emailField;
+      valid = false;
+    }
+
+    if (!message || message.trim().length < 10) {
+      showFieldError(messageFieldElement, 'Comment must be at least 10 characters');
+      if (!firstInvalidField) firstInvalidField = messageFieldElement;
+      valid = false;
+    }
+
+    if (!valid) {
+      statusEl.textContent = 'Please fix the errors above';
+      statusEl.className = 'form-status error';
+      // Focus the first invalid field
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+      return;
+    }
+
     const data = {
       postSlug: postSlug,
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
+      name: name,
+      email: email,
+      message: message,
       website: formData.get('website') || '' // Honeypot field
     };
 
