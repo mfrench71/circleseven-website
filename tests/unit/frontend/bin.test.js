@@ -5,6 +5,12 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import {
   loadBin,
   renderBinList,
@@ -12,12 +18,12 @@ import {
   permanentlyDeleteItem,
   getBinnedItems
 } from '../../../admin/js/modules/bin.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Bin Module', () => {
   let mockFetch;
   let mockShowConfirm;
-  let mockTrackDeployment;
 
   beforeEach(() => {
     // Setup DOM
@@ -36,7 +42,7 @@ describe('Bin Module', () => {
     window.API_BASE = '/.netlify/functions';
     window.allBinnedItems = [];
     window.showConfirm = mockShowConfirm = vi.fn();
-    window.trackDeployment = mockTrackDeployment = vi.fn();
+    vi.clearAllMocks(); // Clear trackDeployment mock
 
     // Mock fetch
     mockFetch = vi.fn();
@@ -377,7 +383,7 @@ describe('Bin Module', () => {
 
       await restoreItem('my-post.md', 'abc123', 'post');
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'commit123',
         'Restore post: my-post.md'
       );
@@ -521,7 +527,7 @@ describe('Bin Module', () => {
 
       await permanentlyDeleteItem('my-post.md', 'abc123', 'post');
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'commit456',
         'Permanently delete post: my-post.md'
       );
@@ -667,7 +673,7 @@ describe('Bin Module', () => {
       await restoreItem('deleted-post.md', 'abc123', 'post');
 
       expect(window.allBinnedItems.length).toBe(0);
-      expect(mockTrackDeployment).toHaveBeenCalled();
+      expect(trackDeployment).toHaveBeenCalled();
     });
 
     it('can load, display, and permanently delete items', async () => {
@@ -694,7 +700,7 @@ describe('Bin Module', () => {
       await permanentlyDeleteItem('deleted-post.md', 'abc123', 'post');
 
       expect(window.allBinnedItems.length).toBe(0);
-      expect(mockTrackDeployment).toHaveBeenCalled();
+      expect(trackDeployment).toHaveBeenCalled();
     });
 
     it('handles cancelled operations gracefully', async () => {

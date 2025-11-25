@@ -16,7 +16,6 @@
  * - ui/notifications.js for showError() and showSuccess()
  * - Global API_BASE constant
  * - Global showConfirm() function
- * - Global trackDeployment() function
  * - Global loadPosts() and loadPages() functions
  *
  * @module modules/bin
@@ -24,6 +23,7 @@
 
 import { escapeHtml } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 /**
@@ -189,8 +189,8 @@ export async function restoreItem(filename, sha, type) {
     const result = await response.json();
 
     // Track deployment if commitSha is returned
-    if (result.commitSha && window.trackDeployment) {
-      window.trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
+    if (result.commitSha) {
+      trackDeployment(result.commitSha, `Restore ${itemType}: ${filename}`);
     }
 
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} restored! Changes publishing...`);
@@ -272,8 +272,8 @@ export async function permanentlyDeleteItem(filename, sha, type) {
 
     const data = await response.json();
 
-    if (data.commitSha && window.trackDeployment) {
-      window.trackDeployment(data.commitSha, `Permanently delete ${itemType}: ${filename}`);
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Permanently delete ${itemType}: ${filename}`);
     }
 
     showSuccess(`${itemType.charAt(0).toUpperCase() + itemType.slice(1)} permanently deleted! Changes publishing...`);

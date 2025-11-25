@@ -18,7 +18,6 @@
  * - Global API_BASE constant
  * - Global state: categories, tags, lastSavedState, isDirty, sortableInstances
  * - Global showModal() and showConfirm() functions
- * - Global trackDeployment() function
  * - External: Sortable.js library for drag-and-drop
  *
  * @module modules/taxonomy
@@ -26,6 +25,7 @@
 
 import { escapeHtml, setButtonLoading } from '../core/utils.js';
 import { showError, showSuccess, hideMessages } from '../ui/notifications.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 // Cache configuration
@@ -1043,8 +1043,8 @@ export async function saveTaxonomy() {
 
     const data = await response.json();
 
-    if (data.commitSha && window.trackDeployment) {
-      window.trackDeployment(data.commitSha, 'Update taxonomy', 'taxonomy.yml');
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, 'Update taxonomy', 'taxonomy.yml');
     }
 
     // Update cache with all data formats

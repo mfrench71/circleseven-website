@@ -6,6 +6,12 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import {
   loadTaxonomy,
   switchTaxonomyTab,
@@ -19,6 +25,7 @@ import {
   deleteTag,
   saveTaxonomy
 } from '../../../admin/js/modules/taxonomy.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Taxonomy Module', () => {
@@ -91,7 +98,7 @@ describe('Taxonomy Module', () => {
     // Mock window functions
     window.showModal = vi.fn();
     window.showConfirm = vi.fn();
-    window.trackDeployment = vi.fn();
+    vi.clearAllMocks(); // Clear trackDeployment mock
   });
 
   afterEach(() => {
@@ -767,7 +774,7 @@ describe('Taxonomy Module', () => {
 
       await saveTaxonomy();
 
-      expect(window.trackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'abc123',
         'Update taxonomy',
         'taxonomy.yml'

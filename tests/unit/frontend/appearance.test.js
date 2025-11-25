@@ -6,7 +6,14 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import { initAppearance, saveFonts } from '../../../admin/js/modules/appearance.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 
 describe('Appearance Module', () => {
   let fetchMock;
@@ -34,8 +41,8 @@ describe('Appearance Module', () => {
       })
     };
 
-    // Mock window.trackDeployment
-    global.window.trackDeployment = vi.fn();
+    // Clear trackDeployment mock
+    vi.clearAllMocks();
 
     // Mock fetch
     fetchMock = vi.fn();
@@ -58,7 +65,6 @@ describe('Appearance Module', () => {
   afterEach(() => {
     vi.clearAllMocks();
     delete global.window.netlifyIdentity;
-    delete global.window.trackDeployment;
     document.body.innerHTML = '';
   });
 
@@ -233,11 +239,11 @@ describe('Appearance Module', () => {
 
       await saveFonts();
 
-      expect(window.trackDeployment).toHaveBeenCalledWith({
-        commitSha: 'abc123',
-        action: 'Update Google Fonts settings',
-        type: 'settings'
-      });
+      expect(trackDeployment).toHaveBeenCalledWith(
+        'abc123',
+        'Update Google Fonts settings',
+        '_config.yml'
+      );
     });
 
     it('does not track deployment when commitSha is missing', async () => {
@@ -248,7 +254,7 @@ describe('Appearance Module', () => {
 
       await saveFonts();
 
-      expect(window.trackDeployment).not.toHaveBeenCalled();
+      expect(trackDeployment).not.toHaveBeenCalled();
     });
 
     it('handles save errors gracefully', async () => {

@@ -20,7 +20,7 @@
  * - Global state: allPosts, allPostsWithMetadata, currentPost, currentPage, postsPerPage,
  *                markdownEditor, postHasUnsavedChanges, categories, tags,
  *                selectedCategories, selectedTags, taxonomyAutocompleteCleanup, cloudinaryWidget
- * - Global functions: showConfirm(), trackDeployment()
+ * - Global functions: showConfirm()
  * - External: EasyMDE library for markdown editing
  * - External: Cloudinary Media Library for image selection
  *
@@ -31,6 +31,7 @@ import { escapeHtml, debounce } from '../core/utils.js?v=1761123112';
 import { showError, showSuccess } from '../ui/notifications.js?v=1761123112';
 import { generateGalleryHTML } from './image-chooser.js';
 import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 // Cache configuration
@@ -1020,8 +1021,8 @@ export async function savePost(event) {
       }
 
       const data = await response.json();
-      if (data.commitSha && window.trackDeployment) {
-        window.trackDeployment(data.commitSha, `Update post: ${title}`, window.currentPost.path.replace('_posts/', ''));
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Update post: ${title}`, window.currentPost.path.replace('_posts/', ''));
       }
 
       showSuccess('Post updated successfully!');
@@ -1045,8 +1046,8 @@ export async function savePost(event) {
       }
 
       const data = await response.json();
-      if (data.commitSha && window.trackDeployment) {
-        window.trackDeployment(data.commitSha, `Create post: ${title}`, filename);
+      if (data.commitSha) {
+        trackDeployment(data.commitSha, `Create post: ${title}`, filename);
       }
 
       showSuccess('Post created successfully!');
@@ -1103,8 +1104,8 @@ export async function deletePost() {
     }
 
     const data = await response.json();
-    if (data.commitSha && window.trackDeployment) {
-      window.trackDeployment(data.commitSha, `Move post to bin: ${title}`, filename);
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move post to bin: ${title}`, filename);
     }
 
     showSuccess('Post moved to bin successfully!');
@@ -1156,8 +1157,8 @@ export async function deletePostFromList(filename, sha) {
     }
 
     const data = await response.json();
-    if (data.commitSha && window.trackDeployment) {
-      window.trackDeployment(data.commitSha, `Move post to bin: ${title}`, filename);
+    if (data.commitSha) {
+      trackDeployment(data.commitSha, `Move post to bin: ${title}`, filename);
     }
 
     showSuccess('Post moved to bin successfully!');

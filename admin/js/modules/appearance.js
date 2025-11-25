@@ -3,6 +3,7 @@
  */
 
 import { showError, showSuccess } from '../ui/notifications.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 // Curated list of popular Google Fonts
@@ -138,12 +139,8 @@ export async function saveFonts() {
 
     const result = await response.json();
 
-    if (result.commitSha && window.trackDeployment) {
-      window.trackDeployment({
-        commitSha: result.commitSha,
-        action: 'Update Google Fonts settings',
-        type: 'settings'
-      });
+    if (result.commitSha) {
+      trackDeployment(result.commitSha, 'Update Google Fonts settings', '_config.yml');
     }
 
     showSuccess('Font settings saved successfully! Your site will rebuild in 1-2 minutes.');

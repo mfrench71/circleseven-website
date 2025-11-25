@@ -5,6 +5,12 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import {
   loadPages,
   renderPagesList,
@@ -21,6 +27,7 @@ import {
   deletePage,
   deletePageFromList
 } from '../../../admin/js/modules/pages.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 // Mock EasyMDE
@@ -51,7 +58,6 @@ global.EasyMDE.toggleHeading3 = vi.fn();
 describe('Pages Module', () => {
   let mockFetch;
   let mockShowConfirm;
-  let mockTrackDeployment;
   let mockFormatDateForInput;
 
   beforeEach(() => {
@@ -106,7 +112,7 @@ describe('Pages Module', () => {
     window.permalinkManuallyEdited = false;
     window._pageFormListenersSetup = false;
     window.showConfirm = mockShowConfirm = vi.fn();
-    window.trackDeployment = mockTrackDeployment = vi.fn();
+    vi.clearAllMocks(); // Clear trackDeployment mock
     window.formatDateForInput = mockFormatDateForInput = vi.fn((date) => date);
 
     // Mock fetch
@@ -808,7 +814,7 @@ describe('Pages Module', () => {
       const event = new Event('submit');
       await savePage(event);
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'commit123',
         expect.stringContaining('Test Page'),
         expect.any(String)
@@ -970,7 +976,7 @@ describe('Pages Module', () => {
 
       await deletePage();
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'commit456',
         expect.stringContaining('Test Page'),
         'test.md'
@@ -1088,7 +1094,7 @@ describe('Pages Module', () => {
       let event = new Event('submit');
       await savePage(event);
 
-      expect(mockTrackDeployment).toHaveBeenCalledWith('commit1', expect.any(String), expect.any(String));
+      expect(trackDeployment).toHaveBeenCalledWith('commit1', expect.any(String), expect.any(String));
 
       // Edit existing page
       window.currentPage_pages = {
@@ -1136,8 +1142,8 @@ describe('Pages Module', () => {
 
       await deletePage();
 
-      expect(mockTrackDeployment).toHaveBeenCalledTimes(3);
-      expect(mockTrackDeployment).toHaveBeenNthCalledWith(3, 'commit3', expect.any(String), expect.any(String));
+      expect(trackDeployment).toHaveBeenCalledTimes(3);
+      expect(trackDeployment).toHaveBeenNthCalledWith(3, 'commit3', expect.any(String), expect.any(String));
     });
   });
 });

@@ -5,6 +5,12 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import {
   loadSettings,
   saveSettings,
@@ -12,6 +18,7 @@ import {
   saveAdminSettings,
   resetAdminSettings
 } from '../../../admin/js/modules/settings.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 describe('Settings Module', () => {
@@ -49,7 +56,7 @@ describe('Settings Module', () => {
 
     // Setup window globals
     window.API_BASE = '/.netlify/functions';
-    window.trackDeployment = vi.fn();
+    vi.clearAllMocks(); // Clear trackDeployment mock
     window.DEPLOYMENT_STATUS_POLL_INTERVAL = 10000;
     window.DEPLOYMENT_HISTORY_POLL_INTERVAL = 30000;
     window.DEPLOYMENT_TIMEOUT = 600;
@@ -207,7 +214,7 @@ describe('Settings Module', () => {
       const event = new Event('submit');
       await saveSettings(event);
 
-      expect(window.trackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'abc123',
         'Update site settings',
         '_config.yml'

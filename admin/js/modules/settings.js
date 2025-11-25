@@ -20,13 +20,13 @@
  * Dependencies:
  * - ui/notifications.js for showError() and showSuccess()
  * - Global API_BASE constant
- * - Global trackDeployment() function
  *
  * @module modules/settings
  * @version 1.0.4
  */
 
 import { showError, showSuccess } from '../ui/notifications.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 /**
@@ -315,8 +315,8 @@ export async function saveSettings(event) {
     }
 
     const result = await response.json();
-    if (result.commitSha && window.trackDeployment) {
-      window.trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
+    if (result.commitSha) {
+      trackDeployment(result.commitSha, 'Update site settings', '_config.yml');
     }
 
     // Update admin title and welcome message if site title changed

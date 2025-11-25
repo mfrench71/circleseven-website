@@ -20,7 +20,7 @@
  * - ui/notifications.js for showError() and showSuccess()
  * - Global API_BASE constant
  * - Global state: allPages, currentPage_pages, pageMarkdownEditor, pageHasUnsavedChanges, permalinkManuallyEdited
- * - Global functions: showConfirm(), trackDeployment(), formatDateForInput()
+ * - Global functions: showConfirm(), formatDateForInput()
  * - External: EasyMDE library for markdown editing
  *
  * @module modules/pages
@@ -30,6 +30,7 @@ import { escapeHtml, debounce } from '../core/utils.js';
 import { showError, showSuccess } from '../ui/notifications.js';
 import { generateGalleryHTML } from './image-chooser.js';
 import { initLinkEditor, openLinkEditor, searchContent as linkEditorSearchContent } from './link-editor.js';
+import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 // Cache configuration
@@ -946,7 +947,7 @@ export async function savePage(event) {
 
       const data = await response.json();
       if (data.commitSha) {
-        window.trackDeployment(data.commitSha, `Update page: ${title}`, window.currentPage_pages.path.replace('_pages/', ''));
+        trackDeployment(data.commitSha, `Update page: ${title}`, window.currentPage_pages.path.replace('_pages/', ''));
       }
 
       showSuccess('Page updated successfully!');
@@ -971,7 +972,7 @@ export async function savePage(event) {
 
       const data = await response.json();
       if (data.commitSha) {
-        window.trackDeployment(data.commitSha, `Create page: ${title}`, filename);
+        trackDeployment(data.commitSha, `Create page: ${title}`, filename);
       }
 
       showSuccess('Page created successfully!');
@@ -1032,7 +1033,7 @@ export async function deletePage() {
 
     const data = await response.json();
     if (data.commitSha) {
-      window.trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
+      trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
     }
 
     showSuccess('Page moved to bin successfully!');
@@ -1087,7 +1088,7 @@ export async function deletePageFromList(filename, sha) {
 
     const data = await response.json();
     if (data.commitSha) {
-      window.trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
+      trackDeployment(data.commitSha, `Move page to bin: ${title}`, filename);
     }
 
     showSuccess('Page moved to bin successfully!');

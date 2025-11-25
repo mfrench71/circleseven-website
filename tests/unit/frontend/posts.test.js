@@ -6,6 +6,12 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+
+// Mock deployments module before imports
+vi.mock('../../../admin/js/modules/deployments.js', () => ({
+  trackDeployment: vi.fn()
+}));
+
 import {
   generateFilename,
   formatDateShort,
@@ -20,6 +26,7 @@ import {
   editPost,
   showNewPostForm
 } from '../../../admin/js/modules/posts.js';
+import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
 
 // Mock Cloudinary
@@ -165,7 +172,7 @@ describe('Posts Module', () => {
     // Mock functions
     mockShowConfirm = vi.fn();
     window.showConfirm = mockShowConfirm;
-    window.trackDeployment = vi.fn();
+    vi.clearAllMocks(); // Clear trackDeployment mock
 
     // Mock fetch
     mockFetch = vi.fn();
@@ -804,7 +811,7 @@ describe('Posts Module', () => {
         const event = new Event('submit');
         await savePost(event);
 
-        expect(window.trackDeployment).toHaveBeenCalledWith(
+        expect(trackDeployment).toHaveBeenCalledWith(
           'deploy123',
           expect.stringContaining('New Test Post'),
           expect.any(String)
@@ -908,7 +915,7 @@ describe('Posts Module', () => {
 
         await deletePost();
 
-        expect(window.trackDeployment).toHaveBeenCalledWith(
+        expect(trackDeployment).toHaveBeenCalledWith(
           'delete456',
           expect.stringContaining('bin'),
           '2025-10-22-test.md'
@@ -988,7 +995,7 @@ describe('Posts Module', () => {
       const createEvent = new Event('submit');
       await savePost(createEvent);
 
-      expect(window.trackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'create123',
         expect.stringContaining('Integration Test Post'),
         expect.stringContaining('.md')
@@ -1020,7 +1027,7 @@ describe('Posts Module', () => {
       const updateEvent = new Event('submit');
       await savePost(updateEvent);
 
-      expect(window.trackDeployment).toHaveBeenCalledWith(
+      expect(trackDeployment).toHaveBeenCalledWith(
         'update456',
         expect.stringContaining('Updated Post Title'),
         expect.stringContaining('.md')
@@ -1045,8 +1052,8 @@ describe('Posts Module', () => {
 
       await deletePost();
 
-      expect(window.trackDeployment).toHaveBeenCalledTimes(3);
-      expect(window.trackDeployment).toHaveBeenNthCalledWith(
+      expect(trackDeployment).toHaveBeenCalledTimes(3);
+      expect(trackDeployment).toHaveBeenNthCalledWith(
         3,
         'delete789',
         expect.stringContaining('bin'),
