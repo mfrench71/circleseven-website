@@ -31,8 +31,7 @@ const JS_FILES = [
   'lightbox.js',
   'back-to-top.js',
   'code-copy.js',
-  'edit-links.js',
-  'leaflet-init.js'
+  'edit-links.js'
 ];
 
 /**
