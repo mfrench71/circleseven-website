@@ -614,59 +614,19 @@ if (isOpen) {
 
 ---
 
-## 🎯 Phase 2: Feature Additions (42 hours)
+## 🎯 Phase 2: Feature Additions (38 hours)
 
 **Target Completion**: Week 3-4
-**Progress**: 0/42 hours (0%)
+**Progress**: 0/38 hours (0%)
 
-### Week 3: Frontend Polish (18 hours)
+### Week 3: Frontend Polish (14 hours)
 
-#### 12. Dark Mode Toggle (4 hours)
-- [ ] **Status**: Not Started
-- [ ] **Files to modify**:
-  - [ ] `assets/css/variables.css` (add dark mode colors)
-  - [ ] `_includes/header.html` (add toggle button)
-  - [ ] Create `assets/js/dark-mode.js`
-  - [ ] Update CSS build to include dark mode styles
-- [ ] **Changes needed**:
-  - [ ] Define dark mode color palette
-  - [ ] Create toggle button with icon
-  - [ ] Implement localStorage persistence
-  - [ ] Add smooth transition
-  - [ ] Test all pages in dark mode
-- [ ] **Testing required**: Yes - Visual test on all page types
-- [ ] **Tests to write**: Unit test for dark mode toggle logic
-- [ ] **Commit message**: "feat(ui): add dark mode toggle with localStorage persistence"
-
-**Implementation notes**:
-```css
-/* variables.css - add dark mode colors */
-:root {
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-text-secondary: #666666;
-  --color-border: #e8e8e8;
-  --color-card-bg: #ffffff;
-}
-
-[data-theme="dark"] {
-  --color-bg: #1a1a1a;
-  --color-text: #e8e8e8;
-  --color-text-secondary: #a0a0a0;
-  --color-border: #333333;
-  --color-card-bg: #2a2a2a;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  transition: background-color 0.3s, color 0.3s;
-}
-```
+#### ~~12. Dark Mode Toggle (4 hours)~~
+**REMOVED** - Dark mode functionality does not work and has been removed from the project.
 
 ---
 
-#### 13. Social Sharing Buttons (2 hours)
+#### 12. Social Sharing Buttons (2 hours)
 - [ ] **Status**: Not Started
 - [ ] **Files to create**: `_includes/social-share.html`
 - [ ] **Files to modify**: `_layouts/post.html`

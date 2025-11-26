@@ -93,15 +93,3 @@
   --z-drawer: 2001;
   --z-modal: 3000;
 }
-
-/* Dark mode support (optional for future) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Uncomment when ready for dark mode
-    --color-text: #e8e8e8;
-    --color-bg-white: #1a1a1a;
-    --color-bg-alt: #2a2a2a;
-    --color-border: #404040;
-    */
-  }
-}
