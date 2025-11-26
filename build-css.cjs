@@ -32,7 +32,6 @@ const CRITICAL_FILES = [
 
 // Main CSS files (below-the-fold, can load async)
 const MAIN_FILES = [
-  'dark-mode.css',
   'menu.css',
   'menu-enhanced.css',
   'cards.css',

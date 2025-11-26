@@ -94,87 +94,14 @@
   --z-modal: 3000;
 }
 
-/* Dark mode color palette */
-[data-theme="dark"] {
-  /* Colors - Primary (keep teal accent for brand consistency) */
-  --color-primary: #20b2aa;
-  --color-primary-hover: #17a39b;
-
-  /* Colors - Text */
-  --color-text: #e8e8e8;
-  --color-text-muted: #a0a0a0;
-  --color-text-light: #b0b0b0;
-  --color-text-dark: #e0e0e0;
-  --color-text-charcoal: #d0d0d0;
-  --color-text-gray-light: #888;
-
-  /* Colors - Backgrounds */
-  --color-bg-white: #1a1a1a;
-  --color-bg-alt: #252525;
-  --color-bg-light: #2a2a2a;
-  --color-bg-code: #2d2d2d;
-  --color-bg-near-white: #222;
-  --color-bg-blue-light: #1a2a3a;
-
-  /* Colors - Borders */
-  --color-border: #404040;
-  --color-border-light: #333;
-  --color-border-medium: #484848;
-
-  /* Colors - Additional */
-  --color-link: #4a9eff;
-  --color-blue-primary: #5a9bd5;
-  --color-purple-primary: #8899ff;
-
-  /* Shadows (softer in dark mode) */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 2px 4px rgba(0,0,0,0.4);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.5);
-  --shadow-drawer: 2px 0 8px rgba(0,0,0,0.6);
-}
-
-/* Smooth transitions for theme switching */
-body {
-  transition: background-color var(--transition-base), color var(--transition-base);
-}
-
-/* Auto dark mode support (respects system preference when no manual selection) */
+/* Dark mode support (optional for future) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    /* Colors - Primary */
-    --color-primary: #20b2aa;
-    --color-primary-hover: #17a39b;
-
-    /* Colors - Text */
+  :root {
+    /* Uncomment when ready for dark mode
     --color-text: #e8e8e8;
-    --color-text-muted: #a0a0a0;
-    --color-text-light: #b0b0b0;
-    --color-text-dark: #e0e0e0;
-    --color-text-charcoal: #d0d0d0;
-    --color-text-gray-light: #888;
-
-    /* Colors - Backgrounds */
     --color-bg-white: #1a1a1a;
-    --color-bg-alt: #252525;
-    --color-bg-light: #2a2a2a;
-    --color-bg-code: #2d2d2d;
-    --color-bg-near-white: #222;
-    --color-bg-blue-light: #1a2a3a;
-
-    /* Colors - Borders */
+    --color-bg-alt: #2a2a2a;
     --color-border: #404040;
-    --color-border-light: #333;
-    --color-border-medium: #484848;
-
-    /* Colors - Additional */
-    --color-link: #4a9eff;
-    --color-blue-primary: #5a9bd5;
-    --color-purple-primary: #8899ff;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-    --shadow-md: 0 2px 4px rgba(0,0,0,0.4);
-    --shadow-lg: 0 4px 12px rgba(0,0,0,0.5);
-    --shadow-drawer: 2px 0 8px rgba(0,0,0,0.6);
+    */
   }
 }
