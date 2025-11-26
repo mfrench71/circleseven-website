@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     import('./code-copy.js');
   }
 
-  // Load embeds only on pages with iframes or videos
-  if (document.querySelector('.post-content iframe, .post-content video, .page-content iframe, .page-content video')) {
+  // Load embeds only on pages with iframes, videos, or Leaflet maps
+  if (document.querySelector('.post-content iframe, .post-content video, .page-content iframe, .page-content video, .leaflet-map')) {
     import('./embeds.js');
   }
 });

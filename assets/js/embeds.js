@@ -8,10 +8,17 @@
   'use strict';
 
   // Wait for DOM to be ready
-  document.addEventListener('DOMContentLoaded', function() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // DOM already loaded
+    init();
+  }
+
+  function init() {
     makeSketchfabResponsive();
     processLeafletMaps();
-  });
+  }
 
   /**
    * Make Sketchfab iframes responsive
@@ -65,7 +72,6 @@
   function processLeafletMaps() {
     // Check if Leaflet is loaded - if not, wait for window.load
     if (typeof L === 'undefined') {
-      console.log('[Embeds] Leaflet not yet loaded, waiting for window load event');
       window.addEventListener('load', processLeafletMaps);
       return;
     }
