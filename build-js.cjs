@@ -23,7 +23,6 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 // JavaScript files to bundle (in order)
-// Note: dark-mode.js is loaded separately via head.html for instant theme application
 const JS_FILES = [
   'lazy-cards.js',
   'gallery-fix.js',
@@ -32,7 +31,8 @@ const JS_FILES = [
   'lightbox.js',
   'back-to-top.js',
   'code-copy.js',
-  'edit-links.js'
+  'edit-links.js',
+  'leaflet-init.js'
 ];
 
 /**
