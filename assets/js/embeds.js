@@ -63,8 +63,10 @@
    * Initializes maps from <div class="leaflet-map" data-*> elements
    */
   function processLeafletMaps() {
-    // Check if Leaflet is loaded
+    // Check if Leaflet is loaded - if not, wait for window.load
     if (typeof L === 'undefined') {
+      console.log('[Embeds] Leaflet not yet loaded, waiting for window load event');
+      window.addEventListener('load', processLeafletMaps);
       return;
     }
 
