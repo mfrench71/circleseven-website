@@ -13,6 +13,8 @@
   targetPort = 4000
   port = 8888
   framework = "#custom"
+  # Ignore vendor directory to avoid "too many open files" error
+  ignore = "vendor/**,node_modules/**,.bundle/**,_site/**,.jekyll-cache/**"
 
 # Redirect old admin-custom path to new admin path
 [[redirects]]
