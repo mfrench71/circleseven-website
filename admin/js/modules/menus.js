@@ -697,15 +697,21 @@ export async function showAddMenuItemModal() {
  * Clears the add menu item form
  */
 function clearAddItemForm() {
-  document.getElementById('new-item-label').value = '';
-  document.getElementById('new-item-url').value = '';
-  document.getElementById('new-item-filter').value = '';
-  document.getElementById('new-item-section').value = '';
-  document.getElementById('new-item-icon').value = '';
+  const label = document.getElementById('new-item-label');
+  const url = document.getElementById('new-item-url');
+  const filter = document.getElementById('new-item-filter');
+  const section = document.getElementById('new-item-section');
+  const icon = document.getElementById('new-item-icon');
   const categoryRef = document.getElementById('new-item-category-ref');
-  if (categoryRef) categoryRef.value = '';
   const megaMenu = document.getElementById('new-item-mega-menu');
   const accordion = document.getElementById('new-item-accordion');
+
+  if (label) label.value = '';
+  if (url) url.value = '';
+  if (filter) filter.value = '';
+  if (section) section.value = '';
+  if (icon) icon.value = '';
+  if (categoryRef) categoryRef.value = '';
   if (megaMenu) megaMenu.checked = false;
   if (accordion) accordion.checked = false;
 }
