@@ -173,15 +173,12 @@ export const mediaSchemas = {
 // Menu item schema (recursive for nested items)
 const menuItemSchema = z.object({
   id: z.string().min(1, 'Menu item ID required'),
-  type: z.enum(['category', 'page', 'custom', 'heading', 'category_dynamic']),
+  type: z.enum(['category', 'page', 'custom', 'heading']),
   label: z.string().min(1, 'Menu item label required'),
   url: z.string().optional(),
   icon: z.string().optional(),
   mega_menu: z.boolean().optional(),
   accordion: z.boolean().optional(),
-  filter: z.string().optional(),
-  section: z.string().optional(),
-  sort: z.boolean().optional(),
   children: z.array(z.lazy(() => menuItemSchema)).optional()
 });
 

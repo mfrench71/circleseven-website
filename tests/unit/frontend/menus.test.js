@@ -324,8 +324,7 @@ describe('Menus Module', () => {
         { id: 'cat', type: 'category', label: 'Category', url: '/cat/' },
         { id: 'page', type: 'page', label: 'Page', url: '/page/' },
         { id: 'custom', type: 'custom', label: 'Custom', url: 'https://example.com' },
-        { id: 'heading', type: 'heading', label: 'Heading' },
-        { id: 'dyn', type: 'category_dynamic', label: 'Dynamic', filter: 'DAT4' }
+        { id: 'heading', type: 'heading', label: 'Heading' }
       ];
       window.currentMenuLocation = 'header';
 
@@ -336,7 +335,6 @@ describe('Menus Module', () => {
       expect(tbody.innerHTML).toContain('bg-success');     // page
       expect(tbody.innerHTML).toContain('bg-warning');     // custom
       expect(tbody.innerHTML).toContain('bg-secondary');   // heading
-      expect(tbody.innerHTML).toContain('bg-info');        // category_dynamic
     });
   });
 
@@ -438,21 +436,6 @@ describe('Menus Module', () => {
       await showAddMenuItemModal();
 
       expect(window.headerMenu[0].mega_menu).toBe(true);
-    });
-
-    it('adds a dynamic category menu item', async () => {
-      document.getElementById('new-item-type').value = 'category_dynamic';
-      document.getElementById('new-item-label').value = 'DAT4 Modules';
-      document.getElementById('new-item-filter').value = 'DAT4';
-      document.getElementById('new-item-section').value = 'year1';
-
-      window.currentMenuLocation = 'header';
-      window.headerMenu = [];
-
-      await showAddMenuItemModal();
-
-      expect(window.headerMenu[0].filter).toBe('DAT4');
-      expect(window.headerMenu[0].section).toBe('year1');
     });
 
     it('adds a heading menu item with icon', async () => {
@@ -560,14 +543,6 @@ describe('Menus Module', () => {
 
       const urlGroup = document.getElementById('edit-item-url-group');
       expect(urlGroup.classList.contains('d-none')).toBe(false);
-    });
-
-    it('shows filter field for dynamic category', () => {
-      document.getElementById('edit-item-type').value = 'category_dynamic';
-      updateEditItemForm();
-
-      const filterGroup = document.getElementById('edit-item-filter-group');
-      expect(filterGroup.classList.contains('d-none')).toBe(false);
     });
   });
 

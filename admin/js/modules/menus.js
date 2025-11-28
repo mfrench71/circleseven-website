@@ -9,7 +9,7 @@
  * - Load menu configurations from backend
  * - Drag-and-drop menu builder with nesting support
  * - Add/edit/delete menu items
- * - Multiple menu item types: category, page, custom, heading, category_dynamic
+ * - Multiple menu item types: category, page, custom, heading
  * - Automatic save after each operation
  * - Tab switching between menu locations
  *
@@ -309,12 +309,7 @@ export function renderMenuBuilder() {
             <i class="fas fa-bars text-secondary flex-shrink-0"></i>
             <div class="d-flex flex-column">
               <span class="fw-medium text-dark">${escapeHtml(item.label)}</span>
-              <small class="text-muted">
-                ${item.type === 'category_dynamic'
-                  ? `Dynamic: ${escapeHtml(item.filter || '')}`
-                  : escapeHtml(item.url || '-')
-                }
-              </small>
+              <small class="text-muted">${escapeHtml(item.url || '-')}</small>
             </div>
             ${hasChildren ? `<span class="badge bg-secondary ms-2">${item.children.length}</span>` : ''}
           </div>
@@ -383,7 +378,6 @@ function countMenuItems(items) {
 function getTypeBadgeClass(type) {
   const classes = {
     'category': 'bg-primary',
-    'category_dynamic': 'bg-info',
     'page': 'bg-success',
     'custom': 'bg-warning',
     'heading': 'bg-secondary'
@@ -460,22 +454,7 @@ export async function showAddMenuItemModal() {
     };
 
     // Get values based on type
-    if (type === 'category_dynamic') {
-      const filter = document.getElementById('new-item-filter').value.trim();
-      const section = document.getElementById('new-item-section').value.trim();
-      const label = document.getElementById('new-item-label').value.trim();
-
-      if (!filter || !label) {
-        showError('Filter and label are required for dynamic categories');
-        return;
-      }
-
-      item.id = `dyn-${Date.now()}`;
-      item.label = label;
-      item.filter = filter;
-      if (section) item.section = section;
-
-    } else if (type === 'heading') {
+    if (type === 'heading') {
       const label = document.getElementById('new-item-label').value.trim();
       const icon = document.getElementById('new-item-icon').value.trim();
 
@@ -552,25 +531,18 @@ export function updateAddItemForm() {
   const type = document.getElementById('new-item-type').value;
 
   const urlGroup = document.getElementById('add-item-url-group');
-  const filterGroup = document.getElementById('add-item-filter-group');
-  const sectionGroup = document.getElementById('add-item-section-group');
   const iconGroup = document.getElementById('add-item-icon-group');
   const megaMenuGroup = document.getElementById('add-item-mega-menu-group');
   const accordionGroup = document.getElementById('add-item-accordion-group');
 
   // Hide all optional fields
   urlGroup.classList.add('d-none');
-  filterGroup.classList.add('d-none');
-  sectionGroup.classList.add('d-none');
   iconGroup.classList.add('d-none');
   megaMenuGroup.classList.add('d-none');
   accordionGroup.classList.add('d-none');
 
   // Show relevant fields
-  if (type === 'category_dynamic') {
-    filterGroup.classList.remove('d-none');
-    sectionGroup.classList.remove('d-none');
-  } else if (type === 'heading') {
+  if (type === 'heading') {
     iconGroup.classList.remove('d-none');
   } else {
     // category, page, custom
@@ -613,7 +585,6 @@ export async function editMenuItem(index) {
                   <option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option>
                   <option value="custom" ${item.type === 'custom' ? 'selected' : ''}>Custom Link</option>
                   <option value="heading" ${item.type === 'heading' ? 'selected' : ''}>Heading</option>
-                  <option value="category_dynamic" ${item.type === 'category_dynamic' ? 'selected' : ''}>Dynamic Category</option>
                 </select>
               </div>
 
@@ -625,18 +596,6 @@ export async function editMenuItem(index) {
               <div id="edit-item-url-group" class="mb-3">
                 <label class="form-label fw-semibold">URL</label>
                 <input type="text" id="edit-item-url" class="form-control" value="${escapeHtml(item.url || '')}">
-              </div>
-
-              <div id="edit-item-filter-group" class="mb-3 d-none">
-                <label class="form-label fw-semibold">Filter Pattern</label>
-                <input type="text" id="edit-item-filter" class="form-control" value="${escapeHtml(item.filter || '')}">
-                <small class="form-text text-muted">Category name pattern to match (comma-separated)</small>
-              </div>
-
-              <div id="edit-item-section-group" class="mb-3 d-none">
-                <label class="form-label fw-semibold">Section</label>
-                <input type="text" id="edit-item-section" class="form-control" value="${escapeHtml(item.section || '')}">
-                <small class="form-text text-muted">Optional grouping section</small>
               </div>
 
               <div id="edit-item-icon-group" class="mb-3 d-none">
@@ -703,25 +662,18 @@ export function updateEditItemForm() {
   const type = document.getElementById('edit-item-type').value;
 
   const urlGroup = document.getElementById('edit-item-url-group');
-  const filterGroup = document.getElementById('edit-item-filter-group');
-  const sectionGroup = document.getElementById('edit-item-section-group');
   const iconGroup = document.getElementById('edit-item-icon-group');
   const megaMenuGroup = document.getElementById('edit-item-mega-menu-group');
   const accordionGroup = document.getElementById('edit-item-accordion-group');
 
   // Hide all optional fields
   urlGroup.classList.add('d-none');
-  filterGroup.classList.add('d-none');
-  sectionGroup.classList.add('d-none');
   iconGroup.classList.add('d-none');
   megaMenuGroup.classList.add('d-none');
   accordionGroup.classList.add('d-none');
 
   // Show relevant fields
-  if (type === 'category_dynamic') {
-    filterGroup.classList.remove('d-none');
-    sectionGroup.classList.remove('d-none');
-  } else if (type === 'heading') {
+  if (type === 'heading') {
     iconGroup.classList.remove('d-none');
   } else {
     // category, page, custom
@@ -761,26 +713,12 @@ export async function saveEditedMenuItem(index) {
 
     // Clear optional fields first
     delete item.url;
-    delete item.filter;
-    delete item.section;
     delete item.icon;
     delete item.mega_menu;
     delete item.accordion;
 
     // Set fields based on type
-    if (type === 'category_dynamic') {
-      const filter = document.getElementById('edit-item-filter').value.trim();
-      const section = document.getElementById('edit-item-section').value.trim();
-
-      if (!filter) {
-        showError('Filter is required for dynamic categories');
-        return;
-      }
-
-      item.filter = filter;
-      if (section) item.section = section;
-
-    } else if (type === 'heading') {
+    if (type === 'heading') {
       const icon = document.getElementById('edit-item-icon').value.trim();
       if (icon) item.icon = icon;
 
