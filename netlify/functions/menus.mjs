@@ -113,15 +113,6 @@ function generateMenuItemsYAML(items, indent = 2) {
     if (item.accordion) {
       yaml += `${spaces}  accordion: ${item.accordion}\n`;
     }
-    if (item.filter) {
-      yaml += `${spaces}  filter: "${item.filter}"\n`;
-    }
-    if (item.section) {
-      yaml += `${spaces}  section: "${item.section}"\n`;
-    }
-    if (item.sort) {
-      yaml += `${spaces}  sort: ${item.sort}\n`;
-    }
 
     if (item.children && item.children.length > 0) {
       yaml += `${spaces}  children:\n`;
@@ -215,7 +206,7 @@ export default async function handler(request, context) {
 #
 # Structure:
 # - id: Unique identifier for the menu item
-# - type: Type of menu item (category|page|custom|heading|category_dynamic)
+# - type: Type of menu item (category|page|custom|heading)
 # - label: Display text for the menu item
 # - url: Target URL (optional for headings)
 # - icon: Font Awesome icon class (optional)
