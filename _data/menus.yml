@@ -1,0 +1,140 @@
+# Menu Configuration
+# WordPress-style menu management for Jekyll site
+#
+# Structure:
+# - id: Unique identifier for the menu item
+# - type: Type of menu item (category|page|custom|heading)
+# - label: Display text for the menu item
+# - url: Target URL (optional for headings)
+# - icon: Font Awesome icon class (optional)
+# - mega_menu: Boolean to enable mega-menu styling (default: false)
+# - children: Array of nested menu items (optional)
+#
+# Note: The menu renderer will automatically add post counts to category links
+
+header_menu:
+  # Digital Art & Technology - Mega Menu
+  - id: "digital-art-technology"
+    type: "category"
+    label: "Digital Art & Technology"
+    url: "/category/digital-art-and-technology/"
+    mega_menu: true
+    children:
+      # Year 1 Section
+      - id: "year1-heading"
+        type: "heading"
+        label: "Year 1 Modules"
+        icon: "fas fa-graduation-cap"
+      - id: "dat401"
+        type: "category_dynamic"
+        label: "DAT4"
+        filter: "DAT4"
+        section: "year1"
+
+      # Year 2 Section
+      - id: "year2-heading"
+        type: "heading"
+        label: "Year 2 Modules"
+        icon: "fas fa-laptop-code"
+      - id: "dat501"
+        type: "category_dynamic"
+        label: "DAT5"
+        filter: "DAT5"
+        section: "year2"
+      - id: "inde601"
+        type: "category_dynamic"
+        label: "INDE6"
+        filter: "INDE6"
+        section: "year2"
+
+      # Year 3 Section
+      - id: "year3-heading"
+        type: "heading"
+        label: "Year 3 Modules"
+        icon: "fas fa-rocket"
+      - id: "dat601"
+        type: "category_dynamic"
+        label: "DAT6"
+        filter: "DAT6"
+        section: "year3"
+
+  # Projects - Mega Menu
+  - id: "projects"
+    type: "category"
+    label: "Projects"
+    url: "/category/projects/"
+    mega_menu: true
+    children:
+      - id: "projects-heading"
+        type: "heading"
+        label: "Project Categories"
+        icon: "fas fa-folder-open"
+      - id: "photography"
+        type: "category"
+        label: "Photography"
+        url: "/category/photography/"
+      - id: "motion-graphics"
+        type: "category"
+        label: "Motion Graphics"
+        url: "/category/motion-graphics/"
+      - id: "retro-computing"
+        type: "category"
+        label: "Retro Computing"
+        url: "/category/retro-computing/"
+
+  # Simple Links
+  - id: "about"
+    type: "page"
+    label: "About"
+    url: "/about/"
+
+  - id: "contact"
+    type: "page"
+    label: "Contact"
+    url: "/contact/"
+
+# Mobile menu (can mirror header or have different structure)
+mobile_menu:
+  # Digital Art & Technology - Accordion
+  - id: "digital-art-technology-mobile"
+    type: "category"
+    label: "Digital Art & Technology"
+    url: "/category/digital-art-and-technology/"
+    accordion: true
+    children:
+      - id: "view-all-dat"
+        type: "custom"
+        label: "View All"
+        url: "/category/digital-art-and-technology/"
+      - id: "dat-cats-mobile"
+        type: "category_dynamic"
+        label: "DAT Modules"
+        filter: "DAT,INDE"
+        sort: true
+
+  # Projects - Accordion
+  - id: "projects-mobile"
+    type: "category"
+    label: "Projects"
+    url: "/category/projects/"
+    accordion: true
+    children:
+      - id: "view-all-projects"
+        type: "custom"
+        label: "View All Projects"
+        url: "/category/projects/"
+      - id: "project-cats-mobile"
+        type: "category_dynamic"
+        label: "Project Categories"
+        filter: "photography,motion graphics,retro computing"
+
+  # Simple Links
+  - id: "about-mobile"
+    type: "page"
+    label: "About"
+    url: "/about/"
+
+  - id: "contact-mobile"
+    type: "page"
+    label: "Contact"
+    url: "/contact/"

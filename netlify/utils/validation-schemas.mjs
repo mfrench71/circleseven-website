@@ -166,6 +166,40 @@ export const mediaSchemas = {
 };
 
 /**
+ * Menus endpoint schemas
+ * WordPress-style menu management system
+ */
+
+// Menu item schema (recursive for nested items)
+const menuItemSchema = z.object({
+  id: z.string().min(1, 'Menu item ID required'),
+  type: z.enum(['category', 'page', 'custom', 'heading', 'category_dynamic']),
+  label: z.string().min(1, 'Menu item label required'),
+  url: z.string().optional(),
+  icon: z.string().optional(),
+  mega_menu: z.boolean().optional(),
+  accordion: z.boolean().optional(),
+  filter: z.string().optional(),
+  section: z.string().optional(),
+  sort: z.boolean().optional(),
+  children: z.array(z.lazy(() => menuItemSchema)).optional()
+});
+
+export const menusSchemas = {
+  // GET - no parameters needed
+
+  // PUT body (update menus.yml)
+  update: z.object({
+    header_menu: z.array(menuItemSchema).optional(),
+    mobile_menu: z.array(menuItemSchema).optional(),
+    footer_menu: z.array(menuItemSchema).optional()
+  }).refine(
+    data => data.header_menu || data.mobile_menu || data.footer_menu,
+    { message: 'At least one menu (header_menu, mobile_menu, or footer_menu) must be provided' }
+  )
+};
+
+/**
  * Validates request data against a schema
  *
  * NOTE: Validation is currently DISABLED to maintain compatibility with existing tests.
