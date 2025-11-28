@@ -13,8 +13,9 @@
  *     children: []
  *
  * Supported operations:
- * - GET: Retrieve current menu configurations
+ * - GET: Retrieve current menu configurations (use ?nocache=1 to bypass cache)
  * - PUT: Update menus with new structure
+ * - DELETE: Clear the menu cache
  *
  * @module netlify/functions/menus
  */
@@ -144,14 +145,22 @@ export default async function handler(request, context) {
   try {
     // GET - Read menus from Blob cache or GitHub
     if (method === 'GET') {
-      // Try Blob cache first
-      let cachedData = await readMenusFromBlob();
-      if (cachedData) {
-        return successResponse(cachedData);
+      // Check for nocache parameter
+      const url = new URL(request.url);
+      const noCache = url.searchParams.get('nocache') === '1';
+
+      // Try Blob cache first (unless nocache is set)
+      if (!noCache) {
+        let cachedData = await readMenusFromBlob();
+        if (cachedData) {
+          return successResponse(cachedData);
+        }
+      } else {
+        console.log('[Menus] nocache=1 parameter detected, bypassing cache');
       }
 
-      // Cache miss - read from GitHub
-      console.log('[Menus] Cache miss, reading from GitHub');
+      // Cache miss or nocache - read from GitHub
+      console.log('[Menus] Reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 
@@ -264,6 +273,23 @@ export default async function handler(request, context) {
         message: 'Menus updated successfully. Netlify will rebuild the site automatically.',
         commitSha: updateResponse.commit?.sha
       });
+    }
+
+    // DELETE - Clear cache
+    if (method === 'DELETE') {
+      try {
+        const store = getStore('cache');
+        await store.delete(BLOB_CACHE_KEY);
+        console.log('[Menus] Cache cleared');
+
+        return successResponse({
+          success: true,
+          message: 'Menu cache cleared successfully'
+        });
+      } catch (error) {
+        console.error('[Menus] Error clearing cache:', error);
+        return serverErrorResponse(error, { includeStack: process.env.NODE_ENV === 'development' });
+      }
     }
 
     return methodNotAllowedResponse();
