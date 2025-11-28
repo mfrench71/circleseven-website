@@ -307,6 +307,8 @@
         await loadDeploymentHistory();
         await restoreActiveDeployments();
         await loadMenus();
+        // Trigger initial form update to populate category dropdown
+        await updateAddItemForm();
       });
     };
 

@@ -216,15 +216,25 @@ function resolveMenuItem(item) {
   if (taxonomyCache) {
     const category = findCategoryBySlug(taxonomyCache, item.category_ref);
     if (category) {
+      logger.info('Resolved category_ref:', {
+        slug: item.category_ref,
+        found: category.item,
+        hasLabel: !!item.label
+      });
       return {
         ...item,
         label: item.label || category.item, // Use provided label or fall back to category name
         url: `/category/${item.category_ref}/`
       };
+    } else {
+      logger.warn('Category not found in taxonomy:', item.category_ref);
     }
+  } else {
+    logger.warn('Taxonomy cache not available for resolution');
   }
 
   // If we can't resolve, return with fallback
+  logger.info('Using fallback for category_ref:', item.category_ref);
   return {
     ...item,
     label: item.label || item.category_ref,
@@ -293,7 +303,10 @@ export async function loadMenus() {
     try {
       const taxonomy = await loadTaxonomy();
       taxonomyCache = taxonomy;
-      logger.info('Taxonomy loaded for category_ref resolution:', taxonomy.length, 'categories');
+      logger.info('Taxonomy loaded for category_ref resolution:', {
+        count: taxonomy.length,
+        sample: taxonomy.slice(0, 2)
+      });
       // Re-render to show resolved labels
       renderMenuBuilder();
     } catch (error) {
