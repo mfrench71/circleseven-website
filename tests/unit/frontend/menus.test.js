@@ -395,6 +395,81 @@ describe('Menus Module', () => {
       const iconGroup = document.getElementById('add-item-icon-group');
       expect(iconGroup.classList.contains('d-none')).toBe(false);
     });
+
+    it('lazy-loads categories when category_ref type is selected', async () => {
+      // Mock taxonomy API response
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          categoriesTree: [
+            { item: 'Art', slug: 'art', children: [] },
+            { item: 'Tech', slug: 'tech', children: [
+              { item: 'AI', slug: 'ai', children: [] }
+            ]}
+          ]
+        })
+      });
+
+      const categoryRef = document.getElementById('new-item-category-ref');
+      // Start with just the default option
+      categoryRef.innerHTML = '<option value="">-- Select a category --</option>';
+      expect(categoryRef.options.length).toBe(1);
+
+      // Select category_ref type
+      document.getElementById('new-item-type').value = 'category_ref';
+      await updateAddItemForm();
+
+      // Should have populated categories
+      expect(categoryRef.options.length).toBeGreaterThan(1);
+      expect(categoryRef.options[1].value).toBe('art');
+      expect(categoryRef.options[2].value).toBe('tech');
+      expect(categoryRef.options[3].value).toBe('ai');
+
+      // Verify API was called
+      expect(mockFetch).toHaveBeenCalledWith(
+        '/.netlify/functions/taxonomy'
+      );
+    });
+
+    it('does not refetch categories if already populated', async () => {
+      // Pre-populate dropdown
+      const categoryRef = document.getElementById('new-item-category-ref');
+      categoryRef.innerHTML = `
+        <option value="">-- Select a category --</option>
+        <option value="art">Art</option>
+        <option value="tech">Tech</option>
+      `;
+
+      mockFetch.mockClear();
+
+      // Select category_ref type
+      document.getElementById('new-item-type').value = 'category_ref';
+      await updateAddItemForm();
+
+      // Should not have called API again
+      expect(mockFetch).not.toHaveBeenCalled();
+      // Should still have 3 options
+      expect(categoryRef.options.length).toBe(3);
+    });
+
+    it('handles taxonomy API failure gracefully', async () => {
+      // Mock API failure
+      mockFetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const categoryRef = document.getElementById('new-item-category-ref');
+      categoryRef.innerHTML = '<option value="">-- Select a category --</option>';
+
+      // Select category_ref type
+      document.getElementById('new-item-type').value = 'category_ref';
+      await updateAddItemForm();
+
+      // Should still have just the default option
+      expect(categoryRef.options.length).toBe(1);
+
+      // Error should be shown
+      const errorDiv = document.getElementById('error');
+      expect(errorDiv.classList.contains('d-none')).toBe(false);
+    });
   });
 
   describe('showAddMenuItemModal', () => {
@@ -485,6 +560,17 @@ describe('Menus Module', () => {
         { id: 'test', type: 'page', label: 'Test Page', url: '/test/' }
       ];
       window.currentMenuLocation = 'header';
+
+      // Mock taxonomy API for edit modal (which lazy-loads categories)
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          categoriesTree: [
+            { item: 'Art', slug: 'art', children: [] },
+            { item: 'Tech', slug: 'tech', children: [] }
+          ]
+        })
+      });
     });
 
     it('opens edit modal with item data', async () => {

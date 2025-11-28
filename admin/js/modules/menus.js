@@ -165,22 +165,10 @@ function populateCategoryDropdown(selectElement, categories, depth = 0) {
   });
 }
 
-/**
- * Loads taxonomy and populates all category dropdowns on the page
- */
-async function initializeCategoryDropdowns() {
-  const categories = await loadTaxonomy();
-
-  // Populate add item category dropdown
-  const addCategoryRef = document.getElementById('new-item-category-ref');
-  if (addCategoryRef) {
-    // Keep the default "Select a category" option
-    addCategoryRef.innerHTML = '<option value="">-- Select a category --</option>';
-    populateCategoryDropdown(addCategoryRef, categories);
-  }
-
-  logger.info('Category dropdowns initialized with', categories.length, 'categories');
-}
+// Note: initializeCategoryDropdowns() was removed - categories are now lazy-loaded
+// in updateAddItemForm() when user selects category_ref type, and in editMenuItem()
+// when opening the edit modal. This prevents issues with taxonomy API not being
+// available during page load.
 
 /**
  * Loads menu data from the backend
@@ -239,8 +227,7 @@ export async function loadMenus() {
     updateSaveButton();
     switchMenuLocation('header');
 
-    // Load taxonomy and populate category dropdowns
-    await initializeCategoryDropdowns();
+    // Note: Categories are now lazy-loaded when user selects category_ref type
   } catch (error) {
     showError('Failed to load menus: ' + error.message);
   }
@@ -646,8 +633,9 @@ function clearAddItemForm() {
 
 /**
  * Updates the add item form based on selected type
+ * Lazy-loads categories when category_ref type is selected
  */
-export function updateAddItemForm() {
+export async function updateAddItemForm() {
   const type = document.getElementById('new-item-type').value;
 
   const categoryRefGroup = document.getElementById('add-item-category-ref-group');
@@ -673,6 +661,18 @@ export function updateAddItemForm() {
     megaMenuGroup.classList.remove('d-none');
     accordionGroup.classList.remove('d-none');
     labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
+
+    // Lazy-load categories when this type is selected
+    const addCategoryRef = document.getElementById('new-item-category-ref');
+    if (addCategoryRef) {
+      // Check if already populated (has more than just the default option)
+      if (addCategoryRef.options.length <= 1) {
+        const categories = await loadTaxonomy();
+        addCategoryRef.innerHTML = '<option value="">-- Select a category --</option>';
+        populateCategoryDropdown(addCategoryRef, categories);
+        logger.info('Lazy-loaded categories for add form:', categories.length);
+      }
+    }
   } else if (type === 'heading') {
     iconGroup.classList.remove('d-none');
   } else {
