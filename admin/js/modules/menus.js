@@ -101,7 +101,6 @@ export async function loadMenus() {
       });
       window.isDirty = false;
 
-      renderMenuBuilder();
       updateSaveButton();
       switchMenuLocation('header');
       return;
@@ -132,7 +131,6 @@ export async function loadMenus() {
     });
     window.isDirty = false;
 
-    renderMenuBuilder();
     updateSaveButton();
     switchMenuLocation('header');
   } catch (error) {
