@@ -249,6 +249,20 @@ describe('Menus Function', () => {
         })
       };
 
+      // GET taxonomy for validation
+      const taxonomyYAML = `categories:
+  - item: Test Category
+    slug: test-category
+    children: []
+tags:
+  - item: Test Tag
+    slug: test-tag
+`;
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from(taxonomyYAML).toString('base64'),
+        sha: 'taxonomy-sha-123'
+      });
+
       // GET current file for SHA
       mockGetFile('_data/menus.yml', {
         content: Buffer.from('old content').toString('base64'),
@@ -281,6 +295,12 @@ describe('Menus Function', () => {
       };
 
       let capturedContent = '';
+
+      // GET taxonomy for validation
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('categories:\ntags:').toString('base64'),
+        sha: 'taxonomy-sha'
+      });
 
       // GET current file for SHA
       mockGetFile('_data/menus.yml', {
@@ -331,6 +351,12 @@ describe('Menus Function', () => {
 
       let capturedContent = '';
 
+      // GET taxonomy for validation
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('categories:\ntags:').toString('base64'),
+        sha: 'taxonomy-sha'
+      });
+
       mockGetFile('_data/menus.yml', { sha: 'sha' });
 
       nock('https://api.github.com')
@@ -362,6 +388,12 @@ describe('Menus Function', () => {
 
       let capturedContent = '';
 
+      // GET taxonomy for validation
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('categories:\ntags:').toString('base64'),
+        sha: 'taxonomy-sha'
+      });
+
       // GET current file for SHA
       mockGetFile('_data/menus.yml', {
         sha: 'original-sha-789'
@@ -392,6 +424,12 @@ describe('Menus Function', () => {
           footer_menu: []
         })
       };
+
+      // GET taxonomy for validation
+      mockGetFile('_data/taxonomy.yml', {
+        content: Buffer.from('categories:\ntags:').toString('base64'),
+        sha: 'taxonomy-sha'
+      });
 
       mockGetFile('_data/menus.yml', { sha: 'sha' });
       mockPutFile('_data/menus.yml', { commit: { sha: 'new' } });

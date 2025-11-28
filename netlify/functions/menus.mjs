@@ -34,6 +34,7 @@ import {
 } from '../utils/response-helpers.mjs';
 
 const FILE_PATH = '_data/menus.yml';
+const TAXONOMY_FILE_PATH = '_data/taxonomy.yml';
 const BLOB_CACHE_KEY = 'menus.json';
 const CACHE_TTL_HOURS = 24;
 
@@ -83,6 +84,67 @@ async function writeMenusToBlob(menusData) {
     console.error('[Menus] Error writing to Blob:', error);
     // Don't throw - cache write failure shouldn't break the request
   }
+}
+
+/**
+ * Recursively finds a category by slug in taxonomy tree
+ * @param {Array} categories - Array of category objects from taxonomy
+ * @param {string} slug - The slug to search for
+ * @returns {Object|null} The category object or null if not found
+ */
+function findCategoryBySlug(categories, slug) {
+  if (!Array.isArray(categories)) return null;
+
+  for (const category of categories) {
+    if (category.slug === slug) {
+      return category;
+    }
+
+    // Search in children
+    if (Array.isArray(category.children)) {
+      const found = findCategoryBySlug(category.children, slug);
+      if (found) return found;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Validates that all category_ref references exist in taxonomy
+ * @param {Array} menuItems - Menu items to validate
+ * @param {Object} taxonomy - Taxonomy data
+ * @param {Array} path - Current path for error reporting
+ * @returns {Array} Array of broken references with paths
+ */
+function validateCategoryRefs(menuItems, taxonomy, path = []) {
+  if (!Array.isArray(menuItems)) return [];
+
+  const brokenRefs = [];
+  const categories = taxonomy.categories || [];
+
+  menuItems.forEach((item, index) => {
+    const itemPath = [...path, `[${index}]`];
+
+    if (item.type === 'category_ref' && item.category_ref) {
+      const category = findCategoryBySlug(categories, item.category_ref);
+      if (!category) {
+        brokenRefs.push({
+          path: itemPath.join(''),
+          ref: item.category_ref,
+          itemId: item.id
+        });
+      }
+    }
+
+    // Recursively validate children
+    if (Array.isArray(item.children) && item.children.length > 0) {
+      const childBroken = validateCategoryRefs(item.children, taxonomy, [...itemPath, '.children']);
+      brokenRefs.push(...childBroken);
+    }
+  });
+
+  return brokenRefs;
 }
 
 /**
@@ -205,6 +267,36 @@ export default async function handler(request, context) {
       }
 
       const requestBody = bodyValidation.data;
+
+      // Fetch current taxonomy to validate category references
+      const taxonomyFile = await githubRequest(`/contents/${TAXONOMY_FILE_PATH}?ref=${GITHUB_BRANCH}`);
+      const taxonomyContent = Buffer.from(taxonomyFile.content, 'base64').toString('utf8');
+      let taxonomy;
+      try {
+        taxonomy = yaml.load(taxonomyContent);
+      } catch (yamlError) {
+        return badRequestResponse(`Failed to parse taxonomy.yml: ${yamlError.message}`);
+      }
+
+      // Validate all category_ref references
+      let allBrokenRefs = [];
+      if (requestBody.header_menu) {
+        allBrokenRefs.push(...validateCategoryRefs(requestBody.header_menu, taxonomy, ['header_menu']));
+      }
+      if (requestBody.mobile_menu) {
+        allBrokenRefs.push(...validateCategoryRefs(requestBody.mobile_menu, taxonomy, ['mobile_menu']));
+      }
+      if (requestBody.footer_menu) {
+        allBrokenRefs.push(...validateCategoryRefs(requestBody.footer_menu, taxonomy, ['footer_menu']));
+      }
+
+      if (allBrokenRefs.length > 0) {
+        const refList = allBrokenRefs.map(r => `${r.path} (id: ${r.itemId}) -> "${r.ref}"`).join(', ');
+        return badRequestResponse(
+          `Invalid category references found: ${refList}. These categories do not exist in taxonomy.yml.`,
+          { brokenReferences: allBrokenRefs }
+        );
+      }
 
       // Get current file SHA
       const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);

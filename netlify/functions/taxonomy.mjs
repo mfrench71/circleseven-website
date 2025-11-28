@@ -32,6 +32,7 @@ import {
 
 const FILE_PATH = '_data/taxonomy.yml';
 const BLOB_CACHE_KEY = 'taxonomy.json';
+const MENU_CACHE_KEY = 'menus.json'; // Menu cache depends on taxonomy
 const CACHE_TTL_HOURS = 24;
 
 /**
@@ -79,6 +80,21 @@ async function writeTaxonomyToBlob(taxonomyData) {
   } catch (error) {
     console.error('[Taxonomy] Error writing to Blob:', error);
     // Don't throw - cache write failure shouldn't break the request
+  }
+}
+
+/**
+ * Clears menu cache when taxonomy changes
+ * Menu items reference taxonomy, so menu cache must be invalidated when taxonomy is updated
+ */
+async function clearMenuCache() {
+  try {
+    const store = getStore('cache');
+    await store.delete(MENU_CACHE_KEY);
+    console.log('[Taxonomy] Cleared menu cache due to taxonomy update');
+  } catch (error) {
+    console.error('[Taxonomy] Error clearing menu cache:', error);
+    // Don't throw - cache clear failure shouldn't break the request
   }
 }
 
@@ -306,6 +322,9 @@ ${tagsTree.map(t => generateTagYAML(t)).join('')}
         tagsTree: tagsTree
       };
       await writeTaxonomyToBlob(updatedData);
+
+      // Clear menu cache since menu items reference taxonomy
+      await clearMenuCache();
 
       return successResponse({
         success: true,
