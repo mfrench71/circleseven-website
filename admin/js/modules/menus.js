@@ -165,15 +165,96 @@ function populateCategoryDropdown(selectElement, categories, depth = 0) {
   });
 }
 
+/**
+ * Loads all pages from the pages API endpoint
+ * Caches the result in pagesCache global variable
+ *
+ * @returns {Promise<Array>} - Array of page objects with title and url
+ */
+async function loadPages() {
+  try {
+    const response = await fetch(`${window.API_BASE}/pages`);
+    if (!response.ok) throw new Error('Failed to load pages');
+
+    const data = await response.json();
+    pagesCache = data.pages || [];
+    return pagesCache;
+  } catch (error) {
+    logger.error('Error loading pages:', error);
+    showError('Failed to load pages: ' + error.message);
+    return [];
+  }
+}
+
+/**
+ * Populates a page dropdown with options from pages list
+ *
+ * @param {HTMLSelectElement} selectElement - The select element to populate
+ * @param {string} currentUrl - URL of currently selected page (optional)
+ */
+function populatePageDropdown(selectElement, currentUrl = null) {
+  if (!selectElement) return;
+
+  // Clear existing options except the first (placeholder)
+  selectElement.innerHTML = '<option value="">-- Select a page --</option>';
+
+  if (!Array.isArray(pagesCache) || pagesCache.length === 0) {
+    return;
+  }
+
+  pagesCache.forEach(page => {
+    const option = document.createElement('option');
+    // Store page data as JSON in value
+    option.value = JSON.stringify({ title: page.title, url: page.url });
+    option.textContent = `${page.title} (${page.url})`;
+
+    // Pre-select if this is the current page
+    if (currentUrl && page.url === currentUrl) {
+      option.selected = true;
+    }
+
+    selectElement.appendChild(option);
+  });
+}
+
+/**
+ * Handles page selection in page picker dropdowns
+ * Auto-fills the label field with the selected page title
+ *
+ * @param {string} formType - Either 'new' or 'edit'
+ */
+export function onPageSelected(formType) {
+  const dropdown = document.getElementById(`${formType}-item-page-ref`);
+  const labelField = document.getElementById(`${formType}-item-label`);
+
+  if (!dropdown || !labelField || !dropdown.value) return;
+
+  try {
+    const selectedPage = JSON.parse(dropdown.value);
+    // Auto-fill label with page title (user can still edit it)
+    if (!labelField.value || labelField.value === '') {
+      labelField.value = selectedPage.title;
+    }
+  } catch (error) {
+    logger.error('Error parsing selected page:', error);
+  }
+}
+
 // Note: initializeCategoryDropdowns() was removed - categories are now lazy-loaded
 // in updateAddItemForm() when user selects category_ref type, and in editMenuItem()
 // when opening the edit modal. This prevents issues with taxonomy API not being
 // available during page load.
+// Pages follow the same pattern - they are lazy-loaded when user selects page type.
 
 /**
  * Global taxonomy cache for resolving category_ref items
  */
 let taxonomyCache = null;
+
+/**
+ * Global pages cache for page picker dropdown
+ */
+let pagesCache = null;
 
 /**
  * Finds a category in taxonomy by slug
@@ -644,6 +725,34 @@ export async function showAddMenuItemModal() {
       }
       // URL not needed - will be generated from category_ref
 
+    } else if (type === 'page') {
+      // Page - get from page picker dropdown
+      const pageRefDropdown = document.getElementById('new-item-page-ref');
+      const label = document.getElementById('new-item-label').value.trim();
+
+      if (!pageRefDropdown.value) {
+        showError('Page selection is required');
+        return;
+      }
+
+      if (!label) {
+        showError('Label is required for pages');
+        return;
+      }
+
+      // Parse the JSON value from dropdown to get URL
+      let pageData;
+      try {
+        pageData = JSON.parse(pageRefDropdown.value);
+      } catch (error) {
+        showError('Invalid page selection');
+        return;
+      }
+
+      item.id = `page-${Date.now()}`;
+      item.label = label;
+      item.url = pageData.url;
+
     } else if (type === 'heading') {
       const label = document.getElementById('new-item-label').value.trim();
       const icon = document.getElementById('new-item-icon').value.trim();
@@ -658,7 +767,7 @@ export async function showAddMenuItemModal() {
       if (icon) item.icon = icon;
 
     } else {
-      // category, page, custom
+      // custom
       const label = document.getElementById('new-item-label').value.trim();
       const url = document.getElementById('new-item-url').value.trim();
 
@@ -709,6 +818,7 @@ function clearAddItemForm() {
   const section = document.getElementById('new-item-section');
   const icon = document.getElementById('new-item-icon');
   const categoryRef = document.getElementById('new-item-category-ref');
+  const pageRef = document.getElementById('new-item-page-ref');
   const megaMenu = document.getElementById('new-item-mega-menu');
   const accordion = document.getElementById('new-item-accordion');
 
@@ -718,6 +828,7 @@ function clearAddItemForm() {
   if (section) section.value = '';
   if (icon) icon.value = '';
   if (categoryRef) categoryRef.value = '';
+  if (pageRef) pageRef.value = '';
   if (megaMenu) megaMenu.checked = false;
   if (accordion) accordion.checked = false;
 }
@@ -730,7 +841,8 @@ export async function updateAddItemForm() {
   const type = document.getElementById('new-item-type').value;
 
   const categoryRefGroup = document.getElementById('add-item-category-ref-group');
-  const labelGroup = document.querySelector('#new-item-label').parentElement;
+  const pageRefGroup = document.getElementById('add-item-page-ref-group');
+  const labelGroup = document.querySelector('#new-item-label')?.parentElement;
   const labelHelp = document.getElementById('add-item-label-help');
   const urlGroup = document.getElementById('add-item-url-group');
   const iconGroup = document.getElementById('add-item-icon-group');
@@ -738,20 +850,21 @@ export async function updateAddItemForm() {
   const accordionGroup = document.getElementById('add-item-accordion-group');
 
   // Hide all optional fields
-  categoryRefGroup.classList.add('d-none');
-  urlGroup.classList.add('d-none');
-  iconGroup.classList.add('d-none');
-  megaMenuGroup.classList.add('d-none');
-  accordionGroup.classList.add('d-none');
-  labelHelp.textContent = '';
+  if (categoryRefGroup) categoryRefGroup.classList.add('d-none');
+  if (pageRefGroup) pageRefGroup.classList.add('d-none');
+  if (urlGroup) urlGroup.classList.add('d-none');
+  if (iconGroup) iconGroup.classList.add('d-none');
+  if (megaMenuGroup) megaMenuGroup.classList.add('d-none');
+  if (accordionGroup) accordionGroup.classList.add('d-none');
+  if (labelHelp) labelHelp.textContent = '';
 
   // Show relevant fields based on type
   if (type === 'category_ref') {
     // Category from taxonomy - show category picker, hide label and URL
-    categoryRefGroup.classList.remove('d-none');
-    megaMenuGroup.classList.remove('d-none');
-    accordionGroup.classList.remove('d-none');
-    labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
+    if (categoryRefGroup) categoryRefGroup.classList.remove('d-none');
+    if (megaMenuGroup) megaMenuGroup.classList.remove('d-none');
+    if (accordionGroup) accordionGroup.classList.remove('d-none');
+    if (labelHelp) labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
 
     // Lazy-load categories when this type is selected
     const addCategoryRef = document.getElementById('new-item-category-ref');
@@ -764,16 +877,26 @@ export async function updateAddItemForm() {
         logger.info('Lazy-loaded categories for add form:', categories.length);
       }
     }
-  } else if (type === 'heading') {
-    iconGroup.classList.remove('d-none');
-  } else {
-    // category, page, custom - show label and URL
-    urlGroup.classList.remove('d-none');
+  } else if (type === 'page') {
+    // Page - show page picker, label auto-fills but editable
+    if (pageRefGroup) pageRefGroup.classList.remove('d-none');
+    if (labelHelp) labelHelp.textContent = 'Auto-filled from selected page but can be edited';
 
-    if (type === 'category') {
-      megaMenuGroup.classList.remove('d-none');
-      accordionGroup.classList.remove('d-none');
+    // Lazy-load pages when this type is selected
+    const addPageRef = document.getElementById('new-item-page-ref');
+    if (addPageRef) {
+      // Check if already populated (has more than just the default option)
+      if (addPageRef.options.length <= 1) {
+        const pages = await loadPages();
+        populatePageDropdown(addPageRef);
+        logger.info('Lazy-loaded pages for add form:', pages.length);
+      }
     }
+  } else if (type === 'heading') {
+    if (iconGroup) iconGroup.classList.remove('d-none');
+  } else {
+    // custom - show label and URL
+    if (urlGroup) urlGroup.classList.remove('d-none');
   }
 }
 
@@ -830,7 +953,6 @@ export async function editMenuItem(index) {
                 <label class="form-label fw-semibold">Item Type</label>
                 <select id="edit-item-type" class="form-select" onchange="window.updateEditItemForm()">
                   <option value="category_ref" ${item.type === 'category_ref' ? 'selected' : ''}>Category (from Taxonomy)</option>
-                  <option value="category" ${item.type === 'category' ? 'selected' : ''}>Category (Manual)</option>
                   <option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option>
                   <option value="custom" ${item.type === 'custom' ? 'selected' : ''}>Custom Link</option>
                   <option value="heading" ${item.type === 'heading' ? 'selected' : ''}>Heading</option>
@@ -844,6 +966,15 @@ export async function editMenuItem(index) {
                   <!-- Populated dynamically from taxonomy -->
                 </select>
                 <small class="form-text text-muted">Category name and URL will be automatically loaded from taxonomy</small>
+              </div>
+
+              <div id="edit-item-page-ref-group" class="mb-3 d-none">
+                <label class="form-label fw-semibold">Select Page</label>
+                <select id="edit-item-page-ref" class="form-select" onchange="window.onPageSelected('edit')">
+                  <option value="">-- Select a page --</option>
+                  <!-- Populated dynamically from pages API -->
+                </select>
+                <small class="form-text text-muted">Page title and URL will be automatically loaded when you select a page</small>
               </div>
 
               <div class="mb-3">
@@ -914,6 +1045,13 @@ export async function editMenuItem(index) {
       }
     }
 
+    // Populate page dropdown in edit modal
+    const editPageRef = document.getElementById('edit-item-page-ref');
+    if (editPageRef) {
+      const pages = await loadPages();
+      populatePageDropdown(editPageRef, item.url);
+    }
+
     // Update form visibility based on type
     window.updateEditItemForm();
 
@@ -934,6 +1072,7 @@ export function updateEditItemForm() {
   const type = document.getElementById('edit-item-type').value;
 
   const categoryRefGroup = document.getElementById('edit-item-category-ref-group');
+  const pageRefGroup = document.getElementById('edit-item-page-ref-group');
   const labelHelp = document.getElementById('edit-item-label-help');
   const urlGroup = document.getElementById('edit-item-url-group');
   const iconGroup = document.getElementById('edit-item-icon-group');
@@ -941,30 +1080,30 @@ export function updateEditItemForm() {
   const accordionGroup = document.getElementById('edit-item-accordion-group');
 
   // Hide all optional fields
-  categoryRefGroup.classList.add('d-none');
-  urlGroup.classList.add('d-none');
-  iconGroup.classList.add('d-none');
-  megaMenuGroup.classList.add('d-none');
-  accordionGroup.classList.add('d-none');
+  if (categoryRefGroup) categoryRefGroup.classList.add('d-none');
+  if (pageRefGroup) pageRefGroup.classList.add('d-none');
+  if (urlGroup) urlGroup.classList.add('d-none');
+  if (iconGroup) iconGroup.classList.add('d-none');
+  if (megaMenuGroup) megaMenuGroup.classList.add('d-none');
+  if (accordionGroup) accordionGroup.classList.add('d-none');
   if (labelHelp) labelHelp.textContent = '';
 
   // Show relevant fields based on type
   if (type === 'category_ref') {
     // Category from taxonomy - show category picker, hide URL
-    categoryRefGroup.classList.remove('d-none');
-    megaMenuGroup.classList.remove('d-none');
-    accordionGroup.classList.remove('d-none');
+    if (categoryRefGroup) categoryRefGroup.classList.remove('d-none');
+    if (megaMenuGroup) megaMenuGroup.classList.remove('d-none');
+    if (accordionGroup) accordionGroup.classList.remove('d-none');
     if (labelHelp) labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
+  } else if (type === 'page') {
+    // Page - show page picker, label auto-fills but editable
+    if (pageRefGroup) pageRefGroup.classList.remove('d-none');
+    if (labelHelp) labelHelp.textContent = 'Auto-filled from selected page but can be edited';
   } else if (type === 'heading') {
-    iconGroup.classList.remove('d-none');
+    if (iconGroup) iconGroup.classList.remove('d-none');
   } else {
-    // category, page, custom
-    urlGroup.classList.remove('d-none');
-
-    if (type === 'category') {
-      megaMenuGroup.classList.remove('d-none');
-      accordionGroup.classList.remove('d-none');
-    }
+    // custom - show label and URL
+    if (urlGroup) urlGroup.classList.remove('d-none');
   }
 }
 
@@ -1022,6 +1161,32 @@ export async function saveEditedMenuItem(index) {
         item.accordion = true;
       }
 
+    } else if (type === 'page') {
+      // Page - get from page picker dropdown
+      const pageRefDropdown = document.getElementById('edit-item-page-ref');
+
+      if (!pageRefDropdown.value) {
+        showError('Page selection is required');
+        return;
+      }
+
+      if (!label) {
+        showError('Label is required for pages');
+        return;
+      }
+
+      // Parse the JSON value from dropdown to get URL
+      let pageData;
+      try {
+        pageData = JSON.parse(pageRefDropdown.value);
+      } catch (error) {
+        showError('Invalid page selection');
+        return;
+      }
+
+      item.label = label;
+      item.url = pageData.url;
+
     } else if (type === 'heading') {
       const icon = document.getElementById('edit-item-icon').value.trim();
 
@@ -1034,7 +1199,7 @@ export async function saveEditedMenuItem(index) {
       if (icon) item.icon = icon;
 
     } else {
-      // category, page, custom
+      // custom
       const url = document.getElementById('edit-item-url').value.trim();
 
       if (!label || !url) {
@@ -1044,19 +1209,6 @@ export async function saveEditedMenuItem(index) {
 
       item.label = label;
       item.url = url;
-
-      // Check mega_menu / accordion for categories
-      if (type === 'category') {
-        const megaMenuCheckbox = document.getElementById('edit-item-mega-menu');
-        const accordionCheckbox = document.getElementById('edit-item-accordion');
-
-        if (megaMenuCheckbox && megaMenuCheckbox.checked) {
-          item.mega_menu = true;
-        }
-        if (accordionCheckbox && accordionCheckbox.checked) {
-          item.accordion = true;
-        }
-      }
     }
 
     // Item was modified in place via reference, just trigger state update
@@ -1229,6 +1381,7 @@ window.switchMenuLocation = switchMenuLocation;
 window.toggleMenuChildren = toggleMenuChildren;
 window.showAddMenuItemModal = showAddMenuItemModal;
 window.updateAddItemForm = updateAddItemForm;
+window.onPageSelected = onPageSelected;
 window.editMenuItem = editMenuItem;
 window.updateEditItemForm = updateEditItemForm;
 window.saveEditedMenuItem = saveEditedMenuItem;

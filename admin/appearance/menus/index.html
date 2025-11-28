@@ -158,7 +158,6 @@
                     <label class="form-label fw-semibold">Item Type</label>
                     <select id="new-item-type" class="form-select" onchange="window.updateAddItemForm()">
                       <option value="category_ref">Category (from Taxonomy)</option>
-                      <option value="category">Category (Manual)</option>
                       <option value="page">Page</option>
                       <option value="custom">Custom Link</option>
                       <option value="heading">Heading</option>
@@ -172,6 +171,15 @@
                       <!-- Populated dynamically from taxonomy -->
                     </select>
                     <small class="form-text text-muted">Category name and URL will be automatically loaded from taxonomy</small>
+                  </div>
+
+                  <div id="add-item-page-ref-group" class="mb-3">
+                    <label class="form-label fw-semibold">Select Page</label>
+                    <select id="new-item-page-ref" class="form-select" onchange="window.onPageSelected('new')">
+                      <option value="">-- Select a page --</option>
+                      <!-- Populated dynamically from pages API -->
+                    </select>
+                    <small class="form-text text-muted">Page title and URL will be automatically loaded when you select a page</small>
                   </div>
 
                   <div class="mb-3">
