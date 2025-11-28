@@ -173,14 +173,23 @@ export const mediaSchemas = {
 // Menu item schema (recursive for nested items)
 const menuItemSchema = z.object({
   id: z.string().min(1, 'Menu item ID required'),
-  type: z.enum(['category', 'page', 'custom', 'heading']),
-  label: z.string().min(1, 'Menu item label required'),
-  url: z.string().optional(),
+  type: z.enum(['category', 'category_ref', 'page', 'custom', 'heading']),
+  label: z.string().optional(), // Optional for category_ref (resolved from taxonomy)
+  url: z.string().optional(), // Optional for category_ref and headings
+  category_ref: z.string().optional(), // Slug reference to taxonomy.yml (required for category_ref type)
   icon: z.string().optional(),
   mega_menu: z.boolean().optional(),
   accordion: z.boolean().optional(),
   children: z.array(z.lazy(() => menuItemSchema)).optional()
-});
+}).refine(
+  // For category_ref type, category_ref field must be present
+  (data) => data.type !== 'category_ref' || (data.category_ref && data.category_ref.length > 0),
+  { message: 'category_ref field is required when type is category_ref', path: ['category_ref'] }
+).refine(
+  // For non-category_ref types, label must be present
+  (data) => data.type === 'category_ref' || (data.label && data.label.length > 0),
+  { message: 'label is required for non-category_ref menu items', path: ['label'] }
+);
 
 export const menusSchemas = {
   // GET - no parameters needed
