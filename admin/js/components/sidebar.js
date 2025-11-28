@@ -133,16 +133,35 @@ export function renderSidebar(activePage = 'dashboard') {
             </a>
           </li>
 
-          <!-- Appearance -->
+          <!-- Appearance (with accordion submenu) -->
           <li class="mb-1">
-            <a
-              href="/admin/appearance/"
-              class="sidebar-nav-item ${isActive('appearance')} d-flex align-items-center gap-3 px-3 py-2 text-decoration-none"
+            <button
+              onclick="toggleAppearanceMenu()"
+              class="sidebar-nav-item ${isActive('appearance') || isActive('menus') ? 'active' : ''} d-flex align-items-center justify-content-between w-100 px-3 py-2 text-decoration-none border-0 ${isActive('appearance') || isActive('menus') ? '' : 'bg-transparent'}"
+              style="color: ${isActive('appearance') || isActive('menus') ? 'white' : '#6b7280'};"
               title="Appearance"
             >
-              <i class="fas fa-paint-brush fs-5" class="sidebar-icon"></i>
-              <span class="sidebar-nav-text">Appearance</span>
-            </a>
+              <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-paint-brush fs-5" class="sidebar-icon"></i>
+                <span class="sidebar-nav-text">Appearance</span>
+              </div>
+              <i class="fas fa-chevron-down sidebar-accordion-icon ${isActive('appearance') || isActive('menus') ? 'expanded' : ''}" id="appearance-accordion-icon"></i>
+            </button>
+            <!-- Accordion Submenu -->
+            <ul class="sidebar-submenu ${isActive('appearance') || isActive('menus') ? 'show' : ''}" id="appearance-submenu">
+              <li>
+                <a href="/admin/appearance/" class="sidebar-submenu-item ${isActive('appearance')}" title="Fonts">
+                  <i class="fas fa-font"></i>
+                  <span>Fonts</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/appearance/menus/" class="sidebar-submenu-item ${isActive('menus')}" title="Menus">
+                  <i class="fas fa-bars"></i>
+                  <span>Menus</span>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <!-- Settings -->
@@ -216,6 +235,24 @@ window.togglePostsMenu = function() {
 window.toggleAnalyticsMenu = function() {
   const submenu = document.getElementById('analytics-submenu');
   const icon = document.getElementById('analytics-accordion-icon');
+  const isOpen = submenu && submenu.classList.contains('show');
+
+  // Close all accordions first
+  closeAllAccordions();
+
+  // If this menu wasn't open, open it
+  if (!isOpen && submenu && icon) {
+    submenu.classList.add('show');
+    icon.classList.add('expanded');
+  }
+};
+
+/**
+ * Toggle Appearance accordion menu
+ */
+window.toggleAppearanceMenu = function() {
+  const submenu = document.getElementById('appearance-submenu');
+  const icon = document.getElementById('appearance-accordion-icon');
   const isOpen = submenu && submenu.classList.contains('show');
 
   // Close all accordions first

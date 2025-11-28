@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menus - Appearance - Admin</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    .menu-item { cursor: move; }
+    .menu-expand-btn {
+      background: none;
+      border: none;
+      padding: 0.25rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      color: var(--color-text-muted);
+    }
+    .menu-expand-btn:hover {
+      color: var(--color-primary);
+    }
+    .menu-expand-btn.collapsed i {
+      transform: rotate(-90deg);
+    }
+    .sortable-ghost {
+      opacity: 0.4;
+      background: var(--color-bg-light);
+    }
+    .sortable-drag {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div id="app">
+    <div id="auth-gate" class="min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="card shadow p-4 auth-gate-card">
+        <h1 class="h3 fw-bold mb-3">Admin Login Required</h1>
+        <p class="text-muted mb-3">Please log in to access menu management.</p>
+        <button onclick="if (window.netlifyIdentity) netlifyIdentity.open(); else console.error('Netlify Identity not loaded');" class="btn btn-primary w-100">Log In</button>
+      </div>
+    </div>
+
+    <div id="main-app" class="d-none">
+      <div id="header-container"></div>
+      <div id="sidebar-container"></div>
+
+      <div id="main-content-wrapper">
+        <main class="px-3 px-lg-4 py-4">
+          <div id="error" class="alert alert-danger d-none mb-4" role="alert"><p class="mb-0"></p></div>
+          <div id="success" class="alert alert-success d-none mb-4" role="alert"><p class="mb-0"></p></div>
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h5 fw-bold mb-0">Menu Management</h2>
+            <button id="save-btn" onclick="window.saveMenus()" class="btn btn-primary opacity-50" disabled>
+              <i class="fas fa-save me-2"></i>All Saved ✓
+            </button>
+          </div>
+
+          <div class="row g-4">
+            <!-- Left Column: Menu Builder -->
+            <div class="col-lg-8">
+              <div class="card shadow-sm">
+                <div class="card-header card-header-gradient text-white">
+                  <h6 class="mb-0"><i class="fas fa-bars me-2"></i>Menu Builder</h6>
+                </div>
+                <div class="card-body p-0">
+                  <!-- Tabs for menu locations -->
+                  <ul class="nav nav-tabs px-3 pt-3" role="tablist">
+                    <li class="nav-item">
+                      <button class="nav-link active" id="tab-header-menu" onclick="window.switchMenuLocation('header')">
+                        Header Menu <span id="header-menu-count-badge" class="badge bg-primary ms-1">0</span>
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button class="nav-link" id="tab-mobile-menu" onclick="window.switchMenuLocation('mobile')">
+                        Mobile Menu <span id="mobile-menu-count-badge" class="badge bg-primary ms-1">0</span>
+                      </button>
+                    </li>
+                    <li class="nav-item">
+                      <button class="nav-link" id="tab-footer-menu" onclick="window.switchMenuLocation('footer')">
+                        Footer Menu <span id="footer-menu-count-badge" class="badge bg-primary ms-1">0</span>
+                      </button>
+                    </li>
+                  </ul>
+
+                  <!-- Menu Items Table -->
+                  <div class="tab-content">
+                    <!-- Header Menu Tab -->
+                    <div id="menu-header-tab" class="tab-pane">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="px-3 py-2 text-muted" style="width: 50px;">#</th>
+                              <th class="px-3 py-2">Label / URL</th>
+                              <th class="px-3 py-2" style="width: 140px;">Type</th>
+                              <th class="px-3 py-2 text-end" style="width: 100px;">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody id="menu-header-list">
+                            <tr class="menu-loading">
+                              <td colspan="4" class="text-center py-4">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                Loading menu...
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- Mobile Menu Tab -->
+                    <div id="menu-mobile-tab" class="tab-pane d-none">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="px-3 py-2 text-muted" style="width: 50px;">#</th>
+                              <th class="px-3 py-2">Label / URL</th>
+                              <th class="px-3 py-2" style="width: 140px;">Type</th>
+                              <th class="px-3 py-2 text-end" style="width: 100px;">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody id="menu-mobile-list">
+                            <tr class="menu-loading">
+                              <td colspan="4" class="text-center py-4">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                Loading menu...
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- Footer Menu Tab -->
+                    <div id="menu-footer-tab" class="tab-pane d-none">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="px-3 py-2 text-muted" style="width: 50px;">#</th>
+                              <th class="px-3 py-2">Label / URL</th>
+                              <th class="px-3 py-2" style="width: 140px;">Type</th>
+                              <th class="px-3 py-2 text-end" style="width: 100px;">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody id="menu-footer-list">
+                            <tr class="menu-loading">
+                              <td colspan="4" class="text-center py-4">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                                Loading menu...
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Add Menu Item -->
+            <div class="col-lg-4">
+              <div class="card shadow-sm">
+                <div class="card-header card-header-gradient text-white">
+                  <h6 class="mb-0"><i class="fas fa-plus me-2"></i>Add Menu Item</h6>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Item Type</label>
+                    <select id="new-item-type" class="form-select" onchange="window.updateAddItemForm()">
+                      <option value="category">Category</option>
+                      <option value="page">Page</option>
+                      <option value="custom">Custom Link</option>
+                      <option value="heading">Heading</option>
+                      <option value="category_dynamic">Dynamic Category</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Label</label>
+                    <input type="text" id="new-item-label" class="form-control" placeholder="Menu item text">
+                  </div>
+
+                  <div id="add-item-url-group" class="mb-3">
+                    <label class="form-label fw-semibold">URL</label>
+                    <input type="text" id="new-item-url" class="form-control" placeholder="/path/to/page/">
+                  </div>
+
+                  <div id="add-item-filter-group" class="mb-3 d-none">
+                    <label class="form-label fw-semibold">Filter Pattern</label>
+                    <input type="text" id="new-item-filter" class="form-control" placeholder="DAT4,DAT5">
+                    <small class="form-text text-muted">Category name pattern to match (comma-separated)</small>
+                  </div>
+
+                  <div id="add-item-section-group" class="mb-3 d-none">
+                    <label class="form-label fw-semibold">Section</label>
+                    <input type="text" id="new-item-section" class="form-control" placeholder="year1">
+                    <small class="form-text text-muted">Optional grouping section</small>
+                  </div>
+
+                  <div id="add-item-icon-group" class="mb-3 d-none">
+                    <label class="form-label fw-semibold">Icon (FontAwesome)</label>
+                    <input type="text" id="new-item-icon" class="form-control" placeholder="fas fa-folder-open">
+                  </div>
+
+                  <div id="add-item-mega-menu-group" class="mb-3 d-none">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="new-item-mega-menu">
+                      <label class="form-check-label" for="new-item-mega-menu">Enable Mega Menu</label>
+                    </div>
+                  </div>
+
+                  <div id="add-item-accordion-group" class="mb-3 d-none">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="new-item-accordion">
+                      <label class="form-check-label" for="new-item-accordion">Enable Accordion (Mobile)</label>
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="window.showAddMenuItemModal()" class="btn btn-primary w-100">
+                    <i class="fas fa-plus me-2"></i>Add Menu Item
+                  </button>
+                </div>
+              </div>
+
+              <!-- Help Card -->
+              <div class="card shadow-sm mt-4">
+                <div class="card-header bg-light">
+                  <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Help</h6>
+                </div>
+                <div class="card-body">
+                  <p class="small mb-2"><strong>Menu Item Types:</strong></p>
+                  <ul class="small mb-3">
+                    <li><strong>Category:</strong> Link to a category page</li>
+                    <li><strong>Page:</strong> Link to a static page</li>
+                    <li><strong>Custom Link:</strong> Any custom URL</li>
+                    <li><strong>Heading:</strong> Non-clickable section label</li>
+                    <li><strong>Dynamic Category:</strong> Auto-populates from category patterns</li>
+                  </ul>
+                  <p class="small mb-0"><strong>Drag and drop</strong> menu items to reorder them.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+  <!-- Import logger to make it available globally for app.js -->
+  <script type="module">
+    import logger from '/admin/js/core/logger.js';
+  </script>
+
+  <script src="/admin/app.js"></script>
+
+  <script type="module">
+    import { initStandalonePage } from '/admin/js/standalone-init.js';
+    import { initHeader } from '/admin/js/components/header.js';
+    import { initSidebar } from '/admin/js/components/sidebar.js';
+    import { initNotifications } from '/admin/js/ui/notifications.js';
+    import { loadSiteTitle } from '/admin/js/modules/settings.js';
+    import { loadDeploymentHistory, restoreActiveDeployments } from '/admin/js/modules/deployments.js';
+    import {
+      loadMenus,
+      switchMenuLocation,
+      toggleMenuChildren,
+      showAddMenuItemModal,
+      updateAddItemForm,
+      editMenuItem,
+      deleteMenuItem,
+      saveMenus
+    } from '/admin/js/modules/menus.js';
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNotifications);
+    } else {
+      initNotifications();
+    }
+
+    // Export menu functions to window for onclick handlers
+    window.loadMenus = loadMenus;
+    window.switchMenuLocation = switchMenuLocation;
+    window.toggleMenuChildren = toggleMenuChildren;
+    window.showAddMenuItemModal = showAddMenuItemModal;
+    window.updateAddItemForm = updateAddItemForm;
+    window.editMenuItem = editMenuItem;
+    window.deleteMenuItem = deleteMenuItem;
+    window.saveMenus = saveMenus;
+    window.loadSiteTitle = loadSiteTitle;
+
+    const init = async () => {
+      await initStandalonePage('menus', async (user) => {
+        initHeader();
+        initSidebar('menus');
+        await loadSiteTitle();
+        await loadDeploymentHistory();
+        await restoreActiveDeployments();
+        await loadMenus();
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    // NO login/logout event handlers here - initStandalonePage handles authentication
+  </script>
+</body>
+</html>
