@@ -236,7 +236,76 @@ return successResponse(...);
 
 ---
 
-### ⏸️ Phase 8: Update Tests (PENDING)
+### ✅ Phase 8: WordPress-Style Menu Management (COMPLETED)
+**Status**: Implemented
+
+**What was done**:
+1. Removed "Category (Manual)" type from UI - enforces taxonomy SSOT
+2. Added page picker functionality following WordPress patterns
+3. Added defensive null guards for test compatibility
+
+**Page Picker Implementation:**
+- Created `loadPages()` function - fetches from /pages API
+- Created `populatePageDropdown()` - populates dropdown with pages
+- Created `onPageSelected()` - auto-fills label when page selected
+- Added `pagesCache` global variable for caching page data
+
+**UI Changes:**
+- Added page picker dropdown to add form (index.html line 177-184)
+- Added page picker dropdown to edit modal (menus.js line 930-937)
+- Removed "Category (Manual)" option from type dropdowns
+- Type dropdown options: category_ref, page, custom, heading
+
+**Form Logic Updates:**
+- `updateAddItemForm()` (menus.js:840-901)
+  - Added pageRefGroup handling
+  - Shows page picker when page type selected
+  - Lazy-loads pages on first selection
+  - Added null guards for all DOM elements
+
+- `updateEditItemForm()` (menus.js:1071-1108)
+  - Added pageRefGroup handling
+  - Shows page picker when page type selected
+  - Added null guards for all DOM elements
+
+- `clearAddItemForm()` (menus.js:814-834)
+  - Clears page picker dropdown value
+
+**Save/Edit Logic Updates:**
+- `showAddMenuItemModal()` (menus.js:728-755)
+  - Added page type handling
+  - Validates page selection required
+  - Validates label required
+  - Parses JSON from dropdown to extract URL
+
+- `saveEditedMenuItem()` (menus.js:1165-1213)
+  - Added page type handling
+  - Same validation as add form
+  - Parses JSON to get URL for edited items
+
+- `editMenuItem()` (menus.js:1049-1054)
+  - Lazy-loads pages when modal opens
+  - Populates page dropdown
+  - Pre-selects current page by URL
+
+**WordPress Pattern Alignment:**
+- Manual selection only (no auto-populate of categories/pages)
+- Dropdown shows all available items
+- Label auto-fills but remains editable
+- No enable/disable toggles
+- Same workflow for add and edit
+
+**Files modified**:
+- `admin/appearance/menus/index.html` (removed manual category, added page picker HTML)
+- `admin/js/modules/menus.js` (page picker functions, form logic, null guards)
+
+**Null Guards Added:**
+All DOM element access in form functions now has null checks to ensure
+compatibility with test environment where page picker elements may not exist.
+
+---
+
+### ⏸️ Phase 9: Update Tests (PENDING)
 **Status**: Not started
 
 **What needs to be done**:
@@ -290,7 +359,7 @@ describe('Taxonomy-Menu cache integration', () => {
 
 ## Current Status Summary
 
-**Completed**: Phases 1-7 (Full implementation complete)
+**Completed**: Phases 1-8 (WordPress-style implementation complete)
 - ✅ Slug immutability enforced
 - ✅ Menus converted to use category_ref
 - ✅ Schema validation for category_ref
@@ -298,13 +367,19 @@ describe('Taxonomy-Menu cache integration', () => {
 - ✅ Backend validation prevents broken references
 - ✅ Auto cache clearing on taxonomy changes
 - ✅ Admin UI with category picker fully implemented
+- ✅ Page picker with WordPress-style workflow
+- ✅ Manual category type removed from UI
+- ✅ Defensive null guards for test compatibility
 
-**Pending**: Phase 8 (Testing)
-- ⏸️ Comprehensive test coverage needed
+**Pending**: Phase 9 (Testing)
+- ⏸️ Update tests to expect taxonomy and pages API calls
+- ⏸️ Comprehensive test coverage for page picker
 
 ## Next Steps
 
-1. **Phase 8**: Write comprehensive tests
+1. **Phase 9**: Update and expand tests
+   - Update existing tests to expect taxonomy/pages API calls
+   - Add tests for page picker functionality
    - Backend validation tests
    - Cache integration tests
    - Jekyll filter tests (Ruby)
@@ -319,10 +394,14 @@ describe('Taxonomy-Menu cache integration', () => {
 5. **Cache Invalidation**: Menu cache automatically cleared on taxonomy updates
 6. **User-Friendly UI**: Admins can pick categories from dropdown
 7. **Complete Workflow**: Full category reference system implemented
+8. **WordPress-Style Page Picker**: Manual page selection with auto-fill labels
+9. **Type Safety**: Removed confusing manual category type option
+10. **Lazy Loading**: Taxonomy and pages only loaded when needed
+11. **Simplified Workflow**: Clear separation between taxonomy-managed categories and static pages
 
-## Benefits Pending (After Phase 8)
+## Benefits Pending (After Phase 9)
 
-1. **Test Coverage**: Comprehensive tests ensure reliability
+1. **Test Coverage**: Comprehensive tests updated for new API calls
 
 ---
 
