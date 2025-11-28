@@ -69,13 +69,16 @@ describe('Menus Module', () => {
 
       <!-- Add menu item form -->
       <select id="new-item-type">
+        <option value="category_ref">Category (from Taxonomy)</option>
         <option value="category">Category</option>
         <option value="page">Page</option>
         <option value="custom">Custom Link</option>
         <option value="heading">Heading</option>
         <option value="category_dynamic">Dynamic Category</option>
       </select>
+      <select id="new-item-category-ref"></select>
       <input type="text" id="new-item-label" />
+      <small id="add-item-label-help"></small>
       <input type="text" id="new-item-url" />
       <input type="text" id="new-item-filter" />
       <input type="text" id="new-item-section" />
@@ -83,6 +86,7 @@ describe('Menus Module', () => {
       <input type="checkbox" id="new-item-mega-menu" />
       <input type="checkbox" id="new-item-accordion" />
 
+      <div id="add-item-category-ref-group"></div>
       <div id="add-item-url-group"></div>
       <div id="add-item-filter-group"></div>
       <div id="add-item-section-group"></div>

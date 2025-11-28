@@ -120,6 +120,69 @@ export async function clearMenuCache() {
 }
 
 /**
+ * Loads taxonomy data and populates category dropdown
+ * Used for category_ref menu items
+ */
+async function loadTaxonomy() {
+  try {
+    const response = await fetch(`${window.API_BASE}/taxonomy`);
+    if (!response.ok) throw new Error('Failed to load taxonomy');
+
+    const data = await response.json();
+    return data.categoriesTree || [];
+  } catch (error) {
+    logger.error('Error loading taxonomy:', error);
+    showError('Failed to load categories: ' + error.message);
+    return [];
+  }
+}
+
+/**
+ * Populates a category dropdown with options from taxonomy
+ * Recursively adds parent and child categories
+ *
+ * @param {HTMLSelectElement} selectElement - The select element to populate
+ * @param {Array} categories - Array of category objects from taxonomy
+ * @param {number} depth - Current depth for indentation (default 0)
+ */
+function populateCategoryDropdown(selectElement, categories, depth = 0) {
+  if (!selectElement || !Array.isArray(categories)) return;
+
+  categories.forEach(category => {
+    if (category.slug) {
+      const option = document.createElement('option');
+      option.value = category.slug;
+      // Add indentation for child categories
+      const indent = '\u00A0\u00A0\u00A0\u00A0'.repeat(depth);
+      option.textContent = indent + category.item;
+      selectElement.appendChild(option);
+
+      // Recursively add children
+      if (Array.isArray(category.children) && category.children.length > 0) {
+        populateCategoryDropdown(selectElement, category.children, depth + 1);
+      }
+    }
+  });
+}
+
+/**
+ * Loads taxonomy and populates all category dropdowns on the page
+ */
+async function initializeCategoryDropdowns() {
+  const categories = await loadTaxonomy();
+
+  // Populate add item category dropdown
+  const addCategoryRef = document.getElementById('new-item-category-ref');
+  if (addCategoryRef) {
+    // Keep the default "Select a category" option
+    addCategoryRef.innerHTML = '<option value="">-- Select a category --</option>';
+    populateCategoryDropdown(addCategoryRef, categories);
+  }
+
+  logger.info('Category dropdowns initialized with', categories.length, 'categories');
+}
+
+/**
  * Loads menu data from the backend
  *
  * Fetches menu configurations from the API, updates global state,
@@ -175,6 +238,9 @@ export async function loadMenus() {
 
     updateSaveButton();
     switchMenuLocation('header');
+
+    // Load taxonomy and populate category dropdowns
+    await initializeCategoryDropdowns();
   } catch (error) {
     showError('Failed to load menus: ' + error.message);
   }
@@ -488,7 +554,25 @@ export async function showAddMenuItemModal() {
     };
 
     // Get values based on type
-    if (type === 'heading') {
+    if (type === 'category_ref') {
+      // Category reference from taxonomy
+      const categoryRef = document.getElementById('new-item-category-ref').value.trim();
+      const label = document.getElementById('new-item-label').value.trim();
+
+      if (!categoryRef) {
+        showError('Category selection is required');
+        return;
+      }
+
+      item.id = `category-ref-${Date.now()}`;
+      item.category_ref = categoryRef;
+      // Label is optional - will be resolved from taxonomy if not provided
+      if (label) {
+        item.label = label;
+      }
+      // URL not needed - will be generated from category_ref
+
+    } else if (type === 'heading') {
       const label = document.getElementById('new-item-label').value.trim();
       const icon = document.getElementById('new-item-icon').value.trim();
 
@@ -552,6 +636,8 @@ function clearAddItemForm() {
   document.getElementById('new-item-filter').value = '';
   document.getElementById('new-item-section').value = '';
   document.getElementById('new-item-icon').value = '';
+  const categoryRef = document.getElementById('new-item-category-ref');
+  if (categoryRef) categoryRef.value = '';
   const megaMenu = document.getElementById('new-item-mega-menu');
   const accordion = document.getElementById('new-item-accordion');
   if (megaMenu) megaMenu.checked = false;
@@ -564,22 +650,33 @@ function clearAddItemForm() {
 export function updateAddItemForm() {
   const type = document.getElementById('new-item-type').value;
 
+  const categoryRefGroup = document.getElementById('add-item-category-ref-group');
+  const labelGroup = document.querySelector('#new-item-label').parentElement;
+  const labelHelp = document.getElementById('add-item-label-help');
   const urlGroup = document.getElementById('add-item-url-group');
   const iconGroup = document.getElementById('add-item-icon-group');
   const megaMenuGroup = document.getElementById('add-item-mega-menu-group');
   const accordionGroup = document.getElementById('add-item-accordion-group');
 
   // Hide all optional fields
+  categoryRefGroup.classList.add('d-none');
   urlGroup.classList.add('d-none');
   iconGroup.classList.add('d-none');
   megaMenuGroup.classList.add('d-none');
   accordionGroup.classList.add('d-none');
+  labelHelp.textContent = '';
 
-  // Show relevant fields
-  if (type === 'heading') {
+  // Show relevant fields based on type
+  if (type === 'category_ref') {
+    // Category from taxonomy - show category picker, hide label and URL
+    categoryRefGroup.classList.remove('d-none');
+    megaMenuGroup.classList.remove('d-none');
+    accordionGroup.classList.remove('d-none');
+    labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
+  } else if (type === 'heading') {
     iconGroup.classList.remove('d-none');
   } else {
-    // category, page, custom
+    // category, page, custom - show label and URL
     urlGroup.classList.remove('d-none');
 
     if (type === 'category') {
@@ -641,16 +738,27 @@ export async function editMenuItem(index) {
               <div class="mb-3">
                 <label class="form-label fw-semibold">Item Type</label>
                 <select id="edit-item-type" class="form-select" onchange="window.updateEditItemForm()">
-                  <option value="category" ${item.type === 'category' ? 'selected' : ''}>Category</option>
+                  <option value="category_ref" ${item.type === 'category_ref' ? 'selected' : ''}>Category (from Taxonomy)</option>
+                  <option value="category" ${item.type === 'category' ? 'selected' : ''}>Category (Manual)</option>
                   <option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option>
                   <option value="custom" ${item.type === 'custom' ? 'selected' : ''}>Custom Link</option>
                   <option value="heading" ${item.type === 'heading' ? 'selected' : ''}>Heading</option>
                 </select>
               </div>
 
+              <div id="edit-item-category-ref-group" class="mb-3 d-none">
+                <label class="form-label fw-semibold">Select Category</label>
+                <select id="edit-item-category-ref" class="form-select">
+                  <option value="">-- Select a category --</option>
+                  <!-- Populated dynamically from taxonomy -->
+                </select>
+                <small class="form-text text-muted">Category name and URL will be automatically loaded from taxonomy</small>
+              </div>
+
               <div class="mb-3">
                 <label class="form-label fw-semibold">Label</label>
-                <input type="text" id="edit-item-label" class="form-control" value="${escapeHtml(item.label)}">
+                <input type="text" id="edit-item-label" class="form-control" value="${escapeHtml(item.label || '')}">
+                <small class="form-text text-muted" id="edit-item-label-help"></small>
               </div>
 
               <div id="edit-item-url-group" class="mb-3">
@@ -702,6 +810,19 @@ export async function editMenuItem(index) {
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
 
+    // Populate category dropdown in edit modal
+    const editCategoryRef = document.getElementById('edit-item-category-ref');
+    if (editCategoryRef) {
+      const categories = await loadTaxonomy();
+      editCategoryRef.innerHTML = '<option value="">-- Select a category --</option>';
+      populateCategoryDropdown(editCategoryRef, categories);
+
+      // Set category_ref value if editing a category_ref item
+      if (item.type === 'category_ref' && item.category_ref) {
+        editCategoryRef.value = item.category_ref;
+      }
+    }
+
     // Update form visibility based on type
     window.updateEditItemForm();
 
@@ -721,19 +842,29 @@ export async function editMenuItem(index) {
 export function updateEditItemForm() {
   const type = document.getElementById('edit-item-type').value;
 
+  const categoryRefGroup = document.getElementById('edit-item-category-ref-group');
+  const labelHelp = document.getElementById('edit-item-label-help');
   const urlGroup = document.getElementById('edit-item-url-group');
   const iconGroup = document.getElementById('edit-item-icon-group');
   const megaMenuGroup = document.getElementById('edit-item-mega-menu-group');
   const accordionGroup = document.getElementById('edit-item-accordion-group');
 
   // Hide all optional fields
+  categoryRefGroup.classList.add('d-none');
   urlGroup.classList.add('d-none');
   iconGroup.classList.add('d-none');
   megaMenuGroup.classList.add('d-none');
   accordionGroup.classList.add('d-none');
+  if (labelHelp) labelHelp.textContent = '';
 
-  // Show relevant fields
-  if (type === 'heading') {
+  // Show relevant fields based on type
+  if (type === 'category_ref') {
+    // Category from taxonomy - show category picker, hide URL
+    categoryRefGroup.classList.remove('d-none');
+    megaMenuGroup.classList.remove('d-none');
+    accordionGroup.classList.remove('d-none');
+    if (labelHelp) labelHelp.textContent = 'Optional - leave blank to use category name from taxonomy';
+  } else if (type === 'heading') {
     iconGroup.classList.remove('d-none');
   } else {
     // category, page, custom
@@ -761,35 +892,66 @@ export async function saveEditedMenuItem(index) {
     const type = document.getElementById('edit-item-type').value;
     const label = document.getElementById('edit-item-label').value.trim();
 
-    if (!label) {
-      showError('Label is required');
-      return;
-    }
-
     // Update item with new values
     item.type = type;
-    item.label = label;
 
     // Clear optional fields first
     delete item.url;
     delete item.icon;
     delete item.mega_menu;
     delete item.accordion;
+    delete item.category_ref;
+    delete item.label;
 
     // Set fields based on type
-    if (type === 'heading') {
+    if (type === 'category_ref') {
+      // Category reference from taxonomy
+      const categoryRef = document.getElementById('edit-item-category-ref').value.trim();
+
+      if (!categoryRef) {
+        showError('Category selection is required');
+        return;
+      }
+
+      item.category_ref = categoryRef;
+      // Label is optional - will be resolved from taxonomy if not provided
+      if (label) {
+        item.label = label;
+      }
+      // URL not needed - will be generated from category_ref
+
+      // Check mega_menu / accordion
+      const megaMenuCheckbox = document.getElementById('edit-item-mega-menu');
+      const accordionCheckbox = document.getElementById('edit-item-accordion');
+
+      if (megaMenuCheckbox && megaMenuCheckbox.checked) {
+        item.mega_menu = true;
+      }
+      if (accordionCheckbox && accordionCheckbox.checked) {
+        item.accordion = true;
+      }
+
+    } else if (type === 'heading') {
       const icon = document.getElementById('edit-item-icon').value.trim();
+
+      if (!label) {
+        showError('Label is required for headings');
+        return;
+      }
+
+      item.label = label;
       if (icon) item.icon = icon;
 
     } else {
       // category, page, custom
       const url = document.getElementById('edit-item-url').value.trim();
 
-      if (!url) {
-        showError('URL is required');
+      if (!label || !url) {
+        showError('Label and URL are required');
         return;
       }
 
+      item.label = label;
       item.url = url;
 
       // Check mega_menu / accordion for categories
