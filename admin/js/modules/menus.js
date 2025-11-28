@@ -683,6 +683,7 @@ export async function saveMenus() {
 
 // Export functions to window for onclick handlers
 window.loadMenus = loadMenus;
+window.getCurrentMenu = getCurrentMenu;
 window.renderMenuBuilder = renderMenuBuilder;
 window.switchMenuLocation = switchMenuLocation;
 window.toggleMenuChildren = toggleMenuChildren;
