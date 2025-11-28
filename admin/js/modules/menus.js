@@ -212,10 +212,14 @@ function resolveMenuItem(item) {
     return item;
   }
 
+  console.log('[MENUS DEBUG] Resolving category_ref:', item.category_ref, 'Cache available:', !!taxonomyCache);
+
   // Try to resolve from taxonomy cache
   if (taxonomyCache) {
     const category = findCategoryBySlug(taxonomyCache, item.category_ref);
+    console.log('[MENUS DEBUG] Found category:', category);
     if (category) {
+      console.log('[MENUS DEBUG] Resolved to:', category.item);
       logger.info('Resolved category_ref:', {
         slug: item.category_ref,
         found: category.item,
@@ -227,13 +231,16 @@ function resolveMenuItem(item) {
         url: `/category/${item.category_ref}/`
       };
     } else {
+      console.warn('[MENUS DEBUG] Category not found in taxonomy:', item.category_ref);
       logger.warn('Category not found in taxonomy:', item.category_ref);
     }
   } else {
+    console.warn('[MENUS DEBUG] Taxonomy cache not available');
     logger.warn('Taxonomy cache not available for resolution');
   }
 
   // If we can't resolve, return with fallback
+  console.log('[MENUS DEBUG] Using fallback for:', item.category_ref);
   logger.info('Using fallback for category_ref:', item.category_ref);
   return {
     ...item,
@@ -303,6 +310,11 @@ export async function loadMenus() {
     try {
       const taxonomy = await loadTaxonomy();
       taxonomyCache = taxonomy;
+      console.log('[MENUS DEBUG] Taxonomy loaded:', {
+        count: taxonomy.length,
+        sample: taxonomy.slice(0, 2),
+        fullCache: taxonomyCache
+      });
       logger.info('Taxonomy loaded for category_ref resolution:', {
         count: taxonomy.length,
         sample: taxonomy.slice(0, 2)
@@ -310,6 +322,7 @@ export async function loadMenus() {
       // Re-render to show resolved labels
       renderMenuBuilder();
     } catch (error) {
+      console.error('[MENUS DEBUG] Failed to load taxonomy:', error);
       logger.warn('Failed to load taxonomy for category_ref resolution:', error);
       // Non-fatal - UI will work with slugs as labels
     }
