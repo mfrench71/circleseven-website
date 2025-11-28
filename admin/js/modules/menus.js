@@ -892,6 +892,33 @@ export async function deleteMenuItem(index) {
 }
 
 /**
+ * Converts header menu to mobile menu format
+ * Replaces mega_menu with accordion styling
+ */
+function convertHeaderToMobileMenu(headerMenu) {
+  if (!headerMenu || !Array.isArray(headerMenu)) {
+    return [];
+  }
+
+  return headerMenu.map(item => {
+    const mobileItem = { ...item };
+
+    // Convert mega_menu to accordion
+    if (mobileItem.mega_menu) {
+      delete mobileItem.mega_menu;
+      mobileItem.accordion = true;
+    }
+
+    // Recursively convert children
+    if (mobileItem.children && Array.isArray(mobileItem.children)) {
+      mobileItem.children = convertHeaderToMobileMenu(mobileItem.children);
+    }
+
+    return mobileItem;
+  });
+}
+
+/**
  * Saves menu changes to the backend
  */
 export async function saveMenus() {
@@ -899,6 +926,9 @@ export async function saveMenus() {
   setButtonLoading(saveBtn, true, 'Saving...');
 
   try {
+    // Auto-generate mobile menu from header menu
+    const generatedMobileMenu = convertHeaderToMobileMenu(window.headerMenu);
+
     const response = await fetch(`${window.API_BASE}/menus`, {
       method: 'PUT',
       headers: {
@@ -906,7 +936,7 @@ export async function saveMenus() {
       },
       body: JSON.stringify({
         header_menu: window.headerMenu,
-        mobile_menu: window.mobileMenu,
+        mobile_menu: generatedMobileMenu,
         footer_menu: window.footerMenu
       })
     });
@@ -922,17 +952,17 @@ export async function saveMenus() {
       trackDeployment(data.commitSha, 'Update menus', 'menus.yml');
     }
 
-    // Update cache
+    // Update cache with generated mobile menu
     setCache(MENUS_CACHE_KEY, {
       header_menu: window.headerMenu,
-      mobile_menu: window.mobileMenu,
+      mobile_menu: generatedMobileMenu,
       footer_menu: window.footerMenu
     });
 
-    // Update saved state
+    // Update saved state with generated mobile menu
     window.lastSavedState = JSON.stringify({
       header_menu: window.headerMenu,
-      mobile_menu: window.mobileMenu,
+      mobile_menu: generatedMobileMenu,
       footer_menu: window.footerMenu
     });
     window.isDirty = false;

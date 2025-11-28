@@ -81,16 +81,17 @@
                       </button>
                     </li>
                     <li class="nav-item">
-                      <button class="nav-link" id="tab-mobile-menu" onclick="window.switchMenuLocation('mobile')">
-                        Mobile Menu <span id="mobile-menu-count-badge" class="badge bg-primary ms-1">0</span>
-                      </button>
-                    </li>
-                    <li class="nav-item">
                       <button class="nav-link" id="tab-footer-menu" onclick="window.switchMenuLocation('footer')">
                         Footer Menu <span id="footer-menu-count-badge" class="badge bg-primary ms-1">0</span>
                       </button>
                     </li>
                   </ul>
+                  <div class="px-3 py-2 bg-light border-bottom">
+                    <small class="text-muted">
+                      <i class="fas fa-info-circle me-1"></i>
+                      <strong>Note:</strong> Mobile menu automatically mirrors the header menu with accordion styling.
+                    </small>
+                  </div>
 
                   <!-- Menu Items Table -->
                   <div class="tab-content">
@@ -107,30 +108,6 @@
                             </tr>
                           </thead>
                           <tbody id="menu-header-list">
-                            <tr class="menu-loading">
-                              <td colspan="4" class="text-center py-4">
-                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
-                                Loading menu...
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    <!-- Mobile Menu Tab -->
-                    <div id="menu-mobile-tab" class="tab-pane">
-                      <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                          <thead class="table-light">
-                            <tr>
-                              <th class="px-3 py-2 text-muted" style="width: 50px;">#</th>
-                              <th class="px-3 py-2">Label / URL</th>
-                              <th class="px-3 py-2" style="width: 140px;">Type</th>
-                              <th class="px-3 py-2 text-end" style="width: 100px;">Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody id="menu-mobile-list">
                             <tr class="menu-loading">
                               <td colspan="4" class="text-center py-4">
                                 <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>

@@ -23,7 +23,8 @@ import {
   updateEditItemForm,
   saveEditedMenuItem,
   deleteMenuItem,
-  saveMenus
+  saveMenus,
+  clearMenuCache
 } from '../../../admin/js/modules/menus.js';
 import { trackDeployment } from '../../../admin/js/modules/deployments.js';
 import { initNotifications } from '../../../admin/js/ui/notifications.js';
@@ -717,6 +718,11 @@ describe('Menus Module', () => {
 
       await saveMenus();
 
+      // Mobile menu should be auto-generated from header menu
+      const expectedMobileMenu = [
+        { id: 'test', type: 'page', label: 'Test', url: '/test/' }
+      ];
+
       expect(mockFetch).toHaveBeenCalledWith(
         '/.netlify/functions/menus',
         expect.objectContaining({
@@ -726,11 +732,54 @@ describe('Menus Module', () => {
           },
           body: JSON.stringify({
             header_menu: window.headerMenu,
-            mobile_menu: window.mobileMenu,
+            mobile_menu: expectedMobileMenu,
             footer_menu: window.footerMenu
           })
         })
       );
+    });
+
+    it('converts mega_menu to accordion in mobile menu', async () => {
+      window.headerMenu = [
+        {
+          id: 'projects',
+          type: 'category',
+          label: 'Projects',
+          url: '/projects/',
+          mega_menu: true,
+          children: [
+            { id: 'child1', type: 'category', label: 'Child 1', url: '/child1/' }
+          ]
+        }
+      ];
+      window.mobileMenu = [];
+      window.footerMenu = [];
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true })
+      });
+
+      await saveMenus();
+
+      // Mobile menu should have accordion instead of mega_menu
+      const expectedMobileMenu = [
+        {
+          id: 'projects',
+          type: 'category',
+          label: 'Projects',
+          url: '/projects/',
+          accordion: true,
+          children: [
+            { id: 'child1', type: 'category', label: 'Child 1', url: '/child1/' }
+          ]
+        }
+      ];
+
+      const fetchCall = mockFetch.mock.calls[0];
+      const body = JSON.parse(fetchCall[1].body);
+      expect(body.mobile_menu).toEqual(expectedMobileMenu);
+      expect(body.mobile_menu[0].mega_menu).toBeUndefined();
     });
 
     it('tracks deployment after save', async () => {
@@ -792,6 +841,157 @@ describe('Menus Module', () => {
 
       const cached = JSON.parse(localStorage.getItem('admin_menus_cache_v1'));
       expect(cached.data.header_menu).toEqual(window.headerMenu);
+    });
+  });
+
+  describe('clearMenuCache()', () => {
+    beforeEach(() => {
+      document.body.innerHTML += `
+        <button id="clear-cache-btn">Clear Cache</button>
+      `;
+
+      // Set up global menus
+      window.headerMenu = [
+        { id: 'about', type: 'page', label: 'About', url: '/about/' }
+      ];
+      window.mobileMenu = [];
+      window.footerMenu = [];
+
+      // Pre-populate cache
+      localStorage.setItem('admin_menus_cache_v1', JSON.stringify({
+        timestamp: Date.now(),
+        data: {
+          header_menu: window.headerMenu,
+          mobile_menu: [],
+          footer_menu: []
+        }
+      }));
+    });
+
+    it('clears backend cache via DELETE request', async () => {
+      // Mock successful DELETE response
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true, message: 'Menu cache cleared successfully' })
+      });
+
+      // Mock successful GET response for reload
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          header_menu: [{ id: 'fresh', type: 'page', label: 'Fresh', url: '/fresh/' }],
+          mobile_menu: [],
+          footer_menu: []
+        })
+      });
+
+      await clearMenuCache();
+
+      // Verify DELETE request was made
+      expect(mockFetch).toHaveBeenCalledWith(
+        expect.stringContaining('/menus'),
+        expect.objectContaining({
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        })
+      );
+    });
+
+    it('clears local localStorage cache and repopulates with fresh data', async () => {
+      // Verify old cache exists before clearing
+      const oldCache = JSON.parse(localStorage.getItem('admin_menus_cache_v1'));
+      expect(oldCache.data.header_menu[0].id).toBe('about');
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true })
+      });
+
+      const freshMenuData = {
+        header_menu: [{ id: 'fresh', type: 'page', label: 'Fresh', url: '/fresh/' }],
+        mobile_menu: [],
+        footer_menu: []
+      };
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => freshMenuData
+      });
+
+      await clearMenuCache();
+
+      // Verify cache was repopulated with fresh data (loadMenus recreates it)
+      const newCache = JSON.parse(localStorage.getItem('admin_menus_cache_v1'));
+      expect(newCache.data.header_menu[0].id).toBe('fresh');
+    });
+
+    it('reloads fresh menu data after clearing cache', async () => {
+      const freshMenuData = {
+        header_menu: [
+          { id: 'fresh1', type: 'page', label: 'Fresh Item 1', url: '/fresh1/' },
+          { id: 'fresh2', type: 'page', label: 'Fresh Item 2', url: '/fresh2/' }
+        ],
+        mobile_menu: [
+          { id: 'mobile1', type: 'page', label: 'Mobile Item', url: '/mobile/' }
+        ],
+        footer_menu: []
+      };
+
+      // Mock DELETE success
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ success: true })
+      });
+
+      // Mock GET with fresh data
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => freshMenuData
+      });
+
+      await clearMenuCache();
+
+      // Verify fresh data was loaded
+      expect(window.headerMenu).toEqual(freshMenuData.header_menu);
+      expect(window.mobileMenu).toEqual(freshMenuData.mobile_menu);
+    });
+
+    it('handles backend DELETE failure without throwing', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => ({ error: 'Backend error', message: 'Failed to clear cache' })
+      });
+
+      // This should catch the error internally and not throw
+      await expect(clearMenuCache()).resolves.not.toThrow();
+    });
+
+    it('sets button to loading state during operation', async () => {
+      const clearCacheBtn = document.getElementById('clear-cache-btn');
+
+      let buttonTextDuringFetch = '';
+      mockFetch.mockImplementationOnce(async () => {
+        // Capture button state during fetch
+        buttonTextDuringFetch = clearCacheBtn.textContent;
+        return {
+          ok: true,
+          json: async () => ({ success: true })
+        };
+      });
+
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          header_menu: [],
+          mobile_menu: [],
+          footer_menu: []
+        })
+      });
+
+      await clearMenuCache();
+
+      expect(buttonTextDuringFetch).toContain('Clearing');
     });
   });
 });
