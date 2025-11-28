@@ -173,16 +173,18 @@ export function switchMenuLocation(location) {
   const footerContent = document.getElementById('menu-footer-tab');
 
   if (headerContent && mobileContent && footerContent) {
-    headerContent.classList.add('d-none');
-    mobileContent.classList.add('d-none');
-    footerContent.classList.add('d-none');
+    // Remove active class from all tabs
+    headerContent.classList.remove('active');
+    mobileContent.classList.remove('active');
+    footerContent.classList.remove('active');
 
+    // Add active class to selected tab
     if (location === 'header') {
-      headerContent.classList.remove('d-none');
+      headerContent.classList.add('active');
     } else if (location === 'mobile') {
-      mobileContent.classList.remove('d-none');
+      mobileContent.classList.add('active');
     } else {
-      footerContent.classList.remove('d-none');
+      footerContent.classList.add('active');
     }
   }
 
