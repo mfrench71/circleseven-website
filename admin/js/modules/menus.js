@@ -587,8 +587,248 @@ export function updateAddItemForm() {
  * Edits a menu item by index
  */
 export async function editMenuItem(index) {
-  // TODO: Implement edit modal
-  showError('Edit functionality coming soon');
+  try {
+    const currentMenu = getCurrentMenu();
+    const item = currentMenu[index];
+
+    if (!item) {
+      showError('Menu item not found');
+      return;
+    }
+
+    // Build edit modal HTML
+    const modalHtml = `
+      <div class="modal fade" id="editMenuItemModal" tabindex="-1" aria-labelledby="editMenuItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editMenuItemModalLabel">Edit Menu Item</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Item Type</label>
+                <select id="edit-item-type" class="form-select" onchange="window.updateEditItemForm()">
+                  <option value="category" ${item.type === 'category' ? 'selected' : ''}>Category</option>
+                  <option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option>
+                  <option value="custom" ${item.type === 'custom' ? 'selected' : ''}>Custom Link</option>
+                  <option value="heading" ${item.type === 'heading' ? 'selected' : ''}>Heading</option>
+                  <option value="category_dynamic" ${item.type === 'category_dynamic' ? 'selected' : ''}>Dynamic Category</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Label</label>
+                <input type="text" id="edit-item-label" class="form-control" value="${escapeHtml(item.label)}">
+              </div>
+
+              <div id="edit-item-url-group" class="mb-3">
+                <label class="form-label fw-semibold">URL</label>
+                <input type="text" id="edit-item-url" class="form-control" value="${escapeHtml(item.url || '')}">
+              </div>
+
+              <div id="edit-item-filter-group" class="mb-3 d-none">
+                <label class="form-label fw-semibold">Filter Pattern</label>
+                <input type="text" id="edit-item-filter" class="form-control" value="${escapeHtml(item.filter || '')}">
+                <small class="form-text text-muted">Category name pattern to match (comma-separated)</small>
+              </div>
+
+              <div id="edit-item-section-group" class="mb-3 d-none">
+                <label class="form-label fw-semibold">Section</label>
+                <input type="text" id="edit-item-section" class="form-control" value="${escapeHtml(item.section || '')}">
+                <small class="form-text text-muted">Optional grouping section</small>
+              </div>
+
+              <div id="edit-item-icon-group" class="mb-3 d-none">
+                <label class="form-label fw-semibold">Icon (FontAwesome)</label>
+                <input type="text" id="edit-item-icon" class="form-control" value="${escapeHtml(item.icon || '')}">
+              </div>
+
+              <div id="edit-item-mega-menu-group" class="mb-3 d-none">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="edit-item-mega-menu" ${item.mega_menu ? 'checked' : ''}>
+                  <label class="form-check-label" for="edit-item-mega-menu">Enable Mega Menu</label>
+                </div>
+              </div>
+
+              <div id="edit-item-accordion-group" class="mb-3 d-none">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="edit-item-accordion" ${item.accordion ? 'checked' : ''}>
+                  <label class="form-check-label" for="edit-item-accordion">Enable Accordion (Mobile)</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="window.saveEditedMenuItem(${index})">
+                <i class="fas fa-save me-2"></i>Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Remove existing modal if present
+    const existingModal = document.getElementById('editMenuItemModal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+
+    // Append modal to body
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    // Show modal
+    const modalElement = document.getElementById('editMenuItemModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+
+    // Update form visibility based on type
+    window.updateEditItemForm();
+
+    // Clean up modal on close
+    modalElement.addEventListener('hidden.bs.modal', () => {
+      modalElement.remove();
+    });
+  } catch (error) {
+    logger.error('Error editing menu item:', error);
+    showError('Failed to edit menu item: ' + error.message);
+  }
+}
+
+/**
+ * Updates the edit item form based on selected type
+ */
+export function updateEditItemForm() {
+  const type = document.getElementById('edit-item-type').value;
+
+  const urlGroup = document.getElementById('edit-item-url-group');
+  const filterGroup = document.getElementById('edit-item-filter-group');
+  const sectionGroup = document.getElementById('edit-item-section-group');
+  const iconGroup = document.getElementById('edit-item-icon-group');
+  const megaMenuGroup = document.getElementById('edit-item-mega-menu-group');
+  const accordionGroup = document.getElementById('edit-item-accordion-group');
+
+  // Hide all optional fields
+  urlGroup.classList.add('d-none');
+  filterGroup.classList.add('d-none');
+  sectionGroup.classList.add('d-none');
+  iconGroup.classList.add('d-none');
+  megaMenuGroup.classList.add('d-none');
+  accordionGroup.classList.add('d-none');
+
+  // Show relevant fields
+  if (type === 'category_dynamic') {
+    filterGroup.classList.remove('d-none');
+    sectionGroup.classList.remove('d-none');
+  } else if (type === 'heading') {
+    iconGroup.classList.remove('d-none');
+  } else {
+    // category, page, custom
+    urlGroup.classList.remove('d-none');
+
+    if (type === 'category') {
+      megaMenuGroup.classList.remove('d-none');
+      accordionGroup.classList.remove('d-none');
+    }
+  }
+}
+
+/**
+ * Saves edited menu item changes
+ */
+export async function saveEditedMenuItem(index) {
+  try {
+    const currentMenu = getCurrentMenu();
+    const item = currentMenu[index];
+
+    if (!item) {
+      showError('Menu item not found');
+      return;
+    }
+
+    const type = document.getElementById('edit-item-type').value;
+    const label = document.getElementById('edit-item-label').value.trim();
+
+    if (!label) {
+      showError('Label is required');
+      return;
+    }
+
+    // Update item with new values
+    item.type = type;
+    item.label = label;
+
+    // Clear optional fields first
+    delete item.url;
+    delete item.filter;
+    delete item.section;
+    delete item.icon;
+    delete item.mega_menu;
+    delete item.accordion;
+
+    // Set fields based on type
+    if (type === 'category_dynamic') {
+      const filter = document.getElementById('edit-item-filter').value.trim();
+      const section = document.getElementById('edit-item-section').value.trim();
+
+      if (!filter) {
+        showError('Filter is required for dynamic categories');
+        return;
+      }
+
+      item.filter = filter;
+      if (section) item.section = section;
+
+    } else if (type === 'heading') {
+      const icon = document.getElementById('edit-item-icon').value.trim();
+      if (icon) item.icon = icon;
+
+    } else {
+      // category, page, custom
+      const url = document.getElementById('edit-item-url').value.trim();
+
+      if (!url) {
+        showError('URL is required');
+        return;
+      }
+
+      item.url = url;
+
+      // Check mega_menu / accordion for categories
+      if (type === 'category') {
+        const megaMenuCheckbox = document.getElementById('edit-item-mega-menu');
+        const accordionCheckbox = document.getElementById('edit-item-accordion');
+
+        if (megaMenuCheckbox && megaMenuCheckbox.checked) {
+          item.mega_menu = true;
+        }
+        if (accordionCheckbox && accordionCheckbox.checked) {
+          item.accordion = true;
+        }
+      }
+    }
+
+    // Update the menu
+    currentMenu[index] = item;
+    setCurrentMenu(currentMenu);
+
+    // Close modal
+    const modalElement = document.getElementById('editMenuItemModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) modal.hide();
+    }
+
+    renderMenuBuilder();
+    hideMessages();
+
+    // Auto-save
+    await saveMenus();
+  } catch (error) {
+    logger.error('Error saving edited menu item:', error);
+    showError('Failed to save menu item: ' + error.message);
+  }
 }
 
 /**
@@ -692,5 +932,7 @@ window.toggleMenuChildren = toggleMenuChildren;
 window.showAddMenuItemModal = showAddMenuItemModal;
 window.updateAddItemForm = updateAddItemForm;
 window.editMenuItem = editMenuItem;
+window.updateEditItemForm = updateEditItemForm;
+window.saveEditedMenuItem = saveEditedMenuItem;
 window.deleteMenuItem = deleteMenuItem;
 window.saveMenus = saveMenus;
