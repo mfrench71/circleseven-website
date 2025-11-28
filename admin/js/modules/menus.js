@@ -334,7 +334,7 @@ export function renderMenuBuilder() {
             ${hasChildren ? `
               <button
                 class="menu-expand-btn"
-                onclick="window.toggleMenuChildren(${index})"
+                onclick="window.toggleMenuChildren('${index}')"
                 title="Expand/collapse children"
               >
                 <i class="fas fa-chevron-down"></i>
@@ -353,14 +353,14 @@ export function renderMenuBuilder() {
         </td>
         <td class="px-3 py-2 text-end text-nowrap">
           <button
-            onclick="window.editMenuItem(${index})"
+            onclick="window.editMenuItem('${index}')"
             class="btn-icon-edit"
             title="Edit menu item"
           >
             <i class="fas fa-edit"></i>
           </button>
           <button
-            onclick="window.deleteMenuItem(${index})"
+            onclick="window.deleteMenuItem('${index}')"
             class="btn-icon-delete"
             title="Delete menu item"
           >
@@ -424,7 +424,7 @@ function getTypeBadgeClass(type) {
  */
 export function toggleMenuChildren(parentIndex) {
   const children = document.querySelectorAll(`[data-parent="${parentIndex}"]`);
-  const expandBtn = document.querySelector(`[onclick="window.toggleMenuChildren(${parentIndex})"]`);
+  const expandBtn = document.querySelector(`[onclick="window.toggleMenuChildren('${parentIndex}')"]`);
 
   children.forEach(child => {
     child.classList.toggle('d-none');
@@ -679,7 +679,7 @@ export async function editMenuItem(index) {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary" onclick="window.saveEditedMenuItem(${index})">
+              <button type="button" class="btn btn-primary" onclick="window.saveEditedMenuItem('${index}')">
                 <i class="fas fa-save me-2"></i>Save Changes
               </button>
             </div>
