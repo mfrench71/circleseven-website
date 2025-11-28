@@ -171,6 +171,68 @@ function populateCategoryDropdown(selectElement, categories, depth = 0) {
 // available during page load.
 
 /**
+ * Global taxonomy cache for resolving category_ref items
+ */
+let taxonomyCache = null;
+
+/**
+ * Finds a category in taxonomy by slug
+ * @param {Array} categories - Taxonomy categories tree
+ * @param {string} slug - Category slug to find
+ * @returns {Object|null} - Category object or null if not found
+ */
+function findCategoryBySlug(categories, slug) {
+  if (!Array.isArray(categories)) return null;
+
+  for (const category of categories) {
+    if (category.slug === slug) {
+      return category;
+    }
+    if (Array.isArray(category.children)) {
+      const found = findCategoryBySlug(category.children, slug);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+/**
+ * Resolves a menu item's label and URL from taxonomy if it's a category_ref type
+ * @param {Object} item - Menu item to resolve
+ * @returns {Object} - Resolved menu item with label and url filled in
+ */
+function resolveMenuItem(item) {
+  // If not category_ref, return as-is
+  if (item.type !== 'category_ref') {
+    return item;
+  }
+
+  // If no category_ref field, return as-is
+  if (!item.category_ref) {
+    return item;
+  }
+
+  // Try to resolve from taxonomy cache
+  if (taxonomyCache) {
+    const category = findCategoryBySlug(taxonomyCache, item.category_ref);
+    if (category) {
+      return {
+        ...item,
+        label: item.label || category.item, // Use provided label or fall back to category name
+        url: `/category/${item.category_ref}/`
+      };
+    }
+  }
+
+  // If we can't resolve, return with fallback
+  return {
+    ...item,
+    label: item.label || item.category_ref,
+    url: `/category/${item.category_ref}/`
+  };
+}
+
+/**
  * Loads menu data from the backend
  *
  * Fetches menu configurations from the API, updates global state,
@@ -227,7 +289,17 @@ export async function loadMenus() {
     updateSaveButton();
     switchMenuLocation('header');
 
-    // Note: Categories are now lazy-loaded when user selects category_ref type
+    // Load taxonomy for resolving category_ref items in UI
+    try {
+      const taxonomy = await loadTaxonomy();
+      taxonomyCache = taxonomy;
+      logger.info('Taxonomy loaded for category_ref resolution:', taxonomy.length, 'categories');
+      // Re-render to show resolved labels
+      renderMenuBuilder();
+    } catch (error) {
+      logger.warn('Failed to load taxonomy for category_ref resolution:', error);
+      // Non-fatal - UI will work with slugs as labels
+    }
   } catch (error) {
     showError('Failed to load menus: ' + error.message);
   }
@@ -375,7 +447,10 @@ export function renderMenuBuilder() {
   const rows = [];
 
   function renderMenuItem(item, index, indent = 0, parentIndex = null) {
-    const hasChildren = item.children && item.children.length > 0;
+    // Resolve category_ref items to show proper label and URL
+    const resolvedItem = resolveMenuItem(item);
+
+    const hasChildren = resolvedItem.children && resolvedItem.children.length > 0;
     const isChild = indent > 0;
     const indentPx = indent * 24;
 
@@ -395,10 +470,10 @@ export function renderMenuBuilder() {
             ` : ''}
             <i class="fas fa-bars text-secondary flex-shrink-0"></i>
             <div class="d-flex flex-column">
-              <span class="fw-medium text-dark">${escapeHtml(item.label)}</span>
-              <small class="text-muted">${escapeHtml(item.url || '-')}</small>
+              <span class="fw-medium text-dark">${escapeHtml(resolvedItem.label || '-')}</span>
+              <small class="text-muted">${escapeHtml(resolvedItem.url || '-')}</small>
             </div>
-            ${hasChildren ? `<span class="badge bg-secondary ms-2">${item.children.length}</span>` : ''}
+            ${hasChildren ? `<span class="badge bg-secondary ms-2">${resolvedItem.children.length}</span>` : ''}
           </div>
         </td>
         <td class="px-3 py-2">
