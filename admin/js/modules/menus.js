@@ -598,12 +598,38 @@ export function updateAddItemForm() {
 }
 
 /**
+ * Finds a menu item by compound index (e.g., "0" or "0-1" or "0-1-0")
+ * @param {string|number} index - The index (can be compound like "0-1")
+ * @returns {Object|null} - The menu item or null if not found
+ */
+function findMenuItemByIndex(index) {
+  const currentMenu = getCurrentMenu();
+  const indexStr = String(index);
+
+  // If it's a simple numeric index (no dash), it's a top-level item
+  if (!indexStr.includes('-')) {
+    return currentMenu[parseInt(indexStr)];
+  }
+
+  // Parse compound index (e.g., "0-1" means currentMenu[0].children[1])
+  const parts = indexStr.split('-').map(p => parseInt(p));
+  let item = currentMenu[parts[0]];
+
+  // Navigate through children
+  for (let i = 1; i < parts.length; i++) {
+    if (!item || !item.children) return null;
+    item = item.children[parts[i]];
+  }
+
+  return item;
+}
+
+/**
  * Edits a menu item by index
  */
 export async function editMenuItem(index) {
   try {
-    const currentMenu = getCurrentMenu();
-    const item = currentMenu[index];
+    const item = findMenuItemByIndex(index);
 
     if (!item) {
       showError('Menu item not found');
@@ -733,8 +759,7 @@ export function updateEditItemForm() {
  */
 export async function saveEditedMenuItem(index) {
   try {
-    const currentMenu = getCurrentMenu();
-    const item = currentMenu[index];
+    const item = findMenuItemByIndex(index);
 
     if (!item) {
       showError('Menu item not found');
@@ -789,9 +814,8 @@ export async function saveEditedMenuItem(index) {
       }
     }
 
-    // Update the menu
-    currentMenu[index] = item;
-    setCurrentMenu(currentMenu);
+    // Item was modified in place via reference, just trigger state update
+    setCurrentMenu(getCurrentMenu());
 
     // Close modal
     const modalElement = document.getElementById('editMenuItemModal');
@@ -816,8 +840,7 @@ export async function saveEditedMenuItem(index) {
  */
 export async function deleteMenuItem(index) {
   try {
-    const currentMenu = getCurrentMenu();
-    const item = currentMenu[index];
+    const item = findMenuItemByIndex(index);
 
     if (!item) {
       showError('Menu item not found');
@@ -834,7 +857,27 @@ export async function deleteMenuItem(index) {
     const confirmed = await window.showConfirm(confirmMessage);
     if (!confirmed) return;
 
-    currentMenu.splice(index, 1);
+    // Delete the item from the appropriate array
+    const currentMenu = getCurrentMenu();
+    const indexStr = String(index);
+
+    if (!indexStr.includes('-')) {
+      // Top-level item
+      currentMenu.splice(parseInt(indexStr), 1);
+    } else {
+      // Nested item - navigate to parent's children array
+      const parts = indexStr.split('-').map(p => parseInt(p));
+      let parentItem = currentMenu[parts[0]];
+
+      // Navigate to the parent of the item to delete
+      for (let i = 1; i < parts.length - 1; i++) {
+        parentItem = parentItem.children[parts[i]];
+      }
+
+      // Delete from parent's children array
+      const childIndex = parts[parts.length - 1];
+      parentItem.children.splice(childIndex, 1);
+    }
     setCurrentMenu(currentMenu);
 
     renderMenuBuilder();
