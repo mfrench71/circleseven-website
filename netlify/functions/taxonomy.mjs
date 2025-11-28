@@ -109,6 +109,50 @@ function extractStrings(arr) {
 }
 
 /**
+ * Detects changes to category slugs between old and new taxonomy trees
+ * Returns array of changed slugs
+ *
+ * @param {Array} oldCategories - Existing categories from taxonomy
+ * @param {Array} newCategories - New categories to be saved
+ * @returns {Array<string>} - List of slugs that were changed
+ */
+function detectSlugChanges(oldCategories, newCategories) {
+  const changes = [];
+
+  // Build a map of old slugs by item name
+  const oldSlugMap = new Map();
+
+  function mapOldSlugs(categories) {
+    categories.forEach(cat => {
+      if (cat.slug) {
+        oldSlugMap.set(cat.item, cat.slug);
+      }
+      if (cat.children && Array.isArray(cat.children)) {
+        mapOldSlugs(cat.children);
+      }
+    });
+  }
+
+  // Check new categories for slug changes
+  function checkNewSlugs(categories) {
+    categories.forEach(cat => {
+      const oldSlug = oldSlugMap.get(cat.item);
+      if (oldSlug && cat.slug && oldSlug !== cat.slug) {
+        changes.push(`"${cat.item}": ${oldSlug} → ${cat.slug}`);
+      }
+      if (cat.children && Array.isArray(cat.children)) {
+        checkNewSlugs(cat.children);
+      }
+    });
+  }
+
+  mapOldSlugs(oldCategories);
+  checkNewSlugs(newCategories);
+
+  return changes;
+}
+
+/**
  * Netlify Function Handler - Taxonomy Management
  *
  * Main entry point for taxonomy management. Handles reading and updating
@@ -192,8 +236,20 @@ export default async function handler(request, context) {
       const tagsTree = requestBody.tagsTree ||
         (requestBody.tags || []).map(t => ({ item: t, slug: '' }));
 
-      // Get current file SHA
+      // Get current file SHA and parse existing taxonomy
       const currentFile = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
+      const currentContent = Buffer.from(currentFile.content, 'base64').toString('utf8');
+      const currentTaxonomy = yaml.load(currentContent);
+
+      // Validate slug immutability
+      const slugChanges = detectSlugChanges(currentTaxonomy.categories || [], categoriesTree);
+      if (slugChanges.length > 0) {
+        return badRequestResponse(
+          `Category slugs cannot be changed. The following slugs were modified: ${slugChanges.join(', ')}. ` +
+          `To change a category structure, create a new category with the desired slug instead.`,
+          { changedSlugs: slugChanges }
+        );
+      }
 
       const generateCategoryYAML = (cat, indent = 2) => {
         const spaces = ' '.repeat(indent);

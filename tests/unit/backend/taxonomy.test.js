@@ -17,6 +17,17 @@ import handlerFn from '../../../netlify/functions/taxonomy.mjs';
 // Wrap v2 handler to accept v1 event objects (for test compatibility)
 const handler = (event, context) => callV2Handler(handlerFn, event, context);
 
+/**
+ * Helper to create taxonomy YAML content for mocking
+ */
+function createTaxonomyYaml(categoriesTree = [], tagsTree = []) {
+  const taxonomy = {
+    categories: categoriesTree,
+    tags: tagsTree
+  };
+  return Buffer.from(yaml.dump(taxonomy)).toString('base64');
+}
+
 describe('Taxonomy Function', () => {
   beforeEach(() => {
     process.env.GITHUB_TOKEN = 'test-github-token-12345';
@@ -286,8 +297,19 @@ describe('Taxonomy Function', () => {
       };
 
       // GET current file for SHA
+      const existingCategories = [
+        { item: 'Tech', slug: 'tech', children: [] },
+        { item: 'Life', slug: 'life', children: [] },
+        { item: 'Travel', slug: 'travel', children: [] }
+      ];
+      const existingTags = [
+        { item: 'JavaScript', slug: 'javascript' },
+        { item: 'Python', slug: 'python' },
+        { item: 'Ruby', slug: 'ruby' }
+      ];
+
       mockGetFile('_data/taxonomy.yml', {
-        content: Buffer.from('old content').toString('base64'),
+        content: createTaxonomyYaml(existingCategories, existingTags),
         sha: 'current-sha-123'
       });
 
@@ -317,8 +339,16 @@ describe('Taxonomy Function', () => {
       let capturedContent = '';
 
       // GET current file for SHA
+      const existingCategories = [
+        { item: 'Tech', slug: 'tech', children: [] },
+        { item: 'Life', slug: 'life', children: [] }
+      ];
+      const existingTags = [
+        { item: 'JavaScript', slug: 'javascript' }
+      ];
+
       mockGetFile('_data/taxonomy.yml', {
-        content: Buffer.from('old').toString('base64'),
+        content: createTaxonomyYaml(existingCategories, existingTags),
         sha: 'sha'
       });
 
@@ -355,9 +385,17 @@ describe('Taxonomy Function', () => {
 
       let capturedContent = '';
 
-      // GET current file for SHA
+      // GET current file for SHA (with YAML content for slug validation)
+      const existingCategories = [
+        { item: 'Tech', slug: 'tech', children: [] }
+      ];
+      const existingTags = [
+        { item: 'JS', slug: 'js' }
+      ];
+
       mockGetFile('_data/taxonomy.yml', {
-        sha: 'original-sha-789'
+        sha: 'original-sha-789',
+        content: createTaxonomyYaml(existingCategories, existingTags)
       });
 
       // PUT updated file - capture request body
@@ -385,12 +423,77 @@ describe('Taxonomy Function', () => {
         })
       };
 
-      mockGetFile('_data/taxonomy.yml', { sha: 'sha' });
+      mockGetFile('_data/taxonomy.yml', {
+        sha: 'sha',
+        content: createTaxonomyYaml([], [])
+      });
       mockPutFile('_data/taxonomy.yml', { commit: { sha: 'new' } });
 
       const response = await handler(event, {});
 
       expect(response.statusCode).toBe(200);
+    });
+
+    it('rejects category slug changes (immutability)', async () => {
+      const event = {
+        httpMethod: 'PUT',
+        body: JSON.stringify({
+          categories: ['Tech'],
+          categoriesTree: [
+            { item: 'Tech', slug: 'technology', children: [] } // Changed slug from 'tech' to 'technology'
+          ],
+          tags: []
+        })
+      };
+
+      // Existing taxonomy with original slug
+      const existingCategories = [
+        { item: 'Tech', slug: 'tech', children: [] }
+      ];
+
+      mockGetFile('_data/taxonomy.yml', {
+        sha: 'sha',
+        content: createTaxonomyYaml(existingCategories, [])
+      });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(400);
+      const body = JSON.parse(response.body);
+      expect(body.message).toContain('Category slugs cannot be changed');
+      expect(body.message).toContain('Tech');
+      expect(body.message).toContain('tech → technology');
+    });
+
+    it('allows category name changes without slug changes', async () => {
+      const event = {
+        httpMethod: 'PUT',
+        body: JSON.stringify({
+          categories: ['Technology'],
+          categoriesTree: [
+            { item: 'Technology', slug: 'tech', children: [] } // Changed name but kept slug
+          ],
+          tags: []
+        })
+      };
+
+      // Existing taxonomy
+      const existingCategories = [
+        { item: 'Tech', slug: 'tech', children: [] }
+      ];
+
+      mockGetFile('_data/taxonomy.yml', {
+        sha: 'sha',
+        content: createTaxonomyYaml(existingCategories, [])
+      });
+
+      mockPutFile('_data/taxonomy.yml', { commit: { sha: 'new' } });
+
+      const response = await handler(event, {});
+
+      expect(response.statusCode).toBe(200);
+      const body = JSON.parse(response.body);
+      expect(body.success).toBe(true);
     });
 
     it('returns 400 when categories is not an array', async () => {
