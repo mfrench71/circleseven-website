@@ -202,6 +202,12 @@ function findCategoryBySlug(categories, slug) {
  * @returns {Object} - Resolved menu item with label and url filled in
  */
 function resolveMenuItem(item) {
+  // Guard against undefined/null items
+  if (!item) {
+    logger.warn('resolveMenuItem called with undefined/null item');
+    return item;
+  }
+
   // If not category_ref, return as-is
   if (item.type !== 'category_ref') {
     return item;
@@ -262,38 +268,38 @@ export async function loadMenus() {
 
       updateSaveButton();
       switchMenuLocation('header');
-      return;
+    } else {
+      // Cache miss - fetch from API
+      const response = await fetch(`${window.API_BASE}/menus`);
+      if (!response.ok) throw new Error('Failed to load menus');
+
+      const data = await response.json();
+
+      window.headerMenu = data.header_menu || [];
+      window.mobileMenu = data.mobile_menu || [];
+      window.footerMenu = data.footer_menu || [];
+
+      // Cache the data
+      setCache(MENUS_CACHE_KEY, {
+        header_menu: window.headerMenu,
+        mobile_menu: window.mobileMenu,
+        footer_menu: window.footerMenu
+      });
+
+      // Store initial state as "saved"
+      window.lastSavedState = JSON.stringify({
+        header_menu: window.headerMenu,
+        mobile_menu: window.mobileMenu,
+        footer_menu: window.footerMenu
+      });
+      window.isDirty = false;
+
+      updateSaveButton();
+      switchMenuLocation('header');
     }
 
-    // Cache miss - fetch from API
-    const response = await fetch(`${window.API_BASE}/menus`);
-    if (!response.ok) throw new Error('Failed to load menus');
-
-    const data = await response.json();
-
-    window.headerMenu = data.header_menu || [];
-    window.mobileMenu = data.mobile_menu || [];
-    window.footerMenu = data.footer_menu || [];
-
-    // Cache the data
-    setCache(MENUS_CACHE_KEY, {
-      header_menu: window.headerMenu,
-      mobile_menu: window.mobileMenu,
-      footer_menu: window.footerMenu
-    });
-
-    // Store initial state as "saved"
-    window.lastSavedState = JSON.stringify({
-      header_menu: window.headerMenu,
-      mobile_menu: window.mobileMenu,
-      footer_menu: window.footerMenu
-    });
-    window.isDirty = false;
-
-    updateSaveButton();
-    switchMenuLocation('header');
-
     // Load taxonomy for resolving category_ref items in UI
+    // This needs to run regardless of whether menus came from cache or API
     try {
       const taxonomy = await loadTaxonomy();
       taxonomyCache = taxonomy;
