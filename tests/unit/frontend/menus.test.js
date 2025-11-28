@@ -77,6 +77,7 @@ describe('Menus Module', () => {
         <option value="category_dynamic">Dynamic Category</option>
       </select>
       <select id="new-item-category-ref"></select>
+      <select id="new-item-page-ref"></select>
       <input type="text" id="new-item-label" />
       <small id="add-item-label-help"></small>
       <input type="text" id="new-item-url" />
@@ -87,6 +88,7 @@ describe('Menus Module', () => {
       <input type="checkbox" id="new-item-accordion" />
 
       <div id="add-item-category-ref-group"></div>
+      <div id="add-item-page-ref-group"></div>
       <div id="add-item-url-group"></div>
       <div id="add-item-filter-group"></div>
       <div id="add-item-section-group"></div>
@@ -191,9 +193,21 @@ describe('Menus Module', () => {
         timestamp: Date.now()
       }));
 
+      // Mock taxonomy API response (still needed even when menus are cached)
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          categoriesTree: [
+            { item: 'Test Category', slug: 'test', children: [] }
+          ]
+        })
+      });
+
       await loadMenus();
 
-      expect(mockFetch).not.toHaveBeenCalled();
+      // Should only call taxonomy endpoint, not menus endpoint
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+      expect(mockFetch).toHaveBeenCalledWith('/.netlify/functions/taxonomy');
       expect(window.headerMenu).toEqual(mockData.header_menu);
     });
 
@@ -474,16 +488,30 @@ describe('Menus Module', () => {
 
   describe('showAddMenuItemModal', () => {
     beforeEach(() => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: async () => ({ success: true, commitSha: 'abc123' })
+      // Mock menus API for save operation
+      mockFetch.mockImplementation((url, options) => {
+        if (url.includes('/menus') && options?.method === 'PUT') {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({ success: true, commitSha: 'abc123' })
+          });
+        }
+        return Promise.resolve({ ok: true, json: async () => ({}) });
       });
     });
 
     it('adds a page menu item', async () => {
       document.getElementById('new-item-type').value = 'page';
+      // Set page picker dropdown with JSON value (simulating page selection)
+      const pageRefDropdown = document.getElementById('new-item-page-ref');
+      const pageJson = JSON.stringify({ title: 'Test Page', url: '/test/' });
+      // Create an option element (required for value to be valid)
+      const option = document.createElement('option');
+      option.value = pageJson;
+      option.textContent = 'Test Page (/test/)';
+      pageRefDropdown.appendChild(option);
+      pageRefDropdown.value = pageJson;
       document.getElementById('new-item-label').value = 'Test Page';
-      document.getElementById('new-item-url').value = '/test/';
 
       window.currentMenuLocation = 'header';
       window.headerMenu = [];
@@ -537,8 +565,16 @@ describe('Menus Module', () => {
 
     it('calls saveMenus after adding item', async () => {
       document.getElementById('new-item-type').value = 'page';
+      // Set page picker dropdown with JSON value
+      const pageRefDropdown = document.getElementById('new-item-page-ref');
+      const pageJson = JSON.stringify({ title: 'Test', url: '/test/' });
+      // Create an option element (required for value to be valid)
+      const option = document.createElement('option');
+      option.value = pageJson;
+      option.textContent = 'Test (/test/)';
+      pageRefDropdown.appendChild(option);
+      pageRefDropdown.value = pageJson;
       document.getElementById('new-item-label').value = 'Test';
-      document.getElementById('new-item-url').value = '/test/';
 
       window.currentMenuLocation = 'header';
       window.headerMenu = [];
@@ -561,15 +597,30 @@ describe('Menus Module', () => {
       ];
       window.currentMenuLocation = 'header';
 
-      // Mock taxonomy API for edit modal (which lazy-loads categories)
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          categoriesTree: [
-            { item: 'Art', slug: 'art', children: [] },
-            { item: 'Tech', slug: 'tech', children: [] }
-          ]
-        })
+      // Mock taxonomy and pages APIs for edit modal (which lazy-loads both)
+      mockFetch.mockImplementation((url) => {
+        if (url.includes('/taxonomy')) {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({
+              categoriesTree: [
+                { item: 'Art', slug: 'art', children: [] },
+                { item: 'Tech', slug: 'tech', children: [] }
+              ]
+            })
+          });
+        } else if (url.includes('/pages')) {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({
+              pages: [
+                { title: 'Test Page', url: '/test/' },
+                { title: 'About', url: '/about/' }
+              ]
+            })
+          });
+        }
+        return Promise.resolve({ ok: true, json: async () => ({}) });
       });
     });
 
@@ -620,20 +671,52 @@ describe('Menus Module', () => {
       await editMenuItem(0);
     });
 
-    it('shows URL field for page type', () => {
+    it('shows page picker for page type', () => {
       document.getElementById('edit-item-type').value = 'page';
       updateEditItemForm();
 
+      const pageRefGroup = document.getElementById('edit-item-page-ref-group');
       const urlGroup = document.getElementById('edit-item-url-group');
-      expect(urlGroup.classList.contains('d-none')).toBe(false);
+
+      // Page picker should be shown, URL field should be hidden
+      expect(pageRefGroup.classList.contains('d-none')).toBe(false);
+      expect(urlGroup.classList.contains('d-none')).toBe(true);
     });
   });
 
   describe('saveEditedMenuItem', () => {
     beforeEach(async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: async () => ({ success: true, commitSha: 'abc123' })
+      // Mock taxonomy, pages, and menus APIs
+      mockFetch.mockImplementation((url, options) => {
+        if (url.includes('/taxonomy')) {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({
+              categoriesTree: [
+                { item: 'Art', slug: 'art', children: [] },
+                { item: 'Tech', slug: 'tech', children: [] }
+              ]
+            })
+          });
+        } else if (url.includes('/pages')) {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({
+              pages: [
+                { title: 'Old Label', url: '/old/' },
+                { title: 'New Label', url: '/new/' },
+                { title: 'Updated', url: '/updated/' },
+                { title: 'About', url: '/about/' }
+              ]
+            })
+          });
+        } else if (url.includes('/menus') && options?.method === 'PUT') {
+          return Promise.resolve({
+            ok: true,
+            json: async () => ({ success: true, commitSha: 'abc123' })
+          });
+        }
+        return Promise.resolve({ ok: true, json: async () => ({}) });
       });
 
       window.headerMenu = [
@@ -645,8 +728,10 @@ describe('Menus Module', () => {
 
     it('saves edited menu item', async () => {
       document.getElementById('edit-item-type').value = 'page';
+      // Set page picker dropdown with JSON value
+      const pageRefDropdown = document.getElementById('edit-item-page-ref');
+      pageRefDropdown.value = JSON.stringify({ title: 'New Label', url: '/new/' });
       document.getElementById('edit-item-label').value = 'New Label';
-      document.getElementById('edit-item-url').value = '/new/';
 
       await saveEditedMenuItem(0);
 
@@ -676,8 +761,10 @@ describe('Menus Module', () => {
     });
 
     it('closes modal after saving', async () => {
+      // Set page picker dropdown with JSON value
+      const pageRefDropdown = document.getElementById('edit-item-page-ref');
+      pageRefDropdown.value = JSON.stringify({ title: 'Updated', url: '/updated/' });
       document.getElementById('edit-item-label').value = 'Updated';
-      document.getElementById('edit-item-url').value = '/updated/';
 
       await saveEditedMenuItem(0);
 
@@ -685,11 +772,17 @@ describe('Menus Module', () => {
     });
 
     it('calls saveMenus after editing', async () => {
+      // Set page picker dropdown with JSON value
+      const pageRefDropdown = document.getElementById('edit-item-page-ref');
+      pageRefDropdown.value = JSON.stringify({ title: 'Updated', url: '/updated/' });
       document.getElementById('edit-item-label').value = 'Updated';
-      document.getElementById('edit-item-url').value = '/updated/';
+
+      // Clear mock calls from beforeEach (editMenuItem makes taxonomy/pages calls)
+      mockFetch.mockClear();
 
       await saveEditedMenuItem(0);
 
+      // Now check that menus PUT was called (should be the only call after clearing)
       expect(mockFetch).toHaveBeenCalledWith(
         '/.netlify/functions/menus',
         expect.objectContaining({
