@@ -78,6 +78,48 @@ export function clearMenusCache() {
 }
 
 /**
+ * Clears both backend and local cache, then reloads menus
+ *
+ * Sends a DELETE request to the backend to clear the Netlify Blobs cache,
+ * clears the local localStorage cache, and reloads fresh menu data.
+ */
+export async function clearMenuCache() {
+  const clearCacheBtn = document.getElementById('clear-cache-btn');
+
+  try {
+    setButtonLoading(clearCacheBtn, true, 'Clearing...');
+    hideMessages();
+
+    // Clear backend cache via DELETE request
+    const response = await fetch(`${window.API_BASE}/menus`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || errorData.message || 'Failed to clear backend cache');
+    }
+
+    // Clear local cache
+    clearMenusCache();
+
+    // Reload menus with fresh data
+    await loadMenus();
+
+    showSuccess('Menu cache cleared and fresh data loaded successfully');
+    logger.info('Menu cache cleared successfully');
+  } catch (error) {
+    logger.error('Error clearing menu cache:', error);
+    showError(`Failed to clear menu cache: ${error.message}`);
+  } finally {
+    setButtonLoading(clearCacheBtn, false, '<i class="fas fa-sync-alt me-2"></i>Clear Cache');
+  }
+}
+
+/**
  * Loads menu data from the backend
  *
  * Fetches menu configurations from the API, updates global state,
