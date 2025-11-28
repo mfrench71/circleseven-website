@@ -233,20 +233,12 @@ describe('Menus Module', () => {
     });
 
     it('switches to header menu', () => {
-      window.currentMenuLocation = 'mobile';
+      window.currentMenuLocation = 'footer';
       switchMenuLocation('header');
 
       expect(window.currentMenuLocation).toBe('header');
       const headerTab = document.getElementById('tab-header-menu');
       expect(headerTab.classList.contains('active')).toBe(true);
-    });
-
-    it('switches to mobile menu', () => {
-      switchMenuLocation('mobile');
-
-      expect(window.currentMenuLocation).toBe('mobile');
-      const mobileTab = document.getElementById('tab-mobile-menu');
-      expect(mobileTab.classList.contains('active')).toBe(true);
     });
 
     it('switches to footer menu', () => {
@@ -258,13 +250,13 @@ describe('Menus Module', () => {
     });
 
     it('updates tab content visibility', () => {
-      switchMenuLocation('mobile');
+      switchMenuLocation('footer');
 
       const headerContent = document.getElementById('menu-header-tab');
-      const mobileContent = document.getElementById('menu-mobile-tab');
+      const footerContent = document.getElementById('menu-footer-tab');
 
       expect(headerContent.classList.contains('active')).toBe(false);
-      expect(mobileContent.classList.contains('active')).toBe(true);
+      expect(footerContent.classList.contains('active')).toBe(true);
     });
   });
 

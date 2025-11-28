@@ -190,41 +190,33 @@ export function switchMenuLocation(location) {
 
   // Update tab buttons
   const headerTab = document.getElementById('tab-header-menu');
-  const mobileTab = document.getElementById('tab-mobile-menu');
   const footerTab = document.getElementById('tab-footer-menu');
 
-  if (!headerTab || !mobileTab || !footerTab) return;
+  if (!headerTab || !footerTab) return;
 
   // Remove active class from all
   headerTab.classList.remove('active');
-  mobileTab.classList.remove('active');
   footerTab.classList.remove('active');
 
   // Add active to selected tab
   if (location === 'header') {
     headerTab.classList.add('active');
-  } else if (location === 'mobile') {
-    mobileTab.classList.add('active');
   } else {
     footerTab.classList.add('active');
   }
 
   // Update tab content visibility
   const headerContent = document.getElementById('menu-header-tab');
-  const mobileContent = document.getElementById('menu-mobile-tab');
   const footerContent = document.getElementById('menu-footer-tab');
 
-  if (headerContent && mobileContent && footerContent) {
+  if (headerContent && footerContent) {
     // Remove active class from all tabs
     headerContent.classList.remove('active');
-    mobileContent.classList.remove('active');
     footerContent.classList.remove('active');
 
     // Add active class to selected tab
     if (location === 'header') {
       headerContent.classList.add('active');
-    } else if (location === 'mobile') {
-      mobileContent.classList.add('active');
     } else {
       footerContent.classList.add('active');
     }
