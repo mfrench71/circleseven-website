@@ -104,11 +104,6 @@ header_menu:
     type: "page"
     label: "Contact"
     url: "/contact/"
-  - id: "category-ref-1764337150804"
-    type: "category_ref"
-    label: ""
-    mega_menu: true
-    accordion: true
 
 # Mobile menu (can mirror header or have different structure)
 mobile_menu:
@@ -203,10 +198,6 @@ mobile_menu:
     type: "page"
     label: "Contact"
     url: "/contact/"
-  - id: "category-ref-1764337150804"
-    type: "category_ref"
-    label: ""
-    accordion: true
 
 # Footer menu
 footer_menu:
