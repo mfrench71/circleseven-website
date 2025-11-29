@@ -828,10 +828,14 @@ body {
   .mobile-accordion-toggle {
     font-size: 13px;
     padding: 6px 10px;
+    margin-left: -12px;
+    margin-right: -12px;
   }
 
   .mobile-nav-link {
     font-size: 13px;
     padding: 6px 10px;
+    margin-left: -12px;
+    margin-right: -12px;
   }
 }
