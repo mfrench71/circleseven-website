@@ -692,37 +692,230 @@ function initializeSortable(location) {
       dragClass: 'sortable-drag',
       handle: '.fa-bars',
       onEnd: (evt) => {
-        const currentMenu = getCurrentMenu();
+        // Get the data-index attributes from the dragged rows
+        const oldRow = evt.item;
+        const oldDataIndex = oldRow.getAttribute('data-index');
 
-        // Validate indices
-        if (evt.oldIndex < 0 || evt.oldIndex >= currentMenu.length) {
-          logger.error('Invalid oldIndex for drag-and-drop:', evt.oldIndex, 'Menu length:', currentMenu.length);
-          renderMenuBuilder(); // Re-render to fix display
+        // Find where it was dropped - check all rows to map table positions to menu structure
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        // Build a map of row index to data-index
+        const rowIndexMap = rows.map(row => row.getAttribute('data-index'));
+
+        // Get the data-index at the new position
+        const newDataIndex = rowIndexMap[evt.newIndex];
+
+        if (!oldDataIndex || !newDataIndex) {
+          logger.error('Missing data-index attributes');
+          renderMenuBuilder();
           return;
         }
 
-        if (evt.newIndex < 0 || evt.newIndex >= currentMenu.length) {
-          logger.error('Invalid newIndex for drag-and-drop:', evt.newIndex, 'Menu length:', currentMenu.length);
-          renderMenuBuilder(); // Re-render to fix display
+        // Don't do anything if dropped in the same position
+        if (oldDataIndex === newDataIndex) {
           return;
         }
 
-        const item = currentMenu.splice(evt.oldIndex, 1)[0];
+        logger.info('Reordering menu items:', { from: oldDataIndex, to: newDataIndex });
 
-        // Additional guard to ensure we actually got an item
-        if (!item) {
-          logger.error('Failed to extract item at index:', evt.oldIndex);
-          renderMenuBuilder(); // Re-render to fix display
-          return;
+        try {
+          const currentMenu = getCurrentMenu();
+          const newMenu = reorderMenuItem(currentMenu, oldDataIndex, newDataIndex);
+          setCurrentMenu(newMenu);
+          markDirty();
+          renderMenuBuilder();
+        } catch (error) {
+          logger.error('Error during drag-and-drop:', error);
+          renderMenuBuilder(); // Restore original state
         }
-
-        currentMenu.splice(evt.newIndex, 0, item);
-        setCurrentMenu(currentMenu);
-        markDirty();
-        renderMenuBuilder();
       }
     });
   }
+}
+
+/**
+ * Parses a hierarchical index string into an array of indices
+ * Examples: "0" -> [0], "1-2" -> [1, 2], "3-1-0" -> [3, 1, 0]
+ * @param {string} indexStr - The index string to parse
+ * @returns {number[]} Array of numeric indices
+ */
+function parseIndex(indexStr) {
+  return indexStr.split('-').map(Number);
+}
+
+/**
+ * Gets an item from a menu array using a hierarchical path
+ * @param {Array} menu - The menu array
+ * @param {number[]} path - Array of indices [parentIndex, childIndex, ...]
+ * @returns {Object|null} The item at the path, or null if not found
+ */
+function getItemAtPath(menu, path) {
+  let current = menu;
+
+  for (let i = 0; i < path.length; i++) {
+    const index = path[i];
+
+    if (!Array.isArray(current) || index < 0 || index >= current.length) {
+      return null;
+    }
+
+    if (i === path.length - 1) {
+      // Last index - return the item
+      return current[index];
+    } else {
+      // Navigate deeper
+      current = current[index].children;
+      if (!current) {
+        return null;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Removes an item from a menu array using a hierarchical path
+ * @param {Array} menu - The menu array (will be modified)
+ * @param {number[]} path - Array of indices [parentIndex, childIndex, ...]
+ * @returns {Object|null} The removed item, or null if not found
+ */
+function removeItemAtPath(menu, path) {
+  if (path.length === 0) return null;
+
+  let current = menu;
+
+  // Navigate to the parent array
+  for (let i = 0; i < path.length - 1; i++) {
+    const index = path[i];
+
+    if (!Array.isArray(current) || index < 0 || index >= current.length) {
+      return null;
+    }
+
+    current = current[index].children;
+    if (!current) {
+      return null;
+    }
+  }
+
+  // Remove the item at the final index
+  const finalIndex = path[path.length - 1];
+  if (finalIndex < 0 || finalIndex >= current.length) {
+    return null;
+  }
+
+  const removed = current.splice(finalIndex, 1)[0];
+  return removed;
+}
+
+/**
+ * Inserts an item into a menu array at a hierarchical path
+ * @param {Array} menu - The menu array (will be modified)
+ * @param {number[]} path - Array of indices [parentIndex, childIndex, ...]
+ * @param {Object} item - The item to insert
+ * @returns {boolean} True if successful, false otherwise
+ */
+function insertItemAtPath(menu, path, item) {
+  if (path.length === 0) return false;
+
+  let current = menu;
+
+  // Navigate to the parent array
+  for (let i = 0; i < path.length - 1; i++) {
+    const index = path[i];
+
+    if (!Array.isArray(current) || index < 0 || index >= current.length) {
+      return false;
+    }
+
+    // Ensure children array exists
+    if (!current[index].children) {
+      current[index].children = [];
+    }
+
+    current = current[index].children;
+  }
+
+  // Insert the item at the final index
+  const finalIndex = path[path.length - 1];
+  if (finalIndex < 0 || finalIndex > current.length) {
+    return false;
+  }
+
+  current.splice(finalIndex, 0, item);
+  return true;
+}
+
+/**
+ * Reorders a menu item from one position to another in a hierarchical menu structure
+ * @param {Array} menu - The menu array
+ * @param {string} oldIndexStr - The old position as a string (e.g., "1-2")
+ * @param {string} newIndexStr - The new position as a string (e.g., "3-0")
+ * @returns {Array} A new menu array with the item moved
+ */
+function reorderMenuItem(menu, oldIndexStr, newIndexStr) {
+  // Deep clone the menu to avoid mutating the original
+  const newMenu = JSON.parse(JSON.stringify(menu));
+
+  // Parse the index strings
+  const oldPath = parseIndex(oldIndexStr);
+  const newPath = parseIndex(newIndexStr);
+
+  logger.info('Reordering:', { oldPath, newPath });
+
+  // Get the item to move
+  const item = getItemAtPath(newMenu, oldPath);
+  if (!item) {
+    logger.error('Could not find item at old path:', oldPath);
+    throw new Error(`Item not found at path: ${oldIndexStr}`);
+  }
+
+  // Remove the item from its old position
+  const removed = removeItemAtPath(newMenu, oldPath);
+  if (!removed) {
+    logger.error('Failed to remove item at old path:', oldPath);
+    throw new Error(`Failed to remove item at path: ${oldIndexStr}`);
+  }
+
+  // Adjust newPath if removing the item affects it
+  // If we're moving within the same parent and moving down, we need to decrement the new index
+  // because removing the old item shifts everything down
+  let adjustedNewPath = [...newPath];
+
+  if (oldPath.length === newPath.length) {
+    // Same depth level
+    let sameParent = true;
+
+    // Check if they share the same parent path
+    for (let i = 0; i < oldPath.length - 1; i++) {
+      if (oldPath[i] !== newPath[i]) {
+        sameParent = false;
+        break;
+      }
+    }
+
+    if (sameParent) {
+      const oldIndex = oldPath[oldPath.length - 1];
+      const newIndex = newPath[newPath.length - 1];
+
+      if (newIndex > oldIndex) {
+        // Moving down in the same array - decrement because removal shifts indices
+        adjustedNewPath[adjustedNewPath.length - 1] = newIndex - 1;
+        logger.info('Adjusted newPath for same-parent move:', adjustedNewPath);
+      }
+    }
+  }
+
+  // Insert the item at the new position
+  const inserted = insertItemAtPath(newMenu, adjustedNewPath, removed);
+  if (!inserted) {
+    logger.error('Failed to insert item at new path:', adjustedNewPath);
+    throw new Error(`Failed to insert item at path: ${newIndexStr}`);
+  }
+
+  logger.info('Successfully reordered menu item');
+  return newMenu;
 }
 
 /**
