@@ -1,0 +1,185 @@
+{%- comment -%}
+  Dynamic Menu Renderer
+
+  Renders menus from _data/menus.yml with support for:
+  - category_ref: Categories referenced from taxonomy
+  - page: Static pages
+  - custom: Custom links
+  - heading: Section headers (non-clickable)
+
+  Parameters:
+  - menu_items: Array of menu items from menus.yml
+  - menu_type: "desktop" or "mobile"
+  - depth: Recursion depth (default 0)
+{%- endcomment -%}
+
+{%- assign depth = include.depth | default: 0 -%}
+
+{%- if depth == 0 -%}
+  {%- if include.menu_type == "desktop" -%}
+    <ul class="nav-list">
+  {%- elsif include.menu_type == "mobile" -%}
+    <nav class="mobile-nav-content">
+  {%- endif -%}
+{%- endif -%}
+
+{%- for menu_item in include.menu_items -%}
+
+  {%- comment -%} Resolve category_ref items {%- endcomment -%}
+  {%- if menu_item.type == "category_ref" -%}
+    {%- assign category_slug = menu_item.category_ref -%}
+    {%- assign resolved_label = nil -%}
+    {%- assign resolved_url = nil -%}
+    {%- assign post_count = 0 -%}
+
+    {%- comment -%} Search taxonomy for matching slug {%- endcomment -%}
+    {%- for cat in site.data.taxonomy.categories -%}
+      {%- assign cat_slug = cat.slug | default: cat.item | slugify -%}
+
+      {%- if cat_slug == category_slug -%}
+        {%- assign resolved_label = cat.item -%}
+        {%- assign resolved_url = site.baseurl | append: "/category/" | append: cat_slug | append: "/" -%}
+        {%- assign post_count = site.categories[cat.item] | size -%}
+        {%- break -%}
+      {%- endif -%}
+
+      {%- comment -%} Search in children {%- endcomment -%}
+      {%- if cat.children -%}
+        {%- for child in cat.children -%}
+          {%- assign child_slug = child.slug | default: child.item | slugify -%}
+          {%- if child_slug == category_slug -%}
+            {%- assign resolved_label = child.item -%}
+            {%- assign resolved_url = site.baseurl | append: "/category/" | append: child_slug | append: "/" -%}
+            {%- assign post_count = site.categories[child.item] | size -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign item_label = menu_item.label | default: resolved_label -%}
+    {%- assign item_url = menu_item.url | default: resolved_url -%}
+
+  {%- else -%}
+    {%- comment -%} Use provided label and URL for other types {%- endcomment -%}
+    {%- assign item_label = menu_item.label -%}
+    {%- assign item_url = menu_item.url -%}
+    {%- assign post_count = 0 -%}
+  {%- endif -%}
+
+  {%- assign has_children = false -%}
+  {%- if menu_item.children and menu_item.children.size > 0 -%}
+    {%- assign has_children = true -%}
+  {%- endif -%}
+
+  {%- comment -%} DESKTOP RENDERING {%- endcomment -%}
+  {%- if include.menu_type == "desktop" -%}
+
+    {%- if menu_item.type == "heading" -%}
+      {%- comment -%} Desktop mega menu section heading {%- endcomment -%}
+      <div class="mega-menu-section-heading">
+        {%- if menu_item.icon -%}
+          <i class="{{ menu_item.icon }}"></i>
+        {%- endif -%}
+        <h3>{{ item_label }}</h3>
+      </div>
+
+    {%- elsif has_children and menu_item.mega_menu -%}
+      {%- comment -%} Desktop mega menu dropdown {%- endcomment -%}
+      <li class="nav-item has-dropdown">
+        <a href="{{ item_url }}" class="nav-link">
+          {{ item_label }}
+          {%- if post_count > 0 -%}
+            <span class="post-count">{{ post_count }}</span>
+          {%- endif -%}
+          <i class="fas fa-chevron-down"></i>
+        </a>
+        <div class="mega-menu">
+          <div class="mega-menu-grid">
+            {%- include render-menu.html menu_items=menu_item.children menu_type="desktop" depth=1 -%}
+          </div>
+        </div>
+      </li>
+
+    {%- else -%}
+      {%- comment -%} Regular desktop nav item {%- endcomment -%}
+      {%- if depth == 0 -%}
+        <li class="nav-item">
+      {%- else -%}
+        <div class="mega-menu-item">
+      {%- endif -%}
+        <a href="{{ item_url }}"{% if menu_item.type == "custom" %} target="_blank" rel="noopener"{% endif %}>
+          {%- if menu_item.icon and depth > 0 -%}
+            <i class="{{ menu_item.icon }}"></i>
+          {%- endif -%}
+          {{ item_label }}
+          {%- if post_count > 0 -%}
+            <span class="post-count">{{ post_count }}</span>
+          {%- endif -%}
+        </a>
+      {%- if depth == 0 -%}
+        </li>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  {%- comment -%} MOBILE RENDERING {%- endcomment -%}
+  {%- elsif include.menu_type == "mobile" -%}
+
+    {%- if menu_item.type == "heading" -%}
+      {%- comment -%} Mobile accordion heading {%- endcomment -%}
+      <div class="mobile-menu-heading">
+        {%- if menu_item.icon -%}
+          <i class="{{ menu_item.icon }}"></i>
+        {%- endif -%}
+        <h3>{{ item_label }}</h3>
+      </div>
+
+    {%- elsif has_children and menu_item.accordion -%}
+      {%- comment -%} Mobile accordion section {%- endcomment -%}
+      <div class="mobile-menu-section">
+        <button class="mobile-accordion-toggle" aria-expanded="false">
+          <span class="mobile-accordion-label">
+            {{ item_label }}
+            {%- if post_count > 0 -%}
+              <span class="post-count">{{ post_count }}</span>
+            {%- endif -%}
+          </span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="mobile-accordion-content">
+          {%- include render-menu.html menu_items=menu_item.children menu_type="mobile" depth=1 -%}
+        </div>
+      </div>
+
+    {%- else -%}
+      {%- comment -%} Regular mobile nav item {%- endcomment -%}
+      {%- if depth == 0 -%}
+        <div class="mobile-menu-item">
+      {%- else -%}
+        <div class="mobile-submenu-item">
+      {%- endif -%}
+        <a href="{{ item_url }}"{% if menu_item.type == "custom" %} target="_blank" rel="noopener"{% endif %}>
+          {%- if menu_item.icon and depth > 0 -%}
+            <i class="{{ menu_item.icon }}"></i>
+          {%- endif -%}
+          {{ item_label }}
+          {%- if post_count > 0 -%}
+            <span class="post-count">{{ post_count }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+    {%- endif -%}
+
+  {%- endif -%}
+
+{%- endfor -%}
+
+{%- if depth == 0 -%}
+  {%- if include.menu_type == "desktop" -%}
+    </ul>
+  {%- elsif include.menu_type == "mobile" -%}
+    </nav>
+  {%- endif -%}
+{%- endif -%}
