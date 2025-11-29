@@ -734,14 +734,17 @@ function initializeSortable(location) {
         // Get the data-index at the new position
         const newDataIndex = rowIndexMap[evt.newIndex];
 
+        console.log('Data indices:', { oldDataIndex, newDataIndex, rowIndexMapLength: rowIndexMap.length });
+
         if (!oldDataIndex || !newDataIndex) {
-          console.error('Missing data-index attributes');
+          console.error('Missing data-index attributes - oldDataIndex:', oldDataIndex, 'newDataIndex:', newDataIndex);
           renderMenuBuilder();
           return;
         }
 
         // Don't do anything if dropped in the same position
         if (oldDataIndex === newDataIndex) {
+          console.log('Same position - no reorder needed');
           return;
         }
 
