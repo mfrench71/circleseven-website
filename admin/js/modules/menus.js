@@ -504,14 +504,21 @@ function updateSaveButton() {
  * Renders the menu builder interface
  */
 export function renderMenuBuilder() {
+  logger.info('renderMenuBuilder() called');
   const currentMenu = getCurrentMenu();
   const location = window.currentMenuLocation;
+  logger.info('Current location:', location);
 
   const listId = `menu-${location}-list`;
   const tbody = document.getElementById(listId);
   const countBadge = document.getElementById(`${location}-menu-count-badge`);
 
-  if (!tbody || !countBadge) return;
+  logger.info('Elements found:', { tbody: !!tbody, countBadge: !!countBadge, listId });
+
+  if (!tbody || !countBadge) {
+    logger.warn('Early return from renderMenuBuilder - missing elements');
+    return;
+  }
 
   // Remove loading spinner if it exists
   const loadingRow = tbody.querySelector('.menu-loading');
