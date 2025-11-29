@@ -173,7 +173,8 @@ function populateCategoryDropdown(selectElement, categories, depth = 0) {
  */
 async function loadPages() {
   try {
-    const response = await fetch(`${window.API_BASE}/pages`);
+    // Request pages with metadata to get title and url fields
+    const response = await fetch(`${window.API_BASE}/pages?metadata=true`);
     if (!response.ok) throw new Error('Failed to load pages');
 
     const data = await response.json();

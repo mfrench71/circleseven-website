@@ -161,9 +161,15 @@ export default async function handler(request, context) {
                 const content = Buffer.from(fileData.content, 'base64').toString('utf8');
                 const { frontmatter } = parseFrontmatter(content);
 
+                // Extract title and url for menu system
+                const title = frontmatter.title || page.name.replace('.md', '');
+                const url = frontmatter.permalink || `/${page.name.replace('.md', '')}/`;
+
                 return {
                   ...page,
-                  frontmatter
+                  frontmatter,
+                  title,  // Add title field for menu system
+                  url     // Add url field for menu system
                 };
               } catch (error) {
                 console.error(`Failed to load metadata for ${page.name}:`, error);
