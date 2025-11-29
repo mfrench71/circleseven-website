@@ -686,12 +686,20 @@ function initializeSortable(location) {
       window.sortableInstances = { header: null, mobile: null, footer: null };
     }
 
+    logger.info('Initializing Sortable for', sortableKey);
+    logger.info('Table body element:', tbody);
+    logger.info('Drag handles found:', tbody.querySelectorAll('.drag-handle').length);
+
     window.sortableInstances[sortableKey] = new Sortable(tbody, {
       animation: 150,
       ghostClass: 'sortable-ghost',
       dragClass: 'sortable-drag',
       handle: '.drag-handle',
+      onStart: (evt) => {
+        logger.info('Drag started:', evt.oldIndex);
+      },
       onEnd: (evt) => {
+        logger.info('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
         // Get the data-index attributes from the dragged rows
         const oldRow = evt.item;
         const oldDataIndex = oldRow.getAttribute('data-index');
