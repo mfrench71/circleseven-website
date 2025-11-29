@@ -333,9 +333,11 @@ function resolveMenuItem(item) {
  * @throws {Error} If menu load fails
  */
 export async function loadMenus() {
+  logger.info('[loadMenus] Starting...');
   try {
     // Try to load from cache first
     const cachedData = getCache(MENUS_CACHE_KEY);
+    logger.info('[loadMenus] Cache result:', cachedData ? 'HIT' : 'MISS');
     if (cachedData) {
       window.headerMenu = cachedData.header_menu || [];
       window.mobileMenu = cachedData.mobile_menu || [];
@@ -390,8 +392,11 @@ export async function loadMenus() {
     }
 
     // NOW render the menu with taxonomy loaded
+    logger.info('[loadMenus] About to call switchMenuLocation(header)');
     switchMenuLocation('header');
+    logger.info('[loadMenus] Completed successfully');
   } catch (error) {
+    logger.error('[loadMenus] Error:', error);
     showError('Failed to load menus: ' + error.message);
   }
 }
@@ -402,13 +407,19 @@ export async function loadMenus() {
  * @param {string} location - One of 'header', 'mobile', 'footer'
  */
 export function switchMenuLocation(location) {
+  logger.info('[switchMenuLocation] Called with location:', location);
   window.currentMenuLocation = location;
 
   // Update tab buttons
   const headerTab = document.getElementById('tab-header-menu');
   const footerTab = document.getElementById('tab-footer-menu');
 
-  if (!headerTab || !footerTab) return;
+  logger.info('[switchMenuLocation] Tab elements:', { headerTab: !!headerTab, footerTab: !!footerTab });
+
+  if (!headerTab || !footerTab) {
+    logger.warn('[switchMenuLocation] Early return - missing tab elements');
+    return;
+  }
 
   // Remove active class from all
   headerTab.classList.remove('active');
