@@ -190,13 +190,117 @@ export function renderSidebar(activePage = 'dashboard') {
 }
 
 /**
- * Initialize sidebar - mount it to the DOM
+ * Initialize sidebar - mount it to the DOM and restore saved state
  * @param {string} activePage - The current active page
  */
 export function initSidebar(activePage = 'dashboard') {
   const sidebarContainer = document.getElementById('sidebar-container');
   if (sidebarContainer) {
     sidebarContainer.innerHTML = renderSidebar(activePage);
+
+    // Restore sidebar collapsed state
+    const isCollapsed = getSidebarCollapsedState();
+    if (isCollapsed) {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
+    // Restore accordion states (but only for non-active pages)
+    // Active pages will already have their accordion open from renderSidebar
+    const accordionState = getAccordionState();
+
+    // If current page is not part of any active accordion, restore saved state
+    const isInPostsSection = ['posts', 'taxonomy', 'comments'].includes(activePage);
+    const isInAnalyticsSection = ['visitors', 'content-health'].includes(activePage);
+    const isInAppearanceSection = ['appearance', 'menus'].includes(activePage);
+
+    if (!isInPostsSection && !isInAnalyticsSection && !isInAppearanceSection) {
+      // No active accordion, restore from saved state
+      if (accordionState.posts) {
+        const submenu = document.getElementById('posts-submenu');
+        const icon = document.getElementById('posts-accordion-icon');
+        if (submenu && icon) {
+          submenu.classList.add('show');
+          icon.classList.add('expanded');
+        }
+      }
+      if (accordionState.analytics) {
+        const submenu = document.getElementById('analytics-submenu');
+        const icon = document.getElementById('analytics-accordion-icon');
+        if (submenu && icon) {
+          submenu.classList.add('show');
+          icon.classList.add('expanded');
+        }
+      }
+      if (accordionState.appearance) {
+        const submenu = document.getElementById('appearance-submenu');
+        const icon = document.getElementById('appearance-accordion-icon');
+        if (submenu && icon) {
+          submenu.classList.add('show');
+          icon.classList.add('expanded');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * LocalStorage keys for sidebar state
+ */
+const SIDEBAR_STATE_KEY = 'admin_sidebar_state';
+const ACCORDION_STATE_KEY = 'admin_accordion_state';
+
+/**
+ * Get accordion state from localStorage
+ * @returns {Object} Object with accordion states (e.g., { posts: true, analytics: false })
+ */
+function getAccordionState() {
+  try {
+    const saved = localStorage.getItem(ACCORDION_STATE_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error('Failed to load accordion state:', error);
+    return {};
+  }
+}
+
+/**
+ * Save accordion state to localStorage
+ * @param {string} menuName - The menu name (e.g., 'posts', 'analytics', 'appearance')
+ * @param {boolean} isOpen - Whether the menu is open
+ */
+function saveAccordionState(menuName, isOpen) {
+  try {
+    const state = getAccordionState();
+    state[menuName] = isOpen;
+    localStorage.setItem(ACCORDION_STATE_KEY, JSON.stringify(state));
+  } catch (error) {
+    console.error('Failed to save accordion state:', error);
+  }
+}
+
+/**
+ * Get sidebar collapsed state from localStorage
+ * @returns {boolean} True if sidebar should be collapsed
+ */
+function getSidebarCollapsedState() {
+  try {
+    const saved = localStorage.getItem(SIDEBAR_STATE_KEY);
+    return saved === 'collapsed';
+  } catch (error) {
+    console.error('Failed to load sidebar state:', error);
+    return false;
+  }
+}
+
+/**
+ * Save sidebar collapsed state to localStorage
+ * @param {boolean} isCollapsed - Whether the sidebar is collapsed
+ */
+function saveSidebarCollapsedState(isCollapsed) {
+  try {
+    localStorage.setItem(SIDEBAR_STATE_KEY, isCollapsed ? 'collapsed' : 'expanded');
+  } catch (error) {
+    console.error('Failed to save sidebar state:', error);
   }
 }
 
@@ -222,10 +326,16 @@ window.togglePostsMenu = function() {
   // Close all accordions first
   closeAllAccordions();
 
+  // Clear all accordion states
+  saveAccordionState('posts', false);
+  saveAccordionState('analytics', false);
+  saveAccordionState('appearance', false);
+
   // If this menu wasn't open, open it
   if (!isOpen && submenu && icon) {
     submenu.classList.add('show');
     icon.classList.add('expanded');
+    saveAccordionState('posts', true);
   }
 };
 
@@ -240,10 +350,16 @@ window.toggleAnalyticsMenu = function() {
   // Close all accordions first
   closeAllAccordions();
 
+  // Clear all accordion states
+  saveAccordionState('posts', false);
+  saveAccordionState('analytics', false);
+  saveAccordionState('appearance', false);
+
   // If this menu wasn't open, open it
   if (!isOpen && submenu && icon) {
     submenu.classList.add('show');
     icon.classList.add('expanded');
+    saveAccordionState('analytics', true);
   }
 };
 
@@ -258,10 +374,16 @@ window.toggleAppearanceMenu = function() {
   // Close all accordions first
   closeAllAccordions();
 
+  // Clear all accordion states
+  saveAccordionState('posts', false);
+  saveAccordionState('analytics', false);
+  saveAccordionState('appearance', false);
+
   // If this menu wasn't open, open it
   if (!isOpen && submenu && icon) {
     submenu.classList.add('show');
     icon.classList.add('expanded');
+    saveAccordionState('appearance', true);
   }
 };
 
@@ -272,4 +394,8 @@ window.toggleSidebar = function() {
   const body = document.body;
   // Toggle the collapsed class on body
   body.classList.toggle('sidebar-collapsed');
+
+  // Save the new state
+  const isCollapsed = body.classList.contains('sidebar-collapsed');
+  saveSidebarCollapsedState(isCollapsed);
 };
