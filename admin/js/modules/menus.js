@@ -733,11 +733,15 @@ function initializeSortable(location) {
           const rows = Array.from(tbody.querySelectorAll('tr'));
 
           // Build new menu structure from the visual order
-          // This flattens the hierarchy but maintains the drag order
-          const flattenedMenu = rows
+          // Only reorder top-level items, preserve children hierarchy
+          const reorderedMenu = rows
             .map(row => {
               const dataIndex = row.getAttribute('data-index');
               if (!dataIndex) return null;
+
+              // Skip child items (they have dashes in their index like "0-1", "0-2")
+              // We only want top-level items for reordering
+              if (dataIndex.includes('-')) return null;
 
               // Get the actual menu item from the current menu
               const currentMenu = getCurrentMenu();
@@ -749,17 +753,15 @@ function initializeSortable(location) {
                 return null;
               }
 
-              // Return a clean copy without children (we'll rebuild hierarchy separately if needed)
-              const cleanItem = { ...item };
-              delete cleanItem.children; // Remove children for flat list
-              return cleanItem;
+              // Return a deep copy WITH children preserved
+              return JSON.parse(JSON.stringify(item));
             })
             .filter(item => item !== null); // Remove any nulls
 
-          console.log('Reordered menu to', flattenedMenu.length, 'items');
+          console.log('Reordered menu to', reorderedMenu.length, 'items (children preserved)');
 
           // Update the menu
-          setCurrentMenu(flattenedMenu);
+          setCurrentMenu(reorderedMenu);
           markDirty();
           renderMenuBuilder();
 
