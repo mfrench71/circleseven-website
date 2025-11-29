@@ -538,8 +538,20 @@ export function renderMenuBuilder() {
   const rows = [];
 
   function renderMenuItem(item, index, indent = 0, parentIndex = null) {
+    // Guard against undefined/null items
+    if (!item) {
+      logger.warn('renderMenuItem called with undefined/null item at index:', index);
+      return;
+    }
+
     // Resolve category_ref items to show proper label and URL
     const resolvedItem = resolveMenuItem(item);
+
+    // Additional guard in case resolveMenuItem returns undefined
+    if (!resolvedItem) {
+      logger.warn('resolveMenuItem returned undefined for item at index:', index);
+      return;
+    }
 
     const hasChildren = resolvedItem.children && resolvedItem.children.length > 0;
     const isChild = indent > 0;
