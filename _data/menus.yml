@@ -15,13 +15,11 @@
 # Note: The menu renderer will automatically add post counts to category links
 
 header_menu:
-  # Digital Art & Technology - Mega Menu (references taxonomy)
   - id: "digital-art-technology"
     type: "category_ref"
     category_ref: "digital-art-and-technology"
     mega_menu: true
     children:
-      # Year 1 Section
       - id: "year1-heading"
         type: "heading"
         label: "Year 1 Modules"
@@ -44,8 +42,6 @@ header_menu:
       - id: "dat406"
         type: "category_ref"
         category_ref: "dat406-digital-making"
-
-      # Year 2 Section
       - id: "year2-heading"
         type: "heading"
         label: "Year 2 Modules"
@@ -68,8 +64,6 @@ header_menu:
       - id: "inde601"
         type: "category_ref"
         category_ref: "inde601-netscapes"
-
-      # Year 3 Section
       - id: "year3-heading"
         type: "heading"
         label: "Year 3 Modules"
@@ -86,8 +80,6 @@ header_menu:
       - id: "dat613"
         type: "category_ref"
         category_ref: "dat613-dissertation"
-
-  # Projects - Mega Menu (references taxonomy)
   - id: "projects"
     type: "category_ref"
     category_ref: "projects"
@@ -106,70 +98,117 @@ header_menu:
       - id: "retro-computing"
         type: "category_ref"
         category_ref: "retro-computing"
-
-  # Simple Links
   - id: "about"
     type: "page"
     label: "About"
     url: "/about/"
-
   - id: "contact"
     type: "page"
     label: "Contact"
     url: "/contact/"
+  - id: "page-1764425022513"
+    type: "page"
+    label: "Test page"
+    url: "/test-page/"
 
 # Mobile menu (can mirror header or have different structure)
 mobile_menu:
-  # Digital Art & Technology - Accordion (references taxonomy)
-  - id: "digital-art-technology-mobile"
+  - id: "digital-art-technology"
     type: "category_ref"
     category_ref: "digital-art-and-technology"
     accordion: true
     children:
-      - id: "view-all-dat"
-        type: "custom"
-        label: "View All"
-        url: "/category/digital-art-and-technology/"
-      - id: "dat401-mobile"
+      - id: "year1-heading"
+        type: "heading"
+        label: "Year 1 Modules"
+        icon: "fas fa-graduation-cap"
+      - id: "dat401"
         type: "category_ref"
         category_ref: "dat401-strategies-for-digital-art-and-technology"
-      - id: "dat501-mobile"
+      - id: "dat402"
+        type: "category_ref"
+        category_ref: "dat402-digital-culture"
+      - id: "dat403"
+        type: "category_ref"
+        category_ref: "dat403-digital-media-design"
+      - id: "dat404"
+        type: "category_ref"
+        category_ref: "dat404-web-technologies"
+      - id: "dat405"
+        type: "category_ref"
+        category_ref: "dat405-creative-coding"
+      - id: "dat406"
+        type: "category_ref"
+        category_ref: "dat406-digital-making"
+      - id: "year2-heading"
+        type: "heading"
+        label: "Year 2 Modules"
+        icon: "fas fa-laptop-code"
+      - id: "dat501"
         type: "category_ref"
         category_ref: "dat501-strategies-for-digital-art-and-technology"
-      - id: "inde601-mobile"
+      - id: "dat503"
+        type: "category_ref"
+        category_ref: "dat503-reflexive-design"
+      - id: "dat504"
+        type: "category_ref"
+        category_ref: "dat504-advanced-web-technologies"
+      - id: "dat505"
+        type: "category_ref"
+        category_ref: "dat505-advanced-creative-coding"
+      - id: "dat506"
+        type: "category_ref"
+        category_ref: "dat506-emerging-technologies"
+      - id: "inde601"
         type: "category_ref"
         category_ref: "inde601-netscapes"
-      - id: "dat601-mobile"
+      - id: "year3-heading"
+        type: "heading"
+        label: "Year 3 Modules"
+        icon: "fas fa-rocket"
+      - id: "dat601"
         type: "category_ref"
         category_ref: "dat601-realtime"
-
-  # Projects - Accordion (references taxonomy)
-  - id: "projects-mobile"
+      - id: "dat602"
+        type: "category_ref"
+        category_ref: "dat602-everyware"
+      - id: "dat612"
+        type: "category_ref"
+        category_ref: "dat612-final-year-project"
+      - id: "dat613"
+        type: "category_ref"
+        category_ref: "dat613-dissertation"
+  - id: "projects"
     type: "category_ref"
     category_ref: "projects"
     accordion: true
     children:
-      - id: "view-all-projects"
-        type: "custom"
-        label: "View All Projects"
-        url: "/category/projects/"
-      - id: "photography-mobile"
+      - id: "projects-heading"
+        type: "heading"
+        label: "Project Categories"
+        icon: "fas fa-folder-open"
+      - id: "photography"
         type: "category_ref"
         category_ref: "photography"
-      - id: "motion-graphics-mobile"
+      - id: "motion-graphics"
         type: "category_ref"
         category_ref: "motion-graphics"
-      - id: "retro-computing-mobile"
+      - id: "retro-computing"
         type: "category_ref"
         category_ref: "retro-computing"
-
-  # Simple Links
-  - id: "about-mobile"
+  - id: "about"
     type: "page"
     label: "About"
     url: "/about/"
-
-  - id: "contact-mobile"
+  - id: "contact"
     type: "page"
     label: "Contact"
     url: "/contact/"
+  - id: "page-1764425022513"
+    type: "page"
+    label: "Test page"
+    url: "/test-page/"
+
+# Footer menu
+footer_menu:
+
