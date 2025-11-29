@@ -29,6 +29,9 @@ import { showError, showSuccess, hideMessages } from '../ui/notifications.js';
 import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
+// Module loaded
+console.log('[MENUS MODULE] Loaded at', new Date().toISOString());
+
 // Cache configuration
 const MENUS_CACHE_KEY = 'admin_menus_cache_v1';
 

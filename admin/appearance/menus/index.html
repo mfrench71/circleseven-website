@@ -287,7 +287,7 @@
       deleteMenuItem,
       saveMenus,
       clearMenuCache
-    } from '/admin/js/modules/menus.js?v=11';
+    } from '/admin/js/modules/menus.js?v=12';
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initNotifications);
@@ -308,15 +308,20 @@
     window.loadSiteTitle = loadSiteTitle;
 
     const init = async () => {
+      console.log('[INIT] Starting menus page initialization');
       await initStandalonePage('menus', async (user) => {
+        console.log('[INIT] initStandalonePage callback starting');
         initHeader();
         initSidebar('menus');
         await loadSiteTitle();
         await loadDeploymentHistory();
         await restoreActiveDeployments();
+        console.log('[INIT] About to call loadMenus()');
         await loadMenus();
+        console.log('[INIT] loadMenus() completed');
         // Trigger initial form update to populate category dropdown
         await updateAddItemForm();
+        console.log('[INIT] Initialization complete');
       });
     };
 
