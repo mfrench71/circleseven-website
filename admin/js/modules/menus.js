@@ -349,7 +349,6 @@ export async function loadMenus() {
       window.isDirty = false;
 
       updateSaveButton();
-      switchMenuLocation('header');
     } else {
       // Cache miss - fetch from API
       const response = await fetch(`${window.API_BASE}/menus`);
@@ -377,7 +376,6 @@ export async function loadMenus() {
       window.isDirty = false;
 
       updateSaveButton();
-      switchMenuLocation('header');
     }
 
     // Load taxonomy for resolving category_ref items in UI
@@ -386,12 +384,13 @@ export async function loadMenus() {
       const taxonomy = await loadTaxonomy();
       taxonomyCache = taxonomy;
       logger.info('Taxonomy loaded for category_ref resolution:', taxonomy.length, 'categories');
-      // Re-render to show resolved labels
-      renderMenuBuilder();
     } catch (error) {
       logger.warn('Failed to load taxonomy for category_ref resolution:', error);
       // Non-fatal - UI will work with slugs as labels
     }
+
+    // NOW render the menu with taxonomy loaded
+    switchMenuLocation('header');
   } catch (error) {
     showError('Failed to load menus: ' + error.message);
   }
