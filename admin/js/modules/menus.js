@@ -693,7 +693,29 @@ function initializeSortable(location) {
       handle: '.fa-bars',
       onEnd: (evt) => {
         const currentMenu = getCurrentMenu();
+
+        // Validate indices
+        if (evt.oldIndex < 0 || evt.oldIndex >= currentMenu.length) {
+          logger.error('Invalid oldIndex for drag-and-drop:', evt.oldIndex, 'Menu length:', currentMenu.length);
+          renderMenuBuilder(); // Re-render to fix display
+          return;
+        }
+
+        if (evt.newIndex < 0 || evt.newIndex >= currentMenu.length) {
+          logger.error('Invalid newIndex for drag-and-drop:', evt.newIndex, 'Menu length:', currentMenu.length);
+          renderMenuBuilder(); // Re-render to fix display
+          return;
+        }
+
         const item = currentMenu.splice(evt.oldIndex, 1)[0];
+
+        // Additional guard to ensure we actually got an item
+        if (!item) {
+          logger.error('Failed to extract item at index:', evt.oldIndex);
+          renderMenuBuilder(); // Re-render to fix display
+          return;
+        }
+
         currentMenu.splice(evt.newIndex, 0, item);
         setCurrentMenu(currentMenu);
         markDirty();
