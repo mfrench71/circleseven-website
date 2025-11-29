@@ -336,11 +336,11 @@ function resolveMenuItem(item) {
  * @throws {Error} If menu load fails
  */
 export async function loadMenus() {
-  logger.info('[loadMenus] Starting...');
+  console.log('[loadMenus] Starting...');
   try {
     // Try to load from cache first
     const cachedData = getCache(MENUS_CACHE_KEY);
-    logger.info('[loadMenus] Cache result:', cachedData ? 'HIT' : 'MISS');
+    console.log('[loadMenus] Cache result:', cachedData ? 'HIT' : 'MISS');
     if (cachedData) {
       window.headerMenu = cachedData.header_menu || [];
       window.mobileMenu = cachedData.mobile_menu || [];
@@ -395,11 +395,11 @@ export async function loadMenus() {
     }
 
     // NOW render the menu with taxonomy loaded
-    logger.info('[loadMenus] About to call switchMenuLocation(header)');
+    console.log('[loadMenus] About to call switchMenuLocation(header)');
     switchMenuLocation('header');
-    logger.info('[loadMenus] Completed successfully');
+    console.log('[loadMenus] Completed successfully');
   } catch (error) {
-    logger.error('[loadMenus] Error:', error);
+    console.error('[loadMenus] Error:', error);
     showError('Failed to load menus: ' + error.message);
   }
 }
@@ -410,17 +410,17 @@ export async function loadMenus() {
  * @param {string} location - One of 'header', 'mobile', 'footer'
  */
 export function switchMenuLocation(location) {
-  logger.info('[switchMenuLocation] Called with location:', location);
+  console.log('[switchMenuLocation] Called with location:', location);
   window.currentMenuLocation = location;
 
   // Update tab buttons
   const headerTab = document.getElementById('tab-header-menu');
   const footerTab = document.getElementById('tab-footer-menu');
 
-  logger.info('[switchMenuLocation] Tab elements:', { headerTab: !!headerTab, footerTab: !!footerTab });
+  console.log('[switchMenuLocation] Tab elements:', { headerTab: !!headerTab, footerTab: !!footerTab });
 
   if (!headerTab || !footerTab) {
-    logger.warn('[switchMenuLocation] Early return - missing tab elements');
+    console.warn('[switchMenuLocation] Early return - missing tab elements');
     return;
   }
 
@@ -518,19 +518,19 @@ function updateSaveButton() {
  * Renders the menu builder interface
  */
 export function renderMenuBuilder() {
-  logger.info('renderMenuBuilder() called');
+  console.log('renderMenuBuilder() called');
   const currentMenu = getCurrentMenu();
   const location = window.currentMenuLocation;
-  logger.info('Current location:', location);
+  console.log('Current location:', location);
 
   const listId = `menu-${location}-list`;
   const tbody = document.getElementById(listId);
   const countBadge = document.getElementById(`${location}-menu-count-badge`);
 
-  logger.info('Elements found:', { tbody: !!tbody, countBadge: !!countBadge, listId });
+  console.log('Elements found:', { tbody: !!tbody, countBadge: !!countBadge, listId });
 
   if (!tbody || !countBadge) {
-    logger.warn('Early return from renderMenuBuilder - missing elements');
+    console.warn('Early return from renderMenuBuilder - missing elements');
     return;
   }
 
@@ -707,9 +707,9 @@ function initializeSortable(location) {
       window.sortableInstances = { header: null, mobile: null, footer: null };
     }
 
-    logger.info('Initializing Sortable for', sortableKey);
-    logger.info('Table body element:', tbody);
-    logger.info('Drag handles found:', tbody.querySelectorAll('.drag-handle').length);
+    console.log('Initializing Sortable for', sortableKey);
+    console.log('Table body element:', tbody);
+    console.log('Drag handles found:', tbody.querySelectorAll('.drag-handle').length);
 
     window.sortableInstances[sortableKey] = new Sortable(tbody, {
       animation: 150,
@@ -717,10 +717,10 @@ function initializeSortable(location) {
       dragClass: 'sortable-drag',
       handle: '.drag-handle',
       onStart: (evt) => {
-        logger.info('Drag started:', evt.oldIndex);
+        console.log('Drag started:', evt.oldIndex);
       },
       onEnd: (evt) => {
-        logger.info('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
+        console.log('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
         // Get the data-index attributes from the dragged rows
         const oldRow = evt.item;
         const oldDataIndex = oldRow.getAttribute('data-index');
@@ -735,7 +735,7 @@ function initializeSortable(location) {
         const newDataIndex = rowIndexMap[evt.newIndex];
 
         if (!oldDataIndex || !newDataIndex) {
-          logger.error('Missing data-index attributes');
+          console.error('Missing data-index attributes');
           renderMenuBuilder();
           return;
         }
@@ -745,7 +745,7 @@ function initializeSortable(location) {
           return;
         }
 
-        logger.info('Reordering menu items:', { from: oldDataIndex, to: newDataIndex });
+        console.log('Reordering menu items:', { from: oldDataIndex, to: newDataIndex });
 
         try {
           const currentMenu = getCurrentMenu();
@@ -755,14 +755,14 @@ function initializeSortable(location) {
           renderMenuBuilder();
 
           // Auto-save after successful reorder
-          logger.info('About to call saveMenus() after drag-and-drop');
+          console.log('About to call saveMenus() after drag-and-drop');
           saveMenus().then(() => {
-            logger.info('saveMenus() completed successfully');
+            console.log('saveMenus() completed successfully');
           }).catch(error => {
-            logger.error('saveMenus() failed:', error);
+            console.error('saveMenus() failed:', error);
           });
         } catch (error) {
-          logger.error('Error during drag-and-drop:', error);
+          console.error('Error during drag-and-drop:', error);
           renderMenuBuilder(); // Restore original state
         }
       }
