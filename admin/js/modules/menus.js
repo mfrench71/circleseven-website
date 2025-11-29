@@ -1316,6 +1316,41 @@ function convertHeaderToMobileMenu(headerMenu) {
 }
 
 /**
+ * Cleans menu items before saving to remove undefined/null labels and URLs
+ * For category_ref items, label and url should be omitted (not set to "undefined")
+ */
+function cleanMenuItemForSave(item) {
+  if (!item) return item;
+
+  const cleaned = { ...item };
+
+  // For category_ref items, remove label and url if they're undefined or "undefined" string
+  if (cleaned.type === 'category_ref') {
+    if (cleaned.label === undefined || cleaned.label === 'undefined' || cleaned.label === null) {
+      delete cleaned.label;
+    }
+    if (cleaned.url === undefined || cleaned.url === 'undefined' || cleaned.url === null) {
+      delete cleaned.url;
+    }
+  }
+
+  // Clean children recursively
+  if (cleaned.children && Array.isArray(cleaned.children)) {
+    cleaned.children = cleaned.children.map(cleanMenuItemForSave);
+  }
+
+  return cleaned;
+}
+
+/**
+ * Cleans an entire menu array
+ */
+function cleanMenuForSave(menu) {
+  if (!Array.isArray(menu)) return menu;
+  return menu.map(cleanMenuItemForSave);
+}
+
+/**
  * Saves menu changes to the backend
  */
 export async function saveMenus() {
@@ -1323,8 +1358,12 @@ export async function saveMenus() {
   setButtonLoading(saveBtn, true, 'Saving...');
 
   try {
-    // Auto-generate mobile menu from header menu
-    const generatedMobileMenu = convertHeaderToMobileMenu(window.headerMenu);
+    // Clean menus before saving to remove undefined labels
+    const cleanedHeaderMenu = cleanMenuForSave(window.headerMenu);
+    const cleanedFooterMenu = cleanMenuForSave(window.footerMenu);
+
+    // Auto-generate mobile menu from cleaned header menu
+    const generatedMobileMenu = convertHeaderToMobileMenu(cleanedHeaderMenu);
 
     const response = await fetch(`${window.API_BASE}/menus`, {
       method: 'PUT',
@@ -1332,9 +1371,9 @@ export async function saveMenus() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        header_menu: window.headerMenu,
+        header_menu: cleanedHeaderMenu,
         mobile_menu: generatedMobileMenu,
-        footer_menu: window.footerMenu
+        footer_menu: cleanedFooterMenu
       })
     });
 
