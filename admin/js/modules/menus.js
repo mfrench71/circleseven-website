@@ -734,7 +734,12 @@ function initializeSortable(location) {
           renderMenuBuilder();
 
           // Auto-save after successful reorder
-          saveMenus();
+          logger.info('About to call saveMenus() after drag-and-drop');
+          saveMenus().then(() => {
+            logger.info('saveMenus() completed successfully');
+          }).catch(error => {
+            logger.error('saveMenus() failed:', error);
+          });
         } catch (error) {
           logger.error('Error during drag-and-drop:', error);
           renderMenuBuilder(); // Restore original state
