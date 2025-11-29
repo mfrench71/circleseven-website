@@ -571,7 +571,7 @@ export function renderMenuBuilder() {
                 <i class="fas fa-chevron-down"></i>
               </button>
             ` : ''}
-            <i class="fas fa-bars text-secondary flex-shrink-0"></i>
+            <i class="fas fa-bars text-secondary flex-shrink-0 drag-handle" style="cursor: grab;"></i>
             <div class="d-flex flex-column">
               <span class="fw-medium text-dark">${escapeHtml(resolvedItem.label || '-')}</span>
               <small class="text-muted">${escapeHtml(resolvedItem.url || '-')}</small>
@@ -690,7 +690,7 @@ function initializeSortable(location) {
       animation: 150,
       ghostClass: 'sortable-ghost',
       dragClass: 'sortable-drag',
-      handle: '.fa-bars',
+      handle: '.drag-handle',
       onEnd: (evt) => {
         // Get the data-index attributes from the dragged rows
         const oldRow = evt.item;
