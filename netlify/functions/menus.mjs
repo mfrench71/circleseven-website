@@ -148,7 +148,41 @@ function validateCategoryRefs(menuItems, taxonomy, path = []) {
 }
 
 /**
+ * Cleans a menu item before saving - removes undefined/null/"undefined" values
+ * For category_ref items, label and url should NOT be saved (resolved from taxonomy)
+ * @param {Object} item - Menu item to clean
+ * @returns {Object} Cleaned menu item
+ */
+function cleanMenuItem(item) {
+  if (!item) return item;
+
+  const cleaned = { ...item };
+
+  // For category_ref items, strip label and url if they're undefined or "undefined" string
+  if (cleaned.type === 'category_ref') {
+    if (cleaned.label === undefined || cleaned.label === 'undefined' || cleaned.label === null || cleaned.label === '') {
+      delete cleaned.label;
+    }
+    if (cleaned.url === undefined || cleaned.url === 'undefined' || cleaned.url === null || cleaned.url === '') {
+      delete cleaned.url;
+    }
+    // Ensure category_ref field exists
+    if (!cleaned.category_ref) {
+      console.warn(`[Menus] category_ref item ${cleaned.id} missing category_ref field`);
+    }
+  }
+
+  // Clean children recursively
+  if (cleaned.children && Array.isArray(cleaned.children)) {
+    cleaned.children = cleaned.children.map(cleanMenuItem);
+  }
+
+  return cleaned;
+}
+
+/**
  * Generates YAML content for menu items with proper indentation
+ * Cleans items before generating to prevent corruption
  * @param {Array} items - Menu items array
  * @param {number} indent - Current indentation level
  * @returns {string} YAML-formatted menu items
@@ -160,26 +194,40 @@ function generateMenuItemsYAML(items, indent = 2) {
   let yaml = '';
 
   items.forEach(item => {
-    yaml += `${spaces}- id: "${item.id}"\n`;
-    yaml += `${spaces}  type: "${item.type}"\n`;
-    yaml += `${spaces}  label: "${item.label}"\n`;
+    // Clean the item before generating YAML
+    const cleanedItem = cleanMenuItem(item);
 
-    if (item.url) {
-      yaml += `${spaces}  url: "${item.url}"\n`;
-    }
-    if (item.icon) {
-      yaml += `${spaces}  icon: "${item.icon}"\n`;
-    }
-    if (item.mega_menu) {
-      yaml += `${spaces}  mega_menu: ${item.mega_menu}\n`;
-    }
-    if (item.accordion) {
-      yaml += `${spaces}  accordion: ${item.accordion}\n`;
+    yaml += `${spaces}- id: "${cleanedItem.id}"\n`;
+    yaml += `${spaces}  type: "${cleanedItem.type}"\n`;
+
+    // For category_ref items, add category_ref field
+    if (cleanedItem.type === 'category_ref' && cleanedItem.category_ref) {
+      yaml += `${spaces}  category_ref: "${cleanedItem.category_ref}"\n`;
     }
 
-    if (item.children && item.children.length > 0) {
+    // Only add label if it exists and is not for category_ref (unless explicitly set)
+    if (cleanedItem.label && cleanedItem.label !== 'undefined') {
+      yaml += `${spaces}  label: "${cleanedItem.label}"\n`;
+    }
+
+    // Only add url if it exists and is not undefined
+    if (cleanedItem.url && cleanedItem.url !== 'undefined') {
+      yaml += `${spaces}  url: "${cleanedItem.url}"\n`;
+    }
+
+    if (cleanedItem.icon) {
+      yaml += `${spaces}  icon: "${cleanedItem.icon}"\n`;
+    }
+    if (cleanedItem.mega_menu) {
+      yaml += `${spaces}  mega_menu: ${cleanedItem.mega_menu}\n`;
+    }
+    if (cleanedItem.accordion) {
+      yaml += `${spaces}  accordion: ${cleanedItem.accordion}\n`;
+    }
+
+    if (cleanedItem.children && cleanedItem.children.length > 0) {
       yaml += `${spaces}  children:\n`;
-      yaml += generateMenuItemsYAML(item.children, indent + 4);
+      yaml += generateMenuItemsYAML(cleanedItem.children, indent + 4);
     }
   });
 
@@ -307,13 +355,15 @@ export default async function handler(request, context) {
 #
 # Structure:
 # - id: Unique identifier for the menu item
-# - type: Type of menu item (category|page|custom|heading)
-# - label: Display text for the menu item
-# - url: Target URL (optional for headings)
+# - type: Type of menu item (category_ref|category|page|custom|heading)
+# - label: Display text for the menu item (optional for category_ref - will use taxonomy name)
+# - url: Target URL (optional for headings and category_ref)
+# - category_ref: Slug of category in taxonomy.yml (for category_ref type)
 # - icon: Font Awesome icon class (optional)
 # - mega_menu: Boolean to enable mega-menu styling (default: false)
 # - children: Array of nested menu items (optional)
 #
+# Note: category_ref items automatically resolve label and URL from taxonomy.yml
 # Note: The menu renderer will automatically add post counts to category links
 
 `;
