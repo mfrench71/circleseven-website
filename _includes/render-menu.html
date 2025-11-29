@@ -64,9 +64,6 @@
       <li class="nav-item has-dropdown">
         <a href="{{ item_url }}" class="nav-link">
           {{ item_label }}
-          {%- if post_count > 0 -%}
-            <span class="post-count">{{ post_count }}</span>
-          {%- endif -%}
           <i class="fas fa-chevron-down"></i>
         </a>
         <div class="mega-menu">
@@ -174,7 +171,7 @@
     {%- else -%}
       {%- comment -%} Regular nav item without dropdown {%- endcomment -%}
       <li class="nav-item">
-        <a href="{{ item_url }}"{% if menu_item.type == "custom" %} target="_blank" rel="noopener"{% endif %}>
+        <a href="{{ item_url }}" class="nav-link"{% if menu_item.type == "custom" %} target="_blank" rel="noopener"{% endif %}>
           {{ item_label }}
           {%- if post_count > 0 -%}
             <span class="post-count">{{ post_count }}</span>
