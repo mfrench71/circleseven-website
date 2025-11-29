@@ -108,7 +108,7 @@ header_menu:
     url: "/contact/"
   - id: "page-1764425022513"
     type: "page"
-    label: "Test page"
+    label: "Test page 1"
     url: "/test-page/"
 
 # Mobile menu (can mirror header or have different structure)
@@ -206,7 +206,7 @@ mobile_menu:
     url: "/contact/"
   - id: "page-1764425022513"
     type: "page"
-    label: "Test page"
+    label: "Test page 1"
     url: "/test-page/"
 
 # Footer menu
