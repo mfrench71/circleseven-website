@@ -721,39 +721,45 @@ function initializeSortable(location) {
       },
       onEnd: (evt) => {
         console.log('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
-        // Get the data-index attributes from the dragged rows
-        const oldRow = evt.item;
-        const oldDataIndex = oldRow.getAttribute('data-index');
-
-        // Find where it was dropped - check all rows to map table positions to menu structure
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-
-        // Build a map of row index to data-index
-        const rowIndexMap = rows.map(row => row.getAttribute('data-index'));
-
-        // Get the data-index at the new position
-        const newDataIndex = rowIndexMap[evt.newIndex];
-
-        console.log('Data indices:', { oldDataIndex, newDataIndex, rowIndexMapLength: rowIndexMap.length });
-
-        if (!oldDataIndex || !newDataIndex) {
-          console.error('Missing data-index attributes - oldDataIndex:', oldDataIndex, 'newDataIndex:', newDataIndex);
-          renderMenuBuilder();
-          return;
-        }
 
         // Don't do anything if dropped in the same position
-        if (oldDataIndex === newDataIndex) {
-          console.log('Same position - no reorder needed');
+        if (evt.oldIndex === evt.newIndex) {
+          console.log('Same visual position - no reorder needed');
           return;
         }
 
-        console.log('Reordering menu items:', { from: oldDataIndex, to: newDataIndex });
-
         try {
-          const currentMenu = getCurrentMenu();
-          const newMenu = reorderMenuItem(currentMenu, oldDataIndex, newDataIndex);
-          setCurrentMenu(newMenu);
+          // Get all rows in their new visual order
+          const rows = Array.from(tbody.querySelectorAll('tr'));
+
+          // Build new menu structure from the visual order
+          // This flattens the hierarchy but maintains the drag order
+          const flattenedMenu = rows
+            .map(row => {
+              const dataIndex = row.getAttribute('data-index');
+              if (!dataIndex) return null;
+
+              // Get the actual menu item from the current menu
+              const currentMenu = getCurrentMenu();
+              const path = parseIndex(dataIndex);
+              const item = getItemAtPath(currentMenu, path);
+
+              if (!item) {
+                console.warn('Could not find item at path:', dataIndex);
+                return null;
+              }
+
+              // Return a clean copy without children (we'll rebuild hierarchy separately if needed)
+              const cleanItem = { ...item };
+              delete cleanItem.children; // Remove children for flat list
+              return cleanItem;
+            })
+            .filter(item => item !== null); // Remove any nulls
+
+          console.log('Reordered menu to', flattenedMenu.length, 'items');
+
+          // Update the menu
+          setCurrentMenu(flattenedMenu);
           markDirty();
           renderMenuBuilder();
 
