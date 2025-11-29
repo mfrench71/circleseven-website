@@ -240,7 +240,13 @@
         <div class="mobile-accordion-content">
           <ul class="mobile-accordion-links">
             {%- for child in menu_item.children -%}
-              {%- if child.type != "heading" -%}
+              {%- if child.type == "heading" -%}
+                {%- comment -%} Render heading as visual separator {%- endcomment -%}
+                <li class="mobile-menu-heading">
+                  {%- if child.icon -%}<i class="{{ child.icon }}" aria-hidden="true"></i> {%- endif -%}
+                  {{ child.label }}
+                </li>
+              {%- else -%}
                 {%- comment -%} Resolve child item {%- endcomment -%}
                 {%- if child.type == "category_ref" -%}
                   {%- assign child_category_slug = child.category_ref -%}

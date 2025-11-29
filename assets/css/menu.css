@@ -703,6 +703,28 @@ body {
   text-align: center;
 }
 
+.mobile-menu-heading {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal-primary);
+  text-transform: uppercase;
+  margin: 12px 0 6px 0;
+  padding: 6px 10px 3px 10px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--teal-light);
+  list-style: none;
+}
+
+.mobile-menu-heading:first-child {
+  margin-top: 6px;
+}
+
+.mobile-menu-heading i {
+  margin-right: 6px;
+  opacity: 0.9;
+  font-size: 11px;
+}
+
 .mobile-search {
   flex: 1;
   box-sizing: border-box;
