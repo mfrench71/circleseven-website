@@ -37,13 +37,8 @@ find admin -name "*.bak" -type f -delete
 
 echo "Cache busting complete. Updated to version: $CACHE_BUST"
 
-echo "Running tests..."
-npm run test
-if [ $? -ne 0 ]; then
-  echo "Tests failed! Build aborted."
-  exit 1
-fi
-echo "Tests passed!"
+# Note: Tests run via GitHub Actions on push/PR, not during Netlify build
+# This speeds up deploys significantly
 
 # Run Jekyll build
 bundle exec jekyll build
