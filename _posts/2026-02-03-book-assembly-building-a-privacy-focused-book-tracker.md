@@ -8,11 +8,13 @@ tags:
   - Web Development
   - Programming
   - JavaScript
+excerpt: It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real. I wanted a simple way to track my books. I collect secondhand books - charity shops, car boot sales, Hay-on-Wye -and I kept buying duplicates because I couldn't remember what I already owned.
 image: Screenshot_2026-02-03_at_10.04.40
-last_modified_at: 2026-02-03 10:06:12
+featured: true
+last_modified_at: 2026-02-03 10:08:54
 ---
 
-It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real.
+It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real. 
 
 ## The Problem
 
