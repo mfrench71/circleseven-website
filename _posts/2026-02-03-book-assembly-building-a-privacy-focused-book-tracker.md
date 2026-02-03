@@ -8,7 +8,8 @@ tags:
   - Web Development
   - Programming
   - JavaScript
-last_modified_at: 2026-02-03 09:56:00
+image: Screenshot_2026-02-03_at_10.04.40
+last_modified_at: 2026-02-03 10:06:12
 ---
 
 It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real.
