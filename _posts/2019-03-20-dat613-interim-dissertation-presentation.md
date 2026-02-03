@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT613
 featured_image: dissertation_presentation_feature
+description: "Interim dissertation presentation exploring artificial intelligence applications in digital cultural heritage preservation."
 ---
 Below is the link to a Google slides document for my interim dissertation presentation based on the question:
 

@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT401
 featured_image: 6y7tez5wmDxe3NktQQAQxO9OGKP
+description: "Analysis of Kyle McDonald's Social Roulette - a provocative app giving users a 1-in-6 chance of having their Facebook account deleted."
 ---
 **Kylemcdonald.net – *Social Roulette***
 

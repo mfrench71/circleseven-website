@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT602
 featured_image: usense-mockup-150-e1540204603760
+description: "Project proposal presentation for uSense smart home device with feedback on design approach and research depth requirements."
 ---
 ## Presentation Guidelines
 

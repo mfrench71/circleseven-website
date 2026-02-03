@@ -14,6 +14,7 @@ tags:
   - Unity
 excerpt: The concept of my project is a digital, interactive three-dimensional environment. The environment is based on a real location and recreates approximately 100 square metres of an area at Radford Lake, near Plymstock in Devon.
 featured_image: Unity-2018.3.8f1-Personal-SampleScene.unity-Final-Year-Project-PC-Mac-Linux-Standalone-_DX11_-16_05_2019-08_31_03
+description: "Final year project creating interactive 3D digital reconstruction of Radford Lake Boathouse using photogrammetry and Unity."
 last_modified_at: 2026-02-03 10:09:15
 ---
 

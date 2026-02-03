@@ -4,7 +4,7 @@ title: "DAT501 - Creative Strategies: Personal Manifesto"
 date: 2017-03-27 09:18:13 +0000
 categories: ["DAT501 - Strategies for Digital Art and Technology", "Digital Art and Technology"]
 tags: ["DAT501"]
-
+description: "Personal creative manifesto exploring artistic principles inspired by John Cage, Bruce Mau, Japanese aesthetics and Werner Herzog."
 ---
 ## Creative Strategies: Personal Manifesto
 

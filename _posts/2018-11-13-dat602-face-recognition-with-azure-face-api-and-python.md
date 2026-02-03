@@ -10,6 +10,7 @@ tags:
 - Programming
 - Python
 featured_image: face_detect-e1541676689943
+description: "Python face recognition system using Microsoft Azure Face API for detecting, training and identifying faces with Raspberry Pi."
 ---
 Having spent many hours tinkering with Amazon's Rekognition API and making little progress, I decided to investigate the face recognition Face API provided as part of [Microsoft Azure Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services/face/) (Microsoft, no date).
 

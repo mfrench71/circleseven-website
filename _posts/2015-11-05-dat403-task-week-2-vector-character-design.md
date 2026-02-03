@@ -9,6 +9,7 @@ tags:
 - DAT403
 - Illustrator
 featured_image: character-design-featured
+description: "Creating vector character designs in Adobe Illustrator from hand-drawn sketches, converting pencil artwork to scalable digital graphics."
 ---
 Today we were tasked with hand sketching our own character with the aim of placing this in Adobe Illustrator to convert to a vector character design by hand.
 

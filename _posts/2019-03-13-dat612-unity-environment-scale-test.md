@@ -9,6 +9,7 @@ tags:
   - DAT612
   - Unity
 featured_image: environment_01
+description: "Unity 3D environment scale testing for digital reconstruction of Radford Lake Boathouse heritage site."
 last_modified_at: 2025-11-01 15:21:25
 ---
 

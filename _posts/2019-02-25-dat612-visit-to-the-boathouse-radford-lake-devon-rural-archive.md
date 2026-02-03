@@ -10,6 +10,7 @@ tags:
 - Photography
 leaflet: true
 featured_image: IMG_0135-e1550843072802-scaled-1
+description: "Site visit to Radford Lake Boathouse ruins with present-day photos and archive images from Devon Rural Archive for photogrammetry project."
 ---
 Just 10 minutes walk from my home is Radford Lake, a picturesque body of water set amongst woodland and parkland. At one end of the lake, hidden amongst the trees stands the ruin of an old boathouse.
 

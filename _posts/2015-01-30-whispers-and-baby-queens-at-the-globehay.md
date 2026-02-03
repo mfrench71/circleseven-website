@@ -8,6 +8,7 @@ categories:
 tags:
 - Photography
 featured_image: dsc0039_15790273984_o
+description: "Live music photography capturing acoustic duo Whispers and Baby Queens performing at The Globe@Hay venue in Wales."
 ---
 The [Globe@Hay](http://www.globeathay.org/) very kindly allowed me to photograph acoustic duo [*Whispers*](https://www.facebook.com/pages/Whispers/1452365364976478) and *[Baby Queens](https://www.facebook.com/pages/Baby-Queens/523170581048847)*. Here's a selection of images from the night... 
 

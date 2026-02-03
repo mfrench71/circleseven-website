@@ -10,6 +10,7 @@ tags:
 - Photogrammetry
 - Photography
 featured_image: armoury_feature
+description: "Second photogrammetry test using RealityCapture on the Armoury building at Radford Lake, created from 400 photographs."
 ---
 My second test of the RealityCapture photogrammetry software was carried out on a section of my proposed subject for digital restoration: the Armoury building at the Boathouse at St. Keverne's Quay, Radford Lake.
 

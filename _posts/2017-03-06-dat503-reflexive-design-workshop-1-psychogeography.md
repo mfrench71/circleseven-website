@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT503
 featured_image: debord-guide1-e1684144506924
+description: "Psychogeography workshop exploring Plymouth city centre through a dérive walk, documenting unities of ambiance and urban boundaries."
 ---
 ## Psychogeography
 

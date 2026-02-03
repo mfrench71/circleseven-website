@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT503
 featured_image: top
+description: "Academic review of Lev Manovich's On Broadway project visualising social media, taxi and census data along Manhattan's Broadway."
 ---
 <figure><a href="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/5116459810_523ce620e5_o"><img src="https://res.cloudinary.com/circleseven/image/upload/q_auto,f_auto/5116459810_523ce620e5_o" width="1022" height="1024" alt="" loading="lazy"></a><figcaption>Lev Manovich</figcaption></figure>
 

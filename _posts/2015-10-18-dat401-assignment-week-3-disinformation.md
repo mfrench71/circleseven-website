@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT401
 featured_image: dignitas-scaled-1
+description: "Exploring alternative communication methods using medical X-rays to transmit hidden messages, raising questions about privacy and bodily autonomy."
 ---
 Brief: Working in a small group (3-4 students) produce a project that:<br>**a) Subverts an existing information medium, data set, or mode of surveillance (spreading false information - disinformation)** **or** <br>**b) Offers an alternative method of communication or avoidance**
 

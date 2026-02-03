@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT602
 featured_image: usense-mockup-150-e1540204603760
+description: "Initial concept for uSense, an intelligent mood-sensing device using voice recognition, facial detection and sentiment analysis."
 ---
 ## The Project Brief
 

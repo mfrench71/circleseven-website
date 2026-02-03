@@ -9,6 +9,7 @@ tags:
 - After Effects
 - DAT403
 featured_image: character-animation-background-and-lighting
+description: "After Effects tutorial placing animated characters in 3D environments with camera moves, lighting effects and shadow casting techniques."
 ---
 Following on from my [Character Animation Walk Cycle post]({{ site.baseurl }}/dat403-task-week-3-character-animation-walk-cycle/), the character animation After Effects composition was placed as a layer in a new composition. This will be used to place the walking character in a 3D layered environment with a camera move and lighting effects.
 

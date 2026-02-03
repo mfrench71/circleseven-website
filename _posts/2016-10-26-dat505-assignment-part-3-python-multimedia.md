@@ -10,6 +10,7 @@ tags:
 - Python
 - Programming
 featured_image: python_multimedia_feature
+description: "Python graphics visualization project creating animated data representations from assignment results using the graphics.py library."
 ---
 Brief: In the next practical you must create a graphical visualisation of a textual data file (to be given out in the practical). Read in the data and use it to generate some kind of visual output.
 

@@ -8,6 +8,7 @@ categories:
 tags:
   - Photography
 featured_image: dsc_0025_16178123268_o
+description: "Atmospheric photography of an abandoned black and white house discovered on the Mordiford Loop walk in Herefordshire, England."
 ---
 A pair of images of a derelict black and white house on the Mordiford Loop walk in Mordiford, Herefordshire.
 

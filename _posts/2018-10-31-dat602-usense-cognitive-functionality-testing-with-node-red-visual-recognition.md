@@ -9,6 +9,7 @@ tags:
 - DAT602
 - Programming
 featured_image: visual_recognition_flow-e1540983848824
+description: "Testing IBM Watson visual recognition for face detection using Raspberry Pi camera and Node-RED to analyze age and gender."
 ---
 In my [previous post]({{ site.baseurl }}/dat602-usense-cognitive-functionality-testing-with-node-red-sentiment-and-tone/), I documented my tests with Node-RED and IBM Watson's sentiment and tone analysis services. This post will look at basic face detection using the visual recognition service.
 

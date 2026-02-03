@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DAT 403 – Task – Week 1 – ‘Vivid Flourish'
+title: DAT 403 – Task – Week 1 – 'Vivid Flourish'
 date: 2015-10-28 14:04:32 +0000
 categories:
 - DAT403 - Digital Media Design
@@ -9,6 +9,7 @@ tags:
 - DAT403
 - Photoshop
 featured_image: Vivid-Effects1-e1446049275274
+description: "Contemporary photo manipulation project using Photoshop to create explosive, stylish commercial artwork with vibrant colour and lighting effects."
 ---
 'Vivid Flourish' advert: a contemporary art style used in many modern commercial and professional art sectors. This creative photo manipulation project focuses on colour and lighting to bring a model into explosive, stylish life.
 

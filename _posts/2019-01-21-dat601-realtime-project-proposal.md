@@ -4,7 +4,7 @@ title: "DAT601 - Realtime - Project Proposal"
 date: 2019-01-21 13:03:16 +0000
 categories: ["DAT601 - Realtime", "Digital Art and Technology"]
 tags: ["DAT601"]
-
+description: "Project proposal for interactive ocean pollution installation using LED bottles, proximity sensors, Arduino and ambient soundscapes."
 ---
 ## Area of Interest
 

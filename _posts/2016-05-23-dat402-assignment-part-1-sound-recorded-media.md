@@ -9,6 +9,7 @@ tags:
 - DAT402
 - Sound
 featured_image: dat402_audio_featured-scaled-1
+description: "Radiophonic sound design piece exploring Ben Burtt's Star Wars techniques through field recording, vocal effects and audio manipulation."
 ---
 Brief: Working individually create a radiophonic sound work that responds to one of the pieces of class reading material. Select one idea from your chosen reading to explore through sound. The work should be long enough to make a good job of this and you should provide a few sentences to introduce the piece that support your thinking and approach.
 

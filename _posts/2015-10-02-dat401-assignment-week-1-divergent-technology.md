@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT401
 featured_image: assigment_week_01a-e1443776210378
+description: "Creative design project transforming a record turntable into Pizza Jockey - a kitchen appliance for making pizza bases using centrifugal force."
 ---
 Brief: Produce an instructional illustration for a divergent use.
 

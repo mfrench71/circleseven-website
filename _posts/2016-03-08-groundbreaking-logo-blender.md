@@ -9,6 +9,7 @@ tags:
 - After Effects
 - Blender
 featured_image: blender-featured-image
+description: "Recreating a dramatic groundbreaking logo reveal animation in Blender using cell fracture dynamics and particle effects."
 ---
 Some time ago, I was just starting out with Maxon's Cinema 4D application and followed along with [this tutorial](http://cgi.tutsplus.com/tutorials/create-a-powerful-groundbreaking-logo-reveal-cg-part--cg-27011), both as a learning exercise and because I liked the end result.
 

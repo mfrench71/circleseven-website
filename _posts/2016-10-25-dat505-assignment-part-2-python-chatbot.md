@@ -10,6 +10,7 @@ tags:
 - Python
 - Programming
 featured_image: python_chat_feature
+description: "Python chatbot using Wikipedia API and Beautiful Soup web scraping to provide intelligent conversation and birth year facts."
 ---
 Brief: In the practical session you will create an interactive Python chatbot. This should engage the user in interesting and intelligent conversation. The bot should be able to ask and answer questions. Try to make it as realistic and life-like as possible.
 

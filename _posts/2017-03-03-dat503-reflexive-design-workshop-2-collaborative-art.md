@@ -7,6 +7,7 @@ categories:
 tags:
 - DAT503
 featured_image: 32657093133_0f78aa7d63_k-e1489868296989
+description: "Collaborative art workshop exploring Chinese whispers, directed drawing, automatic writing and group communication protocols."
 ---
 ## Chinese Whispers
 

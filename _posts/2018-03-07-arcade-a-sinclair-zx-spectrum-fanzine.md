@@ -6,6 +6,7 @@ categories:
 - Projects
 - Retro Computing
 featured_image: 1280px-ZXSpectrum48k
+description: "Introduction to 'Arcade', a 1980s ZX Spectrum fanzine created as teenagers to review games and explore the 8-bit gaming scene."
 ---
 In the mid-1980s, I was a computer-obsessed teenager. The computer was Sir Clive Sinclair's rubber-keyed wonder, the [ZX Spectrum](https://en.wikipedia.org/wiki/ZX_Spectrum).
 

@@ -9,6 +9,7 @@ tags:
 - DAT612
 - Photogrammetry
 featured_image: PalmyraArch_Destruction
+description: "Final year project proposal for digital cultural heritage preservation using photogrammetry and 3D modelling for historical restoration."
 ---
 ## Outline of area of study/context
 

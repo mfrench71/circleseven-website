@@ -10,6 +10,7 @@ tags:
 - Web Development
 - Programming
 featured_image: timebank_featured
+description: "PHP web application for a community time bank featuring user authentication, skill matching, and time credit transfer system."
 ---
 <h3>The Brief: Time Bank Web Application</h3>
 Your team has been contracted to produce an interactive PHP web application, for a newly set up *Time Bank*.

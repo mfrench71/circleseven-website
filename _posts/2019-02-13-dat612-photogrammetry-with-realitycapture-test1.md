@@ -10,6 +10,7 @@ tags:
 - Photogrammetry
 - Photography
 featured_image: rc_feature_image
+description: "First photogrammetry test using RealityCapture software with 72 DSLR images to create 3D model of a garden shed structure."
 ---
 My final year project will involve the use of photogrammetry to create a 3D model of an existing item of cultural heritage significance, for instance: the remains of a building, building interior, or individual objects.
 

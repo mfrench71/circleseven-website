@@ -9,6 +9,7 @@ tags:
 - DAT401
 - Video
 featured_image: the-fresh-prince-of-Bel-Air
+description: "Crowdsourced video recreating The Fresh Prince of Bel-Air theme song with student contributors, exploring collaboration techniques."
 ---
 Brief: Produce a crowdsourced 2D image, illustration, animation, film, sound piece or music track.
 

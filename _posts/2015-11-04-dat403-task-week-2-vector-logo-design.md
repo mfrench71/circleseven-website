@@ -9,6 +9,7 @@ tags:
 - DAT403
 - Illustrator
 featured_image: vector-logo-2
+description: "Adobe Illustrator logo design exercise using shape tools to create clean, scalable vector graphics for branding applications."
 ---
 This lecture focussed on Illustrator's shape tools to create vector logo designs.
 

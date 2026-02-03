@@ -9,6 +9,7 @@ tags:
 - DAT503
 - Sound
 featured_image: johncage-433-app
+description: "Reflexive design workshop experiencing John Cage's 4'33 silent composition and observations on audience as performer in conceptual art."
 ---
 ## John Cage - 4:33 silence
 

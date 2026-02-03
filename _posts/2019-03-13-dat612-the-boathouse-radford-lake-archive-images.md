@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT612
 featured_image: boathouse-radford-lake-archive-image_47313764412_o
+description: "Collection of historic archive photographs of the Radford Lake Boathouse courtesy of Neill Mitchell for digital heritage project."
 ---
 <div class="gallery">
 

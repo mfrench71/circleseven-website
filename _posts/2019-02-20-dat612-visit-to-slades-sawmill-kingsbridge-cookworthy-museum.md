@@ -11,6 +11,7 @@ tags:
 - Photography
 leaflet: true
 featured_image: sawmill-south-pool-salcombe_46242181605_o
+description: "Site visit to derelict Slade's Sawmill at South Pool and Kingsbridge Museum research for digital heritage photogrammetry project."
 ---
 As part of my research for my final year project at Plymouth University, I contacted the [Plymouth Archaeological Society](http://www.plymarchsoc.org.uk/) to see if their members had any suggestions for heritage sites that might potentially be appropriate for photogrammetry and digital restoration.
 

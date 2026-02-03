@@ -10,6 +10,7 @@ tags:
 - Video
 - Sound
 featured_image: Blade-Runner1
+description: "Video mashup combining Blade Runner's dystopian visuals with Match.com's upbeat dating advert audio for an ironic contrast."
 ---
 Following on from the [previous post]({{ site.baseurl }}/dat401-task-remix-workshop/), I spent some time mashing up some clips from my favourite movie, *Blade Runner*, with the audio from the latest *match.com* television advert.
 

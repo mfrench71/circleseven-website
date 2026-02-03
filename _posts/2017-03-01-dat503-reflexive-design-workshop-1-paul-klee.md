@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT503
 featured_image: ersilia-e1488384536818
+description: "Drawing workshop inspired by Paul Klee's 'taking a line for a walk' using Italo Calvino's Invisible Cities as audio stimulus."
 ---
 ## Paul Klee - "Drawing is taking a line for a walk"
 

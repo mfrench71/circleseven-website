@@ -10,6 +10,7 @@ tags:
   - Photoshop
 featured_image: fracktured_title
 last_modified_at: 2025-11-02 11:26:01
+description: "Photoshop photomontage creating 'Fracktured' - a fictional anti-fracking documentary movie poster combining protest imagery with traditional film poster tropes."
 ---
 
 Brief: Create a movie poster, using a composite of different images in Photoshop. Photos should be professionally cut-out, manipulated and blended together to create a carefully crafted and well justified design. The movie you're designing this marketing poster for is a documentary about a topical world issue that is important you. It should work as an original movie poster, including their traditional tropes but also work as a protest poster against something, activism art. Consider how this poster can benefit your portfolio.

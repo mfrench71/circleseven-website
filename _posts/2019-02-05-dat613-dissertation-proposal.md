@@ -9,6 +9,7 @@ tags:
 - DAT613
 - Photogrammetry
 featured_image: dissertation_cover
+description: "Dissertation proposal investigating how artificial intelligence can enhance digital cultural heritage practices including photogrammetry."
 ---
 ## Title/Question
 

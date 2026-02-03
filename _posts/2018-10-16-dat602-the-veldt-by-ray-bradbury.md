@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT602
 featured_image: veldt
+description: "Critical analysis of Ray Bradbury's 'The Veldt' exploring themes of ubiquitous computing, technology dependency and parental control."
 ---
 ## Homework
 

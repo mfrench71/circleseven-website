@@ -10,6 +10,7 @@ tags:
 - Python
 - Programming
 featured_image: IMG_1696-scaled-1
+description: "Physical computing project using Python, Raspberry Pi and Arduino to raise balloons based on US presidential election Twitter hashtags."
 ---
 Brief: Your task is to link virtual and physical technology in an artistic, thoughtful, engaging and/or playful way. Create a system where a real object controls something on the web, or virtual data controls a real object. Be imaginative and creative and have fun. You might think of it as real-world data visualisation, or using physical objects to make a comment on virtual processes.
 

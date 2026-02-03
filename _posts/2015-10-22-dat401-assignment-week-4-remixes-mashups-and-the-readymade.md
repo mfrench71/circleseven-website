@@ -9,6 +9,7 @@ tags:
   - DAT401
   - Video
 featured_image: dsc0073_small_22219352209_o.jpg
+description: "Public intervention placing musical instruments on Plymouth University campus to observe and document spontaneous performances by passers-by."
 ---
 
 Brief: Working individually or in your groups, produce an intervention/remix/readymade action that will be documented as a short film.

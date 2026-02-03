@@ -12,6 +12,7 @@ tags:
 - Photoshop
 - Web Development
 featured_image: assignment_feature
+description: "Building a responsive professional portfolio website from scratch using HTML, CSS, JavaScript, jQuery and PHP contact form processing."
 ---
 Your task is to create a 'splash' webpage that self-promotes you and your professional practice. The web design must be built from scratch (i.e. not using a content management system) using:
 

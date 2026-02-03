@@ -9,6 +9,7 @@ tags:
 - DAT401
 - Video
 featured_image: holygrail2
+description: "Video mashup experiments combining military footage with Lego Movie audio and Monty Python with Gladiator to create humorous juxtapositions."
 ---
 **Mashups and remixes** are a form of collage; placing found elements next to each other to create something new. They might be music mashups which (more or less) skilfully combine different songs into a new whole, comedy mashups of different videos or adbusts in which an advert is subverted by overlaying it with a new soundtrack.
 

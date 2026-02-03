@@ -9,6 +9,7 @@ tags:
 - DAT403
 - Photoshop
 featured_image: drama_queen-scaled-1
+description: "Photoshop photomontage project combining model photography with dramatic sky and background using selection, blending and layer techniques."
 ---
 Brief: From the three images supplied, create a high contrast and dramatic photomontage using Photoshop's selection, blending and layer skills learned during today's lecture.
 

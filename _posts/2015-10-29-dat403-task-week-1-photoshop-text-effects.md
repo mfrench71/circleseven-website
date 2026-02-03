@@ -9,6 +9,7 @@ tags:
 - DAT403
 - Photoshop
 featured_image: text-effects-finished-scaled-1
+description: "Photoshop tutorial using colour range selections and layer masks to create typography that follows shadows and midtones in photographs."
 ---
 Today's practical exercise focussed on text effects within Photoshop.
 

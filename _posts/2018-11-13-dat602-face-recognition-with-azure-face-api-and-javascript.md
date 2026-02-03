@@ -12,6 +12,7 @@ tags:
   - Web Development
 featured_image: matthew_result
 last_modified_at: 2025-10-31 10:44:09
+description: "Web-based face recognition using Azure Face API with JavaScript, featuring live webcam preview and user identification workflow."
 ---
 
 In my previous post, I developed some Python scripts which used Microsoft's Azure [Face API](https://azure.microsoft.com/en-us/services/cognitive-services/face/) (Microsoft, no date) to train and recognise faces.

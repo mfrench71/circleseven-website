@@ -12,6 +12,7 @@ tags:
   - Arduino
   - Programming
 featured_image: dsc0023_46699515701_o.jpg
+description: "Critical evaluation of 'Message in a Bottle' art installation exploring ocean pollution through interactive LED bottles and sound."
 ---
 
 ## Conception

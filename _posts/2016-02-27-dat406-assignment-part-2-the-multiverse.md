@@ -9,6 +9,7 @@ tags:
 - Blender
 - DAT406
 featured_image: blender-ferature
+description: "Blender 3D animation project exploring the multiverse concept with dynamic cube landscapes for immersive dome projection in Plymouth's IVT."
 ---
 Brief: Your task within your groups is to create an animation using Blender suitable for easy playback within the Immersive Vision Theatre (IVT) exploring the theme of the multiverse.
 

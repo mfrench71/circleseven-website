@@ -10,6 +10,7 @@ tags:
 - DAT602
 - Programming
 featured_image: Screenshot-2018-10-27-at-12.48.21
+description: "Testing IBM Watson cognitive services for sentiment and tone analysis using Node-RED with speech-to-text and Twitter integration."
 ---
 As part of the uSense project, we are intending that the device will be able to gauge a person's mood through the things they say, their facial features, and their social media postings. We can leverage IBM's Cognitive Services that are provided with IBM Watson.
 

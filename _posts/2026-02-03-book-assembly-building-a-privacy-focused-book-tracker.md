@@ -11,6 +11,7 @@ tags:
   - JavaScript
 excerpt: It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real. I wanted a simple way to track my books. I collect secondhand books - charity shops, car boot sales, Hay-on-Wye -and I kept buying duplicates because I couldn't remember what I already owned.
 image: Screenshot_2026-02-03_at_10.04.40
+description: "Introducing Book Assembly, a privacy-focused book tracking app with barcode scanning, Goodreads import, and reading statistics."
 featured: true
 last_modified_at: 2026-02-03 13:13:29
 ---

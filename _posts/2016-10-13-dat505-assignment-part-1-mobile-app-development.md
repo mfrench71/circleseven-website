@@ -9,6 +9,7 @@ tags:
 - DAT505
 - Programming
 featured_image: dat505_dryer_feature
+description: "PhoneGap mobile app for rating hand dryers with geolocation, photo capture, star ratings and map integration on Android platform."
 ---
 Brief: Using PhoneGap, you must create a "ratings" mobile app, focusing on a product or service of your choice. For example, you might choose: Hotels, Beers, Burgers, Restaurants, Shoe shops, or anything else that can be rated! Your mobile app should allow you to create a "rating card" for each item, with the following information:
 

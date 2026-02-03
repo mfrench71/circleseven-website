@@ -9,6 +9,7 @@ categories:
 tags:
 - DAT602
 featured_image: houseplants-e1546866966913
+description: "IoT solution proposal for automated houseplant watering using moisture sensors and solenoid valves controlled via mobile app."
 ---
 ## Homework
 

@@ -10,6 +10,7 @@ tags:
 - Programming
 - Processing
 featured_image: processing-featured-image
+description: "Introduction to Processing programming covering variables, data types, mathematical operators and console output for creative coding."
 ---
 Today we were introduced to the Processing programming language ([http://www.processing.org](http://www.processing.org)).
 

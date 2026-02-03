@@ -9,6 +9,7 @@ tags:
 - Blender
 - DAT506
 featured_image: dat506-blender-feature
+description: "Blender 3D animation loops featuring particle systems and volumetric lighting for live VJ mixing in Plymouth's immersive dome theatre."
 ---
 Brief: Your task within your groups is to produce a creative and engaging visual experience set to music. Creating a series of short 3D full-dome Blender animation clips; the content will be made suitable for playback within the Immersive Vision Theatre and mixed and adapted live using Resolume VJ software.
 

@@ -13,6 +13,7 @@ tags:
 - Programming
 - JavaScript
 featured_image: Page40-e1490005935534
+description: "Mobile app mapping WW2 bomb sites in Plymouth with augmented reality, Google Maps integration and casualty data from city archives."
 ---
 Brief: Urban API is a live project. The project will generate an open real-time intervention or map of the city. The project should map or challenge the city as complex cultural, political and social phenomenon or the project should hack the city in its functions as a whole or aspects of it.
 

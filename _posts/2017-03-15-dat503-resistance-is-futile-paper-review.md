@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT503
 featured_image: 5624b2201761298dfb59719b5525ebf1
+description: "Paper review examining how science fiction television influenced ubiquitous computing research and design fiction methodologies."
 ---
 **"Resistance is futile’": reading science fiction alongside ubiquitous computing**
 

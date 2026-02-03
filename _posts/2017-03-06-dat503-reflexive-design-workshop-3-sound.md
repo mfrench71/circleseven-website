@@ -11,6 +11,7 @@ tags:
 - Sound
 - Video
 featured_image: FilterOut
+description: "Sound design workshop creating experimental soundscapes from field recordings and raw data sonification using Audacity software."
 ---
 We were asked, in groups, to venture out to record our own sounds, voices and atmospheres and then assemble them into a creative soundscape. We were also encouraged to add raw data via Audacity software as a way of producing a sonification of data - to bring data out of the digital realm and into the physical via the medium of sound.
 

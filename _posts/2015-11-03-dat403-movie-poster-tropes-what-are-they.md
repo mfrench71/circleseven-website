@@ -8,6 +8,7 @@ categories:
 tags:
 - DAT403
 featured_image: featured-image
+description: "Identifying traditional movie poster design elements including credit blocks, star ratings, taglines, cast names and colour schemes."
 ---
 <blockquote>"A literary trope is the use of figurative language – via word, phrase, or even an image – for artistic effect such as using a figure of speech. The word trope has also come to be used for describing commonly recurring literary and rhetorical devices, motifs or clichés in creative works."
 </blockquote>
