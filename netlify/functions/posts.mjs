@@ -25,6 +25,7 @@ import {
   serverErrorResponse,
   corsPreflightResponse
 } from '../utils/response-helpers.mjs';
+import debug from '../utils/debug-logger.mjs';
 
 const POSTS_DIR = '_posts';
 const BLOB_CACHE_KEY = 'posts-list.json';
@@ -47,11 +48,11 @@ async function readPostsFromBlob() {
     const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
 
     if (cacheAge > maxAge) {
-      console.log('[Posts] Blob cache expired');
+      debug.log('[Posts] Blob cache expired');
       return null;
     }
 
-    console.log('[Posts] Serving from Blob cache');
+    debug.log('[Posts] Serving from Blob cache');
     return cached.data;
   } catch (error) {
     console.error('[Posts] Error reading from Blob:', error);
@@ -64,17 +65,17 @@ async function readPostsFromBlob() {
  */
 async function writePostsToBlob(postsData) {
   try {
-    console.log(`[Posts] Attempting to write ${postsData.length} posts to Blob cache with key: ${BLOB_CACHE_KEY}`);
+    debug.log(`[Posts] Attempting to write ${postsData.length} posts to Blob cache with key: ${BLOB_CACHE_KEY}`);
     const store = getStore('cache');
     const payload = {
       timestamp: Date.now(),
       data: postsData
     };
     const payloadSize = JSON.stringify(payload).length;
-    console.log(`[Posts] Payload size: ${payloadSize} bytes`);
+    debug.log(`[Posts] Payload size: ${payloadSize} bytes`);
 
     await store.setJSON(BLOB_CACHE_KEY, payload);
-    console.log('[Posts] ✓ Successfully written to Blob cache');
+    debug.log('[Posts] ✓ Successfully written to Blob cache');
   } catch (error) {
     console.error('[Posts] ✗ Error writing to Blob:', error);
     console.error('[Posts] Error details:', {
@@ -139,7 +140,7 @@ export default async function handler(request, context) {
         }
 
         // Cache miss or metadata requested - read from GitHub
-        console.log('[Posts] Cache miss or metadata requested, reading from GitHub');
+        debug.log('[Posts] Cache miss or metadata requested, reading from GitHub');
         const files = await githubRequest(`/contents/${POSTS_DIR}?ref=${GITHUB_BRANCH}`);
 
         // Filter to only .md files
@@ -231,7 +232,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Posts] Cache invalidated after update');
+        debug.log('[Posts] Cache invalidated after update');
       } catch (error) {
         console.error('[Posts] Error invalidating cache:', error);
       }
@@ -297,7 +298,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Posts] Cache invalidated after create');
+        debug.log('[Posts] Cache invalidated after create');
       } catch (error) {
         console.error('[Posts] Error invalidating cache:', error);
       }
@@ -347,7 +348,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Posts] Cache invalidated after delete');
+        debug.log('[Posts] Cache invalidated after delete');
       } catch (error) {
         console.error('[Posts] Error invalidating cache:', error);
       }

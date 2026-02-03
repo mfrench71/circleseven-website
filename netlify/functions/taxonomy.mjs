@@ -29,6 +29,7 @@ import {
   serverErrorResponse,
   corsPreflightResponse
 } from '../utils/response-helpers.mjs';
+import debug from '../utils/debug-logger.mjs';
 
 const FILE_PATH = '_data/taxonomy.yml';
 const BLOB_CACHE_KEY = 'taxonomy.json';
@@ -53,11 +54,11 @@ async function readTaxonomyFromBlob() {
     const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
 
     if (cacheAge > maxAge) {
-      console.log('[Taxonomy] Blob cache expired');
+      debug.log('[Taxonomy] Blob cache expired');
       return null;
     }
 
-    console.log('[Taxonomy] Serving from Blob cache');
+    debug.log('[Taxonomy] Serving from Blob cache');
     return cached.data;
   } catch (error) {
     console.error('[Taxonomy] Error reading from Blob:', error);
@@ -76,7 +77,7 @@ async function writeTaxonomyToBlob(taxonomyData) {
       timestamp: Date.now(),
       data: taxonomyData
     });
-    console.log('[Taxonomy] Written to Blob cache');
+    debug.log('[Taxonomy] Written to Blob cache');
   } catch (error) {
     console.error('[Taxonomy] Error writing to Blob:', error);
     // Don't throw - cache write failure shouldn't break the request
@@ -91,7 +92,7 @@ async function clearMenuCache() {
   try {
     const store = getStore('cache');
     await store.delete(MENU_CACHE_KEY);
-    console.log('[Taxonomy] Cleared menu cache due to taxonomy update');
+    debug.log('[Taxonomy] Cleared menu cache due to taxonomy update');
   } catch (error) {
     console.error('[Taxonomy] Error clearing menu cache:', error);
     // Don't throw - cache clear failure shouldn't break the request
@@ -196,7 +197,7 @@ export default async function handler(request, context) {
       }
 
       // Cache miss - read from GitHub
-      console.log('[Taxonomy] Cache miss, reading from GitHub');
+      debug.log('[Taxonomy] Cache miss, reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 

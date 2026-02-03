@@ -17,6 +17,7 @@
  */
 
 import { getStore } from '@netlify/blobs';
+import debug from '../utils/debug-logger.mjs';
 
 const STORE_NAME = 'analytics';
 const DATA_KEY = 'analytics-data';
@@ -36,27 +37,27 @@ function getAnalyticsStore() {
 async function loadAnalyticsData() {
   // Return cached data if fresh
   if (cachedData && cacheTime && (Date.now() - cacheTime < CACHE_TTL)) {
-    console.log('[Analytics] Returning cached data');
+    debug.log('[Analytics] Returning cached data');
     return cachedData;
   }
 
   try {
-    console.log('[Analytics] Loading data from Blobs...');
+    debug.log('[Analytics] Loading data from Blobs...');
     const store = getAnalyticsStore();
 
     // DEBUG: List all keys in the store
     try {
       const { blobs } = await store.list();
-      console.log('[Analytics] DEBUG: Keys in store:', blobs ? blobs.map(b => b.key).join(', ') : 'none');
+      debug.log('[Analytics] DEBUG: Keys in store:', blobs ? blobs.map(b => b.key).join(', ') : 'none');
     } catch (listError) {
-      console.log('[Analytics] DEBUG: Could not list keys:', listError.message);
+      debug.log('[Analytics] DEBUG: Could not list keys:', listError.message);
     }
 
     const dataString = await store.get(DATA_KEY);
-    console.log('[Analytics] Raw data from Blobs:', dataString ? `Found (${dataString.length} bytes)` : 'Not found');
+    debug.log('[Analytics] Raw data from Blobs:', dataString ? `Found (${dataString.length} bytes)` : 'Not found');
 
     if (!dataString) {
-      console.log('[Analytics] No data found, returning defaults');
+      debug.log('[Analytics] No data found, returning defaults');
       const defaultData = {
         pageViews: {},
         uniqueVisitors: [],
@@ -77,7 +78,7 @@ async function loadAnalyticsData() {
     }
 
     const data = JSON.parse(dataString);
-    console.log('[Analytics] Parsed data, page views:', Object.keys(data.pageViews).length);
+    debug.log('[Analytics] Parsed data, page views:', Object.keys(data.pageViews).length);
 
     // Convert uniqueVisitors array back to Set
     if (Array.isArray(data.uniqueVisitors)) {
@@ -114,17 +115,17 @@ async function loadAnalyticsData() {
  */
 async function saveAnalyticsData(data) {
   try {
-    console.log('[Analytics] Attempting to save data...');
+    debug.log('[Analytics] Attempting to save data...');
     const dataToSave = {
       ...data,
       uniqueVisitors: Array.from(data.uniqueVisitors || [])
     };
 
-    console.log('[Analytics] Getting blob store:', STORE_NAME);
+    debug.log('[Analytics] Getting blob store:', STORE_NAME);
     const store = getAnalyticsStore();
-    console.log('[Analytics] Store obtained, setting key:', DATA_KEY);
+    debug.log('[Analytics] Store obtained, setting key:', DATA_KEY);
     await store.set(DATA_KEY, JSON.stringify(dataToSave));
-    console.log('[Analytics] Data saved successfully');
+    debug.log('[Analytics] Data saved successfully');
 
     // Update cache
     cachedData = data;
@@ -524,7 +525,7 @@ async function fetchGeoData(clientIP) {
     });
 
     if (!response.ok) {
-      console.log(`[Analytics] ipapi.co returned ${response.status} for IP ${clientIP}`);
+      debug.log(`[Analytics] ipapi.co returned ${response.status} for IP ${clientIP}`);
       return { country: null, city: null };
     }
 
@@ -536,7 +537,7 @@ async function fetchGeoData(clientIP) {
       city: data.city || null
     };
   } catch (error) {
-    console.log(`[Analytics] Failed to fetch geo data from ipapi.co: ${error.message}`);
+    debug.log(`[Analytics] Failed to fetch geo data from ipapi.co: ${error.message}`);
     return { country: null, city: null };
   }
 }
@@ -592,7 +593,7 @@ export default async function handler(request, context) {
 
       // Fallback to ipapi.co if Netlify headers not available (free tier)
       if (!country || !city) {
-        console.log('[Analytics] Netlify geo headers not available, using ipapi.co');
+        debug.log('[Analytics] Netlify geo headers not available, using ipapi.co');
         const geoData = await fetchGeoData(clientIP);
         country = country || geoData.country;
         city = city || geoData.city;

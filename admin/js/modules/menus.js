@@ -30,7 +30,7 @@ import { trackDeployment } from './deployments.js';
 import logger from '../core/logger.js';
 
 // Module loaded
-console.log('[MENUS MODULE] Loaded at', new Date().toISOString());
+logger.log('[MENUS MODULE] Loaded at', new Date().toISOString());
 
 // Cache configuration
 const MENUS_CACHE_KEY = 'admin_menus_cache_v1';
@@ -336,11 +336,11 @@ function resolveMenuItem(item) {
  * @throws {Error} If menu load fails
  */
 export async function loadMenus() {
-  console.log('[loadMenus] Starting...');
+  logger.log('[loadMenus] Starting...');
   try {
     // Try to load from cache first
     const cachedData = getCache(MENUS_CACHE_KEY);
-    console.log('[loadMenus] Cache result:', cachedData ? 'HIT' : 'MISS');
+    logger.log('[loadMenus] Cache result:', cachedData ? 'HIT' : 'MISS');
     if (cachedData) {
       window.headerMenu = cachedData.header_menu || [];
       window.mobileMenu = cachedData.mobile_menu || [];
@@ -395,9 +395,9 @@ export async function loadMenus() {
     }
 
     // NOW render the menu with taxonomy loaded
-    console.log('[loadMenus] About to call switchMenuLocation(header)');
+    logger.log('[loadMenus] About to call switchMenuLocation(header)');
     switchMenuLocation('header');
-    console.log('[loadMenus] Completed successfully');
+    logger.log('[loadMenus] Completed successfully');
   } catch (error) {
     console.error('[loadMenus] Error:', error);
     showError('Failed to load menus: ' + error.message);
@@ -410,14 +410,14 @@ export async function loadMenus() {
  * @param {string} location - One of 'header', 'mobile', 'footer'
  */
 export function switchMenuLocation(location) {
-  console.log('[switchMenuLocation] Called with location:', location);
+  logger.log('[switchMenuLocation] Called with location:', location);
   window.currentMenuLocation = location;
 
   // Update tab buttons
   const headerTab = document.getElementById('tab-header-menu');
   const footerTab = document.getElementById('tab-footer-menu');
 
-  console.log('[switchMenuLocation] Tab elements:', { headerTab: !!headerTab, footerTab: !!footerTab });
+  logger.log('[switchMenuLocation] Tab elements:', { headerTab: !!headerTab, footerTab: !!footerTab });
 
   if (!headerTab || !footerTab) {
     console.warn('[switchMenuLocation] Early return - missing tab elements');
@@ -518,16 +518,16 @@ function updateSaveButton() {
  * Renders the menu builder interface
  */
 export function renderMenuBuilder() {
-  console.log('renderMenuBuilder() called');
+  logger.log('renderMenuBuilder() called');
   const currentMenu = getCurrentMenu();
   const location = window.currentMenuLocation;
-  console.log('Current location:', location);
+  logger.log('Current location:', location);
 
   const listId = `menu-${location}-list`;
   const tbody = document.getElementById(listId);
   const countBadge = document.getElementById(`${location}-menu-count-badge`);
 
-  console.log('Elements found:', { tbody: !!tbody, countBadge: !!countBadge, listId });
+  logger.log('Elements found:', { tbody: !!tbody, countBadge: !!countBadge, listId });
 
   if (!tbody || !countBadge) {
     console.warn('Early return from renderMenuBuilder - missing elements');
@@ -707,9 +707,9 @@ function initializeSortable(location) {
       window.sortableInstances = { header: null, mobile: null, footer: null };
     }
 
-    console.log('Initializing Sortable for', sortableKey);
-    console.log('Table body element:', tbody);
-    console.log('Drag handles found:', tbody.querySelectorAll('.drag-handle').length);
+    logger.log('Initializing Sortable for', sortableKey);
+    logger.log('Table body element:', tbody);
+    logger.log('Drag handles found:', tbody.querySelectorAll('.drag-handle').length);
 
     window.sortableInstances[sortableKey] = new Sortable(tbody, {
       animation: 150,
@@ -717,14 +717,14 @@ function initializeSortable(location) {
       dragClass: 'sortable-drag',
       handle: '.drag-handle',
       onStart: (evt) => {
-        console.log('Drag started:', evt.oldIndex);
+        logger.log('Drag started:', evt.oldIndex);
       },
       onEnd: (evt) => {
-        console.log('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
+        logger.log('Drag ended:', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
 
         // Don't do anything if dropped in the same position
         if (evt.oldIndex === evt.newIndex) {
-          console.log('Same visual position - no reorder needed');
+          logger.log('Same visual position - no reorder needed');
           return;
         }
 
@@ -758,7 +758,7 @@ function initializeSortable(location) {
             })
             .filter(item => item !== null); // Remove any nulls
 
-          console.log('Reordered menu to', reorderedMenu.length, 'items (children preserved)');
+          logger.log('Reordered menu to', reorderedMenu.length, 'items (children preserved)');
 
           // Update the menu
           setCurrentMenu(reorderedMenu);
@@ -766,9 +766,9 @@ function initializeSortable(location) {
           renderMenuBuilder();
 
           // Auto-save after successful reorder
-          console.log('About to call saveMenus() after drag-and-drop');
+          logger.log('About to call saveMenus() after drag-and-drop');
           saveMenus().then(() => {
-            console.log('saveMenus() completed successfully');
+            logger.log('saveMenus() completed successfully');
           }).catch(error => {
             console.error('saveMenus() failed:', error);
           });

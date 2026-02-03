@@ -8,6 +8,7 @@
  */
 
 import { getStore } from '@netlify/blobs';
+import debug from '../utils/debug-logger.mjs';
 
 const STORE_NAME = 'comments';
 
@@ -301,11 +302,11 @@ export default async function handler(request, context) {
 
       let result;
       if (action === 'approve') {
-        console.log(`[Comments] Approving comment ${commentId} on ${postSlug}`);
+        debug.log(`[Comments] Approving comment ${commentId} on ${postSlug}`);
         const comment = await approveComment(commentId, postSlug);
         result = { comment };
       } else {
-        console.log(`[Comments] Rejecting comment ${commentId} on ${postSlug}`);
+        debug.log(`[Comments] Rejecting comment ${commentId} on ${postSlug}`);
         await deleteComment(commentId, postSlug);
         result = { commentId };
       }
@@ -327,7 +328,7 @@ export default async function handler(request, context) {
         return badRequestResponse('Missing required parameters: commentId, postSlug');
       }
 
-      console.log(`[Comments] Deleting comment ${commentId} on ${postSlug}`);
+      debug.log(`[Comments] Deleting comment ${commentId} on ${postSlug}`);
       await deleteComment(commentId, postSlug);
 
       return successResponse({

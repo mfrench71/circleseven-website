@@ -102,7 +102,7 @@ function renderHeader() {
           <div class="d-flex align-items-center gap-2">
             <span class="small text-muted" id="user-display">Loading...</span>
             <button
-              onclick="console.log('[Auth] Logout button clicked'); if (window.netlifyIdentity) { console.log('[Auth] Calling netlifyIdentity.logout()'); netlifyIdentity.logout(); } else console.error('Netlify Identity not loaded');"
+              onclick="if (window.netlifyIdentity) netlifyIdentity.logout();"
               class="btn btn-sm btn-link text-muted p-0"
               title="Log out"
             >

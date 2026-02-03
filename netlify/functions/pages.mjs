@@ -25,6 +25,7 @@ import {
   serverErrorResponse,
   corsPreflightResponse
 } from '../utils/response-helpers.mjs';
+import debug from '../utils/debug-logger.mjs';
 
 const PAGES_DIR = '_pages';
 const BLOB_CACHE_KEY = 'pages-list.json';
@@ -47,11 +48,11 @@ async function readPagesFromBlob() {
     const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
 
     if (cacheAge > maxAge) {
-      console.log('[Pages] Blob cache expired');
+      debug.log('[Pages] Blob cache expired');
       return null;
     }
 
-    console.log('[Pages] Serving from Blob cache');
+    debug.log('[Pages] Serving from Blob cache');
     return cached.data;
   } catch (error) {
     console.error('[Pages] Error reading from Blob:', error);
@@ -64,17 +65,17 @@ async function readPagesFromBlob() {
  */
 async function writePagesToBlob(pagesData) {
   try {
-    console.log(`[Pages] Attempting to write ${pagesData.length} pages to Blob cache with key: ${BLOB_CACHE_KEY}`);
+    debug.log(`[Pages] Attempting to write ${pagesData.length} pages to Blob cache with key: ${BLOB_CACHE_KEY}`);
     const store = getStore('cache');
     const payload = {
       timestamp: Date.now(),
       data: pagesData
     };
     const payloadSize = JSON.stringify(payload).length;
-    console.log(`[Pages] Payload size: ${payloadSize} bytes`);
+    debug.log(`[Pages] Payload size: ${payloadSize} bytes`);
 
     await store.setJSON(BLOB_CACHE_KEY, payload);
-    console.log('[Pages] ✓ Successfully written to Blob cache');
+    debug.log('[Pages] ✓ Successfully written to Blob cache');
   } catch (error) {
     console.error('[Pages] ✗ Error writing to Blob:', error);
     console.error('[Pages] Error details:', {
@@ -139,7 +140,7 @@ export default async function handler(request, context) {
         }
 
         // Cache miss or metadata requested - read from GitHub
-        console.log('[Pages] Cache miss or metadata requested, reading from GitHub');
+        debug.log('[Pages] Cache miss or metadata requested, reading from GitHub');
         const files = await githubRequest(`/contents/${PAGES_DIR}?ref=${GITHUB_BRANCH}`);
 
         // Filter to only .md files
@@ -237,7 +238,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Pages] Cache invalidated after update');
+        debug.log('[Pages] Cache invalidated after update');
       } catch (error) {
         console.error('[Pages] Error invalidating cache:', error);
       }
@@ -303,7 +304,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Pages] Cache invalidated after create');
+        debug.log('[Pages] Cache invalidated after create');
       } catch (error) {
         console.error('[Pages] Error invalidating cache:', error);
       }
@@ -353,7 +354,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Pages] Cache invalidated after delete');
+        debug.log('[Pages] Cache invalidated after delete');
       } catch (error) {
         console.error('[Pages] Error invalidating cache:', error);
       }

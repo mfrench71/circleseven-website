@@ -9,6 +9,7 @@
 
 import { getStore } from '@netlify/blobs';
 import { createHash } from 'crypto';
+import debug from '../utils/debug-logger.mjs';
 
 const STORE_NAME = 'comments';
 
@@ -67,7 +68,7 @@ async function addToPendingList(commentId, postSlug) {
 async function sendEmailNotification(comment) {
   // Skip if no API key configured
   if (!RESEND_API_KEY) {
-    console.log('[Comments] Email notifications disabled - no RESEND_API_KEY configured');
+    debug.log('[Comments] Email notifications disabled - no RESEND_API_KEY configured');
     return;
   }
 
@@ -100,7 +101,7 @@ async function sendEmailNotification(comment) {
     });
 
     if (response.ok) {
-      console.log(`[Comments] Email notification sent for comment ${comment.id}`);
+      debug.log(`[Comments] Email notification sent for comment ${comment.id}`);
     } else {
       const error = await response.text();
       console.error('[Comments] Failed to send email:', response.status, error);
@@ -276,7 +277,7 @@ export default async function handler(request, context) {
 
     // Honeypot check - 'website' field should be empty (bots fill it, humans don't see it)
     if (website) {
-      console.log('[Comments] Honeypot triggered - spam detected');
+      debug.log('[Comments] Honeypot triggered - spam detected');
       // Return success to fool bots, but don't actually store the comment
       return successResponse({
         success: true,
@@ -320,10 +321,10 @@ export default async function handler(request, context) {
     };
 
     // Store comment in Netlify Blobs
-    console.log(`[Comments] Storing comment by ${commentData.name} on ${commentData.postSlug}`);
+    debug.log(`[Comments] Storing comment by ${commentData.name} on ${commentData.postSlug}`);
     const comment = await createComment(commentData);
 
-    console.log(`[Comments] Comment stored with ID: ${comment.id}`);
+    debug.log(`[Comments] Comment stored with ID: ${comment.id}`);
 
     // Send email notification (must await to ensure it completes before function terminates)
     await sendEmailNotification(comment);

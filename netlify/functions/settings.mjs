@@ -27,6 +27,7 @@ import {
   serverErrorResponse,
   corsPreflightResponse
 } from '../utils/response-helpers.mjs';
+import debug from '../utils/debug-logger.mjs';
 
 const FILE_PATH = '_config.yml';
 const BLOB_CACHE_KEY = 'settings.json';
@@ -73,11 +74,11 @@ async function readSettingsFromBlob() {
     const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
 
     if (cacheAge > maxAge) {
-      console.log('[Settings] Blob cache expired');
+      debug.log('[Settings] Blob cache expired');
       return null;
     }
 
-    console.log('[Settings] Serving from Blob cache');
+    debug.log('[Settings] Serving from Blob cache');
     return cached.data;
   } catch (error) {
     console.error('[Settings] Error reading from Blob:', error);
@@ -96,7 +97,7 @@ async function writeSettingsToBlob(settingsData) {
       timestamp: Date.now(),
       data: settingsData
     });
-    console.log('[Settings] Written to Blob cache');
+    debug.log('[Settings] Written to Blob cache');
   } catch (error) {
     console.error('[Settings] Error writing to Blob:', error);
     // Don't throw - cache write failure shouldn't break the request
@@ -131,7 +132,7 @@ export default async function handler(request, context) {
       }
 
       // Cache miss - read from GitHub
-      console.log('[Settings] Cache miss, reading from GitHub');
+      debug.log('[Settings] Cache miss, reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 

@@ -32,6 +32,7 @@ import {
   serverErrorResponse,
   corsPreflightResponse
 } from '../utils/response-helpers.mjs';
+import debug from '../utils/debug-logger.mjs';
 
 const FILE_PATH = '_data/menus.yml';
 const TAXONOMY_FILE_PATH = '_data/taxonomy.yml';
@@ -56,11 +57,11 @@ async function readMenusFromBlob() {
     const maxAge = CACHE_TTL_HOURS * 60 * 60 * 1000;
 
     if (cacheAge > maxAge) {
-      console.log('[Menus] Blob cache expired');
+      debug.log('[Menus] Blob cache expired');
       return null;
     }
 
-    console.log('[Menus] Serving from Blob cache');
+    debug.log('[Menus] Serving from Blob cache');
     return cached.data;
   } catch (error) {
     console.error('[Menus] Error reading from Blob:', error);
@@ -79,7 +80,7 @@ async function writeMenusToBlob(menusData) {
       timestamp: Date.now(),
       data: menusData
     });
-    console.log('[Menus] Written to Blob cache');
+    debug.log('[Menus] Written to Blob cache');
   } catch (error) {
     console.error('[Menus] Error writing to Blob:', error);
     // Don't throw - cache write failure shouldn't break the request
@@ -266,11 +267,11 @@ export default async function handler(request, context) {
           return successResponse(cachedData);
         }
       } else {
-        console.log('[Menus] nocache=1 parameter detected, bypassing cache');
+        debug.log('[Menus] nocache=1 parameter detected, bypassing cache');
       }
 
       // Cache miss or nocache - read from GitHub
-      console.log('[Menus] Reading from GitHub');
+      debug.log('[Menus] Reading from GitHub');
       const fileData = await githubRequest(`/contents/${FILE_PATH}?ref=${GITHUB_BRANCH}`);
       const content = Buffer.from(fileData.content, 'base64').toString('utf8');
 
@@ -422,7 +423,7 @@ export default async function handler(request, context) {
       try {
         const store = getStore('cache');
         await store.delete(BLOB_CACHE_KEY);
-        console.log('[Menus] Cache cleared');
+        debug.log('[Menus] Cache cleared');
 
         return successResponse({
           success: true,
