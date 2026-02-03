@@ -1,5 +1,12 @@
 # Claude Code Instructions
 
+## Git Policy
+
+**IMPORTANT**: Do NOT push to remote automatically. Always commit changes but wait for user approval before pushing.
+
+- ✅ **OK**: `git add` and `git commit`
+- ❌ **NOT OK**: `git push` without explicit user request
+
 ## Terminology
 
 - **"frontend"** = Public-facing Jekyll site (non-admin)
