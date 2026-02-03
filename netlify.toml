@@ -4,7 +4,6 @@
   functions = "netlify/functions"
 
 [build.environment]
-  RUBY_VERSION = "3.3.0"
   JEKYLL_ENV = "production"
   NODE_VERSION = "20"
 
