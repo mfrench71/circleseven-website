@@ -357,6 +357,13 @@ describe('Core Utils Module', () => {
       setButtonLoading(button, false);
       expect(button.disabled).toBe(false);
     });
+
+    it('handles null button gracefully', () => {
+      // Should not throw when button is null
+      expect(() => setButtonLoading(null, true, 'Loading...')).not.toThrow();
+      expect(() => setButtonLoading(null, false)).not.toThrow();
+      expect(() => setButtonLoading(undefined, true)).not.toThrow();
+    });
   });
 
   describe('escapeHtml', () => {

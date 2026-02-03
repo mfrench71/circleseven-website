@@ -136,6 +136,8 @@ export async function fetchWithTimeout(url, options = {}, timeout = FETCH_TIMEOU
  * setButtonLoading(saveBtn, false);
  */
 export function setButtonLoading(button, loading, loadingText = 'Loading...') {
+  if (!button) return; // Handle null/undefined buttons gracefully
+
   if (loading) {
     button.disabled = true;
     button.dataset.originalText = button.innerHTML;
