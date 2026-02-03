@@ -31,3 +31,6 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 # Webrick is required for Jekyll 4.x on Ruby 3.x
 gem "webrick", "~> 1.8"
+
+# Required for newer Ruby versions where stdlib gems are separate
+gem "bigdecimal"
