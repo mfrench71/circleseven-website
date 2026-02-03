@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Book Assembly: Building a Privacy-Focused Book Tracker
+title: Book Assembly - Building a Privacy-Focused Book Tracker
 date: 2026-02-03T09:56:00.000Z
 categories:
   - Projects
