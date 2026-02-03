@@ -165,9 +165,18 @@ describe('Menus Module', () => {
         footer_menu: []
       };
 
+      // Mock menus API response
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => mockData
+      });
+
+      // Mock taxonomy API response (loadMenus always calls loadTaxonomy)
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          categoriesTree: []
+        })
       });
 
       await loadMenus();
@@ -212,12 +221,21 @@ describe('Menus Module', () => {
     });
 
     it('handles empty menus', async () => {
+      // Mock menus API response
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
           header_menu: [],
           mobile_menu: [],
           footer_menu: []
+        })
+      });
+
+      // Mock taxonomy API response (loadMenus always calls loadTaxonomy)
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          categoriesTree: []
         })
       });
 
@@ -229,8 +247,15 @@ describe('Menus Module', () => {
     });
 
     it('shows error on fetch failure', async () => {
+      // Mock menus API failure
       mockFetch.mockResolvedValueOnce({
         ok: false
+      });
+
+      // Taxonomy won't be called since menus fetch failed, but mock it anyway for safety
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ categoriesTree: [] })
       });
 
       await loadMenus();
