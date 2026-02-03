@@ -50,6 +50,9 @@ categories:
         slug: dat613-dissertation
       - item: INDE601 - Netscapes
         slug: inde601-netscapes
+  - item: Book Assembly
+    slug: 
+    children: []
 
 tags:
   - item: Photography
@@ -114,3 +117,4 @@ tags:
     slug: dat613
   - item: INDE601
     slug: inde601
+
