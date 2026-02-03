@@ -3,6 +3,7 @@ layout: post
 title: Book Assembly - Building a Privacy-Focused Book Tracker
 date: 2026-02-03T09:56:00.000Z
 categories:
+  - Book Assembly
   - Projects
 tags:
   - Web Development
@@ -11,7 +12,7 @@ tags:
 excerpt: It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real. I wanted a simple way to track my books. I collect secondhand books - charity shops, car boot sales, Hay-on-Wye -and I kept buying duplicates because I couldn't remember what I already owned.
 image: Screenshot_2026-02-03_at_10.04.40
 featured: true
-last_modified_at: 2026-02-03 10:08:54
+last_modified_at: 2026-02-03 13:13:29
 ---
 
 It's been a while since I posted here. Most of my recent energy has gone into a side project that started small and grew into something real. 
